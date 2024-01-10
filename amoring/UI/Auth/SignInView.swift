@@ -11,21 +11,15 @@ import NavigationStackBackport
 struct SignInView: View {
     @EnvironmentObject var sessionManager: SessionManager
     @StateObject var navigator = NavigationAuthController()
-    
-    @State var goToOnboarding = false
+   
     @State var animate = false
     @State var businessSheetPresented: Bool = false
     
     var body: some View {
         ZStack {
-            if goToOnboarding {
-                if sessionManager.BusinessSignedIn {
-                    Text("Business Onboarding")
-                        .padding()
-                } else {
-                    UserOnboardingView(goToUserOnboarding: $goToOnboarding)
-                        .transition(.move(edge: .trailing))
-                }
+            if sessionManager.goToUserOnboarding {
+                UserOnboardingView()
+                    .transition(.move(edge: .trailing))
             } else {
                 NavigationStackBackport.NavigationStack(path: $navigator.path) {
                     ZStack {
@@ -40,7 +34,7 @@ struct SignInView: View {
                         
                         ZStack(alignment: .topLeading) {
                             if animate {
-                                SignInSheet(goToUserOnboarding: $goToOnboarding, businessSheetPresented: $businessSheetPresented).environmentObject(navigator)
+                                SignInSheet(businessSheetPresented: $businessSheetPresented).environmentObject(navigator)
                                 if self.businessSheetPresented {
                                     BusinessSignInSheet()
                                 }

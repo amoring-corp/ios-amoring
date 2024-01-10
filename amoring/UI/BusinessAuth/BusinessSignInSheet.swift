@@ -91,8 +91,8 @@ struct BusinessSignInSheet: View {
                 
                 Button(action: {
                     withAnimation {
-                        sessionManager.businessSignIn(email: email, password: password)
-//                        sessionManager.BusinessSignedIn = true
+//                        sessionManager.businessSignIn(email: email, password: password)
+                        sessionManager.BusinessSignedIn = true
                     }
                 }) {
                     FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled)

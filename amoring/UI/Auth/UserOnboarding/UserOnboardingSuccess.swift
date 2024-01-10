@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserOnboardingSuccess: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: UserOnboardingController
@@ -31,6 +32,19 @@ struct UserOnboardingSuccess: View {
             }
         }
         .padding(16)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("")
+                    .font(medium20Font)
+                    .foregroundColor(.black)
+            }
+        }
+        .navigationBarItems(leading:
+                                BackButton(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        })
+        )
     }
 }
 

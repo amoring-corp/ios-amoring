@@ -158,13 +158,7 @@ struct BusinessDetailsView: View {
                 }
             }
             .navigationBarItems(leading:
-                                    Button(action: navigator.toRoot) {
-                Image(systemName: "chevron.left")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(20), height: Size.w(20))
-                    .foregroundColor(.yellow300)
-            }
+                                    BackButton(action: navigator.toRoot, color: Color.yellow300)
             )
             .overlay(
                 !(business.images?.isEmpty ?? true) && showPhotoViewer ?
@@ -223,15 +217,8 @@ struct PhotoViewer: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     HStack {
-                        Button(action: {
-                            showPhotoViewer = false
-                        }) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.yellow300)
-                                .font(medium20Font)
-                                .padding(Size.w(22))
-                                .background(Color.gray1000.opacity(0.1))
-                        }
+                        XButton(action: { showPhotoViewer = false })
+                            .padding(Size.w(11))
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 }

@@ -1,41 +1,40 @@
 //
-//  UserOnboardingName.swift
+//  BusinessSignUpEmail.swift
 //  amoring
 //
-//  Created by 이준녕 on 11/21/23.
+//  Created by 이준녕 on 1/10/24.
 //
 
 import SwiftUI
 
-struct UserOnboardingName: View {
-    @EnvironmentObject var controller: UserOnboardingController
+struct BusinessSignUpEmail: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var controller: BusinessOnboardingController
     @EnvironmentObject var sessionManager: SessionManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("이름을 입력해주세요")
+            Text("이메일을 입력해주세요")
                 .font(bold32Font)
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))
                 .padding(.top, Size.w(56))
                 .padding(.bottom, Size.w(10))
             
-            Text("다른 사용자들에게 회원님을 소개할 수 있는\n이름을 입력해주세요.")
+            Text("로그인 시 아이디로 사용됩니다.\n인증 코드 확인이 가능한 이메일로 작성해주세요.")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            CustomTextField(placeholder: "이름을 입력해주세요.", text: $controller.user.name ?? "")
-                .onChange(of: controller.user.name ?? "", perform: { newValue in
-                    if(newValue.count >= 15){
-                        controller.user.name = String(newValue.prefix(15))
-                    }
-                })
+            CustomTextField(placeholder: "이메일을 입력해주세요.", text: $controller.business.email ?? "")
+                .padding(.bottom, Size.w(30))
+            
+            CustomSecureField(placeholder: "비밀번호를 입력해주세요.", text: $controller.password)
             
             Spacer()
             
-            Text("회원님의 첫 인상이 되는 이름이예요!\n등록 후 변경은 불가하니 신중하게 입력하세요.")
+            Text("인증코드 발송 전에\n이메일 주소가 틀리지 않았는지 확인해주세요.")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .multilineTextAlignment(.trailing)
@@ -46,11 +45,13 @@ struct UserOnboardingName: View {
             
             HStack {
                 NavigationLink(destination: {
-                    UserOnboardingGender()
+                    BusinessSignUpOTP()
                 }) {
-                    NextBlackButton(enabled: !(controller.user.name?.isEmpty ?? true))
+                    NextBlackButton(enabled: !(controller.business.email?.isEmpty ?? true) && !(controller.password.isEmpty))
                 }
-                .disabled((controller.user.name?.isEmpty ?? true))
+                .disabled((controller.business.email?.isEmpty ?? true))
+                // TODO: add password and email type verification
+                .disabled((controller.password.isEmpty))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))
@@ -59,6 +60,7 @@ struct UserOnboardingName: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.yellow300)
         .onTapGesture(perform: closeKeyboard)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("")
@@ -67,16 +69,11 @@ struct UserOnboardingName: View {
             }
         }
         .navigationBarItems(leading:
-                                BackButton(action: {
-            sessionManager.goToUserOnboarding = false
-            sessionManager.signedIn = false
-        })
+            BackButton(action: { presentationMode.wrappedValue.dismiss() })
         )
     }
 }
 
 #Preview {
-    NavigationView {
-        UserOnboardingName().environmentObject(UserOnboardingController())
-    }
+    BusinessSignUpEmail()
 }

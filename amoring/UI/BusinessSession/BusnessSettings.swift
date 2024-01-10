@@ -58,8 +58,10 @@ struct BusnessSettings: View {
                 }
                 
                 Button(action: {
-                    withAnimation {
-                        sessionManager.BusinessSignedIn = false
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            sessionManager.BusinessSignedIn = false
+                        }
                     }
                 }) {
                     Text("Logout")

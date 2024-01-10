@@ -10,8 +10,10 @@ import Foundation
 public struct Business: Codable, Equatable {
     var id: String?
     var name: String?
+    var email: String?
     var address: String?
     var type: String?
+    var category: String?
     var representative: String?
     var contact: String?
     var number: String?
@@ -28,8 +30,10 @@ public struct Business: Codable, Equatable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case email
         case address
         case type
+        case category
         case representative
         case contact
         case number

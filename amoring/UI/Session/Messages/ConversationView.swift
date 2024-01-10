@@ -93,13 +93,8 @@ struct ConversationView: View, KeyboardReadable {
                 }
             }
             .navigationBarItems(leading:
-                                    Button(action: navigator.toRoot) {
-                Image(systemName: "chevron.left")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(20), height: Size.w(20))
-                    .foregroundColor(.yellow300)
-            }, trailing:
+                                    BackButton(action: navigator.toRoot, color: Color.yellow300)
+             , trailing:
                                     Button(action: {
                 controlPresented = true
             }) {

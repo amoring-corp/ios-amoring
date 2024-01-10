@@ -14,6 +14,7 @@ struct ContentView: View {
     @StateObject var sessionController = SessionController()
     @StateObject var messagesController = MessagesController()
     @StateObject var amoringController = AmoringController()
+    @StateObject var controller: BusinessOnboardingController = BusinessOnboardingController()
     
     var body: some View {
         ZStack {
@@ -23,7 +24,9 @@ struct ContentView: View {
                 /// pass user here
                 SessionView().transition(.move(edge: .trailing))
             } else if sessionManager.BusinessSignedIn {
-                NavigationView {
+                if sessionManager.goToBusinessOnboarding {
+                    BusinessOnboardingView().transition(.move(edge: .trailing))
+                } else {
                     BusinessSessionView().transition(.move(edge: .trailing))
                 }
             } else {
@@ -33,6 +36,7 @@ struct ContentView: View {
         .overlay(
             sessionController.purchaseType != nil ? PurchaseView(purchaseType: $sessionController.purchaseType, model: purchasesList[sessionController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
         )
+        .environmentObject(controller)
         .environmentObject(navigator)
         .environmentObject(sessionController)
         .environmentObject(sessionManager)

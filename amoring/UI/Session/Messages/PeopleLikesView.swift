@@ -170,13 +170,7 @@ struct PeopleLikesView: View {
             }
         }
         .navigationBarItems(leading:
-            Button(action: navigator.toRoot) {
-                Image(systemName: "chevron.left")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(20), height: Size.w(20))
-                    .foregroundColor(.yellow300)
-            }
+                                BackButton(action: navigator.toRoot, color: .yellow300)
         )
     }
 }

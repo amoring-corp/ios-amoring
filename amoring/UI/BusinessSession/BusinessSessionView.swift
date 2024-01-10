@@ -12,6 +12,8 @@ struct BusinessSessionView: View {
     
     var body: some View {
         GeometryReader { geometry in
+        NavigationView {
+       
                 VStack {
                     Spacer()
                     
@@ -55,7 +57,8 @@ struct BusinessSessionView: View {
                     Image(systemName: "line.3.horizontal")
                         .foregroundColor(.gray600)
                 })
-        } //  geometryreader
+            } //  geometryreader
+        }
     }
     
     func list(images: [String], size: CGFloat) -> some View {

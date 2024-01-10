@@ -10,7 +10,6 @@ import SwiftUI
 struct SignInSheet: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var navigator: NavigationAuthController
-    @Binding var goToUserOnboarding: Bool
     @Binding var businessSheetPresented: Bool
     
     var body: some View {
@@ -99,7 +98,7 @@ struct SignInSheet: View {
                 
                 HStack {
                     NavigationLink(destination: {
-                        BusinessOnboardingIntro()
+                        BusinessSignUpEnter()
                     }) {
                         Text("비즈니스 가입 ")
                     }
@@ -130,12 +129,12 @@ struct SignInSheet: View {
         //            go to session
         //        } else {
         withAnimation {
-            goToUserOnboarding = true
+            sessionManager.goToUserOnboarding = true
         }
         //        }
     }
 }
 
 #Preview {
-    SignInSheet(goToUserOnboarding: .constant(false), businessSheetPresented: .constant(false))
+    SignInSheet(businessSheetPresented: .constant(false))
 }

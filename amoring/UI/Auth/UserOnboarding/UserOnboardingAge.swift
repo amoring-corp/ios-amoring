@@ -80,15 +80,9 @@ struct UserOnboardingAge: View {
             }
         }
         .navigationBarItems(leading:
-                                Button(action: {
+                                BackButton(action: {
             self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(20), height: Size.w(20))
-                .foregroundColor(.black)
-        }
+        })
         )
         .overlay(
             sheetPresented ? CustomSheet {

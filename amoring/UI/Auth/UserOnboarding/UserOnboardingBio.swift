@@ -75,15 +75,9 @@ struct UserOnboardingBio: View {
             }
         }
         .navigationBarItems(leading:
-                                Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(20), height: Size.w(20))
-                .foregroundColor(.black)
-        }
+                                BackButton(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        })
         )
     }
 }

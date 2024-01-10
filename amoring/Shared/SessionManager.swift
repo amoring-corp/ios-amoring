@@ -19,6 +19,9 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     ///Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.
     @Published var isLoading: Bool = true
     @Published var token: String? = nil
+    @Published var goToUserOnboarding = false
+    @Published var goToBusinessOnboarding = false
+    
     @AppStorage("signedIn") var signedIn: Bool = false
     @AppStorage("isBusiness") var BusinessSignedIn: Bool = false
 //    @Published var signedIn: Bool = false

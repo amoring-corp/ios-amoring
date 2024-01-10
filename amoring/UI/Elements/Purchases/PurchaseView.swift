@@ -18,17 +18,7 @@ struct PurchaseView: View {
         VStack(spacing: 0) {
             ZStack {
                 HStack {
-                    Button(action: {
-                        withAnimation {
-                            self.purchaseType = nil
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: Size.w(20), height: Size.w(20))
-                            .foregroundColor(.yellow300)
-                    }
+                    XButton(action: { self.purchaseType = nil })
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 

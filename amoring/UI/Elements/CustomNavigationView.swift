@@ -15,13 +15,7 @@ struct CustomNavigationView: View {
         VStack {
             ZStack {
                 HStack {
-                    Button(action: back) {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: Size.w(20), height: Size.w(20))
-                            .foregroundColor(.black)
-                    }
+                    BackButton(action: back)
                     Spacer()
                 }
                 .padding(.horizontal, Size.w(22))
