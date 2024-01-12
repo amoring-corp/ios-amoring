@@ -10,6 +10,8 @@ import SwiftUI
 struct UserOnboardingPhoto: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var sessionManager: SessionManager
     
     @State private var pictures: [PictureModel] = []
     
@@ -23,6 +25,14 @@ struct UserOnboardingPhoto: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+//            Button(action: {
+//                userManager.createUserProfile(user: User(id: 1, name: "asddas", interests: [])) { _ in
+//                    
+//                }
+//            }) {
+//                Text("CREATE PROFILE")
+//            }
+            
             Text("사진을 추가하세요")
                 .font(bold32Font)
                 .foregroundColor(.black)
@@ -62,15 +72,23 @@ struct UserOnboardingPhoto: View {
             
             HStack {
                 Button(action: {
-                    // TODO: Save images to db at this point
-                    controller.user.pictures = pictures.map({ $0.picture.description })
-                    print("\(pictures.count) pictures saved!")
-                    goToStep5 = true
+                    /// skipping for tests
+//                                                goToStep5 = true
+                    
+                    let images = pictures.map({ $0.picture })
+                    userManager.uploadMyProfileImages(images: images) { url in
+                        if let url {
+                            controller.user.pictures?.append(url)
+                            goToStep5 = true
+                        } else {
+                            print("ERROR")
+                        }
+                    }
                 }) {
-                    NextBlackButton(enabled: pictures.count >= 3)
+                    NextBlackButton(enabled: pictures.count >= 1, isLoading: userManager.isLoading)
                 }
-                .disabled(pictures.count < 3)
-                .opacity(pictures.count < 3 ? 0.5 : 1)
+                .disabled(userManager.isLoading)
+//                .disabled(pictures.count < 3 || userManager.isLoading)
                 .sheet(isPresented: $showContentTypeSheet) {
                     ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
                         .onDisappear {
@@ -115,6 +133,7 @@ struct UserOnboardingPhoto: View {
         }
         .navigationBarItems(leading:
                                 BackButton(action: {
+            sessionManager.signedIn = false
             self.presentationMode.wrappedValue.dismiss()
         })
         )

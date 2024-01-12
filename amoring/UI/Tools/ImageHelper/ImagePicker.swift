@@ -7,6 +7,7 @@
 
 import PhotosUI
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var pictures: [PictureModel]
@@ -38,18 +39,20 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//            var imgs: [UIImage] = []
             results.forEach { result in
                 let provider = result.itemProvider
                 
                 if provider.canLoadObject(ofClass: UIImage.self) {
                     provider.loadObject(ofClass: UIImage.self) { image, _ in
-                        if let img = image as? UIImage {
-                            if let index = self.parent.photoIndex {
-                                self.parent.pictures[index] = PictureModel.newPicture(img)
-                            } else {
-                                self.parent.pictures.append(PictureModel.newPicture(img))
+                        provider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { (url, error) in
+                            if let img = image as? UIImage, let url {
+                                if let index = self.parent.photoIndex {
+                                    self.parent.pictures[index] = PictureModel.newPicture(img, url.absoluteString)
+                                } else {
+                                    self.parent.pictures.append(PictureModel.newPicture(img, url.absoluteString))
+                                }
                             }
+//                            print("URL: \(url)")
                         }
                     }
                 }
@@ -65,7 +68,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 //struct ImagePicker: UIViewControllerRepresentable {
 //    @Environment(\.presentationMode) private var presentationMode
 //    var sourceType: UIImagePickerController.SourceType = .photoLibrary
-//    @Binding var selectedImage: UIImage
+//    @Binding var pictures: [PictureModel]
+//    var photoIndex: Int? = nil
 //
 //    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
 //        let imagePicker = UIImagePickerController()
@@ -93,11 +97,17 @@ struct ImagePicker: UIViewControllerRepresentable {
 //        }
 //
 //        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//            
-//            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//                parent.selectedImage = image
+//            if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let imageURL = info[UIImagePickerController.InfoKey.referenceURL] as? NSURL {
+//                let urlString = imageURL.absoluteString!
+//                print(urlString)
+//                
+//                if let index = self.parent.photoIndex {
+//                    self.parent.pictures[index] = PictureModel.newPicture(img, urlString)
+//                } else {
+//                    self.parent.pictures.append(PictureModel.newPicture(img, urlString))
+//                }
 //            }
-//
+//            
 //            parent.presentationMode.wrappedValue.dismiss()
 //        }
 //    }

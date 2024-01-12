@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct AccountView: View {
     @EnvironmentObject var sessionManager: SessionManager
@@ -26,6 +27,23 @@ struct AccountView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
+                let url = "https://amoring-server-dev.s3.ap-northeast-2.amazonaws.com/images/fa2e0e4387b2855e2cf002964bfed416"
+                
+                Link(destination: URL(string: url)!) {
+                    Text("FADDSSD")
+                }
+                
+                CachedAsyncImage(url: URL(string: url), content: { cont in
+                    cont
+                        .resizable()
+                        .scaledToFit()
+                }, placeholder: {
+                    ZStack {
+                        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    }.frame(width: 100, height: 100, alignment: .center)
+                })
+            
+                
                 HStack {
                     Text(user.name ?? "")
                     Text(user.age?.description ?? "")
@@ -134,11 +152,7 @@ struct AccountView: View {
                 
                 Text("Account")
                 
-                Button(action: {
-                    withAnimation {
-                        sessionManager.signedIn = false
-                    }
-                }) {
+                Button(action: sessionManager.signOut) {
                     Text("LOGOUT")
                 }
                 

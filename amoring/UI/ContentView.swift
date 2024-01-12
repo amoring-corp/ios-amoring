@@ -14,16 +14,20 @@ struct ContentView: View {
     @StateObject var sessionController = SessionController()
     @StateObject var messagesController = MessagesController()
     @StateObject var amoringController = AmoringController()
-    @StateObject var controller: BusinessOnboardingController = BusinessOnboardingController()
+    @StateObject var businessOnboardingController: BusinessOnboardingController = BusinessOnboardingController()
+    @StateObject var businessSignUpController: BusinessSignUpController = BusinessSignUpController()
     
     var body: some View {
         ZStack {
             if sessionManager.isLoading {
                 LogoLoadingView()
             } else if sessionManager.signedIn {
-                /// pass user here
-                SessionView().transition(.move(edge: .trailing))
-            } else if sessionManager.BusinessSignedIn {
+//                if sessionManager.goToUserOnboarding {
+                    UserOnboardingView().transition(.move(edge: .trailing))
+//                } else {
+//                    SessionView().transition(.move(edge: .trailing))
+//                }
+            } else if sessionManager.businessSignedIn {
                 if sessionManager.goToBusinessOnboarding {
                     BusinessOnboardingView().transition(.move(edge: .trailing))
                 } else {
@@ -36,7 +40,8 @@ struct ContentView: View {
         .overlay(
             sessionController.purchaseType != nil ? PurchaseView(purchaseType: $sessionController.purchaseType, model: purchasesList[sessionController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
         )
-        .environmentObject(controller)
+        .environmentObject(businessOnboardingController)
+        .environmentObject(businessSignUpController)
         .environmentObject(navigator)
         .environmentObject(sessionController)
         .environmentObject(sessionManager)
@@ -44,7 +49,6 @@ struct ContentView: View {
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
-//            NetworkService.shared.amoring.
             sessionManager.getCurrentSession()
             
             // MARK: TESTS

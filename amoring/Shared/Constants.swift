@@ -9,6 +9,8 @@ import Foundation
 
 class Constants {
     static let genderOptions = ["MALE", "FEMALE"]
+    
+    static let businessTypes = ["클럽", "라운지", "주점", "바", "펍", "호프", "포차", "이자카야", "카페", "페스티벌"]
 
 //    관심사
     static let interests = [

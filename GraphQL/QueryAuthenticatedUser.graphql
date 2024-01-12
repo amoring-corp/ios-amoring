@@ -4,7 +4,16 @@ query QueryAuthenticatedUser {
     email
     status
     role
- 
+    userProfile {
+      id
+      userId
+      name
+      age
+      bio
+      gender
+      createdAt
+      updatedAt
+    }
     business {
       id
       ownerId

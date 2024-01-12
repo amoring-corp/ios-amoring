@@ -1,5 +1,5 @@
 //
-//  BusinessOnboardingIntro.swift
+//  BusinessSignUpPrepare.swift
 //  amoring
 //
 //  Created by 이준녕 on 1/8/24.
@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct BusinessOnboardingIntro: View {
+struct BusinessSignUpPrepare: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var controller: BusinessSignUpController
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -45,7 +46,7 @@ struct BusinessOnboardingIntro: View {
             
             HStack {
                 NavigationLink(destination: {
-                    Text("mail?")
+                    BusinessSignUpEmail()
                 }) {
                     NextBlackButton(enabled: true)
                 }
@@ -66,20 +67,11 @@ struct BusinessOnboardingIntro: View {
             }
         }
         .navigationBarItems(leading:
-                                Button(action: {
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(20), height: Size.w(20))
-                .foregroundColor(.black)
-        }
+            BackButton(action: { presentationMode.wrappedValue.dismiss() })
         )
     }
-    
 }
 
 #Preview {
-    BusinessOnboardingIntro()
+    BusinessSignUpPrepare()
 }

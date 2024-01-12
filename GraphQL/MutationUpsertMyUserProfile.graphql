@@ -1,0 +1,17 @@
+mutation upsertMyUserProfile($data: UserProfileUpdateInput!) {
+  upsertMyUserProfile(data: $data) {
+    id
+    userId
+    name
+    age
+    birthYear
+    height
+    weight
+    mbti
+    education
+    bio
+    gender
+    createdAt
+    updatedAt
+  }
+}

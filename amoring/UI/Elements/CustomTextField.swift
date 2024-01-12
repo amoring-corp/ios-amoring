@@ -70,10 +70,9 @@ struct CustomSecureField: View {
                         .foregroundColor(.gray200)
                 }
                 .placeholder(when: show) {
-                    Text(text)
+                    TextField("", text: $text)
                         .font(font)
                         .foregroundColor(.black)
-                        .allowsHitTesting(false)
                 }
                 .font(font)
                 .foregroundColor(.black)

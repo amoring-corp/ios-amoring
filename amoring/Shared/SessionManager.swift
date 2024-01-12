@@ -16,55 +16,97 @@ import Apollo
 import AmoringAPI
 
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
-    ///Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.
     @Published var isLoading: Bool = true
-    @Published var token: String? = nil
     @Published var goToUserOnboarding = false
     @Published var goToBusinessOnboarding = false
     
     @AppStorage("signedIn") var signedIn: Bool = false
-    @AppStorage("isBusiness") var BusinessSignedIn: Bool = false
+    @AppStorage("isBusiness") var businessSignedIn: Bool = false
+    
+    @AppStorage("sessionToken") var sessionToken: String = ""
 //    @Published var signedIn: Bool = false
 //    @Published var isBusiness: Bool = true
     
 
     func getCurrentSession() {
-        
+        self.isLoading = true
         NetworkService.shared.amoring.fetch(query: QueryAuthenticatedUserQuery()) { result in
             print("getting session .... ")
+            
             switch result {
             case .success(let value):
-                if let errors = value.errors {
-                    print(errors)
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.stopLoading()
                     return
-                } else {
-                    print(value.data?.authenticatedUser)
-                    print(value.data?.authenticatedUser?.email)
+                }
+                
+                guard let data = value.data else {
+                    print("WRONG DATA")
+                    self.stopLoading()
+                    return
+                }
+                
+                guard let authenticatedUser = data.authenticatedUser else {
+                    print("NO USER")
+                    self.stopLoading()
+                    return
+                }
+                
+                guard let role = authenticatedUser.role?.value else {
+                    print("NO ROLE")
+                    self.stopLoading()
+                    return
+                }
+                
+                switch role {
+                case .business:
+                    print("I'm a business")
+                    
+                    if let businessProfile = authenticatedUser.business {
+                        print("going to Business Session")
+                        print(businessProfile)
+                        self.goToBusinessOnboarding = false
+                    } else {
+                        print("Business not onboarded yet")
+                        self.goToBusinessOnboarding = true
+                    }
+                    self.signedIn = false
+                    self.businessSignedIn = true
+                    self.stopLoading()
+                case .user:
+                    print("I'm a user")
+
+                    if let userProfile = authenticatedUser.userProfile {
+                        print("going to User Session")
+                        print(userProfile)
+                        self.goToUserOnboarding = false
+                    } else {
+                        print("User not onboarded yet")
+                        self.goToUserOnboarding = true
+                    }
+                    self.businessSignedIn = false
+                    self.signedIn = true
+                    self.stopLoading()
+                case .admin:
+                    print("I'm an admin")
+                    self.stopLoading()
                 }
             case .failure(let error):
-                
                 debugPrint(error.localizedDescription)
-            }
-            DispatchQueue.main.async {
-                withAnimation {
-                    self.isLoading = false
-                }
-                
+                self.stopLoading()
             }
         }
     }
     
-//    func signIn() async {
-//        isLoading = true
-//        sleep(2)
-//        
-//            self.signedIn = true
-//        
-//        
-//        isLoading = false
-//        print("signed in")
-//    }
-//    
+    private func stopLoading() {
+        DispatchQueue.main.async {
+            withAnimation {
+                self.isLoading = false
+            }
+        }
+    }
+    
     func appleButton() -> some View {
         SignInWithAppleButton(
             onRequest: { request in
@@ -114,21 +156,21 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         
     }
     
-    func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let token = appleIdCredential.identityToken?.base64EncodedString()  else {
-                return
-            }
-            let UserIdentifier = appleIdCredential.user
-            self.token = token
-            print("token\n")
-            print(token)
-            print("UserIdentifier\n")
-            print(UserIdentifier)
-            self.signedIn = true
-        }
-    }
+//    func authorizationController(controller: ASAuthorizationController,
+//                                 didCompleteWithAuthorization authorization: ASAuthorization) {
+//        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+//            guard let token = appleIdCredential.identityToken?.base64EncodedString()  else {
+//                return
+//            }
+//            let UserIdentifier = appleIdCredential.user
+//            self.token = token
+//            print("token\n")
+//            print(token)
+//            print("UserIdentifier\n")
+//            print(UserIdentifier)
+//            self.signedIn = true
+//        }
+//    }
     
     func signInWithGoogle() {
         guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
@@ -136,17 +178,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { result, error in
             if let error {
                 print(error.localizedDescription)
-                self.signedIn = true
             } else {
-                print(result?.user.profile?.name)
-                print(result?.user.profile?.email)
-                print(result?.user.accessToken.tokenString)
-                print(result?.user.accessToken.expirationDate)
-                print(result?.user.idToken?.tokenString)
-                print(result?.user.idToken?.expirationDate)
-                print(result?.user.fetcherAuthorizer.description)
-                print(result?.user.userID)
-                self.signedIn = true
+                if let token = result?.user.idToken?.tokenString {
+                    self.signInWithToken(token: token)
+                }
             }
         }
     }
@@ -156,7 +191,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error {
                     print(error)
-                    self.signedIn = true
+                    
                 } else {
                     print("oauthToken::")
                     print(oauthToken)
@@ -167,14 +202,14 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         print(error)
                     }
                     
-                    self.signedIn = true
+                    
                 }
             }
         } else {
             UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                 if let error {
                     print(error)
-                    self.signedIn = true
+//                    self.signedIn = true
                 } else {
                     print("oauthToken::")
                     print(oauthToken)
@@ -183,7 +218,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         print(user)
                         print(error)
                     }
-                    self.signedIn = true
+//                    self.signedIn = true
                 }
             }
         }
@@ -201,8 +236,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 if let data = value.data?.signIn {
                     UserDefaults.standard.setValue(data.sessionToken, forKey: "sessionToken")
                     print(data.sessionToken)
-                    print(data.user?.email)
-                    print(UserDefaults.standard.string(forKey: "sessionToken"))
                 } else {
                     print("Wrong data!")
                     
@@ -210,6 +243,54 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func signInWithToken(token: String) {
+        NetworkService.shared.amoring.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    return
+                }
+                
+                guard let sessionToken = data.signInWithGoogle.sessionToken else {
+                    print("NO TOKEN!")
+                    return
+                }
+                
+                if let user = data.signInWithGoogle.user {
+                    print(user)
+                    self.goToUserOnboarding = false
+                } else {
+                    self.goToUserOnboarding = true
+                }
+                
+                print(sessionToken)
+                self.sessionToken = sessionToken
+                self.signedIn = true
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+    }
+    
+    func signOut() {
+        DispatchQueue.main.async {
+            self.sessionToken = ""
+            withAnimation {
+                self.signedIn = false
+                self.businessSignedIn = false
+                self.goToUserOnboarding = false
+                self.goToBusinessOnboarding = false
             }
         }
     }

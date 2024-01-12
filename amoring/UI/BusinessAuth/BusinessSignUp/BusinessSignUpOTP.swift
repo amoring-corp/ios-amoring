@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BusinessSignUpOTP: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var controller: BusinessOnboardingController
+    @EnvironmentObject var controller: BusinessSignUpController
     @EnvironmentObject var sessionManager: SessionManager
     
     @State var bordersColor: Color = Color.clear
@@ -24,7 +24,7 @@ struct BusinessSignUpOTP: View {
                 .padding(.top, Size.w(56))
                 .padding(.bottom, Size.w(10))
             
-            Text("아래의 메일주소로 인증코드가 전송되었습니다.\n\(controller.business.email ?? "")")
+            Text("아래의 메일주소로 인증코드가 전송되었습니다.\n\(controller.email)")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))
@@ -51,9 +51,10 @@ struct BusinessSignUpOTP: View {
                 Button(action: {
                     print("resend OTP code")
                 }) {
-                    Image("ic-reconnect")
+                    Image("ic-refresh")
                         .resizable()
                         .scaledToFit()
+                        .foregroundColor(.yellow900)
                         .frame(width: Size.w(24), height: Size.w(24))
                     
                     Text("인증코드 재전송")
@@ -116,7 +117,7 @@ struct BusinessSignUpOTP: View {
             DispatchQueue.main.async {
                 withAnimation {
                     sessionManager.goToBusinessOnboarding = true
-                    sessionManager.BusinessSignedIn = true
+                    sessionManager.businessSignedIn = true
                 }
             }
         } else {

@@ -67,10 +67,7 @@ struct UserOnboardingName: View {
             }
         }
         .navigationBarItems(leading:
-                                BackButton(action: {
-            sessionManager.goToUserOnboarding = false
-            sessionManager.signedIn = false
-        })
+            BackButton(action: sessionManager.signOut)
         )
     }
 }

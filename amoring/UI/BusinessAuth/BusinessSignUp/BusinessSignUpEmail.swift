@@ -9,8 +9,7 @@ import SwiftUI
 
 struct BusinessSignUpEmail: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var controller: BusinessOnboardingController
-    @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var controller: BusinessSignUpController
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -27,10 +26,7 @@ struct BusinessSignUpEmail: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            CustomTextField(placeholder: "이메일을 입력해주세요.", text: $controller.business.email ?? "")
-                .padding(.bottom, Size.w(30))
-            
-            CustomSecureField(placeholder: "비밀번호를 입력해주세요.", text: $controller.password)
+            CustomTextField(placeholder: "이메일을 입력해주세요.", text: $controller.email)
             
             Spacer()
             
@@ -45,13 +41,11 @@ struct BusinessSignUpEmail: View {
             
             HStack {
                 NavigationLink(destination: {
-                    BusinessSignUpOTP()
+                    BusinessSignUpPassword()
                 }) {
-                    NextBlackButton(enabled: !(controller.business.email?.isEmpty ?? true) && !(controller.password.isEmpty))
+                    NextBlackButton(enabled: controller.email.isEmailValid())
                 }
-                .disabled((controller.business.email?.isEmpty ?? true))
-                // TODO: add password and email type verification
-                .disabled((controller.password.isEmpty))
+                .disabled(!controller.email.isEmailValid())
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))

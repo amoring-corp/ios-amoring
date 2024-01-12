@@ -98,7 +98,7 @@ struct SignInSheet: View {
                 
                 HStack {
                     NavigationLink(destination: {
-                        BusinessSignUpEnter()
+                        BusinessSignUpTerms()
                     }) {
                         Text("비즈니스 가입 ")
                     }

@@ -29,7 +29,7 @@ class NavigationAuthController: ObservableObject {
             case .businessSignIn:
                 Text("Business Sign IN").environmentObject(self)
             case .businessSignUp:
-                BusinessSignUp().environmentObject(self)
+                Text("Sign Up").environmentObject(self)
             }
         }
     }

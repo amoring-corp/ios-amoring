@@ -219,11 +219,11 @@ struct UserOnboardingIntro: View {
                         }
                         .pickerStyle(.wheel)
                         .onAppear {
-                            controller.user.weight = Double(self.weight)
+                            controller.user.weight = self.weight
                         }
                         .onChange(of: weight) { newValue in
                             withAnimation {
-                                controller.user.weight = Double(newValue)
+                                controller.user.weight = newValue
                             }
                         }
                     }
@@ -237,11 +237,11 @@ struct UserOnboardingIntro: View {
                         }
                         .pickerStyle(.wheel)
                         .onAppear {
-                            controller.user.height = Double(self.height)
+                            controller.user.height = self.height
                         }
                         .onChange(of: height) { newValue in
                             withAnimation {
-                                controller.user.height = Double(newValue)
+                                controller.user.height = newValue
                             }
                         }
                     }

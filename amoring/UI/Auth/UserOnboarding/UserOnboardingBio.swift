@@ -10,6 +10,9 @@ import SwiftUI
 struct UserOnboardingBio: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var userManager: UserManager
+    
+    @State var success = false
     
     private let charLimit: Int = 40
     
@@ -50,11 +53,27 @@ struct UserOnboardingBio: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(30))
             
+            NavigationLink(isActive: $success, destination: {
+                UserOnboardingSuccess()
+            }) {
+                EmptyView()
+            }
+            
             HStack {
-                NavigationLink(destination: {
-                    UserOnboardingSuccess()
-                }) {
-                    FullSizeButton(title: "가입하기")
+                if userManager.isLoading {
+                    ProgressView()
+                        .tint(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding(20)
+                } else {
+                    Button(action: {
+                        userManager.createUserProfile(user: controller.user) { success in
+                            print(controller.user)
+                            self.success = success
+                        }
+                    }) {
+                        FullSizeButton(title: "가입하기")
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

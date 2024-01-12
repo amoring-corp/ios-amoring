@@ -54,7 +54,7 @@
 		8522A5FF2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522A5FE2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift */; };
 		8522A6012B2C4B96008AF703 /* PurchaseLoungeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522A6002B2C4B96008AF703 /* PurchaseLoungeWindow.swift */; };
 		8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522A6022B2C4BAD008AF703 /* PurchaseLikeWindow.swift */; };
-		8523BAC92B4BB7B80099CDE4 /* BusinessSignUpEnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8523BAC82B4BB7B80099CDE4 /* BusinessSignUpEnter.swift */; };
+		8523BAC92B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8523BAC82B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift */; };
 		8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */; };
 		8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */; };
 		8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8523BAD32B4CDF560099CDE4 /* AmoringAPI */; };
@@ -64,6 +64,16 @@
 		8538D5282B4E2A4F0040E017 /* BusinessSignUpOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5272B4E2A4F0040E017 /* BusinessSignUpOTP.swift */; };
 		8538D52A2B4E2DF60040E017 /* CodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5292B4E2DF60040E017 /* CodeInputView.swift */; };
 		8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D52C2B4E3FA80040E017 /* BusinessOnboardingView.swift */; };
+		8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D52E2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql */; };
+		8538D5372B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D5362B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql */; };
+		8538D53D2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D53C2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql */; };
+		8538D5412B50B4CA0040E017 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5402B50B4CA0040E017 /* ImageHelper.swift */; };
+		8538D5432B50C03F0040E017 /* BusinessSignUpTerms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5422B50C03F0040E017 /* BusinessSignUpTerms.swift */; };
+		8538D5452B50C0720040E017 /* BusinessSignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5442B50C0720040E017 /* BusinessSignUpController.swift */; };
+		8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5462B50C5F20040E017 /* BusinessOnboardingController.swift */; };
+		8538D5492B50C9820040E017 /* BusinessSignUpPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5482B50C9820040E017 /* BusinessSignUpPassword.swift */; };
+		8538D54B2B50EE560040E017 /* BusinessOnboardingStep2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D54A2B50EE560040E017 /* BusinessOnboardingStep2.swift */; };
+		8538D54D2B512B630040E017 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8538D54C2B512B630040E017 /* schema.graphqls */; };
 		853AFD4C2B1DB0890020A570 /* NavigationStackBackport in Frameworks */ = {isa = PBXBuildFile; productRef = 853AFD4B2B1DB0890020A570 /* NavigationStackBackport */; };
 		853AFD4E2B1DB2150020A570 /* NavigationAmoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */; };
 		853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */; };
@@ -102,7 +112,6 @@
 		85E8E9402B3140580054EBCE /* ListOfConversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93F2B3140580054EBCE /* ListOfConversations.swift */; };
 		85E8E9422B3140850054EBCE /* ListOfPeopleLikesLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */; };
 		85E8E9442B3145390054EBCE /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E9432B3145390054EBCE /* ConversationView.swift */; };
-		85FB6B892B43DA3A0023A889 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 85FB6B882B43DA3A0023A889 /* schema.graphqls */; };
 		85FB6B8B2B43EC820023A889 /* NextBlackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8A2B43EC820023A889 /* NextBlackButton.swift */; };
 		85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */; };
 		85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */; };
@@ -129,13 +138,8 @@
 		85FC209B2B0D717700DC1950 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209A2B0D717700DC1950 /* Constants.swift */; };
 		85FC209D2B0D729300DC1950 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209C2B0D729300DC1950 /* Extensions.swift */; };
 		85FC209F2B0D75AB00DC1950 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209E2B0D75AB00DC1950 /* UserManager.swift */; };
-		85FC20A22B0D95A500DC1950 /* BusinessSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A12B0D95A500DC1950 /* BusinessSignUp.swift */; };
-		85FC20A42B0D964800DC1950 /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A32B0D964800DC1950 /* OTPView.swift */; };
 		85FC20A62B0D9DC700DC1950 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A52B0D9DC700DC1950 /* Business.swift */; };
 		85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A72B0DAAFF00DC1950 /* BusinessSessionView.swift */; };
-		85FC20AA2B0DB29000DC1950 /* BusinessTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A92B0DB29000DC1950 /* BusinessTermsView.swift */; };
-		85FC20AC2B0DB31B00DC1950 /* PlansView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20AB2B0DB31B00DC1950 /* PlansView.swift */; };
-		85FC20AE2B0DB38F00DC1950 /* BusinessSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20AD2B0DB38F00DC1950 /* BusinessSuccess.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,7 +211,7 @@
 		8522A5FE2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseSimpleWindow.swift; sourceTree = "<group>"; };
 		8522A6002B2C4B96008AF703 /* PurchaseLoungeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseLoungeWindow.swift; sourceTree = "<group>"; };
 		8522A6022B2C4BAD008AF703 /* PurchaseLikeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseLikeWindow.swift; sourceTree = "<group>"; };
-		8523BAC82B4BB7B80099CDE4 /* BusinessSignUpEnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpEnter.swift; sourceTree = "<group>"; };
+		8523BAC82B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpPrepare.swift; sourceTree = "<group>"; };
 		8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignIn.graphql; sourceTree = "<group>"; };
 		8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryAuthenticatedUser.graphql; sourceTree = "<group>"; };
 		8538D5212B4E1C500040E017 /* BusinessSignUpEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpEmail.swift; sourceTree = "<group>"; };
@@ -216,6 +220,16 @@
 		8538D5272B4E2A4F0040E017 /* BusinessSignUpOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpOTP.swift; sourceTree = "<group>"; };
 		8538D5292B4E2DF60040E017 /* CodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeInputView.swift; sourceTree = "<group>"; };
 		8538D52C2B4E3FA80040E017 /* BusinessOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessOnboardingView.swift; sourceTree = "<group>"; };
+		8538D52E2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithGoogle.graphql; sourceTree = "<group>"; };
+		8538D5362B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpsertMyUserProfile.graphql; sourceTree = "<group>"; };
+		8538D53C2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadMyProfileImages.graphql; sourceTree = "<group>"; };
+		8538D5402B50B4CA0040E017 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		8538D5422B50C03F0040E017 /* BusinessSignUpTerms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpTerms.swift; sourceTree = "<group>"; };
+		8538D5442B50C0720040E017 /* BusinessSignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpController.swift; sourceTree = "<group>"; };
+		8538D5462B50C5F20040E017 /* BusinessOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessOnboardingController.swift; sourceTree = "<group>"; };
+		8538D5482B50C9820040E017 /* BusinessSignUpPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpPassword.swift; sourceTree = "<group>"; };
+		8538D54A2B50EE560040E017 /* BusinessOnboardingStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessOnboardingStep2.swift; sourceTree = "<group>"; };
+		8538D54C2B512B630040E017 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAmoringController.swift; sourceTree = "<group>"; };
 		853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAuthController.swift; sourceTree = "<group>"; };
 		853AFD532B1DC6BF0020A570 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -247,7 +261,6 @@
 		85E8E93F2B3140580054EBCE /* ListOfConversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfConversations.swift; sourceTree = "<group>"; };
 		85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfPeopleLikesLink.swift; sourceTree = "<group>"; };
 		85E8E9432B3145390054EBCE /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
-		85FB6B882B43DA3A0023A889 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		85FB6B8A2B43EC820023A889 /* NextBlackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextBlackButton.swift; sourceTree = "<group>"; };
 		85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerButton.swift; sourceTree = "<group>"; };
 		85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingIntro.swift; sourceTree = "<group>"; };
@@ -274,13 +287,8 @@
 		85FC209A2B0D717700DC1950 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		85FC209C2B0D729300DC1950 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		85FC209E2B0D75AB00DC1950 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		85FC20A12B0D95A500DC1950 /* BusinessSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUp.swift; sourceTree = "<group>"; };
-		85FC20A32B0D964800DC1950 /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		85FC20A52B0D9DC700DC1950 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		85FC20A72B0DAAFF00DC1950 /* BusinessSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionView.swift; sourceTree = "<group>"; };
-		85FC20A92B0DB29000DC1950 /* BusinessTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTermsView.swift; sourceTree = "<group>"; };
-		85FC20AB2B0DB31B00DC1950 /* PlansView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansView.swift; sourceTree = "<group>"; };
-		85FC20AD2B0DB38F00DC1950 /* BusinessSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSuccess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +420,7 @@
 				85FC209A2B0D717700DC1950 /* Constants.swift */,
 				8522A5F12B2BDFE7008AF703 /* Dummy.swift */,
 				85FB6B982B464F2A0023A889 /* Global.swift */,
+				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -542,6 +551,8 @@
 			isa = PBXGroup;
 			children = (
 				8538D52C2B4E3FA80040E017 /* BusinessOnboardingView.swift */,
+				8538D54A2B50EE560040E017 /* BusinessOnboardingStep2.swift */,
+				8538D5462B50C5F20040E017 /* BusinessOnboardingController.swift */,
 			);
 			path = BusinessOnboarding;
 			sourceTree = "<group>";
@@ -549,9 +560,12 @@
 		8538D52B2B4E3F780040E017 /* BusinessSignUp */ = {
 			isa = PBXGroup;
 			children = (
-				8523BAC82B4BB7B80099CDE4 /* BusinessSignUpEnter.swift */,
+				8538D5422B50C03F0040E017 /* BusinessSignUpTerms.swift */,
+				8523BAC82B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift */,
 				8538D5212B4E1C500040E017 /* BusinessSignUpEmail.swift */,
+				8538D5482B50C9820040E017 /* BusinessSignUpPassword.swift */,
 				8538D5272B4E2A4F0040E017 /* BusinessSignUpOTP.swift */,
+				8538D5442B50C0720040E017 /* BusinessSignUpController.swift */,
 			);
 			path = BusinessSignUp;
 			sourceTree = "<group>";
@@ -582,9 +596,12 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				85FB6B882B43DA3A0023A889 /* schema.graphqls */,
-				8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */,
+				8538D54C2B512B630040E017 /* schema.graphqls */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
+				8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */,
+				8538D52E2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql */,
+				8538D5362B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql */,
+				8538D53C2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -677,14 +694,9 @@
 		85FC20A02B0D951C00DC1950 /* BusinessAuth */ = {
 			isa = PBXGroup;
 			children = (
+				850A303F2B0B2DEF003B12B7 /* BusinessSignInSheet.swift */,
 				8538D52B2B4E3F780040E017 /* BusinessSignUp */,
 				8523BAC72B4BB74C0099CDE4 /* BusinessOnboarding */,
-				850A303F2B0B2DEF003B12B7 /* BusinessSignInSheet.swift */,
-				85FC20A12B0D95A500DC1950 /* BusinessSignUp.swift */,
-				85FC20A32B0D964800DC1950 /* OTPView.swift */,
-				85FC20A92B0DB29000DC1950 /* BusinessTermsView.swift */,
-				85FC20AB2B0DB31B00DC1950 /* PlansView.swift */,
-				85FC20AD2B0DB38F00DC1950 /* BusinessSuccess.swift */,
 			);
 			path = BusinessAuth;
 			sourceTree = "<group>";
@@ -824,20 +836,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85FB6B892B43DA3A0023A889 /* schema.graphqls in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
 				850A301D2B0AEF41003B12B7 /* Pretendard-SemiBold.ttf in Resources */,
+				8538D5372B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql in Resources */,
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
 				850A301C2B0AEF41003B12B7 /* Pretendard-ExtraBold.ttf in Resources */,
+				8538D53D2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql in Resources */,
+				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
 				850A301E2B0AEF41003B12B7 /* Pretendard-Regular.ttf in Resources */,
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
 				851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */,
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
+				8538D54D2B512B630040E017 /* schema.graphqls in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
 				850A30242B0AEF41003B12B7 /* Pretendard-ExtraLight.ttf in Resources */,
 			);
@@ -932,12 +947,14 @@
 				853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */,
 				85D36AF22B0F285300106BC0 /* BusnessSettings.swift in Sources */,
 				85D26F652B1F07C000E3C55F /* SwipibleProfileVIew.swift in Sources */,
-				85FC20AE2B0DB38F00DC1950 /* BusinessSuccess.swift in Sources */,
 				85D26F6D2B20198B00E3C55F /* QRCodeGenerator.swift in Sources */,
+				8538D5432B50C03F0040E017 /* BusinessSignUpTerms.swift in Sources */,
+				8538D5492B50C9820040E017 /* BusinessSignUpPassword.swift in Sources */,
 				85FC20962B0C96E800DC1950 /* UserOnboardingView.swift in Sources */,
 				8522A6012B2C4B96008AF703 /* PurchaseLoungeWindow.swift in Sources */,
 				85FB6B9D2B4785CE0023A889 /* CheckInResult.swift in Sources */,
 				85FB6B8B2B43EC820023A889 /* NextBlackButton.swift in Sources */,
+				8538D5412B50B4CA0040E017 /* ImageHelper.swift in Sources */,
 				85E8E93E2B3119780054EBCE /* Reaction.swift in Sources */,
 				85D26F6E2B20198B00E3C55F /* ScannerViewController.swift in Sources */,
 				8538D5242B4E1EDD0040E017 /* BackButton.swift in Sources */,
@@ -948,7 +965,7 @@
 				853AFD4E2B1DB2150020A570 /* NavigationAmoringController.swift in Sources */,
 				8522A5FD2B2C4B4C008AF703 /* Data.swift in Sources */,
 				85FB6B932B4622F20023A889 /* FullSizeButton.swift in Sources */,
-				8523BAC92B4BB7B80099CDE4 /* BusinessSignUpEnter.swift in Sources */,
+				8523BAC92B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift in Sources */,
 				85FC20832B0C510100DC1950 /* UserOnboardingGender.swift in Sources */,
 				85D0DEDB2B3564530029DA5D /* TestView.swift in Sources */,
 				85B028A12B2FE7B300A738AB /* SessionController.swift in Sources */,
@@ -979,13 +996,14 @@
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
 				85806C4F2B22F8650077D12C /* NetworkService.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
+				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,
 				85E8E9442B3145390054EBCE /* ConversationView.swift in Sources */,
 				8522A5E92B2A7B39008AF703 /* TrackableScrollView.swift in Sources */,
 				85D26F672B2015FE00E3C55F /* CheckInView.swift in Sources */,
 				85D0DEE22B3BA9000029DA5D /* AdaptsToKeyboard.swift in Sources */,
+				8538D54B2B50EE560040E017 /* BusinessOnboardingStep2.swift in Sources */,
 				854C7B032B180C5D0060CE03 /* CoctailToggle.swift in Sources */,
-				85FC20AC2B0DB31B00DC1950 /* PlansView.swift in Sources */,
 				85FC20912B0C514400DC1950 /* AddImageView.swift in Sources */,
 				85D36AF02B0F26DB00106BC0 /* SettingsView.swift in Sources */,
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
@@ -993,7 +1011,6 @@
 				85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
 				851AF8FA2B3E9F3D005A8DEB /* SignInSheet.swift in Sources */,
-				85FC20A42B0D964800DC1950 /* OTPView.swift in Sources */,
 				85FC20902B0C514400DC1950 /* ImagePicker.swift in Sources */,
 				8538D5222B4E1C500040E017 /* BusinessSignUpEmail.swift in Sources */,
 				85FC207F2B0C510100DC1950 /* UserOnboardingName.swift in Sources */,
@@ -1009,13 +1026,13 @@
 				850A30352B0B1CE3003B12B7 /* MessagesView.swift in Sources */,
 				85FB6B972B4646DD0023A889 /* CustomNavigationView.swift in Sources */,
 				8522A5F22B2BDFE7008AF703 /* Dummy.swift in Sources */,
+				8538D5452B50C0720040E017 /* BusinessSignUpController.swift in Sources */,
 				851AF8F42B3D2495005A8DEB /* BusinessDetailsView.swift in Sources */,
 				85B028A32B3019B500A738AB /* MessagesController.swift in Sources */,
 				85FC20802B0C510100DC1950 /* UserOnboardingBio.swift in Sources */,
 				8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */,
 				850A300F2B0AEDF8003B12B7 /* SessionView.swift in Sources */,
 				858862382B34FA9B009CC600 /* CheckIn.swift in Sources */,
-				85FC20AA2B0DB29000DC1950 /* BusinessTermsView.swift in Sources */,
 				850A30312B0B1CC7003B12B7 /* NearbyView.swift in Sources */,
 				85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */,
 				85B028A52B301A2B00A738AB /* PeopleLikesView.swift in Sources */,
@@ -1028,7 +1045,6 @@
 				85FC208F2B0C514400DC1950 /* AddedImageView.swift in Sources */,
 				85FC20852B0C510100DC1950 /* UserOnboardingPhoto.swift in Sources */,
 				854C7B092B181B1C0060CE03 /* ProfileCardView.swift in Sources */,
-				85FC20A22B0D95A500DC1950 /* BusinessSignUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

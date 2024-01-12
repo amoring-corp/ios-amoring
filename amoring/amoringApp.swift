@@ -18,13 +18,8 @@ struct amoringApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //            RocketListView()
-//            PurchaseView(model: purchasesList[3])
-            
-            
             ContentView()
                 .preferredColorScheme(.dark)
-            // TODO: remove for different languages
                 .environment(\.locale, .init(identifier: "ko"))
                 .onAppear {
                     setupUI()

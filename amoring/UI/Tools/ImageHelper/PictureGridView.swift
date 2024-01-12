@@ -7,16 +7,25 @@
 
 import SwiftUI
 
-enum PictureModel: Hashable{
-    case newPicture(UIImage)
-    case storedPicture(String, UIImage)
+enum PictureModel: Hashable {
+    case newPicture(UIImage, String)
+    case storedPicture(String, UIImage, String)
     
     var picture: UIImage {
         switch self{
-        case .newPicture(let image):
+        case .newPicture(let image, _):
             return image
-        case .storedPicture(_, let image):
+        case .storedPicture(_, let image, _):
             return image
+        }
+    }
+    
+    var url: String {
+        switch self{
+        case .newPicture(_, let urlString):
+            return urlString
+        case .storedPicture(_, _, let urlString):
+            return urlString
         }
     }
 }

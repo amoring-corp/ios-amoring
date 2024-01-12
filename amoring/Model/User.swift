@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ApolloAPI
 
 public struct User: Codable, Equatable, Hashable {
     public static func == (lhs: User, rhs: User) -> Bool {
@@ -17,35 +18,25 @@ public struct User: Codable, Equatable, Hashable {
     }
     
     var id: Int
+    
     var name: String?
     var birthYear: Int?
     var age: Int?
     var bio: String?
     var gender: String?
-    var pictures: [String]?
-    var liked: [String]?
-    var passed: [String]?
-    var terms: Bool?
-    var fakeImage: String?
-    var interests: [Interest]
-    var height: Double?
-    var weight: Double?
+    var height: Int?
+    var weight: Int?
     var mbti: mbtiE?
-    
-    var job: String?
     var education: String?
+    
+    var pictures: [String]?
+    var interests: [Interest]
+    var job: String?
     var isOnline: Bool?
     
-    //TODO: fix it
-//    var age: Int? {
-//        let year = (Int(Calendar.current.component(.year, from: Date()).description) ?? 2024)
-//        if let birthYear {
-//            return year - birthYear
-//        } else {
-//            return nil
-//        }
-//    }
-
+// TODO: remove me after tests
+    var fakeImage: String?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -53,9 +44,6 @@ public struct User: Codable, Equatable, Hashable {
         case bio
         case gender
         case pictures
-        case liked
-        case passed
-        case terms
         case fakeImage
         case interests
         case height
@@ -64,5 +52,19 @@ public struct User: Codable, Equatable, Hashable {
         case job
         case education
         case isOnline
+    }
+    // FIXME: after deploy 'height'
+    var data: InputDict {
+        return InputDict([
+            "name": name,
+            "age": age,
+            "birthYear": birthYear,
+            "height": height,
+            "weight": weight,
+            "mbti": mbti?.rawValue,
+            "education": education,
+            "bio": bio,
+            "gender": gender
+        ])
     }
 }

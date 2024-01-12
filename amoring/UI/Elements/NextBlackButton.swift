@@ -9,9 +9,16 @@ import SwiftUI
 
 struct NextBlackButton: View {
     var enabled: Bool = true
+    var isLoading: Bool = false
     
     var body: some View {
-        Text("다음")
+        ZStack {
+            if isLoading {
+                ProgressView().tint(.white)
+            } else {
+                Text("다음")
+            }
+        }
             .font(medium18Font)
             .foregroundColor(.gray150)
             .padding(.vertical, Size.w(16))

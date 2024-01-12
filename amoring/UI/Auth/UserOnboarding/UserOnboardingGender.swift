@@ -74,7 +74,7 @@ struct UserOnboardingGender: View {
 }
 
 enum Gender: String {
-    case MALE, FEMALE
+    case male, female
 }
 
 struct GenderPicker: View {
@@ -82,9 +82,9 @@ struct GenderPicker: View {
     
     var body: some View {
         HStack(spacing: Size.w(21)) {
-            GenderCell(selectedGender: $gender, gender: .MALE)
+            GenderCell(selectedGender: $gender, gender: .male)
             
-            GenderCell(selectedGender: $gender, gender: .FEMALE)
+            GenderCell(selectedGender: $gender, gender: .female)
         }
     }
 }
@@ -96,10 +96,10 @@ struct GenderCell: View {
     
     var body: some View {
         VStack(spacing: Size.w(15)) {
-            Text(gender == .MALE ? "남성" : "여성")
+            Text(gender == .male ? "남성" : "여성")
                 .font(semiBold22Font)
                 .foregroundColor(.black)
-            Text(gender == .MALE ? (self.selectedGender == self.gender ? "🙋🏻" : "🧑🏻") : (self.selectedGender == self.gender ? "🙋🏻‍♀️" : "👩🏻"))
+            Text(gender == .male ? (self.selectedGender == self.gender ? "🙋🏻" : "🧑🏻") : (self.selectedGender == self.gender ? "🙋🏻‍♀️" : "👩🏻"))
                 .font(semiBold58Font)
                 .transition(.identity)
         }

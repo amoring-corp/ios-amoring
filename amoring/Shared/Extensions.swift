@@ -23,11 +23,59 @@ extension String {
 //        print("Start: \(date)") // Start: Optional(2000-01-01 19:00:00 +0000)
         return dateFormatter.date(from: self)
     }
+    
+    func checkTextSufficientComplexity(regEx: String) -> Bool {
+        let texttest = NSPredicate(format:"SELF MATCHES %@", regEx)
+        return texttest.evaluate(with: self)
+    }
+    
+    func containsUppercase() -> Bool {
+        checkTextSufficientComplexity(regEx: ".*[A-Z]+.*")
+    }
+    
+    func containsLowercase() -> Bool {
+        checkTextSufficientComplexity(regEx: ".*[a-z]+.*")
+    }
+    
+    func containsSpecialCharacters() -> Bool {
+        checkTextSufficientComplexity(regEx: ".*[!&^%$#@()/]+.*")
+    }
+    
+    func containsNumbers() -> Bool {
+        checkTextSufficientComplexity(regEx: ".*[0-9]+.*")
+    }
+    
+    func isStrongPassword() -> Bool {
+        self.count >= 8 && containsUppercase() && containsLowercase() && containsSpecialCharacters() && containsNumbers()
+    }
+    
+    func isEmailValid() -> Bool {
+        do {
+            let range = NSRange(location: 0, length: self.utf16.count)
+            let regex = try NSRegularExpression(pattern: "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
+            return regex.firstMatch(in: self, options: [], range: range) != nil && !self.isEmpty
+        } catch {
+            return false
+        }
+    }
 }
 
 extension Optional where Wrapped == String {
     var isNil: Bool {
         return self == nil
+    }
+}
+
+extension Optional where Wrapped == Int {
+    var isNil: Bool {
+        return self == nil
+    }
+    
+    func toWeight() -> String? {
+        self.isNil ? nil : self!.description + "kg"
+    }
+    func toHeight() -> String? {
+        self.isNil ? nil : self!.description + "cm"
     }
 }
 

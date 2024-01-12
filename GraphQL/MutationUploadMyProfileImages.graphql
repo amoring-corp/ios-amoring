@@ -1,0 +1,26 @@
+mutation uploadMyProfileImages($image0: Upload!) {
+  uploadMyProfileImages(data: [
+    {
+      sort: 0
+      file: $image0
+    }
+  ]) {
+    id
+    profileId
+    fileId
+    sort
+    file {
+      id
+      name
+      mimetype
+      url
+      path
+      width
+      height
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

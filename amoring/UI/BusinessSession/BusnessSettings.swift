@@ -60,7 +60,7 @@ struct BusnessSettings: View {
                 Button(action: {
                     DispatchQueue.main.async {
                         withAnimation {
-                            sessionManager.BusinessSignedIn = false
+                            sessionManager.businessSignedIn = false
                         }
                     }
                 }) {

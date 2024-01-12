@@ -11,12 +11,49 @@ struct CustomNavigationView: View {
     @Binding var offset: CGFloat
     let title: String
     let back: () -> Void
+    
     var body: some View {
         VStack {
             ZStack {
                 HStack {
                     BackButton(action: back)
                     Spacer()
+                }
+                .padding(.horizontal, Size.w(22))
+                .frame(height: 44)
+                
+                HStack {
+                    Spacer()
+                    Text(title)
+                        .font(medium20Font)
+                        .foregroundColor(.black)
+                    Spacer()
+                }
+                .frame(height: 44)
+                .opacity(offset / CGFloat(100))
+            }
+            Color.yellow200.frame(width: .infinity, height: 1).opacity(offset / CGFloat(100))
+        }
+        .background(Color.yellow300)
+        .frame(maxWidth: .infinity)
+    }
+}
+
+struct CustomNavigationViewLogout: View {
+    @Binding var offset: CGFloat
+    let title: String
+    let action: () -> Void
+    
+    var body: some View {
+        VStack {
+            ZStack {
+                HStack {
+                    Spacer()
+                    Button(action: action) {
+                        Text("로그아웃")
+                            .font(semiBold16Font)
+                            .foregroundColor(.black)
+                    }
                 }
                 .padding(.horizontal, Size.w(22))
                 .frame(height: 44)
