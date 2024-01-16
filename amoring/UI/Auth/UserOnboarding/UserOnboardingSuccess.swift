@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserOnboardingSuccess: View {
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var userManager: UserManager
     @State var animation: Bool = false
     
     var body: some View {
@@ -54,9 +55,7 @@ struct UserOnboardingSuccess: View {
                 Spacer()
                 
                 Button(action: {
-                    withAnimation {
-                        sessionManager.goToUserOnboarding = false
-                    }
+                    sessionManager.getCurrentSession(delay: 0)
                 }) {
                     FullSizeButton(title: "확인", color: Color.black, bg: .yellow300)
                 }

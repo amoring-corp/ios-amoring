@@ -14,18 +14,15 @@ struct UserOnboardingView: View {
     var body: some View {
         NavigationStackBackport.NavigationStack {
             ZStack {
-//                UserOnboardingName()
-                // FIXME: Remove me
-                UserOnboardingPhoto()
+                UserOnboardingName()
             }
             .navigationBarTitleDisplayMode(.inline)
         }
-        .environmentObject(controller)
     }
 }
 
 class UserOnboardingController: ObservableObject {
-    @Published var user: User = User(id: 99, interests: [])
+    @Published var userProfile: UserProfile = UserProfile(id: "", images: [], interests: [])
 }
 
 #Preview {

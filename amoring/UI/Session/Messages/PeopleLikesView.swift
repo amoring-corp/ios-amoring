@@ -89,7 +89,7 @@ struct PeopleLikesView: View {
                         ) {
                             ForEach(messageController.reactions, id: \.self) { reaction in
                                 let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
-                                let url = Dummy.users.first(where: { $0.id == reaction.byUserId })?.pictures?.first ?? ""
+                                let url = Dummy.users.first(where: { $0.id == reaction.byUserId })?.userProfile?.images.first?.file?.url ?? ""
                                 ZStack(alignment: .bottom) {
                                     AsyncImage(url: URL(string: url), content: { image in
                                         image
@@ -114,7 +114,7 @@ struct PeopleLikesView: View {
                                                 //                                                .padding(.horizontal, Size.w(12))
                                                 //                                                .padding(.vertical, Size.w(6))
                                                 //                                                .background(Capsule().fill(Color.gray1000))
-                                                if let age = user?.age {
+                                                if let age = user?.userProfile?.age {
                                                     Text(age.description + "세")
                                                         .font(semiBold12Font)
                                                         .foregroundColor(.white)
@@ -133,11 +133,11 @@ struct PeopleLikesView: View {
                                             }.frame(maxWidth: .infinity, alignment: .leading)
                                             
                                             HStack {
-                                                Text(user?.name ?? "")
+                                                Text(user?.userProfile?.name ?? "")
                                                     .font(medium17Font)
                                                     .foregroundColor(.white)
                                                 Circle().fill()
-                                                    .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
+//                                                    .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
                                                     .frame(width: Size.w(6), height: Size.w(6))
                                             }
                                         }

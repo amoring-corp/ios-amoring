@@ -12,12 +12,12 @@ struct BusinessOnboardingStep2: View {
     @EnvironmentObject var sessionManager: SessionManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var name: String = ""
-    @State var representative: String = ""
-    @State var type: String = ""
-    @State var category: String = ""
+    @State var businessName: String = ""
+    @State var representativeTitle: String = ""
+    @State var businessType: String = ""
+    @State var businessCategory: String = ""
     @State var address: String = ""
-    @State var number: String = ""
+    @State var registrationNumber: String = ""
     
     @State var next: Bool = false
     @State var presentImporter: Bool = false
@@ -50,8 +50,8 @@ struct BusinessOnboardingStep2: View {
                                 .padding(.leading, Size.w(14))
                             
                             PickerButton {
-                                if let type = controller.business.type {
-                                    Text(type)
+                                if let businessCategory = controller.business.businessCategory {
+                                    Text(businessCategory)
                                         .foregroundColor(.black)
                                         .font(medium18Font)
                                 }
@@ -67,7 +67,7 @@ struct BusinessOnboardingStep2: View {
                         Spacer().frame(height: 300)
                         
                         NavigationLink(isActive: $next, destination: {
-                            BusinessOnboardingStep2()
+                            Text("NEXT PAGE")
                         }) {
                             EmptyView()
                         }
@@ -112,7 +112,7 @@ struct BusinessOnboardingStep2: View {
         }
         .overlay(
             typesSheetPresented ? CustomSheet {
-                Picker("", selection: $type) {
+                Picker("", selection: $businessCategory) {
                     ForEach(Constants.businessTypes, id: \.self) { option in
                         Text(option).tag(option)
                             .foregroundColor(.black)
@@ -121,12 +121,7 @@ struct BusinessOnboardingStep2: View {
                 .pickerStyle(.wheel)
                 .onAppear {
                     withAnimation {
-                        controller.business.type = self.type
-                    }
-                }
-                .onChange(of: type) { newAge in
-                    withAnimation {
-                        controller.business.type = self.type
+                        controller.business.businessCategory = self.businessCategory
                     }
                 }
             } : nil

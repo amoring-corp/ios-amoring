@@ -136,6 +136,11 @@ input SignUpInput {
   role: UserRole!
 }
 
+type SignUpResult {
+  emailConfirmationToken: String!
+  user: User!
+}
+
 """
 File upload type
 """
@@ -170,27 +175,29 @@ type UserProfile {
   id: ID!
   userId: Int!
   name: String
-  age: Int
   birthYear: Int
   height: Int
   weight: Int
   mbti: String
   education: String
+  occupation: String
   bio: String
   gender: Gender
   images: [UserProfileImage]
+  interests: [Interest]
+  age: Int
   createdAt: DateTime
   updatedAt: DateTime
 }
 
 input UserProfileCreateInput {
   name: String!
-  age: Int
   birthYear: Int
   height: Int
   weight: Int
   mbti: String
   education: String
+  occupation: String
   bio: String
   gender: Gender
 }
@@ -215,12 +222,12 @@ input UserProfileImageInput {
 
 input UserProfileUpdateInput {
   name: String
-  age: Int
   birthYear: Int
   height: Int
   weight: Int
   mbti: String
   education: String
+  occupation: String
   bio: String
   gender: Gender
   images: [UserProfileImageInput]
@@ -248,13 +255,20 @@ input UserUpdateInput {
 type Mutation {
   signIn(email: String!, password: String!): SignInResult!
   signInWithGoogle(idToken: String!): SignInResult!
-  signUp(data: SignUpInput!): User!
+  signUp(data: SignUpInput!): SignUpResult!
+  verifyUserEmailResolver(
+    userId: ID!
+    confirmationNumber: String!
+    emailConfirmationToken: String!
+  ): Boolean!
   sendUserPasswordResetLink(email: String!): Boolean!
   redeemUserPasswordResetToken(token: String!, password: String!): Boolean!
   upsertMyUserProfile(data: UserProfileUpdateInput!): UserProfile!
   uploadMyProfileImage(data: UserProfileImageInput!): UserProfileImage!
   uploadMyProfileImages(data: [UserProfileImageInput!]!): [UserProfileImage]!
   deleteMyProfileImage(id: ID!): UserProfileImage!
+  connectInterestsToMyProfile(interestIds: [ID!]!): UserProfile!
+  disconnectInterestsFromMyProfile(interestIds: [ID!]!): UserProfile!
   createBusiness(data: BusinessCreateInput!): Business!
   updateBusiness(id: ID!, data: BusinessUpdateInput!): Business!
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
@@ -268,15 +282,24 @@ type Mutation {
   deleteInterest(id: ID!): Interest!
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
+  tempDeleteUserResolver(id: ID!): User!
   updateUserProfile(id: ID!, data: UserProfileUpdateInput!): UserProfile!
+  connectInterestsToUserProfile(
+    userProfileId: ID!
+    interestIds: [ID!]!
+  ): UserProfile!
+  disconnectInterestsFromUserProfile(
+    userProfileId: ID!
+    interestIds: [ID!]!
+  ): UserProfile!
 }
 
 type Query {
   authenticatedUser: User
   businesses: [Business]!
   business(id: ID!): Business!
-  interestCategories: [Interest]!
-  interestCategory(id: ID!): Interest!
+  interestCategories: [InterestCategory]!
+  interestCategory(id: ID!): InterestCategory!
   interests: [Interest]!
   interest(id: ID!): Interest!
   users: [User]!

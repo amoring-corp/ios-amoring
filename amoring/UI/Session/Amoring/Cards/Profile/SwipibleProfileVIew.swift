@@ -15,14 +15,14 @@ struct SwipibleProfileVIew: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var sessionController: SessionController
     @Namespace var animation
-    let user: User
+    let userProfile: UserProfile
     @State private var dragOffset = CGSize.zero
     @Binding var swipeAction: SwipeAction
     @State private var fitInScreen = false
     @State private var scrollOffset: CGFloat = 0
     @State private var showButtons: Bool = false
     @State var heightPadding: CGFloat = Size.w(131)
-    var onSwiped: (User, Bool) -> ()
+    var onSwiped: (UserProfile, Bool) -> ()
     
     @Binding var likes: Int
 
@@ -37,11 +37,12 @@ struct SwipibleProfileVIew: View {
                 
                 TrackableScrollView(showIndicators: false, contentOffset: $scrollOffset) {
                     VStack(spacing: 0) {
-                        ProfileCardView(user: user, 
+                        ProfileCardView(userProfile: userProfile,
                                         width: reader.size.width - Size.w(amoringController.showDetails ? 20 : 44),
                                         height: reader.size.height - heightPadding
                         )
-                        ExpandedView(user: user)
+
+                        ExpandedView(userProfile: userProfile)
                     }
                     .background(Color.yellow350)
                     .frame(
@@ -169,7 +170,7 @@ struct SwipibleProfileVIew: View {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            onSwiped(user, swipeAction == .swipeRight)
+            onSwiped(userProfile, swipeAction == .swipeRight)
         }
         self.swipeAction = .doNothing
     }
@@ -189,7 +190,7 @@ struct SwipibleProfileVIew: View {
                     self.dragOffset.width += screenWidthLimit
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    onSwiped(user, true)
+                    onSwiped(userProfile, true)
                 }
             }
             
@@ -203,7 +204,7 @@ struct SwipibleProfileVIew: View {
                 //                    amoringController.showDetails = false
                 //                    amoringController.hidePanel = false
                 //                }
-                onSwiped(user, false)
+                onSwiped(userProfile, false)
             }
         } else{
             withAnimation(.default){

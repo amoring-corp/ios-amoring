@@ -13,7 +13,7 @@ struct Conversation: Hashable {
         lhs.id == rhs.id
     }
     
-    let id: Int   //@id @default(autoincrement())
+    let id: String   //@id @default(autoincrement())
     let participants: [User]
     var messages: [Message]
 //    let status: ConversationStatus //@default(active)
@@ -32,7 +32,7 @@ struct Message: Hashable {
     let body: String
 //    let meta: Json?
     let sender: User?              //@relation(fields: [senderId], references: [id])
-    let senderId: Int?
+    let senderId: String?
     var conversation: Conversation?      //@relation(fields: [conversationId], references: [id])
     var conversationId: Int?
     let recipients: [MessageRecipient]

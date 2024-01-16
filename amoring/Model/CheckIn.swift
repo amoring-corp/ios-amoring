@@ -8,8 +8,8 @@
 import Foundation
 
 struct CheckIn {
-    var userId: Int?
-    var businessId: Int?
+    var userId: String?
+    var businessId: String?
     var place: String?  //??
     let checkedInAt: Date
     var checkedOutAt: Date?

@@ -94,14 +94,14 @@ struct Chip: View {
 
 struct TagCloudViewSelectable: View {
     let cat: InterestCategory
-    @Binding var selectedInterests: [String]
+    @Binding var selectedInterests: [(String, String)]
     @State var totalHeight
           = CGFloat.zero       // << variant for ScrollView/List
     //    = CGFloat.infinity   // << variant for VStacktotalHeight: CGFloat.infinity,
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(cat.title())
+            Text(cat.name)
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .padding(.leading, Size.w(14))
@@ -119,68 +119,71 @@ struct TagCloudViewSelectable: View {
         var width = CGFloat.zero
         var height = CGFloat.zero
         
-        let interests = {
-            switch cat {
-            case .interest:
-                Constants.interests
-            case .music:
-                Constants.music
-            case .food:
-                Constants.food_drink
-            case .travel:
-                Constants.travel
-            case .movie:
-                Constants.movies_novels
-            case .sport:
-                Constants.sport
-            }
-        }()
+//        let interests = {
+//            switch cat {
+//            case .interest:
+//                Constants.interests
+//            case .music:
+//                Constants.music
+//            case .food:
+//                Constants.food_drink
+//            case .travel:
+//                Constants.travel
+//            case .movie:
+//                Constants.movies_novels
+//            case .sport:
+//                Constants.sport
+//            }
+//        }()
         
         return ZStack(alignment: .topLeading) {
-            ForEach(interests, id: \.self) { interest in
-                self.item(for: interest.title)
-                    .padding(.trailing, 8)
-                    .padding(.vertical, 4)
-                    .alignmentGuide(.leading, computeValue: { d in
-                        if (abs(width - d.width) > g.size.width)
-                        {
-                            width = 0
-                            height -= d.height
-                        }
-                        let result = width
-                        if interest == interests.last! {
-                            width = 0 //last item
-                        } else {
-                            width -= d.width
-                        }
-                        return result
-                    })
-                    .alignmentGuide(.top, computeValue: {d in
-                        let result = height
-                        if interest == interests.last! {
-                            height = 0 // last item
-                        }
-                        return result
-                    })
-                    .onTapGesture {
-                        if !self.selectedInterests.contains(interest.title) {
-                            if selectedInterests.count < 7 {
+            if cat.interests != nil {
+                ForEach(cat.interests!, id: \.self) { interest in
+                    self.item(id: interest.id, text: interest.name)
+                        .padding(.trailing, 8)
+                        .padding(.vertical, 4)
+                        .alignmentGuide(.leading, computeValue: { d in
+                            if (abs(width - d.width) > g.size.width)
+                            {
+                                width = 0
+                                height -= d.height
+                            }
+                            let result = width
+                            if interest == cat.interests?.last! {
+                                width = 0 //last item
+                            } else {
+                                width -= d.width
+                            }
+                            return result
+                        })
+                        .alignmentGuide(.top, computeValue: {d in
+                            let result = height
+                            if interest == cat.interests?.last! {
+                                height = 0 // last item
+                            }
+                            return result
+                        })
+                        .onTapGesture {
+                            if !self.selectedInterests.contains(where: { $0.0 == interest.id }) {
+                                if selectedInterests.count < 7 {
+                                    withAnimation(.smooth) {
+                                        self.selectedInterests.append((interest.id, interest.name))
+                                    }
+                                }
+                            } else {
                                 withAnimation(.smooth) {
-                                    self.selectedInterests.append(interest.title)
+                                    self.selectedInterests.removeAll(where: { $0.0 == interest.id })
                                 }
                             }
-                        } else {
-                            withAnimation(.smooth) {
-                                self.selectedInterests.removeAll(where: { $0 == interest.title })
-                            }
                         }
-                    }
+                }
             }
+            
         }.background(viewHeightReader($totalHeight))
     }
 
-    private func item(for text: String) -> some View {
-        InterestChip(selectedInterests: $selectedInterests, text: text)
+    private func item(id: String, text: String) -> some View {
+        InterestChip(selectedInterests: $selectedInterests, id: id, text: text)
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -195,11 +198,12 @@ struct TagCloudViewSelectable: View {
 }
 
 struct InterestChip: View {
-    @Binding var selectedInterests: [String]
+    @Binding var selectedInterests: [(String, String)]
+    let id: String
     let text: String
     
     var body: some View {
-        let selected = selectedInterests.contains(text)
+        let selected = selectedInterests.contains(where: { $0.0 == id })
         Text(text)
             .font(medium16Font)
             .foregroundColor(selected ? .gray150 : .black)
@@ -213,7 +217,7 @@ struct InterestChip: View {
 }
 
 struct TagCloudViewSelected: View {
-    @Binding var selectedInterests: [String]
+    @Binding var selectedInterests: [(String, String)]
     @State var totalHeight
           = CGFloat.zero       // << variant for ScrollView/List
     //    = CGFloat.infinity   // << variant for VStacktotalHeight: CGFloat.infinity,
@@ -235,8 +239,8 @@ struct TagCloudViewSelected: View {
         var height = CGFloat.zero
         
         return ZStack(alignment: .topLeading) {
-            ForEach(selectedInterests, id: \.self) { tag in
-                self.item(for: tag)
+            ForEach(selectedInterests, id: \.self.0) { tag in
+                self.item(id: tag.0, text: tag.1)
                     .padding(.trailing, 8)
                     .padding(.vertical, 4)
                     .alignmentGuide(.leading, computeValue: { d in
@@ -264,8 +268,8 @@ struct TagCloudViewSelected: View {
         }.background(viewHeightReader($totalHeight))
     }
 
-    private func item(for text: String?) -> some View {
-        text == nil ? nil : ChipSelected(selectedInterests: $selectedInterests, text: text ?? "")
+    private func item(id: String?, text: String?) -> some View {
+        text == nil ? nil : ChipSelected(selectedInterests: $selectedInterests, id: id ?? "", text: text ?? "")
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -280,7 +284,8 @@ struct TagCloudViewSelected: View {
 }
 
 struct ChipSelected: View {
-    @Binding var selectedInterests: [String]
+    @Binding var selectedInterests: [(String, String)]
+    let id: String
     let text: String
     
     var body: some View {
@@ -294,14 +299,14 @@ struct ChipSelected: View {
             .clipShape(Capsule())
             .onTapGesture {
                 withAnimation {
-                    selectedInterests.removeAll(where: { $0 == text })
+                    selectedInterests.removeAll(where: { $0.0 == id })
                 }
             }
     }
 }
 
 
-#Preview {
+//#Preview {
 //    TagCloudView(tags: [])
-    TagCloudViewSelectable(cat: .interest, selectedInterests: .constant([]))
-}
+//    TagCloudViewSelectable(cat: .interest, selectedInterests: .constant([]))
+//}

@@ -25,6 +25,6 @@ struct AmoringView: View {
     }
 }
 
-#Preview {
-    SessionView()
-}
+//#Preview {
+//    SessionView()
+//}

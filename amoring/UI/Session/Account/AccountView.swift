@@ -20,18 +20,12 @@ struct AccountView: View {
     @State private var showRemoveConfirmation: Bool = false
     @State private var showContentTypeSheet: Bool = false
     @State private var showImagePicker: Bool = false
-    
-    //TODO: pass real user here
-    @State var user = User(id: 1, name: "Eugene Krabs", birthYear: 2000, bio: "There is no knowledge\nThat is no power", gender: "MALE", interests: [])
+    @State private var bio: String = ""
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                let url = "https://amoring-server-dev.s3.ap-northeast-2.amazonaws.com/images/fa2e0e4387b2855e2cf002964bfed416"
-                
-                Link(destination: URL(string: url)!) {
-                    Text("FADDSSD")
-                }
+                let url = userManager.user?.userProfile?.images.first?.file?.url ?? ""
                 
                 CachedAsyncImage(url: URL(string: url), content: { cont in
                     cont
@@ -42,12 +36,12 @@ struct AccountView: View {
                         ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
                     }.frame(width: 100, height: 100, alignment: .center)
                 })
-            
+                .frame(width: 100, height: 100, alignment: .center)
                 
                 HStack {
-                    Text(user.name ?? "")
-                    Text(user.age?.description ?? "")
-                    Text(user.gender ?? "")
+                    Text(userManager.user?.userProfile?.name ?? "")
+                    Text(userManager.user?.userProfile?.age?.description ?? "")
+                    Text(userManager.user?.userProfile?.gender ?? "")
                 }
                 
                 PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
@@ -70,17 +64,22 @@ struct AccountView: View {
                 
                 let charLimit: Int = 200
                 
-                TextEditor(text: $user.bio ?? "")
-                    .onChange(of: user.bio ?? "", perform: { newValue in
-                    if(newValue.count >= charLimit){
-                        user.bio = String(newValue.prefix(charLimit))
+                TextEditor(text: $bio)
+                    .onAppear {
+                        if let bio = userManager.user?.userProfile?.bio {
+                            self.bio = bio
+                        }
+                    }
+                    .onChange(of: bio, perform: { newValue in
+                    if (newValue.count >= charLimit) {
+                        self.bio = String(newValue.prefix(charLimit))
                     }
                 })
                     .frame(height: 300)
                 
                 HStack{
                     Spacer()
-                    Text("\(charLimit - (user.bio?.count ?? 0))")
+                    Text("\(charLimit - (bio.count))")
                         .foregroundColor(.gray)
                         .font(.headline)
                         .bold()
@@ -168,11 +167,6 @@ struct AccountView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray1000)
-        .onAppear {
-            if let user = userManager.user {
-                self.user = user
-            }
-        }
     }
     
     private func removePicture() {

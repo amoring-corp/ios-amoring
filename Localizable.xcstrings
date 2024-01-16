@@ -179,6 +179,12 @@
     "Contact Us/ Report" : {
 
     },
+    "d" : {
+
+    },
+    "DEBUGGING" : {
+
+    },
     "Deete account" : {
 
     },
@@ -191,10 +197,10 @@
     "Edit" : {
 
     },
-    "Eugene Krabs" : {
+    "ERROR" : {
 
     },
-    "FADDSSD" : {
+    "Eugene Krabs" : {
 
     },
     "FEMALE" : {
@@ -329,6 +335,9 @@
     "New" : {
 
     },
+    "NEXT PAGE" : {
+
+    },
     "Picker here" : {
 
     },
@@ -345,9 +354,6 @@
 
     },
     "Purchse" : {
-
-    },
-    "QR CODE" : {
 
     },
     "QR코드를 스캔하여 체크인해주세요." : {
@@ -378,6 +384,9 @@
 
     },
     "Sign Up" : {
+
+    },
+    "smth went wrong!" : {
 
     },
     "Something went wrong . . ." : {

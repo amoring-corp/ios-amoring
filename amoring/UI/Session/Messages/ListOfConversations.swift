@@ -100,7 +100,7 @@ struct ListOfConversations: View {
                     Alert(
                         title: Text("메시지 삭제하기"),
                         message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"),
-                        primaryButton: .destructive(Text("삭제"), action: { controller.delete(id: selectedConversation?.id ?? 0) }),
+                        primaryButton: .destructive(Text("삭제"), action: { controller.delete(id: selectedConversation?.id ?? "0") }),
                         secondaryButton: .cancel(Text("취소")))
                 }
             }
@@ -115,7 +115,7 @@ struct ChatRow: View {
     var body: some View {
         HStack(spacing: 0) {
             let user = conversation.participants.last
-            let url = user?.pictures?.first ?? ""
+            let url = user?.userProfile?.images.first?.file?.url ?? ""
             CachedAsyncImage(url: URL(string: url), content: { image in
                 image
                     .resizable()
@@ -128,7 +128,7 @@ struct ChatRow: View {
     
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(user?.name ?? "")
+                    Text(user?.userProfile?.name ?? "")
                         .font(medium16Font)
                         .foregroundColor(expired ? .gray600 : .gray300)
                     if expired {
@@ -136,7 +136,7 @@ struct ChatRow: View {
                             .frame(width: Size.w(6), height: Size.w(6))
                     } else {
                         Circle().fill()
-                            .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
+//                            .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
                             .frame(width: Size.w(6), height: Size.w(6))
                     }
                     

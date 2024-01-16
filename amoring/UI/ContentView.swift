@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Apollo
 
 struct ContentView: View {
     @StateObject var sessionManager = SessionManager()
-    @StateObject var userManager = UserManager()
+    @StateObject var userOnboardingController: UserOnboardingController = UserOnboardingController()
     @StateObject var navigator = NavigationController()
     @StateObject var sessionController = SessionController()
     @StateObject var messagesController = MessagesController()
@@ -19,40 +20,33 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            if sessionManager.isLoading {
+            switch sessionManager.appState {
+            case .loading:
                 LogoLoadingView()
-            } else if sessionManager.signedIn {
-//                if sessionManager.goToUserOnboarding {
-                    UserOnboardingView().transition(.move(edge: .trailing))
-//                } else {
-//                    SessionView().transition(.move(edge: .trailing))
-//                }
-            } else if sessionManager.businessSignedIn {
-                if sessionManager.goToBusinessOnboarding {
-                    BusinessOnboardingView().transition(.move(edge: .trailing))
-                } else {
-                    BusinessSessionView().transition(.move(edge: .trailing))
-                }
-            } else {
+            case .auth:
                 SignInView()
+            case .session(let user):
+                SessionFlow(userManager: UserManager(authUser: user)).transition(.move(edge: .trailing))
+            case .error:
+                Text("smth went wrong!")
             }
         }
         .overlay(
             sessionController.purchaseType != nil ? PurchaseView(purchaseType: $sessionController.purchaseType, model: purchasesList[sessionController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
         )
+        .environmentObject(userOnboardingController)
         .environmentObject(businessOnboardingController)
         .environmentObject(businessSignUpController)
         .environmentObject(navigator)
         .environmentObject(sessionController)
         .environmentObject(sessionManager)
-        .environmentObject(userManager)
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
             sessionManager.getCurrentSession()
             
             // MARK: TESTS
-            userManager.user = Dummy.users.first!
+//            userManager.user = Dummy.users.first!
         }
     }
 }

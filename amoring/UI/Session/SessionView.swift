@@ -8,7 +8,38 @@
 import SwiftUI
 import NavigationStackBackport
 
+struct SessionFlow: View {
+    @StateObject var userManager: UserManager
+    
+    var body: some View {
+        ZStack {
+            switch userManager.userState {
+            case .initial:
+                EmptyView()
+            case .userOnboarding:
+                UserOnboardingView()
+//            case .imageUploading:
+//                UserOnboardingPhoto()
+//            case .interestsConnection:
+//                UserOnboardingIntro()
+            case .session:
+                SessionView()
+            case .businessOnboarding:
+                BusinessOnboardingView()
+            case .businessSession:
+                BusinessSessionView()
+            case .debugging:
+                Text("DEBUGGING")
+            case .error:
+                Text("ERROR")
+            }
+        }
+        .environmentObject(userManager)
+    }
+}
+
 struct SessionView: View {
+    @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var navigator: NavigationController
     
     var body: some View {

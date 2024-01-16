@@ -73,7 +73,13 @@
 		8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5462B50C5F20040E017 /* BusinessOnboardingController.swift */; };
 		8538D5492B50C9820040E017 /* BusinessSignUpPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5482B50C9820040E017 /* BusinessSignUpPassword.swift */; };
 		8538D54B2B50EE560040E017 /* BusinessOnboardingStep2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D54A2B50EE560040E017 /* BusinessOnboardingStep2.swift */; };
-		8538D54D2B512B630040E017 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8538D54C2B512B630040E017 /* schema.graphqls */; };
+		8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */ = {isa = PBXBuildFile; fileRef = 8538D5502B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi */; };
+		8538D5532B5607FD0040E017 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5522B5607FD0040E017 /* AppState.swift */; };
+		8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D55A2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql */; };
+		8538D55D2B5685A00040E017 /* QueryInterestCategories.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */; };
+		8538D55F2B5686AD0040E017 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8538D55E2B5686AD0040E017 /* schema.graphqls */; };
+		8538D5612B56A24C0040E017 /* graphqlAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5602B56A24C0040E017 /* graphqlAPI.swift */; };
+		8538D5642B56B2380040E017 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 8538D5632B56B2380040E017 /* QRCode */; };
 		853AFD4C2B1DB0890020A570 /* NavigationStackBackport in Frameworks */ = {isa = PBXBuildFile; productRef = 853AFD4B2B1DB0890020A570 /* NavigationStackBackport */; };
 		853AFD4E2B1DB2150020A570 /* NavigationAmoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */; };
 		853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */; };
@@ -229,7 +235,12 @@
 		8538D5462B50C5F20040E017 /* BusinessOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessOnboardingController.swift; sourceTree = "<group>"; };
 		8538D5482B50C9820040E017 /* BusinessSignUpPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpPassword.swift; sourceTree = "<group>"; };
 		8538D54A2B50EE560040E017 /* BusinessOnboardingStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessOnboardingStep2.swift; sourceTree = "<group>"; };
-		8538D54C2B512B630040E017 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		8538D5502B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadMyProfileImages.graphql_multi; sourceTree = "<group>"; };
+		8538D5522B5607FD0040E017 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		8538D55A2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationConnectInterestsToMyProfile.graphql; sourceTree = "<group>"; };
+		8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryInterestCategories.graphql; sourceTree = "<group>"; };
+		8538D55E2B5686AD0040E017 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		8538D5602B56A24C0040E017 /* graphqlAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = graphqlAPI.swift; sourceTree = "<group>"; };
 		853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAmoringController.swift; sourceTree = "<group>"; };
 		853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAuthController.swift; sourceTree = "<group>"; };
 		853AFD532B1DC6BF0020A570 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -296,6 +307,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8538D5642B56B2380040E017 /* QRCode in Frameworks */,
 				853AFD4C2B1DB0890020A570 /* NavigationStackBackport in Frameworks */,
 				8522A5F02B2AC912008AF703 /* CachedAsyncImage in Frameworks */,
 				8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */,
@@ -413,6 +425,7 @@
 		850A30082B0AE95B003B12B7 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8538D5602B56A24C0040E017 /* graphqlAPI.swift */,
 				850A300A2B0AEA09003B12B7 /* SessionManager.swift */,
 				85FC209E2B0D75AB00DC1950 /* UserManager.swift */,
 				85FC209C2B0D729300DC1950 /* Extensions.swift */,
@@ -596,12 +609,15 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				8538D54C2B512B630040E017 /* schema.graphqls */,
+				8538D55E2B5686AD0040E017 /* schema.graphqls */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
+				8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */,
 				8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */,
 				8538D52E2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql */,
 				8538D5362B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql */,
 				8538D53C2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql */,
+				8538D5502B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi */,
+				8538D55A2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -658,6 +674,7 @@
 				85E8E93B2B3109EE0054EBCE /* Message.swift */,
 				85E8E93D2B3119780054EBCE /* Reaction.swift */,
 				858862372B34FA9B009CC600 /* CheckIn.swift */,
+				8538D5522B5607FD0040E017 /* AppState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -734,6 +751,7 @@
 				85D0DED52B3534840029DA5D /* KakaoSDKCommon */,
 				85D0DED72B3534840029DA5D /* KakaoSDKUser */,
 				8523BAD32B4CDF560099CDE4 /* AmoringAPI */,
+				8538D5632B56B2380040E017 /* QRCode */,
 			);
 			productName = amoring;
 			productReference = 850A2FD92B0AE54B003B12B7 /* Amoring.app */;
@@ -819,6 +837,7 @@
 				85D0DED22B3534840029DA5D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				85D0DEDE2B3A5B760029DA5D /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios" */,
 				8523BACC2B4CD1050099CDE4 /* XCLocalSwiftPackageReference "AmoringAPI" */,
+				8538D5622B56B1E50040E017 /* XCRemoteSwiftPackageReference "QRCode" */,
 			);
 			productRefGroup = 850A2FDA2B0AE54B003B12B7 /* Products */;
 			projectDirPath = "";
@@ -844,15 +863,18 @@
 				8538D5372B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql in Resources */,
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
 				850A301C2B0AEF41003B12B7 /* Pretendard-ExtraBold.ttf in Resources */,
+				8538D55F2B5686AD0040E017 /* schema.graphqls in Resources */,
 				8538D53D2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql in Resources */,
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
+				8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */,
 				850A301E2B0AEF41003B12B7 /* Pretendard-Regular.ttf in Resources */,
+				8538D55D2B5685A00040E017 /* QueryInterestCategories.graphql in Resources */,
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
+				8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */,
 				851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */,
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
-				8538D54D2B512B630040E017 /* schema.graphqls in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
 				850A30242B0AEF41003B12B7 /* Pretendard-ExtraLight.ttf in Resources */,
 			);
@@ -974,6 +996,7 @@
 				85FB6B992B464F2A0023A889 /* Global.swift in Sources */,
 				85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */,
 				85FC209B2B0D717700DC1950 /* Constants.swift in Sources */,
+				8538D5532B5607FD0040E017 /* AppState.swift in Sources */,
 				85FC209F2B0D75AB00DC1950 /* UserManager.swift in Sources */,
 				850A2FDF2B0AE54B003B12B7 /* ContentView.swift in Sources */,
 				8538D52A2B4E2DF60040E017 /* CodeInputView.swift in Sources */,
@@ -986,6 +1009,7 @@
 				850A2FDD2B0AE54B003B12B7 /* amoringApp.swift in Sources */,
 				85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */,
 				85FC20982B0D70E300DC1950 /* User.swift in Sources */,
+				8538D5612B56A24C0040E017 /* graphqlAPI.swift in Sources */,
 				85FC207E2B0C510100DC1950 /* UserOnboardingAge.swift in Sources */,
 				850A30282B0AEFA9003B12B7 /* ScreenHelper.swift in Sources */,
 				85E8E9422B3140850054EBCE /* ListOfPeopleLikesLink.swift in Sources */,
@@ -1426,6 +1450,14 @@
 				minimumVersion = 2.1.1;
 			};
 		};
+		8538D5622B56B1E50040E017 /* XCRemoteSwiftPackageReference "QRCode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dagronf/QRCode.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 17.0.0;
+			};
+		};
 		853AFD4A2B1DB0890020A570 /* XCRemoteSwiftPackageReference "navigation-stack-backport" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lm/navigation-stack-backport.git";
@@ -1478,6 +1510,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8523BACC2B4CD1050099CDE4 /* XCLocalSwiftPackageReference "AmoringAPI" */;
 			productName = AmoringAPI;
+		};
+		8538D5632B56B2380040E017 /* QRCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8538D5622B56B1E50040E017 /* XCRemoteSwiftPackageReference "QRCode" */;
+			productName = QRCode;
 		};
 		853AFD4B2B1DB0890020A570 /* NavigationStackBackport */ = {
 			isa = XCSwiftPackageProductDependency;

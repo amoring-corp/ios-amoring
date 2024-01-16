@@ -10,6 +10,7 @@ import SwiftUI
 struct UserOnboardingAge: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var userManager: UserManager
     @State private var goToPhoto: Bool = false
     @State private var sheetPresented: Bool = false
     @State var age = 2000
@@ -24,7 +25,7 @@ struct UserOnboardingAge: View {
                 .padding(.bottom, Size.w(66))
             
             PickerButton {
-                if let age = controller.user.birthYear {
+                if let age = controller.userProfile.birthYear {
                     Text(age.description)
                         .foregroundColor(.black)
                         .font(medium18Font)
@@ -54,11 +55,13 @@ struct UserOnboardingAge: View {
             
             HStack {
                 Button(action: {
-                    goToPhoto = true
+                    userManager.createUserProfile(userProfile: controller.userProfile) { success in
+                        goToPhoto = success
+                    }
                 }) {
-                    NextBlackButton(enabled: controller.user.birthYear != nil)
+                    NextBlackButton(enabled: controller.userProfile.birthYear != nil)
                 }
-                .disabled(controller.user.birthYear == nil)
+                .disabled(controller.userProfile.birthYear == nil)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))
@@ -96,12 +99,12 @@ struct UserOnboardingAge: View {
                 .pickerStyle(.wheel)
                 .onAppear {
                     withAnimation {
-                        controller.user.birthYear = self.age
+                        controller.userProfile.birthYear = self.age
                     }
                 }
                 .onChange(of: age) { newAge in
                     withAnimation {
-                        controller.user.birthYear = newAge
+                        controller.userProfile.birthYear = newAge
                     }
                 }
             } : nil

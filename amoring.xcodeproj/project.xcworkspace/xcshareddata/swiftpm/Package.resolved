@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apollographql/apollo-ios.git",
       "state" : {
-        "revision" : "7e28eb75e9970edaba346a3c1eab1f8fc479a04d",
-        "version" : "1.7.1"
+        "revision" : "ff54632b8740ecfb858bae4630d822e615c7ef1c",
+        "version" : "1.8.0"
       }
     },
     {
@@ -82,12 +82,39 @@
       }
     },
     {
+      "identity" : "qrcode",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/QRCode.git",
+      "state" : {
+        "revision" : "13c605cfa866e257ac9d4ac8a47320a0e11fb6e0",
+        "version" : "17.0.0"
+      }
+    },
+    {
       "identity" : "sqlite.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stephencelis/SQLite.swift.git",
       "state" : {
         "revision" : "7a2e3cd27de56f6d396e84f63beefd0267b55ccb",
         "version" : "0.14.1"
+      }
+    },
+    {
+      "identity" : "swift-qrcode-generator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/swift-qrcode-generator",
+      "state" : {
+        "revision" : "2b1980b825f08a81ccc762b0c4d17fcde9d5e953",
+        "version" : "2.0.2"
+      }
+    },
+    {
+      "identity" : "swiftimagereadwrite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/SwiftImageReadWrite",
+      "state" : {
+        "revision" : "02c141026a0c5d74635a457d2d0964c4cb8935b3",
+        "version" : "1.4.1"
       }
     },
     {

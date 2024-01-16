@@ -9,42 +9,42 @@ import SwiftUI
 import CachedAsyncImage
 
 struct ExpandedView: View {
-    let user: User
+    let userProfile: UserProfile
     
     private func pictures() -> [String] {
-        var temp: [String] = []
-        if let pics = user.pictures, pics.count > 2 {
-            temp = pics
+        var temp: [UserProfileImage] = []
+        if userProfile.images.count > 2 {
+            temp = userProfile.images
             temp.removeFirst()
         }
-        return temp
+        return temp.map({ $0.file?.url ?? "" })
     }
     
     var body: some View {
         VStack(spacing: 0) {
-            if user.height != nil || user.weight != nil || user.job != nil || user.education != nil || user.mbti != nil {
+            if userProfile.height != nil || userProfile.weight != nil || userProfile.occupation != nil || userProfile.education != nil || userProfile.mbti != nil {
                 VStack(alignment: .leading) {
                     Text("기본정보")
                         .font(bold26Font)
                         .foregroundColor(.black)
                     
                     TagCloudView(tags: [
-                        user.height.toHeight(),
-                        user.weight.toWeight(),
-                        user.job?.description,
-                        user.education?.description,
-                        user.mbti?.rawValue,
+                        userProfile.height.toHeight(),
+                        userProfile.weight.toWeight(),
+                        userProfile.occupation?.description,
+                        userProfile.education?.description,
+                        userProfile.mbti,
                     ])
                 }
                 .padding(Size.w(22))
                 .background(Color.yellow350)
             }
-            if !user.interests.isEmpty {
+            if !userProfile.interests.isEmpty {
                 VStack(alignment: .leading) {
                     Text("관심사")
                         .font(bold26Font)
                         .foregroundColor(.black)
-                    let tags: [String] = user.interests.map { $0.title }
+                    let tags: [String] = userProfile.interests.map { $0.name }
                     TagCloudView(tags: tags)
                 }
                 .padding(Size.w(22))
@@ -75,18 +75,18 @@ struct ExpandedView: View {
     
     @ViewBuilder
     private func BasicInfo() -> some View {
-        if user.height != nil || user.weight != nil || user.job != nil || user.education != nil || user.mbti != nil {
+        if userProfile.height != nil || userProfile.weight != nil || userProfile.occupation != nil || userProfile.education != nil || userProfile.mbti != nil {
             VStack(alignment: .leading) {
                 Text("기본정보")
                     .font(bold26Font)
                     .foregroundColor(.black)
                 
                 TagCloudView(tags: [
-                    user.height.toHeight(),
-                    user.weight.toWeight(),
-                    user.job?.description,
-                    user.education?.description,
-                    user.mbti?.rawValue,
+                    userProfile.height.toHeight(),
+                    userProfile.weight.toWeight(),
+                    userProfile.occupation,
+                    userProfile.education,
+                    userProfile.mbti,
                 ])
             }
             .padding(Size.w(22))
@@ -96,12 +96,12 @@ struct ExpandedView: View {
     
     @ViewBuilder
     private func InterestsView() -> some View {
-        if !user.interests.isEmpty {
+        if !userProfile.interests.isEmpty {
             VStack(alignment: .leading) {
                 Text("관심사")
                     .font(bold26Font)
                     .foregroundColor(.black)
-                let tags: [String] = user.interests.map { $0.title }
+                let tags: [String] = userProfile.interests.map { $0.name }
                 TagCloudView(tags: tags)
             }
             .padding(Size.w(22))
@@ -111,5 +111,5 @@ struct ExpandedView: View {
 }
 
 #Preview {
-    ExpandedView(user: Dummy.users.first!)
+    ExpandedView(userProfile: UserProfile(id: "", images: [], interests: []))
 }

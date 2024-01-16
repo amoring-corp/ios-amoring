@@ -13,11 +13,11 @@ struct BusinessOnboardingView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var name: String = ""
-    @State var representative: String = ""
-    @State var type: String = ""
-    @State var category: String = ""
+    @State var representativeName: String = ""
+    @State var businessType: String = ""
+    @State var businessIndustry: String = ""
     @State var address: String = ""
-    @State var number: String = ""
+    @State var registrationNumber: String = ""
     
     @State var next: Bool = false
     @State var presentImporter: Bool = false
@@ -56,9 +56,9 @@ struct BusinessOnboardingView: View {
                                         //                                        name = String(newValue.prefix(20))
                                         //                                    }
                                         if(newValue.count >= 1){
-                                            controller.business.name = newValue
+                                            controller.business.businessName = newValue
                                         } else {
-                                            controller.business.name = nil
+                                            controller.business.businessName = nil
                                         }
                                     })
                             }
@@ -70,12 +70,12 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "대표자명을 입력해주세요.", text: $representative, font: regular18Font)
-                                    .onChange(of: name, perform: { newValue in
+                                CustomTextField(placeholder: "대표자명을 입력해주세요.", text: $representativeName, font: regular18Font)
+                                    .onChange(of: representativeName, perform: { newValue in
                                         if(newValue.count >= 1){
-                                            controller.business.representative = newValue
+                                            controller.business.representativeName = newValue
                                         } else {
-                                            controller.business.representative = nil
+                                            controller.business.representativeName = nil
                                         }
                                     })
                             }
@@ -87,12 +87,12 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "사업자등록증의 업태를 입력하세요.", text: $category, font: regular18Font)
-                                    .onChange(of: name, perform: { newValue in
+                                CustomTextField(placeholder: "사업자등록증의 업태를 입력하세요.", text: $businessType, font: regular18Font)
+                                    .onChange(of: businessType, perform: { newValue in
                                         if(newValue.count >= 1){
-                                            controller.business.category = newValue
+                                            controller.business.businessType = newValue
                                         } else {
-                                            controller.business.category = nil
+                                            controller.business.businessType = nil
                                         }
                                     })
                             }
@@ -104,12 +104,12 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "사업자등록증의 종목을 입력하세요.", text: $type, font: regular18Font)
-                                    .onChange(of: name, perform: { newValue in
+                                CustomTextField(placeholder: "사업자등록증의 종목을 입력하세요.", text: $businessIndustry, font: regular18Font)
+                                    .onChange(of: businessIndustry, perform: { newValue in
                                         if(newValue.count >= 1){
-                                            controller.business.type = newValue
+                                            controller.business.businessIndustry = newValue
                                         } else {
-                                            controller.business.type = nil
+                                            controller.business.businessIndustry = nil
                                         }
                                     })
                             }
@@ -138,12 +138,12 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "000 - 00 - 00000", text: $number, font: regular18Font)
-                                    .onChange(of: name, perform: { newValue in
+                                CustomTextField(placeholder: "000 - 00 - 00000", text: $registrationNumber, font: regular18Font)
+                                    .onChange(of: registrationNumber, perform: { newValue in
                                         if(newValue.count >= 1){
-                                            controller.business.number = newValue
+                                            controller.business.registrationNumber = newValue
                                         } else {
-                                            controller.business.number = nil
+                                            controller.business.registrationNumber = nil
                                         }
                                     })
                             }

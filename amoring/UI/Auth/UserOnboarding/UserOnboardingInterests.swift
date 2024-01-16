@@ -9,9 +9,10 @@ import SwiftUI
 
 struct UserOnboardingInterests: View {
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var selectedInterests: [String] = []
+    @State var selectedInterests: [(String, String)] = []
     
     @State var next: Bool = false
     @State var contentOffset: CGFloat = 0
@@ -35,7 +36,7 @@ struct UserOnboardingInterests: View {
                             .padding(.horizontal, Size.w(14))
                             .padding(.bottom, Size.w(40))
                         
-                        ForEach(InterestCategory.allCases, id: \.self) { cat in
+                        ForEach(userManager.interestCategories, id: \.self) { cat in
                             TagCloudViewSelectable(cat: cat, selectedInterests: $selectedInterests)
                                 .frame(maxWidth: .infinity)
                                 .padding(.bottom, Size.w(30))
@@ -66,7 +67,9 @@ struct UserOnboardingInterests: View {
                     .padding(.top, Size.w(25))
                 
                 Button(action: {
-                    next = true
+                    userManager.connectInterests(ids: selectedInterests.map{ $0.0 }) { success in
+                        next = success
+                    }
                 }) {
                     NextBlackButton()
                 }
@@ -79,6 +82,9 @@ struct UserOnboardingInterests: View {
             .shadow(color: Color.black.opacity(0.1), radius: 50, y: -20)
         }
         .navigationBarHidden(true)
+        .onAppear {
+            userManager.getInterests()
+        }
         //        .navigationBarItems(leading:
         //                                Button(action: {
         //            self.presentationMode.wrappedValue.dismiss()

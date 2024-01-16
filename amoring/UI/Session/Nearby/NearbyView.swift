@@ -215,7 +215,7 @@ struct BusinessListView: View {
             case .all:
                 self.businesses = self.businessesInit
             default:
-                self.businesses = self.businessesInit.filter { $0.type == newType.title() }
+                self.businesses = self.businessesInit.filter { $0.businessCategory == newType.title() }
             }
             
             switch self.district {
@@ -238,7 +238,7 @@ struct BusinessListView: View {
             case .all:
                 self.businesses = self.businesses
             default:
-                self.businesses = self.businesses.filter { $0.type == self.type.title() }
+                self.businesses = self.businesses.filter { $0.businessCategory == self.type.title() }
             }
         }
         
@@ -251,10 +251,10 @@ struct BusinessListView: View {
             // TODO: Implement recommendations
             self.businesses = self.businesses.sorted(by: { $0.district ?? "" > $1.district ?? ""})
         case .name:
-            self.businesses = self.businesses.sorted(by: { $0.name ?? "" < $1.name ?? ""})
+            self.businesses = self.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
         case .distance:
             // TODO: Implement distance
-            self.businesses = self.businesses.sorted(by: { $0.number ?? "" > $1.number ?? ""})
+            self.businesses = self.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
         }
     }
 }
@@ -283,11 +283,11 @@ struct BusinessRow: View {
             )
             
             VStack(alignment: .leading, spacing: Size.w(10)) {
-                Text(business.name ?? "")
+                Text(business.businessName ?? "")
                     .font(semiBold20Font)
                     .foregroundColor(.gray200)
                 HStack {
-                    Text("\(business.type ?? "")  |  \(business.district ?? "")")
+                    Text("\(business.businessCategory ?? "")  |  \(business.district ?? "")")
                     
                     Spacer()
                     

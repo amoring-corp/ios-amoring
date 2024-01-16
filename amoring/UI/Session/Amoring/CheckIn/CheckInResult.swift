@@ -107,7 +107,7 @@ struct CheckInResult: View {
                     Button(action: {
                         withAnimation {
                             //                            // TODO: pass business id here
-                            amoringController.checkIn = CheckIn(userId: userManager.user?.id, businessId: resultString.count, place: resultString, checkedInAt: Date(), checkedOutAt: nil)
+                            amoringController.checkIn = CheckIn(userId: userManager.user?.id, businessId: resultString, place: resultString, checkedInAt: Date(), checkedOutAt: nil)
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     }) {

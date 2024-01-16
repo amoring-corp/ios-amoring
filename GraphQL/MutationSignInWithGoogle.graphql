@@ -6,6 +6,58 @@ mutation signInWithGoogle($idToken: String!) {
       email
       status
       role
+      userProfile {
+        id
+        userId
+        name
+        age
+        birthYear
+        height
+        weight
+        mbti
+        education
+        occupation
+        bio
+        gender
+        images {
+            id
+            profileId
+            fileId
+            sort
+            file {
+                id
+                name
+                mimetype
+                url
+                path
+                createdAt
+                updatedAt
+            }
+            createdAt
+            updatedAt
+        }
+        interests {
+            id
+            name
+            categoryId
+            category {
+                id
+                name
+                interests {
+                    id
+                }
+                createdAt
+                updatedAt
+            }
+            createdAt
+            updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      business {
+        id
+      }
       createdAt
       updatedAt
     }

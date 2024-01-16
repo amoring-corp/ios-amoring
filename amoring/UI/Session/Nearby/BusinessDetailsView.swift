@@ -43,17 +43,17 @@ struct BusinessDetailsView: View {
                             )
                             .padding(.bottom, Size.w(30))
                             
-                            Text(business.name ?? "")
+                            Text(business.businessName ?? "")
                                 .font(extraBold28Font)
                                 .foregroundColor(.yellow200)
                                 .padding(.bottom, Size.w(12))
                             
-                            Text("\(business.type ?? "")  |  \(business.district ?? "")")
+                            Text("\(business.businessCategory ?? "")  |  \(business.district ?? "")")
                                 .font(regular18Font)
                                 .foregroundColor(.yellow200)
                                 .padding(.bottom, Size.w(30))
                             
-                            Text(business.description ?? "")
+                            Text(business.bio ?? "")
                                 .font(regular16Font)
                                 .foregroundColor(.yellow300)
                                 .lineSpacing(6)
@@ -81,7 +81,7 @@ struct BusinessDetailsView: View {
                                     Alert(title: Text("Address: '\(business.address ?? "")' successfully copied to clipboard"))
                                 }
                                 
-                                if let phone = business.phone {
+                                if let phone = business.phoneNumber {
                                     Button(action: {
                                         let telephone = "tel://"
                                         let formattedString = telephone + phone
@@ -152,7 +152,7 @@ struct BusinessDetailsView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(business.name ?? "noname")
+                    Text(business.businessName ?? "noname")
                         .font(medium20Font)
                         .foregroundColor(.yellow300)
                 }

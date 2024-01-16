@@ -8,8 +8,8 @@
 import Foundation
 
 struct Reaction: Hashable {
-    let byUserId: Int
-    let toUserId: Int
+    let byUserId: String
+    let toUserId: String
     var createdAt: Date?
     var updatedAt: Date?
     var like: Bool

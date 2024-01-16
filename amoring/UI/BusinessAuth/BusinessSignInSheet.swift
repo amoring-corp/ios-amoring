@@ -90,11 +90,10 @@ struct BusinessSignInSheet: View {
                     .padding(.bottom, Size.w(22))
                 
                 Button(action: {
-                    withAnimation {
-//                        sessionManager.businessSignIn(email: email, password: password)
-                        sessionManager.goToBusinessOnboarding = true
-                        sessionManager.businessSignedIn = true
-                    }
+//                    withAnimation {
+                        sessionManager.businessSignIn(email: email, password: password)
+//                        sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
+//                    }
                 }) {
                     FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled)
                 }

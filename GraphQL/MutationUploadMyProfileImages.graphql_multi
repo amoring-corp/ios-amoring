@@ -1,10 +1,5 @@
-mutation uploadMyProfileImages($image: Upload!) {
-  uploadMyProfileImages(data: [
-    {
-      sort: 0
-      file: $image
-    }
-  ]) {
+mutation uploadMyProfileImages($data: [UserProfileImageInput!]!) {
+  uploadMyProfileImages(data: $data) {
     id
     profileId
     fileId

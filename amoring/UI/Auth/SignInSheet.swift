@@ -56,7 +56,7 @@ struct SignInSheet: View {
                         .resizable()
                         .scaledToFit()
                         .onTapGesture {
-                            self.goNext()
+                            self.sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
                         }
                     Spacer().frame(maxWidth: Size.w(20))
                     Image("SNS-facebook")
@@ -64,7 +64,7 @@ struct SignInSheet: View {
                         .scaledToFit()
                         .onTapGesture {
                             withAnimation {
-                                sessionManager.signedIn = true
+                                sessionManager.appState = .session(user: User(id: "dummy"))
                             }
                         }
                     //                    Button(action: goNext) {
@@ -122,16 +122,6 @@ struct SignInSheet: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .transition(.move(edge: .bottom))
-    }
-    
-    private func goNext() {
-        //        if user.exists {
-        //            go to session
-        //        } else {
-        withAnimation {
-            sessionManager.goToUserOnboarding = true
-        }
-        //        }
     }
 }
 

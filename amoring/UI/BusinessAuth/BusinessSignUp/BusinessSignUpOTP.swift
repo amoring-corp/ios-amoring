@@ -114,12 +114,7 @@ struct BusinessSignUpOTP: View {
     
     private func signUp() {
         if controller.confirmCode == "123456" {
-            DispatchQueue.main.async {
-                withAnimation {
-                    sessionManager.goToBusinessOnboarding = true
-                    sessionManager.businessSignedIn = true
-                }
-            }
+            sessionManager.changeStateWithAnimation(state: .session(user: User(id: "")))
         } else {
             self.bordersColor = Color.red700
             self.error = "인증번호가 일치하지 않습니다."

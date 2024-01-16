@@ -13,7 +13,7 @@ class MessagesController: ObservableObject {
     @Published var conversations: [Conversation] = Dummy.conversations
     @Published var alertPresented = false
     
-    func delete(id: Int) {
+    func delete(id: String) {
         withAnimation {
             self.conversations.removeAll(where: { $0.id == id })
         }

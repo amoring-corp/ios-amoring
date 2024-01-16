@@ -31,16 +31,16 @@ struct UserOnboardingBio: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             if #available(iOS 16.0, *) {
-                MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.user.bio ?? "")
+                MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.userProfile.bio ?? "")
                     .layoutPriority(2)
             } else {
-                CustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.user.bio ?? "", font: semiBold18Font)
+                CustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.userProfile.bio ?? "", font: semiBold18Font)
             }
             
             Spacer()
-                .onChange(of: controller.user.bio ?? "", perform: { newValue in
+                .onChange(of: controller.userProfile.bio ?? "", perform: { newValue in
                     if(newValue.count >= charLimit){
-                        controller.user.bio = String(newValue.prefix(charLimit))
+                        controller.userProfile.bio = String(newValue.prefix(charLimit))
                     }
                 })
             
@@ -67,8 +67,8 @@ struct UserOnboardingBio: View {
                         .padding(20)
                 } else {
                     Button(action: {
-                        userManager.createUserProfile(user: controller.user) { success in
-                            print(controller.user)
+                        userManager.updateUserProfile(userProfile: controller.userProfile) { success in
+                            print(controller.userProfile)
                             self.success = success
                         }
                     }) {

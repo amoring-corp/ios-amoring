@@ -6,23 +6,53 @@
 //
 
 import SwiftUI
+import QRCode
 
 struct BusinessSessionView: View {
+    @EnvironmentObject var userManager: UserManager
+    
     @State var xOffset: CGFloat = 0
+    @State var isLoading = false
+    @State var expired = false
+    @State var qrcode: QRCode.Document? = nil
     
     var body: some View {
         GeometryReader { geometry in
-        NavigationView {
-       
+            NavigationView {
                 VStack {
                     Spacer()
                     
                     ZStack {
-                        Color.gray
-                        Text("QR CODE")
+                        if isLoading {
+                            ProgressView()
+                        } else {
+                            if let qrcode = qrcode {
+                                ZStack {
+                                    QRCodeDocumentUIView(document: qrcode)
+                                        .blur(radius: expired ? 3 : 0)
+                                        .opacity(expired ? 0.4 : 1)
+                                    if expired {
+                                        Button(action: {}) {
+                                            Image("ic-error-refresh")
+                                                .resizable()
+                                                .foregroundColor(.white)
+                                                .scaledToFit()
+                                                .frame(width: Size.w(60), height: Size.w(60))
+                                                .padding(10)
+                                                .background(Color.green400)
+                                                .frame(width: Size.w(80), height: Size.w(80))
+                                                .clipShape(Circle())
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                    .frame(width: 200, height: 200)
-                    .cornerRadius(30)
+                    .frame(width: Size.w(200), height: Size.w(200))
+                    .padding(7)
+                    .background(Color.white)
+                    .cornerRadius(15)
+                    .padding(.bottom, Size.h(32))
                     
                     Spacer()
                     
@@ -44,6 +74,7 @@ struct BusinessSessionView: View {
                     }
                     .disabled(true)
                     .onAppear {
+                        initialize()
                         withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
                             xOffset = -size * Double(images.count)
                         }
@@ -72,6 +103,45 @@ struct BusinessSessionView: View {
                 .background(Color.gray)
                 .cornerRadius(15)
                 .frame(width: size, height: size)
+        }
+    }
+    
+    private func initialize() {
+//        guard let name = userManager.user?.business?.businessName else { return }
+        let name = "AMORING"
+        self.isLoading = true
+        
+//        let contact = QRContact(id: id, n: userManager.apiNodeUser.name, f: userManager.apiNodeUser.familyName, e: email, d: expirationDate)
+//        let jsonEncoder = JSONEncoder()
+        do {
+//            let jsonData = try jsonEncoder.encode(contact)
+//            if let json = String(data: jsonData, encoding: String.Encoding.utf8) {
+                let qrcodeDoc: QRCode.Document = {
+                    let doc = QRCode.Document(generator: QRCodeGenerator_External())
+                    doc.utf8String = name
+                    doc.design.shape.onPixels = QRCode.PixelShape.Squircle(insetFraction: 0.1)
+                    doc.design.shape.eye = QRCode.EyeShape.Squircle()
+                    doc.errorCorrection = .high
+                    let image = UIImage(named: "LOGO")!
+                    
+                    // Centered square logo
+                    doc.logoTemplate = QRCode.LogoTemplate(
+                        image: image.cgImage!,
+                        path: CGPath(rect: CGRect(x: 0.40, y: 0.40, width: 0.20, height: 0.20), transform: nil),
+                        inset: 2
+                    )
+                    return doc
+                }()
+                self.qrcode = qrcodeDoc
+//            }
+            withAnimation {
+                isLoading = false
+            }
+        } catch {
+            withAnimation {
+                isLoading = false
+            }
+            print("Error while encoding to json!")
         }
     }
 }

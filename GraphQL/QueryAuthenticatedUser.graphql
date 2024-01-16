@@ -9,8 +9,23 @@ query QueryAuthenticatedUser {
       userId
       name
       age
+      birthYear
+      height
+      weight
+      mbti
+      education
+      occupation
       bio
       gender
+      images {
+        file {
+          url
+        }
+      }
+      interests {
+        id
+        name
+      }
       createdAt
       updatedAt
     }
@@ -18,11 +33,17 @@ query QueryAuthenticatedUser {
       id
       ownerId
       businessName
+      businessType
+      businessIndustry
+      businessCategory
       address
+      bio
       representativeTitle
       representativeName
       phoneNumber
       registrationNumber
+      latitude
+      longitude
       createdAt
       updatedAt
     }

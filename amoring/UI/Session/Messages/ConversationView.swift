@@ -22,7 +22,7 @@ struct ConversationView: View, KeyboardReadable {
         if let conversation = navigator.selectedConversation {
             let messages = conversation.messages
             let companion = conversation.participants.first!
-            let url = companion.pictures?.first ?? ""
+            let url = companion.userProfile?.images.first?.file?.url ?? ""
             
             ScrollViewReader { proxy in
                 ZStack(alignment: .bottom) {
@@ -87,7 +87,7 @@ struct ConversationView: View, KeyboardReadable {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(companion.name ?? "")
+                    Text(companion.userProfile?.name ?? "")
                         .font(medium20Font)
                         .foregroundColor(.yellow300)
                 }
@@ -125,7 +125,7 @@ struct ConversationView: View, KeyboardReadable {
     func sendMessage(_ proxy: ScrollViewProxy) {
         if !newMessage.isEmpty {
             withAnimation {
-                navigator.selectedConversation?.messages.append(Message(id: navigator.selectedConversation?.messages.count ?? 0 + 1, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? 0, recipients: [], createdAt: Date(), updatedAt: Date()))
+                navigator.selectedConversation?.messages.append(Message(id: navigator.selectedConversation?.messages.count ?? 0 + 1, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", recipients: [], createdAt: Date(), updatedAt: Date()))
                 
                 newMessage = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -141,7 +141,7 @@ struct ConversationView: View, KeyboardReadable {
     @ViewBuilder
     func header() -> some View {
         let companion = navigator.selectedConversation?.participants.first!
-        let url = companion?.pictures?.first ?? ""
+        let url = companion?.userProfile?.images.first?.file?.url ?? ""
         
         VStack {
             AsyncImage(url: URL(string: url), content: { image in

@@ -17,7 +17,7 @@ struct ProfilesView: View {
     @State var countDown: TimeInterval? = nil
     
     @State var swipeAction: SwipeAction = .doNothing
-    @State var users: [User] = Dummy.users
+    @State var userProfiles: [UserProfile] = Dummy.userProfiles
     @State var timer: Timer? = nil
     
     //    var onSwiped: (User, Bool) -> ()
@@ -62,7 +62,7 @@ struct ProfilesView: View {
                         .multilineTextAlignment(.center)
                     Button(action: {
                         withAnimation {
-                            self.users = Dummy.users
+                            self.userProfiles = Dummy.userProfiles
                         }
                     }) {
                         Image(systemName: "arrow.clockwise.circle")
@@ -73,15 +73,16 @@ struct ProfilesView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
                 
-                ForEach(users.indices, id: \.self) { index  in
-                    let user: User = users[index]
+                ForEach(userProfiles.indices) { index  in
+//                    let userProfile = userProfiles[index]
                     
-                    if (index == users.count - 1) {
-                        SwipibleProfileVIew(user: user, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $likes)
-                    } else if (index == users.count - 2) {
+                    if (index == userProfiles.count - 1) {
+                        Text("d")
+//                        SwipibleProfileVIew(userProfile: userProfiles[index], swipeAction: $swipeAction, onSwiped: performSwipe, likes: $likes)
+                    } else if (index == userProfiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
-                                ProfileCardView(user: user,
+                                ProfileCardView(userProfile: userProfiles[index],
                                                 width: reader.size.width - Size.w(44),
                                                 height: reader.size.height - (Size.w(75 + 56))
                                 )
@@ -156,13 +157,13 @@ struct ProfilesView: View {
     }
     
     private func removeTopItem() {
-        users.removeLast()
+        userProfiles.removeLast()
     }
 }
 
-#Preview {
-    SessionView()
-}
+//#Preview {
+//    SessionView()
+//}
 
 //
 //#Preview {

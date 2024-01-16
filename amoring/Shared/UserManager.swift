@@ -10,12 +10,99 @@ import AmoringAPI
 import Apollo
 
 class UserManager: ObservableObject {
+    @Published var userState: UserState = .initial
+    @AppStorage("sessionToken") var sessionToken: String = ""
+    let authUser: User
     @Published var user: User? = nil
     @Published var isLoading: Bool = false
+    @Published var interestCategories: [InterestCategory] = []
     
-    func createUserProfile(user: User, completion: @escaping (Bool) -> Void) {
+    @Published var amoring: ApolloClient = {
+        let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
+        
+        let configuration = URLSessionConfiguration.default
+        guard let sessionToken = UserDefaults.standard.string(forKey: "sessionToken") else {
+            return ApolloClient(url: URL(string: "https://amoring-be.antonmaker.com/graphql")!)
+        }
+        print(sessionToken)
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
+        
+        let client = URLSessionClient(sessionConfiguration: configuration)
+        let store = ApolloStore(cache: InMemoryNormalizedCache())
+        let provider = DefaultInterceptorProvider(client: client, store: store)
+        let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
+        
+        return ApolloClient(networkTransport: networkTransport, store: store)
+    }()
+    
+    func reInitAmoring() {
+        amoring = {
+            let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
+            
+            let configuration = URLSessionConfiguration.default
+            configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
+            
+            let client = URLSessionClient(sessionConfiguration: configuration)
+            let store = ApolloStore(cache: InMemoryNormalizedCache())
+            let provider = DefaultInterceptorProvider(client: client, store: store)
+            let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
+            
+            return ApolloClient(networkTransport: networkTransport, store: store)
+        }()
+    }
+    
+    init(authUser: User) {
+        self.authUser = authUser
+        self.user = authUser
+        reInitAmoring()
+        guard let role = authUser.role else {
+            print("NO ROLE!")
+            self.changeStateWithAnimation(state: .error)
+            return
+        }
+        
+        switch role {
+        case .business:
+            print("I'm a business")
+            
+//            if let businessProfile = authUser.business {
+//                print("going to Business Session")
+//                print(businessProfile)
+//                //TODO:  pass whole business user here!
+                self.changeStateWithAnimation(state: .businessSession)
+//            } else {
+//                print("Business not onboarded yet")
+//                self.changeStateWithAnimation(state: .businessOnboarding)
+//            }
+        case .user:
+            print("I'm a user")
+
+            if let userProfile = authUser.userProfile, !userProfile.interests.isEmpty {
+//                if userProfile.images.isEmpty {
+//                    print("going to Image uploading")
+//                    print(userProfile.images.first?.file?.url as Any)
+//                    self.changeStateWithAnimation(state: .imageUploading)
+//                } else if userProfile.interests.isEmpty {
+//                    print("going to Interests Connecting")
+//                    self.changeStateWithAnimation(state: .interestsConnection)
+//                } else {
+                    print("going to User Session")
+                    self.changeStateWithAnimation(state: .session)
+//                }
+            } else {
+                print("User not onboarded yet")
+                self.changeStateWithAnimation(state: .userOnboarding)
+            }
+        case .admin:
+            print("I'm an admin")
+            self.changeStateWithAnimation(state: .debugging)
+        }
+    }
+    
+    func createUserProfile(userProfile: UserProfile, completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        NetworkService.shared.amoring.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(user.data))) { result in
+        let input = UserProfileData(userProfile: userProfile).data
+        amoring.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -32,8 +119,8 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                self.user = user
-                print("User was successfully onboarded!")
+                self.user?.userProfile = userProfile
+                print("User Profile was successfully created!")
                 self.isLoading = false
                 completion(true)
             case .failure(let error):
@@ -44,109 +131,160 @@ class UserManager: ObservableObject {
         }
     }
     
-    func uploadMyProfileImages(images: [UIImage], completion: @escaping (String?) -> Void) {
+    func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
         
-        var inputArray: [UserProfileImageInput] = []
-        var files: [GraphQLFile] = []
-        
+        let dispatchGroup = DispatchGroup()
         for (index,image) in images.enumerated(){
-            let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 102, height: 102))
+            let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
             if let data = resizedImage!.jpegData(compressionQuality: 1.0) {
-//                guard let file = Upload(data: data, encoding: .utf8) else {
-//                    print("error")
-//                    completion(nil)
-//                    return
-//                }
-//                let file = GraphQLFile(fieldName: "image\(index)", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
-                let file = GraphQLFile(fieldName: "image0", originalName: "image0", data: data)
-                
-//                let sort = GraphQLNullable<Int>(integerLiteral: index)
-//                let imageInput = UserProfileImageInput(sort: sort, file: "$image\(index)")
-//                print("imageInput: \(imageInput)")
-//                inputArray.append(imageInput)
-                files.append(file)
-                
+                dispatchGroup.enter()
+
+                // TODO: test with image\(index).jpeg
+                let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+                self.saveImage(file: file) { success in
+                    dispatchGroup.leave()
+                }
             } else {
                 print("wrong image data!")
+                completion(true)
             }
         }
-        print("sending: \(files.map({ $0.fieldName }))")
-        print("sending: \(inputArray.map({ $0.file.description }))")
-        
-//        NetworkService.shared.amoring.perform(mutation: UploadMyProfileImagesMutation(image0: "image0")) { result in
-        NetworkService.shared.amoring.upload(operation: UploadMyProfileImagesMutation(image0: "image0"), files: files) { result in
+        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+            
+            self.isLoading = false
+            print("sending: \(images.count) images finished")
+            completion(true)
+        })
+    }
+    
+    
+    private func saveImage(file: GraphQLFile, completion: @escaping (Bool) -> Void) {
+        amoring.upload(operation: UploadMyProfileImagesMutation(image: "image"), files: [file]) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors)
-                    self.isLoading = false
-                    completion(nil)
+                    completion(false)
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
-                    self.isLoading = false
-                    completion(nil)
+                    completion(false)
                     return
                 }
                 
-                print("Images was successfully uploaded!")
+                print("Image was successfully uploaded!")
                 print(data.uploadMyProfileImages)
-                self.isLoading = false
-                completion(data.uploadMyProfileImages.description)
+                completion(true)
             case .failure(let error):
                 print(error)
                 debugPrint(error.localizedDescription)
-                self.isLoading = false
-                completion(nil)
+                completion(false)
             }
         }
     }
     
-    func updateUserProfile(
-        name: String? = nil,
-        age: Int? = nil,
-        birthYear: Int? = nil,
-        height: Int? = nil,
-        weight: Int? = nil,
-        mbti: String? = nil,
-        education: String? = nil,
-        bio: String? = nil,
-        gender: String? = nil
-    ) {
-        // MARK: Or same as create?
-        var data = InputDict([:])
-        
-        if let name { data["name"] = name }
-        if let age { data["age"] = age }
-        if let birthYear { data["birthYear"] = birthYear }
-        // FIXME: after deploy 'height'
-        if let height { data["heigth"] = height }
-        if let weight { data["weight"] = weight }
-        if let mbti { data["mbti"] = mbti }
-        if let education { data["education"] = education }
-        if let bio { data["bio"] = bio }
-        if let gender { data["gender"] = gender }
-        
-        NetworkService.shared.amoring.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(data))) { result in
+    func connectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        amoring.perform(mutation: ConnectInterestsToMyProfileMutation(interestIds: ids)) { result in
+            self.isLoading = false
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors)
+                    completion(false)
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print(data.connectInterestsToMyProfile.interests)
+                completion(true)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func updateUserProfile(userProfile: UserProfile, completion: @escaping (Bool) -> Void) {
+        let input = UserProfileData(userProfile: userProfile).data
+        
+        amoring.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
                     return
                 }
                 
                 print(data.upsertMyUserProfile)
-                
+                self.user?.userProfile = userProfile
+                completion(true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func getInterests() {
+        amoring.fetch(query: QueryInterestCategoriesQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+//                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    //                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    return
+                }
+                
+                let cats = data.interestCategories
+                
+                for cat in cats {
+                    var category = InterestCategory(
+                        id: cat?.id ?? "",
+                        name: cat?.name ?? "",
+                        interests: []
+                    )
+                    
+                    if let interests = cat?.interests {
+                        for interest in interests {
+                            category.interests?.append(interest.map{ Interest(id: $0.id, name: $0.name ?? "") }!)
+                        }
+                    }
+                    
+                    self.interestCategories.append(category)
+                }
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                //                    self.interests = Constants.interests //TODO: put dummy or default categories
+            }
+        }
+    }
+    
+    func changeStateWithAnimation(state: UserState) {
+        DispatchQueue.main.async {
+            withAnimation {
+                self.userState = state
             }
         }
     }

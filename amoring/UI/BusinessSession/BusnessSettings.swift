@@ -57,13 +57,7 @@ struct BusnessSettings: View {
                     Text("Reset password")
                 }
                 
-                Button(action: {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            sessionManager.businessSignedIn = false
-                        }
-                    }
-                }) {
+                Button(action: sessionManager.signOut) {
                     Text("Logout")
                 }
                 

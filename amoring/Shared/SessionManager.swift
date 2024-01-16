@@ -16,93 +16,106 @@ import Apollo
 import AmoringAPI
 
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
-    @Published var isLoading: Bool = true
-    @Published var goToUserOnboarding = false
-    @Published var goToBusinessOnboarding = false
+    @Published var appState: AppState = .loading
     
-    @AppStorage("signedIn") var signedIn: Bool = false
-    @AppStorage("isBusiness") var businessSignedIn: Bool = false
-    
+//    @Published var isLoading: Bool = true
+//    @Published var goToUserOnboarding = false
+//    @Published var goToBusinessOnboarding = false
+//    
+//    @AppStorage("signedIn") var signedIn: Bool = false
+//    @AppStorage("isBusiness") var businessSignedIn: Bool = false
+//    
     @AppStorage("sessionToken") var sessionToken: String = ""
+    @Published var token: String = ""
 //    @Published var signedIn: Bool = false
 //    @Published var isBusiness: Bool = true
     
+//    func getCurrentSession() {
+//        self.appState = .loading
+//        api.authenticatedUserQuery { authUser in
+//            if let authUser {
+//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+//            } else {
+//                self.changeStateWithAnimation(state: .auth)
+//            }
+//        }
+//    }
 
-    func getCurrentSession() {
-        self.isLoading = true
-        NetworkService.shared.amoring.fetch(query: QueryAuthenticatedUserQuery()) { result in
-            print("getting session .... ")
+    @Published var amoring: ApolloClient = {
+        let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
+        
+        let configuration = URLSessionConfiguration.default
+        guard let sessionToken = UserDefaults.standard.string(forKey: "sessionToken") else {
+            return ApolloClient(url: URL(string: "https://amoring-be.antonmaker.com/graphql")!)
+        }
+        print(sessionToken)
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
+        
+        let client = URLSessionClient(sessionConfiguration: configuration)
+        let store = ApolloStore(cache: InMemoryNormalizedCache())
+        let provider = DefaultInterceptorProvider(client: client, store: store)
+        let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
+        
+        return ApolloClient(networkTransport: networkTransport, store: store)
+    }()
+    
+    func reInitAmoring() {
+        amoring = {
+            let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
             
-            switch result {
-            case .success(let value):
-                guard value.errors == nil else {
-                    print(value.errors)
-                    self.stopLoading()
-                    return
-                }
+            let configuration = URLSessionConfiguration.default
+            configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
+            
+            let client = URLSessionClient(sessionConfiguration: configuration)
+            let store = ApolloStore(cache: InMemoryNormalizedCache())
+            let provider = DefaultInterceptorProvider(client: client, store: store)
+            let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
+            
+            return ApolloClient(networkTransport: networkTransport, store: store)
+        }()
+    }
+    
+    func getCurrentSession(delay: Double = 2) {
+        reInitAmoring()
+        self.appState = .loading
+        amoring.fetch(query: QueryAuthenticatedUserQuery()) { result in
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                print("getting session .... ")
                 
-                guard let data = value.data else {
-                    print("WRONG DATA")
-                    self.stopLoading()
-                    return
-                }
-                
-                guard let authenticatedUser = data.authenticatedUser else {
-                    print("NO USER")
-                    self.stopLoading()
-                    return
-                }
-                
-                guard let role = authenticatedUser.role?.value else {
-                    print("NO ROLE")
-                    self.stopLoading()
-                    return
-                }
-                
-                switch role {
-                case .business:
-                    print("I'm a business")
+                switch result {
+                case .success(let value):
+                    guard value.errors == nil else {
+                        print(value.errors)
+                        self.changeStateWithAnimation(state: .auth)
+                        return
+                    }
                     
-                    if let businessProfile = authenticatedUser.business {
-                        print("going to Business Session")
-                        print(businessProfile)
-                        self.goToBusinessOnboarding = false
-                    } else {
-                        print("Business not onboarded yet")
-                        self.goToBusinessOnboarding = true
+                    guard let data = value.data else {
+                        print("WRONG DATA")
+                        self.changeStateWithAnimation(state: .auth)
+                        return
                     }
-                    self.signedIn = false
-                    self.businessSignedIn = true
-                    self.stopLoading()
-                case .user:
-                    print("I'm a user")
-
-                    if let userProfile = authenticatedUser.userProfile {
-                        print("going to User Session")
-                        print(userProfile)
-                        self.goToUserOnboarding = false
-                    } else {
-                        print("User not onboarded yet")
-                        self.goToUserOnboarding = true
+                    
+                    guard let authUser = data.authenticatedUser else {
+                        print("NO USER")
+                        print(self.sessionToken)
+                        self.changeStateWithAnimation(state: .auth)
+                        return
                     }
-                    self.businessSignedIn = false
-                    self.signedIn = true
-                    self.stopLoading()
-                case .admin:
-                    print("I'm an admin")
-                    self.stopLoading()
+                    
+                    self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                    self.changeStateWithAnimation(state: .auth)
                 }
-            case .failure(let error):
-                debugPrint(error.localizedDescription)
-                self.stopLoading()
             }
         }
     }
     
-    private func stopLoading() {
+    func changeStateWithAnimation(state: AppState) {
         DispatchQueue.main.async {
             withAnimation {
-                self.isLoading = false
+                self.appState = state
             }
         }
     }
@@ -225,7 +238,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     }
     
     func businessSignIn(email: String, password: String) {
-        NetworkService.shared.amoring.perform(mutation: SignInMutation(email: email, password: password)) { result in
+        amoring.perform(mutation: SignInMutation(email: email, password: password)) { result in
             switch result {
             case .success(let value):
                 if let errors = value.errors {
@@ -233,9 +246,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                if let data = value.data?.signIn {
-                    UserDefaults.standard.setValue(data.sessionToken, forKey: "sessionToken")
-                    print(data.sessionToken)
+                if let sessionToken = value.data?.signIn.sessionToken {
+                    print(sessionToken)
+                    self.sessionToken = sessionToken
+                    self.getCurrentSession(delay: 0)
                 } else {
                     print("Wrong data!")
                     
@@ -248,7 +262,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     }
     
     private func signInWithToken(token: String) {
-        NetworkService.shared.amoring.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
+        amoring.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -266,32 +280,26 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                if let user = data.signInWithGoogle.user {
-                    print(user)
-                    self.goToUserOnboarding = false
-                } else {
-                    self.goToUserOnboarding = true
+                guard let authUser = data.signInWithGoogle.user else {
+                    print("NO USER!")
+                    return
                 }
                 
                 print(sessionToken)
                 self.sessionToken = sessionToken
-                self.signedIn = true
-                
+                self.getCurrentSession(delay: 0)
+//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
         }
     }
     
+    
     func signOut() {
         DispatchQueue.main.async {
             self.sessionToken = ""
-            withAnimation {
-                self.signedIn = false
-                self.businessSignedIn = false
-                self.goToUserOnboarding = false
-                self.goToBusinessOnboarding = false
-            }
+            self.changeStateWithAnimation(state: .auth)
         }
     }
 }
