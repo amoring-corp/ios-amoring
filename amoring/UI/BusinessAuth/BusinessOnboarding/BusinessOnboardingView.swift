@@ -123,8 +123,8 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "매장 주소를 입력해주세요.", text: $address, font: regular18Font)
-                                    .onChange(of: name, perform: { newValue in
-                                        if(newValue.count >= 1){
+                                    .onChange(of: address, perform: { newValue in
+                                        if (newValue.count >= 1) {
                                             controller.business.address = newValue
                                         } else {
                                             controller.business.address = nil

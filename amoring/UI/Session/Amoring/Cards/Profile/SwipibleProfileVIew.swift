@@ -15,16 +15,17 @@ struct SwipibleProfileVIew: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var sessionController: SessionController
     @Namespace var animation
-    let userProfile: UserProfile
     @State private var dragOffset = CGSize.zero
+    
+    let userProfile: UserProfile
     @Binding var swipeAction: SwipeAction
+    var onSwiped: (UserProfile, Bool) -> ()
+    @Binding var likes: Int
+    
     @State private var fitInScreen = false
     @State private var scrollOffset: CGFloat = 0
     @State private var showButtons: Bool = false
     @State var heightPadding: CGFloat = Size.w(131)
-    var onSwiped: (UserProfile, Bool) -> ()
-    
-    @Binding var likes: Int
 
     private let nope = "NOPE"
     private let like = "LIKE"

@@ -1,12 +1,12 @@
-mutation uploadMyProfileImages($image: Upload!, $sort: Int!) {
-  uploadMyProfileImages(data: [
+mutation uploadBusinessImage($businessId: ID!, $image: Upload!, $sort: Int!) {
+  uploadBusinessImage(businessId: $businessId, data:
     {
       sort: $sort
       file: $image
     }
-  ]) {
+   ) {
     id
-    profileId
+    businessId
     fileId
     sort
     file {
@@ -20,7 +20,5 @@ mutation uploadMyProfileImages($image: Upload!, $sort: Int!) {
       createdAt
       updatedAt
     }
-    createdAt
-    updatedAt
   }
 }

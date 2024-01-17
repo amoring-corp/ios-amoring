@@ -99,11 +99,10 @@ enum businessSorting: CaseIterable {
 }
 
 struct BusinessListView: View {
+    @EnvironmentObject var userManager: UserManager
     @Binding var scrollOffset: CGFloat
     @Binding var district: district
     
-    let businessesInit: [Business] = Dummy.businesses
-    @State var businesses: [Business] = Dummy.businesses
     @State var type: businessType = .all
     @State var sorting: businessSorting = .recs
     
@@ -191,18 +190,22 @@ struct BusinessListView: View {
                 .background(Color.gray1000)
                     
             ) {
-                ForEach(businesses, id: \.self.id) { business in
+                ForEach(userManager.businesses, id: \.self.id) { business in
                     BusinessRow(business: business)
                 }
             }
             Spacer(minLength: 200)
+        }
+        
+        .onAppear {
+            userManager.getBusinesses()
         }
     }
     
     var count: some View {
         HStack {
             Text("라운지")
-            Text("(\(businesses.count.description))")
+            Text("(\(userManager.businesses.count.description))")
             Spacer()
         }
         .font(medium18Font)
@@ -213,32 +216,32 @@ struct BusinessListView: View {
         if let newType {
             switch newType {
             case .all:
-                self.businesses = self.businessesInit
+                userManager.businesses = userManager.businessesInit
             default:
-                self.businesses = self.businessesInit.filter { $0.businessCategory == newType.title() }
+                userManager.businesses = userManager.businessesInit.filter { $0.businessCategory == newType.title() }
             }
             
             switch self.district {
             case .all:
-                self.businesses = self.businesses
+                userManager.businesses = userManager.businesses
             default:
-                self.businesses = self.businesses.filter { $0.district == self.district.title() }
+                userManager.businesses = userManager.businesses.filter { $0.district == self.district.title() }
             }
         }
         
         if let newDistrict {
             switch newDistrict {
             case .all:
-                self.businesses = self.businessesInit
+                userManager.businesses = userManager.businessesInit
             default:
-                self.businesses = self.businessesInit.filter { $0.district == newDistrict.title() }
+                userManager.businesses = userManager.businessesInit.filter { $0.district == newDistrict.title() }
             }
             
             switch self.type {
             case .all:
-                self.businesses = self.businesses
+                userManager.businesses = userManager.businesses
             default:
-                self.businesses = self.businesses.filter { $0.businessCategory == self.type.title() }
+                userManager.businesses = userManager.businesses.filter { $0.businessCategory == self.type.title() }
             }
         }
         
@@ -249,12 +252,12 @@ struct BusinessListView: View {
         switch sorting {
         case .recs:
             // TODO: Implement recommendations
-            self.businesses = self.businesses.sorted(by: { $0.district ?? "" > $1.district ?? ""})
+            userManager.businesses = userManager.businesses.sorted(by: { $0.district ?? "" > $1.district ?? ""})
         case .name:
-            self.businesses = self.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
+            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
         case .distance:
             // TODO: Implement distance
-            self.businesses = self.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
+            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
         }
     }
 }

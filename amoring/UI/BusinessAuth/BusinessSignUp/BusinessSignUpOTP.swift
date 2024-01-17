@@ -40,6 +40,14 @@ struct BusinessSignUpOTP: View {
                     onTapInput()
                 }
             
+            if let confirmationNumber = sessionManager.confirmationNumber {
+                Text(confirmationNumber)
+                    .font(semiBold18Font)
+                    .foregroundColor(.black)
+                    .padding(.leading, Size.w(14))
+                    .padding(.bottom, Size.w(42))
+            }
+            
             Text(error)
                 .font(regular16Font)
                 .foregroundColor(.red700)

@@ -16,7 +16,10 @@ class UserManager: ObservableObject {
     @Published var user: User? = nil
     @Published var isLoading: Bool = false
     @Published var interestCategories: [InterestCategory] = []
-    
+    @Published var businessesInit: [Business] = []
+    @Published var businesses: [Business] = []
+    @Published var profiles: [UserProfile] = []
+
     @Published var amoring: ApolloClient = {
         let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
         
@@ -71,7 +74,7 @@ class UserManager: ObservableObject {
                 //TODO:  pass whole business user here!
                 self.changeStateWithAnimation(state: .businessSession)
             } else {
-                print("Business not onboarded yet")
+//                print("Business not onboarded yet")
                 self.changeStateWithAnimation(state: .businessOnboarding)
             }
         case .user:
@@ -142,7 +145,7 @@ class UserManager: ObservableObject {
 
                 // TODO: test with image\(index).jpeg
                 let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
-                self.saveImage(file: file) { success in
+                self.saveImage(file: file, sort: index) { success in
                     dispatchGroup.leave()
                 }
             } else {
@@ -159,8 +162,8 @@ class UserManager: ObservableObject {
     }
     
     
-    private func saveImage(file: GraphQLFile, completion: @escaping (Bool) -> Void) {
-        amoring.upload(operation: UploadMyProfileImagesMutation(image: "image"), files: [file]) { result in
+    private func saveImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
+        amoring.upload(operation: UploadMyProfileImagesMutation(image: "image", sort: sort), files: [file]) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -177,6 +180,60 @@ class UserManager: ObservableObject {
                 
                 print("Image was successfully uploaded!")
                 print(data.uploadMyProfileImages)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func uploadBusinessImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        
+        let dispatchGroup = DispatchGroup()
+        for (index,image) in images.enumerated(){
+            let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
+            if let data = resizedImage!.jpegData(compressionQuality: 1.0) {
+                dispatchGroup.enter()
+
+                // TODO: test with image\(index).jpeg
+                let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+                self.saveBusinessImage(file: file, sort: index) { success in
+                    dispatchGroup.leave()
+                }
+            } else {
+                print("wrong image data!")
+                completion(true)
+            }
+        }
+        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+            self.isLoading = false
+            print("sending: \(images.count) images finished")
+            completion(true)
+        })
+    }
+    
+    private func saveBusinessImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
+        print("business id: \(user?.business?.id)")
+        amoring.upload(operation: UploadBusinessImageMutation(businessId: user?.business?.id ?? "", image: "image", sort: sort), files: [file]) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print("Image was successfully uploaded!")
+                print(data.uploadBusinessImage)
                 completion(true)
             case .failure(let error):
                 print(error)
@@ -230,8 +287,8 @@ class UserManager: ObservableObject {
                     completion(false)
                     return
                 }
-                
-                print(data.upsertMyUserProfile)
+                let fetchedProfile = data.upsertMyUserProfile
+                print(data.upsertMyUserProfile.id)
                 self.user?.userProfile = userProfile
                 completion(true)
             case .failure(let error):
@@ -303,7 +360,9 @@ class UserManager: ObservableObject {
                     return
                 }
                 
+                
                 self.user?.business = business
+                self.user?.business?.id = data.upsertMyBusiness.id
                 print("Business was successfully updated!")
                 self.isLoading = false
                 completion(true)
@@ -353,6 +412,82 @@ class UserManager: ObservableObject {
         DispatchQueue.main.async {
             withAnimation {
                 self.userState = state
+            }
+        }
+    }
+    
+    // TODO: move to another Manager
+    func getBusinesses() {
+        amoring.fetch(query: QueryBusinessesQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+//                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    //                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    return
+                }
+                
+                let businesss = data.businesses
+                self.businesses = []
+                self.businessesInit = []
+                
+                for bus in businesss {
+                    if let busForSave = Business().from(data: bus) {
+                        self.businesses.append(busForSave)
+                        self.businessesInit.append(busForSave)
+                    }
+                }
+                
+                self.businesses.append(contentsOf: Dummy.businesses)
+                self.businessesInit.append(contentsOf: Dummy.businesses)
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                //                    self.interests = Constants.interests //TODO: put dummy or default categories
+            }
+        }
+    }
+    
+    // TODO: move to another Manager
+    func getProfiles() {
+        amoring.fetch(query: UserProfilesQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+//                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    //                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    return
+                }
+                
+                let profiles = data.userProfiles
+                self.profiles = []
+                
+                self.profiles.append(contentsOf: Dummy.userProfiles)
+                
+                for profile in profiles {
+                    if let profile = UserProfile(id: "", images: [], interests: []).from(data: profile) {
+                        //MARK:  excepting default db profile, excepting myself
+                        if profile.id != "3" && profile.id != self.user?.userProfile?.id {
+                            self.profiles.append(profile)
+                        }
+                    }
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                //                    self.interests = Constants.interests //TODO: put dummy or default categories
             }
         }
     }

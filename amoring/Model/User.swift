@@ -71,7 +71,7 @@ import AmoringAPI
 //}
 
 struct User: Hashable {
-    let id: String
+    var id: String
     var email: String?
     var status: UserStatus?
     var role: UserRole?
@@ -281,6 +281,41 @@ struct UserProfile: Hashable {
     var age: Int?
     var createdAt: Date?
     var updatedAt: Date?
+    
+    func from(data: UserProfilesQuery.Data.UserProfile?) -> UserProfile? {
+        if let data {
+            var userProfile = UserProfile(id: data.id, images: [], interests: [])
+            
+            userProfile.name = data.name
+            userProfile.birthYear = data.birthYear
+            userProfile.age = data.age
+            userProfile.height = data.height
+            userProfile.weight = data.weight
+            userProfile.mbti = data.mbti
+            userProfile.education = data.education
+            userProfile.occupation = data.occupation
+            userProfile.bio = data.bio
+            userProfile.gender = data.gender?.rawValue
+            userProfile.images = getImages(data.images)
+
+            return userProfile
+        } else {
+            return nil
+        }
+    }
+    
+    func getImages(_ images: [UserProfilesQuery.Data.UserProfile.Image?]?) -> [UserProfileImage] {
+        var userProfileImages: [UserProfileImage] = []
+        guard let images else { return userProfileImages }
+            
+        for image in images {
+            let img = UserProfileImage(
+                file: File(url: image?.file.url)
+            )
+            userProfileImages.append(img)
+        }
+        return userProfileImages
+    }
 }
 
 struct UserProfileData {
@@ -464,5 +499,31 @@ struct Business: Codable, Equatable, Hashable {
         case createdAt
         case updatedAt
 //        case images
+    }
+    
+    func from(data: QueryBusinessesQuery.Data.Business?) -> Business? {
+        if let data {
+            var business = Business()
+            business.id = data.id
+            business.businessName = data.businessName
+            business.businessCategory = data.businessCategory
+            business.address = data.address
+            business.phoneNumber = data.phoneNumber
+            business.district = "강남"
+            var imageArray: [String] = []
+            
+            if let images = data.images {
+                for i in images {
+                    if let url = i?.file.url {
+                        imageArray.append(url)
+                    }
+                }
+            }
+            
+            business.images = imageArray
+            return business
+        } else {
+            return nil
+        }
     }
 }

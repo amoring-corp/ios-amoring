@@ -182,9 +182,14 @@ struct BusinessOnboardingStep2: View {
                                 .padding(20)
                         } else {
                             Button(action: {
-                                userManager.upsertMyBusiness(business: controller.business) { success in
-                                    print(controller.business)
-                                    self.next = success
+                                let images = pictures.map({ $0.picture })
+                                userManager.uploadBusinessImages(images: images) { success in
+                                    if success {
+                                        userManager.upsertMyBusiness(business: controller.business) { success in
+                                            print(controller.business)
+                                            self.next = success
+                                        }
+                                    }
                                 }
 //                                next = true
                             }) {

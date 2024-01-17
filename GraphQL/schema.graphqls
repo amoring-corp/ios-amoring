@@ -18,6 +18,7 @@ type Business {
   registrationNumber: String
   category: String
   bio: String
+  images: [BusinessImage]
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -37,6 +38,24 @@ input BusinessCreateInput {
   bio: String
   latitude: Float
   longitude: Float
+}
+
+"""
+
+"""
+type BusinessImage {
+  id: ID!
+  businessId: Int!
+  fileId: Int!
+  sort: Int!
+  file: File!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input BusinessImageInput {
+  sort: Int
+  file: Upload!
 }
 
 input BusinessUpdateInput {
@@ -273,6 +292,14 @@ type Mutation {
   disconnectInterestsFromMyProfile(interestIds: [ID!]!): UserProfile!
   createBusiness(data: BusinessCreateInput!): Business!
   updateBusiness(id: ID!, data: BusinessUpdateInput!): Business!
+  uploadBusinessImage(
+    businessId: ID!
+    data: BusinessImageInput!
+  ): BusinessImage!
+  uploadBusinessImages(
+    businessId: ID!
+    data: [BusinessImageInput!]!
+  ): [BusinessImage!]
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!
@@ -306,4 +333,6 @@ type Query {
   interest(id: ID!): Interest!
   users: [User]!
   user(id: ID!): User!
+  userProfiles(role: UserRole): [UserProfile]!
+  userProfile(id: ID!): UserProfile!
 }

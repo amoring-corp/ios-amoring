@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfilesView: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var sessionController: SessionController
+    @EnvironmentObject var userManager: UserManager
     
     @State var isOn = false
     @State var likes: Int = 20
@@ -17,7 +18,8 @@ struct ProfilesView: View {
     @State var countDown: TimeInterval? = nil
     
     @State var swipeAction: SwipeAction = .doNothing
-    @State var userProfiles: [UserProfile] = Dummy.userProfiles
+//    @State var userProfiles: [UserProfile] = Dummy.userProfiles
+//    @State var userProfiles: [UserProfile] = []
     @State var timer: Timer? = nil
     
     //    var onSwiped: (User, Bool) -> ()
@@ -61,9 +63,7 @@ struct ProfilesView: View {
                         .foregroundColor(.gray400)
                         .multilineTextAlignment(.center)
                     Button(action: {
-                        withAnimation {
-                            self.userProfiles = Dummy.userProfiles
-                        }
+                        userManager.getProfiles()
                     }) {
                         Image(systemName: "arrow.clockwise.circle")
                             .resizable()
@@ -73,16 +73,15 @@ struct ProfilesView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
                 
-                ForEach(userProfiles.indices) { index  in
-//                    let userProfile = userProfiles[index]
+                ForEach(userManager.profiles.indices, id:\.self) { index  in
+                    let userProfile = userManager.profiles[index]
                     
-                    if (index == userProfiles.count - 1) {
-                        Text("d")
-//                        SwipibleProfileVIew(userProfile: userProfiles[index], swipeAction: $swipeAction, onSwiped: performSwipe, likes: $likes)
-                    } else if (index == userProfiles.count - 2) {
+                    if (index == userManager.profiles.count - 1) {
+                        SwipibleProfileVIew(userProfile: userProfile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $likes)
+                    } else if (index == userManager.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
-                                ProfileCardView(userProfile: userProfiles[index],
+                                ProfileCardView(userProfile: userProfile,
                                                 width: reader.size.width - Size.w(44),
                                                 height: reader.size.height - (Size.w(75 + 56))
                                 )
@@ -121,6 +120,7 @@ struct ProfilesView: View {
                 }
         )
         .onAppear {
+            userManager.getProfiles()
             if let checkIn = amoringController.checkIn {
                 self.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
                 self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
@@ -134,7 +134,7 @@ struct ProfilesView: View {
         }
     }
     
-    private func performSwipe(userProfile: User, hasLiked: Bool) {
+    private func performSwipe(userProfile: UserProfile, hasLiked: Bool) {
         withAnimation {
             amoringController.showDetails = false
             amoringController.hidePanel = false
@@ -157,7 +157,7 @@ struct ProfilesView: View {
     }
     
     private func removeTopItem() {
-        userProfiles.removeLast()
+        userManager.profiles.removeLast()
     }
 }
 

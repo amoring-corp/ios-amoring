@@ -8,8 +8,8 @@
 import Foundation
 
 enum AppState {
+    case initializing
     case auth
-    case loading
     case session(user: User)
     case error
 }

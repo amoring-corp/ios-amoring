@@ -16,7 +16,7 @@ import Apollo
 import AmoringAPI
 
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
-    @Published var appState: AppState = .loading
+    @Published var appState: AppState = .initializing
     
     @Published var isLoading: Bool = false
 //    @Published var goToUserOnboarding = false
@@ -26,8 +26,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 //    @AppStorage("isBusiness") var businessSignedIn: Bool = false
 //    
     @AppStorage("sessionToken") var sessionToken: String = ""
-    @Published var token: String = ""
-    @Published var confirmationNumber: String = ""
+//    @Published var token: String = ""
+    @Published var confirmationNumber: String? = nil
     @Published var emailConfirmationToken: String = ""
     @Published var user: User? = nil
 //    @Published var signedIn: Bool = false
@@ -80,7 +80,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     func getCurrentSession(delay: Double = 2) {
         reInitAmoring()
-        self.appState = .loading
+        self.appState = .initializing
         amoring.fetch(query: QueryAuthenticatedUserQuery()) { result in
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 print("getting session .... ")
@@ -280,19 +280,18 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 }
                 
                 if let confirmationNumber = value.data?.signUp.confirmationNumber, let emailConfirmationToken = value.data?.signUp.emailConfirmationToken, let authUser = value.data?.signUp.user {
-                    self.confirmationNumber = confirmationNumber
                     self.emailConfirmationToken = emailConfirmationToken
-                    print("abraca")
-                    print(email)
-                    print(password)
-                    print(confirmationNumber)
-                    print(emailConfirmationToken)
                     // FIXME: ! create a decoder
                     self.user = User(
                         id: authUser.id,
                         email: authUser.email,
                         role: UserRole.business
                     )
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation {
+                            self.confirmationNumber = confirmationNumber
+                        }
+                    }
                     completion(true)
                 } else {
                     print("Wrong data!")
@@ -373,6 +372,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         DispatchQueue.main.async {
             self.sessionToken = ""
             self.changeStateWithAnimation(state: .auth)
+            print("Successfully signed out")
         }
     }
 }

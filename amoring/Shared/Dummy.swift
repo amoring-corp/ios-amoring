@@ -9,24 +9,24 @@ import Foundation
 
 class Dummy {
     static let businesses = [
-        Business(id: "1", businessName: "Pray Coffee Bar", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
+        Business(id: "1111", businessName: "Pray Coffee Bar", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
             "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummy-biz1.jpg?alt=media&token=b4c0db02-c47f-46b4-9e45-616be0f08c52",
             "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummy-biz1-1.jpg?alt=media&token=d581a138-28fd-468f-bed6-bd3e7a3bb6f3"
         ], district: "강남", open: "11:00 PM".timeToDate(), close: "10:00 AM".timeToDate()),
         
-        Business(id: "2", businessName: "Seoul Bar Show", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
+        Business(id: "1112", businessName: "Seoul Bar Show", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
             "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummy-biz2.png?alt=media&token=fdfc2cb2-46f5-46e7-af4d-8caca5f95d15"
         ], district: "강남", open: "11:00 PM".timeToDate(), close: "10:00 AM".timeToDate()),
         
-        Business(id: "3", businessName: "Cakeshop", businessCategory: "클럽", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
+        Business(id: "1113", businessName: "Cakeshop", businessCategory: "클럽", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
             "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummy-biz3.jpg?alt=media&token=dbcdca1a-0441-49d3-bcd5-3879d5a62e44"
         ], district: "강남", open: "11:00 PM".timeToDate(), close: "10:00 AM".timeToDate()),
         
-        Business(id: "4", businessName: "Glove Bar", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
+        Business(id: "1114", businessName: "Glove Bar", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
             "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummy-biz4.png?alt=media&token=f5607b70-f85c-41cf-8105-a635941c16ce"
         ], district: "강남", open: "11:00 PM".timeToDate(), close: "10:00 AM".timeToDate()),
         
-        Business(id: "5", businessName: "Retro Game Bar", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
+        Business(id: "1115", businessName: "Retro Game Bar", businessCategory: "바", address: "서울 성동구 성덕정길 152", phoneNumber: "0310000000", bio: "#프레이 #프레이커피바 #pray #coffee #bar", images: [
             "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummy-biz5.jpg?alt=media&token=9343ec41-2883-41f1-8a61-6b2e71c48881"
         ], district: "강남", open: "11:00 PM".timeToDate(), close: "10:00 AM".timeToDate()),
     ]

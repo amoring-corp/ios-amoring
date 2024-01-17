@@ -1,0 +1,40 @@
+query QueryBusinesses {
+  businesses {
+    id
+    ownerId
+    owner {
+      id
+      email
+      status
+      role
+      createdAt
+      updatedAt
+    }
+    businessName
+    businessType
+    businessIndustry
+    businessCategory
+    address
+    latitude
+    longitude
+    representativeTitle
+    representativeName
+    phoneNumber
+    registrationNumber
+    category
+    bio
+    images {
+      id
+      businessId
+      fileId
+      sort
+      createdAt
+      updatedAt
+      file {
+        url
+      }
+    }
+    createdAt
+    updatedAt
+  }
+}

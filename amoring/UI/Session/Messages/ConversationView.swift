@@ -125,7 +125,7 @@ struct ConversationView: View, KeyboardReadable {
     func sendMessage(_ proxy: ScrollViewProxy) {
         if !newMessage.isEmpty {
             withAnimation {
-                navigator.selectedConversation?.messages.append(Message(id: navigator.selectedConversation?.messages.count ?? 0 + 1, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", recipients: [], createdAt: Date(), updatedAt: Date()))
+                navigator.selectedConversation?.messages.append(Message(id: navigator.selectedConversation?.messages.count ?? 0 + 2, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", recipients: [], createdAt: Date(), updatedAt: Date()))
                 
                 newMessage = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
