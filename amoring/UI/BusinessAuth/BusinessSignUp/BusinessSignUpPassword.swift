@@ -10,6 +10,9 @@ import SwiftUI
 struct BusinessSignUpPassword: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: BusinessSignUpController
+    @EnvironmentObject var sessionManager: SessionManager
+    
+    @State var goToOTP: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -49,11 +52,19 @@ struct BusinessSignUpPassword: View {
             
             Spacer()
             
+            NavigationLink(isActive: $goToOTP, destination: {
+                BusinessSignUpOTP()
+            }) {
+                EmptyView()
+            }
+            
             HStack {
-                NavigationLink(destination: {
-                    BusinessSignUpOTP()
+                Button(action: {
+                    sessionManager.signUp(email: controller.email, password: controller.password) { success in
+                        goToOTP = success
+                    }
                 }) {
-                    NextBlackButton(enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword())
+                    NextBlackButton(enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword(), isLoading: sessionManager.isLoading)
                 }
                 .disabled(!(controller.password.isStrongPassword()) || (controller.password != controller.confirmPassword))
             }

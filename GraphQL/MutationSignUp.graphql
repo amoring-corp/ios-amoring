@@ -1,0 +1,33 @@
+mutation signUp($email: String!, $password: String!) {
+  signUp(data: { email: $email, password: $password, role: business}) {
+    confirmationNumber
+    emailConfirmationToken
+    user {
+      id
+      email
+      status
+      role
+      business {
+        id
+        ownerId
+        businessName
+        businessType
+        businessIndustry
+        businessCategory
+        address
+        latitude
+        longitude
+        representativeTitle
+        representativeName
+        phoneNumber
+        registrationNumber
+        category
+        bio
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}

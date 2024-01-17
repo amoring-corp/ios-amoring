@@ -137,6 +137,7 @@ input SignUpInput {
 }
 
 type SignUpResult {
+  confirmationNumber: String!
   emailConfirmationToken: String!
   user: User!
 }
@@ -264,6 +265,7 @@ type Mutation {
   sendUserPasswordResetLink(email: String!): Boolean!
   redeemUserPasswordResetToken(token: String!, password: String!): Boolean!
   upsertMyUserProfile(data: UserProfileUpdateInput!): UserProfile!
+  upsertMyBusiness(data: BusinessUpdateInput!): Business!
   uploadMyProfileImage(data: UserProfileImageInput!): UserProfileImage!
   uploadMyProfileImages(data: [UserProfileImageInput!]!): [UserProfileImage]!
   deleteMyProfileImage(id: ID!): UserProfileImage!

@@ -1,0 +1,29 @@
+mutation UpsertMyBusiness($data: BusinessUpdateInput!) {
+  upsertMyBusiness(data: $data) {
+    id
+    ownerId
+    owner {
+      id
+      email
+      status
+      role
+      createdAt
+      updatedAt
+    }
+    businessName
+    businessType
+    businessIndustry
+    businessCategory
+    address
+    latitude
+    longitude
+    representativeTitle
+    representativeName
+    phoneNumber
+    registrationNumber
+    category
+    bio
+    createdAt
+    updatedAt
+  }
+}

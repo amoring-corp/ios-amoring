@@ -18,7 +18,7 @@ struct BusinessSignInSheet: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Spacer()
+//            Spacer()
             Image("LOGO")
                 .resizable()
                 .scaledToFit()
@@ -95,7 +95,7 @@ struct BusinessSignInSheet: View {
 //                        sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
 //                    }
                 }) {
-                    FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled)
+                    FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled, isLoading: sessionManager.isLoading)
                 }
                 .padding(.bottom, Size.w(22))
                     
@@ -129,8 +129,10 @@ struct BusinessSignInSheet: View {
             .frame(maxWidth: UIScreen.main.bounds.width)
             .background(Color.black)
         }
+//        .frame(maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea(edges: .bottom)
         .transition(.move(edge: .bottom))
+        .onTapGesture(perform: closeKeyboard)
     }
     
     private var filled: Bool {

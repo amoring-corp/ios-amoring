@@ -17,10 +17,20 @@ struct BusinessSessionView: View {
     @State var qrcode: QRCode.Document? = nil
     
     var body: some View {
+        let business = userManager.user?.business
         GeometryReader { geometry in
             NavigationView {
                 VStack {
-                    Spacer()
+                    Text(business?.businessName ?? "AMORING")
+                        .font(extraBold28Font)
+                        .foregroundColor(.yellow200)
+                        .padding(.top, Size.w(32))
+                        .padding(.bottom, Size.w(12))
+                    
+                    Text("지금 당장, 아모링 라운지에 체크인 하세요!")
+                        .font(regular16Font)
+                        .foregroundColor(.yellow300)
+                        .padding(.bottom, Size.w(40))
                     
                     ZStack {
                         if isLoading {
@@ -48,15 +58,18 @@ struct BusinessSessionView: View {
                             }
                         }
                     }
-                    .frame(width: Size.w(200), height: Size.w(200))
+                    .frame(width: geometry.size.height / 2.7, height: geometry.size.height / 2.7)
                     .padding(7)
                     .background(Color.white)
-                    .cornerRadius(15)
+                    .cornerRadius(20)
                     .padding(.bottom, Size.h(32))
                     
                     Spacer()
                     
-                    Text("Users currently logged in")
+                    Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
+                        .multilineTextAlignment(.center)
+                        .font(regular16Font)
+                        .foregroundColor(.yellow300)
                     
                     let images = ["person-1", "person-2", "person-3", "person-4"]
                     
@@ -69,7 +82,7 @@ struct BusinessSessionView: View {
                             list(images: images, size: size)
                             list(images: images, size: size)
                         }
-                        .padding(.vertical, 100)
+                        .padding(.vertical, Size.w(22))
                         .offset(x: xOffset, y: 0)
                     }
                     .disabled(true)
@@ -79,14 +92,23 @@ struct BusinessSessionView: View {
                             xOffset = -size * Double(images.count)
                         }
                     }
-                    Spacer()
+                }
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("AMORING")
+                            .font(bold20Font)
+                            .foregroundColor(.yellow300)
+                    }
                 }
                 .navigationBarItems(trailing:
                                         NavigationLink(destination: {
                     MenuView()
                 }) {
-                    Image(systemName: "line.3.horizontal")
-                        .foregroundColor(.gray600)
+                    Image("ic-hamburger")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32, height: 32)
                 })
             } //  geometryreader
         }
@@ -99,7 +121,7 @@ struct BusinessSessionView: View {
                 .resizable()
                 .scaledToFill()
                 .blur(radius: 6)
-                .frame(width: inSize, height: inSize)
+                .frame(width: inSize, height: 120)
                 .background(Color.gray)
                 .cornerRadius(15)
                 .frame(width: size, height: size)
@@ -107,8 +129,7 @@ struct BusinessSessionView: View {
     }
     
     private func initialize() {
-//        guard let name = userManager.user?.business?.businessName else { return }
-        let name = "AMORING"
+        let name = userManager.user?.business?.businessName ?? "AMORING"
         self.isLoading = true
         
 //        let contact = QRContact(id: id, n: userManager.apiNodeUser.name, f: userManager.apiNodeUser.familyName, e: email, d: expirationDate)

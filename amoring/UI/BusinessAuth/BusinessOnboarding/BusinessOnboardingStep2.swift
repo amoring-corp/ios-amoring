@@ -10,19 +10,29 @@ import SwiftUI
 struct BusinessOnboardingStep2: View {
     @EnvironmentObject var controller: BusinessOnboardingController
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var businessName: String = ""
     @State var representativeTitle: String = ""
     @State var businessType: String = ""
-    @State var businessCategory: String = ""
+    @State var businessCategory: String = "클럽"
     @State var address: String = ""
     @State var registrationNumber: String = ""
+    @State var phoneNumber: String = ""
     
     @State var next: Bool = false
     @State var presentImporter: Bool = false
     @State var typesSheetPresented: Bool = false
     @State var contentOffset: CGFloat = 0
+    
+    @State private var pictures: [PictureModel] = []
+    @State private var droppedOutside: Bool = false
+    @State private var confirmRemoveImageIndex: Int = 0
+    @State private var showRemoveConfirmation: Bool = false
+    @State private var showContentTypeSheet: Bool = false
+    @State private var showPermissionDenied: Bool = false
+    @State private var editIndex: Int? = nil
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -43,13 +53,13 @@ struct BusinessOnboardingStep2: View {
                             .padding(.horizontal, Size.w(14))
                             .padding(.bottom, Size.w(40))
                         
-                        VStack(alignment: .leading) {
-                            Text("매장명*")
-                                .font(regular16Font)
-                                .foregroundColor(.black)
-                                .padding(.leading, Size.w(14))
+//                        VStack(alignment: .leading) {
+//                            Text("매장명*")
+//                                .font(regular16Font)
+//                                .foregroundColor(.black)
+//                                .padding(.leading, Size.w(14))
                             
-                            PickerButton {
+                            PickerButton(title: "매장명*") {
                                 if let businessCategory = controller.business.businessCategory {
                                     Text(businessCategory)
                                         .foregroundColor(.black)
@@ -61,13 +71,92 @@ struct BusinessOnboardingStep2: View {
                                     typesSheetPresented.toggle()
                                 }
                             }
-                        }
+//                        }
                         .padding(.bottom, Size.w(30))
 
+                        VStack(alignment: .leading) {
+                            Text("매장소개*")
+                                .font(regular16Font)
+                                .foregroundColor(.black)
+                                .padding(.leading, Size.w(14))
+                                .onChange(of: controller.business.bio ?? "", perform: { newValue in
+                                    if(newValue.count >= 150){
+                                        controller.business.bio = String(newValue.prefix(150))
+                                    }
+                                })
+                            if #available(iOS 16.0, *) {
+                                MultilineCustomTextField(placeholder: "고객들이 회원님의 매장을 잘 이해할 수 있도록 간단한 소개 부탁드립니다. 소개는 150자 이하로 부탁드립니다.", text: $controller.business.bio ?? "")
+                                    .layoutPriority(2)
+                            } else {
+                                CustomTextField(placeholder: "고객들이 회원님의 매장을 잘 이해할 수 있도록 간단한 소개 부탁드립니다. 소개는 150자 이하로 부탁드립니다.", text: $controller.business.bio ?? "", font: semiBold18Font)
+                            }
+                        }
+                        .padding(.bottom, Size.w(30))
+                        
+                        VStack(alignment: .leading) {
+                            Text("전화번호*")
+                                .font(regular16Font)
+                                .foregroundColor(.black)
+                                .padding(.leading, Size.w(14))
+                            // TODO: Change to two parts version with City Code dropdown
+                            CustomTextField(placeholder: "‘-’ 표시없이 입력해주세요.", text: $phoneNumber, font: regular18Font)
+                                .onChange(of: phoneNumber, perform: { newValue in
+                                    if(newValue.count >= 1){
+                                        controller.business.phoneNumber = newValue
+                                    } else {
+                                        controller.business.phoneNumber = nil
+                                    }
+                                })
+                        }
+                        .padding(.bottom, Size.w(30))
+                        
+                        VStack(alignment: .leading) {
+                            Text("사진* (최소 3개이상)")
+                                .font(regular16Font)
+                                .foregroundColor(.black)
+                                .padding(.leading, Size.w(14))
+                           
+                            PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
+                                confirmRemoveImageIndex = index
+                                showRemoveConfirmation.toggle()
+                            }, onAddImageClick: {
+                                showContentTypeSheet.toggle()
+                            })
+//                            .padding(.horizontal, Size.w(14))
+                        }
+                        .padding(.bottom, Size.w(30))
+                        .sheet(isPresented: $showContentTypeSheet) {
+                            ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
+                                .onDisappear {
+                                    self.editIndex = nil
+                                }
+                        }
+                        .actionSheet(isPresented: $showRemoveConfirmation) {
+                            if confirmRemoveImageIndex >= 3 {
+                                ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                                    .default(Text("등록"), action: {
+                                        self.editIndex = confirmRemoveImageIndex
+                                        showContentTypeSheet.toggle()
+                                    }),
+                                    .destructive(Text("삭제"), action: removePicture),
+                                    .cancel()
+                                ])
+                            } else {
+                                ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                                    .default(Text("등록"), action: {
+                                        self.editIndex = confirmRemoveImageIndex
+                                        showContentTypeSheet.toggle()
+                                    }),
+                                    .cancel()
+                                ])
+                            }
+                        }
+                        
+                        
                         Spacer().frame(height: 300)
                         
                         NavigationLink(isActive: $next, destination: {
-                            Text("NEXT PAGE")
+                            BusinessOnboardingSuccess()
                         }) {
                             EmptyView()
                         }
@@ -82,19 +171,28 @@ struct BusinessOnboardingStep2: View {
                     Color.yellow200
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
-                    
-                    // FIXME: Implement passing condition
-                    //                    let pass = !controller.user.height.isNil && !controller.user.weight.isNil
+
                     let pass = true
                     
-                    Button(action: {
-                        if pass {
-                            next = true
+                    HStack {
+                        if userManager.isLoading {
+                            ProgressView()
+                                .tint(.black)
+                                .frame(maxWidth: .infinity)
+                                .padding(20)
+                        } else {
+                            Button(action: {
+                                userManager.upsertMyBusiness(business: controller.business) { success in
+                                    print(controller.business)
+                                    self.next = success
+                                }
+//                                next = true
+                            }) {
+                                FullSizeButton(title: "가입하기")
+                            }
                         }
-                    }) {
-                        NextBlackButton(enabled: pass)
                     }
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .frame(maxWidth: .infinity)
                     .padding(.top, Size.w(16))
                     .padding(.horizontal, Size.w(22))
                 }
@@ -106,7 +204,7 @@ struct BusinessOnboardingStep2: View {
         .navigationBarHidden(true)
         .onTapGesture {
             withAnimation {
-                typesSheetPresented.toggle()
+                typesSheetPresented = false
             }
             closeKeyboard()
         }
@@ -124,8 +222,17 @@ struct BusinessOnboardingStep2: View {
                         controller.business.businessCategory = self.businessCategory
                     }
                 }
+                .onChange(of: businessCategory) { newValue in
+                    withAnimation {
+                        controller.business.businessCategory = self.businessCategory
+                    }
+                }
             } : nil
         )
+    }
+    
+    private func removePicture() {
+        pictures.remove(at: confirmRemoveImageIndex)
     }
 }
 

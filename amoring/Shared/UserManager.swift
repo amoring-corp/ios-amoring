@@ -65,15 +65,15 @@ class UserManager: ObservableObject {
         case .business:
             print("I'm a business")
             
-//            if let businessProfile = authUser.business {
-//                print("going to Business Session")
-//                print(businessProfile)
-//                //TODO:  pass whole business user here!
+            if let businessProfile = authUser.business {
+                print("going to Business Session")
+                print(businessProfile)
+                //TODO:  pass whole business user here!
                 self.changeStateWithAnimation(state: .businessSession)
-//            } else {
-//                print("Business not onboarded yet")
-//                self.changeStateWithAnimation(state: .businessOnboarding)
-//            }
+            } else {
+                print("Business not onboarded yet")
+                self.changeStateWithAnimation(state: .businessOnboarding)
+            }
         case .user:
             print("I'm a user")
 
@@ -280,6 +280,74 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    func upsertMyBusiness(business: Business, completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        let data = UpdateBusinessData(business: business).data
+        let input = BusinessUpdateInput(data)
+        
+        amoring.perform(mutation: UpsertMyBusinessMutation(data: input)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion(false)
+                    return
+                }
+                
+                self.user?.business = business
+                print("Business was successfully updated!")
+                self.isLoading = false
+                completion(true)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(false)
+            }
+        }
+    }
+    
+//    func updateBusiness(business: Business, completion: @escaping (Bool) -> Void) {
+//        self.isLoading = true
+//        let data = UpdateBusinessData(business: business).data
+//        let input = BusinessUpdateInput(data)
+//        print(user?.id)
+//        amoring.perform(mutation: UpdateBusinessMutation(id: user?.id ?? "", data: input)) { result in
+//            switch result {
+//            case .success(let value):
+//                guard value.errors == nil else {
+//                    print(value.errors)
+//                    self.isLoading = false
+//                    completion(false)
+//                    return
+//                }
+//                
+//                guard let data = value.data else {
+//                    print("NO DATA!")
+//                    self.isLoading = false
+//                    completion(false)
+//                    return
+//                }
+//                
+//                self.user?.business = business
+//                print("Business was successfully updated!")
+//                self.isLoading = false
+//                completion(true)
+//            case .failure(let error):
+//                debugPrint(error.localizedDescription)
+//                self.isLoading = false
+//                completion(false)
+//            }
+//        }
+//    }
     
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {

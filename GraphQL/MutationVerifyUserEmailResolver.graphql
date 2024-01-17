@@ -1,0 +1,7 @@
+mutation verifyUserEmail($userId: ID!, $confirmationCode: String!, $emailConfirmationToken: String!) {
+  verifyUserEmailResolver(
+    userId: $userId
+    confirmationNumber: $confirmationCode
+    emailConfirmationToken: $emailConfirmationToken
+  )
+}

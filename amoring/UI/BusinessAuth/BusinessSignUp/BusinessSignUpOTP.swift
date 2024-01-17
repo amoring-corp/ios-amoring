@@ -79,7 +79,7 @@ struct BusinessSignUpOTP: View {
                 Button(action: {
                     signUp()
                 }) {
-                    NextBlackButton(enabled: !(controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")))
+                    NextBlackButton(enabled: !(controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")), isLoading: sessionManager.isLoading)
                 }
                 .disabled((controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")))
             }
@@ -113,12 +113,14 @@ struct BusinessSignUpOTP: View {
     }
     
     private func signUp() {
-        if controller.confirmCode == "123456" {
-            sessionManager.changeStateWithAnimation(state: .session(user: User(id: "")))
-        } else {
-            self.bordersColor = Color.red700
-            self.error = "인증번호가 일치하지 않습니다."
-        }
+        sessionManager.verifyEmail(code: controller.confirmCode, email: controller.email, password: controller.password)
+        
+//        if controller.confirmCode == "123456" {
+//            sessionManager.changeStateWithAnimation(state: .session(user: User(id: "")))
+//        } else {
+//            self.bordersColor = Color.red700
+//            self.error = "인증번호가 일치하지 않습니다."
+//        }
     }
 }
 

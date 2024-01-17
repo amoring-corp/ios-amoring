@@ -306,6 +306,58 @@ struct UserProfileData {
     }
 }
 
+struct BusinessData {
+    let ownerId: Int
+    let business: Business?
+    
+    var data: InputDict {
+        if let business {
+            return InputDict([
+                "ownerId": ownerId,
+                "businessName": business.businessName,
+                "address": business.address,
+                "businessType": business.businessType,
+                "businessIndustry": business.businessIndustry,
+                "businessCategory": business.businessCategory,
+                "representativeTitle": business.representativeTitle,
+                "representativeName": business.representativeName,
+                "phoneNumber": business.phoneNumber,
+                "registrationNumber": business.registrationNumber,
+                "bio": business.bio,
+                "latitude": business.latitude,
+                "longitude": business.longitude,
+            ])
+        } else {
+            return InputDict([:])
+        }
+    }
+}
+
+struct UpdateBusinessData {
+    let business: Business?
+    
+    var data: InputDict {
+        if let business {
+            return InputDict([
+                "businessName": business.businessName,
+                "address": business.address,
+                "businessType": business.businessType,
+                "businessIndustry": business.businessIndustry,
+                "businessCategory": business.businessCategory,
+                "representativeTitle": business.representativeTitle,
+                "representativeName": business.representativeName,
+                "phoneNumber": business.phoneNumber,
+                "registrationNumber": business.registrationNumber,
+                "bio": business.bio,
+                "latitude": business.latitude,
+                "longitude": business.longitude,
+            ])
+        } else {
+            return InputDict([:])
+        }
+    }
+}
+
 struct UserProfileImage: Hashable {
     var id: String?
     var profileId: String?

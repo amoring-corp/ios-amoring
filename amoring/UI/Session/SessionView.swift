@@ -10,6 +10,7 @@ import NavigationStackBackport
 
 struct SessionFlow: View {
     @StateObject var userManager: UserManager
+    @EnvironmentObject var sessionManager: SessionManager
     
     var body: some View {
         ZStack {
@@ -30,8 +31,20 @@ struct SessionFlow: View {
                 BusinessSessionView()
             case .debugging:
                 Text("DEBUGGING")
+                    .foregroundColor(.black)
+                    .padding(100)
+                    .background(Color.yellow100)
+                    .onTapGesture {
+                        sessionManager.changeStateWithAnimation(state: .auth)
+                    }
             case .error:
                 Text("ERROR")
+                    .foregroundColor(.black)
+                    .padding(100)
+                    .background(Color.yellow100)
+                    .onTapGesture {
+                        sessionManager.changeStateWithAnimation(state: .auth)
+                    }
             }
         }
         .environmentObject(userManager)

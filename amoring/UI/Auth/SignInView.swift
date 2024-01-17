@@ -40,7 +40,8 @@ struct SignInView: View {
                                     Text("AMORING")
                 .font(bold20Font)
                 .foregroundColor(.yellow300)
-                .opacity(animate ? 1 : 0), trailing:
+                .opacity(animate ? 1 : 0), 
+                                trailing: businessSheetPresented ?
                                     Button(action: {
                 withAnimation {
                     self.businessSheetPresented = false
@@ -49,7 +50,7 @@ struct SignInView: View {
                 Text("돌아가기")
                     .font(medium16Font)
                     .foregroundColor(.yellow300)
-            }
+            } : nil
             )
             .backport.navigationDestination(for: AuthPath.self) { screen in
                 navigator.navigate(screen: screen)

@@ -18,7 +18,7 @@ import AmoringAPI
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
     @Published var appState: AppState = .loading
     
-//    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
 //    @Published var goToUserOnboarding = false
 //    @Published var goToBusinessOnboarding = false
 //    
@@ -27,6 +27,9 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 //    
     @AppStorage("sessionToken") var sessionToken: String = ""
     @Published var token: String = ""
+    @Published var confirmationNumber: String = ""
+    @Published var emailConfirmationToken: String = ""
+    @Published var user: User? = nil
 //    @Published var signedIn: Bool = false
 //    @Published var isBusiness: Bool = true
     
@@ -103,6 +106,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         return
                     }
                     
+                    self.user = User(id: authUser.id).from(authUser)
                     self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
@@ -238,7 +242,9 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     }
     
     func businessSignIn(email: String, password: String) {
+        self.isLoading = true
         amoring.perform(mutation: SignInMutation(email: email, password: password)) { result in
+            self.isLoading = false
             switch result {
             case .success(let value):
                 if let errors = value.errors {
@@ -257,6 +263,73 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)
+            }
+        }
+    }
+    
+    func signUp(email: String, password: String, completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        amoring.perform(mutation: SignUpMutation(email: email, password: password)) { result in
+            self.isLoading = false
+            switch result {
+            case .success(let value):
+                if let errors = value.errors {
+                    print(errors)
+                    completion(false)
+                    return
+                }
+                
+                if let confirmationNumber = value.data?.signUp.confirmationNumber, let emailConfirmationToken = value.data?.signUp.emailConfirmationToken, let authUser = value.data?.signUp.user {
+                    self.confirmationNumber = confirmationNumber
+                    self.emailConfirmationToken = emailConfirmationToken
+                    print("abraca")
+                    print(email)
+                    print(password)
+                    print(confirmationNumber)
+                    print(emailConfirmationToken)
+                    // FIXME: ! create a decoder
+                    self.user = User(
+                        id: authUser.id,
+                        email: authUser.email,
+                        role: UserRole.business
+                    )
+                    completion(true)
+                } else {
+                    print("Wrong data!")
+                    completion(false)
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func verifyEmail(code: String, email: String, password: String) {
+        if let user = self.user {
+            self.isLoading = true
+            amoring.perform(mutation: VerifyUserEmailMutation(userId: user.id, confirmationCode: code, emailConfirmationToken: self.emailConfirmationToken)) { result in
+                self.isLoading = false
+                switch result {
+                case .success(let value):
+                    guard let passed = value.data?.verifyUserEmailResolver else {
+                        print("Wrong data format!")
+                        return
+                    }
+
+                    if passed {
+                        print("OTP successfully veryfied")
+                        
+                        self.businessSignIn(email: email, password: password)
+//                        self.changeStateWithAnimation(state: .session(user: user))
+                    } else {
+                        print("Failed to verify email")
+                    }
+                    
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
             }
         }
     }

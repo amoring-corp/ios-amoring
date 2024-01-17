@@ -10,6 +10,7 @@ import SwiftUI
 struct BusinessOnboardingView: View {
     @EnvironmentObject var controller: BusinessOnboardingController
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var name: String = ""
@@ -50,7 +51,7 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "매장명을 입력해주세요.", text: $name, font: regular18Font)
+                                CustomTextField(placeholder: "매장명을 입력해주세요.", text: $name, font: regular18Font, placeholderFont: regular18Font)
                                     .onChange(of: name, perform: { newValue in
                                         //                                    if(newValue.count >= 20){
                                         //                                        name = String(newValue.prefix(20))
@@ -243,13 +244,15 @@ struct BusinessOnboardingView: View {
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                         
-                        // FIXME: Implement passing condition
-                        //                    let pass = !controller.user.height.isNil && !controller.user.weight.isNil
+                        //                    let pass = !controller.business.businessName?.isEmpty ?? false && !controller.business?.representativeName?.isEmpty ?? false && !controller.business.businessType?.isEmpty ?? false && !controller.business.businessIndustry?.isEmpty ?? false && !controller.business.address?.isEmpty ?? false && !controller.business.businessNumber?.isEmpty ?? false
                         let pass = true
                         
                         Button(action: {
                             if pass {
-                                next = true
+                                userManager.upsertMyBusiness(business: controller.business) { success in
+                                    next = success
+                                }
+//                                next = true
                             }
                         }) {
                             NextBlackButton(enabled: pass)
