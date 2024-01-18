@@ -22,6 +22,9 @@ struct AccountView: View {
     @State private var showImagePicker: Bool = false
     @State private var bio: String = ""
     
+    @State private var logoutAlertPresented = false
+    @State private var deleteAlertPresented = false
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -128,10 +131,20 @@ struct AccountView: View {
                     MenuTitle(title: "내 계정")
                         
                     VStack(spacing: 0) {
-                        MenuLineButton(title: "로그아웃", action: sessionManager.signOut)
+                        MenuLineButton(title: "로그아웃", action: { logoutAlertPresented = true })
+                            .alert("로그아웃", isPresented: $logoutAlertPresented, actions: {
+                                Button("확인", action: sessionManager.signOut)
+                                Button("취소", role: .cancel, action: {})
+                            }, message: { Text("로그아웃 하시면, 라운지 활동이나 다른 멤버로부터의 메시지 알림을 받으실 수 없습니다. 로그아웃 하시겠습니까?") })
+                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        // TODO: implement account deletion
-                        MenuLineButton(title: "계정 삭제", action: sessionManager.signOut)
+                        
+                        MenuLineButton(title: "계정 삭제", action: { deleteAlertPresented = true })
+                            .alert("계정 삭제", isPresented: $deleteAlertPresented, actions: {
+                                // TODO: implement account deletion
+                                Button("삭제", role: .destructive, action: sessionManager.signOut)
+                                Button("취소", role: .cancel, action: {})
+                            }, message: { Text("Amoring에서 탈퇴 시 해당 계정의 모든 정보는 영구 삭제되며 다시 복수 할 수 없습니다. Amoring 계정을 삭제하시겠습니까?") })
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
