@@ -27,7 +27,7 @@ struct SignInView: View {
                         }
                     }
                 
-                ZStack(alignment: .topLeading) {
+                ZStack(alignment: .bottom) {
                     if animate {
                         SignInSheet(businessSheetPresented: $businessSheetPresented).environmentObject(navigator)
                         if self.businessSheetPresented {

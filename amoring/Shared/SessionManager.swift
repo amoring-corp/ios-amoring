@@ -15,44 +15,12 @@ import KakaoSDKUser
 import Apollo
 import AmoringAPI
 
-class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
-    @Published var appState: AppState = .initializing
-    
-    @Published var isLoading: Bool = false
-//    @Published var goToUserOnboarding = false
-//    @Published var goToBusinessOnboarding = false
-//    
-//    @AppStorage("signedIn") var signedIn: Bool = false
-//    @AppStorage("isBusiness") var businessSignedIn: Bool = false
-//    
-    @AppStorage("sessionToken") var sessionToken: String = ""
-//    @Published var token: String = ""
-    @Published var confirmationNumber: String? = nil
-    @Published var emailConfirmationToken: String = ""
-    @Published var user: User? = nil
-//    @Published var signedIn: Bool = false
-//    @Published var isBusiness: Bool = true
-    
-//    func getCurrentSession() {
-//        self.appState = .loading
-//        api.authenticatedUserQuery { authUser in
-//            if let authUser {
-//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
-//            } else {
-//                self.changeStateWithAnimation(state: .auth)
-//            }
-//        }
-//    }
-
-    @Published var amoring: ApolloClient = {
+func initApi(token: String) -> ApolloClient {
+    return {
         let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
         
         let configuration = URLSessionConfiguration.default
-        guard let sessionToken = UserDefaults.standard.string(forKey: "sessionToken") else {
-            return ApolloClient(url: URL(string: "https://amoring-be.antonmaker.com/graphql")!)
-        }
-        print(sessionToken)
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"] // Add your headers here
         
         let client = URLSessionClient(sessionConfiguration: configuration)
         let store = ApolloStore(cache: InMemoryNormalizedCache())
@@ -61,27 +29,24 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         
         return ApolloClient(networkTransport: networkTransport, store: store)
     }()
+}
+
+class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
+    @Published var appState: AppState = .initializing
     
-    func reInitAmoring() {
-        amoring = {
-            let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
-            
-            let configuration = URLSessionConfiguration.default
-            configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
-            
-            let client = URLSessionClient(sessionConfiguration: configuration)
-            let store = ApolloStore(cache: InMemoryNormalizedCache())
-            let provider = DefaultInterceptorProvider(client: client, store: store)
-            let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
-            
-            return ApolloClient(networkTransport: networkTransport, store: store)
-        }()
-    }
-    
+    @Published var isLoading: Bool = false
+
+    @AppStorage("sessionToken") var sessionToken: String = ""
+    @Published var confirmationNumber: String? = nil
+    @Published var emailConfirmationToken: String = ""
+    @Published var user: User? = nil
+
+    @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+
     func getCurrentSession(delay: Double = 2) {
-        reInitAmoring()
+        self.api = initApi(token: self.sessionToken)
         self.appState = .initializing
-        amoring.fetch(query: QueryAuthenticatedUserQuery()) { result in
+        api.fetch(query: QueryAuthenticatedUserQuery()) { result in
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 print("getting session .... ")
                 
@@ -243,7 +208,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     func businessSignIn(email: String, password: String) {
         self.isLoading = true
-        amoring.perform(mutation: SignInMutation(email: email, password: password)) { result in
+        api.perform(mutation: SignInMutation(email: email, password: password)) { result in
             self.isLoading = false
             switch result {
             case .success(let value):
@@ -269,7 +234,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     func signUp(email: String, password: String, completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        amoring.perform(mutation: SignUpMutation(email: email, password: password)) { result in
+        api.perform(mutation: SignUpMutation(email: email, password: password)) { result in
             self.isLoading = false
             switch result {
             case .success(let value):
@@ -308,7 +273,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     func verifyEmail(code: String, email: String, password: String) {
         if let user = self.user {
             self.isLoading = true
-            amoring.perform(mutation: VerifyUserEmailMutation(userId: user.id, confirmationCode: code, emailConfirmationToken: self.emailConfirmationToken)) { result in
+            api.perform(mutation: VerifyUserEmailMutation(userId: user.id, confirmationCode: code, emailConfirmationToken: self.emailConfirmationToken)) { result in
                 self.isLoading = false
                 switch result {
                 case .success(let value):
@@ -334,7 +299,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     }
     
     private func signInWithToken(token: String) {
-        amoring.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
+        api.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {

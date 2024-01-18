@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct BusinessOnboardingView: View {
-    @EnvironmentObject var controller: BusinessOnboardingController
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @StateObject var controller: BusinessOnboardingController = BusinessOnboardingController()
     
     @State var name: String = ""
     @State var representativeName: String = ""
@@ -271,6 +271,7 @@ struct BusinessOnboardingView: View {
         .onTapGesture {
             closeKeyboard()
         }
+        .environmentObject(controller)
     }
 }
 

@@ -20,7 +20,7 @@ struct BusinessOnboardingSuccess: View {
                 .scaleEffect(animation ? 12 : 1, anchor: .center)
                 .padding(.top, Size.w(60))
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.linear(duration: 1.5)) {
                             animation = true
                         }
@@ -55,7 +55,7 @@ struct BusinessOnboardingSuccess: View {
                 Spacer()
                 
                 Button(action: {
-                    sessionManager.getCurrentSession(delay: 0)
+                    userManager.changeStateWithAnimation(state: .businessSession)
                 }) {
                     FullSizeButton(title: "확인", color: Color.black, bg: .yellow300)
                 }

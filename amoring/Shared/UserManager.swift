@@ -11,53 +11,19 @@ import Apollo
 
 class UserManager: ObservableObject {
     @Published var userState: UserState = .initial
-    @AppStorage("sessionToken") var sessionToken: String = ""
     let authUser: User
+    @Published var api: ApolloClient
     @Published var user: User? = nil
     @Published var isLoading: Bool = false
     @Published var interestCategories: [InterestCategory] = []
     @Published var businessesInit: [Business] = []
     @Published var businesses: [Business] = []
     @Published var profiles: [UserProfile] = []
-
-    @Published var amoring: ApolloClient = {
-        let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
-        
-        let configuration = URLSessionConfiguration.default
-        guard let sessionToken = UserDefaults.standard.string(forKey: "sessionToken") else {
-            return ApolloClient(url: URL(string: "https://amoring-be.antonmaker.com/graphql")!)
-        }
-        print(sessionToken)
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
-        
-        let client = URLSessionClient(sessionConfiguration: configuration)
-        let store = ApolloStore(cache: InMemoryNormalizedCache())
-        let provider = DefaultInterceptorProvider(client: client, store: store)
-        let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
-        
-        return ApolloClient(networkTransport: networkTransport, store: store)
-    }()
     
-    func reInitAmoring() {
-        amoring = {
-            let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
-            
-            let configuration = URLSessionConfiguration.default
-            configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(sessionToken)"] // Add your headers here
-            
-            let client = URLSessionClient(sessionConfiguration: configuration)
-            let store = ApolloStore(cache: InMemoryNormalizedCache())
-            let provider = DefaultInterceptorProvider(client: client, store: store)
-            let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
-            
-            return ApolloClient(networkTransport: networkTransport, store: store)
-        }()
-    }
-    
-    init(authUser: User) {
+    init(authUser: User, api: ApolloClient) {
         self.authUser = authUser
+        self.api = api
         self.user = authUser
-        reInitAmoring()
         guard let role = authUser.role else {
             print("NO ROLE!")
             self.changeStateWithAnimation(state: .error)
@@ -105,7 +71,7 @@ class UserManager: ObservableObject {
     func createUserProfile(userProfile: UserProfile, completion: @escaping (Bool) -> Void) {
         self.isLoading = true
         let input = UserProfileData(userProfile: userProfile).data
-        amoring.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
+        api.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -163,7 +129,7 @@ class UserManager: ObservableObject {
     
     
     private func saveImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
-        amoring.upload(operation: UploadMyProfileImagesMutation(image: "image", sort: sort), files: [file]) { result in
+        api.upload(operation: UploadMyProfileImagesMutation(image: "image", sort: sort), files: [file]) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -217,7 +183,7 @@ class UserManager: ObservableObject {
     
     private func saveBusinessImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
         print("business id: \(user?.business?.id)")
-        amoring.upload(operation: UploadBusinessImageMutation(businessId: user?.business?.id ?? "", image: "image", sort: sort), files: [file]) { result in
+        api.upload(operation: UploadBusinessImageMutation(businessId: user?.business?.id ?? "", image: "image", sort: sort), files: [file]) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -245,7 +211,7 @@ class UserManager: ObservableObject {
     
     func connectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        amoring.perform(mutation: ConnectInterestsToMyProfileMutation(interestIds: ids)) { result in
+        api.perform(mutation: ConnectInterestsToMyProfileMutation(interestIds: ids)) { result in
             self.isLoading = false
             switch result {
             case .success(let value):
@@ -273,7 +239,7 @@ class UserManager: ObservableObject {
     func updateUserProfile(userProfile: UserProfile, completion: @escaping (Bool) -> Void) {
         let input = UserProfileData(userProfile: userProfile).data
         
-        amoring.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
+        api.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -299,7 +265,7 @@ class UserManager: ObservableObject {
     }
     
     func getInterests() {
-        amoring.fetch(query: QueryInterestCategoriesQuery()) { result in
+        api.fetch(query: QueryInterestCategoriesQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -343,7 +309,7 @@ class UserManager: ObservableObject {
         let data = UpdateBusinessData(business: business).data
         let input = BusinessUpdateInput(data)
         
-        amoring.perform(mutation: UpsertMyBusinessMutation(data: input)) { result in
+        api.perform(mutation: UpsertMyBusinessMutation(data: input)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -418,7 +384,7 @@ class UserManager: ObservableObject {
     
     // TODO: move to another Manager
     func getBusinesses() {
-        amoring.fetch(query: QueryBusinessesQuery()) { result in
+        api.fetch(query: QueryBusinessesQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -456,7 +422,7 @@ class UserManager: ObservableObject {
     
     // TODO: move to another Manager
     func getProfiles() {
-        amoring.fetch(query: UserProfilesQuery()) { result in
+        api.fetch(query: UserProfilesQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {

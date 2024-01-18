@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStackBackport
 
 struct UserOnboardingView: View {
-    @StateObject var controller: UserOnboardingController = UserOnboardingController()
+    @StateObject var userOnboardingController: UserOnboardingController = UserOnboardingController()
     
     var body: some View {
         NavigationStackBackport.NavigationStack {
@@ -18,6 +18,7 @@ struct UserOnboardingView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+        .environmentObject(userOnboardingController)
     }
 }
 

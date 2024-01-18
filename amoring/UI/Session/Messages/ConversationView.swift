@@ -10,7 +10,6 @@ import Combine
 
 struct ConversationView: View, KeyboardReadable {
     @EnvironmentObject var navigator: NavigationController
-    @EnvironmentObject var sessionController: SessionController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
     

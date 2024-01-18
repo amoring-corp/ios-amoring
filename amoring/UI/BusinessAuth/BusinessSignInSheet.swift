@@ -112,24 +112,22 @@ struct BusinessSignInSheet: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.bottom, Size.w(85))
                 
-                Button(action: {
-                    //TODO: business sign up
-                    print("go to business sign up")
-                }) {
-                    HStack {
-                        Text("아직 아모링 비즈니스가 아니신가요?").foregroundColor(.gray600)
+                HStack {
+                    Text("아직 아모링 비즈니스가 아니신가요?").foregroundColor(.gray600)
+                    NavigationLink(destination: {
+                        BusinessSignUpTerms()
+                    }) {
                         Text("가입하기").foregroundColor(.yellow600)
                     }
-                    .font(regular14Font)
                 }
+                .font(regular14Font)
                 .padding(.bottom, Size.w(50))
-                .padding(.bottom, Size.safeArea().bottom)
+//                .padding(.bottom, Size.safeArea().bottom)
             }
             .padding(.horizontal, Size.w(22))
             .frame(maxWidth: UIScreen.main.bounds.width)
             .background(Color.black)
         }
-//        .frame(maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea(edges: .bottom)
         .transition(.move(edge: .bottom))
         .onTapGesture(perform: closeKeyboard)

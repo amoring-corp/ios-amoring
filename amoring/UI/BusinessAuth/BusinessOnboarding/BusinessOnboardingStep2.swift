@@ -271,8 +271,10 @@ struct BusinessOnboardingStep2: View {
                                 userManager.uploadBusinessImages(images: images) { success in
                                     if success {
                                         userManager.upsertMyBusiness(business: controller.business) { success in
-                                            print(controller.business)
-                                            self.next = success
+                                            print(userManager.user?.business)
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                self.next = success
+                                            }
                                         }
                                     }
                                 }

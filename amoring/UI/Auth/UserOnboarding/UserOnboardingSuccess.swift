@@ -20,7 +20,7 @@ struct UserOnboardingSuccess: View {
                 .scaleEffect(animation ? 12 : 1, anchor: .center)
                 .padding(.top, Size.w(60))
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.linear(duration: 1.5)) {
                             animation = true
                         }

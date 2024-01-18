@@ -10,12 +10,6 @@ import Apollo
 
 struct ContentView: View {
     @StateObject var sessionManager = SessionManager()
-    @StateObject var userOnboardingController: UserOnboardingController = UserOnboardingController()
-    @StateObject var navigator = NavigationController()
-    @StateObject var sessionController = SessionController()
-    @StateObject var messagesController = MessagesController()
-    @StateObject var amoringController = AmoringController()
-    @StateObject var businessOnboardingController: BusinessOnboardingController = BusinessOnboardingController()
     @StateObject var businessSignUpController: BusinessSignUpController = BusinessSignUpController()
     
     var body: some View {
@@ -26,27 +20,15 @@ struct ContentView: View {
             case .auth:
                 SignInView()
             case .session(let user):
-                SessionFlow(userManager: UserManager(authUser: user)).transition(.move(edge: .trailing))
+                SessionFlow(userManager: UserManager(authUser: user, api: sessionManager.api)).transition(.move(edge: .trailing))
             case .error:
                 Text("smth went wrong!")
             }
         }
-        .overlay(
-            sessionController.purchaseType != nil ? PurchaseView(purchaseType: $sessionController.purchaseType, model: purchasesList[sessionController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
-        )
-        .environmentObject(userOnboardingController)
-        .environmentObject(businessOnboardingController)
-        .environmentObject(businessSignUpController)
-        .environmentObject(navigator)
-        .environmentObject(sessionController)
         .environmentObject(sessionManager)
-        .environmentObject(messagesController)
-        .environmentObject(amoringController)
+        .environmentObject(businessSignUpController)
         .onAppear {
             sessionManager.getCurrentSession()
-            
-            // MARK: TESTS
-//            userManager.user = Dummy.users.first!
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  BusinessOnboardingController.swift
+//  BusinessSignUpController.swift
 //  amoring
 //
 //  Created by 이준녕 on 1/12/24.

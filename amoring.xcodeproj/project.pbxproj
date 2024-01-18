@@ -95,9 +95,7 @@
 		854C7B052B1815EE0060CE03 /* PurchasedLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */; };
 		854C7B072B1818AB0060CE03 /* LikesFromMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B062B1818AB0060CE03 /* LikesFromMaxView.swift */; };
 		854C7B092B181B1C0060CE03 /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B082B181B1C0060CE03 /* ProfileCardView.swift */; };
-		85806C4F2B22F8650077D12C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85806C4E2B22F8650077D12C /* NetworkService.swift */; };
 		85806C512B22F90E0077D12C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 85806C502B22F90E0077D12C /* Apollo */; };
-		85806C532B22FBB90077D12C /* GraphQLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85806C522B22FBB90077D12C /* GraphQLManager.swift */; };
 		858862382B34FA9B009CC600 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858862372B34FA9B009CC600 /* CheckIn.swift */; };
 		85B028A12B2FE7B300A738AB /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* SessionController.swift */; };
 		85B028A32B3019B500A738AB /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A22B3019B500A738AB /* MessagesController.swift */; };
@@ -262,8 +260,6 @@
 		854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedLikesView.swift; sourceTree = "<group>"; };
 		854C7B062B1818AB0060CE03 /* LikesFromMaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesFromMaxView.swift; sourceTree = "<group>"; };
 		854C7B082B181B1C0060CE03 /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
-		85806C4E2B22F8650077D12C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		85806C522B22FBB90077D12C /* GraphQLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLManager.swift; sourceTree = "<group>"; };
 		858862372B34FA9B009CC600 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		85B028A02B2FE7B300A738AB /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -396,7 +392,6 @@
 			isa = PBXGroup;
 			children = (
 				850A2FDC2B0AE54B003B12B7 /* amoringApp.swift */,
-				85806C4D2B22F8510077D12C /* Network */,
 				850A30092B0AE9E6003B12B7 /* UI */,
 				850A30082B0AE95B003B12B7 /* Shared */,
 				85FC20712B0C4E5500DC1950 /* Model */,
@@ -641,15 +636,6 @@
 				8538D5732B579C9B0040E017 /* MutationUploadBusinessImage.graphql */,
 			);
 			path = GraphQL;
-			sourceTree = "<group>";
-		};
-		85806C4D2B22F8510077D12C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				85806C4E2B22F8650077D12C /* NetworkService.swift */,
-				85806C522B22FBB90077D12C /* GraphQLManager.swift */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		85D26F612B1EF11300E3C55F /* Profile */ = {
@@ -1046,7 +1032,6 @@
 				8522A5FB2B2C2F6A008AF703 /* PurchaseModel.swift in Sources */,
 				85FC20942B0C514400DC1950 /* PictureGridView.swift in Sources */,
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
-				85806C4F2B22F8650077D12C /* NetworkService.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
 				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,
@@ -1088,7 +1073,6 @@
 				850A30312B0B1CC7003B12B7 /* NearbyView.swift in Sources */,
 				85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */,
 				85B028A52B301A2B00A738AB /* PeopleLikesView.swift in Sources */,
-				85806C532B22FBB90077D12C /* GraphQLManager.swift in Sources */,
 				8538D5262B4E211B0040E017 /* XButton.swift in Sources */,
 				850A30112B0AEE1F003B12B7 /* SignInView.swift in Sources */,
 				85FC20812B0C510100DC1950 /* UserOnboardingSuccess.swift in Sources */,
