@@ -34,6 +34,27 @@ struct BusinessOnboardingStep2: View {
     @State private var showPermissionDenied: Bool = false
     @State private var editIndex: Int? = nil
     
+    @State private var daysSelection: DaySelection = .everyday
+    
+    @State private var from0: Date = Date()
+    @State private var from1: Date = Date()
+    @State private var from2: Date = Date()
+    @State private var from3: Date = Date()
+    @State private var from4: Date = Date()
+    @State private var from5: Date = Date()
+    @State private var from6: Date = Date()
+    
+    @State private var to0: Date = Date()
+    @State private var to1: Date = Date()
+    @State private var to2: Date = Date()
+    @State private var to3: Date = Date()
+    @State private var to4: Date = Date()
+    @State private var to5: Date = Date()
+    @State private var to6: Date = Date()
+    
+    @State var selectedDay: Date = Date()
+    @State var showPicker = false
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
@@ -52,12 +73,6 @@ struct BusinessOnboardingStep2: View {
                             .foregroundColor(.black)
                             .padding(.horizontal, Size.w(14))
                             .padding(.bottom, Size.w(40))
-                        
-//                        VStack(alignment: .leading) {
-//                            Text("매장명*")
-//                                .font(regular16Font)
-//                                .foregroundColor(.black)
-//                                .padding(.leading, Size.w(14))
                             
                             PickerButton(title: "매장명*") {
                                 if let businessCategory = controller.business.businessCategory {
@@ -111,6 +126,58 @@ struct BusinessOnboardingStep2: View {
                         .padding(.bottom, Size.w(30))
                         
                         VStack(alignment: .leading) {
+                            Text("영업시간*")
+                                .font(regular16Font)
+                                .foregroundColor(.black)
+                                .padding(.leading, Size.w(14))
+                            
+                            Text("정기적으로 운영하시는 일자별 영업정보를 알려주세요.")
+                                .font(medium14Font)
+                                .foregroundColor(.yellow600)
+                                .padding(.leading, Size.w(14))
+                                .padding(.top, Size.w(22))
+                                .padding(.bottom, Size.w(10))
+                            
+                            HStack(spacing: 0) {
+                                daysButton(me: .everyday)
+                                daysButton(me: .weekAndOff)
+                                daysButton(me: .custom)
+                            }
+    
+                            Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+                                .padding(.vertical, Size.w(10))
+                            
+                            VStack(alignment: .leading) {
+                                Text("➊ 영업시간을 알려주세요.")
+                                    .font(medium14Font)
+                                    .foregroundColor(.yellow600)
+                                // TODO: Implement saving
+                                HStack(spacing: 0) {
+                                    ZStack {
+                                        DatePicker("", selection: $from0, displayedComponents: .hourAndMinute)
+                                            .frame(height: Size.w(58))
+                                        timeWindow(time: from0).allowsHitTesting(false)
+                                    }
+                                    Text("~")
+                                        .font(regular16Font)
+                                        .foregroundColor(.black)
+                                        .padding(.horizontal, Size.w(20))
+                                    ZStack {
+                                        DatePicker("", selection: $to0, displayedComponents: .hourAndMinute)
+                                            .frame(height: Size.w(58))
+                                        timeWindow(time: to0).allowsHitTesting(false)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, Size.w(14))
+                            
+                            Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+                                .padding(.vertical, Size.w(10))
+                            
+                        }
+                        .padding(.bottom, Size.w(30))
+                        
+                        VStack(alignment: .leading) {
                             Text("사진* (최소 3개이상)")
                                 .font(regular16Font)
                                 .foregroundColor(.black)
@@ -122,7 +189,7 @@ struct BusinessOnboardingStep2: View {
                             }, onAddImageClick: {
                                 showContentTypeSheet.toggle()
                             })
-//                            .padding(.horizontal, Size.w(14))
+                            .padding(.horizontal, Size.w(-8))
                         }
                         .padding(.bottom, Size.w(30))
                         .sheet(isPresented: $showContentTypeSheet) {
@@ -234,10 +301,71 @@ struct BusinessOnboardingStep2: View {
                 }
             } : nil
         )
+        .overlay(
+            showPicker ? CustomSheet {
+                DatePicker("", selection: $selectedDay, displayedComponents: .hourAndMinute)
+                    
+                    .labelsHidden()
+                    .pickerStyle(.wheel)
+                    
+                    .onChange(of: selectedDay) { newValue in
+                        withAnimation {
+                            self.from0 = selectedDay
+                        }
+                    }
+            } : nil
+        )
     }
     
     private func removePicture() {
         pictures.remove(at: confirmRemoveImageIndex)
+    }
+    
+    enum DaySelection {
+        case everyday, weekAndOff, custom
+        
+        func title() -> String {
+            switch self {
+            case .everyday:
+                return "매일"
+            case .weekAndOff:
+                return "평일/주말"
+            case .custom:
+                return "요일별"
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func daysButton(me: DaySelection) -> some View {
+        let selected = me == self.daysSelection
+        Text(me.title())
+            .font(medium15Font)
+            .foregroundColor(selected ? .gray100 : .yellow600)
+            .frame(maxWidth: .infinity)
+            .frame(height: Size.w(50))
+            .background(selected ? Color.yellow700 : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10).stroke(selected ? Color.yellow800 : Color.yellow600)
+            )
+            .padding(Size.w(8))
+            .onTapGesture {
+                withAnimation {
+                    self.daysSelection = me
+                }
+            }
+    }
+    
+    @ViewBuilder
+    private func timeWindow(time: Date) -> some View {
+        Text(time.toHM())
+            .font(medium18Font)
+            .foregroundColor(.black)
+            .frame(maxWidth: .infinity)
+            .frame(height: Size.w(58))
+            .background(Color.gray100)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 

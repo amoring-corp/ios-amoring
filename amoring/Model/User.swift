@@ -297,11 +297,25 @@ struct UserProfile: Hashable {
             userProfile.bio = data.bio
             userProfile.gender = data.gender?.rawValue
             userProfile.images = getImages(data.images)
+            userProfile.interests = getInterests(data.interests)
 
             return userProfile
         } else {
             return nil
         }
+    }
+    
+    func getInterests(_ interests: [UserProfilesQuery.Data.UserProfile.Interest?]?) -> [Interest] {
+        var inters: [Interest] = []
+        guard let interests else { return inters }
+            
+        for interest in interests {
+            let inter = Interest(
+                id: interest?.id ?? "", name: interest?.name ?? ""
+            )
+            inters.append(inter)
+        }
+        return inters
     }
     
     func getImages(_ images: [UserProfilesQuery.Data.UserProfile.Image?]?) -> [UserProfileImage] {

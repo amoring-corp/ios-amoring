@@ -358,7 +358,10 @@ class Dummy {
                         UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
                         UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
-                    interests: [],
+                    interests: [
+                        Amoring.Interest(id: "1", name: "🎪 페스티벌", categoryId: nil, category: nil, createdAt: nil, updatedAt: nil),
+                        Amoring.Interest(id: "8", name: "💰 경제", categoryId: nil, category: nil, createdAt: nil, updatedAt: nil),
+                    ],
                     age: 24
                    ),
     ]

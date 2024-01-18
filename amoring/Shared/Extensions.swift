@@ -100,6 +100,16 @@ extension Date {
     static func - (lhs: Date, rhs: Date) -> TimeInterval {
         return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
     }
+    
+    func toHM() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a hh:mm"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        formatter.amSymbol = "오전"
+        formatter.pmSymbol = "오후"
+        return formatter.string(from: self)
+    }
 }
 
 extension Optional where Wrapped == Date {
