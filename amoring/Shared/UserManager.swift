@@ -68,15 +68,15 @@ class UserManager: ObservableObject {
         case .business:
             print("I'm a business")
             
-//            if let businessProfile = authUser.business {
-//                print("going to Business Session")
-//                print(businessProfile)
-//                //TODO:  pass whole business user here!
-//                self.changeStateWithAnimation(state: .businessSession)
-//            } else {
+            if let businessProfile = authUser.business {
+                print("going to Business Session")
+                print(businessProfile)
+                //TODO:  pass whole business user here!
+                self.changeStateWithAnimation(state: .businessSession)
+            } else {
 //                print("Business not onboarded yet")
                 self.changeStateWithAnimation(state: .businessOnboarding)
-//            }
+            }
         case .user:
             print("I'm a user")
 

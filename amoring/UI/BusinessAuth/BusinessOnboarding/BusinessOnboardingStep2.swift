@@ -53,7 +53,10 @@ struct BusinessOnboardingStep2: View {
     @State private var to6: Date = Date()
     
     @State var selectedDay: Date = Date()
-    @State var showPicker = false
+    
+    
+    @State var showPhoneCodes = false
+    @State var selectedCode: String = "010"
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -113,15 +116,30 @@ struct BusinessOnboardingStep2: View {
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.leading, Size.w(14))
-                            // TODO: Change to two parts version with City Code dropdown
-                            CustomTextField(placeholder: "‘-’ 표시없이 입력해주세요.", text: $phoneNumber, font: regular18Font)
-                                .onChange(of: phoneNumber, perform: { newValue in
-                                    if(newValue.count >= 1){
-                                        controller.business.phoneNumber = newValue
-                                    } else {
-                                        controller.business.phoneNumber = nil
+                            HStack {
+                                SmallPickerButton {
+                                    Text(selectedCode)
+                                        .foregroundColor(.black)
+                                        .font(medium18Font)
+                                }
+                                .onTapGesture {
+                                    withAnimation {
+                                        showPhoneCodes.toggle()
                                     }
-                                })
+                                }
+                                
+                                CustomTextField(placeholder: "‘-’ 표시없이 입력해주세요.", text: $phoneNumber, font: regular18Font)
+                                    .onChange(of: phoneNumber, perform: { newValue in
+                                        if(newValue.count >= 1){
+                                            controller.business.phoneNumber = selectedCode + newValue
+                                        } else {
+                                            controller.business.phoneNumber = nil
+                                        }
+                                    })
+                                    .onChange(of: selectedCode, perform: { newValue in
+                                        controller.business.phoneNumber = newValue + phoneNumber
+                                    })
+                            }
                         }
                         .padding(.bottom, Size.w(30))
                         
@@ -276,6 +294,7 @@ struct BusinessOnboardingStep2: View {
         .navigationBarHidden(true)
         .onTapGesture {
             withAnimation {
+                showPhoneCodes = false
                 typesSheetPresented = false
             }
             closeKeyboard()
@@ -302,17 +321,14 @@ struct BusinessOnboardingStep2: View {
             } : nil
         )
         .overlay(
-            showPicker ? CustomSheet {
-                DatePicker("", selection: $selectedDay, displayedComponents: .hourAndMinute)
-                    
-                    .labelsHidden()
-                    .pickerStyle(.wheel)
-                    
-                    .onChange(of: selectedDay) { newValue in
-                        withAnimation {
-                            self.from0 = selectedDay
-                        }
+            showPhoneCodes ? CustomSheet {
+                Picker("", selection: $selectedCode) {
+                    ForEach(Constants.phoneCodeList, id: \.self) { option in
+                        Text(option).tag(option)
+                            .foregroundColor(.black)
                     }
+                }
+                .pickerStyle(.wheel)
             } : nil
         )
     }

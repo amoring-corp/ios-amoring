@@ -45,6 +45,40 @@ struct PickerButton<Content: View>: View {
     }
 }
 
+struct SmallPickerButton<Content: View>: View {
+    var title: String? = nil
+    @ViewBuilder let content: () -> Content
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if let title {
+                Text(title)
+                    .font(regular16Font)
+                    .foregroundColor(.black)
+                    .padding(.leading, Size.w(14))
+            }
+            HStack {
+                content()
+                    .font(medium18Font)
+                    .foregroundColor(.black)
+                    .background(Color.white)
+                
+                Spacer()
+                Image(systemName: "chevron.down")
+                    .foregroundColor(.yellow350)
+                    .font(regular20Font)
+            }
+            .padding(.vertical, Size.w(16))
+            .padding(.horizontal, Size.w(10))
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            //            .font(semiBold22Font)
+            .font(medium18Font)
+            .frame(idealWidth: Size.w(86), maxWidth: Size.w(90))
+        }
+    }
+}
+
 struct PickerButtonDouble: View {
     var title: String? = nil
     @Binding var age: Double?
