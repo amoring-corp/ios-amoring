@@ -130,9 +130,6 @@
     "❶ 인증 가능한 이메일\n❷ 사업자등록증\n❸ 매장의 사진 (최소 3장)" : {
 
     },
-    "Account" : {
-
-    },
     "Account Information" : {
 
     },
@@ -152,25 +149,10 @@
         }
       }
     },
-    "Amoring Community" : {
-
-    },
-    "Amoring Settings" : {
-
-    },
     "Basic Information" : {
 
     },
-    "Bio" : {
-
-    },
     "Business Sign IN" : {
-
-    },
-    "Cancel" : {
-
-    },
-    "Check out people you like" : {
 
     },
     "Company Registration Number" : {
@@ -179,13 +161,7 @@
     "contact" : {
 
     },
-    "Contact Us/ Report" : {
-
-    },
     "DEBUGGING" : {
-
-    },
-    "Deete account" : {
 
     },
     "Delete account" : {
@@ -203,7 +179,7 @@
     "Eugene Krabs" : {
 
     },
-    "FEMALE" : {
+    "female" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -223,13 +199,7 @@
     "FORGOT PASSWORD" : {
 
     },
-    "Hide my profile" : {
-
-    },
     "images" : {
-
-    },
-    "Likes: " : {
 
     },
     "Listing Settings" : {
@@ -241,10 +211,7 @@
     "Logout" : {
 
     },
-    "LOGOUT" : {
-
-    },
-    "MALE" : {
+    "male" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -335,6 +302,9 @@
     "New" : {
 
     },
+    "Photos" : {
+
+    },
     "Picker here" : {
 
     },
@@ -344,19 +314,10 @@
     "Please upload a photo of your business that you are proud of. This photo will be registered on the list." : {
 
     },
-    "Privacy Policy" : {
-
-    },
     "Pumpkin" : {
 
     },
-    "Purchse" : {
-
-    },
     "QR코드를 스캔하여 체크인해주세요." : {
-
-    },
-    "Remove this picture?" : {
 
     },
     "representative" : {
@@ -392,19 +353,10 @@
     "Subscription Settings" : {
 
     },
-    "Terms of Service" : {
-
-    },
-    "Terms of use" : {
-
-    },
     "To change settings Please re-enter your password" : {
 
     },
     "Wrong password!" : {
-
-    },
-    "Yes" : {
 
     },
     "가입 전 준비해주세요" : {
@@ -423,6 +375,9 @@
 
     },
     "개" : {
+
+    },
+    "개인정보 보호 방침" : {
 
     },
     "개인정보 취급방침" : {
@@ -530,6 +485,9 @@
     "메시지를 시작할 수 있어요!" : {
 
     },
+    "문의하기 / 신고하기" : {
+
+    },
     "바로 아모링을 시작해보세요!" : {
 
     },
@@ -587,6 +545,9 @@
     "서로 좋아요한 상대방과\n이제부터 여기서 메시지를 보낼 수 있어요.\n먼저 메시지를 보내보세요!" : {
 
     },
+    "서비스 이용 약관" : {
+
+    },
     "서울 성동구 성덕정길 152" : {
 
     },
@@ -597,6 +558,9 @@
 
     },
     "세" : {
+
+    },
+    "소개글" : {
 
     },
     "숨기기" : {
