@@ -11,16 +11,8 @@ import CachedAsyncImage
 struct AccountView: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
-    @EnvironmentObject var sessionController: SessionController
-    
-    @State private var pictures: [PictureModel] = []
-    
-    @State private var droppedOutside: Bool = false
-    @State private var confirmRemoveImageIndex: Int = 0
-    @State private var showRemoveConfirmation: Bool = false
-    @State private var showContentTypeSheet: Bool = false
-    @State private var showImagePicker: Bool = false
-    @State private var bio: String = ""
+    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var navigator: NavigationController
     
     @State private var logoutAlertPresented = false
     @State private var deleteAlertPresented = false
@@ -72,21 +64,27 @@ struct AccountView: View {
                     MenuTitle(title: "내 프로필")
                         
                     VStack(spacing: 0) {
-                        MenuLineLink(title: "사진") {
-                            Text("Photos")
-                        }
+                        MenuLineButton(title: "사진", action: {
+                            navigator.path.append(NavigatorPath.accountPhoto)
+                        })
+                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "소개글") {
-                            Text("소개글")
-                        }
+                        
+                        MenuLineButton(title: "소개글", action: {
+                            navigator.path.append(NavigatorPath.accountBio)
+                        })
+                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "기본정보") {
-                            Text("기본정보")
-                        }
+                        
+                        MenuLineButton(title: "기본정보", action: {
+                            navigator.path.append(NavigatorPath.accountIntro)
+                        })
+                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "관심사") {
-                            Text("관심사")
-                        }
+                        
+                        MenuLineButton(title: "관심사", action: {
+                            navigator.path.append(NavigatorPath.accountInterests)
+                        })
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -95,15 +93,15 @@ struct AccountView: View {
                     MenuTitle(title: "프리미엄 구매하기")
                     
                     VStack(spacing: 0) {
-                        MenuLineButton(title: "+ 좋아요", subtitle: "\(sessionController.purchasedLikes)개 남음", image: "ic-heart-fill", action: { sessionController.openPurchase(purchaseType: .like) }, fontColor: Color.yellow200, subFontColor: Color.yellow350)
+                        MenuLineButton(title: "+ 좋아요", subtitle: "\(purchaseController.purchasedLikes)개 남음", image: "ic-heart-fill", action: { purchaseController.openPurchase(purchaseType: .like) }, fontColor: Color.yellow200, subFontColor: Color.yellow350)
                         
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineButton(title: "라운지 확장", subtitle: "구매하기", action: { sessionController.openPurchase(purchaseType: .lounge) })
+                        MenuLineButton(title: "라운지 확장", subtitle: "구매하기", action: { purchaseController.openPurchase(purchaseType: .lounge) })
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                         // TODO: pu real time here
-                        MenuLineButton(title: "프로필 투명모드", subtitle: "11시간 59 분 남음", action: { sessionController.openPurchase(purchaseType: .transparent) }, fontColor: Color.yellow200, subFontColor: Color.yellow350)
+                        MenuLineButton(title: "프로필 투명모드", subtitle: "11시간 59 분 남음", action: { purchaseController.openPurchase(purchaseType: .transparent) }, fontColor: Color.yellow200, subFontColor: Color.yellow350)
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineButton(title: "리스트 보기", subtitle: "구매하기", action: { sessionController.openPurchase(purchaseType: .list) })
+                        MenuLineButton(title: "리스트 보기", subtitle: "구매하기", action: { purchaseController.openPurchase(purchaseType: .list) })
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -120,9 +118,9 @@ struct AccountView: View {
                             Text("개인정보 보호 방침")
                         }
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "문의하기 / 신고하기") {
-                            Text("문의하기 / 신고하기")
-                        }
+                        MenuLineButton(title: "문의하기 / 신고하기", action: {
+                            navigator.path.append(NavigatorPath.accountEmail)
+                        })
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -151,31 +149,14 @@ struct AccountView: View {
                     
                     Spacer().frame(height: 200)
                     
-//                    PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
-//                        confirmRemoveImageIndex = index
-//                        showRemoveConfirmation.toggle()
-//                    }, onAddImageClick: {
-//                        showContentTypeSheet.toggle()
-//                    })
-//                    .padding(.horizontal)
-//                    .sheet(isPresented: $showContentTypeSheet) {
-//                        ImagePicker(pictures: $pictures).ignoresSafeArea()
-//                    }
-//                    //            .alert("camera-permission-denied", isPresented: $showPermissionDenied, actions: {}, message: { Text("user-must-grant-camera-permission") })
-//                    .alert("Remove this picture?", isPresented: $showRemoveConfirmation, actions: {
-//                        Button("Yes", action: removePicture)
-//                        Button("Cancel", role: .cancel, action: {})
-//                    })
                 }
                 .padding(.horizontal, Size.w(22))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.gray1000)
+//            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarItems(trailing: Text("").foregroundColor(.gray1000))
         }
-    }
-    
-    private func removePicture() {
-        pictures.remove(at: confirmRemoveImageIndex)
     }
 }
 

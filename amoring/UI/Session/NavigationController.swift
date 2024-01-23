@@ -27,6 +27,17 @@ class NavigationController: ObservableObject {
             BusinessDetailsView().environmentObject(self)
         case .checkInResult:
             CheckInResult().environmentObject(self)
+            
+        case .accountPhoto:
+            AccountPhoto().environmentObject(self)
+        case .accountBio:
+            AccountBio().environmentObject(self)
+        case .accountIntro:
+            AccountIntro().environmentObject(self)
+        case .accountInterests:
+            AccountInterests().environmentObject(self)
+        case .accountEmail:
+            AccountEmail().environmentObject(self)
                 }
     }
     
@@ -42,4 +53,10 @@ enum NavigatorPath: Hashable {
     case conversation
     case business
     case checkInResult
+    
+    case accountPhoto
+    case accountBio
+    case accountIntro
+    case accountInterests
+    case accountEmail
 }

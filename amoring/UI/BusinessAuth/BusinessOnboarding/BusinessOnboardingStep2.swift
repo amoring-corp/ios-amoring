@@ -102,12 +102,9 @@ struct BusinessOnboardingStep2: View {
                                         controller.business.bio = String(newValue.prefix(150))
                                     }
                                 })
-                            if #available(iOS 16.0, *) {
-                                MultilineCustomTextField(placeholder: "고객들이 회원님의 매장을 잘 이해할 수 있도록 간단한 소개 부탁드립니다. 소개는 150자 이하로 부탁드립니다.", text: $controller.business.bio ?? "")
-                                    .layoutPriority(2)
-                            } else {
-                                CustomTextField(placeholder: "고객들이 회원님의 매장을 잘 이해할 수 있도록 간단한 소개 부탁드립니다. 소개는 150자 이하로 부탁드립니다.", text: $controller.business.bio ?? "", font: semiBold18Font)
-                            }
+                            
+                            MultilineCustomTextField(placeholder: "고객들이 회원님의 매장을 잘 이해할 수 있도록 간단한 소개 부탁드립니다. 소개는 150자 이하로 부탁드립니다.", text: $controller.business.bio ?? "")
+
                         }
                         .padding(.bottom, Size.w(30))
                         

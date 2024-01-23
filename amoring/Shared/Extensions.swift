@@ -79,6 +79,15 @@ extension Optional where Wrapped == Int {
     }
 }
 
+extension Int {
+    func toWeight() -> String {
+        self.description + "kg"
+    }
+    func toHeight() -> String? {
+        self.description + "cm"
+    }
+}
+
 extension Optional where Wrapped == Double {
     var isNil: Bool {
         return self == nil

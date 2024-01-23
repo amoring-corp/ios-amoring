@@ -30,12 +30,8 @@ struct UserOnboardingBio: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
-            if #available(iOS 16.0, *) {
-                MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.userProfile.bio ?? "")
-                    .layoutPriority(2)
-            } else {
-                CustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.userProfile.bio ?? "", font: semiBold18Font)
-            }
+            
+            MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.userProfile.bio ?? "")
             
             Spacer()
                 .onChange(of: controller.userProfile.bio ?? "", perform: { newValue in

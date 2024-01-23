@@ -13,7 +13,7 @@ enum SwipeAction{
 
 struct SwipibleProfileVIew: View {
     @EnvironmentObject var amoringController: AmoringController
-    @EnvironmentObject var sessionController: SessionController
+    @EnvironmentObject var purchaseController: PurchaseController
     @Namespace var animation
     @State private var dragOffset = CGSize.zero
     
@@ -141,8 +141,8 @@ struct SwipibleProfileVIew: View {
                 }
             }).onChange(of: swipeAction, perform: { newValue in
                 if newValue != .doNothing {
-                    if newValue == .swipeRight && sessionController.purchasedLikes <= 0 && self.likes <= 0 {
-                        sessionController.openPurchase(purchaseType: .like)
+                    if newValue == .swipeRight && purchaseController.purchasedLikes <= 0 && self.likes <= 0 {
+                        purchaseController.openPurchase(purchaseType: .like)
                         withAnimation(.default){
                             self.dragOffset = .zero
                         }
@@ -180,8 +180,8 @@ struct SwipibleProfileVIew: View {
         print("performDragEnd")
         let translationX = translation.width
         if (hasLiked(translationX)) {
-            if sessionController.purchasedLikes <= 0 && self.likes <= 0 {
-                sessionController.openPurchase(purchaseType: .like)
+            if purchaseController.purchasedLikes <= 0 && self.likes <= 0 {
+                purchaseController.openPurchase(purchaseType: .like)
                 withAnimation(.default){
                     self.dragOffset = .zero
                 }

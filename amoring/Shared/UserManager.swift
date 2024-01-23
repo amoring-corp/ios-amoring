@@ -228,10 +228,61 @@ class UserManager: ObservableObject {
                 }
                 
                 print(data.connectInterestsToMyProfile.interests)
+                if let interests = data.connectInterestsToMyProfile.interests {
+                    self.user?.userProfile?.interests.removeAll()
+                    for interest in interests {
+                        if let interest {
+                            self.user?.userProfile?.interests.append(Interest(id: "", name: "").getFrom(data: interest))
+                        }
+                    }
+                }
+                
                 completion(true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 completion(false)
+            }
+        }
+    }
+    
+    func disconnectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        guard let profileId = user?.userProfile?.id else { return }
+        api.perform(mutation: DisconnectInterestsFromUserProfileMutation(profileId: profileId, ids: ids)) { result in
+            self.isLoading = false
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print(data.disconnectInterestsFromUserProfile.interests)
+                completion(true)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func reconnectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
+        if let interests = user?.userProfile?.interests {
+            self.disconnectInterests(ids: interests.map{ $0.id }) { success in
+                self.connectInterests(ids: ids) { success in
+                    completion(success)
+                }
+            }
+        } else {
+            self.connectInterests(ids: ids) { success in
+                completion(success)
             }
         }
     }
@@ -265,6 +316,7 @@ class UserManager: ObservableObject {
     }
     
     func getInterests() {
+        guard interestCategories.isEmpty else { return }
         api.fetch(query: QueryInterestCategoriesQuery()) { result in
             switch result {
             case .success(let value):
@@ -295,7 +347,9 @@ class UserManager: ObservableObject {
                         }
                     }
                     
-                    self.interestCategories.append(category)
+                    if !self.interestCategories.contains(where: { $0.name == category.name }) {
+                        self.interestCategories.append(category)
+                    }
                 }
             case .failure(let error):
                 debugPrint(error.localizedDescription)

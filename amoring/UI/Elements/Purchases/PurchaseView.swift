@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PurchaseView: View {
-    @EnvironmentObject var sessionController: SessionController
+    @EnvironmentObject var purchaseController: PurchaseController
     @Binding var purchaseType: PurchaseModel.type?
     let model: PurchaseModel
     
@@ -103,7 +103,7 @@ struct PurchaseView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: bg(), startPoint: .topTrailing, endPoint: .bottomLeading))
                 Button(action: {
-                    sessionController.purchase(selectedPlan)
+                    purchaseController.purchase(selectedPlan)
                 }) {
                     Text("구매하기")
                         .font(semiBold22Font)

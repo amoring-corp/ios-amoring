@@ -339,7 +339,7 @@ struct UserProfileData {
         if let userProfile {
             return InputDict([
                 "name": userProfile.name,
-                "age": userProfile.age,
+//                "age": userProfile.age,
                 "birthYear": userProfile.birthYear,
                 "height": userProfile.height,
                 "weight": userProfile.weight,
@@ -436,6 +436,14 @@ struct Interest: Hashable {
     var category: InterestCategory?
     var createdAt: Date?
     var updatedAt: Date?
+    
+    func getFrom(data: ConnectInterestsToMyProfileMutation.Data.ConnectInterestsToMyProfile.Interest) -> Interest {
+        return Interest(
+            id: data.id,
+            name: data.name ?? "",
+            categoryId: data.categoryId
+        )
+    }
 }
 
 struct InterestCategory: Hashable {

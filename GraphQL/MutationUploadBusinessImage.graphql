@@ -1,4 +1,4 @@
-mutation uploadBusinessImage($businessId: ID!, $image: Upload!, $sort: Int!) {
+mutation UploadBusinessImage($businessId: ID!, $image: Upload!, $sort: Int!) {
   uploadBusinessImage(businessId: $businessId, data:
     {
       sort: $sort

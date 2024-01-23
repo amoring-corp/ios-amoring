@@ -10,7 +10,7 @@ import SwiftUI
 struct PeopleLikesView: View {
     @EnvironmentObject var navigator: NavigationController
     @EnvironmentObject var messageController: MessagesController
-    @EnvironmentObject var sessionController: SessionController
+    @EnvironmentObject var purchaseController: PurchaseController
     
     var body: some View {
         
@@ -40,7 +40,7 @@ struct PeopleLikesView: View {
             
             ScrollView(showsIndicators: false) {
                 
-                if !sessionController.likeListEnabled {
+                if !purchaseController.likeListEnabled {
                     VStack {
                         Text("오늘밤,\n리스트 보기를 활성화해보세요.\n누가 먼저 ‘좋아요’를 보냈는지 알려드릴게요!")
                             .font(semiBold16Font)
@@ -49,7 +49,7 @@ struct PeopleLikesView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom, Size.w(5))
                         Button(action: {
-                            sessionController.openPurchase(purchaseType: .list)
+                            purchaseController.openPurchase(purchaseType: .list)
                         }) {
                             Text("구매하기")
                                 .font(semiBold16Font)
@@ -95,7 +95,7 @@ struct PeopleLikesView: View {
                                         image
                                             .resizable()
                                             .scaledToFill()
-                                            .blur(radius: sessionController.likeListEnabled ? 0 : 10)
+                                            .blur(radius: purchaseController.likeListEnabled ? 0 : 10)
                                     }, placeholder: {
                                         ZStack {
                                             Color.gray1000
@@ -105,7 +105,7 @@ struct PeopleLikesView: View {
                                         .frame(minHeight: Size.w(200), alignment: .center)
                                     })
                                     
-                                    if sessionController.likeListEnabled {
+                                    if purchaseController.likeListEnabled {
                                         VStack(alignment: .leading, spacing: Size.w(3)) {
                                             HStack {
                                                 //                                            Text(LocalizedStringKey(user?.gender ?? ""))

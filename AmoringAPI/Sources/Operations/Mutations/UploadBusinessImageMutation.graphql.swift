@@ -4,10 +4,10 @@
 @_exported import ApolloAPI
 
 public class UploadBusinessImageMutation: GraphQLMutation {
-  public static let operationName: String = "uploadBusinessImage"
+  public static let operationName: String = "UploadBusinessImage"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation uploadBusinessImage($businessId: ID!, $image: Upload!, $sort: Int!) { uploadBusinessImage( businessId: $businessId data: { sort: $sort, file: $image } ) { __typename id businessId fileId sort file { __typename id name mimetype url path width height createdAt updatedAt } } }"#
+      #"mutation UploadBusinessImage($businessId: ID!, $image: Upload!, $sort: Int!) { uploadBusinessImage( businessId: $businessId data: { sort: $sort, file: $image } ) { __typename id businessId fileId sort file { __typename id name mimetype url path width height createdAt updatedAt } } }"#
     ))
 
   public var businessId: ID

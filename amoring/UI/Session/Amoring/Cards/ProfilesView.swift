@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfilesView: View {
     @EnvironmentObject var amoringController: AmoringController
-    @EnvironmentObject var sessionController: SessionController
+    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var userManager: UserManager
     
     @State var isOn = false
@@ -36,12 +36,12 @@ struct ProfilesView: View {
                     Spacer()
                     LikesFromMaxView(likes: likes, maxLikes: maxLikes)
                         .onTapGesture {
-                            sessionController.openPurchase(purchaseType: .like)
+                            purchaseController.openPurchase(purchaseType: .like)
                         }
-                    if sessionController.purchasedLikes > 0 {
-                        PurchasedLikesView(likes: sessionController.purchasedLikes)
+                    if purchaseController.purchasedLikes > 0 {
+                        PurchasedLikesView(likes: purchaseController.purchasedLikes)
                             .onTapGesture {
-                                sessionController.openPurchase(purchaseType: .like)
+                                purchaseController.openPurchase(purchaseType: .like)
                             }
                     }
                 }
@@ -148,7 +148,7 @@ struct ProfilesView: View {
                     }
                 } else {
                     withAnimation {
-                        sessionController.purchasedLikes -= 1
+                        purchaseController.purchasedLikes -= 1
                     }
                 }
             }

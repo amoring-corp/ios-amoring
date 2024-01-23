@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ListOfPeopleLikesLink: View {
     @EnvironmentObject var navigator: NavigationController
-    @EnvironmentObject var sessionController: SessionController
+    @EnvironmentObject var purchaseController: PurchaseController
     
     var body: some View {
-        var listIsEnable = sessionController.likeListEnabled
+        var listIsEnable = purchaseController.likeListEnabled
         
         VStack(alignment: .leading, spacing: Size.w(14)) {
             Text("리스트")

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PickerButton<Content: View>: View {
     var title: String? = nil
+    var titleColor: Color = Color.black
     @ViewBuilder let content: () -> Content
 
     var body: some View {
@@ -16,7 +17,7 @@ struct PickerButton<Content: View>: View {
             if let title {
                 Text(title)
                     .font(regular16Font)
-                    .foregroundColor(.black)
+                    .foregroundColor(titleColor)
                     .padding(.leading, Size.w(14))
             }
             HStack {

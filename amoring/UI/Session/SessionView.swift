@@ -10,7 +10,7 @@ import NavigationStackBackport
 
 struct SessionFlow: View {
     @EnvironmentObject var sessionManager: SessionManager
-    @StateObject var sessionController = SessionController()
+    @StateObject var purchaseController = PurchaseController()
     @StateObject var userManager: UserManager
     @StateObject var navigator = NavigationController()
     @StateObject var messagesController = MessagesController()
@@ -52,13 +52,16 @@ struct SessionFlow: View {
             }
         }
         .overlay(
-            sessionController.purchaseType != nil ? PurchaseView(purchaseType: $sessionController.purchaseType, model: purchasesList[sessionController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
+            purchaseController.purchaseType != nil ? PurchaseView(purchaseType: $purchaseController.purchaseType, model: purchasesList[purchaseController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
         )
-        .environmentObject(sessionController)
+        .environmentObject(purchaseController)
         .environmentObject(userManager)
         .environmentObject(navigator)
         .environmentObject(messagesController)
         .environmentObject(amoringController)
+        .onAppear {
+            userManager.getInterests()
+        }
     }
 }
 

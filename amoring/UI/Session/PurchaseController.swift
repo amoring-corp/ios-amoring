@@ -1,5 +1,5 @@
 //
-//  SessionController.swift
+//  PurchaseController.swift
 //  amoring
 //
 //  Created by 이준녕 on 12/18/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class SessionController: ObservableObject {
+class PurchaseController: ObservableObject {
     @Published var purchaseType: PurchaseModel.type? = nil
     
     @Published var purchasedLikes: Int = 1

@@ -12,11 +12,13 @@ struct CustomTextField: View {
     @Binding var text: String
     var font: Font = semiBold22Font
     var placeholderFont: Font = regular20Font
+    var keyboardType: UIKeyboardType = .default
   
     var body: some View {
         TextField("", text: $text)
             .autocorrectionDisabled()
             .autocapitalization(.none)
+            .keyboardType(keyboardType)
             .placeholder(when: text.isEmpty) {
                 Text(placeholder ?? "")
                     .font(placeholderFont)
@@ -30,26 +32,32 @@ struct CustomTextField: View {
     }
 }
 
-@available(iOS 16.0, *)
+
 struct MultilineCustomTextField: View {
     var placeholder: String? = nil
     @Binding var text: String
     var font: Font = semiBold18Font
+    var linelimit: Int = 3
     
     var body: some View {
-        TextField("", text: $text, axis: .vertical)
-            .autocorrectionDisabled()
-            .lineLimit(3)
-            .placeholder(when: text.isEmpty) {
-                Text(placeholder ?? "")
-                    .font(regular20Font)
-                    .foregroundColor(.gray200)
-            }
-            .font(font)
-            .foregroundColor(.black)
-            .padding(.vertical, Size.w(16))
-            .padding(.horizontal, Size.w(20))
-            .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
+        if #available(iOS 16.0, *) {
+            TextField("", text: $text, axis: .vertical)
+                .autocorrectionDisabled()
+                .lineLimit(linelimit)
+                .placeholder(when: text.isEmpty) {
+                    Text(placeholder ?? "")
+                        .font(regular20Font)
+                        .foregroundColor(.gray200)
+                }
+                .font(font)
+                .foregroundColor(.black)
+                .padding(.vertical, Size.w(16))
+                .padding(.horizontal, Size.w(20))
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
+                .layoutPriority(2)
+        } else {
+            CustomTextField(placeholder: placeholder, text: $text, font: font)
+        }
     }
 }
 

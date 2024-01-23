@@ -12,11 +12,15 @@ struct CustomNavigationView: View {
     let title: String
     let back: () -> Void
     
+    var foregroundColor: Color = Color.black
+    var dividerColor: Color = Color.yellow200
+    var bg: Color = Color.yellow300
+    
     var body: some View {
         VStack {
             ZStack {
                 HStack {
-                    BackButton(action: back)
+                    BackButton(action: back, color: foregroundColor)
                     Spacer()
                 }
                 .padding(.horizontal, Size.w(22))
@@ -26,15 +30,16 @@ struct CustomNavigationView: View {
                     Spacer()
                     Text(title)
                         .font(medium20Font)
-                        .foregroundColor(.black)
+                        .foregroundColor(foregroundColor)
                     Spacer()
                 }
                 .frame(height: 44)
                 .opacity(offset / CGFloat(100))
             }
-            Color.yellow200.frame(width: .infinity, height: 1).opacity(offset / CGFloat(100))
+            
+            dividerColor.frame(width: .infinity, height: 1).opacity(offset / CGFloat(100))
         }
-        .background(Color.yellow300)
+        .background(bg)
         .frame(maxWidth: .infinity)
     }
 }

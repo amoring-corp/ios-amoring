@@ -46,7 +46,7 @@ struct BusinessSignInSheet: View {
                     .padding(.horizontal, Size.w(14))
                     .padding(.bottom, Size.w(8))
                     
-                CustomTextField(placeholder: "가입하신 이메일", text: $email, font: medium18Font, placeholderFont: regular18Font)
+                CustomTextField(placeholder: "가입하신 이메일", text: $email, font: medium18Font, placeholderFont: regular18Font, keyboardType: .emailAddress)
                     .padding(.bottom, Size.w(16))
                 
                 Text("비밀번호")

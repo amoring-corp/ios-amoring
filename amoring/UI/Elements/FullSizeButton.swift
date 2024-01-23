@@ -13,11 +13,12 @@ struct FullSizeButton: View {
     var bg: Color = Color.gray1000
     var enabled: Bool = true
     var isLoading: Bool = false
+    var loadingColor: Color = Color.white
     
     var body: some View {
         ZStack {
             if isLoading {
-                ProgressView().tint(.white)
+                ProgressView().tint(loadingColor)
             } else {
                 Text(title)
             }
