@@ -139,7 +139,8 @@ struct User: Hashable {
                 representativeName: business.representativeName,
                 phoneNumber: business.phoneNumber,
                 registrationNumber: business.registrationNumber,
-                bio: business.bio
+                bio: business.bio,
+                images: getImages(business.images)
 //                createdAt: profile.createdAt,
 //                updatedAt: profile.updatedAt
             )
@@ -215,6 +216,20 @@ struct User: Hashable {
             userProfileImages.append(img)
         }
         return userProfileImages
+    }
+    
+    func getImages(_ images: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business.Image?]?) -> [BusinessImage] {
+        var businessImages: [BusinessImage] = []
+        guard let images else { return businessImages }
+            
+        for image in images {
+            let img = BusinessImage(
+                id: image?.id,
+                file: File(url: image?.file.url)
+            )
+            businessImages.append(img)
+        }
+        return businessImages
     }
     
     func getImages(_ images: [SignInWithGoogleMutation.Data.SignInWithGoogle.User.UserProfile.Image?]?) -> [UserProfileImage] {
@@ -419,6 +434,16 @@ struct UserProfileImage: Hashable {
     var updatedAt: Date?
 }
 
+struct BusinessImage: Hashable {
+    var id: String?
+    var businessId: String?
+    var field: Int?
+    var sort: Int?
+    var file: File?
+    var createdAt: Date?
+    var updatedAt: Date?
+}
+
 struct File: Hashable {
     var id: String?
     var name: String?
@@ -499,7 +524,7 @@ struct Business: Codable, Equatable, Hashable {
     var bio: String?
     
     //TODO:  synch with backend
-    var images: [String]?
+    var images: [BusinessImage]?
     var district: String?
     var open: Date? /// from: String
     var close: Date? /// to: String
@@ -534,20 +559,24 @@ struct Business: Codable, Equatable, Hashable {
             business.address = data.address
             business.phoneNumber = data.phoneNumber
             business.district = "강남"
-            var imageArray: [String] = []
-            
-            if let images = data.images {
-                for i in images {
-                    if let url = i?.file.url {
-                        imageArray.append(url)
-                    }
-                }
-            }
-            
-            business.images = imageArray
+            business.images = getImages(data.images)
             return business
         } else {
             return nil
         }
+    }
+    
+    func getImages(_ images: [QueryBusinessesQuery.Data.Business.Image?]?) -> [BusinessImage] {
+        var businessImages: [BusinessImage] = []
+        guard let images else { return businessImages }
+            
+        for image in images {
+            let img = BusinessImage(
+                id: image?.id,
+                file: File(url: image?.file.url)
+            )
+            businessImages.append(img)
+        }
+        return businessImages
     }
 }

@@ -268,7 +268,7 @@ struct BusinessRow: View {
     
     var body: some View {
         HStack(alignment: .bottom) {
-            let url = business.images?.first
+            let url = business.images?.first?.file?.url
             
             CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
                 cont

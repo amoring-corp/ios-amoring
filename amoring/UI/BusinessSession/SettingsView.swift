@@ -18,7 +18,7 @@ struct SettingsView: View {
     
     var body: some View {
         let business = userManager.user?.business
-        let url = business?.images?.first
+        let url = business?.images?.first?.file?.url
         VStack(spacing: 0) {
             ZStack {
                 HStack {

@@ -25,9 +25,9 @@ struct BusinessDetailsView: View {
                             .padding(.bottom, Size.w(40))
                         
                         VStack(spacing: 0) {
-                            let url = business.images?.first
+                            let url = business.images?.first?.file?.url ?? ""
                             
-                            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
+                            CachedAsyncImage(url: URL(string: url), content: { cont in
                                 cont
                                     .resizable()
                                     .scaledToFill()
@@ -116,7 +116,8 @@ struct BusinessDetailsView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack {
                                         ForEach(Array(images.enumerated()), id: \.offset) { index, element in
-                                            CachedAsyncImage(url: URL(string: element), content: { cont in
+                                            let url = element.file?.url ?? ""
+                                            CachedAsyncImage(url: URL(string: url), content: { cont in
                                                 cont
                                                     .resizable()
                                                     .scaledToFill()
@@ -170,7 +171,7 @@ struct BusinessDetailsView: View {
 }
 
 struct PhotoViewer: View {
-    let images: [String]
+    let images: [BusinessImage]
     @Binding var showPhotoViewer: Bool
     @Binding var selection: Int
     
@@ -183,7 +184,8 @@ struct PhotoViewer: View {
                 .ignoresSafeArea()
             TabView(selection: $selection) {
                 ForEach(Array(images.enumerated()), id: \.offset) { index, element in
-                    CachedAsyncImage(url: URL(string: element), content: { cont in
+                    let url = element.file?.url ?? ""
+                    CachedAsyncImage(url: URL(string: url), content: { cont in
                         cont
                             .resizable()
                             .scaledToFit()
