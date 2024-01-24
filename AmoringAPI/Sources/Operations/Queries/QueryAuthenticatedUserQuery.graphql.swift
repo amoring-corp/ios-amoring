@@ -7,7 +7,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
   public static let operationName: String = "QueryAuthenticatedUser"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory address bio representativeTitle representativeName phoneNumber registrationNumber latitude longitude createdAt updatedAt } createdAt updatedAt } }"#
+      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory address bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -107,9 +107,11 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
+            .field("id", AmoringAPI.ID.self),
             .field("file", File.self),
           ] }
 
+          public var id: AmoringAPI.ID { __data["id"] }
           public var file: File { __data["file"] }
 
           /// AuthenticatedUser.UserProfile.Image.File
@@ -171,6 +173,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           .field("phoneNumber", String?.self),
           .field("registrationNumber", String?.self),
           .field("latitude", Double?.self),
+          .field("images", [Image?]?.self),
           .field("longitude", Double?.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
@@ -189,9 +192,44 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var phoneNumber: String? { __data["phoneNumber"] }
         public var registrationNumber: String? { __data["registrationNumber"] }
         public var latitude: Double? { __data["latitude"] }
+        public var images: [Image?]? { __data["images"] }
         public var longitude: Double? { __data["longitude"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+
+        /// AuthenticatedUser.Business.Image
+        ///
+        /// Parent Type: `BusinessImage`
+        public struct Image: AmoringAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessImage }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("id", AmoringAPI.ID.self),
+            .field("file", File.self),
+          ] }
+
+          public var id: AmoringAPI.ID { __data["id"] }
+          public var file: File { __data["file"] }
+
+          /// AuthenticatedUser.Business.Image.File
+          ///
+          /// Parent Type: `File`
+          public struct File: AmoringAPI.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
+              .field("url", String?.self),
+            ] }
+
+            public var url: String? { __data["url"] }
+          }
+        }
       }
     }
   }

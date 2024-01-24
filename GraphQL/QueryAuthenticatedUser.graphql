@@ -18,6 +18,7 @@ query QueryAuthenticatedUser {
       bio
       gender
       images {
+      id
         file {
           url
         }
@@ -43,6 +44,12 @@ query QueryAuthenticatedUser {
       phoneNumber
       registrationNumber
       latitude
+      images {
+        id
+        file {
+            url
+        }
+      }
       longitude
       createdAt
       updatedAt

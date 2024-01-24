@@ -209,6 +209,7 @@ struct User: Hashable {
             
         for image in images {
             let img = UserProfileImage(
+                id: image?.id,
                 file: File(url: image?.file.url)
             )
             userProfileImages.append(img)
@@ -222,6 +223,7 @@ struct User: Hashable {
             
         for image in images {
             let img = UserProfileImage(
+                id: image?.id,
                 file: File(url: image?.file.url)
             )
             userProfileImages.append(img)

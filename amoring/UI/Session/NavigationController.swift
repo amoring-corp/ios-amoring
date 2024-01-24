@@ -38,6 +38,8 @@ class NavigationController: ObservableObject {
             AccountInterests().environmentObject(self)
         case .accountEmail:
             AccountEmail().environmentObject(self)
+            
+            
                 }
     }
     

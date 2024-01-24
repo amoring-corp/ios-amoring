@@ -18,7 +18,8 @@ struct AccountView: View {
     @State private var deleteAlertPresented = false
     
     var body: some View {
-        NavigationView {
+        VStack(spacing: 0) {
+            Color.gray1000.frame(width: .infinity, height: 1)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     let url = userManager.user?.userProfile?.images.first?.file?.url ?? ""
@@ -34,7 +35,7 @@ struct AccountView: View {
                     })
                     .frame(width: Size.w(64), height: Size.w(64))
                     .clipShape(Circle())
-                    .padding(.top, Size.w(16))
+                    .padding(.top, Size.w(60))
                     .padding(.bottom, Size.w(30))
                     
                     HStack {
@@ -96,12 +97,28 @@ struct AccountView: View {
                         MenuLineButton(title: "+ 좋아요", subtitle: "\(purchaseController.purchasedLikes)개 남음", image: "ic-heart-fill", action: { purchaseController.openPurchase(purchaseType: .like) }, fontColor: Color.yellow200, subFontColor: Color.yellow350)
                         
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineButton(title: "라운지 확장", subtitle: "구매하기", action: { purchaseController.openPurchase(purchaseType: .lounge) })
+                        
+                        MenuLineButton(title: "라운지 확장", 
+                                       subtitle: purchaseController.amoringCommunityIsOn ? purchaseController.communityExpiredTime().toExpiredTime() : "구매하기",
+                                       action: { purchaseController.openPurchase(purchaseType: .lounge) },
+                                       fontColor: purchaseController.amoringCommunityIsOn ? Color.yellow200 : Color.gray600,
+                                       subFontColor: purchaseController.amoringCommunityIsOn ? Color.yellow350 : Color.gray300)
+                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        // TODO: pu real time here
-                        MenuLineButton(title: "프로필 투명모드", subtitle: "11시간 59 분 남음", action: { purchaseController.openPurchase(purchaseType: .transparent) }, fontColor: Color.yellow200, subFontColor: Color.yellow350)
+                        
+                        MenuLineButton(title: "프로필 투명모드",
+                                       subtitle: purchaseController.isHidden ? purchaseController.isHiddenExpiredTime().toExpiredTime() : "구매하기",
+                                       action: { purchaseController.openPurchase(purchaseType: .transparent) },
+                                       fontColor: purchaseController.isHidden ? Color.yellow200 : Color.gray600,
+                                       subFontColor: purchaseController.isHidden ? Color.yellow350 : Color.gray300)
+                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineButton(title: "리스트 보기", subtitle: "구매하기", action: { purchaseController.openPurchase(purchaseType: .list) })
+                        
+                        MenuLineButton(title: "리스트 보기",
+                                       subtitle: purchaseController.likeListEnabled ? purchaseController.likeListEnabledExpiredTime().toExpiredTime() : "구매하기",
+                                       action: { purchaseController.openPurchase(purchaseType: .list) },
+                                       fontColor: purchaseController.likeListEnabled ? Color.yellow200 : Color.gray600,
+                                       subFontColor: purchaseController.likeListEnabled ? Color.yellow350 : Color.gray300)
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -131,7 +148,7 @@ struct AccountView: View {
                     VStack(spacing: 0) {
                         MenuLineButton(title: "로그아웃", action: { logoutAlertPresented = true })
                             .alert("로그아웃", isPresented: $logoutAlertPresented, actions: {
-                                Button("확인", action: sessionManager.signOut)
+                                Button("로그아웃", action: sessionManager.signOut)
                                 Button("취소", role: .cancel, action: {})
                             }, message: { Text("로그아웃 하시면, 라운지 활동이나 다른 멤버로부터의 메시지 알림을 받으실 수 없습니다. 로그아웃 하시겠습니까?") })
                         
@@ -153,10 +170,11 @@ struct AccountView: View {
                 .padding(.horizontal, Size.w(22))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.gray1000)
+            
 //            .navigationBarTitleDisplayMode(.inline)
 //            .navigationBarItems(trailing: Text("").foregroundColor(.gray1000))
         }
+        .background(.gray1000)
     }
 }
 

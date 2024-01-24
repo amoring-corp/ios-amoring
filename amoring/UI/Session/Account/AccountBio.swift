@@ -40,6 +40,7 @@ struct AccountBio: View {
                 if let userProfile = userManager.user?.userProfile {
                     userManager.updateUserProfile(userProfile: userProfile) { success in
                         print("Bio Successfully saved")
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
             }) {

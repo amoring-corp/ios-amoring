@@ -10,15 +10,18 @@ import SwiftUI
 struct AccountPhoto: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
-    @State private var pictures: [PictureModel] = []
+    @EnvironmentObject var sessionManager: SessionManager
     
     @State private var droppedOutside: Bool = false
-    @State private var confirmRemoveImageIndex: Int = 0
     @State private var showRemoveConfirmation: Bool = false
     @State private var showContentTypeSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var editIndex: Int? = nil
+    @State var pictures: [PictureModel] = []
     
+    init() {
+        print("dsf")
+    }
     var body: some View {
         VStack {
             Text("프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")
@@ -30,12 +33,18 @@ struct AccountPhoto: View {
                 .padding(.bottom, Size.w(40))
             
             PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
-                confirmRemoveImageIndex = index
+                userManager.confirmRemoveImageIndex = index
                 showRemoveConfirmation.toggle()
             }, onAddImageClick: {
                 showContentTypeSheet.toggle()
             })
             .padding(.horizontal)
+            .onAppear {
+                self.pictures = userManager.pictures
+            }
+            .onChange(of: userManager.pictures) { pics in
+                self.pictures = pics
+            }
             .sheet(isPresented: $showContentTypeSheet) {
                 ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
                     .onDisappear {
@@ -43,19 +52,19 @@ struct AccountPhoto: View {
                     }
             }
             .actionSheet(isPresented: $showRemoveConfirmation) {
-                if confirmRemoveImageIndex >= 3 {
+                if userManager.confirmRemoveImageIndex >= 3 {
                     ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
                         .default(Text("등록"), action: {
-                            self.editIndex = confirmRemoveImageIndex
+                            self.editIndex = userManager.confirmRemoveImageIndex
                             showContentTypeSheet.toggle()
                         }),
-                        .destructive(Text("삭제"), action: removePicture),
+                        .destructive(Text("삭제"), action: userManager.removePicture),
                         .cancel()
                     ])
                 } else {
                     ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
                         .default(Text("등록"), action: {
-                            self.editIndex = confirmRemoveImageIndex
+                            self.editIndex = userManager.confirmRemoveImageIndex
                             showContentTypeSheet.toggle()
                         }),
                         .cancel()
@@ -76,8 +85,13 @@ struct AccountPhoto: View {
             
             Button(action: {
                 let images = pictures.map({ $0.picture })
-                userManager.uploadMyProfileImages(images: images) { success in
-                    //TODO: success handle
+                userManager.deleteMyProfileImage { success in
+                    userManager.uploadMyProfileImages(images: images) { success in
+                  
+                            sessionManager.getCurrentSession(delay: 0)
+                        
+//                        //TODO: success handle
+                    }
                 }
             }) {
                 FullSizeButton(title: "저장", color: Color.black, bg: .yellow300, isLoading: userManager.isLoading, loadingColor: .gray1000)
@@ -100,26 +114,9 @@ struct AccountPhoto: View {
             self.presentationMode.wrappedValue.dismiss()
         }, color: Color.yellow300)
         )
-        .onAppear(perform: setCurrentPhotos)
     }
     
-    private func setCurrentPhotos() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            pictures.removeAll()
-            guard let images = userManager.user?.userProfile?.images else { return }
-            for image in images {
-                let urlString = image.file?.url ?? ""
-                guard let url = URL(string: urlString) else { return }
-                let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                let image = UIImage(data: data!)
-                pictures.append(PictureModel.newPicture(image!, urlString))
-            }
-        }
-    }
-    
-    private func removePicture() {
-        pictures.remove(at: confirmRemoveImageIndex)
-    }
+
 }
 
 #Preview {

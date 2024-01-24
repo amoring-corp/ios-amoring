@@ -139,7 +139,7 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "000 - 00 - 00000", text: $registrationNumber, font: regular18Font)
+                                CustomTextField(placeholder: "000 - 00 - 00000", text: $registrationNumber, font: regular18Font, keyboardType: .decimalPad)
                                     .onChange(of: registrationNumber, perform: { newValue in
                                         if(newValue.count >= 1){
                                             controller.business.registrationNumber = newValue
@@ -205,7 +205,8 @@ struct BusinessOnboardingView: View {
                                     .padding(.horizontal, Size.w(10))
                                     .background(fileAtached ? Color.green800 : Color.yellow800)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                                }.fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf, .jpeg, .png]) { result in
+                                }
+                                .fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf, .jpeg, .png]) { result in
                                     switch result {
                                     case .success(let url):
                                         print(url.absoluteString)
@@ -215,7 +216,10 @@ struct BusinessOnboardingView: View {
                                         print(error)
                                     }
                                 }
-                                
+                                .onChange(of: presentImporter) { bool in
+                                    // TODO: need tests
+                                    UITabBar.appearance().isHidden = !bool
+                                }
                             }
                             .padding(.bottom, Size.w(22))
                             
@@ -244,8 +248,13 @@ struct BusinessOnboardingView: View {
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                         
-                        //                    let pass = !controller.business.businessName?.isEmpty ?? false && !controller.business?.representativeName?.isEmpty ?? false && !controller.business.businessType?.isEmpty ?? false && !controller.business.businessIndustry?.isEmpty ?? false && !controller.business.address?.isEmpty ?? false && !controller.business.businessNumber?.isEmpty ?? false
-                        let pass = true
+                        let pass = 
+                        !((controller.business.businessName?.isEmpty) == nil)
+                        && !((controller.business.representativeName?.isEmpty) == nil)
+                        && !((controller.business.businessType?.isEmpty) == nil)
+                        && !((controller.business.businessIndustry?.isEmpty) == nil)
+                        && !((controller.business.address?.isEmpty) == nil)
+                        && !((controller.business.registrationNumber?.isEmpty) == nil)
                         
                         Button(action: {
                             if pass {

@@ -20,6 +20,11 @@ class UserManager: ObservableObject {
     @Published var businesses: [Business] = []
     @Published var profiles: [UserProfile] = []
     
+    @Published var pictures: [PictureModel] = []
+    
+    @Published var confirmRemoveImageIndex: Int = 0
+    
+    
     init(authUser: User, api: ApolloClient) {
         self.authUser = authUser
         self.api = api
@@ -34,7 +39,7 @@ class UserManager: ObservableObject {
         case .business:
             print("I'm a business")
             
-            if let businessProfile = authUser.business {
+            if let businessProfile = authUser.business, ((businessProfile.phoneNumber?.isEmpty) != nil) {
                 print("going to Business Session")
                 print(businessProfile)
                 //TODO:  pass whole business user here!
@@ -46,7 +51,7 @@ class UserManager: ObservableObject {
         case .user:
             print("I'm a user")
 
-            if let userProfile = authUser.userProfile, !userProfile.interests.isEmpty {
+            if let userProfile = authUser.userProfile {
 //                if userProfile.images.isEmpty {
 //                    print("going to Image uploading")
 //                    print(userProfile.images.first?.file?.url as Any)
@@ -56,6 +61,7 @@ class UserManager: ObservableObject {
 //                    self.changeStateWithAnimation(state: .interestsConnection)
 //                } else {
                     print("going to User Session")
+                self.setCurrentPhotos()
                     self.changeStateWithAnimation(state: .session)
 //                }
             } else {
@@ -65,6 +71,60 @@ class UserManager: ObservableObject {
         case .admin:
             print("I'm an admin")
             self.changeStateWithAnimation(state: .debugging)
+        }
+    }
+    
+    private func setCurrentPhotos() {
+        print(self.pictures.count)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard let images = self.user?.userProfile?.images else { return }
+            if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
+                print("sdfsdsd")
+            }
+            
+            for image in images {
+                let urlString = image.file?.url ?? ""
+                guard let url = URL(string: urlString) else { return }
+                print(urlString)
+                let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                let image = UIImage(data: data!)
+                self.pictures.append(PictureModel.newPicture(image!, urlString))
+            }
+//        }
+    }
+    
+     func removePicture() {
+        self.pictures.remove(at: confirmRemoveImageIndex)
+    }
+    
+    func refreshUser() {
+        self.isLoading = true
+        api.fetch(query: QueryAuthenticatedUserQuery()) { result in
+            self.isLoading = false
+                switch result {
+                case .success(let value):
+                    guard value.errors == nil else {
+                        print(value.errors)
+                        return
+                    }
+                    
+                    guard let data = value.data else {
+                        print("WRONG DATA")
+                        return
+                    }
+                    
+                    guard let authUser = data.authenticatedUser else {
+                        print("NO USER")
+                        return
+                    }
+                    
+                    
+                    self.user = User(id: authUser.id).from(authUser)
+                    
+                    print(self.user?.userProfile?.images)
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
         }
     }
     
@@ -208,6 +268,59 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        if let images = user?.userProfile?.images {
+            let dispatchGroup = DispatchGroup()
+            print("1")
+            for image in images {
+                print("2...")
+                print(image)
+                if let id = image.id {
+                    print("3...")
+                    dispatchGroup.enter()
+                    self.deleteImage(id: id) { success in
+                        print("4...")
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+                self.isLoading = false
+                print("deleting: \(images.count) images finished")
+                completion(true)
+            })
+        }
+    }
+    
+    private func deleteImage(id: String, completion: @escaping (Bool) -> Void) {
+        api.perform(mutation: DeleteMyProfileImageMutation(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print("Image was successfully deleted!")
+                print(data.deleteMyProfileImage)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
     
     func connectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
         self.isLoading = true

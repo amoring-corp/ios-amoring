@@ -65,6 +65,7 @@ struct AccountInterests: View {
                 Button(action: {
                     userManager.reconnectInterests(ids: selectedInterests.map{ $0.0 }) { success in
                         print(success)
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }) {
                     YellowSaveButton(enabled: true, isLoading: userManager.isLoading)

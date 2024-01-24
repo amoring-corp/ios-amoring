@@ -125,7 +125,7 @@ struct BusinessOnboardingStep2: View {
                                     }
                                 }
                                 
-                                CustomTextField(placeholder: "‘-’ 표시없이 입력해주세요.", text: $phoneNumber, font: regular18Font)
+                                CustomTextField(placeholder: "‘-’ 표시없이 입력해주세요.", text: $phoneNumber, font: regular18Font, keyboardType: .phonePad)
                                     .onChange(of: phoneNumber, perform: { newValue in
                                         if(newValue.count >= 1){
                                             controller.business.phoneNumber = selectedCode + newValue
@@ -254,7 +254,13 @@ struct BusinessOnboardingStep2: View {
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
 
-                    let pass = true
+                    let pass =
+                    !((controller.business.businessCategory?.isEmpty) == nil)
+                    && !((controller.business.bio?.isEmpty) == nil)
+                    && !((controller.business.phoneNumber?.isEmpty) == nil)
+//                    && !((controller.business.open?.isEmpty) == nil)
+//                    && !((controller.business.close?.isEmpty) == nil)
+                    && self.pictures.count > 2
                     
                     HStack {
                         if userManager.isLoading {
@@ -277,8 +283,9 @@ struct BusinessOnboardingStep2: View {
                                 }
 //                                next = true
                             }) {
-                                FullSizeButton(title: "가입하기")
+                                FullSizeButton(title: "가입하기", enabled: pass)
                             }
+                            .disabled(!pass)
                         }
                     }
                     .frame(maxWidth: .infinity)

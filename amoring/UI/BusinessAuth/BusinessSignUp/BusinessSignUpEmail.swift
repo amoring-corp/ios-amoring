@@ -26,7 +26,7 @@ struct BusinessSignUpEmail: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            CustomTextField(placeholder: "이메일을 입력해주세요.", text: $controller.email)
+            CustomTextField(placeholder: "이메일을 입력해주세요.", text: $controller.email, keyboardType: .emailAddress)
             
             Spacer()
             

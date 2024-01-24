@@ -49,20 +49,20 @@ struct PictureGridView: View {
 //        GridItem(.flexible()),
 //    ]
     @Binding var pictures: [PictureModel]
-    @Binding var picturesChanged: Bool
+//    @Binding var picturesChanged: Bool
     @Binding var droppedOutside: Bool
     @State var cells: [GridCell] = (0...5).map{  _ in GridCell() }
 
     let onAddedImageClick: (Int) -> ()
     let onAddImageClick: () -> ()
     
-    init( pictures: Binding< [PictureModel] >,  picturesChanged: Binding<Bool> = .constant(false), droppedOutside: Binding<Bool> = .constant(false), onAddedImageClick: @escaping (Int) -> () = {value in}, onAddImageClick: @escaping () -> () = {}){
-        self._pictures = pictures
-        self._picturesChanged = picturesChanged
-        self._droppedOutside = droppedOutside
-        self.onAddImageClick = onAddImageClick
-        self.onAddedImageClick = onAddedImageClick
-    }
+//    init( pictures: Binding< [PictureModel] >,  picturesChanged: Binding<Bool> = .constant(false), droppedOutside: Binding<Bool> = .constant(false), onAddedImageClick: @escaping (Int) -> () = {value in}, onAddImageClick: @escaping () -> () = {}){
+//        self._pictures = pictures
+//        self._picturesChanged = picturesChanged
+//        self._droppedOutside = droppedOutside
+//        self.onAddImageClick = onAddImageClick
+//        self.onAddedImageClick = onAddedImageClick
+//    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -95,6 +95,7 @@ struct PictureGridView: View {
         })
     }
     
+    @ViewBuilder
     func getCellView(cell: GridCell, number: Int) -> some View {
         if let picture = cell.picture, let index = pictures.firstIndex(of: picture) {
             return AnyView(AddedImageView(image: picture.picture, number: number, action:{
@@ -106,8 +107,8 @@ struct PictureGridView: View {
     }
 }
 
-struct PictureGridView_Previews: PreviewProvider {
-    static var previews: some View {
-        PictureGridView(pictures: .constant([]), droppedOutside: .constant(false), onAddedImageClick: {index in}, onAddImageClick: {})
-    }
-}
+//struct PictureGridView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PictureGridView(pictures: .constant([]), droppedOutside: .constant(false), onAddedImageClick: {index in}, onAddImageClick: {})
+//    }
+//}

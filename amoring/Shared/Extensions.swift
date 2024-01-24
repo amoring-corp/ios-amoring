@@ -224,4 +224,11 @@ extension TimeInterval {
             return "1 시간 후 메시지가 사라집니다."
         }
     }
+    
+    func toExpiredTime() -> String {
+        let HMS = self.secondsToHMS()
+        let hours = HMS.0 > 0 ? "\(HMS.0)시간 " : ""
+        let minutes = HMS.1 > 0 ? "\(HMS.1)분 " : ""
+        return  hours + minutes + "남음"
+    }
 }
