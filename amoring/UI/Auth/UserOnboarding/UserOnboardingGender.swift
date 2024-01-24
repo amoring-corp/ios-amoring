@@ -55,7 +55,7 @@ struct UserOnboardingGender: View {
                         next = true
                     }
                 }, label: {
-                    NextBlackButton(enabled: gender != nil)
+                    BlackButton(title: "다음", enabled: gender != nil)
                 })
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

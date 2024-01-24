@@ -113,7 +113,7 @@ struct BusinessSignUpTerms: View {
                 NavigationLink(destination: {
                     BusinessSignUpPrepare()
                 }) {
-                    NextBlackButton(enabled: termsSelected && privacySelected)
+                    BlackButton(title: "다음", enabled: termsSelected && privacySelected)
                 }
                 .disabled(!termsSelected || !privacySelected)
             }

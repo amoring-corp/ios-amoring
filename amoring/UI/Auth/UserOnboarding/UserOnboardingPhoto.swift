@@ -73,7 +73,7 @@ struct UserOnboardingPhoto: View {
                             goToStep5 = success
                         }
                     }) {
-                        NextBlackButton(enabled: pictures.count >= 1, isLoading: userManager.isLoading)
+                        BlackButton(title: "다음", enabled: pictures.count >= 1, isLoading: userManager.isLoading)
                     }
                     .disabled(userManager.isLoading)
                     //                .disabled(pictures.count < 3 || userManager.isLoading)

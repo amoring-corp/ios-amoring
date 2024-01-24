@@ -158,7 +158,7 @@ struct AccountIntro: View {
                             }
                         }
                     }) {
-                        YellowSaveButton(enabled: pass)
+                        YellowButton(title: "저장", enabled: pass)
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.top, Size.w(16))

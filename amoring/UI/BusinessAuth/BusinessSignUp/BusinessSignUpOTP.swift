@@ -87,7 +87,7 @@ struct BusinessSignUpOTP: View {
                 Button(action: {
                     signUp()
                 }) {
-                    NextBlackButton(enabled: !(controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")), isLoading: sessionManager.isLoading)
+                    BlackButton(title: "다음", enabled: !(controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")), isLoading: sessionManager.isLoading)
                 }
                 .disabled((controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")))
             }

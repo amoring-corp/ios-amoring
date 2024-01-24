@@ -67,11 +67,17 @@ struct CustomSecureField: View {
     @State var show: Bool = false
     var font: Font = semiBold22Font
     var placeholderFont: Font = regular20Font
+    var onSubmit: (() -> Void)? = nil
     
     var body: some View {
         HStack {
             SecureField("", text: $text)
                 .opacity(show ? 0 : 1)
+                .onSubmit {
+                    if let onSubmit {
+                        onSubmit()
+                    }
+                }
                 .placeholder(when: text.isEmpty) {
                     Text(placeholder ?? "")
                         .font(placeholderFont)

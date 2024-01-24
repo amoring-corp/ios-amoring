@@ -173,7 +173,7 @@ struct UserOnboardingIntro: View {
                                 next = true
                             }
                         }) {
-                            NextBlackButton(enabled: pass)
+                            BlackButton(title: "다음", enabled: pass)
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding(.top, Size.w(16))

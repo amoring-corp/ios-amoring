@@ -68,7 +68,7 @@ struct AccountInterests: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }) {
-                    YellowSaveButton(enabled: true, isLoading: userManager.isLoading)
+                    YellowButton(title: "저장", enabled: true, isLoading: userManager.isLoading)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.top, Size.w(16))

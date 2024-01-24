@@ -59,7 +59,7 @@ struct UserOnboardingAge: View {
                         goToPhoto = success
                     }
                 }) {
-                    NextBlackButton(enabled: controller.userProfile.birthYear != nil)
+                    BlackButton(title: "다음", enabled: controller.userProfile.birthYear != nil)
                 }
                 .disabled(controller.userProfile.birthYear == nil)
             }

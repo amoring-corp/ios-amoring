@@ -64,7 +64,7 @@ struct BusinessSignUpPassword: View {
                         goToOTP = success
                     }
                 }) {
-                    NextBlackButton(enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword(), isLoading: sessionManager.isLoading)
+                    BlackButton(title: "다음", enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword(), isLoading: sessionManager.isLoading)
                 }
                 .disabled(!(controller.password.isStrongPassword()) || (controller.password != controller.confirmPassword))
             }

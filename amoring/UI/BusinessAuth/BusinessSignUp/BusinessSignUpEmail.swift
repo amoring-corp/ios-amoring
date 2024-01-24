@@ -43,7 +43,7 @@ struct BusinessSignUpEmail: View {
                 NavigationLink(destination: {
                     BusinessSignUpPassword()
                 }) {
-                    NextBlackButton(enabled: controller.email.isEmailValid())
+                    BlackButton(title: "다음", enabled: controller.email.isEmailValid())
                 }
                 .disabled(!controller.email.isEmailValid())
             }

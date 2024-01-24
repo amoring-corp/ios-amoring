@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BusinessEnterView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
     @Binding var isLocked: Bool
@@ -17,39 +18,39 @@ struct BusinessEnterView: View {
     var body: some View {
         let user = userManager.user
         let business = user?.business
-        VStack(alignment: .center, spacing: 20) {
-            Text(business?.businessName ?? "NONAME")
-            Text("To change settings Please re-enter your password")
-            Text(user?.email ?? "NOEMAIL")
-            CustomSecureField(text: $password)
+        VStack(alignment: .center, spacing: 0) {
+            Text("접근 권한 확인을 위해서\n비밀번호를 다시 한번 입력해주세요.")
+                .font(regular16Font)
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+                .lineSpacing(6)
+                .padding(.top, Size.w(56))
+                .padding(.bottom, Size.w(40))
             
-            
-            Text("Wrong password!")
-                .foregroundColor(.red)
-                .opacity(warning ? 1 : 0)
-            
-            Spacer()
-            
-            Button(action: sessionManager.signOut) {
-                Text("Logout")
-            }
-            .padding(.vertical, 20)
-            
-            Button(action: {
-                //                if password == "12345678" {
+            CustomSecureField(placeholder: "비밀번호를 입력해주세요.", text: $password, onSubmit: {
+                // TODO: put check here
                 withAnimation {
                     isLocked = false
                 }
-                //                } else {
-                //                    warning = true
-                //                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                //                        warning = false
-                //                    }
-                //                }
-            }) {
-                Text("Done")
+            })
+            
+            Spacer()
+        }
+        .padding(.horizontal, Size.w(22))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.yellow300)
+        .onTapGesture(perform: closeKeyboard)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("AMORING")
+                    .font(medium20Font)
+                    .foregroundColor(.black)
             }
         }
+        .navigationBarItems(leading:
+                                BackButton(action: { presentationMode.wrappedValue.dismiss() })
+        )
     }
 }
 

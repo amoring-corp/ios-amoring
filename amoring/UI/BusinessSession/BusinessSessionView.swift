@@ -20,7 +20,7 @@ struct BusinessSessionView: View {
         let business = userManager.user?.business
         GeometryReader { geometry in
             NavigationView {
-                VStack {
+                VStack(spacing: 0) {
                     Text(business?.businessName ?? "AMORING")
                         .font(extraBold28Font)
                         .foregroundColor(.yellow200)
@@ -33,65 +33,94 @@ struct BusinessSessionView: View {
                         .padding(.bottom, Size.w(40))
                     
                     ZStack {
-                        if isLoading {
-                            ProgressView()
-                        } else {
-                            if let qrcode = qrcode {
-                                ZStack {
-                                    QRCodeDocumentUIView(document: qrcode)
-                                        .blur(radius: expired ? 3 : 0)
-                                        .opacity(expired ? 0.4 : 1)
-                                    if expired {
-                                        Button(action: {}) {
-                                            Image("ic-error-refresh")
-                                                .resizable()
-                                                .foregroundColor(.white)
-                                                .scaledToFit()
-                                                .frame(width: Size.w(60), height: Size.w(60))
-                                                .padding(10)
-                                                .background(Color.green400)
-                                                .frame(width: Size.w(80), height: Size.w(80))
-                                                .clipShape(Circle())
-                                        }
+                        VStack(spacing: 0) {
+                            ZStack {
+                                if isLoading {
+                                    ProgressView()
+                                } else {
+                                    if let qrcode = qrcode {
+                                        QRCodeDocumentUIView(document: qrcode)
+                                        // MARK: TESTS
+                                            .onTapGesture {
+                                                withAnimation {
+                                                    self.expired.toggle()
+                                                }
+                                            }
                                     }
                                 }
                             }
+                            .frame(width: geometry.size.height / 2.7, height: geometry.size.height / 2.7)
+                            .padding(7)
+                            .background(Color.white)
+                            .cornerRadius(20)
+                            .padding(.bottom, Size.h(32))
+                            
+                            Spacer()
+                            
+                            Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
+                                .multilineTextAlignment(.center)
+                                .lineSpacing(6)
+                                .font(regular16Font)
+                                .foregroundColor(.yellow300)
+                            
+                            let images = ["person-1", "person-2", "person-3", "person-4"]
+                            
+                            let size = geometry.size.width / 2
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: Size.w(16)) {
+                                    list(images: images, size: size)
+                                    list(images: images, size: size)
+                                    list(images: images, size: size)
+                                    list(images: images, size: size)
+                                }
+                                .offset(x: xOffset)
+                            }
+                            .disabled(true)
+                            .padding(.top, Size.w(22))
+                            .onAppear {
+                                initialize()
+                                withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
+                                    xOffset = -size * Double(images.count)
+                                }
+                            }
+                        }
+                        
+                        if expired {
+                            Color.black.background(.ultraThinMaterial).opacity(0.7)
+                            
+                            VStack {
+                                Text("😥")
+                                    .font(semiBold60Font)
+                                    .padding(.top, Size.w(120))
+                                    .padding(.bottom, Size.w(22))
+                                Text("죄송합니다.\n준비된 라운지가 꽉 찼어요\n나중에 체크인 해주세요")
+                                    .font(semiBold28Font)
+                                    .foregroundColor(.yellow350)
+                                    .multilineTextAlignment(.center)
+                                    .lineSpacing(6)
+                                // MARK: TESTS
+                                    .onTapGesture {
+                                        withAnimation {
+                                            self.expired.toggle()
+                                        }
+                                    }
+                                
+                                Spacer()
+                                
+                                HStack {
+                                    Spacer()
+                                    NavigationLink(destination: {
+                                        //TODO: open purchases
+                                        Text("Purchases")
+                                    }) {
+                                        YellowButton(title: "확장하기")
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, Size.w(22))
                         }
                     }
-                    .frame(width: geometry.size.height / 2.7, height: geometry.size.height / 2.7)
-                    .padding(7)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .padding(.bottom, Size.h(32))
-                    
-                    Spacer()
-                    
-                    Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
-                        .multilineTextAlignment(.center)
-                        .font(regular16Font)
-                        .foregroundColor(.yellow300)
-                    
-                    let images = ["person-1", "person-2", "person-3", "person-4"]
-                    
-                    
-                    let size = geometry.size.width / 2
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 0) {
-                            list(images: images, size: size)
-                            list(images: images, size: size)
-                            list(images: images, size: size)
-                            list(images: images, size: size)
-                        }
-                        .padding(.vertical, Size.w(22))
-                        .offset(x: xOffset, y: 0)
-                    }
-                    .disabled(true)
-                    .onAppear {
-                        initialize()
-                        withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
-                            xOffset = -size * Double(images.count)
-                        }
-                    }
+                    .padding(.bottom, Size.w(30))
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -121,10 +150,14 @@ struct BusinessSessionView: View {
                 .resizable()
                 .scaledToFill()
                 .blur(radius: 6)
-                .frame(width: inSize, height: 120)
+                .frame(width: 90, height: 120)
                 .background(Color.gray)
-                .cornerRadius(15)
-                .frame(width: size, height: size)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15).stroke(Color.yellow700)
+                )
+                .padding(1)
+//                .frame(width: size, height: size)
         }
     }
     

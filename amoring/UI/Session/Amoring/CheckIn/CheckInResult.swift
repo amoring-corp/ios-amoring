@@ -37,6 +37,7 @@ struct CheckInResult: View {
                     .foregroundColor(.yellow300)
                     .padding(.top, Size.w(12))
                 
+                // pass image from business ?
                 Image("channel-lounge-profile")
                     .frame(width: Size.w(90), height: Size.w(90))
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -65,24 +66,24 @@ struct CheckInResult: View {
                     }
                 }
                 
-                HStack {
-                    Image(systemName: hasPremium ? "checkmark.square" : "square")
-                    Text("🥂 프리미엄 라운지 회원입니다.")
-                    Spacer()
-                }
-                .foregroundColor(.yellow350)
-                .padding(Size.w(19))
-                .background(Color.yellow350.opacity(hasPremium ? 0.15 : 0.01))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .overlay(
-                    !hasPremium ?
-                    RoundedRectangle(cornerRadius: 10).stroke(Color.yellow700) : nil
-                )
-                .onTapGesture {
-                    withAnimation {
-                        self.hasPremium.toggle()
-                    }
-                }
+//                HStack {
+//                    Image(systemName: hasPremium ? "checkmark.square" : "square")
+//                    Text("🥂 프리미엄 라운지 회원입니다.")
+//                    Spacer()
+//                }
+//                .foregroundColor(.yellow350)
+//                .padding(Size.w(19))
+//                .background(Color.yellow350.opacity(hasPremium ? 0.15 : 0.01))
+//                .clipShape(RoundedRectangle(cornerRadius: 10))
+//                .overlay(
+//                    !hasPremium ?
+//                    RoundedRectangle(cornerRadius: 10).stroke(Color.yellow700) : nil
+//                )
+//                .onTapGesture {
+//                    withAnimation {
+//                        self.hasPremium.toggle()
+//                    }
+//                }
                 
                 Spacer()
                 

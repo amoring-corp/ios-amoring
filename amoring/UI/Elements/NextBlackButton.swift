@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct NextBlackButton: View {
+struct BlackButton: View {
+    var title: String
     var enabled: Bool = true
     var isLoading: Bool = false
     
@@ -16,7 +17,8 @@ struct NextBlackButton: View {
             if isLoading {
                 ProgressView().tint(.white)
             } else {
-                Text("다음")
+                ///"다음"
+                Text(title)
             }
         }
             .font(medium18Font)
@@ -29,7 +31,8 @@ struct NextBlackButton: View {
     }
 }
 
-struct YellowSaveButton: View {
+struct YellowButton: View {
+    var title: String
     var enabled: Bool = true
     var isLoading: Bool = false
     
@@ -38,7 +41,8 @@ struct YellowSaveButton: View {
             if isLoading {
                 ProgressView().tint(.black)
             } else {
-                Text("저장")
+                // "저장"
+                Text(title)
             }
         }
             .font(medium18Font)
@@ -52,5 +56,5 @@ struct YellowSaveButton: View {
 }
 
 //#Preview {
-//    NextBlackButton()
+//    BlackButton()
 //}

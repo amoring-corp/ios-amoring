@@ -71,7 +71,7 @@ struct UserOnboardingInterests: View {
                         next = success
                     }
                 }) {
-                    NextBlackButton()
+                    BlackButton(title: "다음")
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.top, Size.w(16))

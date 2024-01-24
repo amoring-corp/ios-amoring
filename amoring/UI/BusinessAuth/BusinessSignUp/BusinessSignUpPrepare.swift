@@ -48,7 +48,7 @@ struct BusinessSignUpPrepare: View {
                 NavigationLink(destination: {
                     BusinessSignUpEmail()
                 }) {
-                    NextBlackButton(enabled: true)
+                    BlackButton(title: "다음", enabled: true)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

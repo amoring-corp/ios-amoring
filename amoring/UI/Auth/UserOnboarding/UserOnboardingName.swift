@@ -48,7 +48,7 @@ struct UserOnboardingName: View {
                 NavigationLink(destination: {
                     UserOnboardingGender()
                 }) {
-                    NextBlackButton(enabled: !(controller.userProfile.name?.isEmpty ?? true))
+                    BlackButton(title: "다음", enabled: !(controller.userProfile.name?.isEmpty ?? true))
                 }
                 .disabled((controller.userProfile.name?.isEmpty ?? true))
             }

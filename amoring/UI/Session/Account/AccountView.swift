@@ -180,10 +180,11 @@ struct AccountView: View {
 
 struct MenuTitle: View {
     let title: String
+    var color: Color = Color.yellow300
     var body: some View {
         Text(title)
             .font(medium18Font)
-            .foregroundColor(.yellow300)
+            .foregroundColor(color)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, Size.w(50))
             .padding(.horizontal, Size.w(14))
@@ -193,6 +194,7 @@ struct MenuTitle: View {
 
 struct MenuLineLink<Content: View>: View {
     let title: String
+    var color: Color = Color.gray600
     
     @ViewBuilder let content: Content
     
@@ -206,7 +208,7 @@ struct MenuLineLink<Content: View>: View {
                 Image(systemName: "chevron.right")
             }
             .font(regular16Font)
-            .foregroundColor(.gray600)
+            .foregroundColor(color)
             .padding(.horizontal, Size.w(20))
             .padding(.vertical, Size.w(23))
         }
