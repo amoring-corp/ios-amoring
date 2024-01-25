@@ -32,7 +32,6 @@ struct CustomTextField: View {
     }
 }
 
-
 struct MultilineCustomTextField: View {
     var placeholder: String? = nil
     @Binding var text: String
@@ -104,6 +103,28 @@ struct CustomSecureField: View {
             .padding(.vertical, Size.w(16))
             .padding(.horizontal, Size.w(20))
             .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
+    }
+}
+
+struct DisabledMenuLine: View {
+    let title: String
+    var text: String?
+  
+    var body: some View {
+        VStack(alignment: .leading, spacing: Size.w(10)) {
+            Text(title)
+                .font(regular16Font)
+                .foregroundColor(.black)
+                .padding(.horizontal, Size.w(14))
+                .padding(.top, Size.w(30))
+            
+            Text(text ?? "")
+                .font(medium18Font)
+                .foregroundColor(.gray800)
+                .padding(.vertical, Size.w(16))
+                .frame(maxWidth: .infinity)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.yellow200))
+        }
     }
 }
 

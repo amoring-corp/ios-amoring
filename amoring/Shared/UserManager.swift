@@ -21,6 +21,7 @@ class UserManager: ObservableObject {
     @Published var profiles: [UserProfile] = []
     
     @Published var pictures: [PictureModel] = []
+    @Published var businessPictures: [PictureModel] = []
     
     @Published var confirmRemoveImageIndex: Int = 0
     
@@ -43,6 +44,7 @@ class UserManager: ObservableObject {
                 print("going to Business Session")
                 print(businessProfile)
                 //TODO:  pass whole business user here!
+                self.setBusinessPhotos()
                 self.changeStateWithAnimation(state: .businessSession)
             } else {
 //                print("Business not onboarded yet")
@@ -76,25 +78,46 @@ class UserManager: ObservableObject {
     
     private func setCurrentPhotos() {
         print(self.pictures.count)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            guard let images = self.user?.userProfile?.images else { return }
-            if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
-                print("sdfsdsd")
-            }
-            
-            for image in images {
-                let urlString = image.file?.url ?? ""
-                guard let url = URL(string: urlString) else { return }
-                print(urlString)
-                let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                let image = UIImage(data: data!)
-                self.pictures.append(PictureModel.newPicture(image!, urlString))
-            }
-//        }
+        guard let images = self.user?.userProfile?.images else { return }
+        // TODO: test it out
+        if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
+            print("sdfsdsd")
+        }
+        
+        for image in images {
+            let urlString = image.file?.url ?? ""
+            guard let url = URL(string: urlString) else { return }
+            print(urlString)
+            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            let image = UIImage(data: data!)
+            self.pictures.append(PictureModel.newPicture(image!, urlString))
+        }
     }
     
-     func removePicture() {
+    private func setBusinessPhotos() {
+        print(self.businessPictures.count)
+        guard let images = self.user?.business?.images else { return }
+        // TODO: test it out
+        if self.businessPictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
+            print("sdfsdsd")
+        }
+        
+        for image in images {
+            let urlString = image.file?.url ?? ""
+            guard let url = URL(string: urlString) else { return }
+            print(urlString)
+            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            let image = UIImage(data: data!)
+            self.businessPictures.append(PictureModel.newPicture(image!, urlString))
+        }
+    }
+    
+    func removePicture() {
         self.pictures.remove(at: confirmRemoveImageIndex)
+    }
+    
+    func removeBusinessPicture() {
+        self.businessPictures.remove(at: confirmRemoveImageIndex)
     }
     
     func refreshUser() {

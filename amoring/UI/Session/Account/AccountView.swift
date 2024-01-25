@@ -255,6 +255,26 @@ struct MenuLineButton: View {
     }
 }
 
+struct MenuLineToggle: View {
+    @Binding var isOn: Bool
+    
+    let title: String
+    
+    var body: some View {
+            HStack {
+                Text(title)
+                    .font(regular16Font)
+                    .foregroundColor(.yellow900)
+                Spacer()
+                // TODO: CUstom ?
+                Toggle(isOn: $isOn) {}
+                    .tint(.green400)
+            }
+            .padding(.horizontal, Size.w(20))
+            .padding(.vertical, Size.w(14))
+        }
+}
+
 #Preview {
     AccountView()
 }

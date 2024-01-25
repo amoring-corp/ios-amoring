@@ -77,7 +77,7 @@ struct BusinessOnboardingStep2: View {
                             .padding(.horizontal, Size.w(14))
                             .padding(.bottom, Size.w(40))
                             
-                            PickerButton(title: "매장명*") {
+                            PickerButton(title: "분류*") {
                                 if let businessCategory = controller.business.businessCategory {
                                     Text(businessCategory)
                                         .foregroundColor(.black)
@@ -93,7 +93,7 @@ struct BusinessOnboardingStep2: View {
                         .padding(.bottom, Size.w(30))
 
                         VStack(alignment: .leading) {
-                            Text("매장소개*")
+                            Text("전화번호*")
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.leading, Size.w(14))
@@ -343,21 +343,6 @@ struct BusinessOnboardingStep2: View {
         pictures.remove(at: confirmRemoveImageIndex)
     }
     
-    enum DaySelection {
-        case everyday, weekAndOff, custom
-        
-        func title() -> String {
-            switch self {
-            case .everyday:
-                return "매일"
-            case .weekAndOff:
-                return "평일/주말"
-            case .custom:
-                return "요일별"
-            }
-        }
-    }
-    
     @ViewBuilder
     private func daysButton(me: DaySelection) -> some View {
         let selected = me == self.daysSelection
@@ -393,4 +378,19 @@ struct BusinessOnboardingStep2: View {
 
 #Preview {
     BusinessOnboardingStep2()
+}
+
+enum DaySelection {
+    case everyday, weekAndOff, custom
+    
+    func title() -> String {
+        switch self {
+        case .everyday:
+            return "매일"
+        case .weekAndOff:
+            return "평일/주말"
+        case .custom:
+            return "요일별"
+        }
+    }
 }

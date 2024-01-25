@@ -15,6 +15,12 @@ struct SettingsView: View {
     
     @State private var logoutAlertPresented = false
     @State private var deleteAlertPresented = false
+    @State private var hasPlan = false
+    
+    @State private var showDistahce = false
+    @State private var showNumberOfPeople = false
+    @State private var showGenderRatio = false
+    @State private var showMatching = false
     
     var body: some View {
         let business = userManager.user?.business
@@ -69,19 +75,19 @@ struct SettingsView: View {
                     MenuTitle(title: "매장 프로필", color: Color.yellow700)
                     VStack(spacing: 0) {
                         MenuLineLink(title: "기본정보", color: Color.yellow900) {
-                            Text("기본정보")
+                            BusinessSettingsInfo()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         MenuLineLink(title: "영업시간", color: Color.yellow900) {
-                            Text("영업시간")
+                            BusinessSettingsOpenHours()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         MenuLineLink(title: "사진", color: Color.yellow900) {
-                            Text("사진")
+                            BusinessSettingsImages()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         MenuLineLink(title: "인증정보", color: Color.yellow900) {
-                            Text("인증정보")
+                            BusinessSettingsCertification()
                         }
                     }
                     .background(Color.yellow200)
@@ -90,7 +96,23 @@ struct SettingsView: View {
                     MenuTitle(title: "구매 및 멤버십", color: Color.yellow700)
                     VStack(spacing: 0) {
                         MenuLineLink(title: "멤버십", color: Color.yellow900) {
-                            Text("멤버십")
+                            if hasPlan {
+                                BusinessPlan()
+                            } else {
+                                BusinessPurchaseView()
+                            }
+                            
+                        }
+                        
+                        if !hasPlan {
+                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+                            MenuLineToggle(isOn: $showDistahce, title: "거리 보여주기")
+                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+                            MenuLineToggle(isOn: $showNumberOfPeople, title: "인원수 보여주기")
+                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+                            MenuLineToggle(isOn: $showGenderRatio, title: "성비 보여주기")
+                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+                            MenuLineToggle(isOn: $showMatching, title: "매칭 확률 보여주기")
                         }
                     }
                     .background(Color.yellow200)
@@ -107,13 +129,14 @@ struct SettingsView: View {
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         MenuLineLink(title: "문의하기 / 신고하기", color: Color.yellow900) {
-                            Text("문의하기 / 신고하기")
+                            BusinessEmail()
                         }
                     }
                     .background(Color.yellow200)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     
                     MenuTitle(title: "계정", color: Color.yellow700)
+                    
                     VStack(spacing: 0) {
                         MenuLineButton(title: "로그아웃", action: { logoutAlertPresented = true }, fontColor: Color.yellow900)
                             .alert("로그아웃", isPresented: $logoutAlertPresented, actions: {
