@@ -45,6 +45,7 @@
 		850BE9C02B62015900EC8EAB /* BusinessEmailSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9BF2B62015900EC8EAB /* BusinessEmailSuccess.swift */; };
 		850BE9C22B62083900EC8EAB /* BusinessPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9C12B62083900EC8EAB /* BusinessPlan.swift */; };
 		850BE9C42B620C6100EC8EAB /* BusinessPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9C32B620C6100EC8EAB /* BusinessPurchaseView.swift */; };
+		850BE9C62B624C1500EC8EAB /* SignInTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */; };
 		851AF8F42B3D2495005A8DEB /* BusinessDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */; };
 		851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */; };
 		851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */; };
@@ -231,6 +232,7 @@
 		850BE9BF2B62015900EC8EAB /* BusinessEmailSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmailSuccess.swift; sourceTree = "<group>"; };
 		850BE9C12B62083900EC8EAB /* BusinessPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessPlan.swift; sourceTree = "<group>"; };
 		850BE9C32B620C6100EC8EAB /* BusinessPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessPurchaseView.swift; sourceTree = "<group>"; };
+		850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTooltip.swift; sourceTree = "<group>"; };
 		851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailsView.swift; sourceTree = "<group>"; };
 		851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen .storyboard"; sourceTree = "<group>"; };
 		851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoLoadingView.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				850A30102B0AEE1F003B12B7 /* SignInView.swift */,
 				851AF8F92B3E9F3D005A8DEB /* SignInSheet.swift */,
 				853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */,
+				850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */,
 				85FC20752B0C510100DC1950 /* UserOnboarding */,
 			);
 			path = Auth;
@@ -1063,6 +1066,7 @@
 				853AFD4E2B1DB2150020A570 /* NavigationAmoringController.swift in Sources */,
 				8522A5FD2B2C4B4C008AF703 /* Data.swift in Sources */,
 				85FB6B932B4622F20023A889 /* FullSizeButton.swift in Sources */,
+				850BE9C62B624C1500EC8EAB /* SignInTooltip.swift in Sources */,
 				8523BAC92B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift in Sources */,
 				85FC20832B0C510100DC1950 /* UserOnboardingGender.swift in Sources */,
 				85D0DEDB2B3564530029DA5D /* TestView.swift in Sources */,

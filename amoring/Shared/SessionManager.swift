@@ -38,6 +38,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 
     @AppStorage("sessionToken") var sessionToken: String = ""
     @AppStorage("lastProvider") var lastProvider: lastProvider = .google
+    @AppStorage("businessEmail") var businessEmail: String = ""
+    @AppStorage("rememberEmail") var rememberEmail: Bool = true
     
     @Published var confirmationNumber: String? = nil
     @Published var emailConfirmationToken: String = ""
@@ -227,6 +229,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 if let sessionToken = value.data?.signIn.sessionToken {
                     print(sessionToken)
                     self.sessionToken = sessionToken
+                    if self.rememberEmail {
+                        self.businessEmail = email
+                    }
+                    self.lastProvider = .none
                     self.getCurrentSession(delay: 0)
                 } else {
                     print("Wrong data!")

@@ -97,28 +97,6 @@ struct UserOnboardingBio: View {
     }
 }
 
-//    var body: some View {
-//        VStack(spacing: 20) {
-//            Text("Step5")
-//            Text("Lastly, please explain yourself\n(40 characters or less)")
-//            
-//            TextEditor(text: $controller.user.bio ?? "")
-//                
-//            
-//            HStack{
-//                Spacer()
-//                Text("\(charLimit - (controller.user.bio?.count ?? 0))").foregroundColor(.gray).font(.headline).bold()
-//            }
-//
-//            NavigationLink(destination: { UserOnboardingTerms() }) {
-//                Text("Next")
-//            }
-//        }
-//        .padding(16)
-//        .navigationBarBackButtonHidden()
-//    }
-//}
-
 //#Preview {
 //    UserOnboardingBio()
 //}

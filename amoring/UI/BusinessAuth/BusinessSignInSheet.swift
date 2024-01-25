@@ -11,10 +11,11 @@ struct BusinessSignInSheet: View {
     @EnvironmentObject var sessionManager: SessionManager
     @State var email: String = ""
     @State var password: String = ""
-    @State var remember: Bool = true
-    @State var autologin: Bool = true
     
     @EnvironmentObject var navigator: NavigationAuthController
+
+    @AppStorage("rememberEmail") var rememberEmail: Bool = true
+    @AppStorage("autoLogin") var autoLogin: Bool = true
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -48,6 +49,9 @@ struct BusinessSignInSheet: View {
                     
                 CustomTextField(placeholder: "가입하신 이메일", text: $email, font: medium18Font, placeholderFont: regular18Font, keyboardType: .emailAddress)
                     .padding(.bottom, Size.w(16))
+                    .onAppear {
+                        self.email = UserDefaults.standard.string(forKey: "businessEmail") ?? ""
+                    }
                 
                 Text("비밀번호")
                     .font(regular14Font)
@@ -62,10 +66,10 @@ struct BusinessSignInSheet: View {
                 HStack(spacing: Size.w(16)) {
                     //TODO: userDefaults for these two variables
                     Button(action: {
-                        remember.toggle()
+                        rememberEmail.toggle()
                     }) {
                         HStack {
-                            Image(systemName: remember ? "checkmark.square" : "square")
+                            Image(systemName: rememberEmail ? "checkmark.square" : "square")
                                 .font(regular18Font)
                                 .foregroundColor(.yellow600)
                             Text("기억하기")
@@ -75,10 +79,10 @@ struct BusinessSignInSheet: View {
                     }
                     
                     Button(action: {
-                        autologin.toggle()
+                        autoLogin.toggle()
                     }) {
                         HStack {
-                            Image(systemName: autologin ? "checkmark.square" : "square")
+                            Image(systemName: autoLogin ? "checkmark.square" : "square")
                                 .font(regular18Font)
                                 .foregroundColor(.yellow600)
                             Text("자동로그인")
@@ -90,12 +94,9 @@ struct BusinessSignInSheet: View {
                     .padding(.bottom, Size.w(22))
                 
                 Button(action: {
-//                    withAnimation {
-                        sessionManager.businessSignIn(email: email, password: password)
-//                        sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
-//                    }
+                    sessionManager.businessSignIn(email: email, password: password)
                 }) {
-                    FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled, isLoading: sessionManager.isLoading)
+                    FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled, isLoading: sessionManager.isLoading, loadingColor: .gray1000)
                 }
                 .padding(.bottom, Size.w(22))
                     
