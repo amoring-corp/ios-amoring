@@ -37,6 +37,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @Published var isLoading: Bool = false
 
     @AppStorage("sessionToken") var sessionToken: String = ""
+    @AppStorage("lastProvider") var lastProvider: lastProvider = .google
+    
     @Published var confirmationNumber: String? = nil
     @Published var emailConfirmationToken: String = ""
     @Published var user: User? = nil
@@ -115,6 +117,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 //                        print(email)
 //                        print(IdentityToken)
 //                        print(AuthorizationCode)
+                        self.lastProvider = .apple
                     default:
                         break
                     }
@@ -164,6 +167,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 print(error.localizedDescription)
             } else {
                 if let token = result?.user.idToken?.tokenString {
+                    self.lastProvider = .google
                     self.signInWithToken(token: token)
                 }
             }
@@ -179,7 +183,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 } else {
                     print("oauthToken::")
                     print(oauthToken)
-                    
+                    self.lastProvider = .kakao
                     UserApi.shared.me() { (user, error) in
                         print("---------")
                         print(user)
@@ -197,6 +201,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 } else {
                     print("oauthToken::")
                     print(oauthToken)
+                    self.lastProvider = .kakao
                     UserApi.shared.me() { (user, error) in
                         print("--------- ++++++++")
                         print(user)
