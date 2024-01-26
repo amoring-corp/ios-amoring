@@ -296,15 +296,10 @@ class UserManager: ObservableObject {
         self.isLoading = true
         if let images = user?.userProfile?.images {
             let dispatchGroup = DispatchGroup()
-            print("1")
             for image in images {
-                print("2...")
-                print(image)
                 if let id = image.id {
-                    print("3...")
                     dispatchGroup.enter()
                     self.deleteImage(id: id) { success in
-                        print("4...")
                         dispatchGroup.leave()
                     }
                 }
@@ -344,6 +339,85 @@ class UserManager: ObservableObject {
         }
     }
     
+    func deleteBusinessImage(completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        if let images = user?.business?.images {
+            let dispatchGroup = DispatchGroup()
+            for image in images {
+                if let id = image.id {
+                    dispatchGroup.enter()
+                    self.deleteBusImage(id: id) { success in
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+                self.isLoading = false
+                print("deleting: \(images.count) images finished")
+                completion(true)
+            })
+        }
+    }
+    
+    private func deleteBusImage(id: String, completion: @escaping (Bool) -> Void) {
+        api.perform(mutation: DeleteBusinessImageMutation(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print("Image was successfully deleted!")
+                print(data.deleteBusinessImage)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func uploadBusinessRegistrationFile(data: Data, completion: @escaping (Bool) -> Void) {
+        print("business id: \(user?.business?.id)")
+        guard let id = user?.business?.id else {
+            completion(false)
+            return
+        }
+        let file = GraphQLFile(fieldName: "file", originalName: "file", data: data)
+        api.upload(operation: UploadBusinessRegistrationFileMutation(id: id, file: "file"), files: [file]) { result in
+            switch result    {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print("File was successfully uploaded!")
+                print(data.uploadBusinessRegistrationFile)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
     
     func connectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
         self.isLoading = true

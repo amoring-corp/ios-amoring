@@ -145,6 +145,12 @@
     "❶ 인증 가능한 이메일\n❷ 사업자등록증\n❸ 매장의 사진 (최소 3장)" : {
 
     },
+    "➊ 해당되는 요일은 선택해주세요." : {
+
+    },
+    "➋ 위 선택된 요일의 영업시간을 알려주세요." : {
+
+    },
     "Address: '%@' successfully copied to clipboard" : {
 
     },
@@ -165,6 +171,9 @@
 
     },
     "Business Sign IN" : {
+
+    },
+    "CUSTOM" : {
 
     },
     "DEBUGGING" : {

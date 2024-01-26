@@ -35,29 +35,20 @@ struct BusinessOnboardingStep2: View {
     @State private var editIndex: Int? = nil
     
     @State private var daysSelection: DaySelection = .everyday
-    
-    @State private var from0: Date = Date()
-    @State private var from1: Date = Date()
-    @State private var from2: Date = Date()
-    @State private var from3: Date = Date()
-    @State private var from4: Date = Date()
-    @State private var from5: Date = Date()
-    @State private var from6: Date = Date()
-    
-    @State private var to0: Date = Date()
-    @State private var to1: Date = Date()
-    @State private var to2: Date = Date()
-    @State private var to3: Date = Date()
-    @State private var to4: Date = Date()
-    @State private var to5: Date = Date()
-    @State private var to6: Date = Date()
-    
-    @State var selectedDay: Date = Date()
-    
+    @State var selectedDays: [Bool] = [false, true, true, true, true, true, false]
+    @State var unselectedDays: [Bool] = [true, false, false, false, false, false, true]
+    @State private var sunday: (Int, Date, Date) = (0, Date(), Date())
+    @State private var monday: (Int, Date, Date) = (1, Date(), Date())
+    @State private var tuesday: (Int, Date, Date) = (2, Date(), Date())
+    @State private var wednesday: (Int, Date, Date) = (3, Date(), Date())
+    @State private var thirsday: (Int, Date, Date) = (4, Date(), Date())
+    @State private var friday: (Int, Date, Date) = (5, Date(), Date())
+    @State private var saturday: (Int, Date, Date) = (6, Date(), Date())
     
     @State var showPhoneCodes = false
     @State var selectedCode: String = "010"
     
+
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
@@ -156,35 +147,110 @@ struct BusinessOnboardingStep2: View {
                             HStack(spacing: 0) {
                                 daysButton(me: .everyday)
                                 daysButton(me: .weekAndOff)
-                                daysButton(me: .custom)
+//                                daysButton(me: .custom)
                             }
     
                             Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
                                 .padding(.vertical, Size.w(10))
-                            
-                            VStack(alignment: .leading) {
-                                Text("➊ 영업시간을 알려주세요.")
-                                    .font(medium14Font)
-                                    .foregroundColor(.yellow600)
-                                // TODO: Implement saving
-                                HStack(spacing: 0) {
-                                    ZStack {
-                                        DatePicker("", selection: $from0, displayedComponents: .hourAndMinute)
-                                            .frame(height: Size.w(58))
-                                        timeWindow(time: from0).allowsHitTesting(false)
-                                    }
-                                    Text("~")
-                                        .font(regular16Font)
-                                        .foregroundColor(.black)
-                                        .padding(.horizontal, Size.w(20))
-                                    ZStack {
-                                        DatePicker("", selection: $to0, displayedComponents: .hourAndMinute)
-                                            .frame(height: Size.w(58))
-                                        timeWindow(time: to0).allowsHitTesting(false)
+    
+                            switch daysSelection {
+                            case .everyday:
+                                VStack(alignment: .leading) {
+                                    Text("➊ 영업시간을 알려주세요.")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    // TODO: Implement saving
+                                    HStack(spacing: 0) {
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.1, displayedComponents: .hourAndMinute)
+                                                .frame(height: Size.w(58))
+                                            timeWindow(time: sunday.1).allowsHitTesting(false)
+                                        }
+                                        Text("~")
+                                            .font(regular16Font)
+                                            .foregroundColor(.black)
+                                            .padding(.horizontal, Size.w(20))
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.2, displayedComponents: .hourAndMinute)
+                                                .frame(height: Size.w(58))
+                                            timeWindow(time: sunday.2).allowsHitTesting(false)
+                                        }
                                     }
                                 }
+                                .padding(.horizontal, Size.w(14))
+                            case .weekAndOff:
+                                VStack(alignment: .leading) {
+                                    Text("➊ 해당되는 요일은 선택해주세요.")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    
+                                    DayWeekSelection(selectedDays: $selectedDays)
+                                    
+                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    
+                                    HStack(spacing: 0) {
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.1, displayedComponents: .hourAndMinute)
+                                                .frame(height: Size.w(58))
+                                            timeWindow(time: sunday.1).allowsHitTesting(false)
+                                        }
+                                        Text("~")
+                                            .font(regular16Font)
+                                            .foregroundColor(.black)
+                                            .padding(.horizontal, Size.w(20))
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.2, displayedComponents: .hourAndMinute)
+                                                .frame(height: Size.w(58))
+                                            timeWindow(time: sunday.2).allowsHitTesting(false)
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal, Size.w(14))
+                                
+                                Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+                                    .padding(.vertical, Size.w(10))
+                                
+                                VStack(alignment: .leading) {
+                                    Text("➊ 해당되는 요일은 선택해주세요.")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    
+                                    DayWeekSelection(selectedDays: $unselectedDays)
+                                    
+                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    
+                                    HStack(spacing: 0) {
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.1, displayedComponents: .hourAndMinute)
+                                                .frame(height: Size.w(58))
+                                            timeWindow(time: sunday.1).allowsHitTesting(false)
+                                        }
+                                        Text("~")
+                                            .font(regular16Font)
+                                            .foregroundColor(.black)
+                                            .padding(.horizontal, Size.w(20))
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.2, displayedComponents: .hourAndMinute)
+                                                .frame(height: Size.w(58))
+                                            timeWindow(time: sunday.2).allowsHitTesting(false)
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal, Size.w(14))
+                                .onChange(of: selectedDays) { selectedDays in
+                                    self.unselectedDays = selectedDays.map { !$0 }
+                                }
+                                .onChange(of: unselectedDays) { unselectedDays in
+                                    self.selectedDays = unselectedDays.map { !$0 }
+                                }
+                            case .custom:
+                                Text("CUSTOM")
                             }
-                            .padding(.horizontal, Size.w(14))
+                            
                             
                             Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
                                 .padding(.vertical, Size.w(10))
@@ -281,7 +347,6 @@ struct BusinessOnboardingStep2: View {
                                         }
                                     }
                                 }
-//                                next = true
                             }) {
                                 FullSizeButton(title: "가입하기", enabled: pass)
                             }
@@ -351,7 +416,7 @@ struct BusinessOnboardingStep2: View {
             .foregroundColor(selected ? .gray100 : .yellow600)
             .frame(maxWidth: .infinity)
             .frame(height: Size.w(50))
-            .background(selected ? Color.yellow700 : Color.clear)
+            .background(Color.yellow700.opacity(selected ? 1 : 0.01))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(
                 RoundedRectangle(cornerRadius: 10).stroke(selected ? Color.yellow800 : Color.yellow600)
@@ -378,6 +443,41 @@ struct BusinessOnboardingStep2: View {
 
 #Preview {
     BusinessOnboardingStep2()
+}
+
+struct DayWeekSelection: View {
+    @Binding var selectedDays: [Bool]
+    
+    var body: some View {
+        HStack(spacing: Size.w(10)) {
+            ForEach(0..<Constants.daysOfWeek.count, id: \.self) { index in
+                DayOfWeak(title: Constants.daysOfWeek[index], selected: selectedDays[index])
+                    .onTapGesture {
+                        withAnimation {
+                            selectedDays[index].toggle()
+                        }
+                    }
+            }
+        }
+        .padding(.vertical, Size.w(10))
+    }
+}
+
+struct DayOfWeak: View {
+    var title: String
+    var selected: Bool
+    
+    var body: some View {
+        Text(title)
+            .font(medium15Font)
+            .foregroundColor(selected ? .gray100 : .yellow600)
+            .frame(width: Size.w(38), height: Size.w(50))
+            .background(selected ? Color.yellow700 : Color.clear)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10).stroke(selected ? Color.yellow800 : Color.yellow600)
+            )
+    }
 }
 
 enum DaySelection {

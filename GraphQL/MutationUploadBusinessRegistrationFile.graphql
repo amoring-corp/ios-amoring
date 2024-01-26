@@ -1,0 +1,8 @@
+mutation UploadBusinessRegistrationFile ($id: ID!, $file: Upload!) {
+  uploadBusinessRegistrationFile(businessId: $id, file: $file) {
+    id
+    name
+    mimetype
+    url
+  }
+}

@@ -1,0 +1,5 @@
+mutation DeleteBusinessImage($id: ID!) {
+  deleteBusinessImage(id: $id) {
+    id
+  }
+}

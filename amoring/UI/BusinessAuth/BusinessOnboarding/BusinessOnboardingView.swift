@@ -211,7 +211,15 @@ struct BusinessOnboardingView: View {
                                     case .success(let url):
                                         print(url.absoluteString)
                                         //                                    url.startAccessingSecurityScopedResource()
-                                        fileAtached = true
+                                        guard let data = loadFileFromLocalPath(url) else {
+                                            print("cannot get data from file")
+                                            return
+                                        }
+                                        
+                                        self.controller.data = data
+                                        
+                                            fileAtached = true
+                                        
                                     case .failure(let error):
                                         print(error)
                                     }
@@ -255,13 +263,17 @@ struct BusinessOnboardingView: View {
                         && !((controller.business.businessIndustry?.isEmpty) == nil)
                         && !((controller.business.address?.isEmpty) == nil)
                         && !((controller.business.registrationNumber?.isEmpty) == nil)
+                        && !((controller.data?.isEmpty) == nil)
                         
                         Button(action: {
                             if pass {
                                 userManager.upsertMyBusiness(business: controller.business) { success in
-                                    next = success
+                                    
+                                    guard let data = controller.data else { return }
+                                    userManager.uploadBusinessRegistrationFile(data: data) { success in
+                                        next = success
+                                    }
                                 }
-//                                next = true
                             }
                         }) {
                             BlackButton(title: "다음", enabled: pass)

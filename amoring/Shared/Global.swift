@@ -20,3 +20,8 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
         set: { lhs.wrappedValue = $0 }
     )
 }
+
+func loadFileFromLocalPath(_ url: URL) -> Data? {
+    let data = try? Data(contentsOf: url, options: .alwaysMapped)
+   return data
+}

@@ -46,6 +46,9 @@
 		850BE9C22B62083900EC8EAB /* BusinessPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9C12B62083900EC8EAB /* BusinessPlan.swift */; };
 		850BE9C42B620C6100EC8EAB /* BusinessPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9C32B620C6100EC8EAB /* BusinessPurchaseView.swift */; };
 		850BE9C62B624C1500EC8EAB /* SignInTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */; };
+		850BE9C82B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9C72B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql */; };
+		850BE9CA2B63200100EC8EAB /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9C92B63200100EC8EAB /* schema.graphqls */; };
+		850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */; };
 		851AF8F42B3D2495005A8DEB /* BusinessDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */; };
 		851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */; };
 		851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */; };
@@ -95,7 +98,6 @@
 		8538D5742B579C9C0040E017 /* MutationUploadBusinessImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D5732B579C9B0040E017 /* MutationUploadBusinessImage.graphql */; };
 		8538D57A2B57A5AE0040E017 /* QueryBusinesses.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */; };
 		8538D57E2B57AF520040E017 /* QueryUserProfiles.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8538D57D2B57AF520040E017 /* QueryUserProfiles.graphql */; };
-		8538D5802B57AF880040E017 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8538D57F2B57AF880040E017 /* schema.graphqls */; };
 		853AFD4C2B1DB0890020A570 /* NavigationStackBackport in Frameworks */ = {isa = PBXBuildFile; productRef = 853AFD4B2B1DB0890020A570 /* NavigationStackBackport */; };
 		853AFD4E2B1DB2150020A570 /* NavigationAmoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */; };
 		853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */; };
@@ -233,6 +235,9 @@
 		850BE9C12B62083900EC8EAB /* BusinessPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessPlan.swift; sourceTree = "<group>"; };
 		850BE9C32B620C6100EC8EAB /* BusinessPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessPurchaseView.swift; sourceTree = "<group>"; };
 		850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTooltip.swift; sourceTree = "<group>"; };
+		850BE9C72B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteBusinessImage.graphql; sourceTree = "<group>"; };
+		850BE9C92B63200100EC8EAB /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadBusinessRegistrationFile.graphql; sourceTree = "<group>"; };
 		851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailsView.swift; sourceTree = "<group>"; };
 		851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen .storyboard"; sourceTree = "<group>"; };
 		851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoLoadingView.swift; sourceTree = "<group>"; };
@@ -279,7 +284,6 @@
 		8538D5732B579C9B0040E017 /* MutationUploadBusinessImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadBusinessImage.graphql; sourceTree = "<group>"; };
 		8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryBusinesses.graphql; sourceTree = "<group>"; };
 		8538D57D2B57AF520040E017 /* QueryUserProfiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryUserProfiles.graphql; sourceTree = "<group>"; };
-		8538D57F2B57AF880040E017 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAmoringController.swift; sourceTree = "<group>"; };
 		853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAuthController.swift; sourceTree = "<group>"; };
 		853AFD532B1DC6BF0020A570 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -680,7 +684,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				8538D57F2B57AF880040E017 /* schema.graphqls */,
+				850BE9C92B63200100EC8EAB /* schema.graphqls */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
 				8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */,
 				8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */,
@@ -697,6 +701,8 @@
 				8538D5732B579C9B0040E017 /* MutationUploadBusinessImage.graphql */,
 				85F190402B5F90EE00FA7686 /* MutationDisconnectInterestsFromUserProfile.graphql */,
 				85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */,
+				850BE9C72B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql */,
+				850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -927,6 +933,7 @@
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
+				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
 				8538D5702B5765920040E017 /* MutationSignUp.graphql in Resources */,
@@ -940,9 +947,9 @@
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
 				85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */,
 				8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */,
-				8538D5802B57AF880040E017 /* schema.graphqls in Resources */,
 				85F190412B5F90EE00FA7686 /* MutationDisconnectInterestsFromUserProfile.graphql in Resources */,
 				850A301E2B0AEF41003B12B7 /* Pretendard-Regular.ttf in Resources */,
+				850BE9C82B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql in Resources */,
 				8538D55D2B5685A00040E017 /* QueryInterestCategories.graphql in Resources */,
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
 				8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */,
@@ -950,6 +957,7 @@
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
 				8538D57E2B57AF520040E017 /* QueryUserProfiles.graphql in Resources */,
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
+				850BE9CA2B63200100EC8EAB /* schema.graphqls in Resources */,
 				8538D5722B5768FE0040E017 /* MutationVerifyUserEmailResolver.graphql in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,

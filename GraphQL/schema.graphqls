@@ -300,6 +300,8 @@ type Mutation {
     businessId: ID!
     data: [BusinessImageInput!]!
   ): [BusinessImage!]
+  deleteBusinessImage(id: ID!): [BusinessImage!]
+  uploadBusinessRegistrationFile(businessId: ID!, file: Upload!): File!
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!

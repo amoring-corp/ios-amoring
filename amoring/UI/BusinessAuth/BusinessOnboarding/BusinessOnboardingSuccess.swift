@@ -10,6 +10,7 @@ import SwiftUI
 struct BusinessOnboardingSuccess: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var controller: BusinessOnboardingController
     @State var animation: Bool = false
     
     var body: some View {
@@ -55,7 +56,11 @@ struct BusinessOnboardingSuccess: View {
                 Spacer()
                 
                 Button(action: {
-                    userManager.changeStateWithAnimation(state: .businessSession)
+                    controller.business = Business()
+                    controller.data = nil
+                    sessionManager.getCurrentSession(delay: 0)
+                    
+//                    userManager.changeStateWithAnimation(state: .businessSession)
                 }) {
                     FullSizeButton(title: "확인", color: Color.black, bg: .yellow300)
                 }

@@ -92,13 +92,12 @@ struct BusinessSettingsImages: View {
                     } else {
                         Button(action: {
                             let images = pictures.map({ $0.picture })
-                            // TODO: uncomment after business deletion images
                             // TODO: find better way to refresh images
-//                            userManager.deleteBusinessImages { success in
-//                                userManager.uploadBusinessImages(images: images) { success in
-//                                    sessionManager.getCurrentSession(delay: 0)
-//                                }
-//                            }
+                            userManager.deleteBusinessImage { success in
+                                userManager.uploadBusinessImages(images: images) { success in
+                                    sessionManager.getCurrentSession(delay: 0)
+                                }
+                            }
                         }) {
                             FullSizeButton(title: "저장", color: .black, bg: .yellow200, loadingColor: .gray1000)
                         }

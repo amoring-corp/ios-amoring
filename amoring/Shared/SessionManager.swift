@@ -47,7 +47,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 
     @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
 
-    func getCurrentSession(delay: Double = 2) {
+    func getCurrentSession(delay: Double = 1.5) {
         self.api = initApi(token: self.sessionToken)
         self.appState = .initializing
         api.fetch(query: QueryAuthenticatedUserQuery()) { result in
@@ -76,7 +76,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     }
                     
                     print("Current Token: \(self.sessionToken)")
-                    
                     self.user = User(id: authUser.id).from(authUser)
                     self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
                 case .failure(let error):
