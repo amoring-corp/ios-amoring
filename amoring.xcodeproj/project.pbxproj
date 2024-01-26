@@ -49,6 +49,8 @@
 		850BE9C82B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9C72B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql */; };
 		850BE9CA2B63200100EC8EAB /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9C92B63200100EC8EAB /* schema.graphqls */; };
 		850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */; };
+		850BE9CE2B6342FF00EC8EAB /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9CD2B6342FF00EC8EAB /* UserProfile.swift */; };
+		850BE9D02B6343A100EC8EAB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9CF2B6343A100EC8EAB /* File.swift */; };
 		851AF8F42B3D2495005A8DEB /* BusinessDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */; };
 		851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */; };
 		851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */; };
@@ -238,6 +240,8 @@
 		850BE9C72B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteBusinessImage.graphql; sourceTree = "<group>"; };
 		850BE9C92B63200100EC8EAB /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadBusinessRegistrationFile.graphql; sourceTree = "<group>"; };
+		850BE9CD2B6342FF00EC8EAB /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		850BE9CF2B6343A100EC8EAB /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailsView.swift; sourceTree = "<group>"; };
 		851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen .storyboard"; sourceTree = "<group>"; };
 		851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoLoadingView.swift; sourceTree = "<group>"; };
@@ -743,8 +747,10 @@
 			isa = PBXGroup;
 			children = (
 				85FC20972B0D70E300DC1950 /* User.swift */,
+				850BE9CD2B6342FF00EC8EAB /* UserProfile.swift */,
 				85FC20A52B0D9DC700DC1950 /* Business.swift */,
 				8522A5F32B2BE03D008AF703 /* Interest.swift */,
+				850BE9CF2B6343A100EC8EAB /* File.swift */,
 				8522A5F52B2BE831008AF703 /* mbti.swift */,
 				85E8E93B2B3109EE0054EBCE /* Message.swift */,
 				85E8E93D2B3119780054EBCE /* Reaction.swift */,
@@ -1059,6 +1065,7 @@
 				8538D5492B50C9820040E017 /* BusinessSignUpPassword.swift in Sources */,
 				85FC20962B0C96E800DC1950 /* UserOnboardingView.swift in Sources */,
 				8522A6012B2C4B96008AF703 /* PurchaseLoungeWindow.swift in Sources */,
+				850BE9D02B6343A100EC8EAB /* File.swift in Sources */,
 				85FB6B9D2B4785CE0023A889 /* CheckInResult.swift in Sources */,
 				85FB6B8B2B43EC820023A889 /* NextBlackButton.swift in Sources */,
 				8538D5412B50B4CA0040E017 /* ImageHelper.swift in Sources */,
@@ -1142,6 +1149,7 @@
 				85F190472B5FAB3C00FA7686 /* AccountEmailSuccess.swift in Sources */,
 				85F1903F2B5F8B6900FA7686 /* AccountInterests.swift in Sources */,
 				851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */,
+				850BE9CE2B6342FF00EC8EAB /* UserProfile.swift in Sources */,
 				850A300B2B0AEA09003B12B7 /* SessionManager.swift in Sources */,
 				85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */,
 				8522A5FF2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift in Sources */,
