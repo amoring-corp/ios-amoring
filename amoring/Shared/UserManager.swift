@@ -95,7 +95,6 @@ class UserManager: ObservableObject {
     }
     
     private func setBusinessPhotos() {
-        print(self.businessPictures.count)
         guard let images = self.user?.business?.images else { return }
         // TODO: test it out
         if self.businessPictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {

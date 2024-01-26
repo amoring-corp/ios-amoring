@@ -11,18 +11,40 @@ struct BusinessPurchaseView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var selection: PurchasePlan = .basic
+    @State var animation: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
-            ZStack {
-                TickerLine()
-                    .frame(maxWidth: UIScreen.main.bounds.width)
-                    .clipped()
-                Image("LOGO")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(84), height: Size.w(84))
-            }
+//            GeometryReader { reader in
+                ZStack {
+                    HStack(spacing: 0) {
+                        ForEach(0..<8) { _ in
+                            Text("AMORING")
+                                .frame(width: UIScreen.main.bounds.width / 4)
+                        }
+                    }
+                    .fixedSize(horizontal: true, vertical: false)
+                    .padding(.vertical, 12)
+                    .font(semiBold14Font)
+                    .foregroundColor(.gray1000)
+                    .background(Color.yellow800)
+                        .offset(x: animation ? UIScreen.main.bounds.width / 2 : -(UIScreen.main.bounds.width / 2) )
+                        .onAppear {
+                            withAnimation(.linear(duration: 10).repeatForever(autoreverses: false)) {
+                                animation = true
+                            }
+                        }
+                    
+                        
+                    Image("LOGO")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Size.w(84), height: Size.w(84))
+                }
+//            }
+                .frame(maxWidth: UIScreen.main.bounds.width)
+                .clipped()
+            .frame(height: Size.w(84))
             .padding(.top, Size.w(35))
             .padding(.bottom, Size.w(23))
             
