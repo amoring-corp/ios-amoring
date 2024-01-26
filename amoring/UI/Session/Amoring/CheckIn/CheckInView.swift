@@ -11,6 +11,7 @@ import NavigationStackBackport
 struct CheckInView: View {
     @EnvironmentObject var navigator: NavigationController
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var torchIsOn = false
     
@@ -55,7 +56,16 @@ struct CheckInView: View {
         }
         .navigationBarItems(trailing:
                                 Button(action: {
-         
+            withAnimation {
+                // MARK: TESTS  . .. 
+//                notificationController.notification = NotificationModel(type: .text, text: "방금, 00명이 라운지에 새로 입장했습니다.", action: {})
+                notificationController.notification = NotificationModel(type: .text, text: "체크인이 곧 만료됩니다.\n회원님이 머물고 있음을 체크인으로 알려주세요.", action: {})
+//                notificationController.notification = NotificationModel(type: .textAndButton, text: "새로운 인연이 생겼어요!", action: {
+//                    print("go to messages")
+//                })
+//                
+//                notificationController.notification = NotificationModel(type: .error, text: "일치하지 않는 ID 또는 PW 입니다.", action: {})
+            }
         }) {
             Image("ic-info")
                 .resizable()

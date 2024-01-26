@@ -11,6 +11,7 @@ struct BusinessOnboardingSuccess: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: BusinessOnboardingController
+    @EnvironmentObject var notificationController: NotificationController
     @State var animation: Bool = false
     
     var body: some View {
@@ -58,7 +59,9 @@ struct BusinessOnboardingSuccess: View {
                 Button(action: {
                     controller.business = Business()
                     controller.data = nil
-                    sessionManager.getCurrentSession(delay: 0)
+                    sessionManager.getCurrentSession(delay: 0) { success, error in
+                        notificationController.setNotification(show: !success, text: error, type: .error)
+                    }
                     
 //                    userManager.changeStateWithAnimation(state: .businessSession)
                 }) {

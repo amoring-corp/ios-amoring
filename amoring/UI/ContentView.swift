@@ -10,8 +10,9 @@ import Apollo
 
 struct ContentView: View {
     @StateObject var sessionManager = SessionManager()
+    @StateObject var notificationController = NotificationController()
     @StateObject var businessSignUpController: BusinessSignUpController = BusinessSignUpController()
-    
+
     var body: some View {
         ZStack {
             switch sessionManager.appState {
@@ -25,10 +26,27 @@ struct ContentView: View {
                 Text("smth went wrong!")
             }
         }
+        .overlay(
+            notificationController.body()
+            , alignment: .top
+                
+        )
         .environmentObject(sessionManager)
+        .environmentObject(notificationController)
         .environmentObject(businessSignUpController)
         .onAppear {
-            sessionManager.getCurrentSession()
+            sessionManager.getCurrentSession { success, error in
+                notificationController.setNotification(show: !success, text: error, type: .error)
+            }
+        }
+        .onChange(of: notificationController.notification) { noti in
+            if let noti {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation {
+                        notificationController.notification = nil
+                    }
+                }
+            }
         }
     }
 }

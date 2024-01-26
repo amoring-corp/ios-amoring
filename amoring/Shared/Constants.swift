@@ -13,7 +13,15 @@ class Constants {
     static let businessTypes = ["클럽", "라운지", "주점", "바", "펍", "호프", "포차", "이자카야", "카페", "페스티벌"]
     static let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
-
+    static let interestCategories: [InterestCategory] = [
+        InterestCategory(name: InterestCategoryEnum.interest.rawValue, interests: interests),
+        InterestCategory(name: InterestCategoryEnum.music.rawValue, interests: music),
+        InterestCategory(name: InterestCategoryEnum.food.rawValue, interests: food_drink),
+        InterestCategory(name: InterestCategoryEnum.travel.rawValue, interests: travel),
+        InterestCategory(name: InterestCategoryEnum.movie.rawValue, interests: movies_novels),
+        InterestCategory(name: InterestCategoryEnum.sport.rawValue, interests: sport)
+    ]
+    
 //    관심사
     static let interests = [
         Interest(id: "101", name: "🎪 페스티벌", category: InterestCategory(name: InterestCategoryEnum.interest.rawValue)),

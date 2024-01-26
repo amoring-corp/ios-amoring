@@ -51,6 +51,7 @@
 		850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */; };
 		850BE9CE2B6342FF00EC8EAB /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9CD2B6342FF00EC8EAB /* UserProfile.swift */; };
 		850BE9D02B6343A100EC8EAB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9CF2B6343A100EC8EAB /* File.swift */; };
+		850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BE9D12B63596100EC8EAB /* NotificationController.swift */; };
 		851AF8F42B3D2495005A8DEB /* BusinessDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */; };
 		851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */; };
 		851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */; };
@@ -242,6 +243,7 @@
 		850BE9CB2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadBusinessRegistrationFile.graphql; sourceTree = "<group>"; };
 		850BE9CD2B6342FF00EC8EAB /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		850BE9CF2B6343A100EC8EAB /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		850BE9D12B63596100EC8EAB /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailsView.swift; sourceTree = "<group>"; };
 		851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen .storyboard"; sourceTree = "<group>"; };
 		851AF8F72B3E8E46005A8DEB /* LogoLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoLoadingView.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				8538D5602B56A24C0040E017 /* graphqlAPI.swift */,
 				850A300A2B0AEA09003B12B7 /* SessionManager.swift */,
 				85FC209E2B0D75AB00DC1950 /* UserManager.swift */,
+				850BE9D12B63596100EC8EAB /* NotificationController.swift */,
 				85FC209C2B0D729300DC1950 /* Extensions.swift */,
 				85064AEE2B292EA80074E45A /* ViewHeightKey.swift */,
 				85FC209A2B0D717700DC1950 /* Constants.swift */,
@@ -1134,6 +1137,7 @@
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
 				85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */,
+				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
 				851AF8FA2B3E9F3D005A8DEB /* SignInSheet.swift in Sources */,
 				85FC20902B0C514400DC1950 /* ImagePicker.swift in Sources */,

@@ -47,7 +47,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 
     @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
 
-    func getCurrentSession(delay: Double = 1.5) {
+    func getCurrentSession(delay: Double = 1.5, completion: @escaping (Bool, String) -> Void) {
         self.api = initApi(token: self.sessionToken)
         self.appState = .initializing
         api.fetch(query: QueryAuthenticatedUserQuery()) { result in
@@ -59,12 +59,14 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     guard value.errors == nil else {
                         print(value.errors)
                         self.changeStateWithAnimation(state: .auth)
+                        completion(false, value.errors?.first?.localizedDescription ?? "")
                         return
                     }
                     
                     guard let data = value.data else {
                         print("WRONG DATA")
                         self.changeStateWithAnimation(state: .auth)
+                        completion(false, "Something went wrong...")
                         return
                     }
                     
@@ -72,12 +74,14 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         print("NO USER")
                         print(self.sessionToken)
                         self.changeStateWithAnimation(state: .auth)
+                        completion(true, "")
                         return
                     }
                     
                     print("Current Token: \(self.sessionToken)")
                     self.user = User(id: authUser.id).from(authUser)
                     self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+                    completion(true, "")
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
                     self.changeStateWithAnimation(state: .auth)
@@ -160,16 +164,17 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 //        }
 //    }
     
-    func signInWithGoogle() {
+    func signInWithGoogle(completion: @escaping (Bool, String) -> Void) {
         guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { result, error in
             if let error {
+                completion(false, error.localizedDescription)
                 print(error.localizedDescription)
             } else {
                 if let token = result?.user.idToken?.tokenString {
                     self.lastProvider = .google
-                    self.signInWithToken(token: token)
+                    self.signInWithToken(token: token, completion: completion)
                 }
             }
         }
@@ -214,7 +219,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
     
-    func businessSignIn(email: String, password: String) {
+    func businessSignIn(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
         self.isLoading = true
         api.perform(mutation: SignInMutation(email: email, password: password)) { result in
             self.isLoading = false
@@ -222,6 +227,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             case .success(let value):
                 if let errors = value.errors {
                     print(errors)
+                    completion(false, errors.first?.localizedDescription ?? "")
                     return
                 }
                 
@@ -232,14 +238,18 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         self.businessEmail = email
                     }
                     self.lastProvider = .none
-                    self.getCurrentSession(delay: 0)
+                    self.getCurrentSession(delay: 0) { success, error in
+                            completion(success, error)
+                    }
+                    completion(true, "")
                 } else {
                     print("Wrong data!")
-                    
+                    completion(false, "Wrong data")
                 }
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)
+                completion(false, error.localizedDescription)
             }
         }
     }
@@ -282,7 +292,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
     
-    func verifyEmail(code: String, email: String, password: String) {
+    func verifyEmail(code: String, email: String, password: String, completion: @escaping (Bool, String) -> Void) {
         if let user = self.user {
             self.isLoading = true
             api.perform(mutation: VerifyUserEmailMutation(userId: user.id, confirmationCode: code, emailConfirmationToken: self.emailConfirmationToken)) { result in
@@ -291,52 +301,62 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 case .success(let value):
                     guard let passed = value.data?.verifyUserEmailResolver else {
                         print("Wrong data format!")
+                        completion(false, "Wrong data format")
                         return
                     }
 
                     if passed {
                         print("OTP successfully veryfied")
-                        
-                        self.businessSignIn(email: email, password: password)
+                        self.businessSignIn(email: email, password: password) { success, error in
+                            completion(success, error)
+                        }
 //                        self.changeStateWithAnimation(state: .session(user: user))
                     } else {
                         print("Failed to verify email")
+                        completion(false, "Failed to verify email")
                     }
                     
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
+                    completion(false, error.localizedDescription)
                 }
             }
         }
     }
     
-    private func signInWithToken(token: String) {
+    private func signInWithToken(token: String, completion: @escaping (Bool, String) -> Void) {
         api.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors)
+                    completion(false, value.errors?.first?.localizedDescription ?? "")
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
+                    completion(false, "Something went wrong")
                     return
                 }
                 
                 guard let sessionToken = data.signInWithGoogle.sessionToken else {
                     print("NO TOKEN!")
+                    completion(false, "No authentication token")
                     return
                 }
                 
                 guard let authUser = data.signInWithGoogle.user else {
                     print("NO USER!")
+                    completion(false, "No user")
                     return
                 }
                 
                 print(sessionToken)
                 self.sessionToken = sessionToken
-                self.getCurrentSession(delay: 0)
+                self.getCurrentSession(delay: 0) { success, error in
+                        completion(success, error)
+                }
 //                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
             case .failure(let error):
                 debugPrint(error.localizedDescription)

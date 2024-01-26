@@ -532,13 +532,13 @@ class UserManager: ObservableObject {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors)
-//                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    self.interestCategories = Constants.interestCategories
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
-                    //                    self.interests = Constants.interests //TODO: put dummy or default categories
+                    self.interestCategories = Constants.interestCategories
                     return
                 }
                 
@@ -563,7 +563,7 @@ class UserManager: ObservableObject {
                 }
             case .failure(let error):
                 debugPrint(error.localizedDescription)
-                //                    self.interests = Constants.interests //TODO: put dummy or default categories
+                self.interestCategories = Constants.interestCategories
             }
         }
     }
@@ -653,13 +653,11 @@ class UserManager: ObservableObject {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors)
-//                    self.interests = Constants.interests //TODO: put dummy or default categories
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
-                    //                    self.interests = Constants.interests //TODO: put dummy or default categories
                     return
                 }
                 
@@ -674,12 +672,11 @@ class UserManager: ObservableObject {
                     }
                 }
                 
-                self.businesses.append(contentsOf: Dummy.businesses)
-                self.businessesInit.append(contentsOf: Dummy.businesses)
+//                self.businesses.append(contentsOf: Dummy.businesses)
+//                self.businessesInit.append(contentsOf: Dummy.businesses)
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)
-                //                    self.interests = Constants.interests //TODO: put dummy or default categories
             }
         }
     }
@@ -691,13 +688,11 @@ class UserManager: ObservableObject {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors)
-//                    self.interests = Constants.interests //TODO: put dummy or default categories
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
-                    //                    self.interests = Constants.interests //TODO: put dummy or default categories
                     return
                 }
                 
@@ -717,7 +712,6 @@ class UserManager: ObservableObject {
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)
-                //                    self.interests = Constants.interests //TODO: put dummy or default categories
             }
         }
     }

@@ -11,6 +11,7 @@ struct BusinessSignUpOTP: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: BusinessSignUpController
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var bordersColor: Color = Color.clear
     @State var error: String = ""
@@ -121,7 +122,14 @@ struct BusinessSignUpOTP: View {
     }
     
     private func signUp() {
-        sessionManager.verifyEmail(code: controller.confirmCode, email: controller.email, password: controller.password)
+        sessionManager.verifyEmail(code: controller.confirmCode, email: controller.email, password: controller.password) { success, error in
+            if !success {
+                    withAnimation {
+                        notificationController.notification = NotificationModel(type: .error, text: error, action: {})
+                    }
+                
+            }
+        }
         
 //        if controller.confirmCode == "123456" {
 //            sessionManager.changeStateWithAnimation(state: .session(user: User(id: "")))

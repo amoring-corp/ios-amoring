@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BusinessSignInSheet: View {
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     @State var email: String = ""
     @State var password: String = ""
     
@@ -94,7 +95,9 @@ struct BusinessSignInSheet: View {
                     .padding(.bottom, Size.w(22))
                 
                 Button(action: {
-                    sessionManager.businessSignIn(email: email, password: password)
+                    sessionManager.businessSignIn(email: email, password: password) { success, error in
+                        notificationController.setNotification(show: !success, text: error, type: .error)
+                    }
                 }) {
                     FullSizeButton(title: "로그인", color: Color.black, bg: Color.yellow300, enabled: filled, isLoading: sessionManager.isLoading, loadingColor: .gray1000)
                 }

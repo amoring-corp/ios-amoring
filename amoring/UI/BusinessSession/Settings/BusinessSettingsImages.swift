@@ -11,6 +11,7 @@ struct BusinessSettingsImages: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State private var pictures: [PictureModel] = []
     @State private var droppedOutside: Bool = false
@@ -95,7 +96,9 @@ struct BusinessSettingsImages: View {
                             // TODO: find better way to refresh images
                             userManager.deleteBusinessImage { success in
                                 userManager.uploadBusinessImages(images: images) { success in
-                                    sessionManager.getCurrentSession(delay: 0)
+                                    sessionManager.getCurrentSession(delay: 0) { success, error in
+                                        notificationController.setNotification(show: !success, text: error, type: .error)
+                                    }
                                 }
                             }
                         }) {

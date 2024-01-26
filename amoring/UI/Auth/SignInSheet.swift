@@ -13,6 +13,7 @@ enum lastProvider: Int {
 
 struct SignInSheet: View {
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var navigator: NavigationAuthController
     @Binding var businessSheetPresented: Bool
     
@@ -41,7 +42,11 @@ struct SignInSheet: View {
                         .resizable()
                         .scaledToFit()
                         .onTapGesture {
-                            sessionManager.signInWithGoogle()
+                            sessionManager.signInWithGoogle { success, error  in
+                                if !success {
+                                    notificationController.notification = NotificationModel(type: .error, text: error, action: {})
+                                }
+                            }
                         }
                         .overlay(
                             lastProvider == .google ?

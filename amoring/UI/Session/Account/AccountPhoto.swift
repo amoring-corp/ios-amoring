@@ -11,6 +11,7 @@ struct AccountPhoto: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State private var droppedOutside: Bool = false
     @State private var showRemoveConfirmation: Bool = false
@@ -87,10 +88,9 @@ struct AccountPhoto: View {
                 let images = pictures.map({ $0.picture })
                 userManager.deleteMyProfileImage { success in
                     userManager.uploadMyProfileImages(images: images) { success in
-                  
-                            sessionManager.getCurrentSession(delay: 0)
-                        
-//                        //TODO: success handle
+                        sessionManager.getCurrentSession(delay: 0) { success, error in
+                            notificationController.setNotification(show: !success, text: error, type: .error)
+                        }
                     }
                 }
             }) {

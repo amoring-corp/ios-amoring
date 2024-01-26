@@ -10,6 +10,7 @@ import SwiftUI
 struct UserOnboardingSuccess: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     @State var animation: Bool = false
     
     var body: some View {
@@ -55,7 +56,9 @@ struct UserOnboardingSuccess: View {
                 Spacer()
                 
                 Button(action: {
-                    sessionManager.getCurrentSession(delay: 0)
+                    sessionManager.getCurrentSession(delay: 0) { success, error in
+                        notificationController.setNotification(show: !success, text: error, type: .error)
+                    }
                 }) {
                     FullSizeButton(title: "확인", color: Color.black, bg: .yellow300)
                 }
