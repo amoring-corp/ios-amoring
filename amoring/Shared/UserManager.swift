@@ -53,19 +53,9 @@ class UserManager: ObservableObject {
         case .user:
             print("I'm a user")
 
-            if let userProfile = authUser.userProfile {
-//                if userProfile.images.isEmpty {
-//                    print("going to Image uploading")
-//                    print(userProfile.images.first?.file?.url as Any)
-//                    self.changeStateWithAnimation(state: .imageUploading)
-//                } else if userProfile.interests.isEmpty {
-//                    print("going to Interests Connecting")
-//                    self.changeStateWithAnimation(state: .interestsConnection)
-//                } else {
-                    print("going to User Session")
+            if let userProfile = authUser.userProfile, !userProfile.weight.isNil, !userProfile.height.isNil {
                 self.setCurrentPhotos()
-                    self.changeStateWithAnimation(state: .session)
-//                }
+                self.changeStateWithAnimation(state: .session)
             } else {
                 print("User not onboarded yet")
                 self.changeStateWithAnimation(state: .userOnboarding)
@@ -241,14 +231,16 @@ class UserManager: ObservableObject {
         self.isLoading = true
         
         let dispatchGroup = DispatchGroup()
+        var successList: [Bool] = []
         for (index,image) in images.enumerated(){
             let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
+            
             if let data = resizedImage!.jpegData(compressionQuality: 1.0) {
                 dispatchGroup.enter()
-
-                // TODO: test with image\(index).jpeg
-                let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+                
+                let file = GraphQLFile(fieldName: "image", originalName: "image", mimeType: "image/jpeg", data: data)
                 self.saveBusinessImage(file: file, sort: index) { success in
+                    successList.append(success)
                     dispatchGroup.leave()
                 }
             } else {
@@ -258,8 +250,8 @@ class UserManager: ObservableObject {
         }
         dispatchGroup.notify(queue: DispatchQueue.main, execute: {
             self.isLoading = false
-            print("sending: \(images.count) images finished")
-            completion(true)
+            print("sending: \(successList.filter{$0}.count) images finished")
+            completion(successList.filter{$0}.count >= 3)
         })
     }
     
@@ -293,22 +285,24 @@ class UserManager: ObservableObject {
     
     func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        if let images = user?.userProfile?.images {
-            let dispatchGroup = DispatchGroup()
-            for image in images {
-                if let id = image.id {
-                    dispatchGroup.enter()
-                    self.deleteImage(id: id) { success in
-                        dispatchGroup.leave()
-                    }
+        guard let images = user?.userProfile?.images, !images.isEmpty else {
+            completion(false)
+            return
+        }
+        let dispatchGroup = DispatchGroup()
+        for image in images {
+            if let id = image.id {
+                dispatchGroup.enter()
+                self.deleteImage(id: id) { success in
+                    dispatchGroup.leave()
                 }
             }
-            dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-                self.isLoading = false
-                print("deleting: \(images.count) images finished")
-                completion(true)
-            })
         }
+        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+            self.isLoading = false
+            print("deleting: \(images.count) images finished")
+            completion(true)
+        })
     }
     
     private func deleteImage(id: String, completion: @escaping (Bool) -> Void) {

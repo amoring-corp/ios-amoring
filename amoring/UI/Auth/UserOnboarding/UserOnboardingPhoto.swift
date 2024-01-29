@@ -68,14 +68,16 @@ struct UserOnboardingPhoto: View {
                     //                                                goToStep5 = true
                     
                     let images = pictures.map({ $0.picture })
-                    userManager.uploadMyProfileImages(images: images) { success in
-                        goToStep5 = success
+                    userManager.deleteMyProfileImage { success in
+                        userManager.uploadMyProfileImages(images: images) { success in
+                            goToStep5 = success
+                        }
                     }
                 }) {
-                    BlackButton(title: "다음", enabled: pictures.count >= 1, isLoading: userManager.isLoading)
+                    BlackButton(title: "다음", enabled: pictures.count >= 3, isLoading: userManager.isLoading)
                 }
                 .disabled(userManager.isLoading)
-                //                .disabled(pictures.count < 3 || userManager.isLoading)
+                                .disabled(pictures.count < 3 || userManager.isLoading)
                 .sheet(isPresented: $showContentTypeSheet) {
                     ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
                         .onDisappear {

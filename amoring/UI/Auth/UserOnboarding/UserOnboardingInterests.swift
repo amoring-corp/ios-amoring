@@ -37,7 +37,7 @@ struct UserOnboardingInterests: View {
                             .padding(.bottom, Size.w(40))
                         
                         ForEach(userManager.interestCategories, id: \.self) { cat in
-                            TagCloudViewSelectable(cat: cat, selectedInterests: $selectedInterests)
+                            TagCloudViewSelectable(cat: cat, selectedInterests: $selectedInterests, selectedColor: .gray150, titleColor: .black)
                                 .frame(maxWidth: .infinity)
                                 .padding(.bottom, Size.w(30))
                         }
