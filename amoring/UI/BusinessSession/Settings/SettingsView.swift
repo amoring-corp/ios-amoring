@@ -104,16 +104,14 @@ struct SettingsView: View {
                             
                         }
                         
-                        if !hasPlan {
-                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                            MenuLineToggle(isOn: $showDistahce, title: "거리 보여주기")
-                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                            MenuLineToggle(isOn: $showNumberOfPeople, title: "인원수 보여주기")
-                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                            MenuLineToggle(isOn: $showGenderRatio, title: "성비 보여주기")
-                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                            MenuLineToggle(isOn: $showMatching, title: "매칭 확률 보여주기")
-                        }
+//                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+//                            MenuLineToggle(isOn: $showDistahce, title: "거리 보여주기")
+//                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+//                            MenuLineToggle(isOn: $showNumberOfPeople, title: "인원수 보여주기")
+//                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+//                            MenuLineToggle(isOn: $showGenderRatio, title: "성비 보여주기")
+//                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
+//                            MenuLineToggle(isOn: $showMatching, title: "매칭 확률 보여주기")
                     }
                     .background(Color.yellow200)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
