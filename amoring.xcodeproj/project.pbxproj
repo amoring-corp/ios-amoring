@@ -109,6 +109,10 @@
 		854C7B052B1815EE0060CE03 /* PurchasedLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */; };
 		854C7B072B1818AB0060CE03 /* LikesFromMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B062B1818AB0060CE03 /* LikesFromMaxView.swift */; };
 		854C7B092B181B1C0060CE03 /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B082B181B1C0060CE03 /* ProfileCardView.swift */; };
+		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
+		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
+		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
+		85769E1B2B69D6A20064005D /* Triange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E1A2B69D6A20064005D /* Triange.swift */; };
 		85806C512B22F90E0077D12C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 85806C502B22F90E0077D12C /* Apollo */; };
 		858862382B34FA9B009CC600 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858862372B34FA9B009CC600 /* CheckIn.swift */; };
 		85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* PurchaseController.swift */; };
@@ -297,6 +301,10 @@
 		854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedLikesView.swift; sourceTree = "<group>"; };
 		854C7B062B1818AB0060CE03 /* LikesFromMaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesFromMaxView.swift; sourceTree = "<group>"; };
 		854C7B082B181B1C0060CE03 /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
+		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
+		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
+		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
+		85769E1A2B69D6A20064005D /* Triange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triange.swift; sourceTree = "<group>"; };
 		858862372B34FA9B009CC600 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		85B028A02B2FE7B300A738AB /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -684,8 +692,19 @@
 				8538D5232B4E1EDD0040E017 /* BackButton.swift */,
 				8538D5252B4E211B0040E017 /* XButton.swift */,
 				8538D5292B4E2DF60040E017 /* CodeInputView.swift */,
+				85769E1A2B69D6A20064005D /* Triange.swift */,
 			);
 			path = Elements;
+			sourceTree = "<group>";
+		};
+		85769E132B69C8C10064005D /* BusinessForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */,
+				85769E162B69CA000064005D /* ForgotPasswordOTP.swift */,
+				85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */,
+			);
+			path = BusinessForgotPassword;
 			sourceTree = "<group>";
 		};
 		85806C452B22F6800077D12C /* GraphQL */ = {
@@ -797,6 +816,7 @@
 			children = (
 				850A303F2B0B2DEF003B12B7 /* BusinessSignInSheet.swift */,
 				8538D52B2B4E3F780040E017 /* BusinessSignUp */,
+				85769E132B69C8C10064005D /* BusinessForgotPassword */,
 				8523BAC72B4BB74C0099CDE4 /* BusinessOnboarding */,
 			);
 			path = BusinessAuth;
@@ -1111,6 +1131,7 @@
 				85FC20982B0D70E300DC1950 /* User.swift in Sources */,
 				8538D5612B56A24C0040E017 /* graphqlAPI.swift in Sources */,
 				85F1903D2B5F820000FA7686 /* AccountIntro.swift in Sources */,
+				85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */,
 				85F190452B5F9DF000FA7686 /* AccountEmail.swift in Sources */,
 				85FC207E2B0C510100DC1950 /* UserOnboardingAge.swift in Sources */,
 				850A30282B0AEFA9003B12B7 /* ScreenHelper.swift in Sources */,
@@ -1136,6 +1157,7 @@
 				85F190432B5F9D8100FA7686 /* EmailController.swift in Sources */,
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
+				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,
 				85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
@@ -1172,6 +1194,8 @@
 				858862382B34FA9B009CC600 /* CheckIn.swift in Sources */,
 				850A30312B0B1CC7003B12B7 /* NearbyView.swift in Sources */,
 				85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */,
+				85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */,
+				85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */,
 				85B028A52B301A2B00A738AB /* PeopleLikesView.swift in Sources */,
 				8538D5262B4E211B0040E017 /* XButton.swift in Sources */,
 				850A30112B0AEE1F003B12B7 /* SignInView.swift in Sources */,

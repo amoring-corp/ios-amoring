@@ -10,6 +10,7 @@ import SwiftUI
 struct UserOnboardingPhoto: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
     
@@ -64,13 +65,15 @@ struct UserOnboardingPhoto: View {
             
             HStack {
                 Button(action: {
-                    /// skipping for tests
-                    //                                                goToStep5 = true
-                    
                     let images = pictures.map({ $0.picture })
                     userManager.deleteMyProfileImage { success in
                         userManager.uploadMyProfileImages(images: images) { success in
-                            goToStep5 = success
+                            if success {
+                                goToStep5 = true
+                            } else {
+                                notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
+                            }
+                            
                         }
                     }
                 }) {

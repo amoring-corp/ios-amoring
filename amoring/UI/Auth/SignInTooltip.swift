@@ -25,24 +25,13 @@ struct SignInTooltip: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .offset(x: provider == .google ? Size.w(45) : (provider == .facebook ? Size.w(-45): 0))
         }
-            .fixedSize()
-            .opacity(hideLastProvider ? 0.1 : 1)
-            .offset(y: Size.w(54 + 26))
-            .onTapGesture {
-                withAnimation {
-                    hideLastProvider.toggle()
-                }
+        .fixedSize()
+        .opacity(hideLastProvider ? 0.1 : 1)
+        .offset(y: Size.w(54 + 26))
+        .onTapGesture {
+            withAnimation {
+                hideLastProvider.toggle()
             }
-    }
-}
-
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-            path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
         }
     }
 }

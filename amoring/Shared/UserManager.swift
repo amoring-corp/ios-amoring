@@ -176,6 +176,7 @@ class UserManager: ObservableObject {
         self.isLoading = true
         
         let dispatchGroup = DispatchGroup()
+        var successList: [Bool] = []
         for (index,image) in images.enumerated(){
             let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
             if let data = resizedImage!.jpegData(compressionQuality: 1.0) {
@@ -184,6 +185,7 @@ class UserManager: ObservableObject {
                 // TODO: test with image\(index).jpeg
                 let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
                 self.saveImage(file: file, sort: index) { success in
+                    successList.append(success)
                     dispatchGroup.leave()
                 }
             } else {
@@ -192,10 +194,9 @@ class UserManager: ObservableObject {
             }
         }
         dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-            
             self.isLoading = false
-            print("sending: \(images.count) images finished")
-            completion(true)
+            print("sending: \(successList.filter{$0}.count) images finished")
+            completion(successList.filter{$0}.count >= 3)
         })
     }
     
@@ -235,7 +236,7 @@ class UserManager: ObservableObject {
         for (index,image) in images.enumerated(){
             let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
             
-            if let data = resizedImage!.jpegData(compressionQuality: 1.0) {
+            if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
                 dispatchGroup.enter()
                 
                 let file = GraphQLFile(fieldName: "image", originalName: "image", mimeType: "image/jpeg", data: data)
@@ -256,12 +257,12 @@ class UserManager: ObservableObject {
     }
     
     private func saveBusinessImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
-        print("business id: \(user?.business?.id)")
+        print("business id: \(String(describing: user?.business?.id))")
         api.upload(operation: UploadBusinessImageMutation(businessId: user?.business?.id ?? "", image: "image", sort: sort), files: [file]) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -286,6 +287,7 @@ class UserManager: ObservableObject {
     func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
         self.isLoading = true
         guard let images = user?.userProfile?.images, !images.isEmpty else {
+            self.isLoading = false
             completion(false)
             return
         }

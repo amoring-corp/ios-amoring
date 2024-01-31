@@ -106,7 +106,7 @@ struct BusinessSignInSheet: View {
                 HStack(spacing: Size.w(16)) {
                     //TODO: forgot password
                     NavigationLink(destination: {
-                            Text("FORGOT PASSWORD")
+                        ForgotPasswordEmail()
                     }) {
                         Text("비밀번호를 잊으셨나요?")
                             .font(regular14Font)

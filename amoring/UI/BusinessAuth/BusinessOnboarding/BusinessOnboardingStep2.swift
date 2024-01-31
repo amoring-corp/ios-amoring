@@ -10,6 +10,7 @@ import SwiftUI
 struct BusinessOnboardingStep2: View {
     @EnvironmentObject var controller: BusinessOnboardingController
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -335,19 +336,7 @@ struct BusinessOnboardingStep2: View {
                                 .frame(maxWidth: .infinity)
                                 .padding(20)
                         } else {
-                            Button(action: {
-                                let images = pictures.map({ $0.picture })
-                                userManager.uploadBusinessImages(images: images) { success in
-                                    if success {
-                                        userManager.upsertMyBusiness(business: controller.business) { success in
-                                            print(userManager.user?.business)
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                                self.next = success
-                                            }
-                                        }
-                                    }
-                                }
-                            }) {
+                            Button(action: save) {
                                 FullSizeButton(title: "가입하기", enabled: pass)
                             }
                             .disabled(!pass)
@@ -406,6 +395,28 @@ struct BusinessOnboardingStep2: View {
     
     private func removePicture() {
         pictures.remove(at: confirmRemoveImageIndex)
+    }
+    
+    private func save() {
+        let images = pictures.map({ $0.picture })
+        userManager.deleteMyProfileImage { success in
+            userManager.uploadBusinessImages(images: images) { success in
+                if success {
+                    userManager.upsertMyBusiness(business: controller.business) { success in
+                        print(userManager.user?.business)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            if success {
+                                self.next = success
+                            } else {
+                                notificationController.setNotification(text: "Something went wrong while updating profile. Please try again", type: .error)
+                            }
+                        }
+                    }
+                } else {
+                    notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
+                }
+            }
+        }
     }
     
     @ViewBuilder
