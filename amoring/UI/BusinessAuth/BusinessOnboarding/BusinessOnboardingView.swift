@@ -19,11 +19,14 @@ struct BusinessOnboardingView: View {
     @State var businessIndustry: String = ""
     @State var address: String = ""
     @State var registrationNumber: String = ""
+
     
     @State var next: Bool = false
     @State var presentImporter: Bool = false
     @State var fileAtached: Bool = false
     @State var contentOffset: CGFloat = 0
+    @State var showAddressPicker: Bool = false
+    @State var preaddress: String = ""
     
     var body: some View {
         NavigationView {
@@ -116,20 +119,35 @@ struct BusinessOnboardingView: View {
                             }
                             .padding(.bottom, Size.w(30))
                             
+                            PickerButton(title: "주소*") {
+                                if !preaddress.isEmpty {
+                                    Text(preaddress)
+                                        .foregroundColor(.black)
+                                        .font(medium18Font)
+                                }
+                            }
+                            .padding(.bottom, Size.w(30))
+                            .onTapGesture {
+                                showAddressPicker = true
+                            }
+                            .sheet(isPresented: $showAddressPicker) {
+                                PostCodeServiceView(address: $preaddress, isOpened: $showAddressPicker)
+                            }
+                            .onChange(of: preaddress, perform: { newValue in
+                                controller.business.address = newValue
+                            })
+                            
                             VStack(alignment: .leading) {
-                                Text("주소*")
+                                Text("상세주소*")
                                     .font(regular16Font)
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "매장 주소를 입력해주세요.", text: $address, font: regular18Font)
+                                CustomTextField(placeholder: "상세주소", text: $address, font: regular18Font)
                                     .onChange(of: address, perform: { newValue in
-                                        if (newValue.count >= 1) {
-                                            controller.business.address = newValue
-                                        } else {
-                                            controller.business.address = nil
-                                        }
+                                        controller.business.detailedAddress = newValue
                                     })
+                                   
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -262,6 +280,7 @@ struct BusinessOnboardingView: View {
                         && !((controller.business.businessType?.isEmpty) == nil)
                         && !((controller.business.businessIndustry?.isEmpty) == nil)
                         && !((controller.business.address?.isEmpty) == nil)
+//                        && !((controller.business.detailedAddress?.isEmpty) == nil)
                         && !((controller.business.registrationNumber?.isEmpty) == nil)
                         && !((controller.data?.isEmpty) == nil)
                         

@@ -113,6 +113,7 @@
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
 		85769E1B2B69D6A20064005D /* Triange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E1A2B69D6A20064005D /* Triange.swift */; };
+		85769E1D2B69EF580064005D /* MKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E1C2B69EF580064005D /* MKWebView.swift */; };
 		85806C512B22F90E0077D12C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 85806C502B22F90E0077D12C /* Apollo */; };
 		858862382B34FA9B009CC600 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858862372B34FA9B009CC600 /* CheckIn.swift */; };
 		85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* PurchaseController.swift */; };
@@ -305,6 +306,7 @@
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
 		85769E1A2B69D6A20064005D /* Triange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triange.swift; sourceTree = "<group>"; };
+		85769E1C2B69EF580064005D /* MKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKWebView.swift; sourceTree = "<group>"; };
 		858862372B34FA9B009CC600 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		85B028A02B2FE7B300A738AB /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 				8538D5252B4E211B0040E017 /* XButton.swift */,
 				8538D5292B4E2DF60040E017 /* CodeInputView.swift */,
 				85769E1A2B69D6A20064005D /* Triange.swift */,
+				85769E1C2B69EF580064005D /* MKWebView.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -925,10 +928,9 @@
 			};
 			buildConfigurationList = 850A2FD42B0AE54B003B12B7 /* Build configuration list for PBXProject "amoring" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 				ko,
 			);
@@ -1131,6 +1133,7 @@
 				85FC20982B0D70E300DC1950 /* User.swift in Sources */,
 				8538D5612B56A24C0040E017 /* graphqlAPI.swift in Sources */,
 				85F1903D2B5F820000FA7686 /* AccountIntro.swift in Sources */,
+				85769E1D2B69EF580064005D /* MKWebView.swift in Sources */,
 				85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */,
 				85F190452B5F9DF000FA7686 /* AccountEmail.swift in Sources */,
 				85FC207E2B0C510100DC1950 /* UserOnboardingAge.swift in Sources */,

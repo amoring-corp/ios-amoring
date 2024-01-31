@@ -20,6 +20,7 @@ struct Business: Codable, Equatable, Hashable {
     var businessIndustry: String?
     var businessCategory: String?
     var address: String?
+    var detailedAddress: String?
     var latitude: Double?
     var longitude: Double?
     var representativeTitle: String?

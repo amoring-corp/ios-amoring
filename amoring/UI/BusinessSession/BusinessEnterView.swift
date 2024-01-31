@@ -28,13 +28,20 @@ struct BusinessEnterView: View {
                 .padding(.bottom, Size.w(40))
             
             CustomSecureField(placeholder: "비밀번호를 입력해주세요.", text: $password, onSubmit: {
+                closeKeyboard()
+            })
+            
+            Spacer()
+            
+            Button(action: {
                 // TODO: put check here
                 withAnimation {
                     isLocked = false
                 }
-            })
-            
-            Spacer()
+            }) {
+                FullSizeButton(title: "확인")
+            }
+            .padding(.bottom, Size.w(20))
         }
         .padding(.horizontal, Size.w(22))
         .frame(maxWidth: .infinity, maxHeight: .infinity)

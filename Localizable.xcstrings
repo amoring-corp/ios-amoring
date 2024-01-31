@@ -1,5 +1,5 @@
 {
-  "sourceLanguage" : "en",
+  "sourceLanguage" : "ko",
   "strings" : {
     "" : {
 
@@ -8,7 +8,14 @@
 
     },
     "  |  " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "|"
+          }
+        }
+      }
     },
     " 에 메시지가 활성화 되었습니다." : {
 
@@ -33,7 +40,7 @@
     },
     "%@  |  %@" : {
       "localizations" : {
-        "en" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@  |  %2$@"
@@ -43,7 +50,7 @@
     },
     "%@ - %@" : {
       "localizations" : {
-        "en" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ - %2$@"
@@ -65,7 +72,7 @@
     },
     "%lld/%lld" : {
       "localizations" : {
-        "en" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld/%2$lld"
@@ -180,9 +187,6 @@
 
     },
     "ERROR" : {
-
-    },
-    "Eugene Krabs" : {
 
     },
     "f" : {
@@ -567,6 +571,9 @@
 
     },
     "삭제" : {
+
+    },
+    "상세주소*" : {
 
     },
     "서로 좋아요한 상대방과\n이제부터 여기서 메시지를 보낼 수 있어요.\n먼저 메시지를 보내보세요!" : {

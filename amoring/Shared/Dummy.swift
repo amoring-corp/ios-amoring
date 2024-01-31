@@ -121,7 +121,7 @@ class Dummy {
             id: "1",
             userProfile:
                 UserProfile(id: "1",
-                            name: "Eugene Krabs",
+                            name: "Steve Woznyak",
                             birthYear: 2000,
                             height: 176,
                             weight: 78,
@@ -256,7 +256,7 @@ class Dummy {
             id: "6",
             userProfile:
                 UserProfile(id: "6",
-                            name: "Eugene Krabs",
+                            name: "Steve Woznyak",
                             birthYear: 2000,
                             height: 176,
                             weight: 78,
@@ -276,7 +276,7 @@ class Dummy {
     
     static let userProfiles: [UserProfile] = [
         UserProfile(id: "1",
-                    name: "Eugene Krabs",
+                    name: "Steve Woznyak",
                     birthYear: 2000,
                     height: 176,
                     weight: 78,
@@ -387,7 +387,7 @@ class Dummy {
                     age: 27
                    ),
         UserProfile(id: "6",
-                    name: "Eugene Krabs",
+                    name: "Steve Woznyak",
                     birthYear: 2000,
                     height: 176,
                     weight: 78,
