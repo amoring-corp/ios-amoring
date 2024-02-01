@@ -114,6 +114,7 @@
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
 		85769E1B2B69D6A20064005D /* Triange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E1A2B69D6A20064005D /* Triange.swift */; };
 		85769E1D2B69EF580064005D /* MKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E1C2B69EF580064005D /* MKWebView.swift */; };
+		85769E212B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85769E202B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql */; };
 		85806C512B22F90E0077D12C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 85806C502B22F90E0077D12C /* Apollo */; };
 		858862382B34FA9B009CC600 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858862372B34FA9B009CC600 /* CheckIn.swift */; };
 		85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* PurchaseController.swift */; };
@@ -307,6 +308,7 @@
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
 		85769E1A2B69D6A20064005D /* Triange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triange.swift; sourceTree = "<group>"; };
 		85769E1C2B69EF580064005D /* MKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKWebView.swift; sourceTree = "<group>"; };
+		85769E202B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUploadMyProfileImage.graphql; sourceTree = "<group>"; };
 		858862372B34FA9B009CC600 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		85B028A02B2FE7B300A738AB /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -723,6 +725,7 @@
 				8538D56F2B5765910040E017 /* MutationSignUp.graphql */,
 				8538D5712B5768FE0040E017 /* MutationVerifyUserEmailResolver.graphql */,
 				8538D5362B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql */,
+				85769E202B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql */,
 				8538D53C2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql */,
 				8538D5502B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi */,
 				8538D55A2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql */,
@@ -993,6 +996,7 @@
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
 				850A30242B0AEF41003B12B7 /* Pretendard-ExtraLight.ttf in Resources */,
+				85769E212B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

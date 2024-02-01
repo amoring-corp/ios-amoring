@@ -235,9 +235,7 @@ struct BusinessOnboardingView: View {
                                         }
                                         
                                         self.controller.data = data
-                                        
-                                            fileAtached = true
-                                        
+                                        fileAtached = true
                                     case .failure(let error):
                                         print(error)
                                     }
@@ -286,13 +284,14 @@ struct BusinessOnboardingView: View {
                         
                         Button(action: {
                             if pass {
-                                userManager.upsertMyBusiness(business: controller.business) { success in
-                                    
-                                    guard let data = controller.data else { return }
-                                    userManager.uploadBusinessRegistrationFile(data: data) { success in
-                                        next = success
-                                    }
-                                }
+                                next = true
+//                                userManager.upsertMyBusiness(business: controller.business) { success in
+//                                    
+//                                    guard let data = controller.data else { return }
+//                                    userManager.uploadBusinessRegistrationFile(data: data) { success in
+//                                        next = success
+//                                    }
+//                                }
                             }
                         }) {
                             BlackButton(title: "다음", enabled: pass)

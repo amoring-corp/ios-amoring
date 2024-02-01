@@ -1,0 +1,26 @@
+mutation uploadMyProfileImage($image: Upload!, $sort: Int!) {
+  uploadMyProfileImage(data:
+    {
+      sort: $sort
+      file: $image
+    }
+  ) {
+    id
+    profileId
+    fileId
+    sort
+    file {
+      id
+      name
+      mimetype
+      url
+      path
+      width
+      height
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

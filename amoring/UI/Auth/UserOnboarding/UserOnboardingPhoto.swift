@@ -14,8 +14,6 @@ struct UserOnboardingPhoto: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
     
-    @State private var pictures: [PictureModel] = []
-    
     @State private var droppedOutside: Bool = false
     @State private var confirmRemoveImageIndex: Int = 0
     @State private var showRemoveConfirmation: Bool = false
@@ -39,7 +37,7 @@ struct UserOnboardingPhoto: View {
                 .padding(.horizontal, Size.w(36))
                 .padding(.bottom, Size.w(40))
             
-            PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
+            PictureGridView(pictures: $controller.pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
                 confirmRemoveImageIndex = index
                 showRemoveConfirmation.toggle()
             }, onAddImageClick: {
@@ -65,24 +63,24 @@ struct UserOnboardingPhoto: View {
             
             HStack {
                 Button(action: {
-                    let images = pictures.map({ $0.picture })
-                    userManager.deleteMyProfileImage { success in
-                        userManager.uploadMyProfileImages(images: images) { success in
-                            if success {
+//                    let images = pictures.map({ $0.picture })
+//                    userManager.deleteMyProfileImage { success in
+//                        userManager.uploadMyProfileImages(images: images) { success in
+//                            if success {
                                 goToStep5 = true
-                            } else {
-                                notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
-                            }
-                            
-                        }
-                    }
+//                            } else {
+//                                notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
+//                            }
+//                            
+//                        }
+//                    }
                 }) {
-                    BlackButton(title: "다음", enabled: pictures.count >= 3, isLoading: userManager.isLoading)
+                    BlackButton(title: "다음", enabled: controller.pictures.count >= 3, isLoading: userManager.isLoading)
                 }
                 .disabled(userManager.isLoading)
-                                .disabled(pictures.count < 3 || userManager.isLoading)
+                .disabled(controller.pictures.count < 3 || userManager.isLoading)
                 .sheet(isPresented: $showContentTypeSheet) {
-                    ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
+                    ImagePicker(pictures: $controller.pictures, photoIndex: editIndex).ignoresSafeArea()
                         .onDisappear {
                             self.editIndex = nil
                         }
@@ -133,7 +131,7 @@ struct UserOnboardingPhoto: View {
     }
     
     private func removePicture() {
-        pictures.remove(at: confirmRemoveImageIndex)
+        controller.pictures.remove(at: confirmRemoveImageIndex)
     }
 }
 

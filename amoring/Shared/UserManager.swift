@@ -52,8 +52,7 @@ class UserManager: ObservableObject {
             }
         case .user:
             print("I'm a user")
-
-            if let userProfile = authUser.userProfile, !userProfile.weight.isNil, !userProfile.height.isNil {
+            if let userProfile = authUser.userProfile {
                 self.setCurrentPhotos()
                 self.changeStateWithAnimation(state: .session)
             } else {
@@ -69,9 +68,9 @@ class UserManager: ObservableObject {
     private func setCurrentPhotos() {
         print(self.pictures.count)
         guard let images = self.user?.userProfile?.images else { return }
-        // TODO: test it out
+      
         if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
-            print("sdfsdsd")
+            
         }
         
         for image in images {
@@ -88,7 +87,7 @@ class UserManager: ObservableObject {
         guard let images = self.user?.business?.images else { return }
         // TODO: test it out
         if self.businessPictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
-            print("sdfsdsd")
+          
         }
         
         for image in images {
@@ -163,6 +162,7 @@ class UserManager: ObservableObject {
                 self.user?.userProfile = userProfile
                 print("User Profile was successfully created!")
                 self.isLoading = false
+                
                 completion(true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -202,7 +202,7 @@ class UserManager: ObservableObject {
     
     
     private func saveImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
-        api.upload(operation: UploadMyProfileImagesMutation(image: "image", sort: sort), files: [file]) { result in
+        api.upload(operation: UploadMyProfileImageMutation(image: "image", sort: sort), files: [file]) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -218,7 +218,7 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Image was successfully uploaded!")
-                print(data.uploadMyProfileImages)
+                print(data.uploadMyProfileImage)
                 completion(true)
             case .failure(let error):
                 print(error)
@@ -286,6 +286,7 @@ class UserManager: ObservableObject {
     
     func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
         self.isLoading = true
+
         guard let images = user?.userProfile?.images, !images.isEmpty else {
             self.isLoading = false
             completion(false)

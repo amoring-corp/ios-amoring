@@ -12,7 +12,7 @@ struct UserOnboardingInterests: View {
     @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var selectedInterests: [(String, String)] = []
+
     
     @State var next: Bool = false
     @State var contentOffset: CGFloat = 0
@@ -37,7 +37,7 @@ struct UserOnboardingInterests: View {
                             .padding(.bottom, Size.w(40))
                         
                         ForEach(userManager.interestCategories, id: \.self) { cat in
-                            TagCloudViewSelectable(cat: cat, selectedInterests: $selectedInterests, selectedColor: .gray150, titleColor: .black)
+                            TagCloudViewSelectable(cat: cat, selectedInterests: $controller.selectedInterests, selectedColor: .gray150, titleColor: .black)
                                 .frame(maxWidth: .infinity)
                                 .padding(.bottom, Size.w(30))
                         }
@@ -61,15 +61,15 @@ struct UserOnboardingInterests: View {
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
                 
-                TagCloudViewSelected(selectedInterests: $selectedInterests, totalHeight: CGFloat.infinity)
+                TagCloudViewSelected(selectedInterests: $controller.selectedInterests, totalHeight: CGFloat.infinity)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, Size.w(32))
                     .padding(.top, Size.w(25))
                 
                 Button(action: {
-                    userManager.connectInterests(ids: selectedInterests.map{ $0.0 }) { success in
-                        next = success
-                    }
+//                    userManager.connectInterests(ids: selectedInterests.map{ $0.0 }) { success in
+                        next = true
+//                    }
                 }) {
                     BlackButton(title: "다음")
                 }

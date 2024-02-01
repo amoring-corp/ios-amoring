@@ -11,6 +11,7 @@ struct UserOnboardingBio: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: UserOnboardingController
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var success = false
     
@@ -56,20 +57,8 @@ struct UserOnboardingBio: View {
             }
             
             HStack {
-                if userManager.isLoading {
-                    ProgressView()
-                        .tint(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(20)
-                } else {
-                    Button(action: {
-                        userManager.updateUserProfile(userProfile: controller.userProfile) { success in
-                            print(controller.userProfile)
-                            self.success = success
-                        }
-                    }) {
-                        FullSizeButton(title: "가입하기")
-                    }
+                Button(action: save) {
+                    FullSizeButton(title: "가입하기", isLoading: userManager.isLoading)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
@@ -94,6 +83,20 @@ struct UserOnboardingBio: View {
             self.presentationMode.wrappedValue.dismiss()
         })
         )
+    }
+    
+    private func save() {
+        userManager.createUserProfile(userProfile: controller.userProfile) { success in
+            userManager.connectInterests(ids: controller.selectedInterests.map{ $0.0 }) { success in }
+            let images = controller.pictures.map({ $0.picture })
+            userManager.uploadMyProfileImages(images: images) { success in
+                if success {
+                    self.success = success
+                } else {
+                    notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
+                }
+            }
+        }
     }
 }
 

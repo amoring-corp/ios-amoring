@@ -330,17 +330,10 @@ struct BusinessOnboardingStep2: View {
                     && self.pictures.count > 2
                     
                     HStack {
-                        if userManager.isLoading {
-                            ProgressView()
-                                .tint(.black)
-                                .frame(maxWidth: .infinity)
-                                .padding(20)
-                        } else {
-                            Button(action: save) {
-                                FullSizeButton(title: "가입하기", enabled: pass)
-                            }
-                            .disabled(!pass)
+                        Button(action: save) {
+                            FullSizeButton(title: "가입하기", enabled: pass, isLoading: userManager.isLoading)
                         }
+                        .disabled(!pass)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, Size.w(16))
@@ -398,23 +391,26 @@ struct BusinessOnboardingStep2: View {
     }
     
     private func save() {
-        let images = pictures.map({ $0.picture })
-        userManager.deleteMyProfileImage { success in
-            userManager.uploadBusinessImages(images: images) { success in
-                if success {
-                    userManager.upsertMyBusiness(business: controller.business) { success in
-                        print(userManager.user?.business)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            if success {
-                                self.next = success
-                            } else {
-                                notificationController.setNotification(text: "Something went wrong while updating profile. Please try again", type: .error)
+        userManager.upsertMyBusiness(business: controller.business) { success in
+            guard let data = controller.data else { return }
+            userManager.uploadBusinessRegistrationFile(data: data) { success in
+                let images = pictures.map({ $0.picture })
+                    userManager.uploadBusinessImages(images: images) { success in
+                        if success {
+                            userManager.upsertMyBusiness(business: controller.business) { success in
+                                print(userManager.user?.business)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    if success {
+                                        self.next = success
+                                    } else {
+                                        notificationController.setNotification(text: "Something went wrong while updating profile. Please try again", type: .error)
+                                    }
+                                }
                             }
+                        } else {
+                            notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
                         }
                     }
-                } else {
-                    notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
-                }
             }
         }
     }

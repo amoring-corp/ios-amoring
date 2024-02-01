@@ -55,9 +55,9 @@ struct UserOnboardingAge: View {
             
             HStack {
                 Button(action: {
-                    userManager.createUserProfile(userProfile: controller.userProfile) { success in
-                        goToPhoto = success
-                    }
+//                    userManager.createUserProfile(userProfile: controller.userProfile) { success in
+                        goToPhoto = true
+//                    }
                 }) {
                     BlackButton(title: "다음", enabled: controller.userProfile.birthYear != nil)
                 }
