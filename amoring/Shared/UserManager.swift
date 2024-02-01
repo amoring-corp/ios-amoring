@@ -94,9 +94,11 @@ class UserManager: ObservableObject {
             let urlString = image.file?.url ?? ""
             guard let url = URL(string: urlString) else { return }
             print(urlString)
-            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            let image = UIImage(data: data!)
-            self.businessPictures.append(PictureModel.newPicture(image!, urlString))
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    self.businessPictures.append(PictureModel.newPicture(image, urlString))
+                }
+            }
         }
     }
     
@@ -284,32 +286,39 @@ class UserManager: ObservableObject {
         }
     }
     
-    func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
-        self.isLoading = true
-
-        guard let images = user?.userProfile?.images, !images.isEmpty else {
-            self.isLoading = false
+    func deleteMyAllProfileImages(completion: @escaping (Bool) -> Void) {
+        api.perform(mutation: DeleteMyAllProfileImagesMutation()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false)
+                    return
+                }
+                
+                print("Image was successfully deleted!")
+                print(data.deleteMyAllProfileImages)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                debugPrint(error.localizedDescription)
+                completion(false)
+            }
+        }
+    }
+    
+    func deleteAllBusinessImages(completion: @escaping (Bool) -> Void) {
+        guard let id = user?.business?.id else {
             completion(false)
             return
         }
-        let dispatchGroup = DispatchGroup()
-        for image in images {
-            if let id = image.id {
-                dispatchGroup.enter()
-                self.deleteImage(id: id) { success in
-                    dispatchGroup.leave()
-                }
-            }
-        }
-        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-            self.isLoading = false
-            print("deleting: \(images.count) images finished")
-            completion(true)
-        })
-    }
-    
-    private func deleteImage(id: String, completion: @escaping (Bool) -> Void) {
-        api.perform(mutation: DeleteMyProfileImageMutation(id: id)) { result in
+        api.perform(mutation: DeleteAllBusinessImagesMutation(id: id)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -325,7 +334,7 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Image was successfully deleted!")
-                print(data.deleteMyProfileImage)
+                print(data.deleteAllBusinessImages)
                 completion(true)
             case .failure(let error):
                 print(error)
@@ -335,52 +344,103 @@ class UserManager: ObservableObject {
         }
     }
     
-    func deleteBusinessImage(completion: @escaping (Bool) -> Void) {
-        self.isLoading = true
-        if let images = user?.business?.images {
-            let dispatchGroup = DispatchGroup()
-            for image in images {
-                if let id = image.id {
-                    dispatchGroup.enter()
-                    self.deleteBusImage(id: id) { success in
-                        dispatchGroup.leave()
-                    }
-                }
-            }
-            dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-                self.isLoading = false
-                print("deleting: \(images.count) images finished")
-                completion(true)
-            })
-        }
-    }
-    
-    private func deleteBusImage(id: String, completion: @escaping (Bool) -> Void) {
-        api.perform(mutation: DeleteBusinessImageMutation(id: id)) { result in
-            switch result {
-            case .success(let value):
-                guard value.errors == nil else {
-                    print(value.errors)
-                    completion(false)
-                    return
-                }
-                
-                guard let data = value.data else {
-                    print("NO DATA!")
-                    completion(false)
-                    return
-                }
-                
-                print("Image was successfully deleted!")
-                print(data.deleteBusinessImage)
-                completion(true)
-            case .failure(let error):
-                print(error)
-                debugPrint(error.localizedDescription)
-                completion(false)
-            }
-        }
-    }
+//    func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
+//        self.isLoading = true
+//
+//        guard let images = user?.userProfile?.images, !images.isEmpty else {
+//            self.isLoading = false
+//            completion(false)
+//            return
+//        }
+//        let dispatchGroup = DispatchGroup()
+//        for image in images {
+//            if let id = image.id {
+//                dispatchGroup.enter()
+//                self.deleteImage(id: id) { success in
+//                    dispatchGroup.leave()
+//                }
+//            }
+//        }
+//        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+//            self.isLoading = false
+//            print("deleting: \(images.count) images finished")
+//            completion(true)
+//        })
+//    }
+//    
+//    private func deleteImage(id: String, completion: @escaping (Bool) -> Void) {
+//        api.perform(mutation: DeleteMyProfileImageMutation(id: id)) { result in
+//            switch result {
+//            case .success(let value):
+//                guard value.errors == nil else {
+//                    print(value.errors)
+//                    completion(false)
+//                    return
+//                }
+//                
+//                guard let data = value.data else {
+//                    print("NO DATA!")
+//                    completion(false)
+//                    return
+//                }
+//                
+//                print("Image was successfully deleted!")
+//                print(data.deleteMyProfileImage)
+//                completion(true)
+//            case .failure(let error):
+//                print(error)
+//                debugPrint(error.localizedDescription)
+//                completion(false)
+//            }
+//        }
+//    }
+//    
+//    func deleteBusinessImage(completion: @escaping (Bool) -> Void) {
+//        self.isLoading = true
+//        if let images = user?.business?.images {
+//            let dispatchGroup = DispatchGroup()
+//            for image in images {
+//                if let id = image.id {
+//                    dispatchGroup.enter()
+//                    self.deleteBusImage(id: id) { success in
+//                        dispatchGroup.leave()
+//                    }
+//                }
+//            }
+//            dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+//                self.isLoading = false
+//                print("deleting: \(images.count) images finished")
+//                completion(true)
+//            })
+//        }
+//    }
+//    
+//    private func deleteBusImage(id: String, completion: @escaping (Bool) -> Void) {
+//        api.perform(mutation: DeleteBusinessImageMutation(id: id)) { result in
+//            switch result {
+//            case .success(let value):
+//                guard value.errors == nil else {
+//                    print(value.errors)
+//                    completion(false)
+//                    return
+//                }
+//                
+//                guard let data = value.data else {
+//                    print("NO DATA!")
+//                    completion(false)
+//                    return
+//                }
+//                
+//                print("Image was successfully deleted!")
+//                print(data.deleteBusinessImage)
+//                completion(true)
+//            case .failure(let error):
+//                print(error)
+//                debugPrint(error.localizedDescription)
+//                completion(false)
+//            }
+//        }
+//    }
     
     func uploadBusinessRegistrationFile(data: Data, completion: @escaping (Bool) -> Void) {
         print("business id: \(user?.business?.id)")

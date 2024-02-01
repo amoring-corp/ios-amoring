@@ -94,7 +94,7 @@ struct BusinessSettingsImages: View {
                         Button(action: {
                             let images = pictures.map({ $0.picture })
                             // TODO: find better way to refresh images
-                            userManager.deleteBusinessImage { success in
+                            userManager.deleteAllBusinessImages { success in
                                 userManager.uploadBusinessImages(images: images) { success in
                                     sessionManager.getCurrentSession(delay: 0) { success, error in
                                         notificationController.setNotification(show: !success, text: error, type: .error)

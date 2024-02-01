@@ -288,6 +288,7 @@ type Mutation {
   uploadMyProfileImage(data: UserProfileImageInput!): UserProfileImage!
   uploadMyProfileImages(data: [UserProfileImageInput!]!): [UserProfileImage]!
   deleteMyProfileImage(id: ID!): UserProfileImage!
+  deleteMyAllProfileImages: [ID]!
   connectInterestsToMyProfile(interestIds: [ID!]!): UserProfile!
   disconnectInterestsFromMyProfile(interestIds: [ID!]!): UserProfile!
   createBusiness(data: BusinessCreateInput!): Business!
@@ -300,7 +301,8 @@ type Mutation {
     businessId: ID!
     data: [BusinessImageInput!]!
   ): [BusinessImage!]
-  deleteBusinessImage(id: ID!): [BusinessImage!]
+  deleteBusinessImage(id: ID!): BusinessImage!
+  deleteAllBusinessImages(businessId: ID!): [ID!]
   uploadBusinessRegistrationFile(businessId: ID!, file: Upload!): File!
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(

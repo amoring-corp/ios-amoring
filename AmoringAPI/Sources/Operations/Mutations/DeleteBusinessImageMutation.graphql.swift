@@ -24,10 +24,10 @@ public class DeleteBusinessImageMutation: GraphQLMutation {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("deleteBusinessImage", [DeleteBusinessImage]?.self, arguments: ["id": .variable("id")]),
+      .field("deleteBusinessImage", DeleteBusinessImage.self, arguments: ["id": .variable("id")]),
     ] }
 
-    public var deleteBusinessImage: [DeleteBusinessImage]? { __data["deleteBusinessImage"] }
+    public var deleteBusinessImage: DeleteBusinessImage { __data["deleteBusinessImage"] }
 
     /// DeleteBusinessImage
     ///
