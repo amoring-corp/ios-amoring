@@ -181,7 +181,7 @@ class UserManager: ObservableObject {
         var successList: [Bool] = []
         for (index,image) in images.enumerated(){
             let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
-            if let data = resizedImage!.jpegData(compressionQuality: 1.0) {
+            if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
                 dispatchGroup.enter()
 
                 // TODO: test with image\(index).jpeg

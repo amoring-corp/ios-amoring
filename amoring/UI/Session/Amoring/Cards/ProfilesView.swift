@@ -15,11 +15,12 @@ struct ProfilesView: View {
     @State var isOn = false
     @State var likes: Int = 20
     @State var maxLikes: Int = 20
-    @State var countDown: TimeInterval? = nil
+
     
     @State var swipeAction: SwipeAction = .doNothing
 //    @State var userProfiles: [UserProfile] = Dummy.userProfiles
 //    @State var userProfiles: [UserProfile] = []
+    @State var showAlert: Bool = false
     @State var timer: Timer? = nil
     
     //    var onSwiped: (User, Bool) -> ()
@@ -99,33 +100,14 @@ struct ProfilesView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.gray1000)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(
-            leading:
-                Text("AMORING")
-                .font(bold20Font)
-                .foregroundColor(.yellow300)
-            , trailing:
-                HStack {
-                    Text(countDown.toString())
-                        .font(medium16Font)
-                        .foregroundColor(.yellow300)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .lineLimit(1)
-                    Button(action: amoringController.leave) {
-                        Image("ic-leave-room")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: Size.w(32), height: Size.w(32))
-                    }
-                }
-        )
+
         .onAppear {
             userManager.getProfiles()
             if let checkIn = amoringController.checkIn {
-                self.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
+                amoringController.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
                 self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
-                    if let countDown, countDown > 0 {
-                        self.countDown = countDown - 1
+                    if let countDown = amoringController.countDown, countDown > 0 {
+                        amoringController.countDown = countDown - 1
                     } else {
                         amoringController.leave()
                     }

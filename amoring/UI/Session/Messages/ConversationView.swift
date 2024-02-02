@@ -9,16 +9,17 @@ import SwiftUI
 import Combine
 
 struct ConversationView: View, KeyboardReadable {
-    @EnvironmentObject var navigator: NavigationController
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
-    
+    let conversation: Conversation
     @State var newMessage = ""
     @State var controlPresented = false
     @State var alertPresented = false
     
+    @State var selectedConversation: Conversation? = nil
+    
     var body: some View {
-        if let conversation = navigator.selectedConversation {
             let messages = conversation.messages
             let companion = conversation.participants.first!
             let url = companion.userProfile?.images.first?.file?.url ?? ""
@@ -92,7 +93,9 @@ struct ConversationView: View, KeyboardReadable {
                 }
             }
             .navigationBarItems(leading:
-                                    BackButton(action: navigator.toRoot, color: Color.yellow300)
+                                    BackButton(action: {
+                presentationMode.wrappedValue.dismiss()
+            }, color: Color.yellow300)
              , trailing:
                                     Button(action: {
                 controlPresented = true
@@ -106,7 +109,7 @@ struct ConversationView: View, KeyboardReadable {
             }
                 .confirmationDialog("", isPresented: $controlPresented, titleVisibility: .hidden) {
                     Button("삭제") {
-                        navigator.toRoot()
+                        presentationMode.wrappedValue.dismiss()
                         controller.delete(id: conversation.id)
                     }
                     Button("신고하기") {
@@ -116,15 +119,13 @@ struct ConversationView: View, KeyboardReadable {
                     }
                 }
             )
-        } else {
-            Text("Something went wrong . . .")
-        }
+       
     }
     
     func sendMessage(_ proxy: ScrollViewProxy) {
         if !newMessage.isEmpty {
             withAnimation {
-                navigator.selectedConversation?.messages.append(Message(id: navigator.selectedConversation?.messages.count ?? 0 + 2, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", recipients: [], createdAt: Date(), updatedAt: Date()))
+                self.selectedConversation?.messages.append(Message(id: self.selectedConversation?.messages.count ?? 0 + 2, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", recipients: [], createdAt: Date(), updatedAt: Date()))
                 
                 newMessage = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -139,7 +140,7 @@ struct ConversationView: View, KeyboardReadable {
     
     @ViewBuilder
     func header() -> some View {
-        let companion = navigator.selectedConversation?.participants.first!
+        let companion = self.selectedConversation?.participants.first!
         let url = companion?.userProfile?.images.first?.file?.url ?? ""
         
         VStack {
@@ -158,7 +159,7 @@ struct ConversationView: View, KeyboardReadable {
                 + Text(" 에서")
                     .foregroundColor(.gray500)
                 
-                let diff = Date() - (navigator.selectedConversation?.createdAt ?? Date())
+                let diff = Date() - (self.selectedConversation?.createdAt ?? Date())
                 let endTime: TimeInterval = 24 * 60 * 60
              
                 Text(diff.toPassedTime())
@@ -256,6 +257,6 @@ struct MessageView: View {
 }
 
 
-#Preview {
-    ConversationView()
-}
+//#Preview {
+//    ConversationView()
+//}

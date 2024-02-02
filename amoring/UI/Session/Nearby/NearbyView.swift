@@ -21,23 +21,6 @@ struct NearbyView: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.gray1000)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("AMORING")
-                    .font(bold20Font)
-                    .foregroundColor(.yellow300)
-            }
-        }
-        .navigationBarItems(trailing:
-                                Button(action: {
-        }) {
-            Image("ic-info")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(32), height: Size.w(32))
-        }
-        )
     }
 }
 
@@ -191,7 +174,11 @@ struct BusinessListView: View {
                     
             ) {
                 ForEach(userManager.businesses, id: \.self.id) { business in
-                    BusinessRow(business: business)
+                    NavigationLink(destination: {
+                        BusinessDetailsView(business: business)
+                    }) {
+                        BusinessRow(business: business)
+                    }
                 }
             }
             Spacer(minLength: 200)
@@ -263,7 +250,6 @@ struct BusinessListView: View {
 }
 
 struct BusinessRow: View {
-    @EnvironmentObject var navigator: NavigationController
     let business: Business
     
     var body: some View {
@@ -307,10 +293,10 @@ struct BusinessRow: View {
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets())
         .listRowBackground(Color.clear)
-        .onTapGesture {
-            navigator.selectedBusiness = business
-            navigator.path.append(NavigatorPath.business)
-        }
+//        .onTapGesture {
+//            navigator.selectedBusiness = business
+//            navigator.path.append(NavigatorPath.business)
+//        }
     }
 }
 

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ListOfPeopleLikesLink: View {
-    @EnvironmentObject var navigator: NavigationController
     @EnvironmentObject var purchaseController: PurchaseController
     
     var body: some View {
@@ -94,9 +93,9 @@ struct ListOfPeopleLikesLink: View {
         .padding(.top, Size.w(16))
         .padding(.bottom, Size.w(45))
         .background(Color.gray1000)
-        .onTapGesture {
-            navigator.path.append(NavigatorPath.listOfLikes)
-        }
+//        .onTapGesture {
+//            navigator.path.append(NavigatorPath.listOfLikes)
+//        }
     }
 }
 

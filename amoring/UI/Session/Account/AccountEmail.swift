@@ -54,12 +54,7 @@ struct AccountEmail: View {
                             text = String(newValue.prefix(400))
                         }
                     })
-                
-                NavigationLink(isActive: $success, destination: {
-                    AccountEmailSuccess()
-                }) {
-                    EmptyView()
-                }
+        
                 
                 Button(action: {
 // TODO: Send email
@@ -78,18 +73,25 @@ struct AccountEmail: View {
         .background(Color.gray1000)
         .onTapGesture(perform: closeKeyboard)
         .navigationBarBackButtonHidden()
+        .overlay(
+            
+                success ?
+                AccountEmailSuccess(back: back) : nil
+        )
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("문의 / 신고하기")
+                Text(success ? "접수완료" : "문의 / 신고하기")
                     .font(medium20Font)
                     .foregroundColor(.yellow300)
             }
         }
         .navigationBarItems(leading:
-                                BackButton(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }, color: Color.yellow300)
+            BackButton(action: back, color: Color.yellow300).opacity(success ? 0 : 1)
         )
+    }
+    
+    func back() {
+        self.presentationMode.wrappedValue.dismiss()
     }
     
     @ViewBuilder
@@ -115,8 +117,10 @@ struct AccountEmail: View {
     private func sendEmail() {
         userManager.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            userManager.isLoading = false
-            self.success = true
+            withAnimation {
+                userManager.isLoading = false
+                self.success = true
+            }
         }
     }
 }

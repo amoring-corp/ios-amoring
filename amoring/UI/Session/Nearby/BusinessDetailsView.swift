@@ -10,13 +10,13 @@ import UniformTypeIdentifiers
 import CachedAsyncImage
 
 struct BusinessDetailsView: View {
-    @EnvironmentObject var navigator: NavigationController
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var showPhotoViewer = false
     @State var selection: Int = 0
     @State var showAlert: Bool = false
+    let business: Business
     
     var body: some View {
-        if let business = navigator.selectedBusiness {
             VStack {
                 ScrollView {
                     VStack(spacing: 0) {
@@ -159,14 +159,16 @@ struct BusinessDetailsView: View {
                 }
             }
             .navigationBarItems(leading:
-                                    BackButton(action: navigator.toRoot, color: Color.yellow300)
+                                    BackButton(action: {
+                presentationMode.wrappedValue.dismiss()
+            }, color: Color.yellow300)
             )
             .overlay(
                 !(business.images?.isEmpty ?? true) && showPhotoViewer ?
                 PhotoViewer(images: business.images!, showPhotoViewer: $showPhotoViewer, selection: $selection) : nil
             )
             .animation(.default, value: showPhotoViewer)
-        }
+        
     }
 }
 
@@ -230,6 +232,6 @@ struct PhotoViewer: View {
     }
 }
 
-#Preview {
-    BusinessDetailsView()
-}
+//#Preview {
+//    BusinessDetailsView()
+//}
