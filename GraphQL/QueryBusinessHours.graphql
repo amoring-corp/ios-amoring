@@ -1,0 +1,8 @@
+query BusinessHours($businessId: ID!) {
+  businessHours(businessId: $businessId) {
+    id
+    day
+    openAt
+    closeAt
+  }
+}

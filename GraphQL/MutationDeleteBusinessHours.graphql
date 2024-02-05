@@ -1,0 +1,3 @@
+mutation DeleteBusinessHours($businessId: ID!, $day: Day!) {
+  deleteBusinessHours(businessId: $businessId, day: $day)
+}

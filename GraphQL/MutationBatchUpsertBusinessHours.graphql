@@ -1,0 +1,8 @@
+mutation BatchUpsertBusinessHours($businessId: ID!, $data: [BusinessHoursInput!]!) {
+  batchUpsertBusinessHours(businessId: $businessId, data: $data) {
+    id
+    day
+    openAt
+    closeAt
+  }
+}
