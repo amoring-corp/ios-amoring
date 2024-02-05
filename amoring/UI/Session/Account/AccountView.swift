@@ -12,7 +12,6 @@ struct AccountView: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var purchaseController: PurchaseController
-    @EnvironmentObject var navigator: NavigationController
     
     @State private var logoutAlertPresented = false
     @State private var deleteAlertPresented = false
@@ -65,27 +64,27 @@ struct AccountView: View {
                     MenuTitle(title: "내 프로필")
                         
                     VStack(spacing: 0) {
-                        MenuLineButton(title: "사진", action: {
-                            navigator.path.append(NavigatorPath.accountPhoto)
-                        })
+                        MenuLineLink(title: "사진") {
+                            AccountPhoto()
+                        }
                         
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                         
-                        MenuLineButton(title: "소개글", action: {
-                            navigator.path.append(NavigatorPath.accountBio)
-                        })
+                        MenuLineLink(title: "소개글") {
+                            AccountBio()
+                        }
                         
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                         
-                        MenuLineButton(title: "기본정보", action: {
-                            navigator.path.append(NavigatorPath.accountIntro)
-                        })
+                        MenuLineLink(title: "기본정보") {
+                            AccountIntro()
+                        }
                         
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                         
-                        MenuLineButton(title: "관심사", action: {
-                            navigator.path.append(NavigatorPath.accountInterests)
-                        })
+                        MenuLineLink(title: "관심사") {
+                            AccountInterests()
+                        }
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -135,9 +134,10 @@ struct AccountView: View {
                             Text("개인정보 보호 방침")
                         }
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineButton(title: "문의하기 / 신고하기", action: {
-                            navigator.path.append(NavigatorPath.accountEmail)
-                        })
+                        
+                        MenuLineLink(title: "문의하기 / 신고하기") {
+                            AccountEmail()
+                        }
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))

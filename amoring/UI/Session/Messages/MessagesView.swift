@@ -17,7 +17,11 @@ struct MessagesView: View {
     var body: some View {
             VStack(alignment: .center, spacing: 0) {
                 if !messageController.reactions.isEmpty {
-                    ListOfPeopleLikesLink()
+                    NavigationLink(destination: {
+                        PeopleLikesView()
+                    }) {
+                        ListOfPeopleLikesLink()
+                    }
                 }
                 
                 ListOfConversations()

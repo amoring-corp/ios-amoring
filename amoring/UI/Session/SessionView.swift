@@ -12,7 +12,6 @@ struct SessionFlow: View {
     @EnvironmentObject var sessionManager: SessionManager
     @StateObject var purchaseController = PurchaseController()
     @StateObject var userManager: UserManager
-    @StateObject var navigator = NavigationController()
     @StateObject var messagesController = MessagesController()
     @StateObject var amoringController = AmoringController()
     
@@ -56,7 +55,6 @@ struct SessionFlow: View {
         )
         .environmentObject(purchaseController)
         .environmentObject(userManager)
-        .environmentObject(navigator)
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
@@ -67,19 +65,23 @@ struct SessionFlow: View {
 
 struct SessionView: View {
     @EnvironmentObject var userManager: UserManager
-    @EnvironmentObject var navigator: NavigationController
     
     var body: some View {
-        NavigatorView { index in
-            getTabView(index: index)
+        NavigationView {
+            NavigatorView { index in
+                getTabView(index: index)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationBarTitleDisplayMode(.inline)
+           
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+       
     }
     
     @ViewBuilder
     func getTabView(index: Int) -> some View {
         // FIXME: for now it's walk around. which hides bottom navigation if it navigates to child
-        NavigationStackBackport.NavigationStack(path: $navigator.path) {
+//        NavigationStackBackport.NavigationStack(path: $navigator.path) {
             ZStack {
                 let type = TabBarType(rawValue: index) ?? .amoring
                 switch type {
@@ -93,10 +95,10 @@ struct SessionView: View {
                     AccountView()
                 }
             }
-            .backport.navigationDestination(for: NavigatorPath.self) { screen in
-                navigator.navigate(screen: screen)
-            }
-        }
+//            .backport.navigationDestination(for: NavigatorPath.self) { screen in
+//                navigator.navigate(screen: screen)
+//            }
+//        }
     }
 }
 

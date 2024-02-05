@@ -20,9 +20,6 @@ struct AccountPhoto: View {
     @State private var editIndex: Int? = nil
     @State var pictures: [PictureModel] = []
     
-    init() {
-        print("dsf")
-    }
     var body: some View {
         VStack {
             Text("프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")

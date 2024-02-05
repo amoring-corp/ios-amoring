@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PeopleLikesView: View {
-    @EnvironmentObject var navigator: NavigationController
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var messageController: MessagesController
     @EnvironmentObject var purchaseController: PurchaseController
     
@@ -170,7 +170,9 @@ struct PeopleLikesView: View {
             }
         }
         .navigationBarItems(leading:
-                                BackButton(action: navigator.toRoot, color: .yellow300)
+                                BackButton(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, color: .yellow300)
         )
     }
 }
