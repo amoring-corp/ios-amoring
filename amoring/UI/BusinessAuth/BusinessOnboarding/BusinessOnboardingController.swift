@@ -10,4 +10,5 @@ import SwiftUI
 class BusinessOnboardingController: ObservableObject {
     @Published var business: Business = Business()
     @Published var data: Data? = nil
+    @Published var businessHours: [BusinessHours] = []
 }

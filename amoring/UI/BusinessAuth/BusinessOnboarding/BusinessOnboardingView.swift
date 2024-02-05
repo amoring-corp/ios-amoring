@@ -272,16 +272,16 @@ struct BusinessOnboardingView: View {
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                         
-                        let pass = 
-                        !((controller.business.businessName?.isEmpty) == nil)
-                        && !((controller.business.representativeName?.isEmpty) == nil)
-                        && !((controller.business.businessType?.isEmpty) == nil)
-                        && !((controller.business.businessIndustry?.isEmpty) == nil)
-                        && !((controller.business.address?.isEmpty) == nil)
-//                        && !((controller.business.detailedAddress?.isEmpty) == nil)
-                        && !((controller.business.registrationNumber?.isEmpty) == nil)
-                        && !((controller.data?.isEmpty) == nil)
-                        
+//                        let pass = 
+//                        !((controller.business.businessName?.isEmpty) == nil)
+//                        && !((controller.business.representativeName?.isEmpty) == nil)
+//                        && !((controller.business.businessType?.isEmpty) == nil)
+//                        && !((controller.business.businessIndustry?.isEmpty) == nil)
+//                        && !((controller.business.address?.isEmpty) == nil)
+////                        && !((controller.business.detailedAddress?.isEmpty) == nil)
+//                        && !((controller.business.registrationNumber?.isEmpty) == nil)
+//                        && !((controller.data?.isEmpty) == nil)
+  let pass = true
                         Button(action: {
                             if pass {
                                 next = true

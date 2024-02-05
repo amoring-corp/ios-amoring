@@ -128,6 +128,9 @@ struct BusinessSessionView: View {
                         Text("AMORING")
                             .font(bold20Font)
                             .foregroundColor(.yellow300)
+                            .onTapGesture {
+                                saveBusinessHours()
+                            }
                     }
                 }
                 .navigationBarItems(trailing:
@@ -141,6 +144,23 @@ struct BusinessSessionView: View {
                 })
             } //  geometryreader
         }
+    }
+    
+    private func saveBusinessHours() {
+        let sunday = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
+        
+            let businessHours = [
+                BusinessHours(day: .sunday, openAt: sunday.openAt, closeAt: sunday.closeAt),
+                BusinessHours(day: .monday, openAt: sunday.openAt, closeAt: sunday.closeAt),
+                BusinessHours(day: .tuesday, openAt: sunday.openAt, closeAt: sunday.closeAt),
+                BusinessHours(day: .wednesday, openAt: sunday.openAt, closeAt: sunday.closeAt),
+                BusinessHours(day: .thursday, openAt: sunday.openAt, closeAt: sunday.closeAt),
+                BusinessHours(day: .friday, openAt: sunday.openAt, closeAt: sunday.closeAt),
+                BusinessHours(day: .saturday, openAt: sunday.openAt, closeAt: sunday.closeAt)
+            ]
+     
+            userManager.batchUpsertBusinessHours(data: businessHours) { success in  }
+        
     }
     
     func list(images: [String], size: CGFloat) -> some View {

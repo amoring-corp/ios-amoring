@@ -79,7 +79,8 @@ struct User: Hashable {
                 phoneNumber: business.phoneNumber,
                 registrationNumber: business.registrationNumber,
                 bio: business.bio,
-                images: getImages(business.images)
+                images: getImages(business.images),
+                businessHours: getHours(business.businessHours)
 //                createdAt: profile.createdAt,
 //                updatedAt: profile.updatedAt
             )
@@ -209,6 +210,20 @@ struct User: Hashable {
             inters.append(inter)
         }
         return inters
+    }
+    
+    func getHours(_ data: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business.BusinessHour?]?) -> [BusinessHours] {
+        var hours: [BusinessHours] = []
+        guard let data else { return hours }
+        for i in data {
+            guard let day = DayOfWeek.withLabel(i?.day.rawValue ?? "") else { return hours }
+            guard let openAt = i?.openAt.HMSStringtoDate() else { return hours }
+            guard let closeAt = i?.closeAt.HMSStringtoDate() else { return hours }
+            
+            let businessHour = BusinessHours(day: day, openAt: openAt, closeAt: closeAt)
+            hours.append(businessHour)
+        }
+        return hours
     }
 }
 

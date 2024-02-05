@@ -19,6 +19,7 @@ type Business {
   category: String
   bio: String
   images: [BusinessImage]
+  businessHours: [BusinessHours]
   createdAt: DateTime
   updatedAt: DateTime
 }

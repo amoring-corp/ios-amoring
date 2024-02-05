@@ -14,6 +14,13 @@ extension String {
         return dateFormatter.date(from: self) ?? Date()
     }
     
+    func HMSStringtoDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return dateFormatter.date(from: self) ?? Date()
+    }
+    
     func timeToDate() -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
@@ -117,6 +124,14 @@ extension Date {
         formatter.timeZone = TimeZone.current
         formatter.amSymbol = "오전"
         formatter.pmSymbol = "오후"
+        return formatter.string(from: self)
+    }
+    
+    func toHMS() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
         return formatter.string(from: self)
     }
 }

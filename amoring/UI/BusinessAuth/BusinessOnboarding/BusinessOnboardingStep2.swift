@@ -38,13 +38,16 @@ struct BusinessOnboardingStep2: View {
     @State private var daysSelection: DaySelection = .everyday
     @State var selectedDays: [Bool] = [false, true, true, true, true, true, false]
     @State var unselectedDays: [Bool] = [true, false, false, false, false, false, true]
-    @State private var sunday: (Int, Date, Date) = (0, Date(), Date())
-    @State private var monday: (Int, Date, Date) = (1, Date(), Date())
-    @State private var tuesday: (Int, Date, Date) = (2, Date(), Date())
-    @State private var wednesday: (Int, Date, Date) = (3, Date(), Date())
-    @State private var thirsday: (Int, Date, Date) = (4, Date(), Date())
-    @State private var friday: (Int, Date, Date) = (5, Date(), Date())
-    @State private var saturday: (Int, Date, Date) = (6, Date(), Date())
+    @State private var sunday: BusinessHours = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
+    @State private var monday: BusinessHours = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
+//    @State private var monday: (Int, Date, Date) = (1, Date(), Date())
+//    @State private var tuesday: (Int, Date, Date) = (2, Date(), Date())
+//    @State private var wednesday: (Int, Date, Date) = (3, Date(), Date())
+//    @State private var thirsday: (Int, Date, Date) = (4, Date(), Date())
+//    @State private var friday: (Int, Date, Date) = (5, Date(), Date())
+//    @State private var saturday: (Int, Date, Date) = (6, Date(), Date())
+    
+    @State var businessHours: [BusinessHours] = []
     
     @State var showPhoneCodes = false
     @State var selectedCode: String = "010"
@@ -163,18 +166,21 @@ struct BusinessOnboardingStep2: View {
                                     // TODO: Implement saving
                                     HStack(spacing: 0) {
                                         ZStack {
-                                            DatePicker("", selection: $sunday.1, displayedComponents: .hourAndMinute)
+                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
                                                 .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.1).allowsHitTesting(false)
+                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
+                                                .onChange(of: sunday.openAt) { date in
+                                                    print(date)
+                                                }
                                         }
                                         Text("~")
                                             .font(regular16Font)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, Size.w(20))
                                         ZStack {
-                                            DatePicker("", selection: $sunday.2, displayedComponents: .hourAndMinute)
+                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
                                                 .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.2).allowsHitTesting(false)
+                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
                                         }
                                     }
                                 }
@@ -193,18 +199,18 @@ struct BusinessOnboardingStep2: View {
                                     
                                     HStack(spacing: 0) {
                                         ZStack {
-                                            DatePicker("", selection: $sunday.1, displayedComponents: .hourAndMinute)
+                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
                                                 .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.1).allowsHitTesting(false)
+                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
                                         }
                                         Text("~")
                                             .font(regular16Font)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, Size.w(20))
                                         ZStack {
-                                            DatePicker("", selection: $sunday.2, displayedComponents: .hourAndMinute)
+                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
                                                 .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.2).allowsHitTesting(false)
+                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
                                         }
                                     }
                                 }
@@ -226,18 +232,18 @@ struct BusinessOnboardingStep2: View {
                                     
                                     HStack(spacing: 0) {
                                         ZStack {
-                                            DatePicker("", selection: $sunday.1, displayedComponents: .hourAndMinute)
+                                            DatePicker("", selection: $monday.openAt, displayedComponents: .hourAndMinute)
                                                 .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.1).allowsHitTesting(false)
+                                            timeWindow(time: monday.openAt).allowsHitTesting(false)
                                         }
                                         Text("~")
                                             .font(regular16Font)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, Size.w(20))
                                         ZStack {
-                                            DatePicker("", selection: $sunday.2, displayedComponents: .hourAndMinute)
+                                            DatePicker("", selection: $monday.closeAt, displayedComponents: .hourAndMinute)
                                                 .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.2).allowsHitTesting(false)
+                                            timeWindow(time: monday.closeAt).allowsHitTesting(false)
                                         }
                                     }
                                 }
@@ -256,6 +262,21 @@ struct BusinessOnboardingStep2: View {
                             Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
                                 .padding(.vertical, Size.w(10))
                             
+//                            Button(action: {
+//                                controller.business.businessName = "BOO"
+//                                controller.business.address = "BOO"
+//                                userManager.upsertMyBusiness(business: controller.business) { success in }
+//                            }) {
+//                                FullSizeButton(title: "CREATE BUSINESS")
+//                            }
+//                            
+//                            Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+//                                .padding(.vertical, Size.w(10))
+//                            
+//                            
+//                            Button(action: saveBusinessHours) {
+//                                FullSizeButton(title: "TRY TO SAVE HOURS")
+//                            }
                         }
                         .padding(.bottom, Size.w(30))
                         
@@ -393,25 +414,62 @@ struct BusinessOnboardingStep2: View {
     private func save() {
         userManager.upsertMyBusiness(business: controller.business) { success in
             guard let data = controller.data else { return }
+            self.saveBusinessHours()
             userManager.uploadBusinessRegistrationFile(data: data) { success in
                 let images = pictures.map({ $0.picture })
-                    userManager.uploadBusinessImages(images: images) { success in
-                        if success {
-                            userManager.upsertMyBusiness(business: controller.business) { success in
-                                print(userManager.user?.business)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    if success {
-                                        self.next = success
-                                    } else {
-                                        notificationController.setNotification(text: "Something went wrong while updating profile. Please try again", type: .error)
-                                    }
+                userManager.uploadBusinessImages(images: images) { success in
+                    if success {
+                        userManager.upsertMyBusiness(business: controller.business) { success in
+                            print(userManager.user?.business)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                if success {
+                                    self.next = success
+                                } else {
+                                    notificationController.setNotification(text: "Something went wrong while updating profile. Please try again", type: .error)
                                 }
                             }
-                        } else {
-                            notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
                         }
+                    } else {
+                        notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
                     }
+                }
             }
+        }
+    }
+    
+    private func saveBusinessHours() {
+        switch self.daysSelection {
+        case .everyday:
+            controller.businessHours = [
+                BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .monday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .tuesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .wednesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .thursday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .friday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+            ]
+     
+        case .weekAndOff:
+            for index in 0..<selectedDays.count {
+                if selectedDays[index] {
+                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: sunday.openAt, closeAt: sunday.closeAt)
+                    controller.businessHours.append(hours)
+                }
+            }
+            for index in 0..<unselectedDays.count {
+                if unselectedDays[index] {
+                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: monday.openAt, closeAt: monday.closeAt)
+                    controller.businessHours.append(hours)
+                }
+            }
+            
+        case .custom:
+            print("ds")
+        }
+        
+        userManager.batchUpsertBusinessHours(data: controller.businessHours) {
+            success in
         }
     }
     
@@ -458,7 +516,7 @@ struct DayWeekSelection: View {
     var body: some View {
         HStack(spacing: Size.w(10)) {
             ForEach(0..<Constants.daysOfWeek.count, id: \.self) { index in
-                DayOfWeak(title: Constants.daysOfWeek[index], selected: selectedDays[index])
+                DayOfWeekView(title: Constants.daysOfWeek[index], selected: selectedDays[index])
                     .onTapGesture {
                         withAnimation {
                             selectedDays[index].toggle()
@@ -470,7 +528,7 @@ struct DayWeekSelection: View {
     }
 }
 
-struct DayOfWeak: View {
+struct DayOfWeekView: View {
     var title: String
     var selected: Bool
     

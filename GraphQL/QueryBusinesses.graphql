@@ -34,6 +34,11 @@ query QueryBusinesses {
         url
       }
     }
+    businessHours {
+      openAt
+      closeAt
+      day
+    }
     createdAt
     updatedAt
   }

@@ -40,9 +40,9 @@ class UserManager: ObservableObject {
         case .business:
             print("I'm a business")
             
-            if let businessProfile = authUser.business, ((businessProfile.phoneNumber?.isEmpty) != nil) {
+            if let business = authUser.business, ((business.phoneNumber?.isEmpty) != nil) {
                 print("going to Business Session")
-                print(businessProfile)
+                print(business)
                 //TODO:  pass whole business user here!
                 self.setBusinessPhotos()
                 self.changeStateWithAnimation(state: .businessSession)
@@ -343,105 +343,7 @@ class UserManager: ObservableObject {
             }
         }
     }
-    
-//    func deleteMyProfileImage(completion: @escaping (Bool) -> Void) {
-//        self.isLoading = true
-//
-//        guard let images = user?.userProfile?.images, !images.isEmpty else {
-//            self.isLoading = false
-//            completion(false)
-//            return
-//        }
-//        let dispatchGroup = DispatchGroup()
-//        for image in images {
-//            if let id = image.id {
-//                dispatchGroup.enter()
-//                self.deleteImage(id: id) { success in
-//                    dispatchGroup.leave()
-//                }
-//            }
-//        }
-//        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-//            self.isLoading = false
-//            print("deleting: \(images.count) images finished")
-//            completion(true)
-//        })
-//    }
-//    
-//    private func deleteImage(id: String, completion: @escaping (Bool) -> Void) {
-//        api.perform(mutation: DeleteMyProfileImageMutation(id: id)) { result in
-//            switch result {
-//            case .success(let value):
-//                guard value.errors == nil else {
-//                    print(value.errors)
-//                    completion(false)
-//                    return
-//                }
-//                
-//                guard let data = value.data else {
-//                    print("NO DATA!")
-//                    completion(false)
-//                    return
-//                }
-//                
-//                print("Image was successfully deleted!")
-//                print(data.deleteMyProfileImage)
-//                completion(true)
-//            case .failure(let error):
-//                print(error)
-//                debugPrint(error.localizedDescription)
-//                completion(false)
-//            }
-//        }
-//    }
-//    
-//    func deleteBusinessImage(completion: @escaping (Bool) -> Void) {
-//        self.isLoading = true
-//        if let images = user?.business?.images {
-//            let dispatchGroup = DispatchGroup()
-//            for image in images {
-//                if let id = image.id {
-//                    dispatchGroup.enter()
-//                    self.deleteBusImage(id: id) { success in
-//                        dispatchGroup.leave()
-//                    }
-//                }
-//            }
-//            dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-//                self.isLoading = false
-//                print("deleting: \(images.count) images finished")
-//                completion(true)
-//            })
-//        }
-//    }
-//    
-//    private func deleteBusImage(id: String, completion: @escaping (Bool) -> Void) {
-//        api.perform(mutation: DeleteBusinessImageMutation(id: id)) { result in
-//            switch result {
-//            case .success(let value):
-//                guard value.errors == nil else {
-//                    print(value.errors)
-//                    completion(false)
-//                    return
-//                }
-//                
-//                guard let data = value.data else {
-//                    print("NO DATA!")
-//                    completion(false)
-//                    return
-//                }
-//                
-//                print("Image was successfully deleted!")
-//                print(data.deleteBusinessImage)
-//                completion(true)
-//            case .failure(let error):
-//                print(error)
-//                debugPrint(error.localizedDescription)
-//                completion(false)
-//            }
-//        }
-//    }
-    
+   
     func uploadBusinessRegistrationFile(data: Data, completion: @escaping (Bool) -> Void) {
         print("business id: \(user?.business?.id)")
         guard let id = user?.business?.id else {
@@ -660,39 +562,44 @@ class UserManager: ObservableObject {
         }
     }
     
-//    func updateBusiness(business: Business, completion: @escaping (Bool) -> Void) {
-//        self.isLoading = true
-//        let data = UpdateBusinessData(business: business).data
-//        let input = BusinessUpdateInput(data)
-//        print(user?.id)
-//        amoring.perform(mutation: UpdateBusinessMutation(id: user?.id ?? "", data: input)) { result in
-//            switch result {
-//            case .success(let value):
-//                guard value.errors == nil else {
-//                    print(value.errors)
-//                    self.isLoading = false
-//                    completion(false)
-//                    return
-//                }
-//                
-//                guard let data = value.data else {
-//                    print("NO DATA!")
-//                    self.isLoading = false
-//                    completion(false)
-//                    return
-//                }
-//                
-//                self.user?.business = business
-//                print("Business was successfully updated!")
-//                self.isLoading = false
-//                completion(true)
-//            case .failure(let error):
-//                debugPrint(error.localizedDescription)
-//                self.isLoading = false
-//                completion(false)
-//            }
-//        }
-//    }
+
+    func batchUpsertBusinessHours(data: [BusinessHours], completion: @escaping (Bool) -> Void) {
+        self.isLoading = true
+        
+        guard let id = user?.business?.id else {
+            print("id: \(user?.business?.id)")
+            completion(false)
+            return
+        }
+        
+        let input = data.map({ $0.data })
+        api.perform(mutation: BatchUpsertBusinessHoursMutation(businessId: id, data: input)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion(false)
+                    return
+                }
+                
+                print("business hours successfully added!")
+                self.isLoading = false
+                completion(true)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(false)
+            }
+        }
+    }
     
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
@@ -730,7 +637,7 @@ class UserManager: ObservableObject {
                 
 //                self.businesses.append(contentsOf: Dummy.businesses)
 //                self.businessesInit.append(contentsOf: Dummy.businesses)
-                
+                print(self.businesses)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }

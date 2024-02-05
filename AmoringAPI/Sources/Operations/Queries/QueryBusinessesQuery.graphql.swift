@@ -7,7 +7,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationName: String = "QueryBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryBusinesses { businesses { __typename id ownerId owner { __typename id email status role createdAt updatedAt } businessName businessType businessIndustry businessCategory address latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id businessId fileId sort createdAt updatedAt file { __typename url } } createdAt updatedAt } }"#
+      #"query QueryBusinesses { businesses { __typename id ownerId owner { __typename id email status role createdAt updatedAt } businessName businessType businessIndustry businessCategory address latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id businessId fileId sort createdAt updatedAt file { __typename url } } businessHours { __typename openAt closeAt day } createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -50,6 +50,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
         .field("category", String?.self),
         .field("bio", String?.self),
         .field("images", [Image?]?.self),
+        .field("businessHours", [BusinessHour?]?.self),
         .field("createdAt", AmoringAPI.DateTime?.self),
         .field("updatedAt", AmoringAPI.DateTime?.self),
       ] }
@@ -71,6 +72,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
       public var category: String? { __data["category"] }
       public var bio: String? { __data["bio"] }
       public var images: [Image?]? { __data["images"] }
+      public var businessHours: [BusinessHour?]? { __data["businessHours"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -142,6 +144,26 @@ public class QueryBusinessesQuery: GraphQLQuery {
 
           public var url: String? { __data["url"] }
         }
+      }
+
+      /// Business.BusinessHour
+      ///
+      /// Parent Type: `BusinessHours`
+      public struct BusinessHour: AmoringAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("openAt", AmoringAPI.LocalTime.self),
+          .field("closeAt", AmoringAPI.LocalTime.self),
+          .field("day", GraphQLEnum<AmoringAPI.Day>.self),
+        ] }
+
+        public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
+        public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
+        public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
       }
     }
   }

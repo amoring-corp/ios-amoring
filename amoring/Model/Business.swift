@@ -31,8 +31,8 @@ struct Business: Codable, Equatable, Hashable {
     var updatedAt: Date?
     var bio: String?
     
-    //TODO:  synch with backend
     var images: [BusinessImage]?
+    var businessHours: [BusinessHours]?
     var district: String?
     var open: Date? /// from: String
     var close: Date? /// to: String
@@ -68,10 +68,25 @@ struct Business: Codable, Equatable, Hashable {
             business.phoneNumber = data.phoneNumber
             business.district = "강남"
             business.images = getImages(data.images)
+            business.businessHours = getHours(data.businessHours)
             return business
         } else {
             return nil
         }
+    }
+    
+    func getHours(_ data: [QueryBusinessesQuery.Data.Business.BusinessHour?]?) -> [BusinessHours] {
+        var hours: [BusinessHours] = []
+        guard let data else { return hours }
+        for i in data {
+            guard let day = DayOfWeek.withLabel(i?.day.rawValue ?? "") else { return hours }
+            guard let openAt = i?.openAt.HMSStringtoDate() else { return hours }
+            guard let closeAt = i?.closeAt.HMSStringtoDate() else { return hours }
+            
+            let businessHour = BusinessHours(day: day, openAt: openAt, closeAt: closeAt)
+            hours.append(businessHour)
+        }
+        return hours
     }
     
     func getImages(_ images: [QueryBusinessesQuery.Data.Business.Image?]?) -> [BusinessImage] {

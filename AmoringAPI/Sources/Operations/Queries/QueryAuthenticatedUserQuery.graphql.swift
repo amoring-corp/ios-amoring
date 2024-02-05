@@ -7,7 +7,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
   public static let operationName: String = "QueryAuthenticatedUser"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory address bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
+      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename openAt closeAt day } address bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -166,6 +166,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           .field("businessType", String?.self),
           .field("businessIndustry", String?.self),
           .field("businessCategory", String?.self),
+          .field("businessHours", [BusinessHour?]?.self),
           .field("address", String?.self),
           .field("bio", String?.self),
           .field("representativeTitle", String?.self),
@@ -185,6 +186,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var businessType: String? { __data["businessType"] }
         public var businessIndustry: String? { __data["businessIndustry"] }
         public var businessCategory: String? { __data["businessCategory"] }
+        public var businessHours: [BusinessHour?]? { __data["businessHours"] }
         public var address: String? { __data["address"] }
         public var bio: String? { __data["bio"] }
         public var representativeTitle: String? { __data["representativeTitle"] }
@@ -196,6 +198,26 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var longitude: Double? { __data["longitude"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+
+        /// AuthenticatedUser.Business.BusinessHour
+        ///
+        /// Parent Type: `BusinessHours`
+        public struct BusinessHour: AmoringAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("openAt", AmoringAPI.LocalTime.self),
+            .field("closeAt", AmoringAPI.LocalTime.self),
+            .field("day", GraphQLEnum<AmoringAPI.Day>.self),
+          ] }
+
+          public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
+          public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
+          public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
+        }
 
         /// AuthenticatedUser.Business.Image
         ///

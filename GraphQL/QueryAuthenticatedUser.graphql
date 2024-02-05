@@ -37,6 +37,11 @@ query QueryAuthenticatedUser {
       businessType
       businessIndustry
       businessCategory
+      businessHours {
+        openAt
+        closeAt
+        day
+      }
       address
       bio
       representativeTitle
