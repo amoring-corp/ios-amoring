@@ -33,6 +33,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Business": return AmoringAPI.Objects.Business
     case "Query": return AmoringAPI.Objects.Query
     case "SignUpResult": return AmoringAPI.Objects.SignUpResult
+    case "BusinessHours": return AmoringAPI.Objects.BusinessHours
     case "BusinessImage": return AmoringAPI.Objects.BusinessImage
     default: return nil
     }

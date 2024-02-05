@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AccountEmailSuccess: View {
-    @EnvironmentObject var navigator: NavigationController
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    let back: () -> Void
     
     var body: some View {
         VStack(alignment: .center) {
@@ -31,7 +33,8 @@ struct AccountEmailSuccess: View {
             Spacer()
             
             Button(action: {
-                navigator.toRoot()
+//                presentationMode.wrappedValue.dismiss()
+                back()
             }) {
                 BorderButton(title: "확인")
             }
@@ -51,6 +54,6 @@ struct AccountEmailSuccess: View {
     }
 }
 
-#Preview {
-    AccountEmailSuccess()
-}
+//#Preview {
+//    AccountEmailSuccess()
+//}

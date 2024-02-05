@@ -9,11 +9,12 @@ import SwiftUI
 import NavigationStackBackport
 
 struct CheckInView: View {
-    @EnvironmentObject var navigator: NavigationController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
     
     @State var torchIsOn = false
+    @State var openResult = false
+    @State var resultString: String = ""
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -40,47 +41,28 @@ struct CheckInView: View {
             .padding(.vertical, Size.w(16))
             
             Spacer()
+            
+            NavigationLink(isActive: $openResult, destination: {
+                CheckInResult(resultString: self.resultString)
+            }) {
+                EmptyView()
+            }
         }
         .padding(.horizontal, Size.w(22))
         .padding(.bottom, Size.w(10))
         .padding(.bottom, bottomSpacing)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.gray1000)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("AMORING")
-                    .font(bold20Font)
-                    .foregroundColor(.yellow300)
-            }
-        }
-        .navigationBarItems(trailing:
-                                Button(action: {
-            withAnimation {
-                // MARK: TESTS  . .. 
-//                notificationController.notification = NotificationModel(type: .text, text: "방금, 00명이 라운지에 새로 입장했습니다.", action: {})
-                notificationController.notification = NotificationModel(type: .text, text: "체크인이 곧 만료됩니다.\n회원님이 머물고 있음을 체크인으로 알려주세요.", action: {})
-//                notificationController.notification = NotificationModel(type: .textAndButton, text: "새로운 인연이 생겼어요!", action: {
-//                    print("go to messages")
-//                })
-//                
-//                notificationController.notification = NotificationModel(type: .error, text: "일치하지 않는 ID 또는 PW 입니다.", action: {})
-            }
-        }) {
-            Image("ic-info")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(32), height: Size.w(32))
-        }
-        )
     }
     
     func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
         case .success(let result):
             print(result)
-            navigator.resultString = result.string
-            navigator.path.append(NavigatorPath.checkInResult)
+            self.resultString = result.string
+            openResult = true
+//            navigator.resultString = result.string
+//            navigator.path.append(NavigatorPath.checkInResult)
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
         }

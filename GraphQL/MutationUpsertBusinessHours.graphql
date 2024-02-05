@@ -1,0 +1,8 @@
+mutation UpsertBusinessHours($businessId: ID!, $data: BusinessHoursInput!) {
+  upsertBusinessHours(businessId: $businessId, data: $data) {
+    id
+    day
+    openAt
+    closeAt
+  }
+}

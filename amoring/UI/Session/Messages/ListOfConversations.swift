@@ -9,7 +9,6 @@ import SwiftUI
 import CachedAsyncImage
 
 struct ListOfConversations: View {
-    @EnvironmentObject var navigator: NavigationController
     @EnvironmentObject var controller: MessagesController
     
     @State var alertPresented = false
@@ -49,22 +48,23 @@ struct ListOfConversations: View {
             } else {
                 List {
                     ForEach(controller.conversations.filter { $0.createdAt > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
-                        ChatRow(conversation: conversation)
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(Color.clear)
-                            .onTapGesture {
-                                navigator.selectedConversation = conversation
-                                navigator.path.append(NavigatorPath.conversation)
+                        NavigationLink(destination: {
+                            ConversationView(conversation: conversation)
+                        }) {
+                            ChatRow(conversation: conversation)
+                                
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                        .swipeActions {
+                            Button(action: {
+                                self.selectedConversation = conversation
+                                alertPresented = true
+                            }) {
+                                // TODO: Customize ?
+                                Text("삭제")
                             }
-                            .swipeActions {
-                                Button(action: {
-                                    self.selectedConversation = conversation
-                                    alertPresented = true
-                                }) {
-                                    // TODO: Customize ?
-                                    Text("삭제")
-                                }
-                            }
+                        }
                     }
                     
                     Color.clear.frame(height: 40)

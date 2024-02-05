@@ -9,15 +9,16 @@ import SwiftUI
 
 struct CheckInResult: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var navigator: NavigationController
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var userManager: UserManager
     
     @State var hasTable = false
     @State var hasPremium = false
     
+    let resultString: String
+    
     var body: some View {
-        if let resultString = navigator.resultString {
+//        if let resultString = navigator.resultString {
             VStack(spacing: 0){
                 (
                     Text(resultString)
@@ -91,8 +92,8 @@ struct CheckInResult: View {
                     Button(action: {
                         withAnimation {
                             amoringController.checkIn = nil
-                            navigator.toRoot()
-                            navigator.resultString = nil
+                            self.presentationMode.wrappedValue.dismiss()
+//                            navigator.resultString = nil
                         }
                     }) {
                         Text("아니요")
@@ -108,8 +109,9 @@ struct CheckInResult: View {
                     Button(action: {
                         withAnimation {
                             //                            // TODO: pass business id here
+                            
                             amoringController.checkIn = CheckIn(userId: userManager.user?.id, businessId: resultString, place: resultString, checkedInAt: Date(), checkedOutAt: nil)
-                            self.presentationMode.wrappedValue.dismiss()
+//                            self.presentationMode.wrappedValue.dismiss()
                         }
                     }) {
                         Text("네")
@@ -146,7 +148,7 @@ struct CheckInResult: View {
                     .frame(width: Size.w(32), height: Size.w(32))
             }
             )
-        }
+//        }
     }
 }
 

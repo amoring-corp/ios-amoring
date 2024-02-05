@@ -43,6 +43,24 @@ input BusinessCreateInput {
 """
 
 """
+type BusinessHours {
+  id: ID!
+  day: Day!
+  openAt: LocalTime!
+  closeAt: LocalTime!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input BusinessHoursInput {
+  day: Day!
+  openAt: LocalTime!
+  closeAt: LocalTime!
+}
+
+"""
+
+"""
 type BusinessImage {
   id: ID!
   businessId: Int!
@@ -84,6 +102,16 @@ scalar Date
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+enum Day {
+  monday
+  tuesday
+  wednesday
+  thursday
+  friday
+  saturday
+  sunday
+}
 
 type File {
   id: ID!
@@ -143,6 +171,11 @@ input InterestUpdateInput {
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
+
+"""
+A local time string (i.e., with no associated timezone) in 24-hr `HH:mm[:ss[.SSS]]` format, e.g. `14:25` or `14:25:06` or `14:25:06.123`.
+"""
+scalar LocalTime
 
 type SignInResult {
   sessionToken: String
@@ -313,6 +346,15 @@ type Mutation {
   createInterest(data: InterestCreateInput!): Interest!
   updateInterest(id: ID!, data: InterestUpdateInput!): Interest!
   deleteInterest(id: ID!): Interest!
+  batchUpsertBusinessHours(
+    businessId: ID!
+    data: [BusinessHoursInput!]!
+  ): [BusinessHours]!
+  upsertBusinessHours(
+    businessId: ID!
+    data: BusinessHoursInput!
+  ): BusinessHours!
+  deleteBusinessHours(businessId: ID!, day: Day!): ID!
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!
@@ -335,6 +377,7 @@ type Query {
   interestCategory(id: ID!): InterestCategory!
   interests: [Interest]!
   interest(id: ID!): Interest!
+  businessHours(businessId: ID!): [BusinessHours]!
   users: [User]!
   user(id: ID!): User!
   userProfiles(role: UserRole): [UserProfile]!
