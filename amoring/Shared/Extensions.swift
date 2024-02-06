@@ -121,7 +121,7 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "a hh:mm"
         formatter.locale = Locale.current
-        formatter.timeZone = TimeZone.current
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.amSymbol = "오전"
         formatter.pmSymbol = "오후"
         return formatter.string(from: self)
@@ -130,9 +130,22 @@ extension Date {
     func toHMS() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
-        formatter.locale = Locale.current
-        formatter.timeZone = TimeZone.current
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
         return formatter.string(from: self)
+    }
+    
+    var startOfDay: Date {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        return calendar.startOfDay(for: self)
+    }
+    
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfDay)!
     }
 }
 
@@ -245,5 +258,11 @@ extension TimeInterval {
         let hours = HMS.0 > 0 ? "\(HMS.0)시간 " : ""
         let minutes = HMS.1 > 0 ? "\(HMS.1)분 " : ""
         return  hours + minutes + "남음"
+    }
+}
+
+extension Collection {
+    func allEqual<T: Equatable>(by key: KeyPath<Element, T>) -> Bool {
+        return allSatisfy { first?[keyPath:key] == $0[keyPath:key] }
     }
 }

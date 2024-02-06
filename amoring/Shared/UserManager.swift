@@ -563,16 +563,16 @@ class UserManager: ObservableObject {
     }
     
 
-    func batchUpsertBusinessHours(data: [BusinessHours], completion: @escaping (Bool) -> Void) {
-        self.isLoading = true
-        
+    func batchUpsertBusinessHours(hours: [BusinessHours], completion: @escaping (Bool) -> Void) {
         guard let id = user?.business?.id else {
             print("id: \(user?.business?.id)")
             completion(false)
             return
         }
         
-        let input = data.map({ $0.data })
+        self.isLoading = true
+        
+        let input = hours.map({ $0.data })
         api.perform(mutation: BatchUpsertBusinessHoursMutation(businessId: id, data: input)) { result in
             switch result {
             case .success(let value):
@@ -590,7 +590,46 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("business hours successfully added!")
+                print("business hours successfully changed!")
+                self.user?.business?.businessHours = hours
+                self.isLoading = false
+                completion(true)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(false)
+            }
+        }
+    }
+    
+    func deleteAllBusinessHours(completion: @escaping (Bool) -> Void) {
+        guard let id = user?.business?.id else {
+            print("id: \(user?.business?.id)")
+            completion(false)
+            return
+        }
+        
+        self.isLoading = true
+        
+        api.perform(mutation: DeleteAllBusinessHoursMutation(businessId: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion(false)
+                    return
+                }
+                
+                print("business hours successfully deleted!")
+                
                 self.isLoading = false
                 completion(true)
             case .failure(let error):

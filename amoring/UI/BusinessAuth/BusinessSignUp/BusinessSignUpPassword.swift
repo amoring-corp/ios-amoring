@@ -11,6 +11,7 @@ struct BusinessSignUpPassword: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: BusinessSignUpController
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var goToOTP: Bool = false
     
@@ -60,8 +61,12 @@ struct BusinessSignUpPassword: View {
             
             HStack {
                 Button(action: {
-                    sessionManager.signUp(email: controller.email, password: controller.password) { success in
-                        goToOTP = success
+                    sessionManager.signUp(email: controller.email, password: controller.password) { error in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        } else {
+                            goToOTP = true
+                        }
                     }
                 }) {
                     BlackButton(title: "다음", enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword(), isLoading: sessionManager.isLoading)

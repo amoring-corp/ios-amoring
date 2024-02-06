@@ -254,7 +254,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
     
-    func signUp(email: String, password: String, completion: @escaping (Bool) -> Void) {
+    func signUp(email: String, password: String, completion: @escaping (String?) -> Void) {
         self.isLoading = true
         api.perform(mutation: SignUpMutation(email: email, password: password)) { result in
             self.isLoading = false
@@ -262,7 +262,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             case .success(let value):
                 if let errors = value.errors {
                     print(errors)
-                    completion(false)
+                    completion(errors.first?.localizedDescription)
                     return
                 }
                 
@@ -279,15 +279,15 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                             self.confirmationNumber = confirmationNumber
                         }
                     }
-                    completion(true)
+                    completion(nil)
                 } else {
                     print("Wrong data!")
-                    completion(false)
+                    completion("Wrong data!")
                 }
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription)
-                completion(false)
+                completion(error.localizedDescription)
             }
         }
     }

@@ -11,6 +11,7 @@ struct BusinessOnboardingView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     @StateObject var controller: BusinessOnboardingController = BusinessOnboardingController()
     
     @State var name: String = ""
@@ -27,6 +28,7 @@ struct BusinessOnboardingView: View {
     @State var contentOffset: CGFloat = 0
     @State var showAddressPicker: Bool = false
     @State var preaddress: String = ""
+    @State var district: String = ""
     
     var body: some View {
         NavigationView {
@@ -131,10 +133,14 @@ struct BusinessOnboardingView: View {
                                 showAddressPicker = true
                             }
                             .sheet(isPresented: $showAddressPicker) {
-                                PostCodeServiceView(address: $preaddress, isOpened: $showAddressPicker)
+                                PostCodeServiceView(address: $preaddress,  district: $district, isOpened: $showAddressPicker)
                             }
                             .onChange(of: preaddress, perform: { newValue in
                                 controller.business.address = newValue
+                                controller.business.district = newValue
+                            })
+                            .onChange(of: district, perform: { newValue in
+                                controller.business.district = newValue
                             })
                             
                             VStack(alignment: .leading) {
@@ -227,10 +233,11 @@ struct BusinessOnboardingView: View {
                                 .fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf, .jpeg, .png]) { result in
                                     switch result {
                                     case .success(let url):
+                                        //FIXME: doesn't work on real device
                                         print(url.absoluteString)
                                         //                                    url.startAccessingSecurityScopedResource()
                                         guard let data = loadFileFromLocalPath(url) else {
-                                            print("cannot get data from file")
+                                            notificationController.setNotification(text: "Cannot get data from file. Try another file", type: .error)
                                             return
                                         }
                                         
@@ -272,16 +279,16 @@ struct BusinessOnboardingView: View {
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                         
-//                        let pass = 
-//                        !((controller.business.businessName?.isEmpty) == nil)
-//                        && !((controller.business.representativeName?.isEmpty) == nil)
-//                        && !((controller.business.businessType?.isEmpty) == nil)
-//                        && !((controller.business.businessIndustry?.isEmpty) == nil)
-//                        && !((controller.business.address?.isEmpty) == nil)
-////                        && !((controller.business.detailedAddress?.isEmpty) == nil)
-//                        && !((controller.business.registrationNumber?.isEmpty) == nil)
-//                        && !((controller.data?.isEmpty) == nil)
-  let pass = true
+                        let pass =
+                        !((controller.business.businessName?.isEmpty) == nil)
+                        && !((controller.business.representativeName?.isEmpty) == nil)
+                        && !((controller.business.businessType?.isEmpty) == nil)
+                        && !((controller.business.businessIndustry?.isEmpty) == nil)
+                        && !((controller.business.address?.isEmpty) == nil)
+//                        && !((controller.business.detailedAddress?.isEmpty) == nil)
+                        && !((controller.business.registrationNumber?.isEmpty) == nil)
+                        && !((controller.data?.isEmpty) == nil)
+
                         Button(action: {
                             if pass {
                                 next = true

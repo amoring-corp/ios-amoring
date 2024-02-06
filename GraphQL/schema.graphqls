@@ -356,6 +356,7 @@ type Mutation {
     data: BusinessHoursInput!
   ): BusinessHours!
   deleteBusinessHours(businessId: ID!, day: Day!): ID!
+  deleteAllBusinessHours(businessId: ID!): Int!
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!

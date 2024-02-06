@@ -11,6 +11,7 @@ import WebKit
 
 struct PostCodeServiceView: UIViewRepresentable {
     @Binding var address: String
+    @Binding var district: String
     @Binding var isOpened: Bool
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
@@ -34,8 +35,10 @@ struct PostCodeServiceView: UIViewRepresentable {
             print("✅✅✅✅✅")
             if let data = message.body as? [String: Any] {
                 print(data["jibunAddress"])
+                print(data["bname"])
                 DispatchQueue.main.async {
                     self.parent.address = data["jibunAddress"] as? String ?? ""
+                    self.parent.district = data["bname"] as? String ?? ""
                     self.parent.isOpened = false
                 }
             }

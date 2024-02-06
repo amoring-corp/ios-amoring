@@ -38,14 +38,17 @@ struct BusinessOnboardingStep2: View {
     @State private var daysSelection: DaySelection = .everyday
     @State var selectedDays: [Bool] = [false, true, true, true, true, true, false]
     @State var unselectedDays: [Bool] = [true, false, false, false, false, false, true]
-    @State private var sunday: BusinessHours = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
-    @State private var monday: BusinessHours = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
-//    @State private var monday: (Int, Date, Date) = (1, Date(), Date())
-//    @State private var tuesday: (Int, Date, Date) = (2, Date(), Date())
-//    @State private var wednesday: (Int, Date, Date) = (3, Date(), Date())
-//    @State private var thirsday: (Int, Date, Date) = (4, Date(), Date())
-//    @State private var friday: (Int, Date, Date) = (5, Date(), Date())
-//    @State private var saturday: (Int, Date, Date) = (6, Date(), Date())
+    
+    @State private var sunday: BusinessHours = BusinessHours(day: .sunday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State private var monday: BusinessHours = BusinessHours(day: .monday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State private var tuesday: BusinessHours? = BusinessHours(day: .tuesday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State private var wednesday: BusinessHours? = BusinessHours(day: .wednesday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State private var thursday: BusinessHours? = BusinessHours(day: .thursday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State private var friday: BusinessHours? = BusinessHours(day: .friday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State private var saturday: BusinessHours? = BusinessHours(day: .saturday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    
+    @State var weekDaysDisabled: Bool = false
+    @State var weekEndsDisabled: Bool = false
     
     @State var businessHours: [BusinessHours] = []
     
@@ -167,6 +170,7 @@ struct BusinessOnboardingStep2: View {
                                     HStack(spacing: 0) {
                                         ZStack {
                                             DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
+                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
                                                 .frame(height: Size.w(58))
                                             timeWindow(time: sunday.openAt).allowsHitTesting(false)
                                                 .onChange(of: sunday.openAt) { date in
@@ -179,6 +183,7 @@ struct BusinessOnboardingStep2: View {
                                             .padding(.horizontal, Size.w(20))
                                         ZStack {
                                             DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
+                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
                                                 .frame(height: Size.w(58))
                                             timeWindow(time: sunday.closeAt).allowsHitTesting(false)
                                         }
@@ -187,53 +192,17 @@ struct BusinessOnboardingStep2: View {
                                 .padding(.horizontal, Size.w(14))
                             case .weekAndOff:
                                 VStack(alignment: .leading) {
-                                    Text("➊ 해당되는 요일은 선택해주세요.")
-                                        .font(medium14Font)
-                                        .foregroundColor(.yellow600)
-                                    
-                                    DayWeekSelection(selectedDays: $selectedDays)
-                                    
-                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
-                                        .font(medium14Font)
-                                        .foregroundColor(.yellow600)
-                                    
-                                    HStack(spacing: 0) {
-                                        ZStack {
-                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
-                                                .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
-                                        }
-                                        Text("~")
-                                            .font(regular16Font)
-                                            .foregroundColor(.black)
-                                            .padding(.horizontal, Size.w(20))
-                                        ZStack {
-                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
-                                                .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal, Size.w(14))
-                                
-                                Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
-                                    .padding(.vertical, Size.w(10))
-                                
-                                VStack(alignment: .leading) {
-                                    Text("➊ 해당되는 요일은 선택해주세요.")
-                                        .font(medium14Font)
-                                        .foregroundColor(.yellow600)
-                                    
-                                    DayWeekSelection(selectedDays: $unselectedDays)
-                                    
-                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+                                    Text("➊ 평일 영업시간을 알려주세요.")
                                         .font(medium14Font)
                                         .foregroundColor(.yellow600)
                                     
                                     HStack(spacing: 0) {
                                         ZStack {
                                             DatePicker("", selection: $monday.openAt, displayedComponents: .hourAndMinute)
+                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
                                                 .frame(height: Size.w(58))
+                                                .opacity(weekDaysDisabled ? 0 : 1)
+                                                
                                             timeWindow(time: monday.openAt).allowsHitTesting(false)
                                         }
                                         Text("~")
@@ -242,41 +211,165 @@ struct BusinessOnboardingStep2: View {
                                             .padding(.horizontal, Size.w(20))
                                         ZStack {
                                             DatePicker("", selection: $monday.closeAt, displayedComponents: .hourAndMinute)
+                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
                                                 .frame(height: Size.w(58))
+                                                .opacity(weekDaysDisabled ? 0 : 1)
                                             timeWindow(time: monday.closeAt).allowsHitTesting(false)
                                         }
                                     }
+                                    .disabled(weekDaysDisabled)
+                                    .opacity(weekDaysDisabled ? 0.2 : 1)
+                                    
+                                    Button(action: {
+                                        if weekEndsDisabled && !weekDaysDisabled {
+                                            weekDaysDisabled.toggle()
+                                            weekEndsDisabled.toggle()
+                                        } else {
+                                            weekDaysDisabled.toggle()
+                                        }
+                                    }) {
+                                        HStack(spacing: 0) {
+                                            Image(systemName: weekDaysDisabled ? "checkmark.square.fill" : "square")
+                                                .font(medium22Font)
+                                            Text("휴무일 입니다.")
+                                        }
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    }
+                                    .padding(.vertical, Size.w(10))
                                 }
                                 .padding(.horizontal, Size.w(14))
-                                .onChange(of: selectedDays) { selectedDays in
-                                    self.unselectedDays = selectedDays.map { !$0 }
+                                
+                                Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+                                    .padding(.vertical, Size.w(10))
+                                
+                                VStack(alignment: .leading) {
+                                    Text("➊ 주말 영업시간을 알려주세요.")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                               
+                                    HStack(spacing: 0) {
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
+                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+                                                .frame(height: Size.w(58))
+                                                .opacity(weekEndsDisabled ? 0 : 1)
+                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
+                                        }
+                                        Text("~")
+                                            .font(regular16Font)
+                                            .foregroundColor(.black)
+                                            .padding(.horizontal, Size.w(20))
+                                        ZStack {
+                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
+                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+                                                .frame(height: Size.w(58))
+                                                .opacity(weekEndsDisabled ? 0 : 1)
+                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
+                                        }
+                                    }
+                                    .disabled(weekEndsDisabled)
+                                    .opacity(weekEndsDisabled ? 0.2 : 1)
+                                    
+                                    Button(action: {
+                                        if weekDaysDisabled && !weekEndsDisabled {
+                                            weekDaysDisabled.toggle()
+                                            weekEndsDisabled.toggle()
+                                        } else {
+                                            weekEndsDisabled.toggle()
+                                        }
+                                    }) {
+                                        HStack(spacing: 0) {
+                                            Image(systemName: weekEndsDisabled ? "checkmark.square.fill" : "square")
+                                                .font(medium22Font)
+                                            Text("휴무일 입니다.")
+                                        }
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    }
+                                    .padding(.vertical, Size.w(10))
                                 }
-                                .onChange(of: unselectedDays) { unselectedDays in
-                                    self.selectedDays = unselectedDays.map { !$0 }
-                                }
+                                .padding(.horizontal, Size.w(14))
+                                
                             case .custom:
                                 Text("CUSTOM")
+//                                VStack(alignment: .leading) {
+//                                    Text("➊ 해당되는 요일은 선택해주세요.")
+//                                        .font(medium14Font)
+//                                        .foregroundColor(.yellow600)
+//                                    
+//                                    DayWeekSelection(selectedDays: $selectedDays)
+//                                    
+//                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+//                                        .font(medium14Font)
+//                                        .foregroundColor(.yellow600)
+//                                    
+//                                    HStack(spacing: 0) {
+//                                        ZStack {
+//                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
+//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+//                                                .frame(height: Size.w(58))
+//                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
+//                                        }
+//                                        Text("~")
+//                                            .font(regular16Font)
+//                                            .foregroundColor(.black)
+//                                            .padding(.horizontal, Size.w(20))
+//                                        ZStack {
+//                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
+//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+//                                                .frame(height: Size.w(58))
+//                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
+//                                        }
+//                                    }
+//                                }
+//                                .padding(.horizontal, Size.w(14))
+//                                
+//                                Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+//                                    .padding(.vertical, Size.w(10))
+//                                
+//                                VStack(alignment: .leading) {
+//                                    Text("➊ 해당되는 요일은 선택해주세요.")
+//                                        .font(medium14Font)
+//                                        .foregroundColor(.yellow600)
+//                                    
+//                                    DayWeekSelection(selectedDays: $unselectedDays)
+//                                    
+//                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+//                                        .font(medium14Font)
+//                                        .foregroundColor(.yellow600)
+//                                    
+//                                    HStack(spacing: 0) {
+//                                        ZStack {
+//                                            DatePicker("", selection: $monday.openAt, displayedComponents: .hourAndMinute)
+//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+//                                                .frame(height: Size.w(58))
+//                                            timeWindow(time: monday.openAt).allowsHitTesting(false)
+//                                        }
+//                                        Text("~")
+//                                            .font(regular16Font)
+//                                            .foregroundColor(.black)
+//                                            .padding(.horizontal, Size.w(20))
+//                                        ZStack {
+//                                            DatePicker("", selection: $monday.closeAt, displayedComponents: .hourAndMinute)
+//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+//                                                .frame(height: Size.w(58))
+//                                            timeWindow(time: monday.closeAt).allowsHitTesting(false)
+//                                        }
+//                                    }
+//                                }
+//                                .padding(.horizontal, Size.w(14))
+//                                .onChange(of: selectedDays) { selectedDays in
+//                                    self.unselectedDays = selectedDays.map { !$0 }
+//                                }
+//                                .onChange(of: unselectedDays) { unselectedDays in
+//                                    self.selectedDays = unselectedDays.map { !$0 }
+//                                }
                             }
                             
                             
                             Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
                                 .padding(.vertical, Size.w(10))
-                            
-//                            Button(action: {
-//                                controller.business.businessName = "BOO"
-//                                controller.business.address = "BOO"
-//                                userManager.upsertMyBusiness(business: controller.business) { success in }
-//                            }) {
-//                                FullSizeButton(title: "CREATE BUSINESS")
-//                            }
-//                            
-//                            Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
-//                                .padding(.vertical, Size.w(10))
-//                            
-//                            
-//                            Button(action: saveBusinessHours) {
-//                                FullSizeButton(title: "TRY TO SAVE HOURS")
-//                            }
                         }
                         .padding(.bottom, Size.w(30))
                         
@@ -413,7 +506,10 @@ struct BusinessOnboardingStep2: View {
     
     private func save() {
         userManager.upsertMyBusiness(business: controller.business) { success in
-            guard let data = controller.data else { return }
+            guard let data = controller.data else {
+                notificationController.setNotification(text: "Something went wrong while uploading file. Please try again", type: .error)
+                return
+            }
             self.saveBusinessHours()
             userManager.uploadBusinessRegistrationFile(data: data) { success in
                 let images = pictures.map({ $0.picture })
@@ -451,24 +547,47 @@ struct BusinessOnboardingStep2: View {
             ]
      
         case .weekAndOff:
-            for index in 0..<selectedDays.count {
-                if selectedDays[index] {
-                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: sunday.openAt, closeAt: sunday.closeAt)
-                    controller.businessHours.append(hours)
-                }
+            if weekDaysDisabled {
+                controller.businessHours = [
+                    BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                    BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+                ]
+            } else if weekEndsDisabled {
+                controller.businessHours = [
+                    BusinessHours(day: .monday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .tuesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .wednesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .thursday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .friday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                ]
+            } else {
+                controller.businessHours = [
+                    BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                    BusinessHours(day: .monday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .tuesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .wednesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .thursday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .friday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+                ]
             }
-            for index in 0..<unselectedDays.count {
-                if unselectedDays[index] {
-                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: monday.openAt, closeAt: monday.closeAt)
-                    controller.businessHours.append(hours)
-                }
-            }
-            
         case .custom:
-            print("ds")
+            controller.businessHours.removeAll()
+//            for index in 0..<selectedDays.count {
+//                if selectedDays[index] {
+//                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: sunday.openAt, closeAt: sunday.closeAt)
+//                    controller.businessHours.append(hours)
+//                }
+//            }
+//            for index in 0..<unselectedDays.count {
+//                if unselectedDays[index] {
+//                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: monday.openAt, closeAt: monday.closeAt)
+//                    controller.businessHours.append(hours)
+//                }
+//            }
         }
         
-        userManager.batchUpsertBusinessHours(data: controller.businessHours) {
+        userManager.batchUpsertBusinessHours(hours: controller.businessHours) {
             success in
         }
     }

@@ -21,6 +21,8 @@ struct SettingsView: View {
     @State private var showNumberOfPeople = false
     @State private var showGenderRatio = false
     @State private var showMatching = false
+    @State private var showAddressPicker = false
+    @State private var preaddress = ""
     
     var body: some View {
         let business = userManager.user?.business
