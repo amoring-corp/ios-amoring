@@ -17,6 +17,14 @@ public struct BusinessUpdateInput: InputObject {
     businessIndustry: GraphQLNullable<String> = nil,
     businessCategory: GraphQLNullable<String> = nil,
     address: GraphQLNullable<String> = nil,
+    addressJibun: GraphQLNullable<String> = nil,
+    addressSido: GraphQLNullable<String> = nil,
+    addressSigungu: GraphQLNullable<String> = nil,
+    addressSigunguCode: GraphQLNullable<String> = nil,
+    addressSigunguEnglish: GraphQLNullable<String> = nil,
+    addressBname: GraphQLNullable<String> = nil,
+    addressZonecode: GraphQLNullable<String> = nil,
+    addressDetails: GraphQLNullable<String> = nil,
     representativeTitle: GraphQLNullable<String> = nil,
     representativeName: GraphQLNullable<String> = nil,
     phoneNumber: GraphQLNullable<String> = nil,
@@ -33,6 +41,14 @@ public struct BusinessUpdateInput: InputObject {
       "businessIndustry": businessIndustry,
       "businessCategory": businessCategory,
       "address": address,
+      "addressJibun": addressJibun,
+      "addressSido": addressSido,
+      "addressSigungu": addressSigungu,
+      "addressSigunguCode": addressSigunguCode,
+      "addressSigunguEnglish": addressSigunguEnglish,
+      "addressBname": addressBname,
+      "addressZonecode": addressZonecode,
+      "addressDetails": addressDetails,
       "representativeTitle": representativeTitle,
       "representativeName": representativeName,
       "phoneNumber": phoneNumber,
@@ -72,6 +88,46 @@ public struct BusinessUpdateInput: InputObject {
   public var address: GraphQLNullable<String> {
     get { __data["address"] }
     set { __data["address"] = newValue }
+  }
+
+  public var addressJibun: GraphQLNullable<String> {
+    get { __data["addressJibun"] }
+    set { __data["addressJibun"] = newValue }
+  }
+
+  public var addressSido: GraphQLNullable<String> {
+    get { __data["addressSido"] }
+    set { __data["addressSido"] = newValue }
+  }
+
+  public var addressSigungu: GraphQLNullable<String> {
+    get { __data["addressSigungu"] }
+    set { __data["addressSigungu"] = newValue }
+  }
+
+  public var addressSigunguCode: GraphQLNullable<String> {
+    get { __data["addressSigunguCode"] }
+    set { __data["addressSigunguCode"] = newValue }
+  }
+
+  public var addressSigunguEnglish: GraphQLNullable<String> {
+    get { __data["addressSigunguEnglish"] }
+    set { __data["addressSigunguEnglish"] = newValue }
+  }
+
+  public var addressBname: GraphQLNullable<String> {
+    get { __data["addressBname"] }
+    set { __data["addressBname"] = newValue }
+  }
+
+  public var addressZonecode: GraphQLNullable<String> {
+    get { __data["addressZonecode"] }
+    set { __data["addressZonecode"] = newValue }
+  }
+
+  public var addressDetails: GraphQLNullable<String> {
+    get { __data["addressDetails"] }
+    set { __data["addressDetails"] = newValue }
   }
 
   public var representativeTitle: GraphQLNullable<String> {

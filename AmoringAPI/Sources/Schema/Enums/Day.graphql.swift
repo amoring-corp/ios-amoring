@@ -4,11 +4,11 @@
 import ApolloAPI
 
 public enum Day: String, EnumType {
+  case sunday = "sunday"
   case monday = "monday"
   case tuesday = "tuesday"
   case wednesday = "wednesday"
   case thursday = "thursday"
   case friday = "friday"
   case saturday = "saturday"
-  case sunday = "sunday"
 }

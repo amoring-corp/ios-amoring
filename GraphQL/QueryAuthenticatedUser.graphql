@@ -43,6 +43,14 @@ query QueryAuthenticatedUser {
         day
       }
       address
+      addressBname
+      addressDetails
+      addressJibun
+      addressSido
+      addressSigungu
+      addressSigunguCode
+      addressSigunguEnglish
+      addressZonecode
       bio
       representativeTitle
       representativeName

@@ -7,7 +7,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
   public static let operationName: String = "QueryAuthenticatedUser"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename openAt closeAt day } address bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
+      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename openAt closeAt day } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -168,6 +168,14 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           .field("businessCategory", String?.self),
           .field("businessHours", [BusinessHour?]?.self),
           .field("address", String?.self),
+          .field("addressBname", String?.self),
+          .field("addressDetails", String?.self),
+          .field("addressJibun", String?.self),
+          .field("addressSido", String?.self),
+          .field("addressSigungu", String?.self),
+          .field("addressSigunguCode", String?.self),
+          .field("addressSigunguEnglish", String?.self),
+          .field("addressZonecode", String?.self),
           .field("bio", String?.self),
           .field("representativeTitle", String?.self),
           .field("representativeName", String?.self),
@@ -188,6 +196,14 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var businessCategory: String? { __data["businessCategory"] }
         public var businessHours: [BusinessHour?]? { __data["businessHours"] }
         public var address: String? { __data["address"] }
+        public var addressBname: String? { __data["addressBname"] }
+        public var addressDetails: String? { __data["addressDetails"] }
+        public var addressJibun: String? { __data["addressJibun"] }
+        public var addressSido: String? { __data["addressSido"] }
+        public var addressSigungu: String? { __data["addressSigungu"] }
+        public var addressSigunguCode: String? { __data["addressSigunguCode"] }
+        public var addressSigunguEnglish: String? { __data["addressSigunguEnglish"] }
+        public var addressZonecode: String? { __data["addressZonecode"] }
         public var bio: String? { __data["bio"] }
         public var representativeTitle: String? { __data["representativeTitle"] }
         public var representativeName: String? { __data["representativeName"] }

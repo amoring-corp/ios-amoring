@@ -19,8 +19,17 @@ struct Business: Codable, Equatable, Hashable {
     ///업태
     var businessIndustry: String?
     var businessCategory: String?
+    
     var address: String?
-    var detailedAddress: String?
+    var addressBname: String?
+    var addressDetails: String?
+    var addressJibun: String?
+    var addressSido: String?
+    var addressSigungu: String?
+    var addressSigunguCode: String?
+    var addressSigunguEnglish: String?
+    var addressZonecode: String?
+    
     var latitude: Double?
     var longitude: Double?
     var representativeTitle: String?
@@ -139,6 +148,14 @@ struct UpdateBusinessData {
             return InputDict([
                 "businessName": business.businessName,
                 "address": business.address,
+                "addressBname": business.addressBname,
+                "addressDetails": business.addressDetails,
+                "addressJibun": business.addressJibun,
+                "addressSido": business.addressSido,
+                "addressSigungu": business.addressSigungu,
+                "addressSigunguCode": business.addressSigunguCode,
+                "addressSigunguEnglish": business.addressSigunguEnglish,
+                "addressZonecode": business.addressZonecode,
                 "businessType": business.businessType,
                 "businessIndustry": business.businessIndustry,
                 "businessCategory": business.businessCategory,

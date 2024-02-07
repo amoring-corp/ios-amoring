@@ -10,6 +10,14 @@ type Business {
   businessIndustry: String
   businessCategory: String
   address: String
+  addressJibun: String
+  addressSido: String
+  addressSigungu: String
+  addressSigunguCode: String
+  addressSigunguEnglish: String
+  addressBname: String
+  addressZonecode: String
+  addressDetails: String
   latitude: Float
   longitude: Float
   representativeTitle: String
@@ -28,6 +36,14 @@ input BusinessCreateInput {
   ownerId: Int!
   businessName: String!
   address: String!
+  addressJibun: String
+  addressSido: String!
+  addressSigungu: String!
+  addressSigunguCode: String!
+  addressSigunguEnglish: String!
+  addressBname: String
+  addressZonecode: String
+  addressDetails: String
   businessType: String
   businessIndustry: String
   businessCategory: String
@@ -84,6 +100,14 @@ input BusinessUpdateInput {
   businessIndustry: String
   businessCategory: String
   address: String
+  addressJibun: String
+  addressSido: String
+  addressSigungu: String
+  addressSigunguCode: String
+  addressSigunguEnglish: String
+  addressBname: String
+  addressZonecode: String
+  addressDetails: String
   representativeTitle: String
   representativeName: String
   phoneNumber: String
@@ -105,13 +129,13 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 enum Day {
+  sunday
   monday
   tuesday
   wednesday
   thursday
   friday
   saturday
-  sunday
 }
 
 type File {
@@ -308,6 +332,7 @@ input UserUpdateInput {
 
 type Mutation {
   signIn(email: String!, password: String!): SignInResult!
+  validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
   verifyUserEmailResolver(

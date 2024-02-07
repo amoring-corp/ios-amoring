@@ -11,6 +11,7 @@ struct BusinessEnterView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     @Binding var isLocked: Bool
     @State var password = ""
     @State var warning = false
@@ -34,9 +35,14 @@ struct BusinessEnterView: View {
             Spacer()
             
             Button(action: {
-                // TODO: put check here
-                withAnimation {
-                    isLocked = false
+                userManager.validateMyPassword(password: password) { error in
+                    if let error {
+                        notificationController.setNotification(text: error, type: .error)
+                    } else {
+                        withAnimation {
+                            isLocked = false
+                        }
+                    }
                 }
             }) {
                 FullSizeButton(title: "확인")

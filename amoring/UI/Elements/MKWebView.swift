@@ -10,8 +10,8 @@ import UIKit
 import WebKit
 
 struct PostCodeServiceView: UIViewRepresentable {
-    @Binding var address: String
-    @Binding var district: String
+    @Binding var business: Business
+    
     @Binding var isOpened: Bool
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
@@ -34,11 +34,18 @@ struct PostCodeServiceView: UIViewRepresentable {
         ) {
             print("✅✅✅✅✅")
             if let data = message.body as? [String: Any] {
-                print(data["jibunAddress"])
-                print(data["bname"])
+                print(data.keys)
+                print(data.values)
                 DispatchQueue.main.async {
-                    self.parent.address = data["jibunAddress"] as? String ?? ""
-                    self.parent.district = data["bname"] as? String ?? ""
+                    self.parent.business.address = data["address"] as? String ?? ""
+                    self.parent.business.addressBname = data["bname"] as? String ?? ""
+                    self.parent.business.addressJibun = data["jibunAddress"] as? String ?? ""
+                    self.parent.business.addressSido = data["sido"] as? String ?? ""
+                    self.parent.business.addressSigungu = data["sigungu"] as? String ?? ""
+                    self.parent.business.addressSigunguCode = data["sigunguCode"] as? String ?? ""
+                    self.parent.business.addressSigunguEnglish = data["sigunguEnglish"] as? String ?? ""
+                    self.parent.business.addressZonecode = data["zonecode"] as? String ?? ""
+                    print(self.parent.business)
                     self.parent.isOpened = false
                 }
             }
@@ -60,8 +67,7 @@ struct PostCodeServiceView: UIViewRepresentable {
         let _wkwebview = WKWebView(frame: .zero, configuration: configuration)
         _wkwebview.navigationDelegate = coordinator
         
-        let gitURL = URL(string: "https://sergeymellowing.github.io/Kakao-Postcode/")!
-        let url = gitURL
+        let url = URL(string: "https://amoring-be.antonmaker.com/kakao-address")!
         let request = URLRequest(url: url)
         _wkwebview.load(request)
         return _wkwebview

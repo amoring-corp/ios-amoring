@@ -18,8 +18,8 @@ struct BusinessOnboardingView: View {
     @State var representativeName: String = ""
     @State var businessType: String = ""
     @State var businessIndustry: String = ""
-    @State var address: String = ""
     @State var registrationNumber: String = ""
+    @State var addressDetails: String = ""
 
     
     @State var next: Bool = false
@@ -27,8 +27,6 @@ struct BusinessOnboardingView: View {
     @State var fileAtached: Bool = false
     @State var contentOffset: CGFloat = 0
     @State var showAddressPicker: Bool = false
-    @State var preaddress: String = ""
-    @State var district: String = ""
     
     var body: some View {
         NavigationView {
@@ -122,8 +120,8 @@ struct BusinessOnboardingView: View {
                             .padding(.bottom, Size.w(30))
                             
                             PickerButton(title: "주소*") {
-                                if !preaddress.isEmpty {
-                                    Text(preaddress)
+                                if let address = controller.business.address {
+                                    Text(address)
                                         .foregroundColor(.black)
                                         .font(medium18Font)
                                 }
@@ -133,15 +131,10 @@ struct BusinessOnboardingView: View {
                                 showAddressPicker = true
                             }
                             .sheet(isPresented: $showAddressPicker) {
-                                PostCodeServiceView(address: $preaddress,  district: $district, isOpened: $showAddressPicker)
+                                PostCodeServiceView(
+                                    business: $controller.business,
+                                    isOpened: $showAddressPicker)
                             }
-                            .onChange(of: preaddress, perform: { newValue in
-                                controller.business.address = newValue
-                                controller.business.district = newValue
-                            })
-                            .onChange(of: district, perform: { newValue in
-                                controller.business.district = newValue
-                            })
                             
                             VStack(alignment: .leading) {
                                 Text("상세주소*")
@@ -149,9 +142,9 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "상세주소", text: $address, font: regular18Font)
-                                    .onChange(of: address, perform: { newValue in
-                                        controller.business.detailedAddress = newValue
+                                CustomTextField(placeholder: "상세주소", text: $addressDetails, font: regular18Font)
+                                    .onChange(of: addressDetails, perform: { newValue in
+                                        controller.business.addressDetails = newValue
                                     })
                                    
                             }

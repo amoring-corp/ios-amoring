@@ -526,7 +526,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func upsertMyBusiness(business: Business, completion: @escaping (Bool) -> Void) {
+    func upsertMyBusiness(business: Business, completion: @escaping (String?) -> Void) {
         self.isLoading = true
         let data = UpdateBusinessData(business: business).data
         let input = BusinessUpdateInput(data)
@@ -537,14 +537,14 @@ class UserManager: ObservableObject {
                 guard value.errors == nil else {
                     print(value.errors)
                     self.isLoading = false
-                    completion(false)
+                    completion(value.errors?.first?.localizedDescription)
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
                     self.isLoading = false
-                    completion(false)
+                    completion("No Data")
                     return
                 }
                 
@@ -553,11 +553,11 @@ class UserManager: ObservableObject {
                 self.user?.business?.id = data.upsertMyBusiness.id
                 print("Business was successfully updated!")
                 self.isLoading = false
-                completion(true)
+                completion(nil)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
-                completion(false)
+                completion(error.localizedDescription)
             }
         }
     }
@@ -639,6 +639,40 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    func validateMyPassword(password: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: ValidateMyPasswordMutation(password: password)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Password successfully validated!")
+                
+                self.isLoading = false
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
+        }
+    }
+    
+    
     
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {

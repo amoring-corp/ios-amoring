@@ -36,26 +36,28 @@ struct BusinessOnboardingStep2: View {
     @State private var editIndex: Int? = nil
     
     @State private var daysSelection: DaySelection = .everyday
-    @State var selectedDays: [Bool] = [false, true, true, true, true, true, false]
-    @State var unselectedDays: [Bool] = [true, false, false, false, false, false, true]
+    @State var selectedDays: [Int?] = [0,0,0,0,0,0,0]
     
-    @State private var sunday: BusinessHours = BusinessHours(day: .sunday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var monday: BusinessHours = BusinessHours(day: .monday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var tuesday: BusinessHours? = BusinessHours(day: .tuesday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var wednesday: BusinessHours? = BusinessHours(day: .wednesday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var thursday: BusinessHours? = BusinessHours(day: .thursday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var friday: BusinessHours? = BusinessHours(day: .friday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var saturday: BusinessHours? = BusinessHours(day: .saturday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    
+    @State private var businessHours: [BusinessHours] = [
+        BusinessHours(day: .sunday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+        BusinessHours(day: .monday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+//        BusinessHours(day: .tuesday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+//        BusinessHours(day: .wednesday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+//        BusinessHours(day: .thursday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+//        BusinessHours(day: .friday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+//        BusinessHours(day: .saturday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    ]
     
     @State var weekDaysDisabled: Bool = false
     @State var weekEndsDisabled: Bool = false
     
-    @State var businessHours: [BusinessHours] = []
+    
     
     @State var showPhoneCodes = false
     @State var selectedCode: String = "010"
     
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
@@ -74,22 +76,22 @@ struct BusinessOnboardingStep2: View {
                             .foregroundColor(.black)
                             .padding(.horizontal, Size.w(14))
                             .padding(.bottom, Size.w(40))
-                            
-                            PickerButton(title: "분류*") {
-                                if let businessCategory = controller.business.businessCategory {
-                                    Text(businessCategory)
-                                        .foregroundColor(.black)
-                                        .font(medium18Font)
-                                }
-                            } 
-                            .onTapGesture {
-                                withAnimation {
-                                    typesSheetPresented.toggle()
-                                }
+                        
+                        PickerButton(title: "분류*") {
+                            if let businessCategory = controller.business.businessCategory {
+                                Text(businessCategory)
+                                    .foregroundColor(.black)
+                                    .font(medium18Font)
                             }
-//                        }
+                        }
+                        .onTapGesture {
+                            withAnimation {
+                                typesSheetPresented.toggle()
+                            }
+                        }
+                        //                        }
                         .padding(.bottom, Size.w(30))
-
+                        
                         VStack(alignment: .leading) {
                             Text("전화번호*")
                                 .font(regular16Font)
@@ -102,7 +104,7 @@ struct BusinessOnboardingStep2: View {
                                 })
                             
                             MultilineCustomTextField(placeholder: "고객들이 회원님의 매장을 잘 이해할 수 있도록 간단한 소개 부탁드립니다. 소개는 150자 이하로 부탁드립니다.", text: $controller.business.bio ?? "")
-
+                            
                         }
                         .padding(.bottom, Size.w(30))
                         
@@ -156,10 +158,10 @@ struct BusinessOnboardingStep2: View {
                                 daysButton(me: .weekAndOff)
 //                                daysButton(me: .custom)
                             }
-    
+                            
                             Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
                                 .padding(.vertical, Size.w(10))
-    
+                            
                             switch daysSelection {
                             case .everyday:
                                 VStack(alignment: .leading) {
@@ -168,25 +170,12 @@ struct BusinessOnboardingStep2: View {
                                         .foregroundColor(.yellow600)
                                     // TODO: Implement saving
                                     HStack(spacing: 0) {
-                                        ZStack {
-                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
-                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-                                                .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
-                                                .onChange(of: sunday.openAt) { date in
-                                                    print(date)
-                                                }
-                                        }
+                                        TimeWindow(time: $businessHours[0].openAt)
                                         Text("~")
                                             .font(regular16Font)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, Size.w(20))
-                                        ZStack {
-                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
-                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-                                                .frame(height: Size.w(58))
-                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
-                                        }
+                                        TimeWindow(time: $businessHours[0].closeAt)
                                     }
                                 }
                                 .padding(.horizontal, Size.w(14))
@@ -197,25 +186,12 @@ struct BusinessOnboardingStep2: View {
                                         .foregroundColor(.yellow600)
                                     
                                     HStack(spacing: 0) {
-                                        ZStack {
-                                            DatePicker("", selection: $monday.openAt, displayedComponents: .hourAndMinute)
-                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-                                                .frame(height: Size.w(58))
-                                                .opacity(weekDaysDisabled ? 0 : 1)
-                                                
-                                            timeWindow(time: monday.openAt).allowsHitTesting(false)
-                                        }
+                                        TimeWindow(time: $businessHours[1].openAt)
                                         Text("~")
                                             .font(regular16Font)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, Size.w(20))
-                                        ZStack {
-                                            DatePicker("", selection: $monday.closeAt, displayedComponents: .hourAndMinute)
-                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-                                                .frame(height: Size.w(58))
-                                                .opacity(weekDaysDisabled ? 0 : 1)
-                                            timeWindow(time: monday.closeAt).allowsHitTesting(false)
-                                        }
+                                        TimeWindow(time: $businessHours[1].closeAt)
                                     }
                                     .disabled(weekDaysDisabled)
                                     .opacity(weekDaysDisabled ? 0.2 : 1)
@@ -247,26 +223,14 @@ struct BusinessOnboardingStep2: View {
                                     Text("➊ 주말 영업시간을 알려주세요.")
                                         .font(medium14Font)
                                         .foregroundColor(.yellow600)
-                               
+                                    
                                     HStack(spacing: 0) {
-                                        ZStack {
-                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
-                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-                                                .frame(height: Size.w(58))
-                                                .opacity(weekEndsDisabled ? 0 : 1)
-                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
-                                        }
+                                        TimeWindow(time: $businessHours[0].openAt)
                                         Text("~")
                                             .font(regular16Font)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, Size.w(20))
-                                        ZStack {
-                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
-                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-                                                .frame(height: Size.w(58))
-                                                .opacity(weekEndsDisabled ? 0 : 1)
-                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
-                                        }
+                                        TimeWindow(time: $businessHours[0].closeAt)
                                     }
                                     .disabled(weekEndsDisabled)
                                     .opacity(weekEndsDisabled ? 0.2 : 1)
@@ -292,84 +256,68 @@ struct BusinessOnboardingStep2: View {
                                 .padding(.horizontal, Size.w(14))
                                 
                             case .custom:
-                                Text("CUSTOM")
-//                                VStack(alignment: .leading) {
-//                                    Text("➊ 해당되는 요일은 선택해주세요.")
-//                                        .font(medium14Font)
-//                                        .foregroundColor(.yellow600)
-//                                    
-//                                    DayWeekSelection(selectedDays: $selectedDays)
-//                                    
-//                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
-//                                        .font(medium14Font)
-//                                        .foregroundColor(.yellow600)
-//                                    
-//                                    HStack(spacing: 0) {
-//                                        ZStack {
-//                                            DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)
-//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-//                                                .frame(height: Size.w(58))
-//                                            timeWindow(time: sunday.openAt).allowsHitTesting(false)
-//                                        }
-//                                        Text("~")
-//                                            .font(regular16Font)
-//                                            .foregroundColor(.black)
-//                                            .padding(.horizontal, Size.w(20))
-//                                        ZStack {
-//                                            DatePicker("", selection: $sunday.closeAt, displayedComponents: .hourAndMinute)
-//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-//                                                .frame(height: Size.w(58))
-//                                            timeWindow(time: sunday.closeAt).allowsHitTesting(false)
-//                                        }
-//                                    }
-//                                }
-//                                .padding(.horizontal, Size.w(14))
-//                                
-//                                Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
-//                                    .padding(.vertical, Size.w(10))
-//                                
-//                                VStack(alignment: .leading) {
-//                                    Text("➊ 해당되는 요일은 선택해주세요.")
-//                                        .font(medium14Font)
-//                                        .foregroundColor(.yellow600)
-//                                    
-//                                    DayWeekSelection(selectedDays: $unselectedDays)
-//                                    
-//                                    Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
-//                                        .font(medium14Font)
-//                                        .foregroundColor(.yellow600)
-//                                    
-//                                    HStack(spacing: 0) {
-//                                        ZStack {
-//                                            DatePicker("", selection: $monday.openAt, displayedComponents: .hourAndMinute)
-//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-//                                                .frame(height: Size.w(58))
-//                                            timeWindow(time: monday.openAt).allowsHitTesting(false)
-//                                        }
-//                                        Text("~")
-//                                            .font(regular16Font)
-//                                            .foregroundColor(.black)
-//                                            .padding(.horizontal, Size.w(20))
-//                                        ZStack {
-//                                            DatePicker("", selection: $monday.closeAt, displayedComponents: .hourAndMinute)
-//                                                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
-//                                                .frame(height: Size.w(58))
-//                                            timeWindow(time: monday.closeAt).allowsHitTesting(false)
-//                                        }
-//                                    }
-//                                }
-//                                .padding(.horizontal, Size.w(14))
-//                                .onChange(of: selectedDays) { selectedDays in
-//                                    self.unselectedDays = selectedDays.map { !$0 }
-//                                }
-//                                .onChange(of: unselectedDays) { unselectedDays in
-//                                    self.selectedDays = unselectedDays.map { !$0 }
-//                                }
+                                ForEach(0..<businessHours.count) { index in
+                                    VStack(alignment: .leading) {
+                                        Text("➊ 해당되는 요일은 선택해주세요.")
+                                            .font(medium14Font)
+                                            .foregroundColor(.yellow600)
+                                        
+                                        DayWeekSelection(selectedDays: $selectedDays, number: index)
+                                        
+                                        Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+                                            .font(medium14Font)
+                                            .foregroundColor(.yellow600)
+                                        
+                                        HStack(spacing: 0) {
+                                            TimeWindow(time: $businessHours[index].openAt)
+                                            Text("~")
+                                                .font(regular16Font)
+                                                .foregroundColor(.black)
+                                                .padding(.horizontal, Size.w(20))
+                                            TimeWindow(time: $businessHours[index].closeAt)
+                                        }
+                                    }
+                                    .padding(.horizontal, Size.w(14))
+                                    
+                                    Button(action: {
+                                        if weekDaysDisabled && !weekEndsDisabled {
+                                            weekDaysDisabled.toggle()
+                                            weekEndsDisabled.toggle()
+                                        } else {
+                                            weekEndsDisabled.toggle()
+                                        }
+                                    }) {
+                                        HStack(spacing: 0) {
+                                            Image(systemName: weekEndsDisabled ? "checkmark.square.fill" : "square")
+                                                .font(medium22Font)
+                                            Text("휴무일 입니다.")
+                                        }
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    }
+                                    .padding(.vertical, Size.w(10))
+                                    
+                                    Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
+                                        .padding(.vertical, Size.w(10))
+                                }
+                                
+                                Button(action: {
+                                    withAnimation {
+                                        self.businessHours.append(BusinessHours(day: DayOfWeek.byIndex(self.businessHours.count), openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt))
+                                    }
+                                }) {
+                                    Text("요일 추가하기")
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow300)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: Size.w(51))
+                                        .background(Color.yellow500)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10).stroke(Color.yellow600)
+                                        )
+                                }
                             }
-                            
-                            
-                            Color.yellow600.frame(maxWidth: .infinity).frame(height: Size.w(1))
-                                .padding(.vertical, Size.w(10))
                         }
                         .padding(.bottom, Size.w(30))
                         
@@ -378,7 +326,7 @@ struct BusinessOnboardingStep2: View {
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.leading, Size.w(14))
-                           
+                            
                             PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
                                 confirmRemoveImageIndex = index
                                 showRemoveConfirmation.toggle()
@@ -434,13 +382,13 @@ struct BusinessOnboardingStep2: View {
                     Color.yellow200
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
-
+                    
                     let pass =
                     !((controller.business.businessCategory?.isEmpty) == nil)
                     && !((controller.business.bio?.isEmpty) == nil)
                     && !((controller.business.phoneNumber?.isEmpty) == nil)
-//                    && !((controller.business.open?.isEmpty) == nil)
-//                    && !((controller.business.close?.isEmpty) == nil)
+                    //                    && !((controller.business.open?.isEmpty) == nil)
+                    //                    && !((controller.business.close?.isEmpty) == nil)
                     && self.pictures.count > 2
                     
                     HStack {
@@ -505,28 +453,34 @@ struct BusinessOnboardingStep2: View {
     }
     
     private func save() {
-        userManager.upsertMyBusiness(business: controller.business) { success in
-            guard let data = controller.data else {
-                notificationController.setNotification(text: "Something went wrong while uploading file. Please try again", type: .error)
-                return
-            }
-            self.saveBusinessHours()
-            userManager.uploadBusinessRegistrationFile(data: data) { success in
-                let images = pictures.map({ $0.picture })
-                userManager.uploadBusinessImages(images: images) { success in
-                    if success {
-                        userManager.upsertMyBusiness(business: controller.business) { success in
-                            print(userManager.user?.business)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                if success {
-                                    self.next = success
-                                } else {
-                                    notificationController.setNotification(text: "Something went wrong while updating profile. Please try again", type: .error)
+        print("abracadabra")
+        print(controller.business)
+        userManager.upsertMyBusiness(business: controller.business) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                guard let data = controller.data else {
+                    notificationController.setNotification(text: "Something went wrong while uploading file. Please try again", type: .error)
+                    return
+                }
+                self.saveBusinessHours()
+                userManager.uploadBusinessRegistrationFile(data: data) { success in
+                    let images = pictures.map({ $0.picture })
+                    userManager.uploadBusinessImages(images: images) { success in
+                        if success {
+                            userManager.upsertMyBusiness(business: controller.business) { error in
+                                print(userManager.user?.business)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    if let error {
+                                        notificationController.setNotification(text: error, type: .error)
+                                    } else {
+                                        self.next = success
+                                    }
                                 }
                             }
+                        } else {
+                            notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
                         }
-                    } else {
-                        notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
                     }
                 }
             }
@@ -537,54 +491,54 @@ struct BusinessOnboardingStep2: View {
         switch self.daysSelection {
         case .everyday:
             controller.businessHours = [
-                BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                BusinessHours(day: .monday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                BusinessHours(day: .tuesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                BusinessHours(day: .wednesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                BusinessHours(day: .thursday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                BusinessHours(day: .friday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+                BusinessHours(day: .sunday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                BusinessHours(day: .monday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                BusinessHours(day: .tuesday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                BusinessHours(day: .wednesday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                BusinessHours(day: .thursday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                BusinessHours(day: .friday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                BusinessHours(day: .saturday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt)
             ]
-     
+            
         case .weekAndOff:
             if weekDaysDisabled {
                 controller.businessHours = [
-                    BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                    BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+                    BusinessHours(day: .sunday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                    BusinessHours(day: .saturday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt)
                 ]
             } else if weekEndsDisabled {
                 controller.businessHours = [
-                    BusinessHours(day: .monday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .tuesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .wednesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .thursday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .friday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
+                    BusinessHours(day: .monday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .tuesday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .wednesday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .thursday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .friday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
                 ]
             } else {
                 controller.businessHours = [
-                    BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-                    BusinessHours(day: .monday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .tuesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .wednesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .thursday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .friday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
-                    BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+                    BusinessHours(day: .sunday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt),
+                    BusinessHours(day: .monday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .tuesday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .wednesday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .thursday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .friday, openAt: self.businessHours[1].openAt, closeAt: self.businessHours[1].closeAt),
+                    BusinessHours(day: .saturday, openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt)
                 ]
             }
         case .custom:
             controller.businessHours.removeAll()
-//            for index in 0..<selectedDays.count {
-//                if selectedDays[index] {
-//                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: sunday.openAt, closeAt: sunday.closeAt)
-//                    controller.businessHours.append(hours)
-//                }
-//            }
-//            for index in 0..<unselectedDays.count {
-//                if unselectedDays[index] {
-//                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: monday.openAt, closeAt: monday.closeAt)
-//                    controller.businessHours.append(hours)
-//                }
-//            }
+            //            for index in 0..<selectedDays.count {
+            //                if selectedDays[index] {
+            //                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: businessHours[0].openAt, closeAt: businessHours[0].closeAt)
+            //                    controller.businessHours.append(hours)
+            //                }
+            //            }
+            //            for index in 0..<unselectedDays.count {
+            //                if unselectedDays[index] {
+            //                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: businessHours[1].openAt, closeAt: businessHours[1].closeAt)
+            //                    controller.businessHours.append(hours)
+            //                }
+            //            }
         }
         
         userManager.batchUpsertBusinessHours(hours: controller.businessHours) {
@@ -612,16 +566,26 @@ struct BusinessOnboardingStep2: View {
                 }
             }
     }
+}
+
+struct TimeWindow: View {
+    @Binding var time: Date
     
-    @ViewBuilder
-    private func timeWindow(time: Date) -> some View {
-        Text(time.toHM())
-            .font(medium18Font)
-            .foregroundColor(.black)
-            .frame(maxWidth: .infinity)
-            .frame(height: Size.w(58))
-            .background(Color.gray100)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+    var body: some View {
+        ZStack {
+            DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
+                .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+                .frame(height: Size.w(58))
+                .opacity(0.1)
+            Text(time.toHM())
+                .font(medium18Font)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity)
+                .frame(height: Size.w(58))
+                .background(Color.gray100)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .allowsHitTesting(false)
+        }
     }
 }
 
@@ -630,15 +594,16 @@ struct BusinessOnboardingStep2: View {
 }
 
 struct DayWeekSelection: View {
-    @Binding var selectedDays: [Bool]
+    @Binding var selectedDays: [Int?]
+    let number: Int
     
     var body: some View {
         HStack(spacing: Size.w(10)) {
             ForEach(0..<Constants.daysOfWeek.count, id: \.self) { index in
-                DayOfWeekView(title: Constants.daysOfWeek[index], selected: selectedDays[index])
+                DayOfWeekView(title: Constants.daysOfWeek[index], selected: selectedDays[index] == number)
                     .onTapGesture {
                         withAnimation {
-                            selectedDays[index].toggle()
+                            selectedDays[index] = selectedDays[index] == number ? nil : number
                         }
                     }
             }
