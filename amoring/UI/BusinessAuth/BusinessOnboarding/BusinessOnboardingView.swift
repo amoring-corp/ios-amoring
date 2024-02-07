@@ -226,9 +226,8 @@ struct BusinessOnboardingView: View {
                                 .fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf, .jpeg, .png]) { result in
                                     switch result {
                                     case .success(let url):
-                                        //FIXME: doesn't work on real device
+                                        url.startAccessingSecurityScopedResource()
                                         print(url.absoluteString)
-                                        //                                    url.startAccessingSecurityScopedResource()
                                         guard let data = loadFileFromLocalPath(url) else {
                                             notificationController.setNotification(text: "Cannot get data from file. Try another file", type: .error)
                                             return
