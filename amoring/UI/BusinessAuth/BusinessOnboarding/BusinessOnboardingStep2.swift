@@ -453,8 +453,6 @@ struct BusinessOnboardingStep2: View {
     }
     
     private func save() {
-        print("abracadabra")
-        print(controller.business)
         userManager.upsertMyBusiness(business: controller.business) { error in
             if let error {
                 notificationController.setNotification(text: error, type: .error)

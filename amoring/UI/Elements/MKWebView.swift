@@ -34,8 +34,6 @@ struct PostCodeServiceView: UIViewRepresentable {
         ) {
             print("✅✅✅✅✅")
             if let data = message.body as? [String: Any] {
-                print(data.keys)
-                print(data.values)
                 DispatchQueue.main.async {
                     self.parent.business.address = data["address"] as? String ?? ""
                     self.parent.business.addressBname = data["bname"] as? String ?? ""
@@ -45,7 +43,6 @@ struct PostCodeServiceView: UIViewRepresentable {
                     self.parent.business.addressSigunguCode = data["sigunguCode"] as? String ?? ""
                     self.parent.business.addressSigunguEnglish = data["sigunguEnglish"] as? String ?? ""
                     self.parent.business.addressZonecode = data["zonecode"] as? String ?? ""
-                    print(self.parent.business)
                     self.parent.isOpened = false
                 }
             }
