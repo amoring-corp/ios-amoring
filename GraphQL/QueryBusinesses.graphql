@@ -15,6 +15,15 @@ query QueryBusinesses {
     businessIndustry
     businessCategory
     address
+    addressBname
+    addressDetails
+    addressJibun
+    addressSido
+    addressSigungu
+    addressSigunguCode
+    addressSigunguEnglish
+    addressZonecode
+    
     latitude
     longitude
     representativeTitle

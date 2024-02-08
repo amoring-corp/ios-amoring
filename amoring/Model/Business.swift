@@ -42,11 +42,7 @@ struct Business: Codable, Equatable, Hashable {
     
     var images: [BusinessImage]?
     var businessHours: [BusinessHours]?
-    var district: String?
-    var open: Date? /// from: String
-    var close: Date? /// to: String
-    
-    
+        
     enum CodingKeys: String, CodingKey {
         case id
         case ownerId
@@ -71,11 +67,20 @@ struct Business: Codable, Equatable, Hashable {
         if let data {
             var business = Business()
             business.id = data.id
+            business.bio = data.bio
             business.businessName = data.businessName
             business.businessCategory = data.businessCategory
             business.address = data.address
+//            business.addressSido = data.addressSido
+//            business.addressBname = data.addressBname
+//            business.addressJibun = data.addressJibun
+            business.addressDetails = data.addressDetails
+            business.addressSigungu = data.addressSigungu
+//            business.addressZonecode = data.addressZonecode
+//            business.addressSigunguCode = data.addressSigunguCode
+//            business.addressSigunguEnglish = data.addressSigunguEnglish
+            
             business.phoneNumber = data.phoneNumber
-            business.district = "강남"
             business.images = getImages(data.images)
             business.businessHours = getHours(data.businessHours)
             return business
@@ -123,6 +128,14 @@ struct BusinessData {
                 "ownerId": ownerId,
                 "businessName": business.businessName,
                 "address": business.address,
+                "addressBname": business.addressBname,
+                "addressDetails": business.addressDetails,
+                "addressJibun": business.addressJibun,
+                "addressSido": business.addressSido,
+                "addressSigungu": business.addressSigungu,
+                "addressSigunguCode": business.addressSigunguCode,
+                "addressSigunguEnglish": business.addressSigunguEnglish,
+                "addressZonecode": business.addressZonecode,
                 "businessType": business.businessType,
                 "businessIndustry": business.businessIndustry,
                 "businessCategory": business.businessCategory,
@@ -132,7 +145,7 @@ struct BusinessData {
                 "registrationNumber": business.registrationNumber,
                 "bio": business.bio,
                 "latitude": business.latitude,
-                "longitude": business.longitude,
+                "longitude": business.longitude
             ])
         } else {
             return InputDict([:])

@@ -73,9 +73,14 @@ struct SessionView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitleDisplayMode(.inline)
-           
+            .safeAreaInset(edge: .top, content: {
+                Color.clear
+                    .frame(height: 0)
+//                    .background(.bar)
+                    .background(Color.gray1000)
+                    .border(.black)
+            })
         }
-       
     }
     
     @ViewBuilder

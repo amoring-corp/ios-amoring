@@ -25,8 +25,8 @@ struct NearbyView: View {
 }
 
 enum businessType: CaseIterable {
-    case all, lounge, pub, bar, kr_bar, club
-    
+    case all, club, lounge, bar, pub, kr_bar, jujeob, hoff, izakaya, cafe, festival
+//    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
     func title() -> String {
         switch self {
         case .all:
@@ -41,6 +41,16 @@ enum businessType: CaseIterable {
             return "포차"
         case .club:
             return "클럽"
+        case .jujeob:
+            return "주점"
+        case .hoff:
+            return "호프"
+        case .izakaya:
+            return "이자카야"
+        case .cafe:
+            return "카페"
+        case .festival:
+            return "페스티벌"
         }
     }
 }
@@ -212,7 +222,7 @@ struct BusinessListView: View {
             case .all:
                 userManager.businesses = userManager.businesses
             default:
-                userManager.businesses = userManager.businesses.filter { $0.district == self.district.title() }
+                userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
             }
         }
         
@@ -221,7 +231,7 @@ struct BusinessListView: View {
             case .all:
                 userManager.businesses = userManager.businessesInit
             default:
-                userManager.businesses = userManager.businessesInit.filter { $0.district == newDistrict.title() }
+                userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
             }
             
             switch self.type {
@@ -239,7 +249,7 @@ struct BusinessListView: View {
         switch sorting {
         case .recs:
             // TODO: Implement recommendations
-            userManager.businesses = userManager.businesses.sorted(by: { $0.district ?? "" > $1.district ?? ""})
+            userManager.businesses = userManager.businesses.sorted(by: { $0.addressSigungu ?? "" > $1.addressSigungu ?? ""})
         case .name:
             userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
         case .distance:
@@ -276,7 +286,7 @@ struct BusinessRow: View {
                     .font(semiBold20Font)
                     .foregroundColor(.gray200)
                 HStack {
-                    Text("\(business.businessCategory ?? "")  |  \(business.district ?? "")")
+                    Text("\(business.businessCategory ?? "")  |  \(business.addressSigungu ?? "")")
                     
                     Spacer()
                     

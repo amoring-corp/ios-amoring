@@ -7,7 +7,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationName: String = "QueryBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryBusinesses { businesses { __typename id ownerId owner { __typename id email status role createdAt updatedAt } businessName businessType businessIndustry businessCategory address latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id businessId fileId sort createdAt updatedAt file { __typename url } } businessHours { __typename openAt closeAt day } createdAt updatedAt } }"#
+      #"query QueryBusinesses { businesses { __typename id ownerId owner { __typename id email status role createdAt updatedAt } businessName businessType businessIndustry businessCategory address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id businessId fileId sort createdAt updatedAt file { __typename url } } businessHours { __typename openAt closeAt day } createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -41,6 +41,14 @@ public class QueryBusinessesQuery: GraphQLQuery {
         .field("businessIndustry", String?.self),
         .field("businessCategory", String?.self),
         .field("address", String?.self),
+        .field("addressBname", String?.self),
+        .field("addressDetails", String?.self),
+        .field("addressJibun", String?.self),
+        .field("addressSido", String?.self),
+        .field("addressSigungu", String?.self),
+        .field("addressSigunguCode", String?.self),
+        .field("addressSigunguEnglish", String?.self),
+        .field("addressZonecode", String?.self),
         .field("latitude", Double?.self),
         .field("longitude", Double?.self),
         .field("representativeTitle", String?.self),
@@ -63,6 +71,14 @@ public class QueryBusinessesQuery: GraphQLQuery {
       public var businessIndustry: String? { __data["businessIndustry"] }
       public var businessCategory: String? { __data["businessCategory"] }
       public var address: String? { __data["address"] }
+      public var addressBname: String? { __data["addressBname"] }
+      public var addressDetails: String? { __data["addressDetails"] }
+      public var addressJibun: String? { __data["addressJibun"] }
+      public var addressSido: String? { __data["addressSido"] }
+      public var addressSigungu: String? { __data["addressSigungu"] }
+      public var addressSigunguCode: String? { __data["addressSigunguCode"] }
+      public var addressSigunguEnglish: String? { __data["addressSigunguEnglish"] }
+      public var addressZonecode: String? { __data["addressZonecode"] }
       public var latitude: Double? { __data["latitude"] }
       public var longitude: Double? { __data["longitude"] }
       public var representativeTitle: String? { __data["representativeTitle"] }

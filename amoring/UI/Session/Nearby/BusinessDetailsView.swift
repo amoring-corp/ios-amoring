@@ -48,7 +48,7 @@ struct BusinessDetailsView: View {
                                 .foregroundColor(.yellow200)
                                 .padding(.bottom, Size.w(12))
                             
-                            Text("\(business.businessCategory ?? "")  |  \(business.district ?? "")")
+                            Text("\(business.businessCategory ?? "")  |  \(business.addressSigungu ?? "no disctrict")")
                                 .font(regular18Font)
                                 .foregroundColor(.yellow200)
                                 .padding(.bottom, Size.w(30))
@@ -104,7 +104,10 @@ struct BusinessDetailsView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: Size.w(24), height: Size.w(24))
-                                    Text("\(business.open.toTime()) - \(business.close.toTime())")
+                                    if let businessHours = business.businessHours?.first {
+                                        Text("\(businessHours.openAt.toHM()) - \(businessHours.closeAt.toHM())")
+                                    }
+                                    
                                     Spacer()
                                 }
                             }

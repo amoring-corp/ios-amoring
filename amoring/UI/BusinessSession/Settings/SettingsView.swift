@@ -68,7 +68,7 @@ struct SettingsView: View {
                         .foregroundColor(.black)
                         .padding(.bottom, Size.w(12))
                     
-                    Text("\(business?.businessCategory ?? "")  |  \(business?.district ?? "강남")")
+                    Text("\(business?.businessCategory ?? "")  |  \(business?.addressSigungu ?? "no district")")
                         .font(regular18Font)
                         .foregroundColor(.black)
                         .padding(.bottom, Size.w(50))

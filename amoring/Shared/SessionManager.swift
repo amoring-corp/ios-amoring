@@ -98,46 +98,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
     
-    func appleButton() -> some View {
-        SignInWithAppleButton(
-            onRequest: { request in
-                request.requestedScopes = [.fullName, .email]
-            },
-            onCompletion: { result in
-                switch result {
-                case .success(let authResults):
-                    print("Apple Login Successful")
-                    switch authResults.credential{
-                    case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                        let UserIdentifier = appleIDCredential.user
-                        let fullName = appleIDCredential.fullName
-                        let name =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-                        let email = appleIDCredential.email
-                        let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
-                        let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
-                        
-//                        print(appleIDCredential)
-                        print(UserIdentifier)
-//                        print(name)
-//                        print(email)
-//                        print(IdentityToken)
-//                        print(AuthorizationCode)
-                        self.lastProvider = .apple
-                    default:
-                        break
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    print("error")
-                }
-            }
-        )
-        .signInWithAppleButtonStyle(.white)
-        .labelStyle(.iconOnly)
-        .frame(width : 50, height: 50, alignment: .leading)
-                .cornerRadius(25)
-    }
-    
     func signInWithApple() {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
@@ -148,21 +108,22 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         
     }
     
-//    func authorizationController(controller: ASAuthorizationController,
-//                                 didCompleteWithAuthorization authorization: ASAuthorization) {
-//        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-//            guard let token = appleIdCredential.identityToken?.base64EncodedString()  else {
-//                return
-//            }
-//            let UserIdentifier = appleIdCredential.user
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let token = appleIdCredential.identityToken?.base64EncodedString()  else {
+                return
+            }
+            let UserIdentifier = appleIdCredential.user
 //            self.token = token
-//            print("token\n")
-//            print(token)
-//            print("UserIdentifier\n")
-//            print(UserIdentifier)
+            print("token\n")
+            print(token)
+            print("UserIdentifier\n")
+            print(UserIdentifier)
 //            self.signedIn = true
-//        }
-//    }
+            // TODO: connect sign in with token here ...
+        }
+    }
     
     func signInWithGoogle(completion: @escaping (Bool, String) -> Void) {
         guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
