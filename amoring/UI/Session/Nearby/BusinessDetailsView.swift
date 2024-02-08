@@ -16,6 +16,9 @@ struct BusinessDetailsView: View {
     @State var showAlert: Bool = false
     let business: Business
     
+    @State var weekdays: String? = nil
+    @State var weekends: String? = nil
+    
     var body: some View {
             VStack {
                 ScrollView {
@@ -63,7 +66,8 @@ struct BusinessDetailsView: View {
                             VStack(alignment: .leading, spacing: Size.w(26)) {
                                 Button(action: {
                                     if let address = business.address {
-                                        UIPasteboard.general.setValue(address, forPasteboardType: UTType.plainText.identifier)
+                                        let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
+                                        UIPasteboard.general.setValue(fullAddress, forPasteboardType: UTType.plainText.identifier)
                                             showAlert = true
                                     }
                                 }) {
@@ -72,13 +76,15 @@ struct BusinessDetailsView: View {
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: Size.w(24), height: Size.w(24))
-                                        Text(business.address ?? "")
+                                        Text("\(business.address ?? "") \(business.addressDetails ?? "")")
                                         Image(systemName: "doc.on.doc")
                                     }
                                 }
                                 .alert(isPresented: $showAlert) {
+                                    let address = business.address ?? ""
+                                    let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
                                     // FIXME: Need alert text
-                                    Alert(title: Text("Address: '\(business.address ?? "")' successfully copied to clipboard"))
+                                    return Alert(title: Text("Address: '\(fullAddress)' successfully copied to clipboard"))
                                 }
                                 
                                 if let phone = business.phoneNumber {
@@ -96,23 +102,34 @@ struct BusinessDetailsView: View {
                                             Text(phone)
                                         }
                                     }
-                                }
-                               
+                                }		
                                 
-                                HStack {
-                                    Image("ic-clock")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: Size.w(24), height: Size.w(24))
-                                    if let businessHours = business.businessHours?.first {
-                                        Text("\(businessHours.openAt.toHM()) - \(businessHours.closeAt.toHM())")
+                                if let weekdays {
+                                    HStack {
+                                        Image("ic-clock")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: Size.w(24), height: Size.w(24))
+                                        
+                                        Text(weekdays)
+                                        Spacer()
                                     }
-                                    
-                                    Spacer()
+                                }
+                                if let weekends {
+                                    HStack {
+                                        Image("ic-clock")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: Size.w(24), height: Size.w(24))
+                                        
+                                        Text(weekends)
+                                        Spacer()
+                                    }
                                 }
                             }
                             .foregroundColor(.yellow400)
                             .font(regular16Font)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom, Size.w(50))
                             
                             if let images = business.images {
@@ -171,6 +188,24 @@ struct BusinessDetailsView: View {
                 PhotoViewer(images: business.images!, showPhotoViewer: $showPhotoViewer, selection: $selection) : nil
             )
             .animation(.default, value: showPhotoViewer)
+            .onAppear(perform: getBusinessHours)
+        
+    }
+    
+    private func getBusinessHours() {
+        if let businessHours = business.businessHours {
+            if businessHours.allEqual(by: \.openAt) && businessHours.allEqual(by: \.closeAt) && businessHours.count >= 7 {
+                self.weekdays = "매일  |  \(businessHours.first!.openAt.toHM()) - \(businessHours.first!.closeAt.toHM())"
+            } else {
+                /// monday or tuestday   and   saturday or sunday
+                if let sunday = businessHours.first(where: { $0.day == .sunday }) {
+                    self.weekdays = "평일  |  \(sunday.openAt.toHM()) - \(sunday.closeAt.toHM())"
+                }
+                if let monday = businessHours.first(where: { $0.day == .monday }) {
+                    self.weekends = "주말  |  \(monday.openAt.toHM()) - \(monday.closeAt.toHM())"
+                }
+            }
+        }
         
     }
 }

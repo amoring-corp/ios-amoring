@@ -39,15 +39,6 @@ struct ContentView: View {
                 notificationController.setNotification(show: !success, text: error, type: .error)
             }
         }
-        .onChange(of: notificationController.notification) { noti in
-            if let noti {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    withAnimation {
-                        notificationController.notification = nil
-                    }
-                }
-            }
-        }
     }
 }
 

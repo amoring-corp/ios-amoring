@@ -23,7 +23,7 @@ struct ProfileCardView: View {
                     CachedAsyncImage(url: URL(string: url), content: { cont in
                         cont
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                     }, placeholder: {
                         ZStack {
                             ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))

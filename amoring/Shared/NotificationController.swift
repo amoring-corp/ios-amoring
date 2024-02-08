@@ -33,6 +33,11 @@ class NotificationController: ObservableObject {
             withAnimation {
                 self.notification = NotificationModel(type: type, text: text, action: action ?? {})
             }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation {
+                    self.notification = nil
+                }
+            }
         }
     }
     
@@ -88,6 +93,6 @@ class NotificationController: ObservableObject {
                 }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        
+        .opacity(notification == nil ? 0 : 1)
     }
 }

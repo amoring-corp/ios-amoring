@@ -111,6 +111,7 @@
 		855013492B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013482B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql */; };
 		8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */; };
 		855013532B73546B00D9D568 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 855013522B73546B00D9D568 /* schema.graphqls */; };
+		855013552B749A1100D9D568 /* YellowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013542B749A1100D9D568 /* YellowButton.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
@@ -159,7 +160,7 @@
 		85F190472B5FAB3C00FA7686 /* AccountEmailSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */; };
 		85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190482B5FAC0500FA7686 /* BorderButton.swift */; };
 		85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */; };
-		85FB6B8B2B43EC820023A889 /* NextBlackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8A2B43EC820023A889 /* NextBlackButton.swift */; };
+		85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8A2B43EC820023A889 /* BlackButton.swift */; };
 		85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */; };
 		85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */; };
 		85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B902B450E980023A889 /* UserOnboardingInterests.swift */; };
@@ -312,6 +313,7 @@
 		855013482B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteAllBusinessHoursResolver.graphql; sourceTree = "<group>"; };
 		8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationValidateMyPassword.graphql; sourceTree = "<group>"; };
 		855013522B73546B00D9D568 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		855013542B749A1100D9D568 /* YellowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowButton.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
@@ -354,7 +356,7 @@
 		85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEmailSuccess.swift; sourceTree = "<group>"; };
 		85F190482B5FAC0500FA7686 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyProfileImage.graphql; sourceTree = "<group>"; };
-		85FB6B8A2B43EC820023A889 /* NextBlackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextBlackButton.swift; sourceTree = "<group>"; };
+		85FB6B8A2B43EC820023A889 /* BlackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackButton.swift; sourceTree = "<group>"; };
 		85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerButton.swift; sourceTree = "<group>"; };
 		85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingIntro.swift; sourceTree = "<group>"; };
 		85FB6B902B450E980023A889 /* UserOnboardingInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingInterests.swift; sourceTree = "<group>"; };
@@ -694,7 +696,8 @@
 			isa = PBXGroup;
 			children = (
 				8522A5F72B2BF9C5008AF703 /* Purchases */,
-				85FB6B8A2B43EC820023A889 /* NextBlackButton.swift */,
+				85FB6B8A2B43EC820023A889 /* BlackButton.swift */,
+				855013542B749A1100D9D568 /* YellowButton.swift */,
 				85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */,
 				85FB6B922B4622F20023A889 /* FullSizeButton.swift */,
 				85FB6B942B4628EC0023A889 /* CustomSheet.swift */,
@@ -709,8 +712,8 @@
 				8538D5232B4E1EDD0040E017 /* BackButton.swift */,
 				8538D5252B4E211B0040E017 /* XButton.swift */,
 				8538D5292B4E2DF60040E017 /* CodeInputView.swift */,
-				85769E1A2B69D6A20064005D /* Triange.swift */,
 				85769E1C2B69EF580064005D /* MKWebView.swift */,
+				85769E1A2B69D6A20064005D /* Triange.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -1125,7 +1128,7 @@
 				8522A6012B2C4B96008AF703 /* PurchaseLoungeWindow.swift in Sources */,
 				850BE9D02B6343A100EC8EAB /* File.swift in Sources */,
 				85FB6B9D2B4785CE0023A889 /* CheckInResult.swift in Sources */,
-				85FB6B8B2B43EC820023A889 /* NextBlackButton.swift in Sources */,
+				85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */,
 				8538D5412B50B4CA0040E017 /* ImageHelper.swift in Sources */,
 				85E8E93E2B3119780054EBCE /* Reaction.swift in Sources */,
 				850BE9BA2B61F5B700EC8EAB /* BusinessSettingsImages.swift in Sources */,
@@ -1194,6 +1197,7 @@
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
 				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,
 				85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */,
+				855013552B749A1100D9D568 /* YellowButton.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
 				851AF8FA2B3E9F3D005A8DEB /* SignInSheet.swift in Sources */,
