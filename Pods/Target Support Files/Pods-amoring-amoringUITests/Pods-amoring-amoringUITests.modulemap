@@ -1,0 +1,6 @@
+framework module Pods_amoring_amoringUITests {
+  umbrella header "Pods-amoring-amoringUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

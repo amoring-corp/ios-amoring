@@ -81,7 +81,8 @@ struct SignInSheet: View {
                         .resizable()
                         .scaledToFit()
                         .onTapGesture {
-                            self.sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
+                            sessionManager.signInWithNaver()
+//                            self.sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
                         }
                         .overlay(
                             lastProvider == .naver ?

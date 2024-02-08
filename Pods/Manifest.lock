@@ -1,0 +1,16 @@
+PODS:
+  - naveridlogin-sdk-ios (4.2.0)
+
+DEPENDENCIES:
+  - naveridlogin-sdk-ios
+
+SPEC REPOS:
+  trunk:
+    - naveridlogin-sdk-ios
+
+SPEC CHECKSUMS:
+  naveridlogin-sdk-ios: 03fa42741249ab10b804f6b2574b56b6d89045ba
+
+PODFILE CHECKSUM: b224ed135aec270d63ad895341c1b49ef94536bd
+
+COCOAPODS: 1.14.3

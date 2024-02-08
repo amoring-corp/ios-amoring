@@ -14,6 +14,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import Apollo
 import AmoringAPI
+import NaverThirdPartyLogin
 
 func initApi(token: String) -> ApolloClient {
     return {
@@ -180,6 +181,36 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
     
+    func signInWithNaver() {
+        if NaverThirdPartyLoginConnection
+            .getSharedInstance()
+            .isPossibleToOpenNaverApp() // Naver App이 깔려있는지 확인하는 함수
+        {
+            NaverThirdPartyLoginConnection.getSharedInstance().delegate = self
+            NaverThirdPartyLoginConnection
+                .getSharedInstance()
+                .requestThirdPartyLogin()
+        } else { // 네이버 앱 안깔려져 있을때
+            // Appstore에서 네이버앱 열기
+            NaverThirdPartyLoginConnection.getSharedInstance().openAppStoreForNaverApp()
+            
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.getUserInfo()
+        }
+    }
+    
+    func getUserInfo() {
+            guard let tokenType = NaverThirdPartyLoginConnection.getSharedInstance().tokenType else { return }
+            guard let accessToken = NaverThirdPartyLoginConnection.getSharedInstance().accessToken else { return }
+            print("abracadabra")
+            print(tokenType)
+            print(accessToken)
+            
+        }
+    
+    
     func businessSignIn(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
         self.isLoading = true
         api.perform(mutation: SignInMutation(email: email, password: password)) { result in
@@ -332,5 +363,24 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             self.changeStateWithAnimation(state: .auth)
             print("Successfully signed out")
         }
+    }
+}
+
+extension SessionManager : UIApplicationDelegate, NaverThirdPartyLoginConnectionDelegate {
+    // 토큰 발급 성공시
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        print("oauth20ConnectionDidFinishRequestACTokenWithAuthCode")
+    }
+    // 토큰 갱신시
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        print("oauth20ConnectionDidFinishRequestACTokenWithRefreshToken")
+    }
+    // 로그아웃(토큰 삭제)시
+    func oauth20ConnectionDidFinishDeleteToken() {
+        print("oauth20ConnectionDidFinishDeleteToken")
+    }
+    // Error 발생
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+        print(error)
     }
 }

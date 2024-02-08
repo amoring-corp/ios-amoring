@@ -1,0 +1,6 @@
+framework module Pods_amoring {
+  umbrella header "Pods-amoring-umbrella.h"
+
+  export *
+  module * { export * }
+}

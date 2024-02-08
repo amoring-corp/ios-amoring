@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
 		85064AF12B292ECF0074E45A /* LikeDislikeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */; };
 		850A2FDD2B0AE54B003B12B7 /* amoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850A2FDC2B0AE54B003B12B7 /* amoringApp.swift */; };
@@ -188,6 +189,8 @@
 		85FC209F2B0D75AB00DC1950 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209E2B0D75AB00DC1950 /* UserManager.swift */; };
 		85FC20A62B0D9DC700DC1950 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A52B0D9DC700DC1950 /* Business.swift */; };
 		85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A72B0DAAFF00DC1950 /* BusinessSessionView.swift */; };
+		94F4252553983A6B74617C32 /* Pods_amoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */; };
+		ACE03E4F780B7CD897C09EF8 /* Pods_amoring_amoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +211,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
+		36E9464CB26CE4E393883EFE /* Pods_amoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring_amoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring-amoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-amoring-amoringUITests/Pods-amoring-amoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4D0FEFEEA1689B53ABCF3429 /* Pods-amoring-amoringUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring-amoringUITests.release.xcconfig"; path = "Target Support Files/Pods-amoring-amoringUITests/Pods-amoring-amoringUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85064AEE2B292EA80074E45A /* ViewHeightKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightKey.swift; sourceTree = "<group>"; };
 		85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDislikeButtons.swift; sourceTree = "<group>"; };
 		850A2FD92B0AE54B003B12B7 /* Amoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,6 +393,9 @@
 		85FC209E2B0D75AB00DC1950 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		85FC20A52B0D9DC700DC1950 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		85FC20A72B0DAAFF00DC1950 /* BusinessSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionView.swift; sourceTree = "<group>"; };
+		8894331154CCFAD1B7E99C99 /* Pods-amoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring.release.xcconfig"; path = "Target Support Files/Pods-amoring/Pods-amoring.release.xcconfig"; sourceTree = "<group>"; };
+		A186EA1AC86029A7B7855DB7 /* Pods-amoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring.debug.xcconfig"; path = "Target Support Files/Pods-amoring/Pods-amoring.debug.xcconfig"; sourceTree = "<group>"; };
+		B228EFB2A9799BC897315988 /* Pods-amoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.debug.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +413,7 @@
 				85D0DECF2B352AE90029DA5D /* GoogleSignIn in Frameworks */,
 				85D0DED82B3534840029DA5D /* KakaoSDKUser in Frameworks */,
 				85D0DED42B3534840029DA5D /* KakaoSDKAuth in Frameworks */,
+				7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +421,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94F4252553983A6B74617C32 /* Pods_amoringTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +429,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACE03E4F780B7CD897C09EF8 /* Pods_amoring_amoringUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +464,7 @@
 				850A2FF72B0AE54D003B12B7 /* amoringUITests */,
 				850A2FDA2B0AE54B003B12B7 /* Products */,
 				AF0357FE6E3A0130D1AD662B /* Frameworks */,
+				B300C13DB3CA2425838DC7FF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -855,8 +871,24 @@
 		AF0357FE6E3A0130D1AD662B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36E9464CB26CE4E393883EFE /* Pods_amoring.framework */,
+				36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */,
+				5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B300C13DB3CA2425838DC7FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A186EA1AC86029A7B7855DB7 /* Pods-amoring.debug.xcconfig */,
+				8894331154CCFAD1B7E99C99 /* Pods-amoring.release.xcconfig */,
+				4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */,
+				4D0FEFEEA1689B53ABCF3429 /* Pods-amoring-amoringUITests.release.xcconfig */,
+				B228EFB2A9799BC897315988 /* Pods-amoringTests.debug.xcconfig */,
+				0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -866,9 +898,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 850A2FFE2B0AE54D003B12B7 /* Build configuration list for PBXNativeTarget "amoring" */;
 			buildPhases = (
+				2487635F2560A2842A009281 /* [CP] Check Pods Manifest.lock */,
 				850A2FD52B0AE54B003B12B7 /* Sources */,
 				850A2FD62B0AE54B003B12B7 /* Frameworks */,
 				850A2FD72B0AE54B003B12B7 /* Resources */,
+				6D68DFBB3140678E7FDF9D4D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -968,7 +1002,6 @@
 				8522A5EE2B2AC912008AF703 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				85D0DECD2B352AE90029DA5D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				85D0DED22B3534840029DA5D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-				85D0DEDE2B3A5B760029DA5D /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios" */,
 				8523BACC2B4CD1050099CDE4 /* XCLocalSwiftPackageReference "AmoringAPI" */,
 				8538D5622B56B1E50040E017 /* XCRemoteSwiftPackageReference "QRCode" */,
 			);
@@ -1049,6 +1082,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2487635F2560A2842A009281 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-amoring-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		41346CD6E9324A3A03892E3D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1069,6 +1124,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D68DFBB3140678E7FDF9D4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-amoring/Pods-amoring-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-amoring/Pods-amoring-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-amoring/Pods-amoring-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ACE3A6830FA86D121B3FFF0F /* [CP] Check Pods Manifest.lock */ = {
@@ -1317,7 +1389,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1379,7 +1451,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1398,6 +1470,7 @@
 		};
 		850A2FFF2B0AE54D003B12B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A186EA1AC86029A7B7855DB7 /* Pods-amoring.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1439,6 +1512,7 @@
 		};
 		850A30002B0AE54D003B12B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8894331154CCFAD1B7E99C99 /* Pods-amoring.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1480,6 +1554,7 @@
 		};
 		850A30022B0AE54D003B12B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B228EFB2A9799BC897315988 /* Pods-amoringTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1503,6 +1578,7 @@
 		};
 		850A30032B0AE54D003B12B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1526,6 +1602,7 @@
 		};
 		850A30052B0AE54D003B12B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1548,6 +1625,7 @@
 		};
 		850A30062B0AE54D003B12B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D0FEFEEA1689B53ABCF3429 /* Pods-amoring-amoringUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1655,14 +1733,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.20.0;
-			};
-		};
-		85D0DEDE2B3A5B760029DA5D /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/naver/naveridlogin-sdk-ios.git";
-			requirement = {
-				branch = master;
-				kind = branch;
 			};
 		};
 		85FC20AF2B0EC38000DC1950 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
