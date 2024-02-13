@@ -34,9 +34,6 @@ struct SignInSheet: View {
                     .foregroundColor(.gray600)
                     .padding(.bottom, Size.w(40))
                 
-                
-                // TODO: get user from db if exists and skip useronboarding part else go to userOnboarding
-                
                 HStack {
                     Image("SNS-google")
                         .resizable()

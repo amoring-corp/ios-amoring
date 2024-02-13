@@ -60,10 +60,11 @@ struct UserInfoView: View {
                 Color.yellow350,
                 Color.yellow350
             ], startPoint: .top, endPoint: .bottom)
+            
+            // TODO: make it conditional
             Image("tables-background")
                 .resizable()
                 .scaledToFill()
-            //                            .aspectRatio(contentMode: .fit)
                 .frame(height: Size.w(165))
             
             VStack(spacing: Size.w(10)) {

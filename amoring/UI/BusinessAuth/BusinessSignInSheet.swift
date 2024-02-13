@@ -65,7 +65,6 @@ struct BusinessSignInSheet: View {
                     .padding(.bottom, Size.w(22))
                 
                 HStack(spacing: Size.w(16)) {
-                    //TODO: userDefaults for these two variables
                     Button(action: {
                         rememberEmail.toggle()
                     }) {
@@ -138,18 +137,7 @@ struct BusinessSignInSheet: View {
     }
     
     private var filled: Bool {
-        //TODO: add email format checking...
-        return !email.isEmpty && !password.isEmpty
-    }
-    
-    private func goNext() {
-        //        if user.exists {
-        //            go to session
-        //        } else {
-        withAnimation {
-//            goToUserOnboarding = true
-        }
-        //        }
+        return !password.isEmpty && email.isEmailValid()
     }
 }
 

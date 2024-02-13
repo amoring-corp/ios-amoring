@@ -73,6 +73,7 @@ struct User: Hashable {
                 businessCategory: business.businessCategory,
                 address: business.address,
                 addressDetails: business.addressDetails,
+                addressSigungu: business.addressSigungu,
                 latitude: business.latitude,
                 longitude: business.longitude,
                 representativeTitle: business.representativeTitle,

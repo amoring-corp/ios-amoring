@@ -13,20 +13,20 @@ struct BusinessSettingsOpenHours: View {
 
     @State private var daysSelection: DaySelection = .everyday
     
-    @State var selectedDays: [Bool] = [false, true, true, true, true, true, false]
-    @State var unselectedDays: [Bool] = [true, false, false, false, false, false, true]
-    
     @State var weekDaysDisabled: Bool = false
     @State var weekEndsDisabled: Bool = false
     
     @State private var sunday: BusinessHours = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
     @State private var monday: BusinessHours = BusinessHours(day: .sunday, openAt: Date(), closeAt: Date())
     
-    @State private var tuesday: BusinessHours? = BusinessHours(day: .tuesday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var wednesday: BusinessHours? = BusinessHours(day: .wednesday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var thursday: BusinessHours? = BusinessHours(day: .thursday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var friday: BusinessHours? = BusinessHours(day: .friday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
-    @State private var saturday: BusinessHours? = BusinessHours(day: .saturday, openAt: Date().startOfDay, closeAt: Date().startOfDay)
+    @State var selectedDays: [Int?] = [0,0,0,0,0,0,0]
+    
+    
+    @State private var businessHours: [BusinessHours] = [
+        BusinessHours(day: .sunday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+        BusinessHours(day: .monday, openAt: Date().startOfDay, closeAt: Date().startOfDay),
+    ]
+    @State private var businessHoursSaving: [BusinessHours] = []
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -189,7 +189,64 @@ struct BusinessSettingsOpenHours: View {
                                 }
                                 .padding(.horizontal, Size.w(14))
                             case .custom:
-                                Text("CUSTOM")
+                                ForEach(0..<businessHours.count) { index in
+                                    VStack(alignment: .leading) {
+                                        Text("➊ 해당되는 요일은 선택해주세요.")
+                                            .font(medium14Font)
+                                            .foregroundColor(.yellow600)
+                                        
+                                        DayWeekSelection(selectedDays: $selectedDays, number: index)
+                                        
+                                        Text("➋ 위 선택된 요일의 영업시간을 알려주세요.")
+                                            .font(medium14Font)
+                                            .foregroundColor(.yellow600)
+                                        
+                                        HStack(spacing: 0) {
+                                            TimeWindow(time: $businessHours[index].openAt)
+                                            Text("~")
+                                                .font(regular16Font)
+                                                .foregroundColor(.black)
+                                                .padding(.horizontal, Size.w(20))
+                                            TimeWindow(time: $businessHours[index].closeAt)
+                                        }
+                                    }
+                                    .padding(.horizontal, Size.w(14))
+                                    
+                                    Button(action: {
+                                        if weekDaysDisabled && !weekEndsDisabled {
+                                            weekDaysDisabled.toggle()
+                                            weekEndsDisabled.toggle()
+                                        } else {
+                                            weekEndsDisabled.toggle()
+                                        }
+                                    }) {
+                                        HStack(spacing: 0) {
+                                            Image(systemName: weekEndsDisabled ? "checkmark.square.fill" : "square")
+                                                .font(medium22Font)
+                                            Text("휴무일 입니다.")
+                                        }
+                                        .font(medium14Font)
+                                        .foregroundColor(.yellow600)
+                                    }
+                                    .padding(.vertical, Size.w(10))
+                                }
+                                
+//                                Button(action: {
+//                                    withAnimation {
+//                                        self.businessHours.append(BusinessHours(day: DayOfWeek.byIndex(self.businessHours.count), openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt))
+//                                    }
+//                                }) {
+//                                    Text("요일 추가하기")
+//                                        .font(medium14Font)
+//                                        .foregroundColor(.yellow300)
+//                                        .frame(maxWidth: .infinity)
+//                                        .frame(height: Size.w(51))
+//                                        .background(Color.yellow500)
+//                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+//                                        .overlay(
+//                                            RoundedRectangle(cornerRadius: 10).stroke(Color.yellow600)
+//                                        )
+//                                }
                             }
                             
                             
@@ -234,6 +291,28 @@ struct BusinessSettingsOpenHours: View {
                     self.sunday = businessHours.first!
                     self.monday = businessHours.first!
                 } else {
+//                    self.daysSelection = .custom
+//                    // TODO: it kind of works but need sunday to be first day
+//                    if let (first, second) = findTwoNotEqualBusinessHours(businessHours) {
+//                        
+//                        self.sunday = first
+//                        self.monday = second
+//                        self.businessHours[0] = first
+//                        self.businessHours[1] = second
+//                        for index in 0..<businessHours.count {
+//                            if businessHours[index].openAt == first.openAt && businessHours[index].closeAt == first.closeAt {
+//                                self.selectedDays[index] = 0
+//                            } else if businessHours[index].openAt == second.openAt && businessHours[index].closeAt == second.closeAt {
+//                                self.selectedDays[index] = 1
+//                            }
+//                        }
+//                    } else {
+//                        print("All objects in the array are equal.")
+//                        self.sunday = businessHours.first!
+//                        self.monday = businessHours.first!
+//                    }
+                    
+                    
                     self.daysSelection = .weekAndOff
                     
                     self.sunday = businessHours.last!
@@ -251,26 +330,27 @@ struct BusinessSettingsOpenHours: View {
     }
     
     private func save() {
-        var businessHours = [
-            BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-            BusinessHours(day: .monday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-            BusinessHours(day: .tuesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-            BusinessHours(day: .wednesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-            BusinessHours(day: .thursday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-            BusinessHours(day: .friday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
-            BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
-        ]
-        
-        if self.daysSelection == .weekAndOff {
-            businessHours.removeAll()
+        switch daysSelection {
+        case .everyday:
+            self.businessHoursSaving = [
+                BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .monday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .tuesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .wednesday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .thursday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .friday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
+                BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
+            ]
+        case .weekAndOff:
+            businessHoursSaving.removeAll()
             
             if weekDaysDisabled {
-                businessHours = [
+                self.businessHoursSaving = [
                     BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
                     BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
                 ]
             } else if weekEndsDisabled {
-                businessHours = [
+                self.businessHoursSaving = [
                     BusinessHours(day: .monday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
                     BusinessHours(day: .tuesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
                     BusinessHours(day: .wednesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
@@ -278,7 +358,7 @@ struct BusinessSettingsOpenHours: View {
                     BusinessHours(day: .friday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
                 ]
             } else {
-                businessHours = [
+                self.businessHoursSaving = [
                     BusinessHours(day: .sunday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt),
                     BusinessHours(day: .monday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
                     BusinessHours(day: .tuesday, openAt: self.monday.openAt, closeAt: self.monday.closeAt),
@@ -288,14 +368,17 @@ struct BusinessSettingsOpenHours: View {
                     BusinessHours(day: .saturday, openAt: self.sunday.openAt, closeAt: self.sunday.closeAt)
                 ]
             }
+        case .custom:
+            for i in 0..<selectedDays.count {
+                if let day = selectedDays[i] {
+                    businessHoursSaving.append(BusinessHours(day: DayOfWeek.byIndex(i), openAt: businessHours[day].openAt, closeAt: businessHours[day].closeAt))
+                }
+            }
         }
-
-        if self.daysSelection == .custom {
-            
-        }
+        
         userManager.deleteAllBusinessHours{ success in
             if success {
-                userManager.batchUpsertBusinessHours(hours: businessHours) {
+                userManager.batchUpsertBusinessHours(hours: businessHoursSaving) {
                     success in
                     
                     presentationMode.wrappedValue.dismiss()
@@ -340,4 +423,15 @@ struct BusinessSettingsOpenHours: View {
 
 #Preview {
     BusinessSettingsOpenHours()
+}
+
+func findTwoNotEqualBusinessHours(_ array: [BusinessHours]) -> (BusinessHours, BusinessHours)? {
+    for i in 0..<array.count {
+        for j in (i + 1)..<array.count {
+            if array[i].openAt != array[j].openAt || array[i].closeAt != array[j].closeAt {
+                return (array[i], array[j])
+            }
+        }
+    }
+    return nil
 }

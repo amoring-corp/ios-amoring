@@ -168,7 +168,7 @@ struct BusinessOnboardingStep2: View {
                                     Text("➊ 영업시간을 알려주세요.")
                                         .font(medium14Font)
                                         .foregroundColor(.yellow600)
-                                    // TODO: Implement saving
+                                    
                                     HStack(spacing: 0) {
                                         TimeWindow(time: $businessHours[0].openAt)
                                         Text("~")
@@ -301,22 +301,22 @@ struct BusinessOnboardingStep2: View {
                                         .padding(.vertical, Size.w(10))
                                 }
                                 
-                                Button(action: {
-                                    withAnimation {
-                                        self.businessHours.append(BusinessHours(day: DayOfWeek.byIndex(self.businessHours.count), openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt))
-                                    }
-                                }) {
-                                    Text("요일 추가하기")
-                                        .font(medium14Font)
-                                        .foregroundColor(.yellow300)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: Size.w(51))
-                                        .background(Color.yellow500)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10).stroke(Color.yellow600)
-                                        )
-                                }
+//                                Button(action: {
+//                                    withAnimation {
+//                                        self.businessHours.append(BusinessHours(day: DayOfWeek.byIndex(self.businessHours.count), openAt: self.businessHours[0].openAt, closeAt: self.businessHours[0].closeAt))
+//                                    }
+//                                }) {
+//                                    Text("요일 추가하기")
+//                                        .font(medium14Font)
+//                                        .foregroundColor(.yellow300)
+//                                        .frame(maxWidth: .infinity)
+//                                        .frame(height: Size.w(51))
+//                                        .background(Color.yellow500)
+//                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+//                                        .overlay(
+//                                            RoundedRectangle(cornerRadius: 10).stroke(Color.yellow600)
+//                                        )
+//                                }
                             }
                         }
                         .padding(.bottom, Size.w(30))
@@ -525,18 +525,11 @@ struct BusinessOnboardingStep2: View {
             }
         case .custom:
             controller.businessHours.removeAll()
-            //            for index in 0..<selectedDays.count {
-            //                if selectedDays[index] {
-            //                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: businessHours[0].openAt, closeAt: businessHours[0].closeAt)
-            //                    controller.businessHours.append(hours)
-            //                }
-            //            }
-            //            for index in 0..<unselectedDays.count {
-            //                if unselectedDays[index] {
-            //                    let hours = BusinessHours(day: DayOfWeek.byIndex(index), openAt: businessHours[1].openAt, closeAt: businessHours[1].closeAt)
-            //                    controller.businessHours.append(hours)
-            //                }
-            //            }
+            for i in 0..<selectedDays.count {
+                if let day = selectedDays[i] {
+                    controller.businessHours.append(BusinessHours(day: DayOfWeek.byIndex(i), openAt: businessHours[day].openAt, closeAt: businessHours[day].closeAt))
+                }
+            }
         }
         
         userManager.batchUpsertBusinessHours(hours: controller.businessHours) {
