@@ -197,20 +197,14 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.getUserInfo()
-        }
-    }
-    
-    func getUserInfo() {
             guard let tokenType = NaverThirdPartyLoginConnection.getSharedInstance().tokenType else { return }
             guard let accessToken = NaverThirdPartyLoginConnection.getSharedInstance().accessToken else { return }
             print("abracadabra")
             print(tokenType)
             print(accessToken)
-            
         }
-    
-    
+    }
+
     func businessSignIn(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
         self.isLoading = true
         api.perform(mutation: SignInMutation(email: email, password: password)) { result in
@@ -321,7 +315,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false, value.errors?.first?.localizedDescription ?? "")
                     return
                 }
@@ -338,7 +332,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                guard let authUser = data.signInWithGoogle.user else {
+                guard data.signInWithGoogle.user != nil else {
                     print("NO USER!")
                     completion(false, "No user")
                     return
@@ -381,6 +375,6 @@ extension SessionManager : UIApplicationDelegate, NaverThirdPartyLoginConnection
     }
     // Error 발생
     func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
-        print(error)
+        print("\(String(describing: error))")
     }
 }
