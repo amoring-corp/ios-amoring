@@ -113,6 +113,7 @@
 		8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */; };
 		855013532B73546B00D9D568 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 855013522B73546B00D9D568 /* schema.graphqls */; };
 		855013552B749A1100D9D568 /* YellowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013542B749A1100D9D568 /* YellowButton.swift */; };
+		855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013872B7B4AEB00D9D568 /* DepositInfoView.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
@@ -323,6 +324,7 @@
 		8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationValidateMyPassword.graphql; sourceTree = "<group>"; };
 		855013522B73546B00D9D568 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		855013542B749A1100D9D568 /* YellowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowButton.swift; sourceTree = "<group>"; };
+		855013872B7B4AEB00D9D568 /* DepositInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositInfoView.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 				850BE9BF2B62015900EC8EAB /* BusinessEmailSuccess.swift */,
 				850BE9C12B62083900EC8EAB /* BusinessPlan.swift */,
 				850BE9C32B620C6100EC8EAB /* BusinessPurchaseView.swift */,
+				855013872B7B4AEB00D9D568 /* DepositInfoView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1300,6 +1303,7 @@
 				851AF8F42B3D2495005A8DEB /* BusinessDetailsView.swift in Sources */,
 				85B028A32B3019B500A738AB /* MessagesController.swift in Sources */,
 				85FC20802B0C510100DC1950 /* UserOnboardingBio.swift in Sources */,
+				855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */,
 				8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */,
 				850A300F2B0AEDF8003B12B7 /* SessionView.swift in Sources */,
 				858862382B34FA9B009CC600 /* CheckIn.swift in Sources */,

@@ -28,12 +28,12 @@ struct BusinessPurchaseView: View {
                     .font(semiBold14Font)
                     .foregroundColor(.gray1000)
                     .background(Color.yellow800)
-                        .offset(x: animation ? UIScreen.main.bounds.width / 2 : -(UIScreen.main.bounds.width / 2) )
-                        .onAppear {
-                            withAnimation(.linear(duration: 10).repeatForever(autoreverses: false)) {
-                                animation = true
-                            }
+                    .offset(x: animation ? UIScreen.main.bounds.width / 2 : -(UIScreen.main.bounds.width / 2) )
+                    .onAppear {
+                        withAnimation(.linear(duration: 10).repeatForever(autoreverses: false)) {
+                            animation = true
                         }
+                    }
                     
                         
                     Image("LOGO")

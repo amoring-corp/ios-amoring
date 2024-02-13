@@ -97,12 +97,14 @@ struct SettingsView: View {
                     
                     MenuTitle(title: "구매 및 멤버십", color: Color.yellow700)
                     VStack(spacing: 0) {
+                        // FIXME: is it still 멤버십? 
                         MenuLineLink(title: "멤버십", color: Color.yellow900) {
-                            if hasPlan {
-                                BusinessPlan()
-                            } else {
-                                BusinessPurchaseView()
-                            }
+                            DepositInfoView()
+//                            if hasPlan {
+//                                BusinessPlan()
+//                            } else {
+//                                BusinessPurchaseView()
+//                            }
                             
                         }
                         
