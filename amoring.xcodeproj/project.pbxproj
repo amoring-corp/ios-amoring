@@ -111,9 +111,11 @@
 		854C7B092B181B1C0060CE03 /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B082B181B1C0060CE03 /* ProfileCardView.swift */; };
 		855013492B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013482B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql */; };
 		8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */; };
-		855013532B73546B00D9D568 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 855013522B73546B00D9D568 /* schema.graphqls */; };
 		855013552B749A1100D9D568 /* YellowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013542B749A1100D9D568 /* YellowButton.swift */; };
 		855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013872B7B4AEB00D9D568 /* DepositInfoView.swift */; };
+		8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */; };
+		8550138C2B7C3CF500D9D568 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8550138B2B7C3CF500D9D568 /* schema.graphqls */; };
+		8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
@@ -322,9 +324,11 @@
 		854C7B082B181B1C0060CE03 /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
 		855013482B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteAllBusinessHoursResolver.graphql; sourceTree = "<group>"; };
 		8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationValidateMyPassword.graphql; sourceTree = "<group>"; };
-		855013522B73546B00D9D568 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		855013542B749A1100D9D568 /* YellowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowButton.swift; sourceTree = "<group>"; };
 		855013872B7B4AEB00D9D568 /* DepositInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositInfoView.swift; sourceTree = "<group>"; };
+		855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationMakeReport.graphql; sourceTree = "<group>"; };
+		8550138B2B7C3CF500D9D568 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReportInput.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
@@ -750,7 +754,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				855013522B73546B00D9D568 /* schema.graphqls */,
+				8550138B2B7C3CF500D9D568 /* schema.graphqls */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
 				8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */,
 				8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */,
@@ -778,6 +782,7 @@
 				85769E322B707F340064005D /* QueryBusinessHours.graphql */,
 				855013482B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql */,
 				8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */,
+				855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -827,6 +832,7 @@
 				85E8E93D2B3119780054EBCE /* Reaction.swift */,
 				858862372B34FA9B009CC600 /* CheckIn.swift */,
 				8538D5522B5607FD0040E017 /* AppState.swift */,
+				8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1024,6 +1030,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8550138C2B7C3CF500D9D568 /* schema.graphqls in Resources */,
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
@@ -1033,10 +1040,10 @@
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
 				8538D5702B5765920040E017 /* MutationSignUp.graphql in Resources */,
 				85769E312B707E890064005D /* MutationBatchUpsertBusinessHours.graphql in Resources */,
+				8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */,
 				85769E2D2B707CFB0064005D /* MutationUpsertBusinessHours.graphql in Resources */,
 				850A301D2B0AEF41003B12B7 /* Pretendard-SemiBold.ttf in Resources */,
 				8538D5372B4FA24C0040E017 /* MutationUpsertMyUserProfile.graphql in Resources */,
-				855013532B73546B00D9D568 /* schema.graphqls in Resources */,
 				8538D5742B579C9C0040E017 /* MutationUploadBusinessImage.graphql in Resources */,
 				85769E332B707F340064005D /* QueryBusinessHours.graphql in Resources */,
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
@@ -1319,6 +1326,7 @@
 				85E8E9402B3140580054EBCE /* ListOfConversations.swift in Sources */,
 				85FC208F2B0C514400DC1950 /* AddedImageView.swift in Sources */,
 				85FC20852B0C510100DC1950 /* UserOnboardingPhoto.swift in Sources */,
+				8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */,
 				854C7B092B181B1C0060CE03 /* ProfileCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,20 @@
+mutation MakeReport($data: MakeReportInput!) {
+  makeReport(data: $data) {
+    id
+    byUserId
+    email
+    subject
+    body
+    type
+    byUser {
+      id
+      email
+      status
+      role
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

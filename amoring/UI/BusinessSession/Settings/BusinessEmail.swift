@@ -10,9 +10,10 @@ import SwiftUI
 struct BusinessEmail: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var email: String = ""
-    @State var title: String = ""
+    @State var subject: String = ""
     @State var text: String = ""
     @State var isReport: Bool = false
     @State var success: Bool = false
@@ -38,10 +39,10 @@ struct BusinessEmail: View {
                 CustomTextField(placeholder: "답변 받을 이메일", text: $email, keyboardType: .emailAddress)
                     .padding(.bottom, Size.w(50))
                 
-                CustomTextField(placeholder: "제목을 입력해주세요. (20자 이내)", text: $title)
-                    .onChange(of: title, perform: { newValue in
+                CustomTextField(placeholder: "제목을 입력해주세요. (20자 이내)", text: $subject)
+                    .onChange(of: subject, perform: { newValue in
                         if(newValue.count >= 20) {
-                            title = String(newValue.prefix(20))
+                            subject = String(newValue.prefix(20))
                         }
                     })
                     .padding(.bottom, Size.w(10))
@@ -62,11 +63,8 @@ struct BusinessEmail: View {
                     EmptyView()
                 }
                 
-                Button(action: {
-// TODO: Send email
-                    self.sendEmail()
-                }) {
-                    FullSizeButton(title: "보내기", color: Color.black, bg: .yellow200, isLoading: userManager.isLoading, loadingColor: .gray1000)
+                Button(action: send) {
+                    FullSizeButton(title: "보내기", color: Color.black, bg: .yellow200, enabled: email.isEmailValid() && !text.isEmpty, isLoading: userManager.isLoading, loadingColor: .gray1000)
                 }
                 .padding(.top, Size.w(100))
                 
@@ -111,11 +109,16 @@ struct BusinessEmail: View {
             }
     }
     
-    private func sendEmail() {
-        userManager.isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            userManager.isLoading = false
-            self.success = true
+    private func send() {
+        let report = ReportInput(body: text, email: email, subject: subject, type: self.isReport ? .report : .inquiry)
+        userManager.makeReport(report: report) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                withAnimation {
+                    self.success = true
+                }
+            }
         }
     }
     

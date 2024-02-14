@@ -202,6 +202,33 @@ A local time string (i.e., with no associated timezone) in 24-hr `HH:mm[:ss[.SSS
 """
 scalar LocalTime
 
+input MakeReportInput {
+  email: String
+  subject: String
+  body: String
+  type: ReportType
+}
+
+"""
+
+"""
+type Report {
+  id: ID!
+  byUserId: Int!
+  email: String
+  subject: String
+  body: String
+  type: ReportType
+  byUser: User!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+enum ReportType {
+  inquiry
+  report
+}
+
 type SignInResult {
   sessionToken: String
   user: User
@@ -382,6 +409,7 @@ type Mutation {
   ): BusinessHours!
   deleteBusinessHours(businessId: ID!, day: Day!): ID!
   deleteAllBusinessHours(businessId: ID!): Int!
+  makeReport(data: MakeReportInput!): Report!
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!
