@@ -48,23 +48,24 @@ struct ListOfConversations: View {
             } else {
                 List {
                     ForEach(controller.conversations.filter { $0.createdAt > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
-                        NavigationLink(destination: {
-                            ConversationView(conversation: conversation)
-                        }) {
-                            ChatRow(conversation: conversation)
-                                
-                        }
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                        .swipeActions {
-                            Button(action: {
-                                self.selectedConversation = conversation
-                                alertPresented = true
-                            }) {
-                                // TODO: Customize ?
-                                Text("삭제")
+                        ChatRow(conversation: conversation)
+                            .background(
+                                NavigationLink(destination: {
+                                    ConversationView(conversation: conversation)
+                                }) {
+                                    EmptyView()
+                                }.opacity(0)
+                            )
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
+                            .swipeActions {
+                                Button(action: {
+                                    self.selectedConversation = conversation
+                                    alertPresented = true
+                                }) {
+                                    Text("삭제")
+                                }
                             }
-                        }
                     }
                     
                     Color.clear.frame(height: 40)
