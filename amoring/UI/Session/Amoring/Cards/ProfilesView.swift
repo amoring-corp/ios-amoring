@@ -13,7 +13,7 @@ struct ProfilesView: View {
     @EnvironmentObject var userManager: UserManager
     
     @State var isOn = false
-    @State var likes: Int = 20
+
     @State var maxLikes: Int = 20
 
     
@@ -35,7 +35,7 @@ struct ProfilesView: View {
                 HStack {
                     CoctailToggle(isOn: $isOn)
                     Spacer()
-                    LikesFromMaxView(likes: likes, maxLikes: maxLikes)
+                    LikesFromMaxView(likes: amoringController.likes, maxLikes: maxLikes)
                         .onTapGesture {
                             purchaseController.openPurchase(purchaseType: .like)
                         }
@@ -78,7 +78,7 @@ struct ProfilesView: View {
                     let userProfile = userManager.profiles[index]
                     
                     if (index == userManager.profiles.count - 1) {
-                        SwipibleProfileVIew(userProfile: userProfile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $likes)
+                        SwipibleProfileVIew(userProfile: userProfile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
                     } else if (index == userManager.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
@@ -124,9 +124,9 @@ struct ProfilesView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             removeTopItem()
             if hasLiked {
-                if self.likes > 0 {
+                if amoringController.likes > 0 {
                     withAnimation {
-                        self.likes -= 1
+                        amoringController.likes -= 1
                     }
                 } else {
                     withAnimation {

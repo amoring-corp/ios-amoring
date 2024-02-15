@@ -12,6 +12,7 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var businessSessionController: BusinessSessionController
     
     @State private var logoutAlertPresented = false
     @State private var deleteAlertPresented = false
@@ -97,16 +98,22 @@ struct SettingsView: View {
                     
                     MenuTitle(title: "구매 및 멤버십", color: Color.yellow700)
                     VStack(spacing: 0) {
-                        // FIXME: is it still 멤버십? 
-                        MenuLineLink(title: "멤버십", color: Color.yellow900) {
-                            DepositInfoView()
+                        MenuLineButton(title: "멤버십") {
+                            withAnimation {
+                                businessSessionController.showDepositInfo = true
+                            }                            
+                        }
+                        
+                        
+//                        MenuLineLink(title: "멤버십", color: Color.yellow900) {
+//                            DepositInfoView()
 //                            if hasPlan {
 //                                BusinessPlan()
 //                            } else {
 //                                BusinessPurchaseView()
 //                            }
                             
-                        }
+//                        }
                         
 //                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
 //                            MenuLineToggle(isOn: $showDistahce, title: "거리 보여주기")

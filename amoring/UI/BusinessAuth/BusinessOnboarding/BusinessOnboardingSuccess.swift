@@ -48,7 +48,7 @@ struct BusinessOnboardingSuccess: View {
                     .padding(.top, Size.w(30))
                     .padding(.bottom, Size.w(10))
                 
-                Text("바로 아모링을 시작해보세요!")
+                Text("멤버십 플랜에 등록 하셨나요?")
                     .font(regular16Font)
                     .foregroundColor(animation ? .gray100 : .black)
                     .padding(.horizontal, Size.w(14))

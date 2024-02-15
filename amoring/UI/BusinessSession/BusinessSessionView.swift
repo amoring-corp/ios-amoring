@@ -10,6 +10,7 @@ import QRCode
 
 struct BusinessSessionView: View {
     @EnvironmentObject var userManager: UserManager
+    @StateObject var businessSessionController = BusinessSessionController()
     
     @State var xOffset: CGFloat = 0
     @State var isLoading = false
@@ -133,7 +134,7 @@ struct BusinessSessionView: View {
                 }
                 .navigationBarItems(trailing:
                                         NavigationLink(destination: {
-                    MenuView()
+                    MenuView().environmentObject(businessSessionController)
                 }) {
                     Image("ic-hamburger")
                         .resizable()
@@ -142,6 +143,12 @@ struct BusinessSessionView: View {
                 })
             } //  geometryreader
         }
+        .overlay(
+            businessSessionController.showDepositInfo ?
+            DepositInfoView().environmentObject(businessSessionController)
+                .transition(.move(edge: .bottom))
+            : nil
+        )
     }
     
     func list(images: [String], size: CGFloat) -> some View {

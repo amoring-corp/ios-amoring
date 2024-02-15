@@ -116,6 +116,7 @@
 		8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */; };
 		8550138C2B7C3CF500D9D568 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8550138B2B7C3CF500D9D568 /* schema.graphqls */; };
 		8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */; };
+		855013902B7C86F900D9D568 /* BusinessSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
@@ -329,6 +330,7 @@
 		855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationMakeReport.graphql; sourceTree = "<group>"; };
 		8550138B2B7C3CF500D9D568 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReportInput.swift; sourceTree = "<group>"; };
+		8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionController.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 				85D36AEB2B0F25BC00106BC0 /* MenuView.swift */,
 				85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */,
 				850BE9B82B61F59200EC8EAB /* Settings */,
+				8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */,
 			);
 			path = BusinessSession;
 			sourceTree = "<group>";
@@ -1213,6 +1216,7 @@
 				85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */,
 				8538D5412B50B4CA0040E017 /* ImageHelper.swift in Sources */,
 				85E8E93E2B3119780054EBCE /* Reaction.swift in Sources */,
+				855013902B7C86F900D9D568 /* BusinessSessionController.swift in Sources */,
 				850BE9BA2B61F5B700EC8EAB /* BusinessSettingsImages.swift in Sources */,
 				85D26F6E2B20198B00E3C55F /* ScannerViewController.swift in Sources */,
 				8538D5242B4E1EDD0040E017 /* BackButton.swift in Sources */,

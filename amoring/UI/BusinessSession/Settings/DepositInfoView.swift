@@ -10,12 +10,18 @@ import SwiftUI
 struct DepositInfoView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var selection: PurchasePlan = .basic
+    @EnvironmentObject var businessSessionController: BusinessSessionController
     @State var animation: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
-            //            GeometryReader { reader in
+            HStack {
+                XButton(action: back)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: 44)
+            .padding(.horizontal, Size.w(22))
+
             ZStack {
                 HStack(spacing: 0) {
                     ForEach(0..<8) { _ in
@@ -41,7 +47,7 @@ struct DepositInfoView: View {
                     .scaledToFit()
                     .frame(width: Size.w(84), height: Size.w(84))
             }
-            //            }
+
             .frame(maxWidth: UIScreen.main.bounds.width)
             .clipped()
             .frame(height: Size.w(84))
@@ -153,19 +159,15 @@ struct DepositInfoView: View {
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .padding(.horizontal, Size.w(22))
-//            .padding(.vertical, Size.w(20))
-            
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.gray1000)
-        .navigationBarBackButtonHidden()
-        .navigationBarItems(leading:
-                                BackButton(action: back, color: Color.yellow300)
-        )
     }
     
     private func back() {
+        withAnimation {
+            businessSessionController.showDepositInfo = false
+        }
         self.presentationMode.wrappedValue.dismiss()
     }
 }
