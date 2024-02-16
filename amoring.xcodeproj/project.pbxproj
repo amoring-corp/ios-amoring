@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
+		2B2FAD922B7F5459009CB2C6 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD912B7F5459009CB2C6 /* schema.graphqls */; };
 		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
 		85064AF12B292ECF0074E45A /* LikeDislikeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */; };
@@ -114,7 +116,6 @@
 		855013552B749A1100D9D568 /* YellowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013542B749A1100D9D568 /* YellowButton.swift */; };
 		855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855013872B7B4AEB00D9D568 /* DepositInfoView.swift */; };
 		8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */; };
-		8550138C2B7C3CF500D9D568 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8550138B2B7C3CF500D9D568 /* schema.graphqls */; };
 		8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */; };
 		855013902B7C86F900D9D568 /* BusinessSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
@@ -216,6 +217,8 @@
 
 /* Begin PBXFileReference section */
 		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
+		2B2FAD912B7F5459009CB2C6 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		36E9464CB26CE4E393883EFE /* Pods_amoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring_amoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring-amoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-amoring-amoringUITests/Pods-amoring-amoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -328,7 +331,6 @@
 		855013542B749A1100D9D568 /* YellowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowButton.swift; sourceTree = "<group>"; };
 		855013872B7B4AEB00D9D568 /* DepositInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositInfoView.swift; sourceTree = "<group>"; };
 		855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationMakeReport.graphql; sourceTree = "<group>"; };
-		8550138B2B7C3CF500D9D568 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReportInput.swift; sourceTree = "<group>"; };
 		8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionController.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
@@ -756,7 +758,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				8550138B2B7C3CF500D9D568 /* schema.graphqls */,
+				2B2FAD912B7F5459009CB2C6 /* schema.graphqls */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
 				8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */,
 				8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */,
@@ -785,6 +787,7 @@
 				855013482B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql */,
 				8550134E2B734AF300D9D568 /* MutationValidateMyPassword.graphql */,
 				855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */,
+				2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1033,7 +1036,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8550138C2B7C3CF500D9D568 /* schema.graphqls in Resources */,
+				2B2FAD922B7F5459009CB2C6 /* schema.graphqls in Resources */,
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
@@ -1041,6 +1044,7 @@
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
+				2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */,
 				8538D5702B5765920040E017 /* MutationSignUp.graphql in Resources */,
 				85769E312B707E890064005D /* MutationBatchUpsertBusinessHours.graphql in Resources */,
 				8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */,

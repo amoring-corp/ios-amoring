@@ -10,12 +10,15 @@ import QRCode
 
 struct BusinessSessionView: View {
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     @StateObject var businessSessionController = BusinessSessionController()
     
     @State var xOffset: CGFloat = 0
     @State var isLoading = false
     @State var expired = false
     @State var qrcode: QRCode.Document? = nil
+    
+    @State var timer: Timer? = nil
     
     var body: some View {
         let business = userManager.user?.business
@@ -79,7 +82,7 @@ struct BusinessSessionView: View {
                             .disabled(true)
                             .padding(.top, Size.w(22))
                             .onAppear {
-                                initialize()
+                                setToken()
                                 withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
                                     xOffset = -size * Double(images.count)
                                 }
@@ -169,18 +172,16 @@ struct BusinessSessionView: View {
         }
     }
     
-    private func initialize() {
-        let name = userManager.user?.business?.businessName ?? "AMORING"
-        self.isLoading = true
-        
-//        let contact = QRContact(id: id, n: userManager.apiNodeUser.name, f: userManager.apiNodeUser.familyName, e: email, d: expirationDate)
-//        let jsonEncoder = JSONEncoder()
-        do {
-//            let jsonData = try jsonEncoder.encode(contact)
-//            if let json = String(data: jsonData, encoding: String.Encoding.utf8) {
+    private func setToken() {
+        userManager.generateCheckInToken { error, token in
+            if let error {
+                self.qrcode = nil
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                self.isLoading = true
                 let qrcodeDoc: QRCode.Document = {
                     let doc = QRCode.Document(generator: QRCodeGenerator_External())
-                    doc.utf8String = name
+                    doc.utf8String = token
                     doc.design.shape.onPixels = QRCode.PixelShape.Squircle(insetFraction: 0.1)
                     doc.design.shape.eye = QRCode.EyeShape.Squircle()
                     doc.errorCorrection = .high
@@ -192,18 +193,22 @@ struct BusinessSessionView: View {
                         path: CGPath(rect: CGRect(x: 0.40, y: 0.40, width: 0.20, height: 0.20), transform: nil),
                         inset: 2
                     )
+                    
                     return doc
                 }()
                 self.qrcode = qrcodeDoc
-//            }
-            withAnimation {
-                isLoading = false
+                //            }
+                withAnimation {
+                    isLoading = false
+                }
+                
+                let timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: { timer in
+                    print("timer speaks")
+                    self.setToken()
+                    timer.invalidate()
+//                    self.setToken()
+                })
             }
-        } catch {
-            withAnimation {
-                isLoading = false
-            }
-            print("Error while encoding to json!")
         }
     }
 }

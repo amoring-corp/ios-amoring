@@ -1,0 +1,7 @@
+mutation GenerateCheckInToken {
+  generateCheckInToken {
+    token
+    createdAt
+    expiresAt
+  }
+}

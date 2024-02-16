@@ -704,6 +704,40 @@ class UserManager: ObservableObject {
         }
     }
     
+    func generateCheckInToken(completion: @escaping (String?, String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: GenerateCheckInTokenMutation()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription, nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong", nil)
+                    return
+                }
+                
+                print("Token successfully was generated!")
+                    //TODO: set timer for expiration period to update token
+                print(data.generateCheckInToken.expiresAt)
+                print(data.generateCheckInToken.token)
+                self.isLoading = false
+                completion(nil, data.generateCheckInToken.token)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription, nil)
+            }
+        }
+    }
+    
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
             withAnimation {
