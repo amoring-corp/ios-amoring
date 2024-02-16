@@ -203,7 +203,7 @@ struct BusinessSessionView: View {
                 }
                 
                 let timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: { timer in
-                    print("timer speaks")
+                    print("updating token ...")
                     self.setToken()
                     timer.invalidate()
 //                    self.setToken()
