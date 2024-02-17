@@ -121,6 +121,28 @@ input BusinessUpdateInput {
 """
 
 """
+type CheckIn {
+  id: ID!
+  businessId: Int!
+  business: Business!
+  profileId: Int!
+  profile: UserProfile!
+  status: CheckInStatus!
+  checkedInAt: DateTime
+  checkedOutAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum CheckInStatus {
+  pending
+  confirmed
+  rejected
+}
+
+"""
+
+"""
 type CheckInToken {
   token: String!
   createdAt: DateTime!
@@ -400,6 +422,8 @@ type Mutation {
   deleteAllBusinessImages(businessId: ID!): [ID!]
   uploadBusinessRegistrationFile(businessId: ID!, file: Upload!): File!
   generateCheckInToken: CheckInToken!
+  createCheckInByToken(token: String!): CheckIn
+  updateCheckInStatus(id: ID!, status: CheckInStatus!): CheckIn
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!

@@ -14,7 +14,8 @@ struct CheckInView: View {
     
     @State var torchIsOn = false
     @State var openResult = false
-    @State var resultString: String = ""
+    @State var businessName: String = ""
+    @State var id: String = ""
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -43,7 +44,7 @@ struct CheckInView: View {
             Spacer()
             
             NavigationLink(isActive: $openResult, destination: {
-                CheckInResult(resultString: self.resultString)
+                CheckInResult(businessName: businessName, id: self.id)
             }) {
                 EmptyView()
             }
@@ -58,13 +59,20 @@ struct CheckInView: View {
     func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
         case .success(let result):
-            print(result)
-            self.resultString = result.string
-            openResult = true
-//            navigator.resultString = result.string
-//            navigator.path.append(NavigatorPath.checkInResult)
+            userManager.createCheckInByToken(token: result.string) { error, businessName, id in
+                if let businessName, let id {
+                    print(businessName)
+                    self.businessName = businessName
+                    self.id = id
+                    openResult = true
+                }
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
+                }
+            }
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
+            notificationController.setNotification(text: error.localizedDescription, type: .error)
         }
     }
 }

@@ -738,6 +738,75 @@ class UserManager: ObservableObject {
         }
     }
     
+    func createCheckInByToken(token: String, completion: @escaping (String?, String?, String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: CreateCheckInByTokenMutation(token: token)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription, nil, nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong", nil, nil)
+                    return
+                }
+                
+                print("Check in successfully created by token!")
+                    
+                print(data.createCheckInByToken?.business.businessName)
+                print(data.createCheckInByToken?.id)
+                
+                self.isLoading = false
+                completion(nil, data.createCheckInByToken?.business.businessName, data.createCheckInByToken?.id)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription, nil, nil)
+            }
+        }
+    }
+    
+    func updateCheckInStatus(id: String, completion: @escaping (String?, String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: UpdateCheckInStatusMutation(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription, nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong", nil)
+                    return
+                }
+                
+                print("Check in successfully created by token!")
+                    
+                print(data.updateCheckInStatus?.business.id)
+                
+                self.isLoading = false
+                completion(nil, data.updateCheckInStatus?.business.id)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription, nil)
+            }
+        }
+    }
+    
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
             withAnimation {

@@ -1,0 +1,22 @@
+mutation UpdateCheckInStatus($id: ID!) {
+  updateCheckInStatus(id: $id, status: confirmed) {
+    id
+    businessId
+    business {
+      id
+      ownerId
+      businessName
+      createdAt
+      updatedAt
+    }
+    profileId
+    profile {
+      id
+    }
+    status
+    checkedInAt
+    checkedOutAt
+    createdAt
+    updatedAt
+  }
+}
