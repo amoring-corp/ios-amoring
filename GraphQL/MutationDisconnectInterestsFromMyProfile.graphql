@@ -1,0 +1,17 @@
+mutation DisconnectInterestsFromMyProfile($Ids: [ID!]!) {
+  disconnectInterestsFromMyProfile(
+    interestIds: $Ids
+  ) {
+    id
+    userId
+    interests {
+      id
+      name
+      categoryId
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

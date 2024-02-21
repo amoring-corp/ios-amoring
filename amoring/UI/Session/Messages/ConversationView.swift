@@ -22,7 +22,7 @@ struct ConversationView: View, KeyboardReadable {
     
     var body: some View {
         let companion = selectedConversation?.participants.first!
-        let url = companion?.userProfile?.images.first?.file?.url ?? ""
+        let url = companion?.profile?.images.first?.file?.url ?? ""
         
         ScrollViewReader { proxy in
             ZStack(alignment: .bottom) {
@@ -91,7 +91,7 @@ struct ConversationView: View, KeyboardReadable {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(companion?.userProfile?.name ?? "")
+                Text(companion?.profile?.name ?? "")
                     .font(medium20Font)
                     .foregroundColor(.yellow300)
             }
@@ -147,7 +147,7 @@ struct ConversationView: View, KeyboardReadable {
     @ViewBuilder
     func header() -> some View {
         let companion = self.selectedConversation?.participants.first!
-        let url = companion?.userProfile?.images.first?.file?.url ?? ""
+        let url = companion?.profile?.images.first?.file?.url ?? ""
         
         VStack {
             AsyncImage(url: URL(string: url), content: { image in

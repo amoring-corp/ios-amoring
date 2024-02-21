@@ -7,7 +7,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
   public static let operationName: String = "QueryAuthenticatedUser"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename openAt closeAt day } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
+      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role profile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename openAt closeAt day } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -37,7 +37,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         .field("email", String?.self),
         .field("status", GraphQLEnum<AmoringAPI.UserStatus>?.self),
         .field("role", GraphQLEnum<AmoringAPI.UserRole>?.self),
-        .field("userProfile", UserProfile?.self),
+        .field("profile", Profile?.self),
         .field("business", Business?.self),
         .field("createdAt", AmoringAPI.DateTime?.self),
         .field("updatedAt", AmoringAPI.DateTime?.self),
@@ -47,19 +47,19 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
       public var email: String? { __data["email"] }
       public var status: GraphQLEnum<AmoringAPI.UserStatus>? { __data["status"] }
       public var role: GraphQLEnum<AmoringAPI.UserRole>? { __data["role"] }
-      public var userProfile: UserProfile? { __data["userProfile"] }
+      public var profile: Profile? { __data["profile"] }
       public var business: Business? { __data["business"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-      /// AuthenticatedUser.UserProfile
+      /// AuthenticatedUser.Profile
       ///
-      /// Parent Type: `UserProfile`
-      public struct UserProfile: AmoringAPI.SelectionSet {
+      /// Parent Type: `Profile`
+      public struct Profile: AmoringAPI.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
@@ -97,14 +97,14 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-        /// AuthenticatedUser.UserProfile.Image
+        /// AuthenticatedUser.Profile.Image
         ///
-        /// Parent Type: `UserProfileImage`
+        /// Parent Type: `ProfileImage`
         public struct Image: AmoringAPI.SelectionSet {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("id", AmoringAPI.ID.self),
@@ -114,7 +114,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           public var id: AmoringAPI.ID { __data["id"] }
           public var file: File { __data["file"] }
 
-          /// AuthenticatedUser.UserProfile.Image.File
+          /// AuthenticatedUser.Profile.Image.File
           ///
           /// Parent Type: `File`
           public struct File: AmoringAPI.SelectionSet {
@@ -131,7 +131,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           }
         }
 
-        /// AuthenticatedUser.UserProfile.Interest
+        /// AuthenticatedUser.Profile.Interest
         ///
         /// Parent Type: `Interest`
         public struct Interest: AmoringAPI.SelectionSet {

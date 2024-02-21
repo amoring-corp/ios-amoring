@@ -7,7 +7,7 @@ public class SignInWithGoogleMutation: GraphQLMutation {
   public static let operationName: String = "signInWithGoogle"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation signInWithGoogle($idToken: String!) { signInWithGoogle(idToken: $idToken) { __typename sessionToken user { __typename id email status role userProfile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id profileId fileId sort file { __typename id name mimetype url path createdAt updatedAt } createdAt updatedAt } interests { __typename id name categoryId category { __typename id name interests { __typename id } createdAt updatedAt } createdAt updatedAt } createdAt updatedAt } business { __typename id } createdAt updatedAt } } }"#
+      #"mutation signInWithGoogle($idToken: String!) { signInWithGoogle(idToken: $idToken) { __typename sessionToken user { __typename id email status role profile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id profileId fileId sort file { __typename id name mimetype url path createdAt updatedAt } createdAt updatedAt } interests { __typename id name categoryId category { __typename id name interests { __typename id } createdAt updatedAt } createdAt updatedAt } createdAt updatedAt } business { __typename id } createdAt updatedAt } } }"#
     ))
 
   public var idToken: String
@@ -60,7 +60,7 @@ public class SignInWithGoogleMutation: GraphQLMutation {
           .field("email", String?.self),
           .field("status", GraphQLEnum<AmoringAPI.UserStatus>?.self),
           .field("role", GraphQLEnum<AmoringAPI.UserRole>?.self),
-          .field("userProfile", UserProfile?.self),
+          .field("profile", Profile?.self),
           .field("business", Business?.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
@@ -70,19 +70,19 @@ public class SignInWithGoogleMutation: GraphQLMutation {
         public var email: String? { __data["email"] }
         public var status: GraphQLEnum<AmoringAPI.UserStatus>? { __data["status"] }
         public var role: GraphQLEnum<AmoringAPI.UserRole>? { __data["role"] }
-        public var userProfile: UserProfile? { __data["userProfile"] }
+        public var profile: Profile? { __data["profile"] }
         public var business: Business? { __data["business"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-        /// SignInWithGoogle.User.UserProfile
+        /// SignInWithGoogle.User.Profile
         ///
-        /// Parent Type: `UserProfile`
-        public struct UserProfile: AmoringAPI.SelectionSet {
+        /// Parent Type: `Profile`
+        public struct Profile: AmoringAPI.SelectionSet {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("id", AmoringAPI.ID.self),
@@ -120,14 +120,14 @@ public class SignInWithGoogleMutation: GraphQLMutation {
           public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
           public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-          /// SignInWithGoogle.User.UserProfile.Image
+          /// SignInWithGoogle.User.Profile.Image
           ///
-          /// Parent Type: `UserProfileImage`
+          /// Parent Type: `ProfileImage`
           public struct Image: AmoringAPI.SelectionSet {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
+            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
               .field("id", AmoringAPI.ID.self),
@@ -147,7 +147,7 @@ public class SignInWithGoogleMutation: GraphQLMutation {
             public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
             public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-            /// SignInWithGoogle.User.UserProfile.Image.File
+            /// SignInWithGoogle.User.Profile.Image.File
             ///
             /// Parent Type: `File`
             public struct File: AmoringAPI.SelectionSet {
@@ -176,7 +176,7 @@ public class SignInWithGoogleMutation: GraphQLMutation {
             }
           }
 
-          /// SignInWithGoogle.User.UserProfile.Interest
+          /// SignInWithGoogle.User.Profile.Interest
           ///
           /// Parent Type: `Interest`
           public struct Interest: AmoringAPI.SelectionSet {
@@ -201,7 +201,7 @@ public class SignInWithGoogleMutation: GraphQLMutation {
             public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
             public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-            /// SignInWithGoogle.User.UserProfile.Interest.Category
+            /// SignInWithGoogle.User.Profile.Interest.Category
             ///
             /// Parent Type: `InterestCategory`
             public struct Category: AmoringAPI.SelectionSet {
@@ -224,7 +224,7 @@ public class SignInWithGoogleMutation: GraphQLMutation {
               public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
               public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-              /// SignInWithGoogle.User.UserProfile.Interest.Category.Interest
+              /// SignInWithGoogle.User.Profile.Interest.Category.Interest
               ///
               /// Parent Type: `Interest`
               public struct Interest: AmoringAPI.SelectionSet {

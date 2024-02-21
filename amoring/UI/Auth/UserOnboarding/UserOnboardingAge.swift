@@ -25,7 +25,7 @@ struct UserOnboardingAge: View {
                 .padding(.bottom, Size.w(66))
             
             PickerButton {
-                if let age = controller.userProfile.birthYear {
+                if let age = controller.profile.birthYear {
                     Text(age.description)
                         .foregroundColor(.black)
                         .font(medium18Font)
@@ -55,13 +55,13 @@ struct UserOnboardingAge: View {
             
             HStack {
                 Button(action: {
-//                    userManager.createUserProfile(userProfile: controller.userProfile) { success in
+//                    userManager.createProfile(profile: controller.profile) { success in
                         goToPhoto = true
 //                    }
                 }) {
-                    BlackButton(title: "다음", enabled: controller.userProfile.birthYear != nil)
+                    BlackButton(title: "다음", enabled: controller.profile.birthYear != nil)
                 }
-                .disabled(controller.userProfile.birthYear == nil)
+                .disabled(controller.profile.birthYear == nil)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))
@@ -99,12 +99,12 @@ struct UserOnboardingAge: View {
                 .pickerStyle(.wheel)
                 .onAppear {
                     withAnimation {
-                        controller.userProfile.birthYear = self.age
+                        controller.profile.birthYear = self.age
                     }
                 }
                 .onChange(of: age) { newAge in
                     withAnimation {
-                        controller.userProfile.birthYear = newAge
+                        controller.profile.birthYear = newAge
                     }
                 }
             } : nil

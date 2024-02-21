@@ -42,12 +42,12 @@ public class UploadMyProfileImageMutation: GraphQLMutation {
 
     /// UploadMyProfileImage
     ///
-    /// Parent Type: `UserProfileImage`
+    /// Parent Type: `ProfileImage`
     public struct UploadMyProfileImage: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),

@@ -142,17 +142,17 @@ struct AccountIntro: View {
                     .padding(.horizontal, Size.w(32))
                     .padding(.top, Size.w(25))
                     
-//                    let pass = !controller.userProfile.height.isNil && !controller.userProfile.weight.isNil
+//                    let pass = !controller.profile.height.isNil && !controller.profile.weight.isNil
                     let pass = true
                     
                     Button(action: {
-                        userManager.user?.userProfile?.height = self.height
-                        userManager.user?.userProfile?.weight = self.weight
-                        userManager.user?.userProfile?.occupation = self.occupation
-                        userManager.user?.userProfile?.education = self.education
-                        userManager.user?.userProfile?.mbti = self.mbti.rawValue
-                        if let userProfile = userManager.user?.userProfile {
-                            userManager.updateUserProfile(userProfile: userProfile) { success in
+                        userManager.user?.profile?.height = self.height
+                        userManager.user?.profile?.weight = self.weight
+                        userManager.user?.profile?.occupation = self.occupation
+                        userManager.user?.profile?.education = self.education
+                        userManager.user?.profile?.mbti = self.mbti.rawValue
+                        if let profile = userManager.user?.profile {
+                            userManager.updateProfile(profile: profile) { success in
                                 print("Intro Successfully saved")
                                 self.presentationMode.wrappedValue.dismiss()
                             }
@@ -173,23 +173,23 @@ struct AccountIntro: View {
         .background(Color.gray1000)
         .navigationBarHidden(true)
         .onAppear {
-            if let height = userManager.user?.userProfile?.height {
+            if let height = userManager.user?.profile?.height {
                 self.height = height
             }
             
-            if let weight = userManager.user?.userProfile?.weight {
+            if let weight = userManager.user?.profile?.weight {
                 self.weight = weight
             }
             
-            if let occupation = userManager.user?.userProfile?.occupation {
+            if let occupation = userManager.user?.profile?.occupation {
                 self.occupation = occupation
             }
             
-            if let education = userManager.user?.userProfile?.education {
+            if let education = userManager.user?.profile?.education {
                 self.education = education
             }
             
-            if let mbti = userManager.user?.userProfile?.mbti {
+            if let mbti = userManager.user?.profile?.mbti {
                 if let mbtiElement = mbtiE.withLabel(mbti) {
                     self.mbti = mbtiElement
                 }

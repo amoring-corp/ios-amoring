@@ -31,12 +31,12 @@ public class ConnectInterestsToMyProfileMutation: GraphQLMutation {
 
     /// ConnectInterestsToMyProfile
     ///
-    /// Parent Type: `UserProfile`
+    /// Parent Type: `Profile`
     public struct ConnectInterestsToMyProfile: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
@@ -76,12 +76,12 @@ public class ConnectInterestsToMyProfileMutation: GraphQLMutation {
 
       /// ConnectInterestsToMyProfile.Image
       ///
-      /// Parent Type: `UserProfileImage`
+      /// Parent Type: `ProfileImage`
       public struct Image: AmoringAPI.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),

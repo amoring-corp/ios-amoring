@@ -25,8 +25,8 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Mutation": return AmoringAPI.Objects.Mutation
     case "SignInResult": return AmoringAPI.Objects.SignInResult
     case "User": return AmoringAPI.Objects.User
-    case "UserProfile": return AmoringAPI.Objects.UserProfile
-    case "UserProfileImage": return AmoringAPI.Objects.UserProfileImage
+    case "Profile": return AmoringAPI.Objects.Profile
+    case "ProfileImage": return AmoringAPI.Objects.ProfileImage
     case "File": return AmoringAPI.Objects.File
     case "Interest": return AmoringAPI.Objects.Interest
     case "InterestCategory": return AmoringAPI.Objects.InterestCategory

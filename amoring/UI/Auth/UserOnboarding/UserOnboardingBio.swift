@@ -32,12 +32,12 @@ struct UserOnboardingBio: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.userProfile.bio ?? "")
+            MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.profile.bio ?? "")
             
             Spacer()
-                .onChange(of: controller.userProfile.bio ?? "", perform: { newValue in
+                .onChange(of: controller.profile.bio ?? "", perform: { newValue in
                     if(newValue.count >= charLimit){
-                        controller.userProfile.bio = String(newValue.prefix(charLimit))
+                        controller.profile.bio = String(newValue.prefix(charLimit))
                     }
                 })
             
@@ -86,7 +86,7 @@ struct UserOnboardingBio: View {
     }
     
     private func save() {
-        userManager.createUserProfile(userProfile: controller.userProfile) { success in
+        userManager.createProfile(profile: controller.profile) { success in
             userManager.connectInterests(ids: controller.selectedInterests.map{ $0.0 }) { success in }
             let images = controller.pictures.map({ $0.picture })
             userManager.uploadMyProfileImages(images: images) { success in

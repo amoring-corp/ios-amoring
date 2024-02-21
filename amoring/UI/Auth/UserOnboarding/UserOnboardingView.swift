@@ -23,7 +23,7 @@ struct UserOnboardingView: View {
 }
 
 class UserOnboardingController: ObservableObject {
-    @Published var userProfile: UserProfile = UserProfile(id: "", images: [], interests: [])
+    @Published var profile: Profile = Profile(id: "", images: [], interests: [])
     @Published var pictures: [PictureModel] = []
     @Published var selectedInterests: [(String, String)] = []
 }
