@@ -3,16 +3,16 @@
 
 @_exported import ApolloAPI
 
-public class UpsertMyUserProfileMutation: GraphQLMutation {
-  public static let operationName: String = "upsertMyUserProfile"
+public class UpsertMyProfileMutation: GraphQLMutation {
+  public static let operationName: String = "upsertMyProfile"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation upsertMyUserProfile($data: UserProfileUpdateInput!) { upsertMyUserProfile(data: $data) { __typename id userId name age birthYear height weight mbti education occupation bio gender createdAt updatedAt } }"#
+      #"mutation upsertMyProfile($data: ProfileUpdateInput!) { upsertMyProfile(data: $data) { __typename id userId name age birthYear height weight mbti education occupation bio gender createdAt updatedAt } }"#
     ))
 
-  public var data: UserProfileUpdateInput
+  public var data: ProfileUpdateInput
 
-  public init(data: UserProfileUpdateInput) {
+  public init(data: ProfileUpdateInput) {
     self.data = data
   }
 
@@ -24,19 +24,19 @@ public class UpsertMyUserProfileMutation: GraphQLMutation {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("upsertMyUserProfile", UpsertMyUserProfile.self, arguments: ["data": .variable("data")]),
+      .field("upsertMyProfile", UpsertMyProfile.self, arguments: ["data": .variable("data")]),
     ] }
 
-    public var upsertMyUserProfile: UpsertMyUserProfile { __data["upsertMyUserProfile"] }
+    public var upsertMyProfile: UpsertMyProfile { __data["upsertMyProfile"] }
 
-    /// UpsertMyUserProfile
+    /// UpsertMyProfile
     ///
-    /// Parent Type: `UserProfile`
-    public struct UpsertMyUserProfile: AmoringAPI.SelectionSet {
+    /// Parent Type: `Profile`
+    public struct UpsertMyProfile: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),

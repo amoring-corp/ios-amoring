@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public struct UserProfileImageInput: InputObject {
+public struct ProfileImageInput: InputObject {
   public private(set) var __data: InputDict
 
   public init(_ data: InputDict) {

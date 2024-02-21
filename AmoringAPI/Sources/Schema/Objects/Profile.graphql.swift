@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public extension Objects {
-  static let UserProfileImage = ApolloAPI.Object(
-    typename: "UserProfileImage",
+  static let Profile = ApolloAPI.Object(
+    typename: "Profile",
     implementedInterfaces: []
   )
 }

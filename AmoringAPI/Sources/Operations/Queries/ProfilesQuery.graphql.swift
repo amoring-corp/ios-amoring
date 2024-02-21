@@ -3,11 +3,11 @@
 
 @_exported import ApolloAPI
 
-public class UserProfilesQuery: GraphQLQuery {
-  public static let operationName: String = "UserProfiles"
+public class ProfilesQuery: GraphQLQuery {
+  public static let operationName: String = "Profiles"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query UserProfiles { userProfiles(role: user) { __typename id userId name birthYear height weight mbti education occupation bio gender images { __typename id profileId fileId sort file { __typename url } createdAt updatedAt } interests { __typename id name categoryId createdAt updatedAt } age createdAt updatedAt } }"#
+      #"query Profiles { profiles(role: user) { __typename id userId name birthYear height weight mbti education occupation bio gender images { __typename id profileId fileId sort file { __typename url } createdAt updatedAt } interests { __typename id name categoryId createdAt updatedAt } age createdAt updatedAt } }"#
     ))
 
   public init() {}
@@ -18,19 +18,19 @@ public class UserProfilesQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("userProfiles", [UserProfile?].self, arguments: ["role": "user"]),
+      .field("profiles", [Profile?].self, arguments: ["role": "user"]),
     ] }
 
-    public var userProfiles: [UserProfile?] { __data["userProfiles"] }
+    public var profiles: [Profile?] { __data["profiles"] }
 
-    /// UserProfile
+    /// Profile
     ///
-    /// Parent Type: `UserProfile`
-    public struct UserProfile: AmoringAPI.SelectionSet {
+    /// Parent Type: `Profile`
+    public struct Profile: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
@@ -68,14 +68,14 @@ public class UserProfilesQuery: GraphQLQuery {
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-      /// UserProfile.Image
+      /// Profile.Image
       ///
-      /// Parent Type: `UserProfileImage`
+      /// Parent Type: `ProfileImage`
       public struct Image: AmoringAPI.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
@@ -95,7 +95,7 @@ public class UserProfilesQuery: GraphQLQuery {
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-        /// UserProfile.Image.File
+        /// Profile.Image.File
         ///
         /// Parent Type: `File`
         public struct File: AmoringAPI.SelectionSet {
@@ -112,7 +112,7 @@ public class UserProfilesQuery: GraphQLQuery {
         }
       }
 
-      /// UserProfile.Interest
+      /// Profile.Interest
       ///
       /// Parent Type: `Interest`
       public struct Interest: AmoringAPI.SelectionSet {
