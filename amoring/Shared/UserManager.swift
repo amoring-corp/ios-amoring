@@ -131,8 +131,7 @@ class UserManager: ObservableObject {
                         return
                     }
                     
-                    
-                    self.user = User(id: authUser.id).from(authUser)
+                    self.user = User.fromData(authUser)
                     
                     print(self.user?.profile?.images)
                 case .failure(let error):
@@ -400,7 +399,7 @@ class UserManager: ObservableObject {
                     self.user?.profile?.interests.removeAll()
                     for interest in interests {
                         if let interest {
-                            self.user?.profile?.interests.append(Interest(id: "", name: "").getFrom(data: interest))
+                            self.user?.profile?.interests.append(Interest.fromData(data: interest))
                         }
                     }
                 }
@@ -772,7 +771,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateCheckInStatus(id: String, completion: @escaping (String?, String?) -> Void) {
+    func updateCheckInStatus(id: String, completion: @escaping (String?, CheckIn?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: UpdateCheckInStatusMutation(id: id)) { result in
@@ -793,11 +792,11 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Check in successfully created by token!")
-                    
-                print(data.updateCheckInStatus?.business.id)
                 
                 self.isLoading = false
-                completion(nil, data.updateCheckInStatus?.business.id)
+                
+                let checkIn = CheckIn.fromData(data: data.updateCheckInStatus)
+                completion(nil, checkIn)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
@@ -805,6 +804,32 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    func activeCheckIn(completion: @escaping (CheckIn?) -> Void) {
+        api.fetch(query: ActiveCheckInQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(nil)
+                    return
+                }
+                let checkIn = CheckIn.fromData(data: data.activeCheckIn)
+                completion(checkIn)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    
     
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
@@ -834,7 +859,7 @@ class UserManager: ObservableObject {
                 self.businessesInit = []
                 
                 for bus in businesss {
-                    if let busForSave = Business().from(data: bus) {
+                    if let busForSave = Business.fromData(data: bus) {
                         self.businesses.append(busForSave)
                         self.businessesInit.append(busForSave)
                     }
@@ -870,7 +895,7 @@ class UserManager: ObservableObject {
                 self.profiles.append(contentsOf: Dummy.profiles)
                 
                 for profile in profiles {
-                    if let profile = Profile(id: "", images: [], interests: []).from(data: profile) {
+                    if let profile = Profile.fromData(data: profile) {
                         //MARK:  excepting default db profile, excepting myself
                         if profile.id != "3" && profile.id != self.user?.profile?.id {
                             self.profiles.append(profile)

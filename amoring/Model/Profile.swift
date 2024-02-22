@@ -27,7 +27,7 @@ struct Profile: Hashable {
     var createdAt: Date?
     var updatedAt: Date?
     
-    func from(data: ProfilesQuery.Data.Profile?) -> Profile? {
+    static func fromData(data: ProfilesQuery.Data.Profile?) -> Profile? {
         if let data {
             var profile = Profile(id: data.id, images: [], interests: [])
             
@@ -41,7 +41,7 @@ struct Profile: Hashable {
             profile.occupation = data.occupation
             profile.bio = data.bio
             profile.gender = data.gender?.rawValue
-            profile.images = getImages(data.images)
+            profile.images = Profile.getImages(data.images)
             profile.interests = getInterests(data.interests)
 
             return profile
@@ -50,7 +50,7 @@ struct Profile: Hashable {
         }
     }
     
-    func getInterests(_ interests: [ProfilesQuery.Data.Profile.Interest?]?) -> [Interest] {
+    static func getInterests(_ interests: [ProfilesQuery.Data.Profile.Interest?]?) -> [Interest] {
         var inters: [Interest] = []
         guard let interests else { return inters }
             
@@ -63,7 +63,7 @@ struct Profile: Hashable {
         return inters
     }
     
-    func getImages(_ images: [ProfilesQuery.Data.Profile.Image?]?) -> [ProfileImage] {
+    static func getImages(_ images: [ProfilesQuery.Data.Profile.Image?]?) -> [ProfileImage] {
         var profileImages: [ProfileImage] = []
         guard let images else { return profileImages }
             
