@@ -21,17 +21,30 @@ struct CheckIn {
     var updatedAt: Date?
     
     // TODO: parse
-    static func fromData(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus?) -> CheckIn {
-        let business = data?.business
-        return CheckIn(business: Business(), checkedInAt: Date())
+    static func fromData(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus?) -> CheckIn? {
+        if let business = Business.fromData(data: data?.business) {
+            // TODO: check and refactor status here
+            return CheckIn(business: business, businessId: business.id, checkedInAt: Date(), createdAt: Date(), profileId: data?.profileId, status: CheckInStatus.withLabel(data?.status.rawValue ?? ""))
+        } else {
+            return nil
+        }
     }
     // TODO: parse
-    static func fromData(data: ActiveCheckInQuery.Data.ActiveCheckIn?) -> CheckIn {
-        return CheckIn(business: Business(), checkedInAt: Date())
+    static func fromData(data: ActiveCheckInQuery.Data.ActiveCheckIn?) -> CheckIn? {
+        if let business = Business.fromData(data: data?.business) {
+            // TODO: check and refactor status here
+            return CheckIn(business: business, businessId: business.id, checkedInAt: Date(), createdAt: Date(), profileId: data?.profileId, status: CheckInStatus.withLabel(data?.status.rawValue ?? ""))
+        } else {
+            return nil
+        }
     }
     
 }
 
-enum CheckInStatus {
+enum CheckInStatus: String, CaseIterable {
     case pending, confirmed, rejected
+    
+    static func withLabel(_ label: String) -> CheckInStatus? {
+        return self.allCases.first{ "\($0)" == label }
+    }
 }

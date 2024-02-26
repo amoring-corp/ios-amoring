@@ -806,7 +806,9 @@ class UserManager: ObservableObject {
     }
     
     func activeCheckIn(completion: @escaping (CheckIn?) -> Void) {
+        print("here")
         api.fetch(query: ActiveCheckInQuery()) { result in
+            print("here2")
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -820,7 +822,8 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                
+                print("here3")
+                print(data.activeCheckIn)
                 if let activeCheckIn = data.activeCheckIn {
                     let checkIn = CheckIn.fromData(data: data.activeCheckIn)
                     print("Active check in: \(checkIn)")

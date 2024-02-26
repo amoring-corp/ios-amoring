@@ -32,6 +32,11 @@ query ActiveCheckIn {
             url
           }
       }
+      businessHours {
+        openAt
+        closeAt
+        day
+      }
       createdAt
       updatedAt
     }

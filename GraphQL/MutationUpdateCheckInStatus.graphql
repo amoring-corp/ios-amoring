@@ -32,6 +32,11 @@ mutation UpdateCheckInStatus($id: ID!) {
             url
           }
       }
+      businessHours {
+        openAt
+        closeAt
+        day
+      }
       createdAt
       updatedAt
     }
