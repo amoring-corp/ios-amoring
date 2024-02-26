@@ -51,8 +51,8 @@ public class UploadMyProfileImageMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("profileId", Int.self),
-        .field("fileId", Int.self),
+        .field("profileId", String.self),
+        .field("fileId", String.self),
         .field("sort", Int.self),
         .field("file", File.self),
         .field("createdAt", AmoringAPI.DateTime?.self),
@@ -60,8 +60,8 @@ public class UploadMyProfileImageMutation: GraphQLMutation {
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var profileId: Int { __data["profileId"] }
-      public var fileId: Int { __data["fileId"] }
+      public var profileId: String { __data["profileId"] }
+      public var fileId: String { __data["fileId"] }
       public var sort: Int { __data["sort"] }
       public var file: File { __data["file"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }

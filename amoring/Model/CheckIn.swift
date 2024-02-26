@@ -10,16 +10,19 @@ import AmoringAPI
 
 struct CheckIn {
     var business: Business
-    var profile: Profile?
-    var status: CheckInStatus?
-    
-    var userId: String?
     var businessId: String?
-//    var place: String?  //??
     let checkedInAt: Date
     var checkedOutAt: Date?
+    var createdAt: Date?
+    var id: String?
+    var profile: Profile?
+    var profileId: String?
+    var status: CheckInStatus?
+    var updatedAt: Date?
+    
     // TODO: parse
     static func fromData(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus?) -> CheckIn {
+        let business = data?.business
         return CheckIn(business: Business(), checkedInAt: Date())
     }
     // TODO: parse

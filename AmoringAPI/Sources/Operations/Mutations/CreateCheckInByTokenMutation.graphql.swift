@@ -40,10 +40,10 @@ public class CreateCheckInByTokenMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("businessId", Int.self),
-        .field("business", Business.self),
-        .field("profileId", Int.self),
-        .field("profile", Profile.self),
+        .field("businessId", String.self),
+        .field("business", Business?.self),
+        .field("profileId", String.self),
+        .field("profile", Profile?.self),
         .field("status", GraphQLEnum<AmoringAPI.CheckInStatus>.self),
         .field("checkedInAt", AmoringAPI.DateTime?.self),
         .field("checkedOutAt", AmoringAPI.DateTime?.self),
@@ -52,10 +52,10 @@ public class CreateCheckInByTokenMutation: GraphQLMutation {
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var businessId: Int { __data["businessId"] }
-      public var business: Business { __data["business"] }
-      public var profileId: Int { __data["profileId"] }
-      public var profile: Profile { __data["profile"] }
+      public var businessId: String { __data["businessId"] }
+      public var business: Business? { __data["business"] }
+      public var profileId: String { __data["profileId"] }
+      public var profile: Profile? { __data["profile"] }
       public var status: GraphQLEnum<AmoringAPI.CheckInStatus> { __data["status"] }
       public var checkedInAt: AmoringAPI.DateTime? { __data["checkedInAt"] }
       public var checkedOutAt: AmoringAPI.DateTime? { __data["checkedOutAt"] }
@@ -73,12 +73,12 @@ public class CreateCheckInByTokenMutation: GraphQLMutation {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
-          .field("ownerId", Int?.self),
+          .field("ownerId", String?.self),
           .field("businessName", String?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var ownerId: Int? { __data["ownerId"] }
+        public var ownerId: String? { __data["ownerId"] }
         public var businessName: String? { __data["businessName"] }
       }
 

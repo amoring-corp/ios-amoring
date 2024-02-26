@@ -1,5 +1,5 @@
 mutation verifyUserEmail($userId: ID!, $confirmationCode: String!, $emailConfirmationToken: String!) {
-  verifyUserEmailResolver(
+  verifyUserEmail(
     userId: $userId
     confirmationNumber: $confirmationCode
     emailConfirmationToken: $emailConfirmationToken

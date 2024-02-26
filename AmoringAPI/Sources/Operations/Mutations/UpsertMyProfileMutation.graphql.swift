@@ -40,7 +40,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("userId", Int.self),
+        .field("userId", String.self),
         .field("name", String?.self),
         .field("age", Int?.self),
         .field("birthYear", Int?.self),
@@ -56,7 +56,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var userId: Int { __data["userId"] }
+      public var userId: String { __data["userId"] }
       public var name: String? { __data["name"] }
       public var age: Int? { __data["age"] }
       public var birthYear: Int? { __data["birthYear"] }

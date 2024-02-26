@@ -758,11 +758,11 @@ class UserManager: ObservableObject {
                 
                 print("Check in successfully created by token!")
                     
-                print(data.createCheckInByToken?.business.businessName)
+                
                 print(data.createCheckInByToken?.id)
                 
                 self.isLoading = false
-                completion(nil, data.createCheckInByToken?.business.businessName, data.createCheckInByToken?.id)
+                completion(nil, data.createCheckInByToken?.business?.businessName, data.createCheckInByToken?.id)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
@@ -820,8 +820,14 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                let checkIn = CheckIn.fromData(data: data.activeCheckIn)
-                completion(checkIn)
+                
+                if let activeCheckIn = data.activeCheckIn {
+                    let checkIn = CheckIn.fromData(data: data.activeCheckIn)
+                    print("Active check in: \(checkIn)")
+                    completion(checkIn)
+                } else {
+                    completion(nil)
+                }
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 completion(nil)

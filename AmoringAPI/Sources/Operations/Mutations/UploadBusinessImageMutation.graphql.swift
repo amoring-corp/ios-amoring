@@ -58,15 +58,15 @@ public class UploadBusinessImageMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("businessId", Int.self),
-        .field("fileId", Int.self),
+        .field("businessId", String.self),
+        .field("fileId", String.self),
         .field("sort", Int.self),
         .field("file", File.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var businessId: Int { __data["businessId"] }
-      public var fileId: Int { __data["fileId"] }
+      public var businessId: String { __data["businessId"] }
+      public var fileId: String { __data["fileId"] }
       public var sort: Int { __data["sort"] }
       public var file: File { __data["file"] }
 

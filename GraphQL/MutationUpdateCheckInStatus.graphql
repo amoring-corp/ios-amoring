@@ -32,32 +32,6 @@ mutation UpdateCheckInStatus($id: ID!) {
             url
           }
       }
-      checkedInProfiles {
-        id
-        userId
-        name
-        birthYear
-        height
-        weight
-        mbti
-        education
-        occupation
-        bio
-        gender
-        images {
-          id
-            file {
-              url
-            }
-        }
-        interests {
-          id
-          name
-        }
-        age
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }

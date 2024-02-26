@@ -285,7 +285,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 self.isLoading = false
                 switch result {
                 case .success(let value):
-                    guard let passed = value.data?.verifyUserEmailResolver else {
+                    guard let passed = value.data?.verifyUserEmail else {
                         print("Wrong data format!")
                         completion(false, "Wrong code!")
                         return

@@ -7,7 +7,7 @@ public class VerifyUserEmailMutation: GraphQLMutation {
   public static let operationName: String = "verifyUserEmail"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation verifyUserEmail($userId: ID!, $confirmationCode: String!, $emailConfirmationToken: String!) { verifyUserEmailResolver( userId: $userId confirmationNumber: $confirmationCode emailConfirmationToken: $emailConfirmationToken ) }"#
+      #"mutation verifyUserEmail($userId: ID!, $confirmationCode: String!, $emailConfirmationToken: String!) { verifyUserEmail( userId: $userId confirmationNumber: $confirmationCode emailConfirmationToken: $emailConfirmationToken ) }"#
     ))
 
   public var userId: ID
@@ -36,13 +36,13 @@ public class VerifyUserEmailMutation: GraphQLMutation {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("verifyUserEmailResolver", Bool.self, arguments: [
+      .field("verifyUserEmail", Bool.self, arguments: [
         "userId": .variable("userId"),
         "confirmationNumber": .variable("confirmationCode"),
         "emailConfirmationToken": .variable("emailConfirmationToken")
       ]),
     ] }
 
-    public var verifyUserEmailResolver: Bool { __data["verifyUserEmailResolver"] }
+    public var verifyUserEmail: Bool { __data["verifyUserEmail"] }
   }
 }

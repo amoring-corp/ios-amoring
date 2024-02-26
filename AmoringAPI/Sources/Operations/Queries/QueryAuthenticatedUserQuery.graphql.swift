@@ -63,7 +63,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
-          .field("userId", Int.self),
+          .field("userId", String.self),
           .field("name", String?.self),
           .field("age", Int?.self),
           .field("birthYear", Int?.self),
@@ -81,7 +81,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var userId: Int { __data["userId"] }
+        public var userId: String { __data["userId"] }
         public var name: String? { __data["name"] }
         public var age: Int? { __data["age"] }
         public var birthYear: Int? { __data["birthYear"] }
@@ -161,7 +161,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
-          .field("ownerId", Int?.self),
+          .field("ownerId", String?.self),
           .field("businessName", String?.self),
           .field("businessType", String?.self),
           .field("businessIndustry", String?.self),
@@ -189,7 +189,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var ownerId: Int? { __data["ownerId"] }
+        public var ownerId: String? { __data["ownerId"] }
         public var businessName: String? { __data["businessName"] }
         public var businessType: String? { __data["businessType"] }
         public var businessIndustry: String? { __data["businessIndustry"] }

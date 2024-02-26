@@ -40,14 +40,14 @@ public class DisconnectInterestsFromMyProfileMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("userId", Int.self),
+        .field("userId", String.self),
         .field("interests", [Interest?]?.self),
         .field("createdAt", AmoringAPI.DateTime?.self),
         .field("updatedAt", AmoringAPI.DateTime?.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var userId: Int { __data["userId"] }
+      public var userId: String { __data["userId"] }
       public var interests: [Interest?]? { __data["interests"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
@@ -64,14 +64,14 @@ public class DisconnectInterestsFromMyProfileMutation: GraphQLMutation {
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
           .field("name", String?.self),
-          .field("categoryId", Int.self),
+          .field("categoryId", String.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var name: String? { __data["name"] }
-        public var categoryId: Int { __data["categoryId"] }
+        public var categoryId: String { __data["categoryId"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
       }

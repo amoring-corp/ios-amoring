@@ -3,7 +3,7 @@
 """
 type Business {
   id: ID!
-  ownerId: Int
+  ownerId: String
   owner: User
   businessName: String
   businessType: String
@@ -28,13 +28,13 @@ type Business {
   bio: String
   images: [BusinessImage]
   businessHours: [BusinessHours]
-  checkedInProfiles: [Profile]
+  activeCheckIns: [CheckIn]!
   createdAt: DateTime
   updatedAt: DateTime
 }
 
 input BusinessCreateInput {
-  ownerId: Int!
+  ownerId: String!
   businessName: String!
   address: String!
   addressJibun: String
@@ -81,8 +81,8 @@ input BusinessHoursInput {
 """
 type BusinessImage {
   id: ID!
-  businessId: Int!
-  fileId: Int!
+  businessId: String!
+  fileId: String!
   sort: Int!
   file: File!
   createdAt: DateTime
@@ -95,7 +95,7 @@ input BusinessImageInput {
 }
 
 input BusinessUpdateInput {
-  ownerId: Int
+  ownerId: String
   businessName: String
   businessType: String
   businessIndustry: String
@@ -124,10 +124,10 @@ input BusinessUpdateInput {
 """
 type CheckIn {
   id: ID!
-  businessId: Int!
-  business: Business!
-  profileId: Int!
-  profile: Profile!
+  businessId: String!
+  business: Business
+  profileId: String!
+  profile: Profile
   status: CheckInStatus!
   checkedInAt: DateTime
   checkedOutAt: DateTime
@@ -193,7 +193,7 @@ enum Gender {
 type Interest {
   id: ID!
   name: String
-  categoryId: Int!
+  categoryId: String!
   category: InterestCategory
   createdAt: DateTime
   updatedAt: DateTime
@@ -215,12 +215,12 @@ input InterestCategoryInput {
 }
 
 input InterestCreateInput {
-  categoryId: Int!
+  categoryId: String!
   name: String!
 }
 
 input InterestUpdateInput {
-  categoryId: Int
+  categoryId: String
   name: String
 }
 
@@ -246,7 +246,7 @@ input MakeReportInput {
 """
 type Profile {
   id: ID!
-  userId: Int!
+  userId: String!
   name: String
   birthYear: Int
   height: Int
@@ -281,8 +281,8 @@ input ProfileCreateInput {
 """
 type ProfileImage {
   id: ID!
-  profileId: Int!
-  fileId: Int!
+  profileId: String!
+  fileId: String!
   sort: Int!
   file: File!
   createdAt: DateTime
@@ -312,7 +312,7 @@ input ProfileUpdateInput {
 """
 type Report {
   id: ID!
-  byUserId: Int!
+  byUserId: String!
   email: String
   subject: String
   body: String
@@ -395,7 +395,7 @@ type Mutation {
   validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
-  verifyUserEmailResolver(
+  verifyUserEmail(
     userId: ID!
     confirmationNumber: String!
     emailConfirmationToken: String!
@@ -457,7 +457,7 @@ type Mutation {
 type Query {
   authenticatedUser: User
   businesses: [Business]!
-  business(id: ID!): Business!
+  business(id: ID!): Business
   activeCheckIn: CheckIn
   interestCategories: [InterestCategory]!
   interestCategory(id: ID!): InterestCategory!

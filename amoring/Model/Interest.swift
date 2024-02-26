@@ -12,7 +12,7 @@ import AmoringAPI
 struct Interest: Hashable {
     var id: String
     var name: String
-    var categoryId: Int?
+    var categoryId: String?
     var category: InterestCategory?
     var createdAt: Date?
     var updatedAt: Date?
