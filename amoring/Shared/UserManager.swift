@@ -18,7 +18,7 @@ class UserManager: ObservableObject {
     @Published var interestCategories: [InterestCategory] = []
     @Published var businessesInit: [Business] = []
     @Published var businesses: [Business] = []
-    @Published var profiles: [UserProfile] = []
+    @Published var profiles: [Profile] = []
     
     @Published var pictures: [PictureModel] = []
     @Published var businessPictures: [PictureModel] = []
@@ -52,7 +52,7 @@ class UserManager: ObservableObject {
             }
         case .user:
             print("I'm a user")
-            if let userProfile = authUser.userProfile {
+            if let profile = authUser.profile {
                 self.setCurrentPhotos()
                 self.changeStateWithAnimation(state: .session)
             } else {
@@ -67,7 +67,7 @@ class UserManager: ObservableObject {
     
     private func setCurrentPhotos() {
         print(self.pictures.count)
-        guard let images = self.user?.userProfile?.images else { return }
+        guard let images = self.user?.profile?.images else { return }
       
         if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
             
@@ -131,20 +131,19 @@ class UserManager: ObservableObject {
                         return
                     }
                     
+                    self.user = User.fromData(authUser)
                     
-                    self.user = User(id: authUser.id).from(authUser)
-                    
-                    print(self.user?.userProfile?.images)
+                    print(self.user?.profile?.images)
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
                 }
         }
     }
     
-    func createUserProfile(userProfile: UserProfile, completion: @escaping (Bool) -> Void) {
+    func createProfile(profile: Profile, completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        let input = UserProfileData(userProfile: userProfile).data
-        api.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
+        let input = ProfileData(profile: profile).data
+        api.perform(mutation: UpsertMyProfileMutation(data: ProfileUpdateInput(input))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -161,7 +160,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                self.user?.userProfile = userProfile
+                self.user?.profile = profile
                 print("User Profile was successfully created!")
                 self.isLoading = false
                 
@@ -397,10 +396,10 @@ class UserManager: ObservableObject {
                 
                 print(data.connectInterestsToMyProfile.interests)
                 if let interests = data.connectInterestsToMyProfile.interests {
-                    self.user?.userProfile?.interests.removeAll()
+                    self.user?.profile?.interests.removeAll()
                     for interest in interests {
                         if let interest {
-                            self.user?.userProfile?.interests.append(Interest(id: "", name: "").getFrom(data: interest))
+                            self.user?.profile?.interests.append(Interest.fromData(data: interest))
                         }
                     }
                 }
@@ -415,8 +414,7 @@ class UserManager: ObservableObject {
     
     func disconnectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        guard let profileId = user?.userProfile?.id else { return }
-        api.perform(mutation: DisconnectInterestsFromUserProfileMutation(profileId: profileId, ids: ids)) { result in
+        api.perform(mutation: DisconnectInterestsFromMyProfileMutation(ids: ids)) { result in
             self.isLoading = false
             switch result {
             case .success(let value):
@@ -432,7 +430,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print(data.disconnectInterestsFromUserProfile.interests)
+                print(data.disconnectInterestsFromMyProfile.interests)
                 completion(true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -442,7 +440,7 @@ class UserManager: ObservableObject {
     }
     
     func reconnectInterests(ids: [String], completion: @escaping (Bool) -> Void) {
-        if let interests = user?.userProfile?.interests {
+        if let interests = user?.profile?.interests {
             self.disconnectInterests(ids: interests.map{ $0.id }) { success in
                 self.connectInterests(ids: ids) { success in
                     completion(success)
@@ -455,10 +453,10 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateUserProfile(userProfile: UserProfile, completion: @escaping (Bool) -> Void) {
-        let input = UserProfileData(userProfile: userProfile).data
+    func updateProfile(profile: Profile, completion: @escaping (Bool) -> Void) {
+        let input = ProfileData(profile: profile).data
         
-        api.perform(mutation: UpsertMyUserProfileMutation(data: UserProfileUpdateInput(input))) { result in
+        api.perform(mutation: UpsertMyProfileMutation(data: ProfileUpdateInput(input))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -472,9 +470,9 @@ class UserManager: ObservableObject {
                     completion(false)
                     return
                 }
-                let fetchedProfile = data.upsertMyUserProfile
-                print(data.upsertMyUserProfile.id)
-                self.user?.userProfile = userProfile
+                let fetchedProfile = data.upsertMyProfile
+                print(data.upsertMyProfile.id)
+                self.user?.profile = profile
                 completion(true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -760,11 +758,11 @@ class UserManager: ObservableObject {
                 
                 print("Check in successfully created by token!")
                     
-                print(data.createCheckInByToken?.business.businessName)
+                
                 print(data.createCheckInByToken?.id)
                 
                 self.isLoading = false
-                completion(nil, data.createCheckInByToken?.business.businessName, data.createCheckInByToken?.id)
+                completion(nil, data.createCheckInByToken?.business?.businessName, data.createCheckInByToken?.id)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
@@ -773,7 +771,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateCheckInStatus(id: String, completion: @escaping (String?, String?) -> Void) {
+    func updateCheckInStatus(id: String, completion: @escaping (String?, CheckIn?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: UpdateCheckInStatusMutation(id: id)) { result in
@@ -794,11 +792,11 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Check in successfully created by token!")
-                    
-                print(data.updateCheckInStatus?.business.id)
                 
                 self.isLoading = false
-                completion(nil, data.updateCheckInStatus?.business.id)
+                
+                let checkIn = CheckIn.fromData(data: data.updateCheckInStatus)
+                completion(nil, checkIn)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
@@ -806,6 +804,38 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    func activeCheckIn(completion: @escaping (CheckIn?) -> Void) {
+        api.fetch(query: ActiveCheckInQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    completion(nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(nil)
+                    return
+                }
+                
+                if let activeCheckIn = data.activeCheckIn {
+                    let checkIn = CheckIn.fromData(data: data.activeCheckIn)
+                    print("Active check in: \(checkIn)")
+                    completion(checkIn)
+                } else {
+                    completion(nil)
+                }
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    
     
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
@@ -835,7 +865,7 @@ class UserManager: ObservableObject {
                 self.businessesInit = []
                 
                 for bus in businesss {
-                    if let busForSave = Business().from(data: bus) {
+                    if let busForSave = Business.fromData(data: bus) {
                         self.businesses.append(busForSave)
                         self.businessesInit.append(busForSave)
                     }
@@ -852,7 +882,7 @@ class UserManager: ObservableObject {
     
     // TODO: move to another Manager
     func getProfiles() {
-        api.fetch(query: UserProfilesQuery()) { result in
+        api.fetch(query: ProfilesQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -865,15 +895,15 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                let profiles = data.userProfiles
+                let profiles = data.profiles
                 self.profiles = []
                 
-                self.profiles.append(contentsOf: Dummy.userProfiles)
+                self.profiles.append(contentsOf: Dummy.profiles)
                 
                 for profile in profiles {
-                    if let profile = UserProfile(id: "", images: [], interests: []).from(data: profile) {
+                    if let profile = Profile.fromData(data: profile) {
                         //MARK:  excepting default db profile, excepting myself
-                        if profile.id != "3" && profile.id != self.user?.userProfile?.id {
+                        if profile.id != "3" && profile.id != self.user?.profile?.id {
                             self.profiles.append(profile)
                         }
                     }

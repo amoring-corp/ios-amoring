@@ -116,7 +116,7 @@ struct ChatRow: View {
     var body: some View {
         HStack(spacing: 0) {
             let user = conversation.participants.last
-            let url = user?.userProfile?.images.first?.file?.url ?? ""
+            let url = user?.profile?.images.first?.file?.url ?? ""
             CachedAsyncImage(url: URL(string: url), content: { image in
                 image
                     .resizable()
@@ -129,7 +129,7 @@ struct ChatRow: View {
     
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(user?.userProfile?.name ?? "")
+                    Text(user?.profile?.name ?? "")
                         .font(medium16Font)
                         .foregroundColor(expired ? .gray600 : .gray300)
                     if expired {

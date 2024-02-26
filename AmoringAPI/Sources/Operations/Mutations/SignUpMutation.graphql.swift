@@ -98,7 +98,7 @@ public class SignUpMutation: GraphQLMutation {
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("id", AmoringAPI.ID.self),
-            .field("ownerId", Int?.self),
+            .field("ownerId", String?.self),
             .field("businessName", String?.self),
             .field("businessType", String?.self),
             .field("businessIndustry", String?.self),
@@ -117,7 +117,7 @@ public class SignUpMutation: GraphQLMutation {
           ] }
 
           public var id: AmoringAPI.ID { __data["id"] }
-          public var ownerId: Int? { __data["ownerId"] }
+          public var ownerId: String? { __data["ownerId"] }
           public var businessName: String? { __data["businessName"] }
           public var businessType: String? { __data["businessType"] }
           public var businessIndustry: String? { __data["businessIndustry"] }

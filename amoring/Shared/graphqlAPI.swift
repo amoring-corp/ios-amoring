@@ -30,32 +30,32 @@ final class GraphqlAPI {
     
     func authenticatedUserQuery(completion: @escaping (QueryAuthenticatedUserQuery.Data.AuthenticatedUser?) -> Void) {
         amoring.fetch(query: QueryAuthenticatedUserQuery()) { result in
-                print("getting session .... ")
-                
-                switch result {
-                case .success(let value):
-                    guard value.errors == nil else {
-                        print(value.errors)
-                        completion(nil)
-                        return
-                    }
-                    
-                    guard let data = value.data else {
-                        print("WRONG DATA")
-                        completion(nil)
-                        return
-                    }
-                    
-                    guard let authUser = data.authenticatedUser else {
-                        print("NO USER")
-                        completion(nil)
-                        return
-                    }
-                    completion(authUser)
-                case .failure(let error):
-                    debugPrint(error.localizedDescription)
+            print("getting session .... ")
+            
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
                     completion(nil)
+                    return
                 }
+                
+                guard let data = value.data else {
+                    print("WRONG DATA")
+                    completion(nil)
+                    return
+                }
+                
+                guard let authUser = data.authenticatedUser else {
+                    print("NO USER")
+                    completion(nil)
+                    return
+                }
+                completion(authUser)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(nil)
+            }
         }
     }
 }

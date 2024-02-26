@@ -3,28 +3,20 @@
 
 @_exported import ApolloAPI
 
-public class DisconnectInterestsFromUserProfileMutation: GraphQLMutation {
-  public static let operationName: String = "DisconnectInterestsFromUserProfile"
+public class DisconnectInterestsFromMyProfileMutation: GraphQLMutation {
+  public static let operationName: String = "DisconnectInterestsFromMyProfile"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation DisconnectInterestsFromUserProfile($profileId: ID!, $Ids: [ID!]!) { disconnectInterestsFromUserProfile(userProfileId: $profileId, interestIds: $Ids) { __typename id userId interests { __typename id name categoryId createdAt updatedAt } createdAt updatedAt } }"#
+      #"mutation DisconnectInterestsFromMyProfile($Ids: [ID!]!) { disconnectInterestsFromMyProfile(interestIds: $Ids) { __typename id userId interests { __typename id name categoryId createdAt updatedAt } createdAt updatedAt } }"#
     ))
 
-  public var profileId: ID
   public var ids: [ID]
 
-  public init(
-    profileId: ID,
-    ids: [ID]
-  ) {
-    self.profileId = profileId
+  public init(ids: [ID]) {
     self.ids = ids
   }
 
-  public var __variables: Variables? { [
-    "profileId": profileId,
-    "Ids": ids
-  ] }
+  public var __variables: Variables? { ["Ids": ids] }
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
@@ -32,38 +24,35 @@ public class DisconnectInterestsFromUserProfileMutation: GraphQLMutation {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("disconnectInterestsFromUserProfile", DisconnectInterestsFromUserProfile.self, arguments: [
-        "userProfileId": .variable("profileId"),
-        "interestIds": .variable("Ids")
-      ]),
+      .field("disconnectInterestsFromMyProfile", DisconnectInterestsFromMyProfile.self, arguments: ["interestIds": .variable("Ids")]),
     ] }
 
-    public var disconnectInterestsFromUserProfile: DisconnectInterestsFromUserProfile { __data["disconnectInterestsFromUserProfile"] }
+    public var disconnectInterestsFromMyProfile: DisconnectInterestsFromMyProfile { __data["disconnectInterestsFromMyProfile"] }
 
-    /// DisconnectInterestsFromUserProfile
+    /// DisconnectInterestsFromMyProfile
     ///
-    /// Parent Type: `UserProfile`
-    public struct DisconnectInterestsFromUserProfile: AmoringAPI.SelectionSet {
+    /// Parent Type: `Profile`
+    public struct DisconnectInterestsFromMyProfile: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("userId", Int.self),
+        .field("userId", String.self),
         .field("interests", [Interest?]?.self),
         .field("createdAt", AmoringAPI.DateTime?.self),
         .field("updatedAt", AmoringAPI.DateTime?.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var userId: Int { __data["userId"] }
+      public var userId: String { __data["userId"] }
       public var interests: [Interest?]? { __data["interests"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-      /// DisconnectInterestsFromUserProfile.Interest
+      /// DisconnectInterestsFromMyProfile.Interest
       ///
       /// Parent Type: `Interest`
       public struct Interest: AmoringAPI.SelectionSet {
@@ -75,14 +64,14 @@ public class DisconnectInterestsFromUserProfileMutation: GraphQLMutation {
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
           .field("name", String?.self),
-          .field("categoryId", Int.self),
+          .field("categoryId", String.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var name: String? { __data["name"] }
-        public var categoryId: Int { __data["categoryId"] }
+        public var categoryId: String { __data["categoryId"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
       }

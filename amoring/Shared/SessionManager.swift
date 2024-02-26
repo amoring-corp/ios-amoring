@@ -80,8 +80,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     }
                     
                     print("Current Token: \(self.sessionToken)")
-                    self.user = User(id: authUser.id).from(authUser)
-                    self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+                    self.user = User.fromData(authUser)
+                    self.changeStateWithAnimation(state: .session(user: User.fromData(authUser)))
                     completion(true, "")
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
@@ -285,7 +285,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 self.isLoading = false
                 switch result {
                 case .success(let value):
-                    guard let passed = value.data?.verifyUserEmailResolver else {
+                    guard let passed = value.data?.verifyUserEmail else {
                         print("Wrong data format!")
                         completion(false, "Wrong code!")
                         return

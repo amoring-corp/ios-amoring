@@ -1,6 +1,5 @@
-mutation DisconnectInterestsFromUserProfile($profileId: ID!, $Ids: [ID!]!) {
-  disconnectInterestsFromUserProfile(
-    userProfileId: $profileId
+mutation DisconnectInterestsFromMyProfile($Ids: [ID!]!) {
+  disconnectInterestsFromMyProfile(
     interestIds: $Ids
   ) {
     id

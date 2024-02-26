@@ -12,12 +12,12 @@ import AmoringAPI
 struct Interest: Hashable {
     var id: String
     var name: String
-    var categoryId: Int?
+    var categoryId: String?
     var category: InterestCategory?
     var createdAt: Date?
     var updatedAt: Date?
     
-    func getFrom(data: ConnectInterestsToMyProfileMutation.Data.ConnectInterestsToMyProfile.Interest) -> Interest {
+    static func fromData(data: ConnectInterestsToMyProfileMutation.Data.ConnectInterestsToMyProfile.Interest) -> Interest {
         return Interest(
             id: data.id,
             name: data.name ?? "",

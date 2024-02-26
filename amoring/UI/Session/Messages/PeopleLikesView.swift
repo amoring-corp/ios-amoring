@@ -88,9 +88,9 @@ struct PeopleLikesView: View {
                         ) {
                             ForEach(messageController.reactions, id: \.self) { reaction in
                                 let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
-                                if let userProfile = user?.userProfile {
+                                if let profile = user?.profile {
                                     NavigationLink(destination: {
-                                        ProfilePreviewView(userProfile: userProfile, reaction: reaction)
+                                        ProfilePreviewView(profile: profile, reaction: reaction)
                                     }) {
                                         PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
                                     }.disabled(!purchaseController.likeListEnabled)
@@ -130,13 +130,13 @@ struct ProfilePreviewView: View {
     @EnvironmentObject var messageController: MessagesController
     
     @State var swipeAction: SwipeAction = .doNothing
-    let userProfile: UserProfile
+    let profile: Profile
     let reaction: Reaction
     
     var body: some View {
         VStack(spacing: 0) {
             // TODO: Create separate object instead of using SwipibleProfileVIew for smooth animation ?
-            SwipibleProfileVIew(userProfile: userProfile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
+            SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
         }
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading:
@@ -146,7 +146,7 @@ struct ProfilePreviewView: View {
         )
     }
     
-    private func performSwipe(userProfile: UserProfile, hasLiked: Bool) {
+    private func performSwipe(profile: Profile, hasLiked: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             removeTopItem()
             if hasLiked {
@@ -161,7 +161,7 @@ struct ProfilePreviewView: View {
                 }
             }
         }
-        //        onSwiped(userProfile, hasLiked)
+        //        onSwiped(profile, hasLiked)
     }
     
     private func removeTopItem() {
@@ -179,7 +179,7 @@ struct PeopleLikesListObject: View {
     let enabled: Bool
     
     var body: some View {
-        let url = user?.userProfile?.images.first?.file?.url ?? ""
+        let url = user?.profile?.images.first?.file?.url ?? ""
         
         ZStack(alignment: .bottom) {
             AsyncImage(url: URL(string: url), content: { image in
@@ -205,7 +205,7 @@ struct PeopleLikesListObject: View {
                         //                                                .padding(.horizontal, Size.w(12))
                         //                                                .padding(.vertical, Size.w(6))
                         //                                                .background(Capsule().fill(Color.gray1000))
-                        if let age = user?.userProfile?.age {
+                        if let age = user?.profile?.age {
                             Text(age.description + "세")
                                 .font(semiBold12Font)
                                 .foregroundColor(.white)
@@ -224,7 +224,7 @@ struct PeopleLikesListObject: View {
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
-                        Text(user?.userProfile?.name ?? "")
+                        Text(user?.profile?.name ?? "")
                             .font(medium17Font)
                             .foregroundColor(.white)
                         Circle().fill()

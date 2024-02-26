@@ -21,7 +21,7 @@ struct AccountView: View {
             Color.gray1000.frame(width: .infinity, height: 1)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    let url = userManager.user?.userProfile?.images.first?.file?.url ?? ""
+                    let url = userManager.user?.profile?.images.first?.file?.url ?? ""
                     
                     CachedAsyncImage(url: URL(string: url), content: { cont in
                         cont
@@ -38,14 +38,14 @@ struct AccountView: View {
                     .padding(.bottom, Size.w(30))
                     
                     HStack {
-                        Text(LocalizedStringKey(userManager.user?.userProfile?.gender ?? ""))
+                        Text(LocalizedStringKey(userManager.user?.profile?.gender ?? ""))
                             .font(semiBold12Font)
                             .foregroundColor(.gray1000)
                             .padding(.horizontal, Size.w(12))
                             .padding(.vertical, Size.w(6))
                             .background(Capsule().fill(Color.yellow300))
                         
-                        if let age = userManager.user?.userProfile?.age {
+                        if let age = userManager.user?.profile?.age {
                             Text(age.description + "세")
                                 .font(semiBold12Font)
                                 .foregroundColor(.gray1000)
@@ -56,7 +56,7 @@ struct AccountView: View {
                     }
                     .padding(.bottom, Size.w(10))
                     
-                    Text(userManager.user?.userProfile?.name ?? "")
+                    Text(userManager.user?.profile?.name ?? "")
                         .font(semiBold28Font)
                         .foregroundColor(.white)
                     

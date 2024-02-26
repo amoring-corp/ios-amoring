@@ -1,5 +1,5 @@
-query UserProfiles {
-  userProfiles(role: user) {
+query Profiles {
+  profiles(role: user) {
     id
     userId
     name

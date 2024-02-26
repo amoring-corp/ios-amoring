@@ -36,9 +36,9 @@ struct AccountBio: View {
                 })
             
             Button(action: {
-                userManager.user?.userProfile?.bio = self.bio
-                if let userProfile = userManager.user?.userProfile {
-                    userManager.updateUserProfile(userProfile: userProfile) { success in
+                userManager.user?.profile?.bio = self.bio
+                if let profile = userManager.user?.profile {
+                    userManager.updateProfile(profile: profile) { success in
                         print("Bio Successfully saved")
                         self.presentationMode.wrappedValue.dismiss()
                     }
@@ -66,7 +66,7 @@ struct AccountBio: View {
         )
         .onAppear {
             withAnimation {
-                self.bio = userManager.user?.userProfile?.bio ?? ""
+                self.bio = userManager.user?.profile?.bio ?? ""
             }
         }
     }

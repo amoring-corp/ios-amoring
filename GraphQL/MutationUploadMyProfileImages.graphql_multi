@@ -1,4 +1,4 @@
-mutation uploadMyProfileImages($data: [UserProfileImageInput!]!) {
+mutation uploadMyProfileImages($data: [ProfileImageInput!]!) {
   uploadMyProfileImages(data: $data) {
     id
     profileId

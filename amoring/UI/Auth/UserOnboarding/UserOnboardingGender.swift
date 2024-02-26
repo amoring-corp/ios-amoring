@@ -51,7 +51,7 @@ struct UserOnboardingGender: View {
             HStack {
                 Button(action: {
                     if let gender {
-                        controller.userProfile.gender = gender.rawValue
+                        controller.profile.gender = gender.rawValue
                         next = true
                     }
                 }, label: {

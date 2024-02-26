@@ -119,8 +119,8 @@ class Dummy {
     static let users = [
         User(
             id: "1",
-            userProfile:
-                UserProfile(id: "1",
+            profile:
+                Profile(id: "1",
                             name: "Steve Woznyak",
                             birthYear: 2000,
                             height: 176,
@@ -131,10 +131,10 @@ class Dummy {
                             bio: "저희 3명이고, 테이블 잡음, 술 있음",
                             gender: "female",
                             images: [
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                             ],
                             interests: [
                                 Constants.sport[1],
@@ -149,8 +149,8 @@ class Dummy {
         ),
         User(
             id: "2",
-            userProfile:
-                UserProfile(id: "2",
+            profile:
+                Profile(id: "2",
                             name: "SpongeBob SquarePants",
                             birthYear: 2001,
                             height: 176,
@@ -161,10 +161,10 @@ class Dummy {
                             bio: "저희 3명이고, 테이블 잡음, 술 있음",
                             gender: "male",
                             images: [
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-1.jpeg?alt=media&token=06896c71-dabf-4262-8948-77015fab150e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-1.jpeg?alt=media&token=06896c71-dabf-4262-8948-77015fab150e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                             ],
                             interests: [
                                 Constants.sport[1],
@@ -180,8 +180,8 @@ class Dummy {
         
         User(
             id: "3",
-            userProfile:
-                UserProfile(id: "3",
+            profile:
+                Profile(id: "3",
                             name: "Patric Star",
                             birthYear: 1999,
                             height: 176,
@@ -192,10 +192,10 @@ class Dummy {
                             bio: "저희 3명이고, 테이블 잡음, 술 있음",
                             gender: "female",
                             images: [
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-2.jpeg?alt=media&token=5f6f4728-0ddc-4f9d-9991-7b3cb31deff2")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-2.jpeg?alt=media&token=5f6f4728-0ddc-4f9d-9991-7b3cb31deff2")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                             ],
                             interests: [
                                 Constants.sport[1],
@@ -212,8 +212,8 @@ class Dummy {
         
         User(
             id: "4",
-            userProfile:
-                UserProfile(id: "4",
+            profile:
+                Profile(id: "4",
                             name: "Squidward",
                             birthYear: 1998,
                             height: 176,
@@ -221,10 +221,10 @@ class Dummy {
                             bio: "저희 3명이고, 테이블 잡음, 술 있음",
                             gender: "male",
                             images: [
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-3.jpeg?alt=media&token=f4910ba0-2842-4b13-a8ed-38a9c098e63c")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-3.jpeg?alt=media&token=f4910ba0-2842-4b13-a8ed-38a9c098e63c")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                             ],
                             interests: [],
                             age: 26
@@ -233,8 +233,8 @@ class Dummy {
         
         User(
             id: "5",
-            userProfile:
-                UserProfile(id: "5",
+            profile:
+                Profile(id: "5",
                             name: "Sandy Cheeks",
                             birthYear: 1997,
                             height: 176,
@@ -242,10 +242,10 @@ class Dummy {
                             bio: "저희 3명이고, 테이블 잡음, 술 있음",
                             gender: "female",
                             images: [
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-4.jpeg?alt=media&token=354eecdc-be34-4a26-b7f8-2aff6e5342fb")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-4.jpeg?alt=media&token=354eecdc-be34-4a26-b7f8-2aff6e5342fb")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                             ],
                             interests: [],
                             age: 27
@@ -254,8 +254,8 @@ class Dummy {
         
         User(
             id: "6",
-            userProfile:
-                UserProfile(id: "6",
+            profile:
+                Profile(id: "6",
                             name: "Steve Woznyak",
                             birthYear: 2000,
                             height: 176,
@@ -263,10 +263,10 @@ class Dummy {
                             bio: "저희 3명이고, 테이블 잡음, 술 있음",
                             gender: "female",
                             images: [
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                                UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                                ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                             ],
                             interests: [],
                             age: 24
@@ -274,8 +274,8 @@ class Dummy {
         ),
     ]
     
-    static let userProfiles: [UserProfile] = [
-        UserProfile(id: "1",
+    static let profiles: [Profile] = [
+        Profile(id: "1",
                     name: "Steve Woznyak",
                     birthYear: 2000,
                     height: 176,
@@ -286,10 +286,10 @@ class Dummy {
                     bio: "저희 3명이고, 테이블 잡음, 술 있음",
                     gender: "female",
                     images: [
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
                     interests: [
                         Constants.sport[1],
@@ -301,7 +301,7 @@ class Dummy {
                     ],
                     age: 24
                    ),
-        UserProfile(id: "2",
+        Profile(id: "2",
                     name: "SpongeBob SquarePants",
                     birthYear: 2001,
                     height: 176,
@@ -312,10 +312,10 @@ class Dummy {
                     bio: "저희 3명이고, 테이블 잡음, 술 있음",
                     gender: "male",
                     images: [
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-1.jpeg?alt=media&token=06896c71-dabf-4262-8948-77015fab150e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-1.jpeg?alt=media&token=06896c71-dabf-4262-8948-77015fab150e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
                     interests: [
                         Constants.sport[1],
@@ -328,7 +328,7 @@ class Dummy {
                     age: 23
                     
                    ),
-        UserProfile(id: "3",
+        Profile(id: "3",
                     name: "Patric Star",
                     birthYear: 1999,
                     height: 176,
@@ -339,10 +339,10 @@ class Dummy {
                     bio: "저희 3명이고, 테이블 잡음, 술 있음",
                     gender: "female",
                     images: [
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-2.jpeg?alt=media&token=5f6f4728-0ddc-4f9d-9991-7b3cb31deff2")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-2.jpeg?alt=media&token=5f6f4728-0ddc-4f9d-9991-7b3cb31deff2")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
                     interests: [
                         Constants.sport[1],
@@ -354,7 +354,7 @@ class Dummy {
                     ],
                     age: 25
                    ),
-        UserProfile(id: "4",
+        Profile(id: "4",
                     name: "Squidward",
                     birthYear: 1998,
                     height: 176,
@@ -362,15 +362,15 @@ class Dummy {
                     bio: "저희 3명이고, 테이블 잡음, 술 있음",
                     gender: "male",
                     images: [
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-3.jpeg?alt=media&token=f4910ba0-2842-4b13-a8ed-38a9c098e63c")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-3.jpeg?alt=media&token=f4910ba0-2842-4b13-a8ed-38a9c098e63c")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
                     interests: [],
                     age: 26
                    ),
-        UserProfile(id: "5",
+        Profile(id: "5",
                     name: "Sandy Cheeks",
                     birthYear: 1997,
                     height: 176,
@@ -378,15 +378,15 @@ class Dummy {
                     bio: "저희 3명이고, 테이블 잡음, 술 있음",
                     gender: "female",
                     images: [
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-4.jpeg?alt=media&token=354eecdc-be34-4a26-b7f8-2aff6e5342fb")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/person-4.jpeg?alt=media&token=354eecdc-be34-4a26-b7f8-2aff6e5342fb")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
                     interests: [],
                     age: 27
                    ),
-        UserProfile(id: "6",
+        Profile(id: "6",
                     name: "Steve Woznyak",
                     birthYear: 2000,
                     height: 176,
@@ -394,10 +394,10 @@ class Dummy {
                     bio: "저희 3명이고, 테이블 잡음, 술 있음",
                     gender: "female",
                     images: [
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
-                        UserProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-1.png?alt=media&token=426686d7-5cc7-4c9d-9de8-6a87c0f28a7b")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-2.png?alt=media&token=52de63e4-cc28-40b3-b987-04c3a80b3fc9")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-3.png?alt=media&token=c8d56ce7-f636-4942-a939-91367052480e")),
+                        ProfileImage(sort: 0, file: File(url: "https://firebasestorage.googleapis.com/v0/b/tinderdemo-497b9.appspot.com/o/dummyUser-4.png?alt=media&token=144e3abe-d17f-4fa6-9a7c-8670ad3157db"))
                     ],
                     interests: [
                         Amoring.Interest(id: "1", name: "🎪 페스티벌", categoryId: nil, category: nil, createdAt: nil, updatedAt: nil),

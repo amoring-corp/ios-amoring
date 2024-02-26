@@ -3,7 +3,7 @@
 """
 type Business {
   id: ID!
-  ownerId: Int
+  ownerId: String
   owner: User
   businessName: String
   businessType: String
@@ -28,12 +28,13 @@ type Business {
   bio: String
   images: [BusinessImage]
   businessHours: [BusinessHours]
+  activeCheckIns: [CheckIn]!
   createdAt: DateTime
   updatedAt: DateTime
 }
 
 input BusinessCreateInput {
-  ownerId: Int!
+  ownerId: String!
   businessName: String!
   address: String!
   addressJibun: String
@@ -80,8 +81,8 @@ input BusinessHoursInput {
 """
 type BusinessImage {
   id: ID!
-  businessId: Int!
-  fileId: Int!
+  businessId: String!
+  fileId: String!
   sort: Int!
   file: File!
   createdAt: DateTime
@@ -94,7 +95,7 @@ input BusinessImageInput {
 }
 
 input BusinessUpdateInput {
-  ownerId: Int
+  ownerId: String
   businessName: String
   businessType: String
   businessIndustry: String
@@ -123,10 +124,10 @@ input BusinessUpdateInput {
 """
 type CheckIn {
   id: ID!
-  businessId: Int!
-  business: Business!
-  profileId: Int!
-  profile: UserProfile!
+  businessId: String!
+  business: Business
+  profileId: String!
+  profile: Profile
   status: CheckInStatus!
   checkedInAt: DateTime
   checkedOutAt: DateTime
@@ -192,7 +193,7 @@ enum Gender {
 type Interest {
   id: ID!
   name: String
-  categoryId: Int!
+  categoryId: String!
   category: InterestCategory
   createdAt: DateTime
   updatedAt: DateTime
@@ -214,12 +215,12 @@ input InterestCategoryInput {
 }
 
 input InterestCreateInput {
-  categoryId: Int!
+  categoryId: String!
   name: String!
 }
 
 input InterestUpdateInput {
-  categoryId: Int
+  categoryId: String
   name: String
 }
 
@@ -243,9 +244,75 @@ input MakeReportInput {
 """
 
 """
+type Profile {
+  id: ID!
+  userId: String!
+  name: String
+  birthYear: Int
+  height: Int
+  weight: Int
+  mbti: String
+  education: String
+  occupation: String
+  bio: String
+  gender: Gender
+  images: [ProfileImage]
+  interests: [Interest]
+  age: Int
+  activeCheckIn: CheckIn
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProfileCreateInput {
+  name: String!
+  birthYear: Int
+  height: Int
+  weight: Int
+  mbti: String
+  education: String
+  occupation: String
+  bio: String
+  gender: Gender
+}
+
+"""
+
+"""
+type ProfileImage {
+  id: ID!
+  profileId: String!
+  fileId: String!
+  sort: Int!
+  file: File!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProfileImageInput {
+  sort: Int
+  file: Upload!
+}
+
+input ProfileUpdateInput {
+  name: String
+  birthYear: Int
+  height: Int
+  weight: Int
+  mbti: String
+  education: String
+  occupation: String
+  bio: String
+  gender: Gender
+  images: [ProfileImageInput]
+}
+
+"""
+
+"""
 type Report {
   id: ID!
-  byUserId: Int!
+  byUserId: String!
   email: String
   subject: String
   body: String
@@ -290,7 +357,7 @@ type User {
   email: String
   status: UserStatus
   role: UserRole
-  userProfile: UserProfile
+  profile: Profile
   business: Business
   createdAt: DateTime
   updatedAt: DateTime
@@ -301,72 +368,7 @@ input UserCreateInput {
   password: String!
   role: UserRole
   status: UserStatus
-  userProfile: UserProfileCreateInput!
-}
-
-"""
-
-"""
-type UserProfile {
-  id: ID!
-  userId: Int!
-  name: String
-  birthYear: Int
-  height: Int
-  weight: Int
-  mbti: String
-  education: String
-  occupation: String
-  bio: String
-  gender: Gender
-  images: [UserProfileImage]
-  interests: [Interest]
-  age: Int
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input UserProfileCreateInput {
-  name: String!
-  birthYear: Int
-  height: Int
-  weight: Int
-  mbti: String
-  education: String
-  occupation: String
-  bio: String
-  gender: Gender
-}
-
-"""
-
-"""
-type UserProfileImage {
-  id: ID!
-  profileId: Int!
-  fileId: Int!
-  sort: Int!
-  file: File!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input UserProfileImageInput {
-  sort: Int
-  file: Upload!
-}
-
-input UserProfileUpdateInput {
-  name: String
-  birthYear: Int
-  height: Int
-  weight: Int
-  mbti: String
-  education: String
-  occupation: String
-  bio: String
-  gender: Gender
-  images: [UserProfileImageInput]
+  profile: ProfileCreateInput!
 }
 
 enum UserRole {
@@ -393,21 +395,21 @@ type Mutation {
   validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
-  verifyUserEmailResolver(
+  verifyUserEmail(
     userId: ID!
     confirmationNumber: String!
     emailConfirmationToken: String!
   ): Boolean!
   sendUserPasswordResetLink(email: String!): Boolean!
   redeemUserPasswordResetToken(token: String!, password: String!): Boolean!
-  upsertMyUserProfile(data: UserProfileUpdateInput!): UserProfile!
+  upsertMyProfile(data: ProfileUpdateInput!): Profile!
   upsertMyBusiness(data: BusinessUpdateInput!): Business!
-  uploadMyProfileImage(data: UserProfileImageInput!): UserProfileImage!
-  uploadMyProfileImages(data: [UserProfileImageInput!]!): [UserProfileImage]!
-  deleteMyProfileImage(id: ID!): UserProfileImage!
+  uploadMyProfileImage(data: ProfileImageInput!): ProfileImage!
+  uploadMyProfileImages(data: [ProfileImageInput!]!): [ProfileImage]!
+  deleteMyProfileImage(id: ID!): ProfileImage!
   deleteMyAllProfileImages: [ID]!
-  connectInterestsToMyProfile(interestIds: [ID!]!): UserProfile!
-  disconnectInterestsFromMyProfile(interestIds: [ID!]!): UserProfile!
+  connectInterestsToMyProfile(interestIds: [ID!]!): Profile!
+  disconnectInterestsFromMyProfile(interestIds: [ID!]!): Profile!
   createBusiness(data: BusinessCreateInput!): Business!
   updateBusiness(id: ID!, data: BusinessUpdateInput!): Business!
   uploadBusinessImage(
@@ -447,21 +449,16 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!
-  updateUserProfile(id: ID!, data: UserProfileUpdateInput!): UserProfile!
-  connectInterestsToUserProfile(
-    userProfileId: ID!
-    interestIds: [ID!]!
-  ): UserProfile!
-  disconnectInterestsFromUserProfile(
-    userProfileId: ID!
-    interestIds: [ID!]!
-  ): UserProfile!
+  updateProfile(id: ID!, data: ProfileUpdateInput!): Profile!
+  connectInterestsToProfile(profileId: ID!, interestIds: [ID!]!): Profile!
+  disconnectInterestsFromProfile(profileId: ID!, interestIds: [ID!]!): Profile!
 }
 
 type Query {
   authenticatedUser: User
   businesses: [Business]!
-  business(id: ID!): Business!
+  business(id: ID!): Business
+  activeCheckIn: CheckIn
   interestCategories: [InterestCategory]!
   interestCategory(id: ID!): InterestCategory!
   interests: [Interest]!
@@ -469,6 +466,6 @@ type Query {
   businessHours(businessId: ID!): [BusinessHours]!
   users: [User]!
   user(id: ID!): User!
-  userProfiles(role: UserRole): [UserProfile]!
-  userProfile(id: ID!): UserProfile!
+  profiles(role: UserRole): [Profile]!
+  profile(id: ID!): Profile!
 }

@@ -6,7 +6,7 @@ mutation signInWithGoogle($idToken: String!) {
       email
       status
       role
-      userProfile {
+      profile {
         id
         userId
         name

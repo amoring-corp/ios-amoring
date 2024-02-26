@@ -25,19 +25,19 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Mutation": return AmoringAPI.Objects.Mutation
     case "SignInResult": return AmoringAPI.Objects.SignInResult
     case "User": return AmoringAPI.Objects.User
-    case "UserProfile": return AmoringAPI.Objects.UserProfile
-    case "UserProfileImage": return AmoringAPI.Objects.UserProfileImage
+    case "Profile": return AmoringAPI.Objects.Profile
+    case "ProfileImage": return AmoringAPI.Objects.ProfileImage
     case "File": return AmoringAPI.Objects.File
     case "Interest": return AmoringAPI.Objects.Interest
     case "InterestCategory": return AmoringAPI.Objects.InterestCategory
     case "Business": return AmoringAPI.Objects.Business
     case "Query": return AmoringAPI.Objects.Query
+    case "CheckIn": return AmoringAPI.Objects.CheckIn
+    case "BusinessImage": return AmoringAPI.Objects.BusinessImage
     case "SignUpResult": return AmoringAPI.Objects.SignUpResult
     case "CheckInToken": return AmoringAPI.Objects.CheckInToken
-    case "CheckIn": return AmoringAPI.Objects.CheckIn
     case "BusinessHours": return AmoringAPI.Objects.BusinessHours
     case "Report": return AmoringAPI.Objects.Report
-    case "BusinessImage": return AmoringAPI.Objects.BusinessImage
     default: return nil
     }
   }

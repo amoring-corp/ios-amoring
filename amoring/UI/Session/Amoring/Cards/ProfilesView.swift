@@ -18,8 +18,8 @@ struct ProfilesView: View {
 
     
     @State var swipeAction: SwipeAction = .doNothing
-//    @State var userProfiles: [UserProfile] = Dummy.userProfiles
-//    @State var userProfiles: [UserProfile] = []
+//    @State var profiles: [Profile] = Dummy.profiles
+//    @State var profiles: [Profile] = []
     @State var showAlert: Bool = false
     @State var timer: Timer? = nil
     
@@ -75,14 +75,14 @@ struct ProfilesView: View {
                 .frame(maxHeight: .infinity, alignment: .center)
                 
                 ForEach(userManager.profiles.indices, id:\.self) { index  in
-                    let userProfile = userManager.profiles[index]
+                    let profile = userManager.profiles[index]
                     
                     if (index == userManager.profiles.count - 1) {
-                        SwipibleProfileVIew(userProfile: userProfile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
+                        SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
                     } else if (index == userManager.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
-                                ProfileCardView(userProfile: userProfile,
+                                ProfileCardView(profile: profile,
                                                 width: reader.size.width - Size.w(44),
                                                 height: reader.size.height - (Size.w(75 + 56))
                                 )
@@ -100,7 +100,6 @@ struct ProfilesView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.gray1000)
         .navigationBarTitleDisplayMode(.inline)
-
         .onAppear {
             userManager.getProfiles()
             if let checkIn = amoringController.checkIn {
@@ -116,7 +115,7 @@ struct ProfilesView: View {
         }
     }
     
-    private func performSwipe(userProfile: UserProfile, hasLiked: Bool) {
+    private func performSwipe(profile: Profile, hasLiked: Bool) {
         withAnimation {
             amoringController.showDetails = false
             amoringController.hidePanel = false
@@ -135,7 +134,7 @@ struct ProfilesView: View {
                 }
             }
         }
-        //        onSwiped(userProfile, hasLiked)
+        //        onSwiped(profile, hasLiked)
     }
     
     private func removeTopItem() {

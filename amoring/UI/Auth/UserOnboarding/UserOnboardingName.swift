@@ -26,10 +26,10 @@ struct UserOnboardingName: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            CustomTextField(placeholder: "이름을 입력해주세요.", text: $controller.userProfile.name ?? "")
-                .onChange(of: controller.userProfile.name ?? "", perform: { newValue in
+            CustomTextField(placeholder: "이름을 입력해주세요.", text: $controller.profile.name ?? "")
+                .onChange(of: controller.profile.name ?? "", perform: { newValue in
                     if(newValue.count >= 15){
-                        controller.userProfile.name = String(newValue.prefix(15))
+                        controller.profile.name = String(newValue.prefix(15))
                     }
                 })
             
@@ -48,9 +48,9 @@ struct UserOnboardingName: View {
                 NavigationLink(destination: {
                     UserOnboardingGender()
                 }) {
-                    BlackButton(title: "다음", enabled: !(controller.userProfile.name?.isEmpty ?? true))
+                    BlackButton(title: "다음", enabled: !(controller.profile.name?.isEmpty ?? true))
                 }
-                .disabled((controller.userProfile.name?.isEmpty ?? true))
+                .disabled((controller.profile.name?.isEmpty ?? true))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))

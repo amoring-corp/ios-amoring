@@ -11,7 +11,7 @@ public struct BusinessUpdateInput: InputObject {
   }
 
   public init(
-    ownerId: GraphQLNullable<Int> = nil,
+    ownerId: GraphQLNullable<String> = nil,
     businessName: GraphQLNullable<String> = nil,
     businessType: GraphQLNullable<String> = nil,
     businessIndustry: GraphQLNullable<String> = nil,
@@ -60,7 +60,7 @@ public struct BusinessUpdateInput: InputObject {
     ])
   }
 
-  public var ownerId: GraphQLNullable<Int> {
+  public var ownerId: GraphQLNullable<String> {
     get { __data["ownerId"] }
     set { __data["ownerId"] = newValue }
   }

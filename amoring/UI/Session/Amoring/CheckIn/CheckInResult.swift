@@ -110,13 +110,14 @@ struct CheckInResult: View {
                 
                 Button(action: {
                     withAnimation {
-                        userManager.updateCheckInStatus(id: id) { error, businessId in
+                        userManager.updateCheckInStatus(id: id) { error, checkIn in
                             if let error {
                                 notificationController.setNotification(text: error, type: .error)
                             }
-                            if let businessId {
+                            if let checkIn {
+                                
                                 // TODO: Bind real Check in object here . . .
-                                amoringController.checkIn = CheckIn(userId: userManager.user?.id, businessId: businessId, place: businessId, checkedInAt: Date(), checkedOutAt: nil)
+//                                amoringController.checkIn = checkIn
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                         }

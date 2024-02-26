@@ -56,16 +56,16 @@ struct UserOnboardingIntro: View {
                                             occupation = String(newValue.prefix(20))
                                         }
                                         if(newValue.count >= 1){
-                                            controller.userProfile.occupation = newValue
+                                            controller.profile.occupation = newValue
                                         } else {
-                                            controller.userProfile.occupation = nil
+                                            controller.profile.occupation = nil
                                         }
                                     })
                             }
                             .padding(.bottom, Size.w(30))
                             
                             PickerButton(title: "키") {
-                                if let height = controller.userProfile.height {
+                                if let height = controller.profile.height {
                                     Text("\(Int(height).description)cm")
                                 }
                             }
@@ -82,7 +82,7 @@ struct UserOnboardingIntro: View {
                             }
                             
                             PickerButton(title: "몸무게") {
-                                if let weight = controller.userProfile.weight {
+                                if let weight = controller.profile.weight {
                                     Text("\(Int(weight).description)kg")
                                 }
                             }
@@ -100,7 +100,7 @@ struct UserOnboardingIntro: View {
                             
                             
                             PickerButton(title: "MBTI") {
-                                if let mbti = controller.userProfile.mbti {
+                                if let mbti = controller.profile.mbti {
                                     Text(mbti)
                                 }
                             }
@@ -128,9 +128,9 @@ struct UserOnboardingIntro: View {
                                             education = String(newValue.prefix(20))
                                         }
                                         if(newValue.count >= 1){
-                                            controller.userProfile.education = newValue
+                                            controller.profile.education = newValue
                                         } else {
-                                            controller.userProfile.education = nil
+                                            controller.profile.education = nil
                                         }
                                     })
                             }
@@ -156,17 +156,17 @@ struct UserOnboardingIntro: View {
                             .frame(maxWidth: .infinity)
                         
                         TagCloudView(tags: [
-                            controller.userProfile.occupation,
-                            controller.userProfile.height.toHeight(),
-                            controller.userProfile.weight.toWeight(),
-                            controller.userProfile.mbti,
-                            controller.userProfile.education
+                            controller.profile.occupation,
+                            controller.profile.height.toHeight(),
+                            controller.profile.weight.toWeight(),
+                            controller.profile.mbti,
+                            controller.profile.education
                         ], totalHeight: CGFloat.infinity, isDark: true)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, Size.w(32))
                         .padding(.top, Size.w(25))
                         
-                        let pass = !controller.userProfile.height.isNil && !controller.userProfile.weight.isNil
+                        let pass = !controller.profile.height.isNil && !controller.profile.weight.isNil
                         
                         Button(action: {
                             if pass {
@@ -207,7 +207,7 @@ struct UserOnboardingIntro: View {
                             .pickerStyle(.wheel)
                             .onChange(of: mbti) { newValue in
                                 withAnimation {
-                                    controller.userProfile.mbti = newValue.rawValue
+                                    controller.profile.mbti = newValue.rawValue
                                 }
                             }
                         }
@@ -221,11 +221,11 @@ struct UserOnboardingIntro: View {
                             }
                             .pickerStyle(.wheel)
                             .onAppear {
-                                controller.userProfile.weight = self.weight
+                                controller.profile.weight = self.weight
                             }
                             .onChange(of: weight) { newValue in
                                 withAnimation {
-                                    controller.userProfile.weight = newValue
+                                    controller.profile.weight = newValue
                                 }
                             }
                         }
@@ -239,11 +239,11 @@ struct UserOnboardingIntro: View {
                             }
                             .pickerStyle(.wheel)
                             .onAppear {
-                                controller.userProfile.height = self.height
+                                controller.profile.height = self.height
                             }
                             .onChange(of: height) { newValue in
                                 withAnimation {
-                                    controller.userProfile.height = newValue
+                                    controller.profile.height = newValue
                                 }
                             }
                         }

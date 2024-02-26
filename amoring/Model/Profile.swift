@@ -1,5 +1,5 @@
 //
-//  UserProfile.swift
+//  Profile.swift
 //  amoring
 //
 //  Created by 이준녕 on 1/26/24.
@@ -9,7 +9,7 @@ import Foundation
 import ApolloAPI
 import AmoringAPI
 
-struct UserProfile: Hashable {
+struct Profile: Hashable {
     var id: String
     var userId: String?
     var name: String?
@@ -21,36 +21,36 @@ struct UserProfile: Hashable {
     var occupation: String?
     var bio: String?
     var gender: String?
-    var images: [UserProfileImage]
+    var images: [ProfileImage]
     var interests: [Interest]
     var age: Int?
     var createdAt: Date?
     var updatedAt: Date?
     
-    func from(data: UserProfilesQuery.Data.UserProfile?) -> UserProfile? {
+    static func fromData(data: ProfilesQuery.Data.Profile?) -> Profile? {
         if let data {
-            var userProfile = UserProfile(id: data.id, images: [], interests: [])
+            var profile = Profile(id: data.id, images: [], interests: [])
             
-            userProfile.name = data.name
-            userProfile.birthYear = data.birthYear
-            userProfile.age = data.age
-            userProfile.height = data.height
-            userProfile.weight = data.weight
-            userProfile.mbti = data.mbti
-            userProfile.education = data.education
-            userProfile.occupation = data.occupation
-            userProfile.bio = data.bio
-            userProfile.gender = data.gender?.rawValue
-            userProfile.images = getImages(data.images)
-            userProfile.interests = getInterests(data.interests)
+            profile.name = data.name
+            profile.birthYear = data.birthYear
+            profile.age = data.age
+            profile.height = data.height
+            profile.weight = data.weight
+            profile.mbti = data.mbti
+            profile.education = data.education
+            profile.occupation = data.occupation
+            profile.bio = data.bio
+            profile.gender = data.gender?.rawValue
+            profile.images = Profile.getImages(data.images)
+            profile.interests = getInterests(data.interests)
 
-            return userProfile
+            return profile
         } else {
             return nil
         }
     }
     
-    func getInterests(_ interests: [UserProfilesQuery.Data.UserProfile.Interest?]?) -> [Interest] {
+    static func getInterests(_ interests: [ProfilesQuery.Data.Profile.Interest?]?) -> [Interest] {
         var inters: [Interest] = []
         guard let interests else { return inters }
             
@@ -63,36 +63,36 @@ struct UserProfile: Hashable {
         return inters
     }
     
-    func getImages(_ images: [UserProfilesQuery.Data.UserProfile.Image?]?) -> [UserProfileImage] {
-        var userProfileImages: [UserProfileImage] = []
-        guard let images else { return userProfileImages }
+    static func getImages(_ images: [ProfilesQuery.Data.Profile.Image?]?) -> [ProfileImage] {
+        var profileImages: [ProfileImage] = []
+        guard let images else { return profileImages }
             
         for image in images {
-            let img = UserProfileImage(
+            let img = ProfileImage(
                 file: File(url: image?.file.url)
             )
-            userProfileImages.append(img)
+            profileImages.append(img)
         }
-        return userProfileImages
+        return profileImages
     }
 }
 
-struct UserProfileData {
-    let userProfile: UserProfile?
+struct ProfileData {
+    let profile: Profile?
     
     var data: InputDict {
-        if let userProfile {
+        if let profile {
             return InputDict([
-                "name": userProfile.name,
-//                "age": userProfile.age,
-                "birthYear": userProfile.birthYear,
-                "height": userProfile.height,
-                "weight": userProfile.weight,
-                "mbti": userProfile.mbti,
-                "education": userProfile.education,
-                "occupation": userProfile.occupation,
-                "bio": userProfile.bio,
-                "gender": userProfile.gender
+                "name": profile.name,
+//                "age": profile.age,
+                "birthYear": profile.birthYear,
+                "height": profile.height,
+                "weight": profile.weight,
+                "mbti": profile.mbti,
+                "education": profile.education,
+                "occupation": profile.occupation,
+                "bio": profile.bio,
+                "gender": profile.gender
             ])
         } else {
             return InputDict([:])
@@ -100,7 +100,7 @@ struct UserProfileData {
     }
 }
 
-struct UserProfileImage: Hashable {
+struct ProfileImage: Hashable {
     var id: String?
     var profileId: String?
     var field: Int?

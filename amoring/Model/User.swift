@@ -14,31 +14,31 @@ struct User: Hashable {
     var email: String?
     var status: UserStatus?
     var role: UserRole?
-    var userProfile: UserProfile?
+    var profile: Profile?
     var business: Business?
     var createdAt: Date?
     var updatedAt: Date?
     
-    func from(_ authUser: AmoringAPI.QueryAuthenticatedUserQuery.Data.AuthenticatedUser) -> User {
+    static func fromData(_ authUser: QueryAuthenticatedUserQuery.Data.AuthenticatedUser) -> User {
         return User(
             id: authUser.id,
             email: authUser.email,
 //            status: authUser.status,
-            role: getRolefrom(authUser.role),
-            userProfile: getUserProfilefrom(authUser.userProfile),
+            role: getRoleFrom(authUser.role),
+            profile: getProfilefrom(authUser.profile),
             business: getBusinessfrom(authUser.business)
 //            createdAt: authUser.createdAt,
 //            updatedAt: authUser.updatedAt
         )
     }
     
-    func from(_ authUser: SignInWithGoogleMutation.Data.SignInWithGoogle.User) -> User {
+    static func fromData(_ authUser: SignInWithGoogleMutation.Data.SignInWithGoogle.User) -> User {
         return User(
             id: authUser.id,
             email: authUser.email,
 //            status: authUser.status,
-            role: getRolefrom(authUser.role),
-            userProfile: getUserProfilefrom(authUser.userProfile),
+            role: getRoleFrom(authUser.role),
+            profile: getProfilefrom(authUser.profile),
             business: getBusinessfrom(authUser.business)
 //            createdAt: authUser.createdAt,
 //            updatedAt: authUser.updatedAt
@@ -46,7 +46,7 @@ struct User: Hashable {
     }
     
     
-    func getRolefrom(_ role: GraphQLEnum<AmoringAPI.UserRole>?) -> UserRole? {
+    static func getRoleFrom(_ role: GraphQLEnum<AmoringAPI.UserRole>?) -> UserRole? {
         switch role {
         case .case(let t):
             switch t {
@@ -62,7 +62,7 @@ struct User: Hashable {
         }
     }
     
-    func getBusinessfrom(_ business: QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business?) -> Business? {
+    static func getBusinessfrom(_ business: QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business?) -> Business? {
         if let business {
             return Business(
                 id: business.id,
@@ -91,14 +91,14 @@ struct User: Hashable {
         }
     }
     
-    func getBusinessfrom(_ business: SignInWithGoogleMutation.Data.SignInWithGoogle.User.Business?) -> Business? {
+    static func getBusinessfrom(_ business: SignInWithGoogleMutation.Data.SignInWithGoogle.User.Business?) -> Business? {
         ///        return nil because there shouldn't be any user with Google sign in
         return nil
     }
     
-    func getUserProfilefrom(_ profile: QueryAuthenticatedUserQuery.Data.AuthenticatedUser.UserProfile?) -> UserProfile? {
+    static func getProfilefrom(_ profile: QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Profile?) -> Profile? {
         if let profile {
-            return UserProfile(
+            return Profile(
                 id: profile.id,
 //                userId: profile.userId,
                 name: profile.name,
@@ -121,9 +121,9 @@ struct User: Hashable {
         }
     }
     
-    func getUserProfilefrom(_ profile: SignInWithGoogleMutation.Data.SignInWithGoogle.User.UserProfile?) -> UserProfile? {
+    static func getProfilefrom(_ profile: SignInWithGoogleMutation.Data.SignInWithGoogle.User.Profile?) -> Profile? {
         if let profile {
-            return UserProfile(
+            return Profile(
                 id: profile.id,
 //                userId: profile.userId,
                 name: profile.name,
@@ -146,21 +146,21 @@ struct User: Hashable {
         }
     }
     
-    func getImages(_ images: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.UserProfile.Image?]?) -> [UserProfileImage] {
-        var userProfileImages: [UserProfileImage] = []
-        guard let images else { return userProfileImages }
+    static func getImages(_ images: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Profile.Image?]?) -> [ProfileImage] {
+        var profileImages: [ProfileImage] = []
+        guard let images else { return profileImages }
             
         for image in images {
-            let img = UserProfileImage(
+            let img = ProfileImage(
                 id: image?.id,
                 file: File(url: image?.file.url)
             )
-            userProfileImages.append(img)
+            profileImages.append(img)
         }
-        return userProfileImages
+        return profileImages
     }
     
-    func getImages(_ images: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business.Image?]?) -> [BusinessImage] {
+    static func getImages(_ images: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business.Image?]?) -> [BusinessImage] {
         var businessImages: [BusinessImage] = []
         guard let images else { return businessImages }
             
@@ -174,21 +174,21 @@ struct User: Hashable {
         return businessImages
     }
     
-    func getImages(_ images: [SignInWithGoogleMutation.Data.SignInWithGoogle.User.UserProfile.Image?]?) -> [UserProfileImage] {
-        var userProfileImages: [UserProfileImage] = []
-        guard let images else { return userProfileImages }
+    static func getImages(_ images: [SignInWithGoogleMutation.Data.SignInWithGoogle.User.Profile.Image?]?) -> [ProfileImage] {
+        var profileImages: [ProfileImage] = []
+        guard let images else { return profileImages }
             
         for image in images {
-            let img = UserProfileImage(
+            let img = ProfileImage(
                 id: image?.id,
                 file: File(url: image?.file.url)
             )
-            userProfileImages.append(img)
+            profileImages.append(img)
         }
-        return userProfileImages
+        return profileImages
     }
     
-    func getInterests(_ interests: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.UserProfile.Interest?]?) -> [Interest] {
+    static func getInterests(_ interests: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Profile.Interest?]?) -> [Interest] {
         var inters: [Interest] = []
         guard let interests else { return inters }
             
@@ -201,7 +201,7 @@ struct User: Hashable {
         return inters
     }
     
-    func getInterests(_ interests: [SignInWithGoogleMutation.Data.SignInWithGoogle.User.UserProfile.Interest?]?) -> [Interest] {
+    static func getInterests(_ interests: [SignInWithGoogleMutation.Data.SignInWithGoogle.User.Profile.Interest?]?) -> [Interest] {
         var inters: [Interest] = []
         guard let interests else { return inters }
             
@@ -214,7 +214,7 @@ struct User: Hashable {
         return inters
     }
     
-    func getHours(_ data: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business.BusinessHour?]?) -> [BusinessHours] {
+    static func getHours(_ data: [QueryAuthenticatedUserQuery.Data.AuthenticatedUser.Business.BusinessHour?]?) -> [BusinessHours] {
         var hours: [BusinessHours] = []
         guard let data else { return hours }
         for i in data {

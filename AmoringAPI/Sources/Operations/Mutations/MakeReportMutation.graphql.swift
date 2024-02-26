@@ -40,7 +40,7 @@ public class MakeReportMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("byUserId", Int.self),
+        .field("byUserId", String.self),
         .field("email", String?.self),
         .field("subject", String?.self),
         .field("body", String?.self),
@@ -51,7 +51,7 @@ public class MakeReportMutation: GraphQLMutation {
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var byUserId: Int { __data["byUserId"] }
+      public var byUserId: String { __data["byUserId"] }
       public var email: String? { __data["email"] }
       public var subject: String? { __data["subject"] }
       public var body: String? { __data["body"] }

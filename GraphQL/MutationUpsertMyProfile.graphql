@@ -1,5 +1,5 @@
-mutation upsertMyUserProfile($data: UserProfileUpdateInput!) {
-  upsertMyUserProfile(data: $data) {
+mutation upsertMyProfile($data: ProfileUpdateInput!) {
+  upsertMyProfile(data: $data) {
     id
     userId
     name

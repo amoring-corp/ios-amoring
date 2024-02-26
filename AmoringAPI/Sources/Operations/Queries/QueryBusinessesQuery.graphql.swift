@@ -34,7 +34,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("ownerId", Int?.self),
+        .field("ownerId", String?.self),
         .field("owner", Owner?.self),
         .field("businessName", String?.self),
         .field("businessType", String?.self),
@@ -64,7 +64,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var ownerId: Int? { __data["ownerId"] }
+      public var ownerId: String? { __data["ownerId"] }
       public var owner: Owner? { __data["owner"] }
       public var businessName: String? { __data["businessName"] }
       public var businessType: String? { __data["businessType"] }
@@ -129,8 +129,8 @@ public class QueryBusinessesQuery: GraphQLQuery {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
-          .field("businessId", Int.self),
-          .field("fileId", Int.self),
+          .field("businessId", String.self),
+          .field("fileId", String.self),
           .field("sort", Int.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
@@ -138,8 +138,8 @@ public class QueryBusinessesQuery: GraphQLQuery {
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var businessId: Int { __data["businessId"] }
-        public var fileId: Int { __data["fileId"] }
+        public var businessId: String { __data["businessId"] }
+        public var fileId: String { __data["fileId"] }
         public var sort: Int { __data["sort"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }

@@ -4,7 +4,7 @@ query QueryAuthenticatedUser {
     email
     status
     role
-    userProfile {
+    profile {
       id
       userId
       name

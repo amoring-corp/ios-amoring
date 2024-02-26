@@ -9,7 +9,7 @@ import SwiftUI
 import CachedAsyncImage
 
 struct ProfileCardView: View {
-    let userProfile: UserProfile
+    let profile: Profile
     let width: CGFloat
     let height: CGFloat
     
@@ -19,7 +19,7 @@ struct ProfileCardView: View {
                 Color.yellow350
                 VStack {
                     let colors: [Color] = [.black, .black, .black, .black, .black, .black, .black, .black, .clear]
-                    let url = userProfile.images.first?.file?.url ?? ""
+                    let url = profile.images.first?.file?.url ?? ""
                     CachedAsyncImage(url: URL(string: url), content: { cont in
                         cont
                             .resizable()
@@ -39,7 +39,7 @@ struct ProfileCardView: View {
                 
 //                Color.red.opacity(0.5)
 //                    .frame(width: width, height: Size.w(186))
-               UserInfoView(userProfile: userProfile)
+               UserInfoView(profile: profile)
                 
             }
             .frame(maxWidth: width, maxHeight: height)
@@ -51,7 +51,7 @@ struct ProfileCardView: View {
 struct UserInfoView: View {
     @EnvironmentObject var amoringController: AmoringController
     
-    let userProfile: UserProfile
+    let profile: Profile
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(colors: [
@@ -69,14 +69,14 @@ struct UserInfoView: View {
             
             VStack(spacing: Size.w(10)) {
                 HStack {
-                    Text(LocalizedStringKey(userProfile.gender ?? ""))
+                    Text(LocalizedStringKey(profile.gender ?? ""))
                         .font(semiBold12Font)
                         .foregroundColor(.white)
                         .padding(.horizontal, Size.w(12))
                         .padding(.vertical, Size.w(6))
                         .background(Capsule().fill(Color.gray1000))
                     
-                    if let age = userProfile.age {
+                    if let age = profile.age {
                         Text(age.description + "세")
                             .font(semiBold12Font)
                             .foregroundColor(.white)
@@ -95,12 +95,12 @@ struct UserInfoView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: amoringController.showDetails ? .leading : .center)
                 
-                Text(userProfile.name ?? "")
+                Text(profile.name ?? "")
                     .font(bold32Font)
                     .foregroundColor(.black)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: amoringController.showDetails ? .leading : .center)
-                Text(userProfile.bio ?? "")
+                Text(profile.bio ?? "")
                     .font(medium16Font)
                     .foregroundColor(.black)
                     .lineLimit(1)
@@ -115,7 +115,7 @@ struct UserInfoView: View {
 }
 
 #Preview {
-    ProfileCardView(userProfile: Dummy.users.first!.userProfile!, width: UIScreen.main.bounds.width - Size.w(44), height: 500)
+    ProfileCardView(profile: Dummy.users.first!.profile!, width: UIScreen.main.bounds.width - Size.w(44), height: 500)
 }
 
 

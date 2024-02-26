@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AmoringView: View {
     @EnvironmentObject var amoringController: AmoringController
+    @EnvironmentObject var userManager: UserManager
     
     var body: some View {
         Group {
@@ -19,8 +20,9 @@ struct AmoringView: View {
             }
         }
         .onAppear {
-            /// getting existed check in session
-            //            navigator.checkIn = CheckIn(userId: userManager.user?.id, businessId: 123, place: "resultString", checkedInAt: Date().addingTimeInterval(-123 * 59), checkedOutAt: nil)
+            userManager.activeCheckIn { activeCheckIn in
+                amoringController.checkIn = activeCheckIn
+            }
         }
     }
 }

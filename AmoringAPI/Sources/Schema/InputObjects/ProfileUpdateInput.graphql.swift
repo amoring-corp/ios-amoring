@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public struct UserProfileUpdateInput: InputObject {
+public struct ProfileUpdateInput: InputObject {
   public private(set) var __data: InputDict
 
   public init(_ data: InputDict) {
@@ -20,7 +20,7 @@ public struct UserProfileUpdateInput: InputObject {
     occupation: GraphQLNullable<String> = nil,
     bio: GraphQLNullable<String> = nil,
     gender: GraphQLNullable<GraphQLEnum<Gender>> = nil,
-    images: GraphQLNullable<[UserProfileImageInput?]> = nil
+    images: GraphQLNullable<[ProfileImageInput?]> = nil
   ) {
     __data = InputDict([
       "name": name,
@@ -81,7 +81,7 @@ public struct UserProfileUpdateInput: InputObject {
     set { __data["gender"] = newValue }
   }
 
-  public var images: GraphQLNullable<[UserProfileImageInput?]> {
+  public var images: GraphQLNullable<[ProfileImageInput?]> {
     get { __data["images"] }
     set { __data["images"] = newValue }
   }

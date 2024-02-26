@@ -80,7 +80,7 @@ struct AccountInterests: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            guard let interests = userManager.user?.userProfile?.interests else { return }
+            guard let interests = userManager.user?.profile?.interests else { return }
             for interest in interests {
                 self.selectedInterests.append((interest.id, interest.name))
             }

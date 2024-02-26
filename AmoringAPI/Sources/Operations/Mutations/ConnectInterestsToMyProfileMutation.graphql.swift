@@ -31,16 +31,16 @@ public class ConnectInterestsToMyProfileMutation: GraphQLMutation {
 
     /// ConnectInterestsToMyProfile
     ///
-    /// Parent Type: `UserProfile`
+    /// Parent Type: `Profile`
     public struct ConnectInterestsToMyProfile: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfile }
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),
-        .field("userId", Int.self),
+        .field("userId", String.self),
         .field("name", String?.self),
         .field("birthYear", Int?.self),
         .field("height", Int?.self),
@@ -58,7 +58,7 @@ public class ConnectInterestsToMyProfileMutation: GraphQLMutation {
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var userId: Int { __data["userId"] }
+      public var userId: String { __data["userId"] }
       public var name: String? { __data["name"] }
       public var birthYear: Int? { __data["birthYear"] }
       public var height: Int? { __data["height"] }
@@ -76,25 +76,25 @@ public class ConnectInterestsToMyProfileMutation: GraphQLMutation {
 
       /// ConnectInterestsToMyProfile.Image
       ///
-      /// Parent Type: `UserProfileImage`
+      /// Parent Type: `ProfileImage`
       public struct Image: AmoringAPI.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.UserProfileImage }
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
-          .field("profileId", Int.self),
-          .field("fileId", Int.self),
+          .field("profileId", String.self),
+          .field("fileId", String.self),
           .field("sort", Int.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var profileId: Int { __data["profileId"] }
-        public var fileId: Int { __data["fileId"] }
+        public var profileId: String { __data["profileId"] }
+        public var fileId: String { __data["fileId"] }
         public var sort: Int { __data["sort"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
@@ -112,14 +112,14 @@ public class ConnectInterestsToMyProfileMutation: GraphQLMutation {
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
           .field("name", String?.self),
-          .field("categoryId", Int.self),
+          .field("categoryId", String.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var name: String? { __data["name"] }
-        public var categoryId: Int { __data["categoryId"] }
+        public var categoryId: String { __data["categoryId"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
       }

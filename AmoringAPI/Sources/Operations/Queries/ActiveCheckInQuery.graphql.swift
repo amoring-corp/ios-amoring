@@ -3,39 +3,30 @@
 
 @_exported import ApolloAPI
 
-public class UpdateCheckInStatusMutation: GraphQLMutation {
-  public static let operationName: String = "UpdateCheckInStatus"
+public class ActiveCheckInQuery: GraphQLQuery {
+  public static let operationName: String = "ActiveCheckIn"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpdateCheckInStatus($id: ID!) { updateCheckInStatus(id: $id, status: confirmed) { __typename id businessId business { __typename id ownerId businessName businessType businessIndustry businessCategory address addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressBname addressZonecode addressDetails latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id file { __typename url } } createdAt updatedAt } profileId status checkedInAt checkedOutAt createdAt updatedAt } }"#
+      #"query ActiveCheckIn { activeCheckIn { __typename id businessId business { __typename id ownerId businessName businessType businessIndustry businessCategory address addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressBname addressZonecode addressDetails latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id file { __typename url } } createdAt updatedAt } profileId status checkedInAt checkedOutAt createdAt updatedAt } }"#
     ))
 
-  public var id: ID
-
-  public init(id: ID) {
-    self.id = id
-  }
-
-  public var __variables: Variables? { ["id": id] }
+  public init() {}
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("updateCheckInStatus", UpdateCheckInStatus?.self, arguments: [
-        "id": .variable("id"),
-        "status": "confirmed"
-      ]),
+      .field("activeCheckIn", ActiveCheckIn?.self),
     ] }
 
-    public var updateCheckInStatus: UpdateCheckInStatus? { __data["updateCheckInStatus"] }
+    public var activeCheckIn: ActiveCheckIn? { __data["activeCheckIn"] }
 
-    /// UpdateCheckInStatus
+    /// ActiveCheckIn
     ///
     /// Parent Type: `CheckIn`
-    public struct UpdateCheckInStatus: AmoringAPI.SelectionSet {
+    public struct ActiveCheckIn: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -63,7 +54,7 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
       public var createdAt: AmoringAPI.DateTime { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime { __data["updatedAt"] }
 
-      /// UpdateCheckInStatus.Business
+      /// ActiveCheckIn.Business
       ///
       /// Parent Type: `Business`
       public struct Business: AmoringAPI.SelectionSet {
@@ -128,7 +119,7 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-        /// UpdateCheckInStatus.Business.Image
+        /// ActiveCheckIn.Business.Image
         ///
         /// Parent Type: `BusinessImage`
         public struct Image: AmoringAPI.SelectionSet {
@@ -145,7 +136,7 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
           public var id: AmoringAPI.ID { __data["id"] }
           public var file: File { __data["file"] }
 
-          /// UpdateCheckInStatus.Business.Image.File
+          /// ActiveCheckIn.Business.Image.File
           ///
           /// Parent Type: `File`
           public struct File: AmoringAPI.SelectionSet {

@@ -42,7 +42,9 @@ struct Business: Codable, Equatable, Hashable {
     
     var images: [BusinessImage]?
     var businessHours: [BusinessHours]?
-        
+    
+    var checkedInProfiles: [Profile]?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case ownerId
@@ -63,7 +65,7 @@ struct Business: Codable, Equatable, Hashable {
 //        case images
     }
     
-    func from(data: QueryBusinessesQuery.Data.Business?) -> Business? {
+    static func fromData(data: QueryBusinessesQuery.Data.Business?) -> Business? {
         if let data {
             var business = Business()
             business.id = data.id
@@ -89,7 +91,7 @@ struct Business: Codable, Equatable, Hashable {
         }
     }
     
-    func getHours(_ data: [QueryBusinessesQuery.Data.Business.BusinessHour?]?) -> [BusinessHours] {
+    static func getHours(_ data: [QueryBusinessesQuery.Data.Business.BusinessHour?]?) -> [BusinessHours] {
         var hours: [BusinessHours] = []
         guard let data else { return hours }
         for i in data {
@@ -103,7 +105,7 @@ struct Business: Codable, Equatable, Hashable {
         return hours
     }
     
-    func getImages(_ images: [QueryBusinessesQuery.Data.Business.Image?]?) -> [BusinessImage] {
+    static func getImages(_ images: [QueryBusinessesQuery.Data.Business.Image?]?) -> [BusinessImage] {
         var businessImages: [BusinessImage] = []
         guard let images else { return businessImages }
             

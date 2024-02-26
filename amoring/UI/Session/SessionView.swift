@@ -38,7 +38,8 @@ struct SessionFlow: View {
                     .padding(100)
                     .background(Color.yellow100)
                     .onTapGesture {
-                        sessionManager.changeStateWithAnimation(state: .auth)
+                        sessionManager.signOut()
+//                        sessionManager.changeStateWithAnimation(state: .auth)
                     }
             case .error:
                 Text("ERROR")

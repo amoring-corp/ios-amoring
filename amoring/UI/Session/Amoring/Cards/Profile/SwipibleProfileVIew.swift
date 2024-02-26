@@ -17,9 +17,9 @@ struct SwipibleProfileVIew: View {
     @Namespace var animation
     @State private var dragOffset = CGSize.zero
     
-    let userProfile: UserProfile
+    let profile: Profile
     @Binding var swipeAction: SwipeAction
-    var onSwiped: (UserProfile, Bool) -> ()
+    var onSwiped: (Profile, Bool) -> ()
     @Binding var likes: Int
     
     @State private var fitInScreen = false
@@ -38,12 +38,12 @@ struct SwipibleProfileVIew: View {
                 
                 TrackableScrollView(showIndicators: false, contentOffset: $scrollOffset) {
                     VStack(spacing: 0) {
-                        ProfileCardView(userProfile: userProfile,
+                        ProfileCardView(profile: profile,
                                         width: reader.size.width - Size.w(amoringController.showDetails ? 20 : 44),
                                         height: reader.size.height - heightPadding
                         )
 
-                        ExpandedView(userProfile: userProfile)
+                        ExpandedView(profile: profile)
                     }
                     .background(Color.yellow350)
                     .frame(
@@ -171,7 +171,7 @@ struct SwipibleProfileVIew: View {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            onSwiped(userProfile, swipeAction == .swipeRight)
+            onSwiped(profile, swipeAction == .swipeRight)
         }
         self.swipeAction = .doNothing
     }
@@ -191,7 +191,7 @@ struct SwipibleProfileVIew: View {
                     self.dragOffset.width += screenWidthLimit
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    onSwiped(userProfile, true)
+                    onSwiped(profile, true)
                 }
             }
             
@@ -205,7 +205,7 @@ struct SwipibleProfileVIew: View {
                 //                    amoringController.showDetails = false
                 //                    amoringController.hidePanel = false
                 //                }
-                onSwiped(userProfile, false)
+                onSwiped(profile, false)
             }
         } else{
             withAnimation(.default){

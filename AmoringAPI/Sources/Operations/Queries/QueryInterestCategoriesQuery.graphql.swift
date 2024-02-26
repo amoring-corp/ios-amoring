@@ -58,14 +58,14 @@ public class QueryInterestCategoriesQuery: GraphQLQuery {
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
           .field("name", String?.self),
-          .field("categoryId", Int.self),
+          .field("categoryId", String.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var name: String? { __data["name"] }
-        public var categoryId: Int { __data["categoryId"] }
+        public var categoryId: String { __data["categoryId"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
       }
