@@ -1,0 +1,11 @@
+mutation CheckOutFromActive {
+  checkOutFromActive {
+    id
+    businessId
+    status
+    checkedInAt
+    checkedOutAt
+    createdAt
+    updatedAt
+  }
+}

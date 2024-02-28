@@ -7,7 +7,7 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
   public static let operationName: String = "UpdateCheckInStatus"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpdateCheckInStatus($id: ID!) { updateCheckInStatus(id: $id, status: confirmed) { __typename id businessId business { __typename id ownerId businessName businessType businessIndustry businessCategory address addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressBname addressZonecode addressDetails latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id file { __typename url } } createdAt updatedAt } profileId status checkedInAt checkedOutAt createdAt updatedAt } }"#
+      #"mutation UpdateCheckInStatus($id: ID!) { updateCheckInStatus(id: $id, status: confirmed) { __typename id businessId business { __typename id ownerId businessName businessType businessIndustry businessCategory address addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressBname addressZonecode addressDetails latitude longitude representativeTitle representativeName phoneNumber registrationNumber category bio images { __typename id file { __typename url } } businessHours { __typename openAt closeAt day } activeCheckIns { __typename profile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } } createdAt updatedAt } createdAt updatedAt } profileId status checkedInAt checkedOutAt createdAt updatedAt } }"#
     ))
 
   public var id: ID
@@ -97,6 +97,8 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
           .field("category", String?.self),
           .field("bio", String?.self),
           .field("images", [Image?]?.self),
+          .field("businessHours", [BusinessHour?]?.self),
+          .field("activeCheckIns", [ActiveCheckIn?].self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
@@ -125,6 +127,8 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
         public var category: String? { __data["category"] }
         public var bio: String? { __data["bio"] }
         public var images: [Image?]? { __data["images"] }
+        public var businessHours: [BusinessHour?]? { __data["businessHours"] }
+        public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -159,6 +163,140 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
             ] }
 
             public var url: String? { __data["url"] }
+          }
+        }
+
+        /// UpdateCheckInStatus.Business.BusinessHour
+        ///
+        /// Parent Type: `BusinessHours`
+        public struct BusinessHour: AmoringAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("openAt", AmoringAPI.LocalTime.self),
+            .field("closeAt", AmoringAPI.LocalTime.self),
+            .field("day", GraphQLEnum<AmoringAPI.Day>.self),
+          ] }
+
+          public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
+          public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
+          public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
+        }
+
+        /// UpdateCheckInStatus.Business.ActiveCheckIn
+        ///
+        /// Parent Type: `CheckIn`
+        public struct ActiveCheckIn: AmoringAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("profile", Profile?.self),
+            .field("createdAt", AmoringAPI.DateTime.self),
+            .field("updatedAt", AmoringAPI.DateTime.self),
+          ] }
+
+          public var profile: Profile? { __data["profile"] }
+          public var createdAt: AmoringAPI.DateTime { __data["createdAt"] }
+          public var updatedAt: AmoringAPI.DateTime { __data["updatedAt"] }
+
+          /// UpdateCheckInStatus.Business.ActiveCheckIn.Profile
+          ///
+          /// Parent Type: `Profile`
+          public struct Profile: AmoringAPI.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
+              .field("id", AmoringAPI.ID.self),
+              .field("userId", String.self),
+              .field("name", String?.self),
+              .field("age", Int?.self),
+              .field("birthYear", Int?.self),
+              .field("height", Int?.self),
+              .field("weight", Int?.self),
+              .field("mbti", String?.self),
+              .field("education", String?.self),
+              .field("occupation", String?.self),
+              .field("bio", String?.self),
+              .field("gender", GraphQLEnum<AmoringAPI.Gender>?.self),
+              .field("images", [Image?]?.self),
+              .field("interests", [Interest?]?.self),
+            ] }
+
+            public var id: AmoringAPI.ID { __data["id"] }
+            public var userId: String { __data["userId"] }
+            public var name: String? { __data["name"] }
+            public var age: Int? { __data["age"] }
+            public var birthYear: Int? { __data["birthYear"] }
+            public var height: Int? { __data["height"] }
+            public var weight: Int? { __data["weight"] }
+            public var mbti: String? { __data["mbti"] }
+            public var education: String? { __data["education"] }
+            public var occupation: String? { __data["occupation"] }
+            public var bio: String? { __data["bio"] }
+            public var gender: GraphQLEnum<AmoringAPI.Gender>? { __data["gender"] }
+            public var images: [Image?]? { __data["images"] }
+            public var interests: [Interest?]? { __data["interests"] }
+
+            /// UpdateCheckInStatus.Business.ActiveCheckIn.Profile.Image
+            ///
+            /// Parent Type: `ProfileImage`
+            public struct Image: AmoringAPI.SelectionSet {
+              public let __data: DataDict
+              public init(_dataDict: DataDict) { __data = _dataDict }
+
+              public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
+              public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
+                .field("id", AmoringAPI.ID.self),
+                .field("file", File.self),
+              ] }
+
+              public var id: AmoringAPI.ID { __data["id"] }
+              public var file: File { __data["file"] }
+
+              /// UpdateCheckInStatus.Business.ActiveCheckIn.Profile.Image.File
+              ///
+              /// Parent Type: `File`
+              public struct File: AmoringAPI.SelectionSet {
+                public let __data: DataDict
+                public init(_dataDict: DataDict) { __data = _dataDict }
+
+                public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
+                public static var __selections: [ApolloAPI.Selection] { [
+                  .field("__typename", String.self),
+                  .field("url", String?.self),
+                ] }
+
+                public var url: String? { __data["url"] }
+              }
+            }
+
+            /// UpdateCheckInStatus.Business.ActiveCheckIn.Profile.Interest
+            ///
+            /// Parent Type: `Interest`
+            public struct Interest: AmoringAPI.SelectionSet {
+              public let __data: DataDict
+              public init(_dataDict: DataDict) { __data = _dataDict }
+
+              public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Interest }
+              public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
+                .field("id", AmoringAPI.ID.self),
+                .field("name", String?.self),
+              ] }
+
+              public var id: AmoringAPI.ID { __data["id"] }
+              public var name: String? { __data["name"] }
+            }
           }
         }
       }

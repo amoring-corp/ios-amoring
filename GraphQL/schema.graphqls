@@ -26,9 +26,9 @@ type Business {
   registrationNumber: String
   category: String
   bio: String
-  images: [BusinessImage]
+  images(take: Int, skip: Int): [BusinessImage]
   businessHours: [BusinessHours]
-  activeCheckIns: [CheckIn]!
+  activeCheckIns(take: Int, skip: Int, gender: Gender): [CheckIn]!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -426,6 +426,7 @@ type Mutation {
   generateCheckInToken: CheckInToken!
   createCheckInByToken(token: String!): CheckIn
   updateCheckInStatus(id: ID!, status: CheckInStatus!): CheckIn
+  checkOutFromActive: CheckIn
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!

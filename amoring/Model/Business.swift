@@ -91,6 +91,46 @@ struct Business: Codable, Equatable, Hashable {
         }
     }
     
+    static func fromData(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business?) -> Business? {
+        if let data {
+            var business = Business()
+            business.id = data.id
+            business.bio = data.bio
+            business.businessName = data.businessName
+            business.businessCategory = data.businessCategory
+            business.address = data.address
+            business.addressDetails = data.addressDetails
+            business.addressSigungu = data.addressSigungu
+            business.phoneNumber = data.phoneNumber
+            business.images = getImages(data.images)
+            business.businessHours = getHours(data.businessHours)
+            return business
+        } else {
+            return nil
+        }
+    }
+    
+    static func fromData(data: ActiveCheckInQuery.Data.ActiveCheckIn.Business?) -> Business? {
+        if let data {
+            var business = Business()
+            business.id = data.id
+            business.bio = data.bio
+            business.businessName = data.businessName
+            business.businessCategory = data.businessCategory
+            business.address = data.address
+            business.addressDetails = data.addressDetails
+            business.addressSigungu = data.addressSigungu
+            business.phoneNumber = data.phoneNumber
+            business.images = getImages(data.images)
+            business.businessHours = getHours(data.businessHours)
+            return business
+        } else {
+            return nil
+        }
+    }
+    
+    
+    
     static func getHours(_ data: [QueryBusinessesQuery.Data.Business.BusinessHour?]?) -> [BusinessHours] {
         var hours: [BusinessHours] = []
         guard let data else { return hours }
@@ -105,7 +145,63 @@ struct Business: Codable, Equatable, Hashable {
         return hours
     }
     
+    static func getHours(_ data: [UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business.BusinessHour?]?) -> [BusinessHours] {
+        var hours: [BusinessHours] = []
+        guard let data else { return hours }
+        for i in data {
+            guard let day = DayOfWeek.withLabel(i?.day.rawValue ?? "") else { return hours }
+            guard let openAt = i?.openAt.HMSStringtoDate() else { return hours }
+            guard let closeAt = i?.closeAt.HMSStringtoDate() else { return hours }
+            
+            let businessHour = BusinessHours(day: day, openAt: openAt, closeAt: closeAt)
+            hours.append(businessHour)
+        }
+        return hours
+    }
+    
+    static func getHours(_ data: [ActiveCheckInQuery.Data.ActiveCheckIn.Business.BusinessHour?]?) -> [BusinessHours] {
+        var hours: [BusinessHours] = []
+        guard let data else { return hours }
+        for i in data {
+            guard let day = DayOfWeek.withLabel(i?.day.rawValue ?? "") else { return hours }
+            guard let openAt = i?.openAt.HMSStringtoDate() else { return hours }
+            guard let closeAt = i?.closeAt.HMSStringtoDate() else { return hours }
+            
+            let businessHour = BusinessHours(day: day, openAt: openAt, closeAt: closeAt)
+            hours.append(businessHour)
+        }
+        return hours
+    }
+    
     static func getImages(_ images: [QueryBusinessesQuery.Data.Business.Image?]?) -> [BusinessImage] {
+        var businessImages: [BusinessImage] = []
+        guard let images else { return businessImages }
+            
+        for image in images {
+            let img = BusinessImage(
+                id: image?.id,
+                file: File(url: image?.file.url)
+            )
+            businessImages.append(img)
+        }
+        return businessImages
+    }
+    
+    static func getImages(_ images: [UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business.Image?]?) -> [BusinessImage] {
+        var businessImages: [BusinessImage] = []
+        guard let images else { return businessImages }
+            
+        for image in images {
+            let img = BusinessImage(
+                id: image?.id,
+                file: File(url: image?.file.url)
+            )
+            businessImages.append(img)
+        }
+        return businessImages
+    }
+    
+    static func getImages(_ images: [ActiveCheckInQuery.Data.ActiveCheckIn.Business.Image?]?) -> [BusinessImage] {
         var businessImages: [BusinessImage] = []
         guard let images else { return businessImages }
             

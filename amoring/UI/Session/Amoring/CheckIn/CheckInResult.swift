@@ -115,10 +115,12 @@ struct CheckInResult: View {
                                 notificationController.setNotification(text: error, type: .error)
                             }
                             if let checkIn {
+                                print(checkIn)
+                                DispatchQueue.main.async {
+                                    amoringController.checkIn = checkIn
+                                }
                                 
-                                // TODO: Bind real Check in object here . . .
-//                                amoringController.checkIn = checkIn
-                                self.presentationMode.wrappedValue.dismiss()
+//                                self.presentationMode.wrappedValue.dismiss()
                             }
                         }
                     }

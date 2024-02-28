@@ -79,6 +79,11 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         return
                     }
                     
+                    print(authUser)
+                    print(authUser.id)
+                    print(authUser.status)
+                    print(authUser.role)
+                    
                     print("Current Token: \(self.sessionToken)")
                     self.user = User.fromData(authUser)
                     self.changeStateWithAnimation(state: .session(user: User.fromData(authUser)))

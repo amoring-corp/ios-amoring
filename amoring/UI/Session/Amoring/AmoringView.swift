@@ -19,11 +19,6 @@ struct AmoringView: View {
                 CheckInView()
             }
         }
-        .onAppear {
-            userManager.activeCheckIn { activeCheckIn in
-                amoringController.checkIn = activeCheckIn
-            }
-        }
     }
 }
 
