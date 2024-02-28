@@ -59,7 +59,12 @@ struct SessionFlow: View {
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
+            /// sets current interests from DB
             userManager.getInterests()
+            /// getting current active check in for Amoring page
+            userManager.activeCheckIn { activeCheckIn in
+                amoringController.checkIn = activeCheckIn
+            }
         }
     }
 }

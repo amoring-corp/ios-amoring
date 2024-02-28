@@ -37,6 +37,35 @@ mutation UpdateCheckInStatus($id: ID!) {
         closeAt
         day
       }
+      activeCheckIns {
+        profile {
+          id
+          userId
+          name
+          age
+          birthYear
+          height
+          weight
+          mbti
+          education
+          occupation
+          bio
+          gender
+          images {
+            id
+            file {
+              url
+            }
+          }
+          interests {
+            id
+            name
+          }
+        }
+      createdAt
+      updatedAt
+    }
+      
       createdAt
       updatedAt
     }

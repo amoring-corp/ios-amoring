@@ -791,7 +791,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("Check in successfully created by token!")
+                print("Status successfully updated!")
                 
                 self.isLoading = false
                 
@@ -806,9 +806,7 @@ class UserManager: ObservableObject {
     }
     
     func activeCheckIn(completion: @escaping (CheckIn?) -> Void) {
-        print("here")
         api.fetch(query: ActiveCheckInQuery()) { result in
-            print("here2")
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -822,7 +820,6 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                print("here3")
                 print(data.activeCheckIn)
                 if let activeCheckIn = data.activeCheckIn {
                     let checkIn = CheckIn.fromData(data: data.activeCheckIn)
@@ -838,8 +835,39 @@ class UserManager: ObservableObject {
         }
     }
     
-    
-    
+    func checkOutFromActive(completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: CheckOutFromActiveMutation()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Successfully checked out from active!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
+        }
+    }
+        
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
             withAnimation {

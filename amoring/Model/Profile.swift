@@ -50,6 +50,52 @@ struct Profile: Hashable {
         }
     }
     
+    static func fromData(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business.ActiveCheckIn.Profile?) -> Profile? {
+        if let data {
+            var profile = Profile(id: data.id, images: [], interests: [])
+            
+            profile.name = data.name
+            profile.birthYear = data.birthYear
+            profile.age = data.age
+            profile.height = data.height
+            profile.weight = data.weight
+            profile.mbti = data.mbti
+            profile.education = data.education
+            profile.occupation = data.occupation
+            profile.bio = data.bio
+            profile.gender = data.gender?.rawValue
+            profile.images = Profile.getImages(data.images)
+            profile.interests = getInterests(data.interests)
+
+            return profile
+        } else {
+            return nil
+        }
+    }
+    
+    static func fromData(data: ActiveCheckInQuery.Data.ActiveCheckIn.Business.ActiveCheckIn.Profile?) -> Profile? {
+        if let data {
+            var profile = Profile(id: data.id, images: [], interests: [])
+            
+            profile.name = data.name
+            profile.birthYear = data.birthYear
+            profile.age = data.age
+            profile.height = data.height
+            profile.weight = data.weight
+            profile.mbti = data.mbti
+            profile.education = data.education
+            profile.occupation = data.occupation
+            profile.bio = data.bio
+            profile.gender = data.gender?.rawValue
+            profile.images = Profile.getImages(data.images)
+            profile.interests = getInterests(data.interests)
+
+            return profile
+        } else {
+            return nil
+        }
+    }
+    
     static func getInterests(_ interests: [ProfilesQuery.Data.Profile.Interest?]?) -> [Interest] {
         var inters: [Interest] = []
         guard let interests else { return inters }
@@ -63,7 +109,59 @@ struct Profile: Hashable {
         return inters
     }
     
+    static func getInterests(_ interests: [UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business.ActiveCheckIn.Profile.Interest?]?) -> [Interest] {
+        var inters: [Interest] = []
+        guard let interests else { return inters }
+            
+        for interest in interests {
+            let inter = Interest(
+                id: interest?.id ?? "", name: interest?.name ?? ""
+            )
+            inters.append(inter)
+        }
+        return inters
+    }
+    
+    static func getInterests(_ interests: [ActiveCheckInQuery.Data.ActiveCheckIn.Business.ActiveCheckIn.Profile.Interest?]?) -> [Interest] {
+        var inters: [Interest] = []
+        guard let interests else { return inters }
+            
+        for interest in interests {
+            let inter = Interest(
+                id: interest?.id ?? "", name: interest?.name ?? ""
+            )
+            inters.append(inter)
+        }
+        return inters
+    }
+    
     static func getImages(_ images: [ProfilesQuery.Data.Profile.Image?]?) -> [ProfileImage] {
+        var profileImages: [ProfileImage] = []
+        guard let images else { return profileImages }
+            
+        for image in images {
+            let img = ProfileImage(
+                file: File(url: image?.file.url)
+            )
+            profileImages.append(img)
+        }
+        return profileImages
+    }
+    
+    static func getImages(_ images: [UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business.ActiveCheckIn.Profile.Image?]?) -> [ProfileImage] {
+        var profileImages: [ProfileImage] = []
+        guard let images else { return profileImages }
+            
+        for image in images {
+            let img = ProfileImage(
+                file: File(url: image?.file.url)
+            )
+            profileImages.append(img)
+        }
+        return profileImages
+    }
+    
+    static func getImages(_ images: [ActiveCheckInQuery.Data.ActiveCheckIn.Business.ActiveCheckIn.Profile.Image?]?) -> [ProfileImage] {
         var profileImages: [ProfileImage] = []
         guard let images else { return profileImages }
             

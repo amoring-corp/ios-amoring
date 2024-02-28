@@ -75,7 +75,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         print("NO USER")
                         print(self.sessionToken)
                         self.changeStateWithAnimation(state: .auth)
-                        completion(false, "")
+                        completion(true, "")
                         return
                     }
                     
@@ -83,13 +83,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     print(authUser.id)
                     print(authUser.status)
                     print(authUser.role)
-                    double check authuser state
-                    guard let idd = authUser.id.description else {
-                        completion(false, "")
-                        return
-                    }
-                    
-            
                     
                     print("Current Token: \(self.sessionToken)")
                     self.user = User.fromData(authUser)

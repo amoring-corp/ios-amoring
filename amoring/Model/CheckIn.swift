@@ -19,26 +19,65 @@ struct CheckIn {
     var profileId: String?
     var status: CheckInStatus?
     var updatedAt: Date?
+    var activeCheckIns: [CheckIn]
     
-    // TODO: parse
     static func fromData(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus?) -> CheckIn? {
         if let business = Business.fromData(data: data?.business) {
-            // TODO: check and refactor status here
-            return CheckIn(business: business, businessId: business.id, checkedInAt: Date(), createdAt: Date(), profileId: data?.profileId, status: CheckInStatus.withLabel(data?.status.rawValue ?? ""))
-        } else {
-            return nil
-        }
-    }
-    // TODO: parse
-    static func fromData(data: ActiveCheckInQuery.Data.ActiveCheckIn?) -> CheckIn? {
-        if let business = Business.fromData(data: data?.business) {
-            // TODO: check and refactor status here
-            return CheckIn(business: business, businessId: business.id, checkedInAt: Date(), createdAt: Date(), profileId: data?.profileId, status: CheckInStatus.withLabel(data?.status.rawValue ?? ""))
+            return CheckIn(business: business, businessId: business.id, checkedInAt: Date(), createdAt: Date(), profileId: data?.profileId, status: CheckInStatus.confirmed, activeCheckIns: getCheckIns(data: data))
         } else {
             return nil
         }
     }
     
+    static func fromData(data: ActiveCheckInQuery.Data.ActiveCheckIn?) -> CheckIn? {
+        if let business = Business.fromData(data: data?.business) {
+            return CheckIn(business: business, businessId: business.id, checkedInAt: Date(), createdAt: Date(), profileId: data?.profileId, status: CheckInStatus.withLabel(data?.status.rawValue ?? ""), activeCheckIns: getCheckIns(data:  data))
+        } else {
+            return nil
+        }
+    }
+    
+    static func getCheckIns(data: UpdateCheckInStatusMutation.Data.UpdateCheckInStatus?) -> [CheckIn] {
+        if let activeCheckIns = data?.business?.activeCheckIns {
+            return getCheckIns(activeCheckIns)
+        } else {
+            return []
+        }
+    }
+    
+    static func getCheckIns(data: ActiveCheckInQuery.Data.ActiveCheckIn?) -> [CheckIn] {
+        if let activeCheckIns = data?.business?.activeCheckIns {
+            return getCheckIns(activeCheckIns)
+        } else {
+            return []
+        }
+    }
+    
+    static func getCheckIns(_ checks: [UpdateCheckInStatusMutation.Data.UpdateCheckInStatus.Business.ActiveCheckIn?]?) -> [CheckIn] {
+        var checkIns: [CheckIn] = []
+        guard let checks else { return checkIns }
+            
+        for check in checks {
+            let profile = Profile.fromData(data: check?.profile)
+            let checkIn = CheckIn(business: Business(), checkedInAt: Date(), profile: profile, activeCheckIns: [])
+            
+            checkIns.append(checkIn)
+        }
+        return checkIns
+    }
+    
+    static func getCheckIns(_ checks: [ActiveCheckInQuery.Data.ActiveCheckIn.Business.ActiveCheckIn?]?) -> [CheckIn] {
+        var checkIns: [CheckIn] = []
+        guard let checks else { return checkIns }
+            
+        for check in checks {
+            let profile = Profile.fromData(data: check?.profile)
+            let checkIn = CheckIn(business: Business(), checkedInAt: Date(), profile: profile, activeCheckIns: [])
+            
+            checkIns.append(checkIn)
+        }
+        return checkIns
+    }
 }
 
 enum CheckInStatus: String, CaseIterable {

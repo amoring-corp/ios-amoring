@@ -9,6 +9,9 @@ import SwiftUI
 
 struct NavigatorView<Content: View>: View {
     @EnvironmentObject var amoringController: AmoringController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
+    
     @State var selectedIndex: Int = 1
     let titles: [String] = TabBarType.allCases.map({ $0.tabTitle })
     
@@ -95,7 +98,7 @@ struct NavigatorView<Content: View>: View {
                     .alert(isPresented: $showAlert) {
                         Alert(title: Text("체크아웃하기"),
                               message: Text("라운지 체크아웃 시\n프로필이 더 이상 소개되지 않습니다.\n라운지에서 체크아웃 하시겠습니까?"),
-                              primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("확인"), action: amoringController.leave))
+                              primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("확인"), action: leave))
                     }
                 }
             }
@@ -122,7 +125,16 @@ struct NavigatorView<Content: View>: View {
         case 3: EmptyView()
         default: EmptyView()
         }
-        
+    }
+    
+    func leave() {
+        userManager.checkOutFromActive { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                amoringController.leave()
+            }
+        }
     }
 }
 

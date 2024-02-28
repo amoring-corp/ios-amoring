@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfilesView: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     
     @State var isOn = false
@@ -19,7 +20,7 @@ struct ProfilesView: View {
     
     @State var swipeAction: SwipeAction = .doNothing
 //    @State var profiles: [Profile] = Dummy.profiles
-//    @State var profiles: [Profile] = []
+    @State var profiles: [Profile] = []
     @State var showAlert: Bool = false
     @State var timer: Timer? = nil
     
@@ -63,9 +64,7 @@ struct ProfilesView: View {
                         .font(semiBold16Font)
                         .foregroundColor(.gray400)
                         .multilineTextAlignment(.center)
-                    Button(action: {
-                        userManager.getProfiles()
-                    }) {
+                    Button(action: self.getProfiles) {
                         Image(systemName: "arrow.clockwise.circle")
                             .resizable()
                             .scaledToFit()
@@ -74,12 +73,12 @@ struct ProfilesView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
                 
-                ForEach(userManager.profiles.indices, id:\.self) { index  in
-                    let profile = userManager.profiles[index]
+                ForEach(self.profiles.indices, id:\.self) { index  in
+                    let profile = self.profiles[index]
                     
-                    if (index == userManager.profiles.count - 1) {
+                    if (index == self.profiles.count - 1) {
                         SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
-                    } else if (index == userManager.profiles.count - 2) {
+                    } else if (index == self.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
                                 ProfileCardView(profile: profile,
@@ -100,18 +99,31 @@ struct ProfilesView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.gray1000)
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            userManager.getProfiles()
-            if let checkIn = amoringController.checkIn {
-                amoringController.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
-                self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
-                    if let countDown = amoringController.countDown, countDown > 0 {
-                        amoringController.countDown = countDown - 1
-                    } else {
-                        amoringController.leave()
-                    }
-                })
+        .onAppear(perform: getProfiles)
+    }
+    
+    private func getProfiles() {
+        self.profiles.removeAll()
+        
+        if let checkIn = amoringController.checkIn {
+            for profile in checkIn.activeCheckIns.map({ $0.profile }) {
+                if let profile {
+                    self.profiles.append(profile)
+                }
             }
+            
+            amoringController.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+                if let countDown = amoringController.countDown, countDown > 0 {
+                    amoringController.countDown = countDown - 1
+                } else {
+                    userManager.checkOutFromActive { error in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        }
+                    }
+                }
+            })
         }
     }
     
@@ -138,7 +150,7 @@ struct ProfilesView: View {
     }
     
     private func removeTopItem() {
-        userManager.profiles.removeLast()
+        self.profiles.removeLast()
     }
 }
 
