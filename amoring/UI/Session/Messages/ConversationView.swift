@@ -24,6 +24,7 @@ struct ConversationView: View, KeyboardReadable {
     var body: some View {
         let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
     TODO: fix messages place ...
+    TODO: figure out how to convert properly objects from graphql...
         ScrollViewReader { proxy in
             ZStack(alignment: .bottom) {
                 ScrollView {
