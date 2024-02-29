@@ -10,7 +10,8 @@ import SwiftUI
 class MessagesController: ObservableObject {
 //    @Published var reactions: [Reaction] = []
     @Published var reactions: [Reaction] = Dummy.reactions
-    @Published var conversations: [Conversation] = Dummy.conversations
+//    @Published var conversations: [Conversation] = Dummy.conversations
+    @Published var conversations: [Conversation] = []
     @Published var alertPresented = false
     
     func delete(id: String) {

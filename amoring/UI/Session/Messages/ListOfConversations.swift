@@ -110,13 +110,17 @@ struct ListOfConversations: View {
 }
 
 struct ChatRow: View {
+    @EnvironmentObject var userManager: UserManager
+    
     let conversation: Conversation
     var expired: Bool = false
     
     var body: some View {
         HStack(spacing: 0) {
-            let user = conversation.participants.last
+            
+            let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
             let url = user?.profile?.images.first?.file?.url ?? ""
+            
             CachedAsyncImage(url: URL(string: url), content: { image in
                 image
                     .resizable()
@@ -126,7 +130,10 @@ struct ChatRow: View {
             .clipShape(Circle())
             .padding(.trailing, Size.w(12))
             .blur(radius: expired ? 6 : 0)
-    
+            .onAppear {
+                    print(user?.profile.debugDescription ?? "fs")
+            }
+            
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Text(user?.profile?.name ?? "")

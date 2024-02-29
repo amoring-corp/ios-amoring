@@ -479,6 +479,7 @@ type Mutation {
   createInterest(data: InterestCreateInput!): Interest!
   updateInterest(id: ID!, data: InterestUpdateInput!): Interest!
   deleteInterest(id: ID!): Interest!
+  sendMessage(body: String!, conversationId: ID!): Message!
   batchUpsertBusinessHours(
     businessId: ID!
     data: [BusinessHoursInput!]!

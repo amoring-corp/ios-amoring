@@ -22,10 +22,40 @@ struct Conversation: Hashable {
     let archivedAt: Date?
     let updatedAt: Date?
     
-//    static func fromData(data: ConversationsQuery.Data.Conversation) -> Conversation {
-//        let participants = data.participants.map({ User.fromData(data.participants) })
-//        return Conversation(id: data.id, participants: <#T##[User]#>, messages: <#T##[Message]#>, createdAt: <#T##Date#>, archivedAt: <#T##Date?#>, updatedAt: <#T##Date?#>)
-//    }
+    static func listFromData(_ data: [ConversationsQuery.Data.Conversation]) -> [Conversation] {
+        var conversations: [Conversation] = []
+        for datum in data {
+            let conversation = Conversation.fromData(data: datum)
+            if let conversation {
+                conversations.append(conversation)
+            }
+        }
+        return conversations
+    }
+    
+    static func fromData(data: ConversationsQuery.Data.Conversation?) -> Conversation? {
+        if let data {
+            let participants = User.listFromData(data.participants)
+            let messages = Message.listFromData(data.messages)
+            
+            return Conversation(id: data.id, participants: participants, messages: messages, createdAt: Date(), archivedAt: nil, updatedAt: nil)
+        } else {
+            return nil
+        }
+    }
+    
+    static func fromData(data: ConversationQuery.Data.Conversation?) -> Conversation? {
+        print(data)
+        print("abraca 0")
+        if let data {
+            let participants = User.listFromData(data.participants)
+            let messages = Message.listFromData(data.messages)
+            
+            return Conversation(id: data.id, participants: participants, messages: messages, createdAt: Date(), archivedAt: nil, updatedAt: nil)
+        } else {
+            return nil
+        }
+    }
 }
 
 struct Message: Hashable {
@@ -33,13 +63,45 @@ struct Message: Hashable {
         lhs.id == rhs.id
     }
     
-    let id: Int
+    let id: String
     let body: String
-    let sender: User?
-    let senderId: String?
+    var sender: User?
+    var senderId: String?
     var conversation: Conversation?
     let createdAt: Date?
-    let updatedAt: Date?
+    var updatedAt: Date?
+    
+    static func listFromData(_ data: [ConversationsQuery.Data.Conversation.Message?]) -> [Message] {
+        var messages: [Message] = []
+        for datum in data {
+            if let datum {
+                let message = Message(
+                    id: datum.id,
+                    body: datum.body,
+                    createdAt: Date()
+                )
+                messages.append(message)
+            }
+        }
+        return messages
+    }
+    
+    static func listFromData(_ data: [ConversationQuery.Data.Conversation.Message?]) -> [Message] {
+        var messages: [Message] = []
+        print(data)
+        print("abraca")
+        for datum in data {
+            if let datum {
+                let message = Message(
+                    id: datum.id,
+                    body: datum.body,
+                    createdAt: Date()
+                )
+                messages.append(message)
+            }
+        }
+        return messages
+    }
 }
 
 struct MessageRecipient: Hashable {

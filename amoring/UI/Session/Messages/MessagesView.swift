@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MessagesView: View {
     @EnvironmentObject var messageController: MessagesController
+    @EnvironmentObject var userManager: UserManager
     
     @State var torchIsOn = false
     @State var haveTable = false
@@ -46,6 +47,17 @@ struct MessagesView: View {
             }
             )
             .environmentObject(messageController)
+            .onAppear {
+                userManager.getConversations { conversations in
+                    if let conversations {
+                        print(conversations)
+                        print(conversations.map({ $0.participants.first?.id }))
+                        print(conversations.map({ $0.participants.last?.id }))
+                        self.messageController.conversations = conversations
+                        
+                    }
+                }
+            }
     }
 }
 

@@ -906,7 +906,9 @@ class UserManager: ObservableObject {
     func getConversations(completion: @escaping ([Conversation]?) -> Void) {
         guard let id = self.user?.id else {
             completion(nil)
-            return }
+            return
+        }
+        
         api.fetch(query: ConversationsQuery()) { result in
             switch result {
             case .success(let value):
@@ -922,10 +924,69 @@ class UserManager: ObservableObject {
                     return
                 }
                 print(data.conversations.count)
-//                completion(data.conversations)
+                
+                completion(Conversation.listFromData(data.conversations))
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 completion(nil)
+            }
+        }
+    }
+    
+    func getConversation(id: String, completion: @escaping (Conversation?) -> Void) {
+        api.fetch(query: ConversationQuery(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    completion(nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(nil)
+                    return
+                }
+                print(data.conversation)
+                
+                completion(Conversation.fromData(data: data.conversation))
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
+    func sendMessage(body: String, id: String, completion: @escaping (String?, String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: SendMessageMutation(body: body, conversationId: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription, nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong", nil)
+                    return
+                }
+                
+                print("Successfully reacted to Profile!")
+                
+                self.isLoading = false
+                
+                completion(nil, data.sendMessage.id)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription, nil)
             }
         }
     }

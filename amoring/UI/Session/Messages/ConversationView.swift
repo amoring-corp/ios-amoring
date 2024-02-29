@@ -12,6 +12,7 @@ struct ConversationView: View, KeyboardReadable {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
+    @EnvironmentObject var notificationController: NotificationController
     let conversation: Conversation
     @State var newMessage = ""
     @State var controlPresented = false
@@ -21,9 +22,8 @@ struct ConversationView: View, KeyboardReadable {
     @State var messages: [Message] = []
     
     var body: some View {
-        let companion = selectedConversation?.participants.first!
-        let url = companion?.profile?.images.first?.file?.url ?? ""
-        
+        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
+    TODO: fix messages place ...
         ScrollViewReader { proxy in
             ZStack(alignment: .bottom) {
                 ScrollView {
@@ -58,8 +58,15 @@ struct ConversationView: View, KeyboardReadable {
                 }
                 
                 .onAppear {
-                    self.selectedConversation = conversation
-                    self.messages = conversation.messages
+//                TODO: get messsages from current Conversation
+//                    pass avatar from COnversation list
+                    userManager.getConversation(id: conversation.id) { conv in
+                        print("current messages: \(conv?.messages)")
+                        self.messages = conv?.messages ?? []
+                        self.selectedConversation = conv
+                    }
+                    
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         withAnimation {
                             //                            proxy.scrollTo(messages.last?.id, anchor: .bottom)
@@ -123,30 +130,36 @@ struct ConversationView: View, KeyboardReadable {
                 }
             }
         )
-        
     }
     
     func sendMessage(_ proxy: ScrollViewProxy) {
         if !newMessage.isEmpty {
-            withAnimation {
-                self.messages.append(Message(id: self.messages.count + 2, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", createdAt: Date(), updatedAt: Date()))
-                
-                newMessage = ""
-                
-                print(self.messages.count)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            userManager.sendMessage(body: newMessage, id: conversation.id) { error, id in
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
+                } else if let id {
                     withAnimation {
-                        //                        proxy.scrollTo(navigator.selectedConversation?.messages.last?.id, anchor: .bottom)
-                        proxy.scrollTo("bottom", anchor: .bottom)
+                        self.messages.append(Message(id: id, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", createdAt: Date(), updatedAt: Date()))
+                        
+                        newMessage = ""
+                        
+                        print(self.messages.count)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withAnimation {
+                                //                        proxy.scrollTo(navigator.selectedConversation?.messages.last?.id, anchor: .bottom)
+                                proxy.scrollTo("bottom", anchor: .bottom)
+                            }
+                        }
                     }
                 }
             }
+            
         }
     }
     
     @ViewBuilder
     func header() -> some View {
-        let companion = self.selectedConversation?.participants.first!
+        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
         let url = companion?.profile?.images.first?.file?.url ?? ""
         
         VStack {

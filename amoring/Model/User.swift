@@ -19,18 +19,37 @@ struct User: Hashable {
     var createdAt: Date?
     var updatedAt: Date?
     
-//    static func fromData(_ data: ConversationsQuery.Data.Conversation.Participant) -> User {
-//        return User(
-//            id: data.id,
-//            email: data.email,
-////            status: authUser.status,
-//            role: getRoleFrom(data.role),
-//            profile: getProfilefrom(data.profile),
-//            business: getBusinessfrom(data.business)
-////            createdAt: authUser.createdAt,
-////            updatedAt: authUser.updatedAt
-//        )
-//    }
+    static func listFromData(_ data: [ConversationsQuery.Data.Conversation.Participant?]) -> [User] {
+        var users: [User] = []
+        for datum in data {
+            if let datum {
+                let user = User(
+                    id: datum.id,
+                    email: datum.email,
+                    role: getRoleFrom(datum.role),
+                    profile: getProfileForConversation(datum.profile)
+                )
+                users.append(user)
+            }
+        }
+        return users
+    }
+    
+    static func listFromData(_ data: [ConversationQuery.Data.Conversation.Participant?]) -> [User] {
+        var users: [User] = []
+        for datum in data {
+            if let datum {
+                let user = User(
+                    id: datum.id,
+                    email: datum.email,
+                    role: getRoleFrom(datum.role),
+                    profile: getProfileForConversation(datum.profile)
+                )
+                users.append(user)
+            }
+        }
+        return users
+    }
     
     static func fromData(_ authUser: QueryAuthenticatedUserQuery.Data.AuthenticatedUser) -> User {
         return User(
@@ -153,6 +172,41 @@ struct User: Hashable {
                 age: profile.age
 //                createdAt: profile.createdAt,
 //                updatedAt: profile.updatedAt
+            )
+        } else {
+            return nil
+        }
+    }
+    
+    static func getProfileForConversation(_ profile: ConversationsQuery.Data.Conversation.Participant.Profile?) -> Profile? {
+        var img = ProfileImage()
+            
+        if let imageUrl = profile?.images?.first??.file.url {
+            img = ProfileImage(
+                file: File(url: imageUrl)
+            )
+        }
+        
+        if let profile {
+            return Profile(
+                id: profile.id,
+                name: profile.name,
+                images: [img],
+                interests: []
+            )
+        } else {
+            return nil
+        }
+    }
+    
+    static func getProfileForConversation(_ profile: ConversationQuery.Data.Conversation.Participant.Profile?) -> Profile? {
+        
+        if let profile {
+            return Profile(
+                id: profile.id,
+                name: profile.name,
+                images: [],
+                interests: []
             )
         } else {
             return nil
