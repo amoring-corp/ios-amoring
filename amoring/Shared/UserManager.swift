@@ -868,6 +868,39 @@ class UserManager: ObservableObject {
         }
     }
         
+    func reactToProfile(id: String, type: ReactType, completion: @escaping (String?, Bool) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: ReactToProfileMutation(profileId: id, type: .case(type == .like ? .like : .dislike))) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription, false)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong", false)
+                    return
+                }
+                
+                print("Successfully reacted to Profile!")
+                
+                self.isLoading = false
+                
+                completion(nil, data.reactToProfile?.isMatched ?? false)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription, false)
+            }
+        }
+    }
+    
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
             withAnimation {
@@ -945,4 +978,9 @@ class UserManager: ObservableObject {
             }
         }
     }
+}
+
+enum ReactType {
+    case like, dislike
+    
 }

@@ -10,8 +10,9 @@
 		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
 		2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */; };
 		2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */; };
-		2B2FADA22B8DBADF009CB2C6 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA12B8DBADF009CB2C6 /* schema.graphqls */; };
 		2B2FADA42B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */; };
+		2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */; };
+		2B2FADAA2B8F70AE009CB2C6 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA92B8F70AE009CB2C6 /* schema.graphqls */; };
 		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
 		85064AF12B292ECF0074E45A /* LikeDislikeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */; };
@@ -224,8 +225,9 @@
 		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
 		2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreateCheckInByToken.graphql; sourceTree = "<group>"; };
 		2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpdateCheckInStatus.graphql; sourceTree = "<group>"; };
-		2B2FADA12B8DBADF009CB2C6 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCheckOutFromActive.graphql; sourceTree = "<group>"; };
+		2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReactToProfile.graphql; sourceTree = "<group>"; };
+		2B2FADA92B8F70AE009CB2C6 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		36E9464CB26CE4E393883EFE /* Pods_amoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring_amoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring-amoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-amoring-amoringUITests/Pods-amoring-amoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -766,7 +768,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B2FADA12B8DBADF009CB2C6 /* schema.graphqls */,
+				2B2FADA92B8F70AE009CB2C6 /* schema.graphqls */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
 				8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */,
 				8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */,
@@ -800,6 +802,7 @@
 				2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */,
 				851015352B86CFF900ED09E3 /* QueryActiveCheckIn.graphql */,
 				2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */,
+				2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1053,6 +1056,7 @@
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
+				2B2FADAA2B8F70AE009CB2C6 /* schema.graphqls in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
 				2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */,
@@ -1065,7 +1069,6 @@
 				8538D5742B579C9C0040E017 /* MutationUploadBusinessImage.graphql in Resources */,
 				85769E332B707F340064005D /* QueryBusinessHours.graphql in Resources */,
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
-				2B2FADA22B8DBADF009CB2C6 /* schema.graphqls in Resources */,
 				8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */,
 				2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */,
 				85769E2F2B707DD00064005D /* MutationDeleteBusinessHours.graphql in Resources */,
@@ -1074,6 +1077,7 @@
 				855013492B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql in Resources */,
 				8538D57A2B57A5AE0040E017 /* QueryBusinesses.graphql in Resources */,
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
+				2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */,
 				85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */,
 				8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */,
 				85F190412B5F90EE00FA7686 /* MutationDisconnectInterestsFromMyProfile.graphql in Resources */,

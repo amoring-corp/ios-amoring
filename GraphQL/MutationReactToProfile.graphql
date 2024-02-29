@@ -1,0 +1,8 @@
+mutation ReactToProfile($profileId: String!, $type: ReactionType!) {
+  reactToProfile(profileId: $profileId, type: $type) {
+    id
+    toProfileId
+    byProfileId
+    isMatched
+  }
+}

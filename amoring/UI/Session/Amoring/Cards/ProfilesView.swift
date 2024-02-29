@@ -133,15 +133,26 @@ struct ProfilesView: View {
             amoringController.hidePanel = false
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            removeTopItem()
-            if hasLiked {
-                if amoringController.likes > 0 {
-                    withAnimation {
-                        amoringController.likes -= 1
-                    }
+            userManager.reactToProfile(id: profile.id, type: hasLiked ? .like : .dislike) { error, isMatched in
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
                 } else {
-                    withAnimation {
-                        purchaseController.purchasedLikes -= 1
+                    if isMatched {
+                        notificationController.setNotification(text: "MATCHED!", type: .text)
+                    } else {
+                        print("NO MATHCES!")
+                    }
+                    removeTopItem()
+                    if hasLiked {
+                        if amoringController.likes > 0 {
+                            withAnimation {
+                                amoringController.likes -= 1
+                            }
+                        } else {
+                            withAnimation {
+                                purchaseController.purchasedLikes -= 1
+                            }
+                        }
                     }
                 }
             }

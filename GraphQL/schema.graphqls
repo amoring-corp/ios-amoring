@@ -307,6 +307,24 @@ input ProfileUpdateInput {
   images: [ProfileImageInput]
 }
 
+type Reaction {
+  id: ID!
+  byProfileId: String!
+  byProfile: Profile!
+  toProfileId: String!
+  toProfile: Profile!
+  type: ReactionType!
+  matchedWithId: String
+  isMatched: Boolean
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum ReactionType {
+  like
+  dislike
+}
+
 """
 
 """
@@ -446,6 +464,11 @@ type Mutation {
   ): BusinessHours!
   deleteBusinessHours(businessId: ID!, day: Day!): ID!
   deleteAllBusinessHours(businessId: ID!): Int!
+
+  """
+  React to a profile by authenticated user
+  """
+  reactToProfile(profileId: String!, type: ReactionType!): Reaction
   makeReport(data: MakeReportInput!): Report!
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
