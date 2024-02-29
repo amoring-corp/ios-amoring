@@ -37,7 +37,7 @@ query ActiveCheckIn {
         closeAt
         day
       }
-            activeCheckIns {
+      activeCheckIns {
         profile {
           id
           userId
@@ -62,37 +62,37 @@ query ActiveCheckIn {
             name
           }
         }
-      createdAt
-      updatedAt
-    }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
     profileId
-            profile {
-          id
-          userId
-          name
-          age
-          birthYear
-          height
-          weight
-          mbti
-          education
-          occupation
-          bio
-          gender
-          images {
-            id
-            file {
-              url
-            }
-          }
-          interests {
-            id
-            name
-          }
+    profile {
+      id
+      userId
+      name
+      age
+      birthYear
+      height
+      weight
+      mbti
+      education
+      occupation
+      bio
+      gender
+      images {
+        id
+        file {
+          url
         }
+      }
+      interests {
+        id
+        name
+      }
+    }
     status
     checkedInAt
     checkedOutAt

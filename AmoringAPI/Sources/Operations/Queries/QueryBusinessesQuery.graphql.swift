@@ -18,10 +18,10 @@ public class QueryBusinessesQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("businesses", [Business?].self),
+      .field("businesses", [Business].self),
     ] }
 
-    public var businesses: [Business?] { __data["businesses"] }
+    public var businesses: [Business] { __data["businesses"] }
 
     /// Business
     ///

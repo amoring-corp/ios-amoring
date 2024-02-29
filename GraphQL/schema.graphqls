@@ -150,6 +150,21 @@ type CheckInToken {
   expiresAt: DateTime!
 }
 
+type Conversation {
+  id: ID!
+  status: ConversationStatus!
+  participants: [User]!
+  messages(take: Int = 10, skip: Int = 0): [Message]!
+  createdAt: DateTime
+  archivedAt: DateTime
+  updatedAt: DateTime
+}
+
+enum ConversationStatus {
+  active
+  archived
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -239,6 +254,16 @@ input MakeReportInput {
   subject: String
   body: String
   type: ReportType
+}
+
+type Message {
+  id: ID!
+  body: String!
+  senderId: String
+  sender: User
+  conversation: Conversation
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 """
@@ -480,9 +505,11 @@ type Mutation {
 
 type Query {
   authenticatedUser: User
-  businesses: [Business]!
+  businesses: [Business!]!
   business(id: ID!): Business
   activeCheckIn: CheckIn
+  conversations: [Conversation!]!
+  conversation(id: ID!): Conversation
   interestCategories: [InterestCategory]!
   interestCategory(id: ID!): InterestCategory!
   interests: [Interest]!

@@ -52,7 +52,7 @@ class UserManager: ObservableObject {
             }
         case .user:
             print("I'm a user")
-            if let profile = authUser.profile {
+            if authUser.profile != nil {
                 self.setCurrentPhotos()
                 self.changeStateWithAnimation(state: .session)
             } else {
@@ -117,7 +117,7 @@ class UserManager: ObservableObject {
                 switch result {
                 case .success(let value):
                     guard value.errors == nil else {
-                        print(value.errors)
+                        print(value.errors as Any)
                         return
                     }
                     
@@ -133,7 +133,7 @@ class UserManager: ObservableObject {
                     
                     self.user = User.fromData(authUser)
                     
-                    print(self.user?.profile?.images)
+                    print(self.user?.profile?.images as Any)
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
                 }
@@ -147,13 +147,13 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(false)
                     return
                 }
                 
-                guard let data = value.data else {
+                guard value.data != nil else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion(false)
@@ -207,7 +207,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -290,7 +290,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -321,7 +321,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -333,7 +333,7 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Image was successfully deleted!")
-                print(data.deleteAllBusinessImages)
+                print(data.deleteAllBusinessImages as Any)
                 completion(true)
             case .failure(let error):
                 print(error)
@@ -344,7 +344,7 @@ class UserManager: ObservableObject {
     }
    
     func uploadBusinessRegistrationFile(data: Data, completion: @escaping (Bool) -> Void) {
-        print("business id: \(user?.business?.id)")
+        print("business id: \(String(describing: user?.business?.id))")
         guard let id = user?.business?.id else {
             completion(false)
             return
@@ -354,7 +354,7 @@ class UserManager: ObservableObject {
             switch result    {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -383,7 +383,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -394,7 +394,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print(data.connectInterestsToMyProfile.interests)
+                print(data.connectInterestsToMyProfile.interests as Any)
                 if let interests = data.connectInterestsToMyProfile.interests {
                     self.user?.profile?.interests.removeAll()
                     for interest in interests {
@@ -419,7 +419,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -430,7 +430,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print(data.disconnectInterestsFromMyProfile.interests)
+                print(data.disconnectInterestsFromMyProfile.interests as Any)
                 completion(true)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -460,7 +460,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(false)
                     return
                 }
@@ -470,7 +470,9 @@ class UserManager: ObservableObject {
                     completion(false)
                     return
                 }
-                let fetchedProfile = data.upsertMyProfile
+                
+                // FIXME: Do we even need this variable?
+                _ = data.upsertMyProfile
                 print(data.upsertMyProfile.id)
                 self.user?.profile = profile
                 completion(true)
@@ -487,7 +489,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.interestCategories = Constants.interestCategories
                     return
                 }
@@ -533,7 +535,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription)
                     return
@@ -563,7 +565,7 @@ class UserManager: ObservableObject {
 
     func batchUpsertBusinessHours(hours: [BusinessHours], completion: @escaping (Bool) -> Void) {
         guard let id = user?.business?.id else {
-            print("id: \(user?.business?.id)")
+            print("id: \(String(describing: user?.business?.id))")
             completion(false)
             return
         }
@@ -575,13 +577,13 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(false)
                     return
                 }
                 
-                guard let data = value.data else {
+                guard value.data != nil else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion(false)
@@ -602,7 +604,7 @@ class UserManager: ObservableObject {
     
     func deleteAllBusinessHours(completion: @escaping (Bool) -> Void) {
         guard let id = user?.business?.id else {
-            print("id: \(user?.business?.id)")
+            print("id: \(String(describing: user?.business?.id))")
             completion(false)
             return
         }
@@ -613,13 +615,13 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(false)
                     return
                 }
                 
-                guard let data = value.data else {
+                guard value.data != nil else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion(false)
@@ -645,13 +647,13 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription)
                     return
                 }
                 
-                guard let data = value.data else {
+                guard value.data != nil else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion("Oops! Something went wrong")
@@ -677,13 +679,13 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription)
                     return
                 }
                 
-                guard let data = value.data else {
+                guard value.data != nil else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion("Oops! Something went wrong")
@@ -709,7 +711,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription, nil)
                     return
@@ -743,7 +745,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription, nil, nil)
                     return
@@ -759,7 +761,7 @@ class UserManager: ObservableObject {
                 print("Check in successfully created by token!")
                     
                 
-                print(data.createCheckInByToken?.id)
+                print(data.createCheckInByToken?.id as Any)
                 
                 self.isLoading = false
                 completion(nil, data.createCheckInByToken?.business?.businessName, data.createCheckInByToken?.id)
@@ -778,7 +780,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription, nil)
                     return
@@ -810,7 +812,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     completion(nil)
                     return
                 }
@@ -820,10 +822,10 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                print(data.activeCheckIn)
-                if let activeCheckIn = data.activeCheckIn {
+                print(data.activeCheckIn as Any)
+                if data.activeCheckIn != nil {
                     let checkIn = CheckIn.fromData(data: data.activeCheckIn)
-                    print("Active check in: \(checkIn)")
+                    print("Active check in: \(String(describing: checkIn))")
                     completion(checkIn)
                 } else {
                     completion(nil)
@@ -842,13 +844,13 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription)
                     return
                 }
                 
-                guard let data = value.data else {
+                guard value.data != nil else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion("Oops! Something went wrong")
@@ -875,7 +877,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     self.isLoading = false
                     completion(value.errors?.first?.localizedDescription, false)
                     return
@@ -901,6 +903,33 @@ class UserManager: ObservableObject {
         }
     }
     
+    func getConversations(completion: @escaping ([Conversation]?) -> Void) {
+        guard let id = self.user?.id else {
+            completion(nil)
+            return }
+        api.fetch(query: ConversationsQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    completion(nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(nil)
+                    return
+                }
+                print(data.conversations.count)
+//                completion(data.conversations)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    
     func changeStateWithAnimation(state: UserState) {
         DispatchQueue.main.async {
             withAnimation {
@@ -909,13 +938,19 @@ class UserManager: ObservableObject {
         }
     }
     
+    func conversationSubscription() {
+//        api.subscribe(subscription: ) { result in
+//            
+//        }
+    }
+    
     // TODO: move to another Manager
     func getBusinesses() {
         api.fetch(query: QueryBusinessesQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     return
                 }
                 
@@ -950,7 +985,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
-                    print(value.errors)
+                    print(value.errors as Any)
                     return
                 }
                 

@@ -19,6 +19,19 @@ struct User: Hashable {
     var createdAt: Date?
     var updatedAt: Date?
     
+//    static func fromData(_ data: ConversationsQuery.Data.Conversation.Participant) -> User {
+//        return User(
+//            id: data.id,
+//            email: data.email,
+////            status: authUser.status,
+//            role: getRoleFrom(data.role),
+//            profile: getProfilefrom(data.profile),
+//            business: getBusinessfrom(data.business)
+////            createdAt: authUser.createdAt,
+////            updatedAt: authUser.updatedAt
+//        )
+//    }
+    
     static func fromData(_ authUser: QueryAuthenticatedUserQuery.Data.AuthenticatedUser) -> User {
         return User(
             id: authUser.id,

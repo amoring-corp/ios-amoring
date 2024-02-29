@@ -1,0 +1,33 @@
+query Conversations {
+  conversations {
+    id
+    status
+    participants {
+      id
+      email
+      status
+      role
+      profile {
+        id
+        name
+        images {
+          id
+          file {
+            url
+          }
+        }
+      }
+      createdAt
+      updatedAt
+    }
+    messages(take: 1, skip: 0) {
+      id
+      body
+      createdAt
+      updatedAt
+    }
+    createdAt
+    archivedAt
+    updatedAt
+  }
+}

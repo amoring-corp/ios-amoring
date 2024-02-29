@@ -129,7 +129,7 @@ struct ConversationView: View, KeyboardReadable {
     func sendMessage(_ proxy: ScrollViewProxy) {
         if !newMessage.isEmpty {
             withAnimation {
-                self.messages.append(Message(id: self.messages.count + 2, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", recipients: [], createdAt: Date(), updatedAt: Date()))
+                self.messages.append(Message(id: self.messages.count + 2, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", createdAt: Date(), updatedAt: Date()))
                 
                 newMessage = ""
                 

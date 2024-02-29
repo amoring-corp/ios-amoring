@@ -58,7 +58,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 switch result {
                 case .success(let value):
                     guard value.errors == nil else {
-                        print(value.errors)
+                        print(value.errors as Any)
                         self.changeStateWithAnimation(state: .auth)
                         completion(false, value.errors?.first?.localizedDescription ?? "")
                         return
@@ -78,11 +78,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         completion(true, "")
                         return
                     }
-                    
-                    print(authUser)
-                    print(authUser.id)
-                    print(authUser.status)
-                    print(authUser.role)
                     
                     print("Current Token: \(self.sessionToken)")
                     self.user = User.fromData(authUser)
@@ -152,18 +147,14 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error {
                     print(error)
-                    
                 } else {
-                    print("oauthToken::")
-                    print(oauthToken)
+                    print("oauthToken: \(String(describing: oauthToken))")
                     self.lastProvider = .kakao
                     UserApi.shared.me() { (user, error) in
                         print("---------")
-                        print(user)
-                        print(error)
+                        print(user as Any)
+                        print(error as Any)
                     }
-                    
-                    
                 }
             }
         } else {
@@ -172,8 +163,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     print(error)
 //                    self.signedIn = true
                 } else {
-                    print("oauthToken::")
-                    print(oauthToken)
+                    print("oauthToken: \(oauthToken as Any)")
                     self.lastProvider = .kakao
                     UserApi.shared.me() { (user, error) in
                         print("--------- ++++++++")
@@ -204,7 +194,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             guard let tokenType = NaverThirdPartyLoginConnection.getSharedInstance().tokenType else { return }
             guard let accessToken = NaverThirdPartyLoginConnection.getSharedInstance().accessToken else { return }
-            print("abracadabra")
             print(tokenType)
             print(accessToken)
         }
