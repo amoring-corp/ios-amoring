@@ -23,6 +23,7 @@ query Conversations {
     messages(take: 1, skip: 0) {
       id
       body
+      senderId
       createdAt
       updatedAt
     }

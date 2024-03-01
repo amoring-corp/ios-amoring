@@ -923,7 +923,8 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                print(data.conversations.count)
+                print("CHECK IF ARCHIVEAT IS COMING FROM THE SERVER")
+                print(data.conversations.map({ $0.archivedAt }))
                 
                 completion(Conversation.listFromData(data.conversations))
             case .failure(let error):

@@ -7,7 +7,7 @@ public class ConversationsQuery: GraphQLQuery {
   public static let operationName: String = "Conversations"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query Conversations { conversations { __typename id status participants { __typename id email status role profile { __typename id name images { __typename id file { __typename url } } } createdAt updatedAt } messages(take: 1, skip: 0) { __typename id body createdAt updatedAt } createdAt archivedAt updatedAt } }"#
+      #"query Conversations { conversations { __typename id status participants { __typename id email status role profile { __typename id name images { __typename id file { __typename url } } } createdAt updatedAt } messages(take: 1, skip: 0) { __typename id body senderId createdAt updatedAt } createdAt archivedAt updatedAt } }"#
     ))
 
   public init() {}
@@ -147,12 +147,14 @@ public class ConversationsQuery: GraphQLQuery {
           .field("__typename", String.self),
           .field("id", AmoringAPI.ID.self),
           .field("body", String.self),
+          .field("senderId", String?.self),
           .field("createdAt", AmoringAPI.DateTime?.self),
           .field("updatedAt", AmoringAPI.DateTime?.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var body: String { __data["body"] }
+        public var senderId: String? { __data["senderId"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
       }

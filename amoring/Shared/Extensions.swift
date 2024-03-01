@@ -8,9 +8,9 @@
 import SwiftUI
 
 extension String {
-    func toDate() -> Date {
+    func toDate(format: String = "yyyy-MM-dd") -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = format
         return dateFormatter.date(from: self) ?? Date()
     }
     

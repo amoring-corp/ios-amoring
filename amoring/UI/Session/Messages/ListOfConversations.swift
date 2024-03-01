@@ -170,14 +170,15 @@ struct ChatRow: View {
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
-                let diff = Date() - conversation.createdAt
-                let endTime: TimeInterval = 24 * 60 * 60
-                let eraseTime = endTime - diff
-                Text(eraseTime.toEraseTime())
-                    .font(regular12Font)
-                    .foregroundColor(.gray700)
-                    .opacity(expired ? 0 : 1)
-                
+                if let archivedAt = conversation.archivedAt {
+//                    let endTime: TimeInterval = 24 * 60 * 60
+                    let eraseTime = Date() - archivedAt
+                    
+                    Text(eraseTime.toEraseTime())
+                        .font(regular12Font)
+                        .foregroundColor(.gray700)
+                        .opacity(expired ? 0 : 1)
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
         }

@@ -23,8 +23,8 @@ struct ConversationView: View, KeyboardReadable {
     
     var body: some View {
         let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
-    TODO: fix messages place ...
-    TODO: figure out how to convert properly objects from graphql...
+    
+    
         ScrollViewReader { proxy in
             ZStack(alignment: .bottom) {
                 ScrollView {
@@ -63,7 +63,7 @@ struct ConversationView: View, KeyboardReadable {
 //                    pass avatar from COnversation list
                     userManager.getConversation(id: conversation.id) { conv in
                         print("current messages: \(conv?.messages)")
-                        self.messages = conv?.messages ?? []
+                        self.messages = conv?.messages.reversed() ?? []
                         self.selectedConversation = conv
                     }
                     

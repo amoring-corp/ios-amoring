@@ -37,21 +37,35 @@ struct Conversation: Hashable {
         if let data {
             let participants = User.listFromData(data.participants)
             let messages = Message.listFromData(data.messages)
-            
-            return Conversation(id: data.id, participants: participants, messages: messages, createdAt: Date(), archivedAt: nil, updatedAt: nil)
+            print("CHECK IF ARCHIVEAT IS COMING FROM THE SERVER")
+            print(data.archivedAt)
+            print(data.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").addingTimeInterval(9 * 60 * 60))
+            return Conversation(
+                id: data.id,
+                participants: participants,
+                messages: messages,
+                createdAt: data.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").addingTimeInterval(9 * 60 * 60) ?? Date(),
+                archivedAt: data.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+                updatedAt: data.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            )
         } else {
             return nil
         }
     }
     
     static func fromData(data: ConversationQuery.Data.Conversation?) -> Conversation? {
-        print(data)
-        print("abraca 0")
         if let data {
             let participants = User.listFromData(data.participants)
             let messages = Message.listFromData(data.messages)
             
-            return Conversation(id: data.id, participants: participants, messages: messages, createdAt: Date(), archivedAt: nil, updatedAt: nil)
+            return Conversation(
+                id: data.id,
+                participants: participants,
+                messages: messages,
+                createdAt: data.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date(),
+                archivedAt: data.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+                updatedAt: data.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            )
         } else {
             return nil
         }
@@ -78,8 +92,10 @@ struct Message: Hashable {
                 let message = Message(
                     id: datum.id,
                     body: datum.body,
-                    createdAt: Date()
+                    senderId: datum.senderId,
+                    createdAt: datum.createdAt?.toDate()
                 )
+           
                 messages.append(message)
             }
         }
@@ -88,14 +104,14 @@ struct Message: Hashable {
     
     static func listFromData(_ data: [ConversationQuery.Data.Conversation.Message?]) -> [Message] {
         var messages: [Message] = []
-        print(data)
-        print("abraca")
         for datum in data {
             if let datum {
                 let message = Message(
                     id: datum.id,
                     body: datum.body,
-                    createdAt: Date()
+                    senderId: datum.senderId,                  /* "2024-03-01T03:36:55.811Z"*/
+                    /// adding manually +18 hours
+                    createdAt: datum.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").addingTimeInterval(9 * 60 * 60)
                 )
                 messages.append(message)
             }
