@@ -37,9 +37,9 @@ struct Conversation: Hashable {
         if let data {
             let participants = User.listFromData(data.participants)
             let messages = Message.listFromData(data.messages)
-            print("CHECK IF ARCHIVEAT IS COMING FROM THE SERVER")
-            print(data.archivedAt)
-            print(data.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").addingTimeInterval(9 * 60 * 60))
+//            print("CHECK IF ARCHIVEAT IS COMING FROM THE SERVER")
+//            print(data.createdAt)
+//            print(data.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").addingTimeInterval(9 * 60 * 60))
             return Conversation(
                 id: data.id,
                 participants: participants,
@@ -93,7 +93,7 @@ struct Message: Hashable {
                     id: datum.id,
                     body: datum.body,
                     senderId: datum.senderId,
-                    createdAt: datum.createdAt?.toDate()
+                    createdAt: datum.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 )
            
                 messages.append(message)

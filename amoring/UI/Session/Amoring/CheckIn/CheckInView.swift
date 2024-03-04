@@ -28,7 +28,7 @@ struct CheckInView: View {
                 .padding(.top, Size.w(16))
                 .padding(.bottom, Size.w(20))
             
-            CodeScannerView(codeTypes: [.qr], scanMode: .continuous, isTorchOn: $torchIsOn, completion: handleScan)
+            CodeScannerView(codeTypes: [.qr], scanMode: .once, isTorchOn: $torchIsOn, completion: handleScan)
                 .border(Color.yellow600)
             
             VStack(alignment: .leading, spacing: Size.w(7)) {

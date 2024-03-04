@@ -149,7 +149,9 @@ struct ChatRow: View {
                     }
                     
                     Spacer()
-                    if conversation.messages.isEmpty {
+                    
+                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
+                    if conversation.messages.isEmpty && diff < 86400 {
                         Text("New")
                             .font(semiBold12Font)
                             .foregroundColor(.black)
@@ -158,7 +160,6 @@ struct ChatRow: View {
                             .background(Color.yellow300)
                             .clipShape(Capsule())
                     } else {
-                        let diff = Date() - conversation.messages.last!.createdAt!
                         Text(diff.toPassedTime())
                             .font(regular14Font)
                             .foregroundColor(expired ? .gray600 : (diff > 61 ? .gray700 : .yellow300))
@@ -170,15 +171,16 @@ struct ChatRow: View {
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
-                if let archivedAt = conversation.archivedAt {
-//                    let endTime: TimeInterval = 24 * 60 * 60
-                    let eraseTime = Date() - archivedAt
+                //TODO: need from backend
+//                if let archivedAt = conversation.archivedAt {
+                let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
+                let eraseTime = Date() - archivedAt
                     
                     Text(eraseTime.toEraseTime())
                         .font(regular12Font)
                         .foregroundColor(.gray700)
                         .opacity(expired ? 0 : 1)
-                }
+//                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
         }

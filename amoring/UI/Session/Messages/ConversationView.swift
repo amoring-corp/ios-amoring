@@ -253,7 +253,7 @@ struct MessageView: View {
                     .cornerRadius(16, corners: [.bottomLeft, .topLeft, .topRight])
             }
             .padding(.horizontal, Size.w(22))
-            .padding(.leading, Size.w(20))
+            
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(12))
         } else {
@@ -269,7 +269,6 @@ struct MessageView: View {
                     .foregroundColor(.gray400)
             }
             .padding(.horizontal, Size.w(22))
-            .padding(.leading, Size.w(20))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, Size.w(12))
         }
