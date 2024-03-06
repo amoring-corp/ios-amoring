@@ -934,7 +934,6 @@ class UserManager: ObservableObject {
                 }
                 print("CHECK IF ARCHIVEAT IS COMING FROM THE SERVER")
                 print(data.conversations.map({ $0.archivedAt }))
-                
                 completion(data.conversations.compactMap({ $0.fragments.conversationInfo }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)

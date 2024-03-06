@@ -49,7 +49,7 @@ struct ListOfConversations: View {
             } else {
                 List {
                     // FIXME: refactoring. Need tests
-                    ForEach(controller.conversations.filter { $0.createdAt?.toDate() ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             .background(
                                 NavigationLink(destination: {
@@ -87,7 +87,7 @@ struct ListOfConversations: View {
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                     // FIXME: refactoring
-                    ForEach(controller.conversations.filter { $0.createdAt?.toDate() ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation, expired: true)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)

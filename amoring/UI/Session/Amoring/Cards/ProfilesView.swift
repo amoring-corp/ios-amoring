@@ -106,25 +106,31 @@ struct ProfilesView: View {
         self.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
-            // FIXME: refactoring
-//            for profile in checkIn.business?.activeCheckIns.compactMap({ $0?.profile }) {
-//                if let profile {
-//                    self.profiles.append(profile)
-//                }
-//            }
-            // FIXME: refactoring
-//            amoringController.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
-                if let countDown = amoringController.countDown, countDown > 0 {
-                    amoringController.countDown = countDown - 1
-                } else {
-                    userManager.checkOutFromActive { error in
-                        if let error {
-                            notificationController.setNotification(text: error, type: .error)
-                        }
+            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile }) {
+                for profile in profiles {
+                    if let profile {
+                        self.profiles.append(Profile(profile: profile))
                     }
                 }
-            })
+            }
+            
+            if let checkInDate = checkIn.checkedInAt?.toDate() {
+                amoringController.countDown = checkInDate.addingTimeInterval(3 * 60 * 60) - Date()
+                
+                self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+                    if let countDown = amoringController.countDown, countDown > 0 {
+                        amoringController.countDown = countDown - 1
+                    } else {
+                        userManager.checkOutFromActive { error in
+                            if let error {
+                                notificationController.setNotification(text: error, type: .error)
+                            } else {
+                                self.timer?.invalidate()
+                            }
+                        }
+                    }
+                })
+            }
         }
     }
     

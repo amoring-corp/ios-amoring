@@ -97,7 +97,6 @@ struct PeopleLikesView: View {
 //                                        PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
 //                                    }.disabled(!purchaseController.likeListEnabled)
 //                                }
-                                
                             }
                         }
                     }

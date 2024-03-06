@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MessagesView: View {
-    @EnvironmentObject var messageController: MessagesController
+    @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var userManager: UserManager
     
     @State var torchIsOn = false
@@ -17,7 +17,7 @@ struct MessagesView: View {
     
     var body: some View {
             VStack(alignment: .center, spacing: 0) {
-                if !messageController.reactions.isEmpty {
+                if !controller.reactions.isEmpty {
                     NavigationLink(destination: {
                         PeopleLikesView()
                     }) {
@@ -46,15 +46,11 @@ struct MessagesView: View {
                     .frame(width: Size.w(32), height: Size.w(32))
             }
             )
-            .environmentObject(messageController)
+            .environmentObject(controller)
             .onAppear {
                 userManager.getConversations { conversations in
                     if let conversations {
-                        print(conversations)
-                        print(conversations.map({ $0.participants.first?.map({ $0.id }) }))
-                        print(conversations.map({ $0.participants.last?.map({ $0.id }) }))
-                        self.messageController.conversations = conversations
-                        
+                        self.controller.conversations = conversations
                     }
                 }
             }
