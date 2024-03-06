@@ -1,0 +1,60 @@
+fragment BusinessInfo on Business {
+  id
+  ownerId
+  businessName
+  businessType
+  businessIndustry
+  businessCategory
+  businessHours {
+    ... BusinessHoursInfo
+  }
+  address
+  addressBname
+  addressDetails
+  addressJibun
+  addressSido
+  addressSigungu
+  addressSigunguCode
+  addressSigunguEnglish
+  addressZonecode
+  bio
+  representativeTitle
+  representativeName
+  phoneNumber
+  registrationNumber
+  images {
+    id
+    file {
+        url
+    }
+  }
+  activeCheckIns {
+    profile {
+      id
+      userId
+      name
+      age
+      birthYear
+      height
+      weight
+      mbti
+      education
+      occupation
+      bio
+      gender
+      images {
+        ... ImageFragment
+      }
+      interests {
+        id
+        name
+      }
+    }
+    createdAt
+    updatedAt
+  }
+  latitude
+  longitude
+  createdAt
+  updatedAt
+}

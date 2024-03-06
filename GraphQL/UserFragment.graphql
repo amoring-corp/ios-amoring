@@ -1,0 +1,14 @@
+fragment UserInfo on User {
+  id
+  email
+  status
+  role
+  profile {
+    ... ProfileInfo
+  }
+  business {
+    ... BusinessInfo
+  }
+  createdAt
+  updatedAt
+}

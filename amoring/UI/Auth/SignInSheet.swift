@@ -91,7 +91,7 @@ struct SignInSheet: View {
                         .scaledToFit()
                         .onTapGesture {
                             withAnimation {
-                                sessionManager.appState = .session(user: User(id: "dummy"))
+//                                sessionManager.appState = .session(user: User(id: "dummy"))
                             }
                         }
                         .overlay(

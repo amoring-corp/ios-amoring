@@ -3,31 +3,7 @@ mutation signUp($email: String!, $password: String!) {
     confirmationNumber
     emailConfirmationToken
     user {
-      id
-      email
-      status
-      role
-      business {
-        id
-        ownerId
-        businessName
-        businessType
-        businessIndustry
-        businessCategory
-        address
-        latitude
-        longitude
-        representativeTitle
-        representativeName
-        phoneNumber
-        registrationNumber
-        category
-        bio
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      ... UserInfo
     }
   }
 }

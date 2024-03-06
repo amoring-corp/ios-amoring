@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import AmoringAPI
 import CachedAsyncImage
 
 struct ListOfConversations: View {
     @EnvironmentObject var controller: MessagesController
     
     @State var alertPresented = false
-    @State var selectedConversation: Conversation? = nil
+    @State var selectedConversation: ConversationInfo? = nil
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -47,7 +48,8 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.createdAt > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    // FIXME: refactoring. Need tests
+                    ForEach(controller.conversations.filter { $0.createdAt?.toDate() ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             .background(
                                 NavigationLink(destination: {
@@ -84,8 +86,8 @@ struct ListOfConversations: View {
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
-                    
-                    ForEach(controller.conversations.filter { $0.createdAt < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    // FIXME: refactoring
+                    ForEach(controller.conversations.filter { $0.createdAt?.toDate() ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation, expired: true)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
@@ -112,16 +114,16 @@ struct ListOfConversations: View {
 struct ChatRow: View {
     @EnvironmentObject var userManager: UserManager
     
-    let conversation: Conversation
+    let conversation: ConversationInfo
     var expired: Bool = false
     
     var body: some View {
         HStack(spacing: 0) {
             
-            let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
-            let url = user?.profile?.images.first?.file?.url ?? ""
+            let user = conversation.participants.first(where: { $0?.id != userManager.user?.id })
+            let url: String? = user??.profile?.images?.first?.map({ $0.file.url ?? "" })
             
-            CachedAsyncImage(url: URL(string: url), content: { image in
+            CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -130,13 +132,10 @@ struct ChatRow: View {
             .clipShape(Circle())
             .padding(.trailing, Size.w(12))
             .blur(radius: expired ? 6 : 0)
-            .onAppear {
-                    print(user?.profile.debugDescription ?? "fs")
-            }
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(user?.profile?.name ?? "")
+                    Text(user??.profile?.name ?? "")
                         .font(medium16Font)
                         .foregroundColor(expired ? .gray600 : .gray300)
                     if expired {
@@ -150,7 +149,9 @@ struct ChatRow: View {
                     
                     Spacer()
                     
-                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
+                    // FIXME: refactoring
+//                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
+                    let diff: TimeInterval = 0
                     if conversation.messages.isEmpty && diff < 86400 {
                         Text("New")
                             .font(semiBold12Font)
@@ -166,14 +167,15 @@ struct ChatRow: View {
                     }
                 }
                 
-                Text(conversation.messages.last?.body ?? "👋 첫인사를 보내보세요!")
+                Text(conversation.messages.last??.body ?? "👋 첫인사를 보내보세요!")
                     .font(regular14Font)
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
                 //TODO: need from backend
 //                if let archivedAt = conversation.archivedAt {
-                let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
+                // FIXME: refactoring
+                let archivedAt = conversation.archivedAt?.toDate() ?? Date().addingTimeInterval(-46000)
                 let eraseTime = Date() - archivedAt
                     
                     Text(eraseTime.toEraseTime())

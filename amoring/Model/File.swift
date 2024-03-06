@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct File: Hashable {
-    var id: String?
-    var name: String?
-    var mimetype: String?
-    var url: String?
-    var path: String?
-    var width: String?
-    var height: String?
-    var createdAt: Date?
-    var updatedAt: Date?
-}
+//struct File: Hashable {
+//    var id: String?
+//    var name: String?
+//    var mimetype: String?
+//    var url: String?
+//    var path: String?
+//    var width: String?
+//    var height: String?
+//    var createdAt: Date?
+//    var updatedAt: Date?
+//}

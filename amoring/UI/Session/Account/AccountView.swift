@@ -38,7 +38,8 @@ struct AccountView: View {
                     .padding(.bottom, Size.w(30))
                     
                     HStack {
-                        Text(LocalizedStringKey(userManager.user?.profile?.gender ?? ""))
+                        let gender = userManager.user?.profile?.gender.map({ $0.rawValue })
+                        Text(LocalizedStringKey(gender ?? ""))
                             .font(semiBold12Font)
                             .foregroundColor(.gray1000)
                             .padding(.horizontal, Size.w(12))

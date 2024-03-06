@@ -1,0 +1,23 @@
+fragment ConversationInfo on Conversation {
+    id
+    status
+    participants {
+      ... UserInfo
+    }
+    messages(take: 10, skip: 0) {
+      id
+      body
+      senderId
+      sender {
+        id
+        profile {
+          name
+        }
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    archivedAt
+    updatedAt
+}

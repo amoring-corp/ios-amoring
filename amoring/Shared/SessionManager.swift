@@ -44,7 +44,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     @Published var confirmationNumber: String? = nil
     @Published var emailConfirmationToken: String = ""
-    @Published var user: User? = nil
+    @Published var user: UserInfo? = nil
 
     @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
 
@@ -80,8 +80,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     }
                     
                     print("Current Token: \(self.sessionToken)")
-                    self.user = User.fromData(authUser)
-                    self.changeStateWithAnimation(state: .session(user: User.fromData(authUser)))
+                    self.user = authUser.fragments.userInfo
+                    self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
                     completion(true, "")
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
@@ -249,11 +249,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 if let confirmationNumber = value.data?.signUp.confirmationNumber, let emailConfirmationToken = value.data?.signUp.emailConfirmationToken, let authUser = value.data?.signUp.user {
                     self.emailConfirmationToken = emailConfirmationToken
                     // FIXME: ! create a decoder
-                    self.user = User(
-                        id: authUser.id,
-                        email: authUser.email,
-                        role: UserRole.business
-                    )
+                    self.user = authUser.fragments.userInfo
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         withAnimation {
                             self.confirmationNumber = confirmationNumber

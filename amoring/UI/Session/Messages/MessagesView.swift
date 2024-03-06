@@ -51,8 +51,8 @@ struct MessagesView: View {
                 userManager.getConversations { conversations in
                     if let conversations {
                         print(conversations)
-                        print(conversations.map({ $0.participants.first?.id }))
-                        print(conversations.map({ $0.participants.last?.id }))
+                        print(conversations.map({ $0.participants.first?.map({ $0.id }) }))
+                        print(conversations.map({ $0.participants.last?.map({ $0.id }) }))
                         self.messageController.conversations = conversations
                         
                     }

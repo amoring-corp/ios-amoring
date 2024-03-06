@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 class AmoringController: ObservableObject {
-    @Published var selectedUser: User? = nil
+    @Published var selectedUser: UserInfo? = nil
 //    @Published var amoring: Bool = false
     @Published var showDetails: Bool = false
     @Published var hidePanel: Bool = false
     // TODO: fetch this object when app starts
-    @Published var checkIn: CheckIn? = nil
+    @Published var checkIn: CheckInInfo? = nil
     @Published var countDown: TimeInterval? = nil
 
     // TODO: Not sure if this object should be here...
@@ -22,7 +23,7 @@ class AmoringController: ObservableObject {
     func leave() {
         // TODO: Save to DB and delete current check in object
         withAnimation {
-            self.checkIn?.checkedOutAt = Date()
+//            self.checkIn?.checkedOutAt = Date()
             self.checkIn = nil
         }
     }

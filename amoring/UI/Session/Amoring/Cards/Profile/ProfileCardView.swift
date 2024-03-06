@@ -69,7 +69,8 @@ struct UserInfoView: View {
             
             VStack(spacing: Size.w(10)) {
                 HStack {
-                    Text(LocalizedStringKey(profile.gender ?? ""))
+                    let gender = profile.gender?.rawValue
+                    Text(LocalizedStringKey(gender ?? ""))
                         .font(semiBold12Font)
                         .foregroundColor(.white)
                         .padding(.horizontal, Size.w(12))
@@ -114,8 +115,8 @@ struct UserInfoView: View {
     }
 }
 
-#Preview {
-    ProfileCardView(profile: Dummy.users.first!.profile!, width: UIScreen.main.bounds.width - Size.w(44), height: 500)
-}
+//#Preview {
+//    ProfileCardView(profile: Dummy.users.first!.profile!, width: UIScreen.main.bounds.width - Size.w(44), height: 500)
+//}
 
 

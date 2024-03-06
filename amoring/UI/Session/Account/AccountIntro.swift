@@ -152,7 +152,7 @@ struct AccountIntro: View {
                         userManager.user?.profile?.education = self.education
                         userManager.user?.profile?.mbti = self.mbti.rawValue
                         if let profile = userManager.user?.profile {
-                            userManager.updateProfile(profile: profile) { success in
+                            userManager.updateProfile { success in
                                 print("Intro Successfully saved")
                                 self.presentationMode.wrappedValue.dismiss()
                             }

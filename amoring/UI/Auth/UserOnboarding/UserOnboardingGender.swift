@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 struct UserOnboardingGender: View {
     @EnvironmentObject var controller: UserOnboardingController
@@ -51,7 +52,7 @@ struct UserOnboardingGender: View {
             HStack {
                 Button(action: {
                     if let gender {
-                        controller.profile.gender = gender.rawValue
+                        controller.profile.gender = gender
                         next = true
                     }
                 }, label: {
@@ -73,9 +74,9 @@ struct UserOnboardingGender: View {
     }
 }
 
-enum Gender: String {
-    case male, female
-}
+//enum Gender: String {
+//    case male, female
+//}
 
 struct GenderPicker: View {
     @Binding var gender: Gender?

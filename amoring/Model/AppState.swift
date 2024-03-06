@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import AmoringAPI
 
 enum AppState {
     case initializing
     case auth
-    case session(user: User)
+    case session(user: UserInfo)
     case error
 }
 

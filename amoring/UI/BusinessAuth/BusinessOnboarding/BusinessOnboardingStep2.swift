@@ -93,7 +93,7 @@ struct BusinessOnboardingStep2: View {
                         .padding(.bottom, Size.w(30))
                         
                         VStack(alignment: .leading) {
-                            Text("전화번호*")
+                            Text("매장소개*")
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.leading, Size.w(14))

@@ -1,36 +1,5 @@
 query Profiles {
   profiles(role: user) {
-    id
-    userId
-    name
-    birthYear
-    height
-    weight
-    mbti
-    education
-    occupation
-    bio
-    gender
-    images {
-      id
-      profileId
-      fileId
-      sort
-      file {
-        url
-      }
-      createdAt
-      updatedAt
-    }
-    interests {
-      id
-      name
-      categoryId
-      createdAt
-      updatedAt
-    }
-    age
-    createdAt
-    updatedAt
+    ... ProfileInfo
   }
 }

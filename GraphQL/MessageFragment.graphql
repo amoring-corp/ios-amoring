@@ -1,0 +1,13 @@
+fragment MessageInfo on Message {
+  id
+  body
+  senderId
+  sender {
+    id
+    profile {
+      name
+    }
+  }
+  createdAt
+  updatedAt
+}

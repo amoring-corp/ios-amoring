@@ -6,24 +6,23 @@
 //
 
 import SwiftUI
-import Combine
+import AmoringAPI
 
 struct ConversationView: View, KeyboardReadable {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var notificationController: NotificationController
-    let conversation: Conversation
+    let conversation: ConversationInfo
     @State var newMessage = ""
     @State var controlPresented = false
     @State var alertPresented = false
     
-    @State var selectedConversation: Conversation? = nil
-    @State var messages: [Message] = []
+    @State var selectedConversation: ConversationInfo? = nil
+    @State var messages: [MessageInfo] = []
     
     var body: some View {
-        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
-    
+        let companion = conversation.participants.first(where: { $0?.id != userManager.user?.id })
     
         ScrollViewReader { proxy in
             ZStack(alignment: .bottom) {
@@ -63,7 +62,8 @@ struct ConversationView: View, KeyboardReadable {
 //                    pass avatar from COnversation list
                     userManager.getConversation(id: conversation.id) { conv in
                         print("current messages: \(conv?.messages)")
-                        self.messages = conv?.messages.reversed() ?? []
+                        // FIXME: refactoring
+//                        self.messages = conv?.messages.reversed() ?? []
                         self.selectedConversation = conv
                     }
                     
@@ -99,7 +99,7 @@ struct ConversationView: View, KeyboardReadable {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(companion?.profile?.name ?? "")
+                Text(companion??.profile?.name ?? "")
                     .font(medium20Font)
                     .foregroundColor(.yellow300)
             }
@@ -140,8 +140,17 @@ struct ConversationView: View, KeyboardReadable {
                     notificationController.setNotification(text: error, type: .error)
                 } else if let id {
                     withAnimation {
-                        self.messages.append(Message(id: id, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", createdAt: Date(), updatedAt: Date()))
-                        
+                        // FIXME: refactoring
+                        try? self.messages.append(
+                            MessageInfo(data: [
+                                "id" : id,
+                                "body" : newMessage,
+                                "sender" : userManager.user,
+                                "senderId" : userManager.user?.id ?? "0",
+                                "createdAt" : Date(),
+                                "updatedAt" : Date()
+                            ]))
+                            
                         newMessage = ""
                         
                         print(self.messages.count)
@@ -154,14 +163,13 @@ struct ConversationView: View, KeyboardReadable {
                     }
                 }
             }
-            
         }
     }
     
     @ViewBuilder
     func header() -> some View {
-        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
-        let url = companion?.profile?.images.first?.file?.url ?? ""
+        let companion = conversation.participants.first(where: { $0?.id != userManager.user?.id })
+        let url = companion??.profile?.images?.first??.file.url ?? ""
         
         VStack {
             AsyncImage(url: URL(string: url), content: { image in
@@ -179,7 +187,7 @@ struct ConversationView: View, KeyboardReadable {
                 + Text(" 에서")
                     .foregroundColor(.gray500)
                 
-                let diff = Date() - (self.selectedConversation?.createdAt ?? Date())
+                let diff = Date() - (self.selectedConversation?.createdAt?.toDate() ?? Date())
 //                let endTime: TimeInterval = 24 * 60 * 60
                 
                 Text(diff.toPassedTime())
@@ -236,14 +244,15 @@ struct ConversationView: View, KeyboardReadable {
 
 struct MessageView: View {
     @EnvironmentObject var userManager: UserManager
-    let message: Message
+    let message: MessageInfo
     
     var body: some View {
         let isOwner = message.senderId == userManager.user?.id
         
         if isOwner {
             HStack(alignment: .bottom) {
-                Text(message.createdAt.toTime())
+                // FIXME: refactoring
+                Text(message.createdAt ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
                 Text(message.body)
@@ -263,8 +272,9 @@ struct MessageView: View {
                     .padding()
                     .background(Color.gray150)
                     .cornerRadius(16, corners: [.bottomRight, .topLeft, .topRight])
-                
-                Text(message.createdAt.toTime())
+                // FIXME: refactoring
+                Text(message.createdAt ?? "")
+//                Text(message.createdAt.toTime())
                     .font(light12Font)
                     .foregroundColor(.gray400)
             }

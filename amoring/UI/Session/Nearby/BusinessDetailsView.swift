@@ -211,7 +211,7 @@ struct BusinessDetailsView: View {
 }
 
 struct PhotoViewer: View {
-    let images: [BusinessImage]
+    let images: [MutatingImage]
     @Binding var showPhotoViewer: Bool
     @Binding var selection: Int
     

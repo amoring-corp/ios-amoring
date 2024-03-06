@@ -1,34 +1,6 @@
 mutation ConnectInterestsToMyProfile($interestIds: [ID!]!) {
   connectInterestsToMyProfile(interestIds: $interestIds) {
-    id
-    userId
-    name
-    birthYear
-    height
-    weight
-    mbti
-    education
-    occupation
-    bio
-    gender
-    images {
-      id
-      profileId
-      fileId
-      sort
-      createdAt
-      updatedAt
-    }
-    interests {
-      id
-      name
-      categoryId
-      createdAt
-      updatedAt
-    }
-    age
-    createdAt
-    updatedAt
+    ... ProfileInfo
   }
 }
 

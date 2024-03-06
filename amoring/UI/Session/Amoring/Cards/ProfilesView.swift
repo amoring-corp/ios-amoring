@@ -106,13 +106,14 @@ struct ProfilesView: View {
         self.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
-            for profile in checkIn.activeCheckIns.map({ $0.profile }) {
-                if let profile {
-                    self.profiles.append(profile)
-                }
-            }
-            
-            amoringController.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
+            // FIXME: refactoring
+//            for profile in checkIn.business?.activeCheckIns.compactMap({ $0?.profile }) {
+//                if let profile {
+//                    self.profiles.append(profile)
+//                }
+//            }
+            // FIXME: refactoring
+//            amoringController.countDown = checkIn.checkedInAt.addingTimeInterval(3 * 60 * 60) - Date()
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
                 if let countDown = amoringController.countDown, countDown > 0 {
                     amoringController.countDown = countDown - 1
