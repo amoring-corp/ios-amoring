@@ -55,16 +55,6 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "매장명을 입력해주세요.", text: $name, font: regular18Font, placeholderFont: regular18Font)
-                                    .onChange(of: name, perform: { newValue in
-                                        //                                    if(newValue.count >= 20){
-                                        //                                        name = String(newValue.prefix(20))
-                                        //                                    }
-                                        if(newValue.count >= 1){
-                                            controller.business.businessName = newValue
-                                        } else {
-                                            controller.business.businessName = nil
-                                        }
-                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -75,13 +65,6 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "대표자명을 입력해주세요.", text: $representativeName, font: regular18Font)
-                                    .onChange(of: representativeName, perform: { newValue in
-                                        if(newValue.count >= 1){
-                                            controller.business.representativeName = newValue
-                                        } else {
-                                            controller.business.representativeName = nil
-                                        }
-                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -92,13 +75,6 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "사업자등록증의 업태를 입력하세요.", text: $businessType, font: regular18Font)
-                                    .onChange(of: businessType, perform: { newValue in
-                                        if(newValue.count >= 1){
-                                            controller.business.businessType = newValue
-                                        } else {
-                                            controller.business.businessType = nil
-                                        }
-                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -109,13 +85,6 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "사업자등록증의 종목을 입력하세요.", text: $businessIndustry, font: regular18Font)
-                                    .onChange(of: businessIndustry, perform: { newValue in
-                                        if(newValue.count >= 1){
-                                            controller.business.businessIndustry = newValue
-                                        } else {
-                                            controller.business.businessIndustry = nil
-                                        }
-                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -143,9 +112,6 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "상세주소", text: $addressDetails, font: regular18Font)
-                                    .onChange(of: addressDetails, perform: { newValue in
-                                        controller.business.addressDetails = newValue
-                                    })
                                    
                             }
                             .padding(.bottom, Size.w(30))
@@ -157,13 +123,6 @@ struct BusinessOnboardingView: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "000 - 00 - 00000", text: $registrationNumber, font: regular18Font, keyboardType: .decimalPad)
-                                    .onChange(of: registrationNumber, perform: { newValue in
-                                        if(newValue.count >= 1){
-                                            controller.business.registrationNumber = newValue
-                                        } else {
-                                            controller.business.registrationNumber = nil
-                                        }
-                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -173,7 +132,6 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                //FIXME: implement it
                                 Button(action: {
                                     presentImporter = true
                                 }) {
@@ -265,23 +223,28 @@ struct BusinessOnboardingView: View {
                     }
                     .background(Color.yellow300)
                     
-                    
                     VStack(spacing: 0) {
                         Color.yellow200
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                         
                         let pass =
-                        !((controller.business.businessName?.isEmpty) == nil)
-                        && !((controller.business.representativeName?.isEmpty) == nil)
-                        && !((controller.business.businessType?.isEmpty) == nil)
-                        && !((controller.business.businessIndustry?.isEmpty) == nil)
+                        !name.isEmpty
+                        && !representativeName.isEmpty
+                        && !businessType.isEmpty
+                        && !businessIndustry.isEmpty
                         && !((controller.business.address?.isEmpty) == nil)
 //                        && !((controller.business.detailedAddress?.isEmpty) == nil)
-                        && !((controller.business.registrationNumber?.isEmpty) == nil)
+                        && !registrationNumber.isEmpty
                         && !((controller.data?.isEmpty) == nil)
-
+                        
                         Button(action: {
+                            controller.business.businessName = name.count >= 1 ? name : nil
+                            controller.business.representativeName = representativeName.count >= 1 ? representativeName : nil
+                            controller.business.businessType = businessType.count >= 1 ? businessType : nil
+                            controller.business.businessIndustry = businessIndustry.count >= 1 ? businessIndustry : nil
+                            controller.business.addressDetails = addressDetails
+                            controller.business.registrationNumber = registrationNumber.count >= 1 ? registrationNumber : nil
                             if pass {
                                 next = true
 //                                userManager.upsertMyBusiness(business: controller.business) { success in

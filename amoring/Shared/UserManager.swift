@@ -957,7 +957,7 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                print(data.conversation)
+                print(data.conversation?.fragments.conversationInfo)
                 
                 completion(data.conversation?.fragments.conversationInfo)
             case .failure(let error):

@@ -19,7 +19,7 @@ struct ConversationView: View, KeyboardReadable {
     @State var alertPresented = false
     
     @State var selectedConversation: ConversationInfo? = nil
-    @State var messages: [MessageInfo] = []
+    @State var messages: [MessageInfo?] = []
     
     var body: some View {
         let companion = conversation.participants.first(where: { $0?.id != userManager.user?.id })
@@ -49,8 +49,11 @@ struct ConversationView: View, KeyboardReadable {
                         .padding(.top, Size.w(50))
                     } else {
                         ForEach(messages, id: \.self) { message in
-                            MessageView(message: message)
-                                .id(message.id)
+                            if let message {
+                                MessageView(message: message)
+                                    .id(message.id)
+                            }
+                            
                         }
                     }
                     /// do not remove this dublicate button. Bug: iOS 15,16 - no top bar while scrolling
@@ -61,9 +64,10 @@ struct ConversationView: View, KeyboardReadable {
 //                TODO: get messsages from current Conversation
 //                    pass avatar from COnversation list
                     userManager.getConversation(id: conversation.id) { conv in
-                        print("current messages: \(conv?.messages)")
-                        // FIXME: refactoring
-//                        self.messages = conv?.messages.reversed() ?? []
+                        if let conv  {
+                            self.messages = conv.messages.map({ $0?.fragments.messageInfo }).reversed()
+                        }
+                        
                         self.selectedConversation = conv
                     }
                     
@@ -134,23 +138,32 @@ struct ConversationView: View, KeyboardReadable {
     }
     
     func sendMessage(_ proxy: ScrollViewProxy) {
+        // TODO: implement subscription here . . .
         if !newMessage.isEmpty {
             userManager.sendMessage(body: newMessage, id: conversation.id) { error, id in
                 if let error {
                     notificationController.setNotification(text: error, type: .error)
                 } else if let id {
                     withAnimation {
-                        // FIXME: refactoring
-                        try? self.messages.append(
-                            MessageInfo(data: [
-                                "id" : id,
-                                "body" : newMessage,
-                                "sender" : userManager.user,
-                                "senderId" : userManager.user?.id ?? "0",
-                                "createdAt" : Date(),
-                                "updatedAt" : Date()
-                            ]))
-                            
+                        do {
+                            DispatchQueue.main.async {
+                                try? self.messages.append(
+                                    MessageInfo(data: [
+                                        "id" : id,
+                                        "body" : newMessage,
+//                                        "sender" : userManager.user,
+//                                        "senderId" : userManager.user?.id ?? "0",
+//                                        "createdAt" : Date(),
+//                                        "updatedAt" : Date()
+                                    ]))
+                                print("here here")
+                                print(self.messages.count)
+                            }
+                          
+                        } catch {
+                            print("abraca")
+                            print(error)
+                        }
                         newMessage = ""
                         
                         print(self.messages.count)
@@ -161,6 +174,8 @@ struct ConversationView: View, KeyboardReadable {
                             }
                         }
                     }
+                } else {
+                    print("WTF")
                 }
             }
         }
@@ -251,8 +266,7 @@ struct MessageView: View {
         
         if isOwner {
             HStack(alignment: .bottom) {
-                // FIXME: refactoring
-                Text(message.createdAt ?? "")
+                Text(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
                 Text(message.body)
@@ -272,9 +286,8 @@ struct MessageView: View {
                     .padding()
                     .background(Color.gray150)
                     .cornerRadius(16, corners: [.bottomRight, .topLeft, .topRight])
-                // FIXME: refactoring
-                Text(message.createdAt ?? "")
-//                Text(message.createdAt.toTime())
+                
+                Text(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
             }

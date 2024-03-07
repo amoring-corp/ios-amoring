@@ -5,7 +5,7 @@
 
 public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment ConversationInfo on Conversation { __typename id status participants { __typename ...UserInfo } messages(take: 10, skip: 0) { __typename id body senderId sender { __typename id profile { __typename name } } createdAt updatedAt } createdAt archivedAt updatedAt }"#
+    #"fragment ConversationInfo on Conversation { __typename id status participants { __typename ...UserInfo } messages(take: 10, skip: 0) { __typename ...MessageInfo } createdAt archivedAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -202,12 +202,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Message }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
-      .field("id", AmoringAPI.ID.self),
-      .field("body", String.self),
-      .field("senderId", String?.self),
-      .field("sender", Sender?.self),
-      .field("createdAt", AmoringAPI.DateTime?.self),
-      .field("updatedAt", AmoringAPI.DateTime?.self),
+      .fragment(MessageInfo.self),
     ] }
 
     public var id: AmoringAPI.ID { __data["id"] }
@@ -217,38 +212,13 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
     public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
     public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-    /// Message.Sender
-    ///
-    /// Parent Type: `User`
-    public struct Sender: AmoringAPI.SelectionSet {
+    public struct Fragments: FragmentContainer {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.User }
-      public static var __selections: [ApolloAPI.Selection] { [
-        .field("__typename", String.self),
-        .field("id", AmoringAPI.ID.self),
-        .field("profile", Profile?.self),
-      ] }
-
-      public var id: AmoringAPI.ID { __data["id"] }
-      public var profile: Profile? { __data["profile"] }
-
-      /// Message.Sender.Profile
-      ///
-      /// Parent Type: `Profile`
-      public struct Profile: AmoringAPI.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
-        public static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
-          .field("name", String?.self),
-        ] }
-
-        public var name: String? { __data["name"] }
-      }
+      public var messageInfo: MessageInfo { _toFragment() }
     }
+
+    public typealias Sender = MessageInfo.Sender
   }
 }

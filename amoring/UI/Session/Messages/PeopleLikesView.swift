@@ -88,7 +88,7 @@ struct PeopleLikesView: View {
                                 
                         ) {
                             ForEach(messageController.reactions, id: \.self) { reaction in
-                                // FIXME: refactoring
+                                // FIXME: add real reactions here . . .
 //                                let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
 //                                if let profile = user?.profile {
 //                                    NavigationLink(destination: {

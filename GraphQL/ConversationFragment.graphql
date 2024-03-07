@@ -5,17 +5,7 @@ fragment ConversationInfo on Conversation {
       ... UserInfo
     }
     messages(take: 10, skip: 0) {
-      id
-      body
-      senderId
-      sender {
-        id
-        profile {
-          name
-        }
-      }
-      createdAt
-      updatedAt
+      ... MessageInfo
     }
     createdAt
     archivedAt

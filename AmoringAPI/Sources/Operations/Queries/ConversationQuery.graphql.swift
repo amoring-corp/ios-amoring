@@ -8,7 +8,7 @@ public class ConversationQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query Conversation($id: ID!) { conversation(id: $id) { __typename ...ConversationInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ConversationInfo.self, ImageFragment.self, ProfileInfo.self, UserInfo.self]
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ConversationInfo.self, ImageFragment.self, MessageInfo.self, ProfileInfo.self, UserInfo.self]
     ))
 
   public var id: ID
@@ -212,7 +212,31 @@ public class ConversationQuery: GraphQLQuery {
         }
       }
 
-      public typealias Message = ConversationInfo.Message
+      /// Conversation.Message
+      ///
+      /// Parent Type: `Message`
+      public struct Message: AmoringAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Message }
+
+        public var id: AmoringAPI.ID { __data["id"] }
+        public var body: String { __data["body"] }
+        public var senderId: String? { __data["senderId"] }
+        public var sender: Sender? { __data["sender"] }
+        public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
+        public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+
+        public struct Fragments: FragmentContainer {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public var messageInfo: MessageInfo { _toFragment() }
+        }
+
+        public typealias Sender = MessageInfo.Sender
+      }
     }
   }
 }

@@ -48,7 +48,6 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    // FIXME: refactoring. Need tests
                     ForEach(controller.conversations.filter { $0.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             .background(
@@ -86,7 +85,7 @@ struct ListOfConversations: View {
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
-                    // FIXME: refactoring
+                    
                     ForEach(controller.conversations.filter { $0.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation, expired: true)
                             .listRowInsets(EdgeInsets())
@@ -149,9 +148,9 @@ struct ChatRow: View {
                     
                     Spacer()
                     
-                    // FIXME: refactoring
-//                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
-                    let diff: TimeInterval = 0
+
+                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last??.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-186400))
+//                    let diff: TimeInterval = 0
                     if conversation.messages.isEmpty && diff < 86400 {
                         Text("New")
                             .font(semiBold12Font)
@@ -174,8 +173,7 @@ struct ChatRow: View {
                 
                 //TODO: need from backend
 //                if let archivedAt = conversation.archivedAt {
-                // FIXME: refactoring
-                let archivedAt = conversation.archivedAt?.toDate() ?? Date().addingTimeInterval(-46000)
+                let archivedAt = conversation.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-46000)
                 let eraseTime = Date() - archivedAt
                     
                     Text(eraseTime.toEraseTime())

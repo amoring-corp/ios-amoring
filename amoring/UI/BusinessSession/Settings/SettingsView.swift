@@ -98,7 +98,7 @@ struct SettingsView: View {
                     
                     MenuTitle(title: "구매 및 멤버십", color: Color.yellow700)
                     VStack(spacing: 0) {
-                        MenuLineButton(title: "멤버십") {
+                        MenuLineButton(title: "멤버십", fontColor: Color.yellow900) {
                             withAnimation {
                                 businessSessionController.showDepositInfo = true
                             }                            
@@ -147,7 +147,7 @@ struct SettingsView: View {
                     MenuTitle(title: "계정", color: Color.yellow700)
                     
                     VStack(spacing: 0) {
-                        MenuLineButton(title: "로그아웃", action: { logoutAlertPresented = true }, fontColor: Color.yellow900)
+                        MenuLineButton(title: "로그아웃", fontColor: Color.yellow900) { logoutAlertPresented = true }
                             .alert("로그아웃", isPresented: $logoutAlertPresented, actions: {
                                 Button("로그아웃", action: sessionManager.signOut)
                                 Button("취소", role: .cancel, action: {})
@@ -155,7 +155,7 @@ struct SettingsView: View {
                         
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         
-                        MenuLineButton(title: "계정 삭제", action: { deleteAlertPresented = true }, fontColor: Color.yellow900)
+                        MenuLineButton(title: "계정 삭제", fontColor: Color.yellow900) { deleteAlertPresented = true }
                             .alert("계정 삭제", isPresented: $deleteAlertPresented, actions: {
                                 // TODO: implement account deletion
                                 Button("삭제", role: .destructive, action: sessionManager.signOut)
