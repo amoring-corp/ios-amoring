@@ -31,6 +31,17 @@ struct amoringApp: App {
         NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey
         NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
         NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted: Bool, error: Error?) in
+            if granted {
+                print("Notifications permission granted")
+            } else {
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        }
     }
     
     var body: some Scene {

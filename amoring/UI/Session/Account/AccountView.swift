@@ -113,7 +113,6 @@ struct AccountView: View {
                                        subFontColor: purchaseController.isHidden ? Color.yellow350 : Color.gray300)
                                        { purchaseController.openPurchase(purchaseType: .transparent) }
                                        
-                        
                         Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                         
                         MenuLineButton(title: "리스트 보기",
@@ -125,7 +124,6 @@ struct AccountView: View {
                     }
                     .background(Color.black)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
-                    
                     
                     MenuTitle(title: "서비스 지원")
                         

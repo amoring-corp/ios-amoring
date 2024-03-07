@@ -151,7 +151,7 @@ struct ChatRow: View {
 
                     let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last??.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-186400))
 //                    let diff: TimeInterval = 0
-                    if conversation.messages.isEmpty && diff < 86400 {
+                    if conversation.messages.isEmpty {
                         Text("New")
                             .font(semiBold12Font)
                             .foregroundColor(.black)

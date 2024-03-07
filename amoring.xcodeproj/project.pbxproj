@@ -19,6 +19,9 @@
 		2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049832B95ED2800E633E3 /* ConversationFragment.graphql */; };
 		2B2049862B96D05500E633E3 /* MessageFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049852B96D05500E633E3 /* MessageFragment.graphql */; };
 		2B2049882B9733F000E633E3 /* BusinessHoursFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049872B9733F000E633E3 /* BusinessHoursFragment.graphql */; };
+		2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498B2B9975F300E633E3 /* MutatingImage.swift */; };
+		2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498D2B99768400E633E3 /* BusinessHours.swift */; };
+		2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */; };
 		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
 		2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */; };
 		2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */; };
@@ -147,7 +150,6 @@
 		85769E312B707E890064005D /* MutationBatchUpsertBusinessHours.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85769E302B707E890064005D /* MutationBatchUpsertBusinessHours.graphql */; };
 		85769E332B707F340064005D /* QueryBusinessHours.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85769E322B707F340064005D /* QueryBusinessHours.graphql */; };
 		85806C512B22F90E0077D12C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 85806C502B22F90E0077D12C /* Apollo */; };
-		858862382B34FA9B009CC600 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858862372B34FA9B009CC600 /* CheckIn.swift */; };
 		85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* PurchaseController.swift */; };
 		85B028A32B3019B500A738AB /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A22B3019B500A738AB /* MessagesController.swift */; };
 		85B028A52B301A2B00A738AB /* PeopleLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A42B301A2B00A738AB /* PeopleLikesView.swift */; };
@@ -168,7 +170,6 @@
 		85D36AEC2B0F25BC00106BC0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AEB2B0F25BC00106BC0 /* MenuView.swift */; };
 		85D36AEE2B0F261F00106BC0 /* BusinessEnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */; };
 		85D36AF02B0F26DB00106BC0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AEF2B0F26DB00106BC0 /* SettingsView.swift */; };
-		85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93B2B3109EE0054EBCE /* Message.swift */; };
 		85E8E93E2B3119780054EBCE /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93D2B3119780054EBCE /* Reaction.swift */; };
 		85E8E9402B3140580054EBCE /* ListOfConversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93F2B3140580054EBCE /* ListOfConversations.swift */; };
 		85E8E9422B3140850054EBCE /* ListOfPeopleLikesLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */; };
@@ -204,7 +205,7 @@
 		85FC20922B0C514400DC1950 /* DragRelocateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC208B2B0C514400DC1950 /* DragRelocateDelegate.swift */; };
 		85FC20942B0C514400DC1950 /* PictureGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC208D2B0C514400DC1950 /* PictureGridView.swift */; };
 		85FC20962B0C96E800DC1950 /* UserOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20952B0C96E800DC1950 /* UserOnboardingView.swift */; };
-		85FC20982B0D70E300DC1950 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20972B0D70E300DC1950 /* User.swift */; };
+		85FC20982B0D70E300DC1950 /* MutatingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20972B0D70E300DC1950 /* MutatingUser.swift */; };
 		85FC209B2B0D717700DC1950 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209A2B0D717700DC1950 /* Constants.swift */; };
 		85FC209D2B0D729300DC1950 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209C2B0D729300DC1950 /* Extensions.swift */; };
 		85FC209F2B0D75AB00DC1950 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209E2B0D75AB00DC1950 /* UserManager.swift */; };
@@ -245,6 +246,9 @@
 		2B2049832B95ED2800E633E3 /* ConversationFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConversationFragment.graphql; sourceTree = "<group>"; };
 		2B2049852B96D05500E633E3 /* MessageFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MessageFragment.graphql; sourceTree = "<group>"; };
 		2B2049872B9733F000E633E3 /* BusinessHoursFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BusinessHoursFragment.graphql; sourceTree = "<group>"; };
+		2B20498B2B9975F300E633E3 /* MutatingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingImage.swift; sourceTree = "<group>"; };
+		2B20498D2B99768400E633E3 /* BusinessHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHours.swift; sourceTree = "<group>"; };
+		2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBusinessData.swift; sourceTree = "<group>"; };
 		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
 		2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreateCheckInByToken.graphql; sourceTree = "<group>"; };
 		2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpdateCheckInStatus.graphql; sourceTree = "<group>"; };
@@ -377,7 +381,6 @@
 		85769E2E2B707DD00064005D /* MutationDeleteBusinessHours.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteBusinessHours.graphql; sourceTree = "<group>"; };
 		85769E302B707E890064005D /* MutationBatchUpsertBusinessHours.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationBatchUpsertBusinessHours.graphql; sourceTree = "<group>"; };
 		85769E322B707F340064005D /* QueryBusinessHours.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryBusinessHours.graphql; sourceTree = "<group>"; };
-		858862372B34FA9B009CC600 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		85B028A02B2FE7B300A738AB /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		85B028A42B301A2B00A738AB /* PeopleLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleLikesView.swift; sourceTree = "<group>"; };
@@ -393,7 +396,6 @@
 		85D36AEB2B0F25BC00106BC0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEnterView.swift; sourceTree = "<group>"; };
 		85D36AEF2B0F26DB00106BC0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		85E8E93B2B3109EE0054EBCE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		85E8E93D2B3119780054EBCE /* Reaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
 		85E8E93F2B3140580054EBCE /* ListOfConversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfConversations.swift; sourceTree = "<group>"; };
 		85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfPeopleLikesLink.swift; sourceTree = "<group>"; };
@@ -429,7 +431,7 @@
 		85FC208B2B0C514400DC1950 /* DragRelocateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragRelocateDelegate.swift; sourceTree = "<group>"; };
 		85FC208D2B0C514400DC1950 /* PictureGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureGridView.swift; sourceTree = "<group>"; };
 		85FC20952B0C96E800DC1950 /* UserOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingView.swift; sourceTree = "<group>"; };
-		85FC20972B0D70E300DC1950 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		85FC20972B0D70E300DC1950 /* MutatingUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingUser.swift; sourceTree = "<group>"; };
 		85FC209A2B0D717700DC1950 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		85FC209C2B0D729300DC1950 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		85FC209E2B0D75AB00DC1950 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -876,17 +878,18 @@
 		85FC20712B0C4E5500DC1950 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				85FC20972B0D70E300DC1950 /* User.swift */,
+				85FC20972B0D70E300DC1950 /* MutatingUser.swift */,
 				850BE9CD2B6342FF00EC8EAB /* Profile.swift */,
 				85FC20A52B0D9DC700DC1950 /* Business.swift */,
+				2B20498B2B9975F300E633E3 /* MutatingImage.swift */,
 				8522A5F32B2BE03D008AF703 /* Interest.swift */,
 				850BE9CF2B6343A100EC8EAB /* File.swift */,
+				2B20498D2B99768400E633E3 /* BusinessHours.swift */,
 				8522A5F52B2BE831008AF703 /* mbti.swift */,
-				85E8E93B2B3109EE0054EBCE /* Message.swift */,
 				85E8E93D2B3119780054EBCE /* Reaction.swift */,
-				858862372B34FA9B009CC600 /* CheckIn.swift */,
 				8538D5522B5607FD0040E017 /* AppState.swift */,
 				8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */,
+				2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1302,8 +1305,10 @@
 				85D0DEDB2B3564530029DA5D /* TestView.swift in Sources */,
 				85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */,
 				8522A5EB2B2AA9EC008AF703 /* ExpandedView.swift in Sources */,
+				2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */,
 				85F190392B5F643100FA7686 /* AccountPhoto.swift in Sources */,
 				850A30262B0AEF6C003B12B7 /* DesignSystem.swift in Sources */,
+				2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */,
 				85FB6B992B464F2A0023A889 /* Global.swift in Sources */,
 				85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */,
 				85FC209B2B0D717700DC1950 /* Constants.swift in Sources */,
@@ -1320,7 +1325,7 @@
 				850A30332B0B1CD6003B12B7 /* AmoringView.swift in Sources */,
 				850A2FDD2B0AE54B003B12B7 /* amoringApp.swift in Sources */,
 				85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */,
-				85FC20982B0D70E300DC1950 /* User.swift in Sources */,
+				85FC20982B0D70E300DC1950 /* MutatingUser.swift in Sources */,
 				8538D5612B56A24C0040E017 /* graphqlAPI.swift in Sources */,
 				85F1903D2B5F820000FA7686 /* AccountIntro.swift in Sources */,
 				85769E1D2B69EF580064005D /* MKWebView.swift in Sources */,
@@ -1348,9 +1353,9 @@
 				85FC20912B0C514400DC1950 /* AddImageView.swift in Sources */,
 				85D36AF02B0F26DB00106BC0 /* SettingsView.swift in Sources */,
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
+				2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */,
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
 				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,
-				85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */,
 				855013552B749A1100D9D568 /* YellowButton.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
@@ -1385,7 +1390,6 @@
 				855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */,
 				8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */,
 				850A300F2B0AEDF8003B12B7 /* SessionView.swift in Sources */,
-				858862382B34FA9B009CC600 /* CheckIn.swift in Sources */,
 				850A30312B0B1CC7003B12B7 /* NearbyView.swift in Sources */,
 				85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */,
 				85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */,
@@ -1585,7 +1589,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.amoring";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
 				PRODUCT_NAME = Amoring;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -1628,7 +1632,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.amoring";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
 				PRODUCT_NAME = Amoring;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
