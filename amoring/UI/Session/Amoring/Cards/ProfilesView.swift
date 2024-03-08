@@ -13,6 +13,8 @@ struct ProfilesView: View {
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     
+    @Binding var selectedIndex: Int
+    
     @State var isOn = false
 
     @State var maxLikes: Int = 20
@@ -145,7 +147,12 @@ struct ProfilesView: View {
                     notificationController.setNotification(text: error, type: .error)
                 } else {
                     if isMatched {
-                        notificationController.setNotification(text: "MATCHED!", type: .text)
+                        notificationController.setNotification(text: "MATCHED!", type: .textAndButton, action: {
+                            withAnimation {
+                                self.selectedIndex = 2
+                                // goes furthen into the message?
+                            }
+                        })
                     } else {
                         print("NO MATHCES!")
                     }

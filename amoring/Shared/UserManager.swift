@@ -8,11 +8,13 @@
 import SwiftUI
 import AmoringAPI
 import Apollo
+import ApolloWebSocket
 
 class UserManager: ObservableObject {
     @Published var userState: UserState = .initial
     let authUser: UserInfo
     @Published var api: ApolloClient
+    @Published var WSApi: ApolloClient
     @Published var user: MutatingUser? = nil
 
     @Published var isLoading: Bool = false
@@ -27,9 +29,10 @@ class UserManager: ObservableObject {
     @Published var confirmRemoveImageIndex: Int = 0
     
     
-    init(authUser: UserInfo, api: ApolloClient) {
+    init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
         self.authUser = authUser
         self.api = api
+        self.WSApi = WSApi
         self.user = MutatingUser(userInfo: authUser)
         guard let role = authUser.role else {
             print("NO ROLE!")
@@ -967,7 +970,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func sendMessage(body: String, id: String, completion: @escaping (String?, String?) -> Void) {
+    func sendMessage(body: String, id: String, completion: @escaping (String?, MessageInfo?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: SendMessageMutation(body: body, conversationId: id)) { result in
@@ -987,11 +990,11 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("Successfully reacted to Profile!")
+                print("Message successfully was sent!")
                 
                 self.isLoading = false
                 
-                completion(nil, data.sendMessage.id)
+                completion(nil, data.sendMessage.fragments.messageInfo)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
@@ -1008,10 +1011,24 @@ class UserManager: ObservableObject {
         }
     }
     
-    func conversationSubscription() {
-//        api.subscribe(subscription: ) { result in
-//            
-//        }
+    var subscription: Cancellable?
+    @Published var newMessage: MessageInfo? = nil
+    
+    deinit {
+        self.subscription?.cancel()
+    }
+    
+    func conversationSubscription(completion: @escaping (MessageInfo?) -> Void) {
+        self.subscription = WSApi.subscribe(subscription: NotificationPushedSubscription()) { result in
+            guard let data = try? result.get().data else { return }
+            if let message = data.notificationPushed?.message?.fragments.messageInfo {
+                print(message.body)
+                self.newMessage = message
+                completion(message)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
     // TODO: move to another Manager

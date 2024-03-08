@@ -148,7 +148,6 @@ struct ChatRow: View {
                     
                     Spacer()
                     
-
                     let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last??.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-186400))
 //                    let diff: TimeInterval = 0
                     if conversation.messages.isEmpty {
@@ -166,21 +165,19 @@ struct ChatRow: View {
                     }
                 }
                 
-                Text(conversation.messages.last??.body ?? "👋 첫인사를 보내보세요!")
+                Text(conversation.messages.reversed().last??.body ?? "👋 첫인사를 보내보세요!")
                     .font(regular14Font)
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
                 //TODO: need from backend
-//                if let archivedAt = conversation.archivedAt {
                 let archivedAt = conversation.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-46000)
                 let eraseTime = Date() - archivedAt
                     
-                    Text(eraseTime.toEraseTime())
-                        .font(regular12Font)
-                        .foregroundColor(.gray700)
-                        .opacity(expired ? 0 : 1)
-//                }
+                Text(eraseTime.toEraseTime())
+                    .font(regular12Font)
+                    .foregroundColor(.gray700)
+                    .opacity(expired ? 0 : 1)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
         }

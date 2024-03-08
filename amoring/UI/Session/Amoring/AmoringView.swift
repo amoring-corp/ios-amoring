@@ -10,11 +10,12 @@ import SwiftUI
 struct AmoringView: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var userManager: UserManager
+    @Binding var selectedIndex: Int
     
     var body: some View {
         Group {
             if amoringController.checkIn != nil {
-                ProfilesView()
+                ProfilesView(selectedIndex: $selectedIndex)
             } else {
                 CheckInView()
             }

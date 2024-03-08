@@ -11,8 +11,12 @@ import KakaoSDKAuth
 import GoogleSignIn
 import NaverThirdPartyLogin
 
+
+
 @main
 struct amoringApp: App {
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    
     init() {
         KakaoSDK.initSDK(appKey: "88a121ae97540f56f106e7f52609022c")
         

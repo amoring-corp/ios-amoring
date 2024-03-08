@@ -30,27 +30,28 @@ struct MessagesView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.gray1000)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("AMORING")
-                        .font(bold20Font)
-                        .foregroundColor(.yellow300)
-                }
-            }
-            .navigationBarItems(trailing:
-                                    Button(action: {
-            }) {
-                Image("ic-info")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(32), height: Size.w(32))
-            }
-            )
+//            .toolbar {
+//                ToolbarItem(placement: .principal) {
+//                    Text("AMORING")
+//                        .font(bold20Font)
+//                        .foregroundColor(.yellow300)
+//                }
+//            }
+//            .navigationBarItems(trailing:
+//                                    Button(action: {
+//            }) {
+//                Image("ic-info")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: Size.w(32), height: Size.w(32))
+//            }
+//            )
             .environmentObject(controller)
             .onAppear {
                 userManager.getConversations { conversations in
                     if let conversations {
                         self.controller.conversations = conversations
+                        
                     }
                 }
             }

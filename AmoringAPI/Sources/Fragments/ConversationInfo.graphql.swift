@@ -5,7 +5,7 @@
 
 public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment ConversationInfo on Conversation { __typename id status participants { __typename ...UserInfo } messages(take: 10, skip: 0) { __typename ...MessageInfo } createdAt archivedAt updatedAt }"#
+    #"fragment ConversationInfo on Conversation { __typename id status participants { __typename ...UserInfo } messages(take: 100, skip: 0) { __typename ...MessageInfo } createdAt archivedAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -18,7 +18,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
     .field("status", GraphQLEnum<AmoringAPI.ConversationStatus>.self),
     .field("participants", [Participant?].self),
     .field("messages", [Message?].self, arguments: [
-      "take": 10,
+      "take": 100,
       "skip": 0
     ]),
     .field("createdAt", AmoringAPI.DateTime?.self),

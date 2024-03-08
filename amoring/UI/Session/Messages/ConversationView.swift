@@ -61,8 +61,6 @@ struct ConversationView: View, KeyboardReadable {
                 }
                 
                 .onAppear {
-//                TODO: get messsages from current Conversation
-//                    pass avatar from COnversation list
                     userManager.getConversation(id: conversation.id) { conv in
                         if let conv  {
                             self.messages = conv.messages.map({ $0?.fragments.messageInfo }).reversed()
@@ -92,6 +90,19 @@ struct ConversationView: View, KeyboardReadable {
                 .onTapGesture {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
+                .onChange(of: userManager.newMessage) { newMessage in
+                    if let newMessage, newMessage.senderId == companion??.id {
+                        self.messages.append(newMessage)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                            withAnimation {
+                                //                            proxy.scrollTo(messages.last?.id, anchor: .bottom)
+                                proxy.scrollTo("bottom", anchor: .bottom)
+                            }
+                        }
+                    }
+                }
+                
                 messageField(proxy: proxy)
                     .alert(isPresented: $alertPresented) {
                         Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("보내기"), action: { controller.report() }))
@@ -138,44 +149,21 @@ struct ConversationView: View, KeyboardReadable {
     }
     
     func sendMessage(_ proxy: ScrollViewProxy) {
-        // TODO: implement subscription here . . .
         if !newMessage.isEmpty {
-            userManager.sendMessage(body: newMessage, id: conversation.id) { error, id in
+            userManager.sendMessage(body: newMessage, id: conversation.id) { error, message in
                 if let error {
                     notificationController.setNotification(text: error, type: .error)
-                } else if let id {
+                } else if let message {
                     withAnimation {
-                        do {
-                            DispatchQueue.main.async {
-                                try? self.messages.append(
-                                    MessageInfo(data: [
-                                        "id" : id,
-                                        "body" : newMessage,
-//                                        "sender" : userManager.user,
-//                                        "senderId" : userManager.user?.id ?? "0",
-//                                        "createdAt" : Date(),
-//                                        "updatedAt" : Date()
-                                    ]))
-                                print("here here")
-                                print(self.messages.count)
-                            }
-                          
-                        } catch {
-                            print("abraca")
-                            print(error)
-                        }
+                        self.messages.append(message)
                         newMessage = ""
-                        
-                        print(self.messages.count)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            withAnimation {
-                                //                        proxy.scrollTo(navigator.selectedConversation?.messages.last?.id, anchor: .bottom)
-                                proxy.scrollTo("bottom", anchor: .bottom)
-                            }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        withAnimation {
+                            proxy.scrollTo("bottom", anchor: .bottom)
                         }
                     }
-                } else {
-                    print("WTF")
                 }
             }
         }
@@ -269,6 +257,11 @@ struct MessageView: View {
                 Text(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
+                    .onAppear {
+                        print(message.createdAt)
+                        print(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
+                        print(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM())
+                    }
                 Text(message.body)
                     .foregroundColor(.gray900)
                     .padding()

@@ -21,7 +21,7 @@ struct ContentView: View {
             case .auth:
                 SignInView()
             case .session(let user):
-                SessionFlow(userManager: UserManager(authUser: user, api: sessionManager.api)).transition(.move(edge: .trailing))
+                SessionFlow(userManager: UserManager(authUser: user, api: sessionManager.api, WSApi: sessionManager.wsApi)).transition(.move(edge: .trailing))
             case .error:
                 Text("smth went wrong!")
             }

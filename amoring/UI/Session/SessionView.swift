@@ -10,10 +10,13 @@ import NavigationStackBackport
 
 struct SessionFlow: View {
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     @StateObject var purchaseController = PurchaseController()
     @StateObject var userManager: UserManager
     @StateObject var messagesController = MessagesController()
     @StateObject var amoringController = AmoringController()
+    
+    @State var selectedIndex: Int = 1
     
     var body: some View {
         ZStack {
@@ -27,7 +30,7 @@ struct SessionFlow: View {
 //            case .interestsConnection:
 //                UserOnboardingIntro()
             case .session:
-                SessionView()
+                SessionView(selectedIndex: $selectedIndex)
             case .businessOnboarding:
                 BusinessOnboardingView()
             case .businessSession:
@@ -65,17 +68,28 @@ struct SessionFlow: View {
             userManager.activeCheckIn { activeCheckIn in
                 amoringController.checkIn = activeCheckIn
             }
+            userManager.conversationSubscription { newMessage in
+                if let newMessage {
+                    //TODO: handle if already in chat
+                    notificationController.setNotification(text: newMessage.body, type: .textAndButton, action: {
+                        withAnimation {
+                            self.selectedIndex = 2
+                        }
+                    })
+                }
+            }
         }
     }
 }
 
 struct SessionView: View {
     @EnvironmentObject var userManager: UserManager
+    @Binding var selectedIndex: Int
     
     var body: some View {
         NavigationView {
-            NavigatorView { index in
-                getTabView(index: index)
+            NavigatorView(selectedIndex: $selectedIndex) { index in
+                getTabView(selectedIndex: $selectedIndex, index: index)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitleDisplayMode(.inline)
@@ -90,7 +104,7 @@ struct SessionView: View {
     }
     
     @ViewBuilder
-    func getTabView(index: Int) -> some View {
+    func getTabView(selectedIndex: Binding<Int>, index: Int) -> some View {
         // FIXME: for now it's walk around. which hides bottom navigation if it navigates to child
 //        NavigationStackBackport.NavigationStack(path: $navigator.path) {
             ZStack {
@@ -99,7 +113,7 @@ struct SessionView: View {
                 case .nearby :
                     NearbyView()
                 case .amoring:
-                    AmoringView()
+                    AmoringView(selectedIndex: $selectedIndex)
                 case .messages:
                     MessagesView()
                 case .account:
@@ -113,6 +127,6 @@ struct SessionView: View {
     }
 }
 
-#Preview {
-    SessionView()
-}
+//#Preview {
+//    SessionView()
+//}

@@ -266,6 +266,11 @@ type Message {
   updatedAt: DateTime
 }
 
+type Notification {
+  id: ID!
+  message: Message
+}
+
 """
 
 """
@@ -520,4 +525,8 @@ type Query {
   user(id: ID!): User!
   profiles(role: UserRole): [Profile]!
   profile(id: ID!): Profile!
+}
+
+type Subscription {
+  notificationPushed: Notification
 }

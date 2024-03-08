@@ -10,7 +10,6 @@
 		2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20496D2B903AA700E633E3 /* QueryConversations.graphql */; };
 		2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049712B903AFF00E633E3 /* QueryConversation.graphql */; };
 		2B2049742B9072EF00E633E3 /* MutationSendMessage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */; };
-		2B2049762B90732100E633E3 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049752B90732100E633E3 /* schema.graphqls */; };
 		2B20497A2B95A0B000E633E3 /* ProfileFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */; };
 		2B20497C2B95A3E200E633E3 /* BusinessFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */; };
 		2B20497E2B95A45D00E633E3 /* UserFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20497D2B95A45D00E633E3 /* UserFragment.graphql */; };
@@ -22,6 +21,20 @@
 		2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498B2B9975F300E633E3 /* MutatingImage.swift */; };
 		2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498D2B99768400E633E3 /* BusinessHours.swift */; };
 		2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */; };
+		2B2049922B99895E00E633E3 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049912B99895E00E633E3 /* schema.graphqls */; };
+		2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */; };
+		2B2049962B998BEB00E633E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2049952B998BEB00E633E3 /* ApolloWebSocket */; };
+		2B2049D32B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */; };
+		2B2049D42B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049D52B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */; };
+		2B2049D62B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049D72B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */; };
+		2B2049D82B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049D92B99C8BF00E633E3 /* AWSCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */; };
+		2B2049DA2B99C8BF00E633E3 /* AWSCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; };
+		2B2049DC2B99C8BF00E633E3 /* AWSSNS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049DF2B99C91000E633E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2049DE2B99C91000E633E3 /* AppDelegate.swift */; };
 		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
 		2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */; };
 		2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */; };
@@ -232,12 +245,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2B2049DD2B99C8BF00E633E3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2B2049D82B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Embed Frameworks */,
+				2B2049DC2B99C8BF00E633E3 /* AWSSNS.xcframework in Embed Frameworks */,
+				2B2049D62B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Embed Frameworks */,
+				2B2049DA2B99C8BF00E633E3 /* AWSCore.xcframework in Embed Frameworks */,
+				2B2049D42B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B20496D2B903AA700E633E3 /* QueryConversations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryConversations.graphql; sourceTree = "<group>"; };
 		2B2049712B903AFF00E633E3 /* QueryConversation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryConversation.graphql; sourceTree = "<group>"; };
 		2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSendMessage.graphql; sourceTree = "<group>"; };
-		2B2049752B90732100E633E3 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProfileFragment.graphql; sourceTree = "<group>"; };
 		2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BusinessFragment.graphql; sourceTree = "<group>"; };
 		2B20497D2B95A45D00E633E3 /* UserFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UserFragment.graphql; sourceTree = "<group>"; };
@@ -249,6 +279,62 @@
 		2B20498B2B9975F300E633E3 /* MutatingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingImage.swift; sourceTree = "<group>"; };
 		2B20498D2B99768400E633E3 /* BusinessHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHours.swift; sourceTree = "<group>"; };
 		2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBusinessData.swift; sourceTree = "<group>"; };
+		2B2049912B99895E00E633E3 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = SubscriptionNotificationPushed.graphql; sourceTree = "<group>"; };
+		2B20499B2B99C87A00E633E3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2B20499C2B99C87A00E633E3 /* LICENSE.APACHE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.APACHE; sourceTree = "<group>"; };
+		2B20499D2B99C87A00E633E3 /* NOTICE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
+		2B20499E2B99C87A00E633E3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2B2049A02B99C87A00E633E3 /* samples.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = samples.html; sourceTree = "<group>"; };
+		2B2049A22B99C87A00E633E3 /* AWSPolly.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSPolly.xcframework; sourceTree = "<group>"; };
+		2B2049A32B99C87A00E633E3 /* AWSKinesisVideoArchivedMedia.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideoArchivedMedia.xcframework; sourceTree = "<group>"; };
+		2B2049A42B99C87A00E633E3 /* AWSGoogleSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSGoogleSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCore.xcframework; sourceTree = "<group>"; };
+		2B2049A62B99C87A00E633E3 /* AWSConnect.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSConnect.xcframework; sourceTree = "<group>"; };
+		2B2049A72B99C87A00E633E3 /* AWSConnectParticipant.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSConnectParticipant.xcframework; sourceTree = "<group>"; };
+		2B2049A82B99C87A00E633E3 /* AWSLex.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLex.xcframework; sourceTree = "<group>"; };
+		2B2049A92B99C87A00E633E3 /* AWSDynamoDB.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSDynamoDB.xcframework; sourceTree = "<group>"; };
+		2B2049AA2B99C87A00E633E3 /* AWSKMS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKMS.xcframework; sourceTree = "<group>"; };
+		2B2049AB2B99C87A00E633E3 /* AWSTranscribe.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTranscribe.xcframework; sourceTree = "<group>"; };
+		2B2049AC2B99C87A00E633E3 /* AWSTranscribeStreaming.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTranscribeStreaming.xcframework; sourceTree = "<group>"; };
+		2B2049AD2B99C87A00E633E3 /* AWSSageMakerRuntime.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSageMakerRuntime.xcframework; sourceTree = "<group>"; };
+		2B2049AE2B99C87A00E633E3 /* AWSLogs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLogs.xcframework; sourceTree = "<group>"; };
+		2B2049AF2B99C87A00E633E3 /* AWSAppleSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAppleSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCognitoAuth.xcframework; sourceTree = "<group>"; };
+		2B2049B12B99C87A00E633E3 /* AWSKinesisVideoSignaling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideoSignaling.xcframework; sourceTree = "<group>"; };
+		2B2049B22B99C87A00E633E3 /* AWSAPIGateway.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAPIGateway.xcframework; sourceTree = "<group>"; };
+		2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCognitoIdentityProvider.xcframework; sourceTree = "<group>"; };
+		2B2049B42B99C87A00E633E3 /* AWSRekognition.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSRekognition.xcframework; sourceTree = "<group>"; };
+		2B2049B52B99C87A00E633E3 /* AWSChimeSDKMessaging.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSChimeSDKMessaging.xcframework; sourceTree = "<group>"; };
+		2B2049B62B99C87A00E633E3 /* AWSComprehend.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSComprehend.xcframework; sourceTree = "<group>"; };
+		2B2049B72B99C87A00E633E3 /* AWSSES.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSES.xcframework; sourceTree = "<group>"; };
+		2B2049B82B99C87A00E633E3 /* AWSIoT.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSIoT.xcframework; sourceTree = "<group>"; };
+		2B2049B92B99C87A00E633E3 /* AWSKinesis.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesis.xcframework; sourceTree = "<group>"; };
+		2B2049BA2B99C87A00E633E3 /* AWSCloudWatch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCloudWatch.xcframework; sourceTree = "<group>"; };
+		2B2049BB2B99C87A00E633E3 /* AWSS3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSS3.xcframework; sourceTree = "<group>"; };
+		2B2049BC2B99C87A00E633E3 /* AWSMachineLearning.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSMachineLearning.xcframework; sourceTree = "<group>"; };
+		2B2049BD2B99C87A00E633E3 /* AWSSimpleDB.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSimpleDB.xcframework; sourceTree = "<group>"; };
+		2B2049BE2B99C87A00E633E3 /* AWSTextract.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTextract.xcframework; sourceTree = "<group>"; };
+		2B2049BF2B99C87A00E633E3 /* AWSKinesisVideo.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideo.xcframework; sourceTree = "<group>"; };
+		2B2049C02B99C87A00E633E3 /* AWSUserPoolsSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSUserPoolsSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049C12B99C87A00E633E3 /* AWSFacebookSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSFacebookSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049C22B99C87A00E633E3 /* AWSLocationXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLocationXCF.xcframework; sourceTree = "<group>"; };
+		2B2049C32B99C87A00E633E3 /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSMobileClientXCF.xcframework; sourceTree = "<group>"; };
+		2B2049C42B99C87A00E633E3 /* AWSLambda.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLambda.xcframework; sourceTree = "<group>"; };
+		2B2049C52B99C87A00E633E3 /* AWSElasticLoadBalancing.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSElasticLoadBalancing.xcframework; sourceTree = "<group>"; };
+		2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCognitoIdentityProviderASF.xcframework; sourceTree = "<group>"; };
+		2B2049C72B99C87A00E633E3 /* AWSTranslate.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTranslate.xcframework; sourceTree = "<group>"; };
+		2B2049C82B99C87A00E633E3 /* AWSSQS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSQS.xcframework; sourceTree = "<group>"; };
+		2B2049C92B99C87A00E633E3 /* AWSAuthCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAuthCore.xcframework; sourceTree = "<group>"; };
+		2B2049CA2B99C87A00E633E3 /* AWSEC2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSEC2.xcframework; sourceTree = "<group>"; };
+		2B2049CB2B99C87A00E633E3 /* AWSAutoScaling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAutoScaling.xcframework; sourceTree = "<group>"; };
+		2B2049CC2B99C87A00E633E3 /* AWSKinesisVideoWebRTCStorage.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideoWebRTCStorage.xcframework; sourceTree = "<group>"; };
+		2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSNS.xcframework; sourceTree = "<group>"; };
+		2B2049CE2B99C87A00E633E3 /* AWSChimeSDKIdentity.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSChimeSDKIdentity.xcframework; sourceTree = "<group>"; };
+		2B2049CF2B99C87A00E633E3 /* AWSAuthUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAuthUI.xcframework; sourceTree = "<group>"; };
+		2B2049D02B99C87A00E633E3 /* AWSPinpoint.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSPinpoint.xcframework; sourceTree = "<group>"; };
+		2B2049D22B99C87A00E633E3 /* source.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = source.html; sourceTree = "<group>"; };
+		2B2049DE2B99C91000E633E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
 		2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreateCheckInByToken.graphql; sourceTree = "<group>"; };
 		2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpdateCheckInStatus.graphql; sourceTree = "<group>"; };
@@ -447,16 +533,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2049D72B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Frameworks */,
 				8538D5642B56B2380040E017 /* QRCode in Frameworks */,
+				2B2049962B998BEB00E633E3 /* ApolloWebSocket in Frameworks */,
 				853AFD4C2B1DB0890020A570 /* NavigationStackBackport in Frameworks */,
 				8522A5F02B2AC912008AF703 /* CachedAsyncImage in Frameworks */,
 				8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */,
 				85D0DED12B352AE90029DA5D /* GoogleSignInSwift in Frameworks */,
+				2B2049D52B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Frameworks */,
 				85806C512B22F90E0077D12C /* Apollo in Frameworks */,
+				2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */,
 				85D0DED62B3534840029DA5D /* KakaoSDKCommon in Frameworks */,
 				85D0DECF2B352AE90029DA5D /* GoogleSignIn in Frameworks */,
+				2B2049D32B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Frameworks */,
 				85D0DED82B3534840029DA5D /* KakaoSDKUser in Frameworks */,
 				85D0DED42B3534840029DA5D /* KakaoSDKAuth in Frameworks */,
+				2B2049D92B99C8BF00E633E3 /* AWSCore.xcframework in Frameworks */,
 				7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +572,91 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B20499A2B99C87A00E633E3 /* aws-ios-sdk-2.34.0 */ = {
+			isa = PBXGroup;
+			children = (
+				2B20499B2B99C87A00E633E3 /* LICENSE */,
+				2B20499C2B99C87A00E633E3 /* LICENSE.APACHE */,
+				2B20499D2B99C87A00E633E3 /* NOTICE */,
+				2B20499E2B99C87A00E633E3 /* README.md */,
+				2B20499F2B99C87A00E633E3 /* samples */,
+				2B2049A12B99C87A00E633E3 /* frameworks */,
+				2B2049D12B99C87A00E633E3 /* src */,
+			);
+			name = "aws-ios-sdk-2.34.0";
+			path = "../Downloads/aws-ios-sdk-2.34.0";
+			sourceTree = "<group>";
+		};
+		2B20499F2B99C87A00E633E3 /* samples */ = {
+			isa = PBXGroup;
+			children = (
+				2B2049A02B99C87A00E633E3 /* samples.html */,
+			);
+			path = samples;
+			sourceTree = "<group>";
+		};
+		2B2049A12B99C87A00E633E3 /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B2049A22B99C87A00E633E3 /* AWSPolly.xcframework */,
+				2B2049A32B99C87A00E633E3 /* AWSKinesisVideoArchivedMedia.xcframework */,
+				2B2049A42B99C87A00E633E3 /* AWSGoogleSignIn.xcframework */,
+				2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */,
+				2B2049A62B99C87A00E633E3 /* AWSConnect.xcframework */,
+				2B2049A72B99C87A00E633E3 /* AWSConnectParticipant.xcframework */,
+				2B2049A82B99C87A00E633E3 /* AWSLex.xcframework */,
+				2B2049A92B99C87A00E633E3 /* AWSDynamoDB.xcframework */,
+				2B2049AA2B99C87A00E633E3 /* AWSKMS.xcframework */,
+				2B2049AB2B99C87A00E633E3 /* AWSTranscribe.xcframework */,
+				2B2049AC2B99C87A00E633E3 /* AWSTranscribeStreaming.xcframework */,
+				2B2049AD2B99C87A00E633E3 /* AWSSageMakerRuntime.xcframework */,
+				2B2049AE2B99C87A00E633E3 /* AWSLogs.xcframework */,
+				2B2049AF2B99C87A00E633E3 /* AWSAppleSignIn.xcframework */,
+				2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */,
+				2B2049B12B99C87A00E633E3 /* AWSKinesisVideoSignaling.xcframework */,
+				2B2049B22B99C87A00E633E3 /* AWSAPIGateway.xcframework */,
+				2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */,
+				2B2049B42B99C87A00E633E3 /* AWSRekognition.xcframework */,
+				2B2049B52B99C87A00E633E3 /* AWSChimeSDKMessaging.xcframework */,
+				2B2049B62B99C87A00E633E3 /* AWSComprehend.xcframework */,
+				2B2049B72B99C87A00E633E3 /* AWSSES.xcframework */,
+				2B2049B82B99C87A00E633E3 /* AWSIoT.xcframework */,
+				2B2049B92B99C87A00E633E3 /* AWSKinesis.xcframework */,
+				2B2049BA2B99C87A00E633E3 /* AWSCloudWatch.xcframework */,
+				2B2049BB2B99C87A00E633E3 /* AWSS3.xcframework */,
+				2B2049BC2B99C87A00E633E3 /* AWSMachineLearning.xcframework */,
+				2B2049BD2B99C87A00E633E3 /* AWSSimpleDB.xcframework */,
+				2B2049BE2B99C87A00E633E3 /* AWSTextract.xcframework */,
+				2B2049BF2B99C87A00E633E3 /* AWSKinesisVideo.xcframework */,
+				2B2049C02B99C87A00E633E3 /* AWSUserPoolsSignIn.xcframework */,
+				2B2049C12B99C87A00E633E3 /* AWSFacebookSignIn.xcframework */,
+				2B2049C22B99C87A00E633E3 /* AWSLocationXCF.xcframework */,
+				2B2049C32B99C87A00E633E3 /* AWSMobileClientXCF.xcframework */,
+				2B2049C42B99C87A00E633E3 /* AWSLambda.xcframework */,
+				2B2049C52B99C87A00E633E3 /* AWSElasticLoadBalancing.xcframework */,
+				2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */,
+				2B2049C72B99C87A00E633E3 /* AWSTranslate.xcframework */,
+				2B2049C82B99C87A00E633E3 /* AWSSQS.xcframework */,
+				2B2049C92B99C87A00E633E3 /* AWSAuthCore.xcframework */,
+				2B2049CA2B99C87A00E633E3 /* AWSEC2.xcframework */,
+				2B2049CB2B99C87A00E633E3 /* AWSAutoScaling.xcframework */,
+				2B2049CC2B99C87A00E633E3 /* AWSKinesisVideoWebRTCStorage.xcframework */,
+				2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */,
+				2B2049CE2B99C87A00E633E3 /* AWSChimeSDKIdentity.xcframework */,
+				2B2049CF2B99C87A00E633E3 /* AWSAuthUI.xcframework */,
+				2B2049D02B99C87A00E633E3 /* AWSPinpoint.xcframework */,
+			);
+			path = frameworks;
+			sourceTree = "<group>";
+		};
+		2B2049D12B99C87A00E633E3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2B2049D22B99C87A00E633E3 /* source.html */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		85064AF22B292EDB0074E45A /* CheckIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,6 +755,7 @@
 				8522A5F12B2BDFE7008AF703 /* Dummy.swift */,
 				85FB6B982B464F2A0023A889 /* Global.swift */,
 				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
+				2B2049DE2B99C91000E633E3 /* AppDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -792,7 +970,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B2049752B90732100E633E3 /* schema.graphqls */,
+				2B2049912B99895E00E633E3 /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -838,6 +1016,7 @@
 				2B20496D2B903AA700E633E3 /* QueryConversations.graphql */,
 				2B2049712B903AFF00E633E3 /* QueryConversation.graphql */,
 				2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */,
+				2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -937,6 +1116,7 @@
 		AF0357FE6E3A0130D1AD662B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B20499A2B99C87A00E633E3 /* aws-ios-sdk-2.34.0 */,
 				36E9464CB26CE4E393883EFE /* Pods_amoring.framework */,
 				36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */,
 				5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */,
@@ -969,6 +1149,7 @@
 				850A2FD62B0AE54B003B12B7 /* Frameworks */,
 				850A2FD72B0AE54B003B12B7 /* Resources */,
 				6D68DFBB3140678E7FDF9D4D /* [CP] Embed Pods Frameworks */,
+				2B2049DD2B99C8BF00E633E3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -986,6 +1167,7 @@
 				85D0DED72B3534840029DA5D /* KakaoSDKUser */,
 				8523BAD32B4CDF560099CDE4 /* AmoringAPI */,
 				8538D5632B56B2380040E017 /* QRCode */,
+				2B2049952B998BEB00E633E3 /* ApolloWebSocket */,
 			);
 			productName = amoring;
 			productReference = 850A2FD92B0AE54B003B12B7 /* Amoring.app */;
@@ -1094,6 +1276,7 @@
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
 				2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */,
+				2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
 				2B2049862B96D05500E633E3 /* MessageFragment.graphql in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
@@ -1107,7 +1290,6 @@
 				8538D5372B4FA24C0040E017 /* MutationUpsertMyProfile.graphql in Resources */,
 				8538D5742B579C9C0040E017 /* MutationUploadBusinessImage.graphql in Resources */,
 				85769E332B707F340064005D /* QueryBusinessHours.graphql in Resources */,
-				2B2049762B90732100E633E3 /* schema.graphqls in Resources */,
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
 				8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */,
 				2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */,
@@ -1135,6 +1317,7 @@
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
 				8538D57E2B57AF520040E017 /* QueryProfiles.graphql in Resources */,
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
+				2B2049922B99895E00E633E3 /* schema.graphqls in Resources */,
 				2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */,
 				8538D5722B5768FE0040E017 /* MutationVerifyUserEmailResolver.graphql in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
@@ -1273,6 +1456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2049DF2B99C91000E633E3 /* AppDelegate.swift in Sources */,
 				854C7B052B1815EE0060CE03 /* PurchasedLikesView.swift in Sources */,
 				853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */,
 				85D26F652B1F07C000E3C55F /* SwipibleProfileVIew.swift in Sources */,
@@ -1836,6 +2020,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B2049952B998BEB00E633E3 /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85FC20AF2B0EC38000DC1950 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
 		8522A5EF2B2AC912008AF703 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8522A5EE2B2AC912008AF703 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;

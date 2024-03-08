@@ -15,11 +15,11 @@ import KakaoSDKUser
 import Apollo
 import AmoringAPI
 import NaverThirdPartyLogin
+import ApolloWebSocket
 
 func initApi(token: String) -> ApolloClient {
     return {
         let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
-        
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"] // Add your headers here
         
@@ -31,6 +31,19 @@ func initApi(token: String) -> ApolloClient {
         return ApolloClient(networkTransport: networkTransport, store: store)
     }()
 }
+
+func initWSApi(token: String) -> ApolloClient {
+    return {
+        let url = URL(string: "wss://amoring-be.antonmaker.com/graphql")!
+        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
+          let authPayload: JSONEncodableDictionary = ["Authorization": "Bearer \(token)"]
+          let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
+          let WSTransport = WebSocketTransport(websocket: webSocketClient, config: config)
+        let store = ApolloStore(cache: InMemoryNormalizedCache())
+        return ApolloClient(networkTransport: WSTransport, store: store)
+    }()
+}
+
 
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
     @Published var appState: AppState = .initializing
@@ -47,9 +60,12 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @Published var user: UserInfo? = nil
 
     @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
-
+    @Published var wsApi: ApolloClient = initWSApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+    
     func getCurrentSession(delay: Double = 1.5, completion: @escaping (Bool, String) -> Void) {
         self.api = initApi(token: self.sessionToken)
+        self.wsApi = initWSApi(token: self.sessionToken)
+        
         self.appState = .initializing
         api.fetch(query: QueryAuthenticatedUserQuery()) { result in
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {

@@ -4,7 +4,7 @@ fragment ConversationInfo on Conversation {
     participants {
       ... UserInfo
     }
-    messages(take: 10, skip: 0) {
+    messages(take: 100, skip: 0) {
       ... MessageInfo
     }
     createdAt

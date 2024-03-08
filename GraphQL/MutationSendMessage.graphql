@@ -1,9 +1,5 @@
 mutation SendMessage($body: String!, $conversationId: ID!) {
   sendMessage(body: $body, conversationId: $conversationId) {
-    id
-    body
-    senderId
-    createdAt
-    updatedAt
+    ... MessageInfo
   }
 }
