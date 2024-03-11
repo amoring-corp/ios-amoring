@@ -13,23 +13,23 @@ struct ConversationView: View, KeyboardReadable {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var notificationController: NotificationController
-    let conversation: ConversationInfo
+    @Binding var conversation: Conversation
     @State var newMessage = ""
     @State var controlPresented = false
     @State var alertPresented = false
     
-    @State var selectedConversation: ConversationInfo? = nil
-    @State var messages: [MessageInfo?] = []
+//    @State var selectedConversation: Conversation? = nil
+//    @State var messages: [MessageInfo?] = []
     
     var body: some View {
-        let companion = conversation.participants.first(where: { $0?.id != userManager.user?.id })
+        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
     
         ScrollViewReader { proxy in
             ZStack(alignment: .bottom) {
                 ScrollView {
                     header()
                     
-                    if messages.isEmpty {
+                    if conversation.messages.isEmpty {
                         VStack(spacing: Size.w(15)) {
                             Image("wine-two")
                                 .resizable()
@@ -48,12 +48,9 @@ struct ConversationView: View, KeyboardReadable {
                         }
                         .padding(.top, Size.w(50))
                     } else {
-                        ForEach(messages, id: \.self) { message in
-                            if let message {
+                        ForEach(conversation.messages.reversed(), id: \.self) { message in
                                 MessageView(message: message)
                                     .id(message.id)
-                            }
-                            
                         }
                     }
                     /// do not remove this dublicate button. Bug: iOS 15,16 - no top bar while scrolling
@@ -61,21 +58,7 @@ struct ConversationView: View, KeyboardReadable {
                 }
                 
                 .onAppear {
-                    userManager.getConversation(id: conversation.id) { conv in
-                        if let conv  {
-                            self.messages = conv.messages.map({ $0?.fragments.messageInfo }).reversed()
-                        }
-                        
-                        self.selectedConversation = conv
-                    }
-                    
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        withAnimation {
-                            //                            proxy.scrollTo(messages.last?.id, anchor: .bottom)
-                            proxy.scrollTo("bottom", anchor: .bottom)
-                        }
-                    }
+                    proxy.scrollTo("bottom", anchor: .bottom)
                 }
                 .onReceive(keyboardPublisher) { isKeyboardVisible in
                     if isKeyboardVisible {
@@ -91,16 +74,14 @@ struct ConversationView: View, KeyboardReadable {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
                 .onChange(of: userManager.newMessage) { newMessage in
-                    if let newMessage, newMessage.senderId == companion??.id {
-                        self.messages.append(newMessage)
-                        
+                    // MARK: New message from subscription
+//                    if let newMessage, newMessage.senderId == companion?.id {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                             withAnimation {
-                                //                            proxy.scrollTo(messages.last?.id, anchor: .bottom)
                                 proxy.scrollTo("bottom", anchor: .bottom)
                             }
                         }
-                    }
+//                    }
                 }
                 
                 messageField(proxy: proxy)
@@ -114,7 +95,7 @@ struct ConversationView: View, KeyboardReadable {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(companion??.profile?.name ?? "")
+                Text(companion?.profile?.name ?? "")
                     .font(medium20Font)
                     .foregroundColor(.yellow300)
             }
@@ -154,9 +135,12 @@ struct ConversationView: View, KeyboardReadable {
                 if let error {
                     notificationController.setNotification(text: error, type: .error)
                 } else if let message {
-                    withAnimation {
-                        self.messages.append(message)
-                        newMessage = ""
+                    DispatchQueue.main.async {
+                        withAnimation {
+    //                        self.messages.append(message)
+                            self.conversation.messages.insert(Message(messageInfo: message), at: 0)
+                            newMessage = ""
+                        }
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -171,8 +155,8 @@ struct ConversationView: View, KeyboardReadable {
     
     @ViewBuilder
     func header() -> some View {
-        let companion = conversation.participants.first(where: { $0?.id != userManager.user?.id })
-        let url = companion??.profile?.images?.first??.file.url ?? ""
+        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
+        let url = companion?.profile?.images.first?.file?.url ?? ""
         
         VStack {
             AsyncImage(url: URL(string: url), content: { image in
@@ -190,7 +174,7 @@ struct ConversationView: View, KeyboardReadable {
                 + Text(" 에서")
                     .foregroundColor(.gray500)
                 
-                let diff = Date() - (self.selectedConversation?.createdAt?.toDate() ?? Date())
+                let diff = Date() - (self.conversation.createdAt ?? Date())
 //                let endTime: TimeInterval = 24 * 60 * 60
                 
                 Text(diff.toPassedTime())
@@ -247,21 +231,17 @@ struct ConversationView: View, KeyboardReadable {
 
 struct MessageView: View {
     @EnvironmentObject var userManager: UserManager
-    let message: MessageInfo
+    let message: Message
     
     var body: some View {
         let isOwner = message.senderId == userManager.user?.id
         
         if isOwner {
             HStack(alignment: .bottom) {
-                Text(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM() ?? "")
+                Text(message.createdAt?.toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
-                    .onAppear {
-                        print(message.createdAt)
-                        print(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
-                        print(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM())
-                    }
+
                 Text(message.body)
                     .foregroundColor(.gray900)
                     .padding()
@@ -280,7 +260,7 @@ struct MessageView: View {
                     .background(Color.gray150)
                     .cornerRadius(16, corners: [.bottomRight, .topLeft, .topRight])
                 
-                Text(message.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toHM() ?? "")
+                Text(message.createdAt?.toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
             }

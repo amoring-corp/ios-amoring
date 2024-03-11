@@ -261,6 +261,7 @@ type Message {
   body: String!
   senderId: String
   sender: User
+  conversationId: String
   conversation: Conversation
   createdAt: DateTime
   updatedAt: DateTime
@@ -498,6 +499,7 @@ type Mutation {
   updateInterest(id: ID!, data: InterestUpdateInput!): Interest!
   deleteInterest(id: ID!): Interest!
   sendMessage(body: String!, conversationId: ID!): Message!
+  sendNotification: Boolean!
   batchUpsertBusinessHours(
     businessId: ID!
     data: [BusinessHoursInput!]!

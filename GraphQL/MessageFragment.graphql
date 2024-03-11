@@ -1,5 +1,6 @@
 fragment MessageInfo on Message {
   id
+  conversationId
   body
   senderId
   sender {

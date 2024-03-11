@@ -9,7 +9,7 @@ import Foundation
 import ApolloAPI
 import AmoringAPI
 
-struct MutatingUser {
+struct MutatingUser: Hashable {
     var id: ID
     var email: String?
     var status: GraphQLEnum<UserStatus>?
@@ -29,4 +29,16 @@ struct MutatingUser {
         self.createdAt = userInfo.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = userInfo.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     }
+    
+    init(userInfo: ConversationInfo.Participant) {
+        self.id = userInfo.id
+        self.email = userInfo.email
+        self.status = userInfo.status
+        self.role = userInfo.role
+        self.profile = userInfo.profile == nil ? nil : Profile(profile: userInfo.profile!)
+        self.business = nil
+        self.createdAt = userInfo.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.updatedAt = userInfo.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    }
+    
 }

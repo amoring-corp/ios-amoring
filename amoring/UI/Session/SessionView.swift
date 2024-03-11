@@ -68,16 +68,37 @@ struct SessionFlow: View {
             userManager.activeCheckIn { activeCheckIn in
                 amoringController.checkIn = activeCheckIn
             }
-            userManager.conversationSubscription { newMessage in
-                if let newMessage {
-                    //TODO: handle if already in chat
-                    notificationController.setNotification(text: newMessage.body, type: .textAndButton, action: {
-                        withAnimation {
-                            self.selectedIndex = 2
-                        }
-                    })
+           
+            if self.messagesController.conversations.isEmpty {
+                userManager.getConversations { conversations in
+                    if let conversations {
+                        self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                        
+                    }
                 }
             }
+            
+            // MARK: New message from subscription
+            userManager.conversationSubscription { newMessage in
+                if let newMessage {
+                    if self.messagesController.selectedConversation == nil {
+                        notificationController.setNotification(text: newMessage.body, type: .textAndButton, action: {
+                            withAnimation {
+                                self.selectedIndex = 2
+                                self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
+                            }
+                        })
+                    }
+                    fix... dismiss child view on parent mutation
+                    if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
+                        self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
+                    }
+                }
+            }
+            
+            
+            
+            
             if let deviceToken = UserDefaults.standard.string(forKey: "deviceTokenForSNS") {
                 userManager.upsertUserDevice(deviceToken: deviceToken) { error in
                     if let error {

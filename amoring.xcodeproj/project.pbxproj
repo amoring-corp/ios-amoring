@@ -34,7 +34,6 @@
 		2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; };
 		2B2049DC2B99C8BF00E633E3 /* AWSSNS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2B2049DF2B99C91000E633E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2049DE2B99C91000E633E3 /* AppDelegate.swift */; };
-		2B2049E52B9ADDB500E633E3 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049E42B9ADDB500E633E3 /* schema.graphqls */; };
 		2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */; };
 		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
 		2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */; };
@@ -151,6 +150,8 @@
 		8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */; };
 		8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */; };
 		855013902B7C86F900D9D568 /* BusinessSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */; };
+		855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EC98C2B9EAA2200679394 /* Conversation.swift */; };
+		855EC9912B9EDC0100679394 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 855EC9902B9EDC0100679394 /* schema.graphqls */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
@@ -335,7 +336,6 @@
 		2B2049D02B99C87A00E633E3 /* AWSPinpoint.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSPinpoint.xcframework; sourceTree = "<group>"; };
 		2B2049D22B99C87A00E633E3 /* source.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = source.html; sourceTree = "<group>"; };
 		2B2049DE2B99C91000E633E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2B2049E42B9ADDB500E633E3 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UpsertUserDevice.graphql; sourceTree = "<group>"; };
 		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
 		2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreateCheckInByToken.graphql; sourceTree = "<group>"; };
@@ -457,6 +457,8 @@
 		855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationMakeReport.graphql; sourceTree = "<group>"; };
 		8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReportInput.swift; sourceTree = "<group>"; };
 		8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionController.swift; sourceTree = "<group>"; };
+		855EC98C2B9EAA2200679394 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		855EC9902B9EDC0100679394 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
@@ -972,7 +974,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B2049E42B9ADDB500E633E3 /* schema.graphqls */,
+				855EC9902B9EDC0100679394 /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1072,6 +1074,7 @@
 				8538D5522B5607FD0040E017 /* AppState.swift */,
 				8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */,
 				2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */,
+				855EC98C2B9EAA2200679394 /* Conversation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1278,7 +1281,6 @@
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
 				2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
-				2B2049E52B9ADDB500E633E3 /* schema.graphqls in Resources */,
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
 				2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */,
 				2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */,
@@ -1298,6 +1300,7 @@
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
 				8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */,
 				2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */,
+				855EC9912B9EDC0100679394 /* schema.graphqls in Resources */,
 				85769E2F2B707DD00064005D /* MutationDeleteBusinessHours.graphql in Resources */,
 				850A301C2B0AEF41003B12B7 /* Pretendard-ExtraBold.ttf in Resources */,
 				8538D53D2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql in Resources */,
@@ -1527,6 +1530,7 @@
 				8522A5FB2B2C2F6A008AF703 /* PurchaseModel.swift in Sources */,
 				85FC20942B0C514400DC1950 /* PictureGridView.swift in Sources */,
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
+				855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
 				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,

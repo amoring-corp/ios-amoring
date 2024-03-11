@@ -5,7 +5,7 @@
 
 public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment MessageInfo on Message { __typename id body senderId sender { __typename id profile { __typename name } } createdAt updatedAt }"#
+    #"fragment MessageInfo on Message { __typename id conversationId body senderId sender { __typename id profile { __typename name } } createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -15,6 +15,7 @@ public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
   public static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
     .field("id", AmoringAPI.ID.self),
+    .field("conversationId", String?.self),
     .field("body", String.self),
     .field("senderId", String?.self),
     .field("sender", Sender?.self),
@@ -23,6 +24,7 @@ public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
   ] }
 
   public var id: AmoringAPI.ID { __data["id"] }
+  public var conversationId: String? { __data["conversationId"] }
   public var body: String { __data["body"] }
   public var senderId: String? { __data["senderId"] }
   public var sender: Sender? { __data["sender"] }

@@ -55,6 +55,7 @@ public class NotificationPushedSubscription: GraphQLSubscription {
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
+        public var conversationId: String? { __data["conversationId"] }
         public var body: String { __data["body"] }
         public var senderId: String? { __data["senderId"] }
         public var sender: Sender? { __data["sender"] }

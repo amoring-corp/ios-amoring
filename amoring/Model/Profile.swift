@@ -92,6 +92,26 @@ struct Profile: Hashable {
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
     }
+    
+    init(profile: ConversationInfo.Participant.Profile) {
+        self.id = profile.id
+        self.userId = profile.userId
+        self.name = profile.name
+        self.birthYear = profile.birthYear
+        self.height = profile.height
+        self.weight = profile.weight
+        self.mbti = profile.mbti
+        self.education = profile.education
+        self.occupation = profile.occupation
+        self.bio = profile.bio
+        self.gender = profile.gender?.value
+        self.images = profile.images == nil ? [] : profile.images!.compactMap{
+            MutatingImage(image: $0!)
+        }
+        self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
+        self.age = profile.age
+    }
+    
 }
 
 struct ProfileData {

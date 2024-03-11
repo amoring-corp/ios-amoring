@@ -13,7 +13,7 @@ struct ListOfConversations: View {
     @EnvironmentObject var controller: MessagesController
     
     @State var alertPresented = false
-    @State var selectedConversation: ConversationInfo? = nil
+    @State var selectedConversation: Conversation? = nil
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -48,25 +48,34 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
-                        ChatRow(conversation: conversation)
-                            .background(
-                                NavigationLink(destination: {
-                                    ConversationView(conversation: conversation)
-                                }) {
-                                    EmptyView()
-                                }.opacity(0)
-                            )
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(Color.clear)
-                            .swipeActions {
-                                Button(action: {
-                                    self.selectedConversation = conversation
-                                    alertPresented = true
-                                }) {
-                                    Text("삭제")
+//                    ForEach(controller.conversations.filter { $0.createdAt ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach($controller.conversations, id: \.self) { $conversation in
+//                        if conversation.createdAt ?? Date() > Date().addingTimeInterval(-86400) {
+                            ChatRow(conversation: $conversation)
+                                .background(
+                                    NavigationLink(destination: {
+                                        ConversationView(conversation: $conversation)
+                                    }) {
+                                        EmptyView()
+                                    }
+//                                    NavigationLink(destination: ConversationView(conversation: $conversation),
+//                                                   tag: conversation,
+//                                                   selection: $controller.selectedConversation,
+//                                                   label: { EmptyView() })
+                                        .opacity(0)
+                                    
+                                )
+                                .listRowInsets(EdgeInsets())
+                                .listRowBackground(Color.clear)
+                                .swipeActions {
+                                    Button(action: {
+                                        self.selectedConversation = conversation
+                                        alertPresented = true
+                                    }) {
+                                        Text("삭제")
+                                    }
                                 }
-                            }
+//                        }
                     }
                     
                     Color.clear.frame(height: 40)
@@ -86,8 +95,8 @@ struct ListOfConversations: View {
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                     
-                    ForEach(controller.conversations.filter { $0.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
-                        ChatRow(conversation: conversation, expired: true)
+                    ForEach(controller.conversations.filter { $0.createdAt ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                        ChatRow(conversation: .constant(conversation), expired: true)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
                     }
@@ -113,15 +122,16 @@ struct ListOfConversations: View {
 struct ChatRow: View {
     @EnvironmentObject var userManager: UserManager
     
-    let conversation: ConversationInfo
+    @Binding var conversation: Conversation
     var expired: Bool = false
     
     var body: some View {
         HStack(spacing: 0) {
             
-            let user = conversation.participants.first(where: { $0?.id != userManager.user?.id })
-            let url: String? = user??.profile?.images?.first?.map({ $0.file.url ?? "" })
-            
+            let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
+//            let url: String? = user?.profile?.images??.first?.map({ $0.file.url ?? "" })
+            let url: String? = user?.profile?.images.first?.file?.url
+
             CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
                 image
                     .resizable()
@@ -134,7 +144,7 @@ struct ChatRow: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(user??.profile?.name ?? "")
+                    Text(user?.profile?.name ?? "")
                         .font(medium16Font)
                         .foregroundColor(expired ? .gray600 : .gray300)
                     if expired {
@@ -148,7 +158,7 @@ struct ChatRow: View {
                     
                     Spacer()
                     
-                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last??.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-186400))
+                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
 //                    let diff: TimeInterval = 0
                     if conversation.messages.isEmpty {
                         Text("New")
@@ -165,13 +175,13 @@ struct ChatRow: View {
                     }
                 }
                 
-                Text(conversation.messages.reversed().last??.body ?? "👋 첫인사를 보내보세요!")
+                Text(conversation.messages.reversed().last?.body ?? "👋 첫인사를 보내보세요!")
                     .font(regular14Font)
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
                 //TODO: need from backend
-                let archivedAt = conversation.archivedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? Date().addingTimeInterval(-46000)
+                let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
                 let eraseTime = Date() - archivedAt
                     
                 Text(eraseTime.toEraseTime())

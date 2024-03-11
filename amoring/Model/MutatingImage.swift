@@ -27,6 +27,11 @@ struct MutatingImage: Hashable {
         self.file = File(file: image.file)
     }
     
+    init(image: ConversationInfo.Participant.Profile.Image) {
+        self.id = image.id
+        self.file = File(file: image.file)
+    }
+    
     init(image: BusinessInfo.Image) {
         self.id = image.id
         self.file = File(file: image.file)
@@ -36,4 +41,5 @@ struct MutatingImage: Hashable {
         self.id = image.id
         self.file = File(file: image.file)
     }
+    
 }

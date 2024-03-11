@@ -30,31 +30,16 @@ struct MessagesView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.gray1000)
             .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    Text("AMORING")
-//                        .font(bold20Font)
-//                        .foregroundColor(.yellow300)
+     
+
+//            .onChange(of: userManager.newMessage) { newMessage in
+//                // MARK: New message from subscription
+//                if let newMessage {
+//                    if let row = self.controller.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
+//                        self.controller.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
+//                    }
 //                }
 //            }
-//            .navigationBarItems(trailing:
-//                                    Button(action: {
-//            }) {
-//                Image("ic-info")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: Size.w(32), height: Size.w(32))
-//            }
-//            )
-            .environmentObject(controller)
-            .onAppear {
-                userManager.getConversations { conversations in
-                    if let conversations {
-                        self.controller.conversations = conversations
-                        
-                    }
-                }
-            }
     }
 }
 
