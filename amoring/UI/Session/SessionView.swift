@@ -78,6 +78,13 @@ struct SessionFlow: View {
                     })
                 }
             }
+            if let deviceToken = UserDefaults.standard.string(forKey: "deviceTokenForSNS") {
+                userManager.upsertUserDevice(deviceToken: deviceToken) { error in
+                    if let error {
+                        notificationController.setNotification(text: error, type: .error)
+                    }
+                }
+            }
         }
     }
 }

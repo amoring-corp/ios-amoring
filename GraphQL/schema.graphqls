@@ -290,6 +290,7 @@ type Profile {
   interests: [Interest]
   age: Int
   activeCheckIn: CheckIn
+  isOnline: Boolean!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -419,6 +420,16 @@ input UserCreateInput {
   profile: ProfileCreateInput!
 }
 
+type UserDevice {
+  id: ID!
+  deviceToken: String!
+  deviceOs: String
+  userId: String!
+  user: User!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 enum UserRole {
   admin
   business
@@ -440,6 +451,7 @@ input UserUpdateInput {
 
 type Mutation {
   signIn(email: String!, password: String!): SignInResult!
+  anySignIn(email: String!): SignInResult!
   validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
@@ -475,6 +487,7 @@ type Mutation {
   createCheckInByToken(token: String!): CheckIn
   updateCheckInStatus(id: ID!, status: CheckInStatus!): CheckIn
   checkOutFromActive: CheckIn
+  upsertUserDevice(deviceToken: String!, deviceOs: String): UserDevice
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!

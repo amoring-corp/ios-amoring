@@ -21,7 +21,6 @@
 		2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498B2B9975F300E633E3 /* MutatingImage.swift */; };
 		2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498D2B99768400E633E3 /* BusinessHours.swift */; };
 		2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */; };
-		2B2049922B99895E00E633E3 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049912B99895E00E633E3 /* schema.graphqls */; };
 		2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */; };
 		2B2049962B998BEB00E633E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2049952B998BEB00E633E3 /* ApolloWebSocket */; };
 		2B2049D32B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */; };
@@ -35,6 +34,8 @@
 		2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; };
 		2B2049DC2B99C8BF00E633E3 /* AWSSNS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2B2049DF2B99C91000E633E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2049DE2B99C91000E633E3 /* AppDelegate.swift */; };
+		2B2049E52B9ADDB500E633E3 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049E42B9ADDB500E633E3 /* schema.graphqls */; };
+		2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */; };
 		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
 		2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */; };
 		2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */; };
@@ -279,7 +280,6 @@
 		2B20498B2B9975F300E633E3 /* MutatingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingImage.swift; sourceTree = "<group>"; };
 		2B20498D2B99768400E633E3 /* BusinessHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHours.swift; sourceTree = "<group>"; };
 		2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBusinessData.swift; sourceTree = "<group>"; };
-		2B2049912B99895E00E633E3 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = SubscriptionNotificationPushed.graphql; sourceTree = "<group>"; };
 		2B20499B2B99C87A00E633E3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2B20499C2B99C87A00E633E3 /* LICENSE.APACHE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.APACHE; sourceTree = "<group>"; };
@@ -335,6 +335,8 @@
 		2B2049D02B99C87A00E633E3 /* AWSPinpoint.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSPinpoint.xcframework; sourceTree = "<group>"; };
 		2B2049D22B99C87A00E633E3 /* source.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = source.html; sourceTree = "<group>"; };
 		2B2049DE2B99C91000E633E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2B2049E42B9ADDB500E633E3 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UpsertUserDevice.graphql; sourceTree = "<group>"; };
 		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
 		2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreateCheckInByToken.graphql; sourceTree = "<group>"; };
 		2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpdateCheckInStatus.graphql; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			isa = PBXGroup;
 			children = (
 				850A2FDC2B0AE54B003B12B7 /* amoringApp.swift */,
+				2B2049DE2B99C91000E633E3 /* AppDelegate.swift */,
 				850A30092B0AE9E6003B12B7 /* UI */,
 				850A30082B0AE95B003B12B7 /* Shared */,
 				85FC20712B0C4E5500DC1950 /* Model */,
@@ -755,7 +758,6 @@
 				8522A5F12B2BDFE7008AF703 /* Dummy.swift */,
 				85FB6B982B464F2A0023A889 /* Global.swift */,
 				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
-				2B2049DE2B99C91000E633E3 /* AppDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -970,7 +972,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B2049912B99895E00E633E3 /* schema.graphqls */,
+				2B2049E42B9ADDB500E633E3 /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1017,6 +1019,7 @@
 				2B2049712B903AFF00E633E3 /* QueryConversation.graphql */,
 				2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */,
 				2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */,
+				2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1273,7 +1276,9 @@
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				2B20497C2B95A3E200E633E3 /* BusinessFragment.graphql in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
+				2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
+				2B2049E52B9ADDB500E633E3 /* schema.graphqls in Resources */,
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
 				2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */,
 				2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */,
@@ -1317,7 +1322,6 @@
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
 				8538D57E2B57AF520040E017 /* QueryProfiles.graphql in Resources */,
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
-				2B2049922B99895E00E633E3 /* schema.graphqls in Resources */,
 				2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */,
 				8538D5722B5768FE0040E017 /* MutationVerifyUserEmailResolver.graphql in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
