@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "723fa5a6c65812aec4a0d7cc432ee198883b6e00",
-        "version" : "5.9.0"
+        "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
+        "version" : "5.8.1"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apollographql/apollo-ios.git",
       "state" : {
-        "revision" : "72aaf039a417a2e3c98c490bb1c43a025758556e",
-        "version" : "1.9.2"
+        "revision" : "74a16c771a0a5f2cb9e069e8f96125a9288894d0",
+        "version" : "1.9.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "059f77eb1ccf015a6f5b88cb450376dc0707e1b6",
-        "version" : "1.7.1"
+        "revision" : "71cde449f13d453227e687458144bde372d30fc7",
+        "version" : "1.6.2"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao/kakao-ios-sdk",
       "state" : {
-        "revision" : "39640d334d2766209a1afe618bc102046969220e",
-        "version" : "2.21.0"
+        "revision" : "ae3c60cbd4e3b348775f8c766e5b908fa1e66c5a",
+        "version" : "2.20.0"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dagronf/QRCode.git",
       "state" : {
-        "revision" : "6e32d9e56b25ab50af62a902d29d119d407d05e1",
-        "version" : "17.1.0"
+        "revision" : "13c605cfa866e257ac9d4ac8a47320a0e11fb6e0",
+        "version" : "17.0.0"
       }
     },
     {
@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stephencelis/SQLite.swift.git",
       "state" : {
-        "revision" : "e78ae0220e17525a15ac68c697a155eb7a672a8e",
-        "version" : "0.15.0"
+        "revision" : "7a2e3cd27de56f6d396e84f63beefd0267b55ccb",
+        "version" : "0.14.1"
       }
     },
     {
@@ -104,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dagronf/SwiftImageReadWrite",
       "state" : {
-        "revision" : "96361ba7f9dce5184d95aba8ea90d9faa4acabb2",
-        "version" : "1.6.1"
+        "revision" : "02c141026a0c5d74635a457d2d0964c4cb8935b3",
+        "version" : "1.4.1"
       }
     },
     {

@@ -25,10 +25,6 @@ struct SessionFlow: View {
                 EmptyView()
             case .userOnboarding:
                 UserOnboardingView()
-//            case .imageUploading:
-//                UserOnboardingPhoto()
-//            case .interestsConnection:
-//                UserOnboardingIntro()
             case .session:
                 SessionView(selectedIndex: $selectedIndex)
             case .businessOnboarding:
@@ -86,12 +82,18 @@ struct SessionFlow: View {
                             withAnimation {
                                 self.selectedIndex = 2
                                 self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
+                                if let selectedConversation = messagesController.selectedConversation {
+                                    self.messagesController.goToConversation = true
+                                }
                             }
                         })
                     }
-                    fix... dismiss child view on parent mutation
+                    
                     if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
                         self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
+                        if let selectedConversation = messagesController.selectedConversation {
+                            self.messagesController.selectedConversation?.messages.insert(Message(messageInfo: newMessage), at: 0)
+                        }
                     }
                 }
             }

@@ -86,7 +86,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             })
         } else {
             let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
+            
             application.registerUserNotificationSettings(settings)
+            
             application.registerForRemoteNotifications()
         }
     }

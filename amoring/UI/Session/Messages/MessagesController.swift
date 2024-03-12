@@ -14,6 +14,7 @@ class MessagesController: ObservableObject {
     @Published var conversations: [Conversation] = []
     @Published var alertPresented = false
     @Published var selectedConversation: Conversation? = nil
+    @Published var goToConversation: Bool = false
     
     func delete(id: String) {
         withAnimation {
