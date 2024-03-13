@@ -12,6 +12,7 @@ import AmoringAPI
 struct SessionFlow: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var scenePhaseHelper: ScenePhaseHelper
     @StateObject var purchaseController = PurchaseController()
     @StateObject var userManager: UserManager
     @StateObject var messagesController = MessagesController()
@@ -105,8 +106,9 @@ struct SessionFlow: View {
                     
                     
                 }
-                // FIXME: need only for background app
-                setInnerPushNotification(newMessage: newMessage)
+                if scenePhaseHelper.scenePhase != .active {
+                    setInnerPushNotification(newMessage: newMessage)
+                }
                 
                 if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
                     self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
@@ -123,7 +125,7 @@ struct SessionFlow: View {
         content.title = newMessage.sender?.profile?.name ?? "TITLE"
         content.body = newMessage.body
         content.badge = 0
-        content.categoryIdentifier = "newCategory"
+        content.categoryIdentifier = "newMessage"
       
         if let fileURL: URL = URL(string: newMessage.sender?.profile?.images?.first??.file.url ?? "https://picsum.photos/200/300") {
             guard let imageData = NSData(contentsOf: fileURL) else {
@@ -137,7 +139,7 @@ struct SessionFlow: View {
             content.attachments = [attachment]
         }
         let center = UNUserNotificationCenter.current()
-        let request = UNNotificationRequest.init(identifier: "newCategory", content: content, trigger: nil)
+        let request = UNNotificationRequest.init(identifier: "newMessage", content: content, trigger: nil)
         center.add(request)
     }
 }

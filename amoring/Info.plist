@@ -64,7 +64,7 @@
 	</array>
 	<key>UNNotificationExtensionCategory</key>
 	<array>
-		<string>newCategory</string>
+		<string>NEW_MESSAGE_CATEGORY</string>
 	</array>
 </dict>
 </plist>

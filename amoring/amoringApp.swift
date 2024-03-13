@@ -17,6 +17,7 @@ import NaverThirdPartyLogin
 struct amoringApp: App {
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    @StateObject var scenePhaseHelper = ScenePhaseHelper()
     
     init() {
         KakaoSDK.initSDK(appKey: "88a121ae97540f56f106e7f52609022c")
@@ -52,6 +53,7 @@ struct amoringApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(scenePhaseHelper)
                 .preferredColorScheme(.dark)
                 .environment(\.locale, .init(identifier: "ko"))
                 .onAppear {
@@ -65,19 +67,13 @@ struct amoringApp: App {
                     }
                     
                 }
-                .onChange(of: scenePhase) { phase in
-                               switch phase {
-                                   case .active:
-                                       print(">> your code is here on scene become active")
-                                   case .inactive:
-                                       print(">> your code is here on scene become inactive")
-                                   case .background:
-                                       print(">> your code is here on scene go background")
-                                   
-                                   default:
-                                       print(">> do something else in future")
-                               }
-                           }
+                .onChange(of: scenePhase) {
+                    self.scenePhaseHelper.scenePhase = $0
+                    print("current scene phase: \($0)")
+                }
+                .onAppear {
+                    self.scenePhaseHelper.scenePhase = scenePhase
+                }
         }
     }
     

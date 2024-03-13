@@ -23,7 +23,7 @@ class AppDelegate: UNNotificationServiceExtension, UIApplicationDelegate, UNUser
 
         let defaultServiceConfiguration = AWSServiceConfiguration(
             region: AWSRegionType.APNortheast2, credentialsProvider: credentialsProvider)
-
+        
         AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
         
         registerForPushNotifications(application: application)
@@ -63,20 +63,19 @@ class AppDelegate: UNNotificationServiceExtension, UIApplicationDelegate, UNUser
             return nil
         })
     }
-
+    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error.localizedDescription)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         getPushNotificationDeeplink(notificationDictionary: userInfo)
-        
     }
     
     func registerForPushNotifications(application: UIApplication) {
         /// The notifications settings
             UNUserNotificationCenter.current().delegate = self
-        
+            
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
                 if (granted) {
                     DispatchQueue.main.async {
@@ -101,14 +100,15 @@ class AppDelegate: UNNotificationServiceExtension, UIApplicationDelegate, UNUser
     // Called to let your app know which action was selected by the user for a given notification.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        print("DID RECEIVE")
         print("User Info = ",response.notification.request.content.userInfo)
-        let content = response.notification.request.content.userInfo
-        if let aps = content["aps"] as? [String: AnyObject] {
-            let myValue = aps["my_value"]
-            
-            
-        }
-        UserDefaults.standard.setValue(response.notification.request.content.userInfo.description, forKey: "didReceive")
+//        let content = response.notification.request.content.userInfo
+//        if let aps = content["aps"] as? [String: AnyObject] {
+//            let myValue = aps["my_value"]
+//        }
+        
+        
         if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
                     // Handle default action (tapping on notification)
                     print("Tapped on notification")
@@ -124,7 +124,10 @@ func getPushNotificationDeeplink(notificationDictionary: [AnyHashable:Any]) {
 
     guard let alert = notificationDictionary["alert"] as? [String: Any],
           let conversationId = notificationDictionary["conversationId"] as? String
-    else { return }
+    else {
+        UserDefaults.standard.setValue("NO ALERT", forKey: "BOO")
+        return
+    }
     
               let title = alert["title"] as? String
               let body = alert["body"] as? String

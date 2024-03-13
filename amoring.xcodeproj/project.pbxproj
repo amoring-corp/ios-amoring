@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B16C2652BA1CA5B005B5D6B /* ScenePhaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */; };
 		2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20496D2B903AA700E633E3 /* QueryConversations.graphql */; };
 		2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049712B903AFF00E633E3 /* QueryConversation.graphql */; };
 		2B2049742B9072EF00E633E3 /* MutationSendMessage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */; };
@@ -268,6 +269,7 @@
 /* Begin PBXFileReference section */
 		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B16C25F2BA06D14005B5D6B /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSMobileClientXCF.xcframework; path = "../Downloads/aws-sdk-ios-carthage.framework/AWSMobileClientXCF.xcframework"; sourceTree = "<group>"; };
+		2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePhaseHelper.swift; sourceTree = "<group>"; };
 		2B20496D2B903AA700E633E3 /* QueryConversations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryConversations.graphql; sourceTree = "<group>"; };
 		2B2049712B903AFF00E633E3 /* QueryConversation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryConversation.graphql; sourceTree = "<group>"; };
 		2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSendMessage.graphql; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				8522A5F12B2BDFE7008AF703 /* Dummy.swift */,
 				85FB6B982B464F2A0023A889 /* Global.swift */,
 				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
+				2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1531,6 +1534,7 @@
 				8538D5282B4E2A4F0040E017 /* BusinessSignUpOTP.swift in Sources */,
 				8522A5FB2B2C2F6A008AF703 /* PurchaseModel.swift in Sources */,
 				85FC20942B0C514400DC1950 /* PictureGridView.swift in Sources */,
+				2B16C2652BA1CA5B005B5D6B /* ScenePhaseHelper.swift in Sources */,
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
 				855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
