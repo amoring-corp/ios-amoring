@@ -279,7 +279,6 @@ struct MessageView: View {
     }
 }
 
-
 //#Preview {
 //    ConversationView()
 //}

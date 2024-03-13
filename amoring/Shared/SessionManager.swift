@@ -44,7 +44,6 @@ func initWSApi(token: String) -> ApolloClient {
     }()
 }
 
-
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
     @Published var appState: AppState = .initializing
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationStackBackport
+import AmoringAPI
 
 struct SessionFlow: View {
     @EnvironmentObject var sessionManager: SessionManager
@@ -75,32 +76,8 @@ struct SessionFlow: View {
             }
             
             // MARK: New message from subscription
-            userManager.conversationSubscription { newMessage in
-                if let newMessage {
-                    if self.messagesController.selectedConversation == nil {
-                        notificationController.setNotification(text: newMessage.body, type: .textAndButton, action: {
-                            withAnimation {
-                                self.selectedIndex = 2
-                                self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
-                                if let selectedConversation = messagesController.selectedConversation {
-                                    self.messagesController.goToConversation = true
-                                }
-                            }
-                        })
-                    }
-                    
-                    if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
-                        self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
-                        if let selectedConversation = messagesController.selectedConversation {
-                            self.messagesController.selectedConversation?.messages.insert(Message(messageInfo: newMessage), at: 0)
-                        }
-                    }
-                }
-            }
-            
-            
-            
-            
+            subscription()
+
             if let deviceToken = UserDefaults.standard.string(forKey: "deviceTokenForSNS") {
                 userManager.upsertUserDevice(deviceToken: deviceToken) { error in
                     if let error {
@@ -109,6 +86,59 @@ struct SessionFlow: View {
                 }
             }
         }
+    }
+    
+    
+    private func subscription() {
+        userManager.conversationSubscription { newMessage in
+            if let newMessage {
+                if self.messagesController.selectedConversation == nil {
+                    notificationController.setNotification(title: newMessage.sender?.profile?.name, text: newMessage.body, type: .message, action: {
+                        withAnimation {
+                            self.selectedIndex = 2
+                            self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
+                            
+                            self.messagesController.goToConversation = messagesController.selectedConversation != nil
+                            
+                        }
+                    })
+                    
+                    
+                }
+                // FIXME: need only for background app
+                setInnerPushNotification(newMessage: newMessage)
+                
+                if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
+                    self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
+                    if let selectedConversation = messagesController.selectedConversation {
+                        self.messagesController.selectedConversation?.messages.insert(Message(messageInfo: newMessage), at: 0)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func setInnerPushNotification(newMessage: MessageInfo) {
+        let content = UNMutableNotificationContent()
+        content.title = newMessage.sender?.profile?.name ?? "TITLE"
+        content.body = newMessage.body
+        content.badge = 0
+        content.categoryIdentifier = "newCategory"
+      
+        if let fileURL: URL = URL(string: newMessage.sender?.profile?.images?.first??.file.url ?? "https://picsum.photos/200/300") {
+            guard let imageData = NSData(contentsOf: fileURL) else {
+                    return
+                }
+            guard let senderId = newMessage.senderId else { return }
+            guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: senderId + ".jpg", data: imageData, options: nil) else {
+                    print("error in UNNotificationAttachment.saveImageToDisk()")
+                    return
+                }
+            content.attachments = [attachment]
+        }
+        let center = UNUserNotificationCenter.current()
+        let request = UNNotificationRequest.init(identifier: "newCategory", content: content, trigger: nil)
+        center.add(request)
     }
 }
 
@@ -160,3 +190,24 @@ struct SessionView: View {
 //#Preview {
 //    SessionView()
 //}
+
+extension UNNotificationAttachment {
+    
+    static func saveImageToDisk(fileIdentifier: String, data: NSData, options: [NSObject : AnyObject]?) -> UNNotificationAttachment? {
+        let fileManager = FileManager.default
+        let folderName = ProcessInfo.processInfo.globallyUniqueString
+        let folderURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(folderName, isDirectory: true)
+        
+        do {
+            try fileManager.createDirectory(at: folderURL!, withIntermediateDirectories: true, attributes: nil)
+            let fileURL = folderURL?.appendingPathComponent(fileIdentifier)
+            try data.write(to: fileURL!, options: [])
+            let attachment = try UNNotificationAttachment(identifier: fileIdentifier, url: fileURL!, options: options)
+            return attachment
+        } catch let error {
+            print("error \(error)")
+        }
+        
+        return nil
+    }
+}

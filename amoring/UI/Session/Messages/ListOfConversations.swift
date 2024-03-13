@@ -48,7 +48,7 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.createdAt ?? Date() > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date().addingTimeInterval(Constants.TIME_OFFSET) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             .onTapGesture {
                                 controller.selectedConversation = conversation
@@ -89,7 +89,7 @@ struct ListOfConversations: View {
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                     
-                    ForEach(controller.conversations.filter { $0.createdAt ?? Date() < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(Constants.TIME_OFFSET) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation, expired: true)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
@@ -174,9 +174,8 @@ struct ChatRow: View {
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
-                //TODO: need from backend
                 let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
-                let eraseTime = Date() - archivedAt
+                let eraseTime = archivedAt - Date().addingTimeInterval(Constants.TIME_OFFSET)
                 
                 Text(eraseTime.toEraseTime())
                     .font(regular12Font)

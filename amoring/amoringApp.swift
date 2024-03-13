@@ -15,6 +15,7 @@ import NaverThirdPartyLogin
 
 @main
 struct amoringApp: App {
+    @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     init() {
@@ -64,6 +65,19 @@ struct amoringApp: App {
                     }
                     
                 }
+                .onChange(of: scenePhase) { phase in
+                               switch phase {
+                                   case .active:
+                                       print(">> your code is here on scene become active")
+                                   case .inactive:
+                                       print(">> your code is here on scene become inactive")
+                                   case .background:
+                                       print(">> your code is here on scene go background")
+                                   
+                                   default:
+                                       print(">> do something else in future")
+                               }
+                           }
         }
     }
     

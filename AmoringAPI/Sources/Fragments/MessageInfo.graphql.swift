@@ -5,7 +5,7 @@
 
 public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment MessageInfo on Message { __typename id conversationId body senderId sender { __typename id profile { __typename name } } createdAt updatedAt }"#
+    #"fragment MessageInfo on Message { __typename id conversationId body senderId sender { __typename id profile { __typename name images { __typename file { __typename url } } } } createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -59,9 +59,43 @@ public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("name", String?.self),
+        .field("images", [Image?]?.self),
       ] }
 
       public var name: String? { __data["name"] }
+      public var images: [Image?]? { __data["images"] }
+
+      /// Sender.Profile.Image
+      ///
+      /// Parent Type: `ProfileImage`
+      public struct Image: AmoringAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("file", File.self),
+        ] }
+
+        public var file: File { __data["file"] }
+
+        /// Sender.Profile.Image.File
+        ///
+        /// Parent Type: `File`
+        public struct File: AmoringAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("url", String?.self),
+          ] }
+
+          public var url: String? { __data["url"] }
+        }
+      }
     }
   }
 }

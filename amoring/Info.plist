@@ -56,5 +56,15 @@
 		<string>Pretendard-Thin.ttf</string>
 		<string>Pretendard-Bold.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UNNotificationExtensionCategory</key>
+	<array>
+		<string>newCategory</string>
+	</array>
 </dict>
 </plist>

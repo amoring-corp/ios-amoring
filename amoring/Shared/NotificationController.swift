@@ -9,6 +9,7 @@ import SwiftUI
 
 enum NotificationType {
     case text
+    case message
     case textAndButton
     case error
 }
@@ -19,19 +20,27 @@ struct NotificationModel: Equatable {
     }
     
     let type: NotificationType
+    var title: String? = nil
     let text: String
     let action: () -> Void
 }
 
-class NotificationController: ObservableObject  {
+class NotificationController: NSObject, ObservableObject, UNUserNotificationCenterDelegate  {
     @Published var notification: NotificationModel? = nil
     
     @Published var offset: CGSize = CGSize.zero
     
-    func setNotification(show: Bool? = nil, text: String, type: NotificationType, action: (() -> Void)? = nil) {
+    func setNotification(show: Bool? = nil, title: String? = nil, text: String, type: NotificationType, action: (() -> Void)? = nil) {
+        /// removes previous notification before showing new
+        if self.notification != nil {
+            withAnimation {
+                self.notification = nil
+            }
+        }
+        
         if show ?? true {
             withAnimation {
-                self.notification = NotificationModel(type: type, text: text, action: action ?? {})
+                self.notification = NotificationModel(type: type, title: title, text: text, action: action ?? {})
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 withAnimation {
@@ -41,30 +50,46 @@ class NotificationController: ObservableObject  {
         }
     }
     
+//    override init() {
+//        
+//        super.init()
+//        self.registerForPushNotifications()
+//    }
+    
     @ViewBuilder
     func body() -> some View {
         ZStack {
-            HStack {
-                Text(notification?.text ?? "")
-                    .font(regular16Font)
-                    .foregroundColor(notification?.type == .error ? .black : .white)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(6)
+            VStack(alignment: .leading) {
+                if notification?.type == .message {
+                    Text(notification?.title ?? "")
+                        .font(semiBold16Font)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(6)
+                }
                 
-                if notification?.type == .textAndButton {
-                    Spacer()
+                HStack {
+                    Text(notification?.text ?? "")
+                        .font(regular16Font)
+                        .foregroundColor(notification?.type == .error ? .black : .white)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(6)
                     
-                    Button(action: notification?.action ?? {}) {
+                    if notification?.type == .textAndButton {
+                        Spacer()
+                        
+                        Button(action: notification?.action ?? {}) {
                             Text("확인하기")
-                            .font(semiBold16Font)
-                            .foregroundColor(.green200)
+                                .font(semiBold16Font)
+                                .foregroundColor(.green200)
+                        }
                     }
                 }
             }
                 .padding(.top, Size.w(21))
                 .padding(.bottom, Size.w(30))
                 .padding(.horizontal, Size.w(22))
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
                 .background(notification?.type == .error ?  Color.red300 : Color.gray900)
                 .shadow(color: Color.black.opacity(self.notification != nil ? 0.75 : 0), radius: 20, y: 30)
                 .offset(y: self.notification != nil ? offset.height : -150)
@@ -87,6 +112,9 @@ class NotificationController: ObservableObject  {
                         }
                     })
                 .onTapGesture {
+                    if self.notification?.type == .message {
+                        self.notification?.action()
+                    }
                     withAnimation {
                         self.notification = nil
                     }
@@ -96,19 +124,7 @@ class NotificationController: ObservableObject  {
         .opacity(notification == nil ? 0 : 1)
     }
     
-    func setupNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Notification title."
-        content.subtitle = "Notification content."
-        content.sound = UNNotificationSound.default
-        
-        // show this notification five seconds from now
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        
-        // choose a random identifier
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        // add our notification request
-        UNUserNotificationCenter.current().add(request)
-    }
+    
+    
+    
 }
