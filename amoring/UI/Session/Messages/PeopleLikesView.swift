@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 struct PeopleLikesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -87,15 +88,15 @@ struct PeopleLikesView: View {
                                 
                         ) {
                             ForEach(messageController.reactions, id: \.self) { reaction in
-                                let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
-                                if let profile = user?.profile {
-                                    NavigationLink(destination: {
-                                        ProfilePreviewView(profile: profile, reaction: reaction)
-                                    }) {
-                                        PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
-                                    }.disabled(!purchaseController.likeListEnabled)
-                                }
-                                
+                                // FIXME: add real reactions here . . .
+//                                let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
+//                                if let profile = user?.profile {
+//                                    NavigationLink(destination: {
+//                                        ProfilePreviewView(profile: profile, reaction: reaction)
+//                                    }) {
+//                                        PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
+//                                    }.disabled(!purchaseController.likeListEnabled)
+//                                }
                             }
                         }
                     }
@@ -175,11 +176,11 @@ struct ProfilePreviewView: View {
 }
 
 struct PeopleLikesListObject: View {
-    let user: User?
+    let user: UserInfo?
     let enabled: Bool
     
     var body: some View {
-        let url = user?.profile?.images.first?.file?.url ?? ""
+        let url = user?.profile?.images?.first??.file.url ?? ""
         
         ZStack(alignment: .bottom) {
             AsyncImage(url: URL(string: url), content: { image in

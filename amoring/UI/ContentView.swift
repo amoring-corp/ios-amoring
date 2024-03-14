@@ -9,8 +9,8 @@ import SwiftUI
 import Apollo
 
 struct ContentView: View {
+    @EnvironmentObject var notificationController: NotificationController
     @StateObject var sessionManager = SessionManager()
-    @StateObject var notificationController = NotificationController()
     @StateObject var businessSignUpController: BusinessSignUpController = BusinessSignUpController()
 
     var body: some View {
@@ -21,7 +21,7 @@ struct ContentView: View {
             case .auth:
                 SignInView()
             case .session(let user):
-                SessionFlow(userManager: UserManager(authUser: user, api: sessionManager.api)).transition(.move(edge: .trailing))
+                SessionFlow(userManager: UserManager(authUser: user, api: sessionManager.api, WSApi: sessionManager.wsApi)).transition(.move(edge: .trailing))
             case .error:
                 Text("smth went wrong!")
             }
@@ -32,7 +32,6 @@ struct ContentView: View {
                 
         )
         .environmentObject(sessionManager)
-        .environmentObject(notificationController)
         .environmentObject(businessSignUpController)
         .onAppear {
             sessionManager.getCurrentSession { success, error in

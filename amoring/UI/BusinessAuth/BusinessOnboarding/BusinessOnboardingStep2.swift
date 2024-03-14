@@ -93,7 +93,7 @@ struct BusinessOnboardingStep2: View {
                         .padding(.bottom, Size.w(30))
                         
                         VStack(alignment: .leading) {
-                            Text("전화번호*")
+                            Text("매장소개*")
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.leading, Size.w(14))
@@ -126,16 +126,6 @@ struct BusinessOnboardingStep2: View {
                                 }
                                 
                                 CustomTextField(placeholder: "‘-’ 표시없이 입력해주세요.", text: $phoneNumber, font: regular18Font, keyboardType: .phonePad)
-                                    .onChange(of: phoneNumber, perform: { newValue in
-                                        if(newValue.count >= 1){
-                                            controller.business.phoneNumber = selectedCode + newValue
-                                        } else {
-                                            controller.business.phoneNumber = nil
-                                        }
-                                    })
-                                    .onChange(of: selectedCode, perform: { newValue in
-                                        controller.business.phoneNumber = newValue + phoneNumber
-                                    })
                             }
                         }
                         .padding(.bottom, Size.w(30))
@@ -384,9 +374,9 @@ struct BusinessOnboardingStep2: View {
                         .frame(maxWidth: .infinity)
                     
                     let pass =
-                    !((controller.business.businessCategory?.isEmpty) == nil)
+                    !businessCategory.isEmpty
                     && !((controller.business.bio?.isEmpty) == nil)
-                    && !((controller.business.phoneNumber?.isEmpty) == nil)
+                    && !phoneNumber.isEmpty
                     //                    && !((controller.business.open?.isEmpty) == nil)
                     //                    && !((controller.business.close?.isEmpty) == nil)
                     && self.pictures.count > 2
@@ -428,11 +418,6 @@ struct BusinessOnboardingStep2: View {
                         controller.business.businessCategory = self.businessCategory
                     }
                 }
-                .onChange(of: businessCategory) { newValue in
-                    withAnimation {
-                        controller.business.businessCategory = self.businessCategory
-                    }
-                }
             } : nil
         )
         .overlay(
@@ -453,6 +438,10 @@ struct BusinessOnboardingStep2: View {
     }
     
     private func save() {
+        controller.business.phoneNumber = phoneNumber.count >= 1 && selectedCode.count >= 1 ? selectedCode + phoneNumber : nil
+        controller.business.businessCategory = self.businessCategory
+        
+        
         userManager.upsertMyBusiness(business: controller.business) { error in
             if let error {
                 notificationController.setNotification(text: error, type: .error)

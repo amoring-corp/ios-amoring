@@ -7,10 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B16C2652BA1CA5B005B5D6B /* ScenePhaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */; };
 		2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20496D2B903AA700E633E3 /* QueryConversations.graphql */; };
 		2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049712B903AFF00E633E3 /* QueryConversation.graphql */; };
 		2B2049742B9072EF00E633E3 /* MutationSendMessage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */; };
-		2B2049762B90732100E633E3 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049752B90732100E633E3 /* schema.graphqls */; };
+		2B20497A2B95A0B000E633E3 /* ProfileFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */; };
+		2B20497C2B95A3E200E633E3 /* BusinessFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */; };
+		2B20497E2B95A45D00E633E3 /* UserFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20497D2B95A45D00E633E3 /* UserFragment.graphql */; };
+		2B2049802B95E7AB00E633E3 /* ImageFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20497F2B95E7AB00E633E3 /* ImageFragment.graphql */; };
+		2B2049822B95EC3800E633E3 /* CheckInFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049812B95EC3800E633E3 /* CheckInFragment.graphql */; };
+		2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049832B95ED2800E633E3 /* ConversationFragment.graphql */; };
+		2B2049862B96D05500E633E3 /* MessageFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049852B96D05500E633E3 /* MessageFragment.graphql */; };
+		2B2049882B9733F000E633E3 /* BusinessHoursFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049872B9733F000E633E3 /* BusinessHoursFragment.graphql */; };
+		2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498B2B9975F300E633E3 /* MutatingImage.swift */; };
+		2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498D2B99768400E633E3 /* BusinessHours.swift */; };
+		2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */; };
+		2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */; };
+		2B2049962B998BEB00E633E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2049952B998BEB00E633E3 /* ApolloWebSocket */; };
+		2B2049D32B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */; };
+		2B2049D42B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049D52B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */; };
+		2B2049D62B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049D72B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */; };
+		2B2049D82B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049D92B99C8BF00E633E3 /* AWSCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */; };
+		2B2049DA2B99C8BF00E633E3 /* AWSCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; };
+		2B2049DC2B99C8BF00E633E3 /* AWSSNS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B2049DF2B99C91000E633E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2049DE2B99C91000E633E3 /* AppDelegate.swift */; };
+		2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */; };
+		2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2C42CC2BA2E18900EA1ACA /* MutationDeleteConversation.graphql */; };
+		2B2C42CF2BA2E1EF00EA1ACA /* MutationReportConversation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2C42CE2BA2E1EF00EA1ACA /* MutationReportConversation.graphql */; };
+		2B2C42D12BA2E21500EA1ACA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B2C42D02BA2E21500EA1ACA /* schema.graphqls */; };
 		2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */; };
 		2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */; };
 		2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */; };
@@ -126,6 +154,7 @@
 		8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */; };
 		8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */; };
 		855013902B7C86F900D9D568 /* BusinessSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */; };
+		855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EC98C2B9EAA2200679394 /* Conversation.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
 		85769E192B69CC1F0064005D /* ForgotPasswordPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */; };
@@ -139,7 +168,6 @@
 		85769E312B707E890064005D /* MutationBatchUpsertBusinessHours.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85769E302B707E890064005D /* MutationBatchUpsertBusinessHours.graphql */; };
 		85769E332B707F340064005D /* QueryBusinessHours.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85769E322B707F340064005D /* QueryBusinessHours.graphql */; };
 		85806C512B22F90E0077D12C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 85806C502B22F90E0077D12C /* Apollo */; };
-		858862382B34FA9B009CC600 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858862372B34FA9B009CC600 /* CheckIn.swift */; };
 		85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* PurchaseController.swift */; };
 		85B028A32B3019B500A738AB /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A22B3019B500A738AB /* MessagesController.swift */; };
 		85B028A52B301A2B00A738AB /* PeopleLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A42B301A2B00A738AB /* PeopleLikesView.swift */; };
@@ -160,7 +188,6 @@
 		85D36AEC2B0F25BC00106BC0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AEB2B0F25BC00106BC0 /* MenuView.swift */; };
 		85D36AEE2B0F261F00106BC0 /* BusinessEnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */; };
 		85D36AF02B0F26DB00106BC0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AEF2B0F26DB00106BC0 /* SettingsView.swift */; };
-		85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93B2B3109EE0054EBCE /* Message.swift */; };
 		85E8E93E2B3119780054EBCE /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93D2B3119780054EBCE /* Reaction.swift */; };
 		85E8E9402B3140580054EBCE /* ListOfConversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93F2B3140580054EBCE /* ListOfConversations.swift */; };
 		85E8E9422B3140850054EBCE /* ListOfPeopleLikesLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */; };
@@ -196,7 +223,7 @@
 		85FC20922B0C514400DC1950 /* DragRelocateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC208B2B0C514400DC1950 /* DragRelocateDelegate.swift */; };
 		85FC20942B0C514400DC1950 /* PictureGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC208D2B0C514400DC1950 /* PictureGridView.swift */; };
 		85FC20962B0C96E800DC1950 /* UserOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20952B0C96E800DC1950 /* UserOnboardingView.swift */; };
-		85FC20982B0D70E300DC1950 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20972B0D70E300DC1950 /* User.swift */; };
+		85FC20982B0D70E300DC1950 /* MutatingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20972B0D70E300DC1950 /* MutatingUser.swift */; };
 		85FC209B2B0D717700DC1950 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209A2B0D717700DC1950 /* Constants.swift */; };
 		85FC209D2B0D729300DC1950 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209C2B0D729300DC1950 /* Extensions.swift */; };
 		85FC209F2B0D75AB00DC1950 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC209E2B0D75AB00DC1950 /* UserManager.swift */; };
@@ -223,12 +250,101 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2B2049DD2B99C8BF00E633E3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2B2049D82B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Embed Frameworks */,
+				2B2049DC2B99C8BF00E633E3 /* AWSSNS.xcframework in Embed Frameworks */,
+				2B2049D62B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Embed Frameworks */,
+				2B2049DA2B99C8BF00E633E3 /* AWSCore.xcframework in Embed Frameworks */,
+				2B2049D42B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B16C25F2BA06D14005B5D6B /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSMobileClientXCF.xcframework; path = "../Downloads/aws-sdk-ios-carthage.framework/AWSMobileClientXCF.xcframework"; sourceTree = "<group>"; };
+		2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePhaseHelper.swift; sourceTree = "<group>"; };
 		2B20496D2B903AA700E633E3 /* QueryConversations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryConversations.graphql; sourceTree = "<group>"; };
 		2B2049712B903AFF00E633E3 /* QueryConversation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryConversation.graphql; sourceTree = "<group>"; };
 		2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSendMessage.graphql; sourceTree = "<group>"; };
-		2B2049752B90732100E633E3 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProfileFragment.graphql; sourceTree = "<group>"; };
+		2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BusinessFragment.graphql; sourceTree = "<group>"; };
+		2B20497D2B95A45D00E633E3 /* UserFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UserFragment.graphql; sourceTree = "<group>"; };
+		2B20497F2B95E7AB00E633E3 /* ImageFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ImageFragment.graphql; sourceTree = "<group>"; };
+		2B2049812B95EC3800E633E3 /* CheckInFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CheckInFragment.graphql; sourceTree = "<group>"; };
+		2B2049832B95ED2800E633E3 /* ConversationFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConversationFragment.graphql; sourceTree = "<group>"; };
+		2B2049852B96D05500E633E3 /* MessageFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MessageFragment.graphql; sourceTree = "<group>"; };
+		2B2049872B9733F000E633E3 /* BusinessHoursFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BusinessHoursFragment.graphql; sourceTree = "<group>"; };
+		2B20498B2B9975F300E633E3 /* MutatingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingImage.swift; sourceTree = "<group>"; };
+		2B20498D2B99768400E633E3 /* BusinessHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHours.swift; sourceTree = "<group>"; };
+		2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBusinessData.swift; sourceTree = "<group>"; };
+		2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = SubscriptionNotificationPushed.graphql; sourceTree = "<group>"; };
+		2B20499B2B99C87A00E633E3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2B20499C2B99C87A00E633E3 /* LICENSE.APACHE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.APACHE; sourceTree = "<group>"; };
+		2B20499D2B99C87A00E633E3 /* NOTICE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
+		2B20499E2B99C87A00E633E3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2B2049A02B99C87A00E633E3 /* samples.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = samples.html; sourceTree = "<group>"; };
+		2B2049A22B99C87A00E633E3 /* AWSPolly.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSPolly.xcframework; sourceTree = "<group>"; };
+		2B2049A32B99C87A00E633E3 /* AWSKinesisVideoArchivedMedia.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideoArchivedMedia.xcframework; sourceTree = "<group>"; };
+		2B2049A42B99C87A00E633E3 /* AWSGoogleSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSGoogleSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCore.xcframework; sourceTree = "<group>"; };
+		2B2049A62B99C87A00E633E3 /* AWSConnect.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSConnect.xcframework; sourceTree = "<group>"; };
+		2B2049A72B99C87A00E633E3 /* AWSConnectParticipant.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSConnectParticipant.xcframework; sourceTree = "<group>"; };
+		2B2049A82B99C87A00E633E3 /* AWSLex.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLex.xcframework; sourceTree = "<group>"; };
+		2B2049A92B99C87A00E633E3 /* AWSDynamoDB.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSDynamoDB.xcframework; sourceTree = "<group>"; };
+		2B2049AA2B99C87A00E633E3 /* AWSKMS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKMS.xcframework; sourceTree = "<group>"; };
+		2B2049AB2B99C87A00E633E3 /* AWSTranscribe.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTranscribe.xcframework; sourceTree = "<group>"; };
+		2B2049AC2B99C87A00E633E3 /* AWSTranscribeStreaming.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTranscribeStreaming.xcframework; sourceTree = "<group>"; };
+		2B2049AD2B99C87A00E633E3 /* AWSSageMakerRuntime.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSageMakerRuntime.xcframework; sourceTree = "<group>"; };
+		2B2049AE2B99C87A00E633E3 /* AWSLogs.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLogs.xcframework; sourceTree = "<group>"; };
+		2B2049AF2B99C87A00E633E3 /* AWSAppleSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAppleSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCognitoAuth.xcframework; sourceTree = "<group>"; };
+		2B2049B12B99C87A00E633E3 /* AWSKinesisVideoSignaling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideoSignaling.xcframework; sourceTree = "<group>"; };
+		2B2049B22B99C87A00E633E3 /* AWSAPIGateway.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAPIGateway.xcframework; sourceTree = "<group>"; };
+		2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCognitoIdentityProvider.xcframework; sourceTree = "<group>"; };
+		2B2049B42B99C87A00E633E3 /* AWSRekognition.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSRekognition.xcframework; sourceTree = "<group>"; };
+		2B2049B52B99C87A00E633E3 /* AWSChimeSDKMessaging.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSChimeSDKMessaging.xcframework; sourceTree = "<group>"; };
+		2B2049B62B99C87A00E633E3 /* AWSComprehend.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSComprehend.xcframework; sourceTree = "<group>"; };
+		2B2049B72B99C87A00E633E3 /* AWSSES.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSES.xcframework; sourceTree = "<group>"; };
+		2B2049B82B99C87A00E633E3 /* AWSIoT.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSIoT.xcframework; sourceTree = "<group>"; };
+		2B2049B92B99C87A00E633E3 /* AWSKinesis.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesis.xcframework; sourceTree = "<group>"; };
+		2B2049BA2B99C87A00E633E3 /* AWSCloudWatch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCloudWatch.xcframework; sourceTree = "<group>"; };
+		2B2049BB2B99C87A00E633E3 /* AWSS3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSS3.xcframework; sourceTree = "<group>"; };
+		2B2049BC2B99C87A00E633E3 /* AWSMachineLearning.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSMachineLearning.xcframework; sourceTree = "<group>"; };
+		2B2049BD2B99C87A00E633E3 /* AWSSimpleDB.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSimpleDB.xcframework; sourceTree = "<group>"; };
+		2B2049BE2B99C87A00E633E3 /* AWSTextract.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTextract.xcframework; sourceTree = "<group>"; };
+		2B2049BF2B99C87A00E633E3 /* AWSKinesisVideo.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideo.xcframework; sourceTree = "<group>"; };
+		2B2049C02B99C87A00E633E3 /* AWSUserPoolsSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSUserPoolsSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049C12B99C87A00E633E3 /* AWSFacebookSignIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSFacebookSignIn.xcframework; sourceTree = "<group>"; };
+		2B2049C22B99C87A00E633E3 /* AWSLocationXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLocationXCF.xcframework; sourceTree = "<group>"; };
+		2B2049C32B99C87A00E633E3 /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSMobileClientXCF.xcframework; sourceTree = "<group>"; };
+		2B2049C42B99C87A00E633E3 /* AWSLambda.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSLambda.xcframework; sourceTree = "<group>"; };
+		2B2049C52B99C87A00E633E3 /* AWSElasticLoadBalancing.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSElasticLoadBalancing.xcframework; sourceTree = "<group>"; };
+		2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSCognitoIdentityProviderASF.xcframework; sourceTree = "<group>"; };
+		2B2049C72B99C87A00E633E3 /* AWSTranslate.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSTranslate.xcframework; sourceTree = "<group>"; };
+		2B2049C82B99C87A00E633E3 /* AWSSQS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSQS.xcframework; sourceTree = "<group>"; };
+		2B2049C92B99C87A00E633E3 /* AWSAuthCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAuthCore.xcframework; sourceTree = "<group>"; };
+		2B2049CA2B99C87A00E633E3 /* AWSEC2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSEC2.xcframework; sourceTree = "<group>"; };
+		2B2049CB2B99C87A00E633E3 /* AWSAutoScaling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAutoScaling.xcframework; sourceTree = "<group>"; };
+		2B2049CC2B99C87A00E633E3 /* AWSKinesisVideoWebRTCStorage.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSKinesisVideoWebRTCStorage.xcframework; sourceTree = "<group>"; };
+		2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSSNS.xcframework; sourceTree = "<group>"; };
+		2B2049CE2B99C87A00E633E3 /* AWSChimeSDKIdentity.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSChimeSDKIdentity.xcframework; sourceTree = "<group>"; };
+		2B2049CF2B99C87A00E633E3 /* AWSAuthUI.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSAuthUI.xcframework; sourceTree = "<group>"; };
+		2B2049D02B99C87A00E633E3 /* AWSPinpoint.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AWSPinpoint.xcframework; sourceTree = "<group>"; };
+		2B2049D22B99C87A00E633E3 /* source.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = source.html; sourceTree = "<group>"; };
+		2B2049DE2B99C91000E633E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UpsertUserDevice.graphql; sourceTree = "<group>"; };
+		2B2C42CC2BA2E18900EA1ACA /* MutationDeleteConversation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteConversation.graphql; sourceTree = "<group>"; };
+		2B2C42CE2BA2E1EF00EA1ACA /* MutationReportConversation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReportConversation.graphql; sourceTree = "<group>"; };
+		2B2C42D02BA2E21500EA1ACA /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B2FAD8F2B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationGenerateCheckInToken.graphql; sourceTree = "<group>"; };
 		2B2FAD932B804C38009CB2C6 /* MutationCreateCheckInByToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreateCheckInByToken.graphql; sourceTree = "<group>"; };
 		2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpdateCheckInStatus.graphql; sourceTree = "<group>"; };
@@ -349,6 +465,7 @@
 		855013892B7C3CAB00D9D568 /* MutationMakeReport.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationMakeReport.graphql; sourceTree = "<group>"; };
 		8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReportInput.swift; sourceTree = "<group>"; };
 		8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionController.swift; sourceTree = "<group>"; };
+		855EC98C2B9EAA2200679394 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
 		85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPass.swift; sourceTree = "<group>"; };
@@ -361,7 +478,6 @@
 		85769E2E2B707DD00064005D /* MutationDeleteBusinessHours.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteBusinessHours.graphql; sourceTree = "<group>"; };
 		85769E302B707E890064005D /* MutationBatchUpsertBusinessHours.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationBatchUpsertBusinessHours.graphql; sourceTree = "<group>"; };
 		85769E322B707F340064005D /* QueryBusinessHours.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryBusinessHours.graphql; sourceTree = "<group>"; };
-		858862372B34FA9B009CC600 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		85B028A02B2FE7B300A738AB /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		85B028A42B301A2B00A738AB /* PeopleLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleLikesView.swift; sourceTree = "<group>"; };
@@ -377,7 +493,6 @@
 		85D36AEB2B0F25BC00106BC0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEnterView.swift; sourceTree = "<group>"; };
 		85D36AEF2B0F26DB00106BC0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		85E8E93B2B3109EE0054EBCE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		85E8E93D2B3119780054EBCE /* Reaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
 		85E8E93F2B3140580054EBCE /* ListOfConversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfConversations.swift; sourceTree = "<group>"; };
 		85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfPeopleLikesLink.swift; sourceTree = "<group>"; };
@@ -413,7 +528,7 @@
 		85FC208B2B0C514400DC1950 /* DragRelocateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragRelocateDelegate.swift; sourceTree = "<group>"; };
 		85FC208D2B0C514400DC1950 /* PictureGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureGridView.swift; sourceTree = "<group>"; };
 		85FC20952B0C96E800DC1950 /* UserOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingView.swift; sourceTree = "<group>"; };
-		85FC20972B0D70E300DC1950 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		85FC20972B0D70E300DC1950 /* MutatingUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingUser.swift; sourceTree = "<group>"; };
 		85FC209A2B0D717700DC1950 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		85FC209C2B0D729300DC1950 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		85FC209E2B0D75AB00DC1950 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -429,16 +544,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2049D72B99C8BF00E633E3 /* AWSCognitoIdentityProviderASF.xcframework in Frameworks */,
 				8538D5642B56B2380040E017 /* QRCode in Frameworks */,
+				2B2049962B998BEB00E633E3 /* ApolloWebSocket in Frameworks */,
 				853AFD4C2B1DB0890020A570 /* NavigationStackBackport in Frameworks */,
 				8522A5F02B2AC912008AF703 /* CachedAsyncImage in Frameworks */,
 				8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */,
 				85D0DED12B352AE90029DA5D /* GoogleSignInSwift in Frameworks */,
+				2B2049D52B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Frameworks */,
 				85806C512B22F90E0077D12C /* Apollo in Frameworks */,
+				2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */,
 				85D0DED62B3534840029DA5D /* KakaoSDKCommon in Frameworks */,
 				85D0DECF2B352AE90029DA5D /* GoogleSignIn in Frameworks */,
+				2B2049D32B99C8BF00E633E3 /* AWSCognitoAuth.xcframework in Frameworks */,
 				85D0DED82B3534840029DA5D /* KakaoSDKUser in Frameworks */,
 				85D0DED42B3534840029DA5D /* KakaoSDKAuth in Frameworks */,
+				2B2049D92B99C8BF00E633E3 /* AWSCore.xcframework in Frameworks */,
 				7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +583,91 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B20499A2B99C87A00E633E3 /* aws-ios-sdk-2.34.0 */ = {
+			isa = PBXGroup;
+			children = (
+				2B20499B2B99C87A00E633E3 /* LICENSE */,
+				2B20499C2B99C87A00E633E3 /* LICENSE.APACHE */,
+				2B20499D2B99C87A00E633E3 /* NOTICE */,
+				2B20499E2B99C87A00E633E3 /* README.md */,
+				2B20499F2B99C87A00E633E3 /* samples */,
+				2B2049A12B99C87A00E633E3 /* frameworks */,
+				2B2049D12B99C87A00E633E3 /* src */,
+			);
+			name = "aws-ios-sdk-2.34.0";
+			path = "../Downloads/aws-ios-sdk-2.34.0";
+			sourceTree = "<group>";
+		};
+		2B20499F2B99C87A00E633E3 /* samples */ = {
+			isa = PBXGroup;
+			children = (
+				2B2049A02B99C87A00E633E3 /* samples.html */,
+			);
+			path = samples;
+			sourceTree = "<group>";
+		};
+		2B2049A12B99C87A00E633E3 /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B2049A22B99C87A00E633E3 /* AWSPolly.xcframework */,
+				2B2049A32B99C87A00E633E3 /* AWSKinesisVideoArchivedMedia.xcframework */,
+				2B2049A42B99C87A00E633E3 /* AWSGoogleSignIn.xcframework */,
+				2B2049A52B99C87A00E633E3 /* AWSCore.xcframework */,
+				2B2049A62B99C87A00E633E3 /* AWSConnect.xcframework */,
+				2B2049A72B99C87A00E633E3 /* AWSConnectParticipant.xcframework */,
+				2B2049A82B99C87A00E633E3 /* AWSLex.xcframework */,
+				2B2049A92B99C87A00E633E3 /* AWSDynamoDB.xcframework */,
+				2B2049AA2B99C87A00E633E3 /* AWSKMS.xcframework */,
+				2B2049AB2B99C87A00E633E3 /* AWSTranscribe.xcframework */,
+				2B2049AC2B99C87A00E633E3 /* AWSTranscribeStreaming.xcframework */,
+				2B2049AD2B99C87A00E633E3 /* AWSSageMakerRuntime.xcframework */,
+				2B2049AE2B99C87A00E633E3 /* AWSLogs.xcframework */,
+				2B2049AF2B99C87A00E633E3 /* AWSAppleSignIn.xcframework */,
+				2B2049B02B99C87A00E633E3 /* AWSCognitoAuth.xcframework */,
+				2B2049B12B99C87A00E633E3 /* AWSKinesisVideoSignaling.xcframework */,
+				2B2049B22B99C87A00E633E3 /* AWSAPIGateway.xcframework */,
+				2B2049B32B99C87A00E633E3 /* AWSCognitoIdentityProvider.xcframework */,
+				2B2049B42B99C87A00E633E3 /* AWSRekognition.xcframework */,
+				2B2049B52B99C87A00E633E3 /* AWSChimeSDKMessaging.xcframework */,
+				2B2049B62B99C87A00E633E3 /* AWSComprehend.xcframework */,
+				2B2049B72B99C87A00E633E3 /* AWSSES.xcframework */,
+				2B2049B82B99C87A00E633E3 /* AWSIoT.xcframework */,
+				2B2049B92B99C87A00E633E3 /* AWSKinesis.xcframework */,
+				2B2049BA2B99C87A00E633E3 /* AWSCloudWatch.xcframework */,
+				2B2049BB2B99C87A00E633E3 /* AWSS3.xcframework */,
+				2B2049BC2B99C87A00E633E3 /* AWSMachineLearning.xcframework */,
+				2B2049BD2B99C87A00E633E3 /* AWSSimpleDB.xcframework */,
+				2B2049BE2B99C87A00E633E3 /* AWSTextract.xcframework */,
+				2B2049BF2B99C87A00E633E3 /* AWSKinesisVideo.xcframework */,
+				2B2049C02B99C87A00E633E3 /* AWSUserPoolsSignIn.xcframework */,
+				2B2049C12B99C87A00E633E3 /* AWSFacebookSignIn.xcframework */,
+				2B2049C22B99C87A00E633E3 /* AWSLocationXCF.xcframework */,
+				2B2049C32B99C87A00E633E3 /* AWSMobileClientXCF.xcframework */,
+				2B2049C42B99C87A00E633E3 /* AWSLambda.xcframework */,
+				2B2049C52B99C87A00E633E3 /* AWSElasticLoadBalancing.xcframework */,
+				2B2049C62B99C87A00E633E3 /* AWSCognitoIdentityProviderASF.xcframework */,
+				2B2049C72B99C87A00E633E3 /* AWSTranslate.xcframework */,
+				2B2049C82B99C87A00E633E3 /* AWSSQS.xcframework */,
+				2B2049C92B99C87A00E633E3 /* AWSAuthCore.xcframework */,
+				2B2049CA2B99C87A00E633E3 /* AWSEC2.xcframework */,
+				2B2049CB2B99C87A00E633E3 /* AWSAutoScaling.xcframework */,
+				2B2049CC2B99C87A00E633E3 /* AWSKinesisVideoWebRTCStorage.xcframework */,
+				2B2049CD2B99C87A00E633E3 /* AWSSNS.xcframework */,
+				2B2049CE2B99C87A00E633E3 /* AWSChimeSDKIdentity.xcframework */,
+				2B2049CF2B99C87A00E633E3 /* AWSAuthUI.xcframework */,
+				2B2049D02B99C87A00E633E3 /* AWSPinpoint.xcframework */,
+			);
+			path = frameworks;
+			sourceTree = "<group>";
+		};
+		2B2049D12B99C87A00E633E3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2B2049D22B99C87A00E633E3 /* source.html */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		85064AF22B292EDB0074E45A /* CheckIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +714,7 @@
 			isa = PBXGroup;
 			children = (
 				850A2FDC2B0AE54B003B12B7 /* amoringApp.swift */,
+				2B2049DE2B99C91000E633E3 /* AppDelegate.swift */,
 				850A30092B0AE9E6003B12B7 /* UI */,
 				850A30082B0AE95B003B12B7 /* Shared */,
 				85FC20712B0C4E5500DC1950 /* Model */,
@@ -560,6 +767,7 @@
 				8522A5F12B2BDFE7008AF703 /* Dummy.swift */,
 				85FB6B982B464F2A0023A889 /* Global.swift */,
 				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
+				2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -774,7 +982,15 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B2049752B90732100E633E3 /* schema.graphqls */,
+				2B2C42D02BA2E21500EA1ACA /* schema.graphqls */,
+				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
+				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
+				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
+				2B20497F2B95E7AB00E633E3 /* ImageFragment.graphql */,
+				2B2049812B95EC3800E633E3 /* CheckInFragment.graphql */,
+				2B2049832B95ED2800E633E3 /* ConversationFragment.graphql */,
+				2B2049852B96D05500E633E3 /* MessageFragment.graphql */,
+				2B2049872B9733F000E633E3 /* BusinessHoursFragment.graphql */,
 				8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */,
 				8538D55C2B5685A00040E017 /* QueryInterestCategories.graphql */,
 				8538D5792B57A5AE0040E017 /* QueryBusinesses.graphql */,
@@ -812,6 +1028,10 @@
 				2B20496D2B903AA700E633E3 /* QueryConversations.graphql */,
 				2B2049712B903AFF00E633E3 /* QueryConversation.graphql */,
 				2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */,
+				2B2049932B9989A000E633E3 /* SubscriptionNotificationPushed.graphql */,
+				2B2049E62B9ADE7000E633E3 /* UpsertUserDevice.graphql */,
+				2B2C42CC2BA2E18900EA1ACA /* MutationDeleteConversation.graphql */,
+				2B2C42CE2BA2E1EF00EA1ACA /* MutationReportConversation.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -852,17 +1072,19 @@
 		85FC20712B0C4E5500DC1950 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				85FC20972B0D70E300DC1950 /* User.swift */,
+				85FC20972B0D70E300DC1950 /* MutatingUser.swift */,
 				850BE9CD2B6342FF00EC8EAB /* Profile.swift */,
 				85FC20A52B0D9DC700DC1950 /* Business.swift */,
+				2B20498B2B9975F300E633E3 /* MutatingImage.swift */,
 				8522A5F32B2BE03D008AF703 /* Interest.swift */,
 				850BE9CF2B6343A100EC8EAB /* File.swift */,
+				2B20498D2B99768400E633E3 /* BusinessHours.swift */,
 				8522A5F52B2BE831008AF703 /* mbti.swift */,
-				85E8E93B2B3109EE0054EBCE /* Message.swift */,
 				85E8E93D2B3119780054EBCE /* Reaction.swift */,
-				858862372B34FA9B009CC600 /* CheckIn.swift */,
 				8538D5522B5607FD0040E017 /* AppState.swift */,
 				8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */,
+				2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */,
+				855EC98C2B9EAA2200679394 /* Conversation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -910,6 +1132,8 @@
 		AF0357FE6E3A0130D1AD662B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B16C25F2BA06D14005B5D6B /* AWSMobileClientXCF.xcframework */,
+				2B20499A2B99C87A00E633E3 /* aws-ios-sdk-2.34.0 */,
 				36E9464CB26CE4E393883EFE /* Pods_amoring.framework */,
 				36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */,
 				5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */,
@@ -942,6 +1166,7 @@
 				850A2FD62B0AE54B003B12B7 /* Frameworks */,
 				850A2FD72B0AE54B003B12B7 /* Resources */,
 				6D68DFBB3140678E7FDF9D4D /* [CP] Embed Pods Frameworks */,
+				2B2049DD2B99C8BF00E633E3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -959,6 +1184,7 @@
 				85D0DED72B3534840029DA5D /* KakaoSDKUser */,
 				8523BAD32B4CDF560099CDE4 /* AmoringAPI */,
 				8538D5632B56B2380040E017 /* QRCode */,
+				2B2049952B998BEB00E633E3 /* ApolloWebSocket */,
 			);
 			productName = amoring;
 			productReference = 850A2FD92B0AE54B003B12B7 /* Amoring.app */;
@@ -1062,10 +1288,15 @@
 			files = (
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
+				2B20497C2B95A3E200E633E3 /* BusinessFragment.graphql in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
+				2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
+				2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */,
+				2B2049942B9989A000E633E3 /* SubscriptionNotificationPushed.graphql in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
+				2B2049862B96D05500E633E3 /* MessageFragment.graphql in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
 				2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */,
 				8538D5702B5765920040E017 /* MutationSignUp.graphql in Resources */,
@@ -1073,10 +1304,11 @@
 				8550138A2B7C3CAB00D9D568 /* MutationMakeReport.graphql in Resources */,
 				85769E2D2B707CFB0064005D /* MutationUpsertBusinessHours.graphql in Resources */,
 				850A301D2B0AEF41003B12B7 /* Pretendard-SemiBold.ttf in Resources */,
+				2B2049802B95E7AB00E633E3 /* ImageFragment.graphql in Resources */,
+				2B2C42CF2BA2E1EF00EA1ACA /* MutationReportConversation.graphql in Resources */,
 				8538D5372B4FA24C0040E017 /* MutationUpsertMyProfile.graphql in Resources */,
 				8538D5742B579C9C0040E017 /* MutationUploadBusinessImage.graphql in Resources */,
 				85769E332B707F340064005D /* QueryBusinessHours.graphql in Resources */,
-				2B2049762B90732100E633E3 /* schema.graphqls in Resources */,
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
 				8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */,
 				2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */,
@@ -1093,10 +1325,13 @@
 				85F190412B5F90EE00FA7686 /* MutationDisconnectInterestsFromMyProfile.graphql in Resources */,
 				850A301E2B0AEF41003B12B7 /* Pretendard-Regular.ttf in Resources */,
 				850BE9C82B631FC000EC8EAB /* MutationDeleteBusinessImage.graphql in Resources */,
+				2B20497E2B95A45D00E633E3 /* UserFragment.graphql in Resources */,
 				8538D55D2B5685A00040E017 /* QueryInterestCategories.graphql in Resources */,
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
 				8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */,
 				85769E252B6B7C640064005D /* MutationDeleteMyAllProfileImages.graphql in Resources */,
+				2B2049822B95EC3800E633E3 /* CheckInFragment.graphql in Resources */,
+				2B2049882B9733F000E633E3 /* BusinessHoursFragment.graphql in Resources */,
 				851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */,
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
 				8538D57E2B57AF520040E017 /* QueryProfiles.graphql in Resources */,
@@ -1106,9 +1341,12 @@
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
+				2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */,
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2FADA42B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql in Resources */,
 				850A30242B0AEF41003B12B7 /* Pretendard-ExtraLight.ttf in Resources */,
+				2B2C42D12BA2E21500EA1ACA /* schema.graphqls in Resources */,
+				2B20497A2B95A0B000E633E3 /* ProfileFragment.graphql in Resources */,
 				2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */,
 				85769E212B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql in Resources */,
 			);
@@ -1238,6 +1476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2049DF2B99C91000E633E3 /* AppDelegate.swift in Sources */,
 				854C7B052B1815EE0060CE03 /* PurchasedLikesView.swift in Sources */,
 				853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */,
 				85D26F652B1F07C000E3C55F /* SwipibleProfileVIew.swift in Sources */,
@@ -1270,8 +1509,10 @@
 				85D0DEDB2B3564530029DA5D /* TestView.swift in Sources */,
 				85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */,
 				8522A5EB2B2AA9EC008AF703 /* ExpandedView.swift in Sources */,
+				2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */,
 				85F190392B5F643100FA7686 /* AccountPhoto.swift in Sources */,
 				850A30262B0AEF6C003B12B7 /* DesignSystem.swift in Sources */,
+				2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */,
 				85FB6B992B464F2A0023A889 /* Global.swift in Sources */,
 				85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */,
 				85FC209B2B0D717700DC1950 /* Constants.swift in Sources */,
@@ -1288,7 +1529,7 @@
 				850A30332B0B1CD6003B12B7 /* AmoringView.swift in Sources */,
 				850A2FDD2B0AE54B003B12B7 /* amoringApp.swift in Sources */,
 				85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */,
-				85FC20982B0D70E300DC1950 /* User.swift in Sources */,
+				85FC20982B0D70E300DC1950 /* MutatingUser.swift in Sources */,
 				8538D5612B56A24C0040E017 /* graphqlAPI.swift in Sources */,
 				85F1903D2B5F820000FA7686 /* AccountIntro.swift in Sources */,
 				85769E1D2B69EF580064005D /* MKWebView.swift in Sources */,
@@ -1301,7 +1542,9 @@
 				8538D5282B4E2A4F0040E017 /* BusinessSignUpOTP.swift in Sources */,
 				8522A5FB2B2C2F6A008AF703 /* PurchaseModel.swift in Sources */,
 				85FC20942B0C514400DC1950 /* PictureGridView.swift in Sources */,
+				2B16C2652BA1CA5B005B5D6B /* ScenePhaseHelper.swift in Sources */,
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
+				855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
 				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,
@@ -1316,9 +1559,9 @@
 				85FC20912B0C514400DC1950 /* AddImageView.swift in Sources */,
 				85D36AF02B0F26DB00106BC0 /* SettingsView.swift in Sources */,
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
+				2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */,
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
 				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,
-				85E8E93C2B3109EE0054EBCE /* Message.swift in Sources */,
 				855013552B749A1100D9D568 /* YellowButton.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
@@ -1353,7 +1596,6 @@
 				855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */,
 				8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */,
 				850A300F2B0AEDF8003B12B7 /* SessionView.swift in Sources */,
-				858862382B34FA9B009CC600 /* CheckIn.swift in Sources */,
 				850A30312B0B1CC7003B12B7 /* NearbyView.swift in Sources */,
 				85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */,
 				85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */,
@@ -1526,12 +1768,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CODE_SIGN_ENTITLEMENTS = amoring/amoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"amoring/Preview Content\"";
 				DEVELOPMENT_TEAM = 6S83TJN3P8;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = amoring/Info.plist;
@@ -1546,14 +1789,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen .storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.amoring";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
 				PRODUCT_NAME = Amoring;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -1569,12 +1811,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CODE_SIGN_ENTITLEMENTS = amoring/amoring.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"amoring/Preview Content\"";
 				DEVELOPMENT_TEAM = 6S83TJN3P8;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = amoring/Info.plist;
@@ -1589,14 +1832,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen .storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.amoring";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
 				PRODUCT_NAME = Amoring;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -1800,6 +2042,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B2049952B998BEB00E633E3 /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85FC20AF2B0EC38000DC1950 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
 		8522A5EF2B2AC912008AF703 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8522A5EE2B2AC912008AF703 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;

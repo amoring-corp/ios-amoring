@@ -6,23 +6,37 @@
 //
 
 import Foundation
-import ApolloAPI
 import AmoringAPI
 
 struct Interest: Hashable {
     var id: String
     var name: String
     var categoryId: String?
-    var category: InterestCategory?
+    var category: ProfileInfo.Interest.Category?
     var createdAt: Date?
     var updatedAt: Date?
     
-    static func fromData(data: ConnectInterestsToMyProfileMutation.Data.ConnectInterestsToMyProfile.Interest) -> Interest {
-        return Interest(
-            id: data.id,
-            name: data.name ?? "",
-            categoryId: data.categoryId
-        )
+    init(id: String, name: String) {
+        self.id = id
+        self.name = name
+    }
+    
+    init(inter: ProfileInfo.Interest) {
+        self.id = inter.id
+        self.name = inter.name ?? ""
+        self.categoryId = inter.categoryId
+        self.category = inter.category
+        self.createdAt = inter.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.updatedAt = inter.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    }
+    
+    init(inter: BusinessInfo.ActiveCheckIn.Profile.Interest) {
+        self.id = inter.id
+        self.name = inter.name ?? ""
+//        self.categoryId = inter.categoryId
+//        self.category = inter.category
+//        self.createdAt = inter.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+//        self.updatedAt = inter.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     }
 }
 

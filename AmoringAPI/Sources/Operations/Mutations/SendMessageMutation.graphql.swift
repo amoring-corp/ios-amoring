@@ -7,7 +7,8 @@ public class SendMessageMutation: GraphQLMutation {
   public static let operationName: String = "SendMessage"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation SendMessage($body: String!, $conversationId: ID!) { sendMessage(body: $body, conversationId: $conversationId) { __typename id body senderId createdAt updatedAt } }"#
+      #"mutation SendMessage($body: String!, $conversationId: ID!) { sendMessage(body: $body, conversationId: $conversationId) { __typename ...MessageInfo } }"#,
+      fragments: [MessageInfo.self]
     ))
 
   public var body: String
@@ -50,18 +51,25 @@ public class SendMessageMutation: GraphQLMutation {
       public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Message }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .field("id", AmoringAPI.ID.self),
-        .field("body", String.self),
-        .field("senderId", String?.self),
-        .field("createdAt", AmoringAPI.DateTime?.self),
-        .field("updatedAt", AmoringAPI.DateTime?.self),
+        .fragment(MessageInfo.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
+      public var conversationId: String? { __data["conversationId"] }
       public var body: String { __data["body"] }
       public var senderId: String? { __data["senderId"] }
+      public var sender: Sender? { __data["sender"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+
+      public struct Fragments: FragmentContainer {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public var messageInfo: MessageInfo { _toFragment() }
+      }
+
+      public typealias Sender = MessageInfo.Sender
     }
   }
 }

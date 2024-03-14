@@ -1,54 +1,5 @@
 query QueryBusinesses {
   businesses {
-    id
-    ownerId
-    owner {
-      id
-      email
-      status
-      role
-      createdAt
-      updatedAt
-    }
-    businessName
-    businessType
-    businessIndustry
-    businessCategory
-    address
-    addressBname
-    addressDetails
-    addressJibun
-    addressSido
-    addressSigungu
-    addressSigunguCode
-    addressSigunguEnglish
-    addressZonecode
-    
-    latitude
-    longitude
-    representativeTitle
-    representativeName
-    phoneNumber
-    registrationNumber
-    category
-    bio
-    images {
-      id
-      businessId
-      fileId
-      sort
-      createdAt
-      updatedAt
-      file {
-        url
-      }
-    }
-    businessHours {
-      openAt
-      closeAt
-      day
-    }
-    createdAt
-    updatedAt
+    ... BusinessInfo
   }
 }

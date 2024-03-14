@@ -1,0 +1,5 @@
+fragment BusinessHoursInfo on BusinessHours {
+    openAt
+    closeAt
+    day
+}

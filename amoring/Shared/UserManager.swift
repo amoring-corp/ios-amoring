@@ -8,16 +8,19 @@
 import SwiftUI
 import AmoringAPI
 import Apollo
+import ApolloWebSocket
 
 class UserManager: ObservableObject {
     @Published var userState: UserState = .initial
-    let authUser: User
+    let authUser: UserInfo
     @Published var api: ApolloClient
-    @Published var user: User? = nil
+    @Published var WSApi: ApolloClient
+    @Published var user: MutatingUser? = nil
+
     @Published var isLoading: Bool = false
     @Published var interestCategories: [InterestCategory] = []
-    @Published var businessesInit: [Business] = []
-    @Published var businesses: [Business] = []
+    @Published var businessesInit: [BusinessInfo] = []
+    @Published var businesses: [BusinessInfo] = []
     @Published var profiles: [Profile] = []
     
     @Published var pictures: [PictureModel] = []
@@ -26,10 +29,11 @@ class UserManager: ObservableObject {
     @Published var confirmRemoveImageIndex: Int = 0
     
     
-    init(authUser: User, api: ApolloClient) {
+    init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
         self.authUser = authUser
         self.api = api
-        self.user = authUser
+        self.WSApi = WSApi
+        self.user = MutatingUser(userInfo: authUser)
         guard let role = authUser.role else {
             print("NO ROLE!")
             self.changeStateWithAnimation(state: .error)
@@ -37,7 +41,7 @@ class UserManager: ObservableObject {
         }
         
         switch role {
-        case .business:
+        case .case(.business):
             print("I'm a business")
             
             if let business = authUser.business, ((business.phoneNumber?.isEmpty) != nil) {
@@ -50,7 +54,7 @@ class UserManager: ObservableObject {
 //                print("Business not onboarded yet")
                 self.changeStateWithAnimation(state: .businessOnboarding)
             }
-        case .user:
+        case .case(.user):
             print("I'm a user")
             if authUser.profile != nil {
                 self.setCurrentPhotos()
@@ -59,9 +63,12 @@ class UserManager: ObservableObject {
                 print("User not onboarded yet")
                 self.changeStateWithAnimation(state: .userOnboarding)
             }
-        case .admin:
+        case .case(.admin):
             print("I'm an admin")
             self.changeStateWithAnimation(state: .debugging)
+        case .unknown(_):
+            print("unknown role")
+            self.changeStateWithAnimation(state: .error)
         }
     }
     
@@ -131,7 +138,7 @@ class UserManager: ObservableObject {
                         return
                     }
                     
-                    self.user = User.fromData(authUser)
+                    self.user = MutatingUser(userInfo: authUser.fragments.userInfo)
                     
                     print(self.user?.profile?.images as Any)
                 case .failure(let error):
@@ -153,14 +160,13 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                guard value.data != nil else {
+                guard let data = value.data else {
                     print("NO DATA!")
                     self.isLoading = false
                     completion(false)
                     return
                 }
-                
-                self.user?.profile = profile
+                self.user?.profile = Profile(profile: data.upsertMyProfile.fragments.profileInfo) 
                 print("User Profile was successfully created!")
                 self.isLoading = false
                 
@@ -399,7 +405,7 @@ class UserManager: ObservableObject {
                     self.user?.profile?.interests.removeAll()
                     for interest in interests {
                         if let interest {
-                            self.user?.profile?.interests.append(Interest.fromData(data: interest))
+                            self.user?.profile?.interests.append(Interest(inter: interest))
                         }
                     }
                 }
@@ -453,7 +459,10 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateProfile(profile: Profile, completion: @escaping (Bool) -> Void) {
+    func updateProfile(completion: @escaping (Bool) -> Void) {
+        let profile = self.user?.profile
+            
+        
         let input = ProfileData(profile: profile).data
         
         api.perform(mutation: UpsertMyProfileMutation(data: ProfileUpdateInput(input))) { result in
@@ -490,13 +499,15 @@ class UserManager: ObservableObject {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors as Any)
-                    self.interestCategories = Constants.interestCategories
+                    // FIXME: maybe?
+//                    self.interestCategories = Constants.interestCategories
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
-                    self.interestCategories = Constants.interestCategories
+                    // FIXME: maybe?
+//                    self.interestCategories = Constants.interestCategories
                     return
                 }
                 
@@ -521,7 +532,8 @@ class UserManager: ObservableObject {
                 }
             case .failure(let error):
                 debugPrint(error.localizedDescription)
-                self.interestCategories = Constants.interestCategories
+                // FIXME: maybe?
+//                self.interestCategories = Constants.interestCategories
             }
         }
     }
@@ -773,7 +785,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateCheckInStatus(id: String, completion: @escaping (String?, CheckIn?) -> Void) {
+    func updateCheckInStatus(id: String, completion: @escaping (String?, CheckInInfo?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: UpdateCheckInStatusMutation(id: id)) { result in
@@ -797,7 +809,7 @@ class UserManager: ObservableObject {
                 
                 self.isLoading = false
                 
-                let checkIn = CheckIn.fromData(data: data.updateCheckInStatus)
+                let checkIn = data.updateCheckInStatus?.fragments.checkInInfo
                 completion(nil, checkIn)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -807,7 +819,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func activeCheckIn(completion: @escaping (CheckIn?) -> Void) {
+    func activeCheckIn(completion: @escaping (CheckInInfo?) -> Void) {
         api.fetch(query: ActiveCheckInQuery()) { result in
             switch result {
             case .success(let value):
@@ -824,7 +836,7 @@ class UserManager: ObservableObject {
                 }
                 print(data.activeCheckIn as Any)
                 if data.activeCheckIn != nil {
-                    let checkIn = CheckIn.fromData(data: data.activeCheckIn)
+                    let checkIn = data.activeCheckIn?.fragments.checkInInfo
                     print("Active check in: \(String(describing: checkIn))")
                     completion(checkIn)
                 } else {
@@ -903,7 +915,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func getConversations(completion: @escaping ([Conversation]?) -> Void) {
+    func getConversations(completion: @escaping ([ConversationInfo]?) -> Void) {
         guard let id = self.user?.id else {
             completion(nil)
             return
@@ -923,10 +935,7 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                print("CHECK IF ARCHIVEAT IS COMING FROM THE SERVER")
-                print(data.conversations.map({ $0.archivedAt }))
-                
-                completion(Conversation.listFromData(data.conversations))
+                completion(data.conversations.compactMap({ $0.fragments.conversationInfo }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 completion(nil)
@@ -934,7 +943,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func getConversation(id: String, completion: @escaping (Conversation?) -> Void) {
+    func getConversation(id: String, completion: @escaping (ConversationInfo?) -> Void) {
         api.fetch(query: ConversationQuery(id: id)) { result in
             switch result {
             case .success(let value):
@@ -949,9 +958,9 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
-                print(data.conversation)
+                print(data.conversation?.fragments.conversationInfo)
                 
-                completion(Conversation.fromData(data: data.conversation))
+                completion(data.conversation?.fragments.conversationInfo)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 completion(nil)
@@ -959,7 +968,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func sendMessage(body: String, id: String, completion: @escaping (String?, String?) -> Void) {
+    func sendMessage(body: String, id: String, completion: @escaping (String?, MessageInfo?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: SendMessageMutation(body: body, conversationId: id)) { result in
@@ -979,15 +988,81 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("Successfully reacted to Profile!")
+                print("Message successfully was sent!")
                 
                 self.isLoading = false
                 
-                completion(nil, data.sendMessage.id)
+                completion(nil, data.sendMessage.fragments.messageInfo)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
                 completion(error.localizedDescription, nil)
+            }
+        }
+    }
+    
+    func deleteConversation(id: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: DeleteConversationMutation(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Conversation successfully was deleted!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
+        }
+    }
+    
+    func reportConversation(id: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: ReportConversationMutation(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Conversation successfully was reported!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
             }
         }
     }
@@ -1000,10 +1075,57 @@ class UserManager: ObservableObject {
         }
     }
     
-    func conversationSubscription() {
-//        api.subscribe(subscription: ) { result in
-//            
-//        }
+    var subscription: Cancellable?
+    @Published var newMessage: MessageInfo? = nil
+    
+    deinit {
+        self.subscription?.cancel()
+    }
+    
+    func conversationSubscription(completion: @escaping (MessageInfo?) -> Void) {
+        self.subscription = WSApi.subscribe(subscription: NotificationPushedSubscription()) { result in
+            guard let data = try? result.get().data else { return }
+            if let message = data.notificationPushed?.message?.fragments.messageInfo {
+                print(message.body)
+                self.newMessage = message
+                completion(message)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    func upsertUserDevice(deviceToken: String, deviceOs: String? = nil, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceOs: GraphQLNullable<String>.some(deviceOs ?? ""))) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Device token successfully was sent!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
+        }
     }
     
     // TODO: move to another Manager
@@ -1026,14 +1148,8 @@ class UserManager: ObservableObject {
                 self.businessesInit = []
                 
                 for bus in businesss {
-                    if let busForSave = Business.fromData(data: bus) {
-                        self.businesses.append(busForSave)
-                        self.businessesInit.append(busForSave)
-                    }
+                    self.businesses.append(bus.fragments.businessInfo)
                 }
-                
-//                self.businesses.append(contentsOf: Dummy.businesses)
-//                self.businessesInit.append(contentsOf: Dummy.businesses)
                 print(self.businesses)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -1059,13 +1175,13 @@ class UserManager: ObservableObject {
                 let profiles = data.profiles
                 self.profiles = []
                 
-                self.profiles.append(contentsOf: Dummy.profiles)
+//                self.profiles.append(contentsOf: Dummy.profiles)
                 
                 for profile in profiles {
-                    if let profile = Profile.fromData(data: profile) {
+                    if let profile {
                         //MARK:  excepting default db profile, excepting myself
                         if profile.id != "3" && profile.id != self.user?.profile?.id {
-                            self.profiles.append(profile)
+                            self.profiles.append(Profile(profile: profile.fragments.profileInfo))
                         }
                     }
                 }

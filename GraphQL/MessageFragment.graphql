@@ -1,0 +1,19 @@
+fragment MessageInfo on Message {
+  id
+  conversationId
+  body
+  senderId
+  sender {
+    id
+    profile {
+      name
+      images {
+        file {
+          url
+        }
+      }
+    }
+  }
+  createdAt
+  updatedAt
+}

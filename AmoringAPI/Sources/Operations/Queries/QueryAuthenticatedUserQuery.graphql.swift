@@ -7,7 +7,8 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
   public static let operationName: String = "QueryAuthenticatedUser"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryAuthenticatedUser { authenticatedUser { __typename id email status role profile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename id file { __typename url } } interests { __typename id name } createdAt updatedAt } business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename openAt closeAt day } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber latitude images { __typename id file { __typename url } } longitude createdAt updatedAt } createdAt updatedAt } }"#
+      #"query QueryAuthenticatedUser { authenticatedUser { __typename ...UserInfo } }"#,
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self, ProfileInfo.self, UserInfo.self]
     ))
 
   public init() {}
@@ -33,14 +34,7 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
       public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.User }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .field("id", AmoringAPI.ID.self),
-        .field("email", String?.self),
-        .field("status", GraphQLEnum<AmoringAPI.UserStatus>?.self),
-        .field("role", GraphQLEnum<AmoringAPI.UserRole>?.self),
-        .field("profile", Profile?.self),
-        .field("business", Business?.self),
-        .field("createdAt", AmoringAPI.DateTime?.self),
-        .field("updatedAt", AmoringAPI.DateTime?.self),
+        .fragment(UserInfo.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
@@ -52,6 +46,13 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
+      public struct Fragments: FragmentContainer {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public var userInfo: UserInfo { _toFragment() }
+      }
+
       /// AuthenticatedUser.Profile
       ///
       /// Parent Type: `Profile`
@@ -60,25 +61,6 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
-        public static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
-          .field("id", AmoringAPI.ID.self),
-          .field("userId", String.self),
-          .field("name", String?.self),
-          .field("age", Int?.self),
-          .field("birthYear", Int?.self),
-          .field("height", Int?.self),
-          .field("weight", Int?.self),
-          .field("mbti", String?.self),
-          .field("education", String?.self),
-          .field("occupation", String?.self),
-          .field("bio", String?.self),
-          .field("gender", GraphQLEnum<AmoringAPI.Gender>?.self),
-          .field("images", [Image?]?.self),
-          .field("interests", [Interest?]?.self),
-          .field("createdAt", AmoringAPI.DateTime?.self),
-          .field("updatedAt", AmoringAPI.DateTime?.self),
-        ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var userId: String { __data["userId"] }
@@ -97,6 +79,13 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
+        public struct Fragments: FragmentContainer {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public var profileInfo: ProfileInfo { _toFragment() }
+        }
+
         /// AuthenticatedUser.Profile.Image
         ///
         /// Parent Type: `ProfileImage`
@@ -105,49 +94,21 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("id", AmoringAPI.ID.self),
-            .field("file", File.self),
-          ] }
 
           public var id: AmoringAPI.ID { __data["id"] }
           public var file: File { __data["file"] }
 
-          /// AuthenticatedUser.Profile.Image.File
-          ///
-          /// Parent Type: `File`
-          public struct File: AmoringAPI.SelectionSet {
+          public struct Fragments: FragmentContainer {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
-            public static var __selections: [ApolloAPI.Selection] { [
-              .field("__typename", String.self),
-              .field("url", String?.self),
-            ] }
-
-            public var url: String? { __data["url"] }
+            public var imageFragment: ImageFragment { _toFragment() }
           }
+
+          public typealias File = ImageFragment.File
         }
 
-        /// AuthenticatedUser.Profile.Interest
-        ///
-        /// Parent Type: `Interest`
-        public struct Interest: AmoringAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Interest }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("id", AmoringAPI.ID.self),
-            .field("name", String?.self),
-          ] }
-
-          public var id: AmoringAPI.ID { __data["id"] }
-          public var name: String? { __data["name"] }
-        }
+        public typealias Interest = ProfileInfo.Interest
       }
 
       /// AuthenticatedUser.Business
@@ -158,35 +119,6 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Business }
-        public static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
-          .field("id", AmoringAPI.ID.self),
-          .field("ownerId", String?.self),
-          .field("businessName", String?.self),
-          .field("businessType", String?.self),
-          .field("businessIndustry", String?.self),
-          .field("businessCategory", String?.self),
-          .field("businessHours", [BusinessHour?]?.self),
-          .field("address", String?.self),
-          .field("addressBname", String?.self),
-          .field("addressDetails", String?.self),
-          .field("addressJibun", String?.self),
-          .field("addressSido", String?.self),
-          .field("addressSigungu", String?.self),
-          .field("addressSigunguCode", String?.self),
-          .field("addressSigunguEnglish", String?.self),
-          .field("addressZonecode", String?.self),
-          .field("bio", String?.self),
-          .field("representativeTitle", String?.self),
-          .field("representativeName", String?.self),
-          .field("phoneNumber", String?.self),
-          .field("registrationNumber", String?.self),
-          .field("latitude", Double?.self),
-          .field("images", [Image?]?.self),
-          .field("longitude", Double?.self),
-          .field("createdAt", AmoringAPI.DateTime?.self),
-          .field("updatedAt", AmoringAPI.DateTime?.self),
-        ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var ownerId: String? { __data["ownerId"] }
@@ -209,11 +141,19 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
         public var representativeName: String? { __data["representativeName"] }
         public var phoneNumber: String? { __data["phoneNumber"] }
         public var registrationNumber: String? { __data["registrationNumber"] }
-        public var latitude: Double? { __data["latitude"] }
         public var images: [Image?]? { __data["images"] }
+        public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
+        public var latitude: Double? { __data["latitude"] }
         public var longitude: Double? { __data["longitude"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+
+        public struct Fragments: FragmentContainer {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public var businessInfo: BusinessInfo { _toFragment() }
+        }
 
         /// AuthenticatedUser.Business.BusinessHour
         ///
@@ -223,51 +163,22 @@ public class QueryAuthenticatedUserQuery: GraphQLQuery {
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("openAt", AmoringAPI.LocalTime.self),
-            .field("closeAt", AmoringAPI.LocalTime.self),
-            .field("day", GraphQLEnum<AmoringAPI.Day>.self),
-          ] }
 
           public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
           public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
           public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
-        }
 
-        /// AuthenticatedUser.Business.Image
-        ///
-        /// Parent Type: `BusinessImage`
-        public struct Image: AmoringAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessImage }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("id", AmoringAPI.ID.self),
-            .field("file", File.self),
-          ] }
-
-          public var id: AmoringAPI.ID { __data["id"] }
-          public var file: File { __data["file"] }
-
-          /// AuthenticatedUser.Business.Image.File
-          ///
-          /// Parent Type: `File`
-          public struct File: AmoringAPI.SelectionSet {
+          public struct Fragments: FragmentContainer {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
-            public static var __selections: [ApolloAPI.Selection] { [
-              .field("__typename", String.self),
-              .field("url", String?.self),
-            ] }
-
-            public var url: String? { __data["url"] }
+            public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
           }
         }
+
+        public typealias Image = BusinessInfo.Image
+
+        public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
       }
     }
   }

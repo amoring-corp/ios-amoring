@@ -12,7 +12,7 @@ struct ExpandedView: View {
     let profile: Profile
     
     private func pictures() -> [String] {
-        var temp: [ProfileImage] = []
+        var temp: [MutatingImage] = []
         if profile.images.count > 2 {
             temp = profile.images
             temp.removeFirst()
@@ -110,6 +110,6 @@ struct ExpandedView: View {
     }
 }
 
-#Preview {
-    ExpandedView(profile: Profile(id: "", images: [], interests: []))
-}
+//#Preview {
+//    ExpandedView(profile: Profile(id: "", images: [], interests: []))
+//}

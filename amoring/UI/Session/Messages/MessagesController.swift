@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 class MessagesController: ObservableObject {
 //    @Published var reactions: [Reaction] = []
     @Published var reactions: [Reaction] = Dummy.reactions
-//    @Published var conversations: [Conversation] = Dummy.conversations
     @Published var conversations: [Conversation] = []
     @Published var alertPresented = false
+    @Published var selectedConversation: Conversation? = nil
+    @Published var goToConversation: Bool = false
     
     func delete(id: String) {
         withAnimation {
+            // TODO: implement removing from backend
             self.conversations.removeAll(where: { $0.id == id })
         }
     }

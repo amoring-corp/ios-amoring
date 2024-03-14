@@ -157,6 +157,7 @@ type Conversation {
   messages(take: Int = 10, skip: Int = 0): [Message]!
   createdAt: DateTime
   archivedAt: DateTime
+  deletedAt: DateTime
   updatedAt: DateTime
 }
 
@@ -261,9 +262,15 @@ type Message {
   body: String!
   senderId: String
   sender: User
+  conversationId: String
   conversation: Conversation
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+type Notification {
+  id: ID!
+  message: Message
 }
 
 """
@@ -285,6 +292,7 @@ type Profile {
   interests: [Interest]
   age: Int
   activeCheckIn: CheckIn
+  isOnline: Boolean!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -414,6 +422,16 @@ input UserCreateInput {
   profile: ProfileCreateInput!
 }
 
+type UserDevice {
+  id: ID!
+  deviceToken: String!
+  deviceOs: String
+  userId: String!
+  user: User!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 enum UserRole {
   admin
   business
@@ -435,6 +453,7 @@ input UserUpdateInput {
 
 type Mutation {
   signIn(email: String!, password: String!): SignInResult!
+  anySignIn(email: String!): SignInResult!
   validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
@@ -470,6 +489,9 @@ type Mutation {
   createCheckInByToken(token: String!): CheckIn
   updateCheckInStatus(id: ID!, status: CheckInStatus!): CheckIn
   checkOutFromActive: CheckIn
+  deleteConversation(id: ID!): Conversation!
+  reportConversation(id: ID!): Conversation!
+  upsertUserDevice(deviceToken: String!, deviceOs: String): UserDevice
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!
@@ -480,6 +502,7 @@ type Mutation {
   updateInterest(id: ID!, data: InterestUpdateInput!): Interest!
   deleteInterest(id: ID!): Interest!
   sendMessage(body: String!, conversationId: ID!): Message!
+  sendNotification: Boolean!
   batchUpsertBusinessHours(
     businessId: ID!
     data: [BusinessHoursInput!]!
@@ -520,4 +543,8 @@ type Query {
   user(id: ID!): User!
   profiles(role: UserRole): [Profile]!
   profile(id: ID!): Profile!
+}
+
+type Subscription {
+  notificationPushed: Notification
 }

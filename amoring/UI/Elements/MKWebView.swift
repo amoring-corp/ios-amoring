@@ -64,7 +64,7 @@ struct PostCodeServiceView: UIViewRepresentable {
         let _wkwebview = WKWebView(frame: .zero, configuration: configuration)
         _wkwebview.navigationDelegate = coordinator
         
-        let url = URL(string: "https://amoring-be.antonmaker.com/kakao-address")!
+        let url = URL(string: "https://amoring-be.antonmaker.com/kakao-address/ios")!
         let request = URLRequest(url: url)
         _wkwebview.load(request)
         return _wkwebview

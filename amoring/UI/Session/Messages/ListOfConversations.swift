@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import AmoringAPI
 import CachedAsyncImage
 
 struct ListOfConversations: View {
     @EnvironmentObject var controller: MessagesController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var alertPresented = false
-    @State var selectedConversation: Conversation? = nil
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -47,24 +49,34 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.createdAt > Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date().addingTimeInterval(Constants.TIME_OFFSET) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
+                            .onTapGesture {
+                                controller.selectedConversation = conversation
+                                controller.goToConversation = true
+                            }
                             .background(
-                                NavigationLink(destination: {
-                                    ConversationView(conversation: conversation)
-                                }) {
-                                    EmptyView()
-                                }.opacity(0)
+                                NavigationLink(isActive: $controller.goToConversation, destination: {
+                                    ConversationView()
+                                }, label: { EmptyView() })
+                                .isDetailLink(false)
+                                .opacity(0)
                             )
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
                             .swipeActions {
                                 Button(action: {
-                                    self.selectedConversation = conversation
                                     alertPresented = true
                                 }) {
                                     Text("삭제")
                                 }
+                            }
+                            .alertPatched(isPresented: $alertPresented) {
+                                Alert(
+                                    title: Text("메시지 삭제하기"),
+                                    message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"),
+                                    primaryButton: .destructive(Text("삭제"), action: { delete(id: conversation.id) }),
+                                    secondaryButton: .cancel(Text("취소")))
                             }
                     }
                     
@@ -85,7 +97,7 @@ struct ListOfConversations: View {
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                     
-                    ForEach(controller.conversations.filter { $0.createdAt < Date().addingTimeInterval(-86400) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(Constants.TIME_OFFSET) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation, expired: true)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
@@ -94,16 +106,18 @@ struct ListOfConversations: View {
                     Spacer(minLength: 200)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
-                    
                 }
                 .listStyle(.plain)
-                .alert(isPresented: $alertPresented) {
-                    Alert(
-                        title: Text("메시지 삭제하기"),
-                        message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"),
-                        primaryButton: .destructive(Text("삭제"), action: { controller.delete(id: selectedConversation?.id ?? "0") }),
-                        secondaryButton: .cancel(Text("취소")))
-                }
+            }
+        }
+    }
+    
+    private func delete(id: String) {
+        userManager.deleteConversation(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                controller.delete(id: id)
             }
         }
     }
@@ -119,9 +133,10 @@ struct ChatRow: View {
         HStack(spacing: 0) {
             
             let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
-            let url = user?.profile?.images.first?.file?.url ?? ""
+            //            let url: String? = user?.profile?.images??.first?.map({ $0.file.url ?? "" })
+            let url: String? = user?.profile?.images.first?.file?.url
             
-            CachedAsyncImage(url: URL(string: url), content: { image in
+            CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -130,9 +145,6 @@ struct ChatRow: View {
             .clipShape(Circle())
             .padding(.trailing, Size.w(12))
             .blur(radius: expired ? 6 : 0)
-            .onAppear {
-                    print(user?.profile.debugDescription ?? "fs")
-            }
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
@@ -144,14 +156,15 @@ struct ChatRow: View {
                             .frame(width: Size.w(6), height: Size.w(6))
                     } else {
                         Circle().fill()
-//                            .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
+                        //                            .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
                             .frame(width: Size.w(6), height: Size.w(6))
                     }
                     
                     Spacer()
                     
                     let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
-                    if conversation.messages.isEmpty && diff < 86400 {
+                    //                    let diff: TimeInterval = 0
+                    if conversation.messages.isEmpty {
                         Text("New")
                             .font(semiBold12Font)
                             .foregroundColor(.black)
@@ -166,21 +179,18 @@ struct ChatRow: View {
                     }
                 }
                 
-                Text(conversation.messages.last?.body ?? "👋 첫인사를 보내보세요!")
+                Text(conversation.messages.reversed().last?.body ?? "👋 첫인사를 보내보세요!")
                     .font(regular14Font)
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
-                //TODO: need from backend
-//                if let archivedAt = conversation.archivedAt {
                 let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
-                let eraseTime = Date() - archivedAt
-                    
-                    Text(eraseTime.toEraseTime())
-                        .font(regular12Font)
-                        .foregroundColor(.gray700)
-                        .opacity(expired ? 0 : 1)
-//                }
+                let eraseTime = archivedAt - Date().addingTimeInterval(Constants.TIME_OFFSET)
+                
+                Text(eraseTime.toEraseTime())
+                    .font(regular12Font)
+                    .foregroundColor(.gray700)
+                    .opacity(expired ? 0 : 1)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
         }

@@ -37,12 +37,12 @@ struct AccountBio: View {
             
             Button(action: {
                 userManager.user?.profile?.bio = self.bio
-                if let profile = userManager.user?.profile {
-                    userManager.updateProfile(profile: profile) { success in
+                
+                    userManager.updateProfile { success in
                         print("Bio Successfully saved")
                         self.presentationMode.wrappedValue.dismiss()
                     }
-                }
+                
             }) {
                 FullSizeButton(title: "저장", color: Color.black, bg: .yellow300, isLoading: userManager.isLoading, loadingColor: .gray1000)
             }

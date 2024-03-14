@@ -56,5 +56,19 @@
 		<string>Pretendard-Thin.ttf</string>
 		<string>Pretendard-Bold.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UNNotificationExtensionCategory</key>
+	<array>
+		<string>NEW_MESSAGE_CATEGORY</string>
+	</array>
+    <key>NSUserActivityTypes</key>
+    <array>
+      <string>INSendMessageIntent</string>
+    </array>
 </dict>
 </plist>

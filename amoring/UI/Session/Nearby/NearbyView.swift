@@ -185,9 +185,9 @@ struct BusinessListView: View {
             ) {
                 ForEach(userManager.businesses, id: \.self.id) { business in
                     NavigationLink(destination: {
-                        BusinessDetailsView(business: business)
+                        BusinessDetailsView(business: Business(businessInfo: business))
                     }) {
-                        BusinessRow(business: business)
+                        BusinessRow(business: Business(businessInfo: business))
                     }
                 }
             }

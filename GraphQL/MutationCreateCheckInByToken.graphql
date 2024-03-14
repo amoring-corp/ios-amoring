@@ -1,20 +1,5 @@
 mutation CreateCheckInByToken($token: String!) {
   createCheckInByToken(token: $token) {
-    id
-    businessId
-    business {
-      id
-      ownerId
-      businessName
-    }
-    profileId
-    profile {
-      id
-    }
-    status
-    checkedInAt
-    checkedOutAt
-    createdAt
-    updatedAt
+    ... CheckInInfo
   }
 }

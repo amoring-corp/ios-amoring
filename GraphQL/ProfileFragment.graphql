@@ -1,0 +1,36 @@
+fragment ProfileInfo on Profile {
+  id
+  userId
+  name
+  age
+  birthYear
+  height
+  weight
+  mbti
+  education
+  occupation
+  bio
+  gender
+  images {
+    ... ImageFragment
+  }
+  interests {
+    id
+    name
+    category {
+      id
+      createdAt
+      interests {
+        id
+        name
+      }
+      name
+      updatedAt
+    }
+    categoryId
+    createdAt
+    updatedAt
+  }
+  createdAt
+  updatedAt
+}

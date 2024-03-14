@@ -1,0 +1,16 @@
+fragment CheckInInfo on CheckIn {
+    id
+    businessId
+    business {
+      ... BusinessInfo
+    }
+    profileId
+    profile {
+      ... ProfileInfo
+    }
+    status
+    checkedInAt
+    checkedOutAt
+    createdAt
+    updatedAt
+}

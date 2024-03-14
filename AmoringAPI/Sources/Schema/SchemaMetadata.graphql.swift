@@ -31,14 +31,17 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Interest": return AmoringAPI.Objects.Interest
     case "InterestCategory": return AmoringAPI.Objects.InterestCategory
     case "Business": return AmoringAPI.Objects.Business
+    case "BusinessHours": return AmoringAPI.Objects.BusinessHours
+    case "BusinessImage": return AmoringAPI.Objects.BusinessImage
+    case "CheckIn": return AmoringAPI.Objects.CheckIn
     case "Query": return AmoringAPI.Objects.Query
     case "Message": return AmoringAPI.Objects.Message
-    case "CheckIn": return AmoringAPI.Objects.CheckIn
-    case "BusinessImage": return AmoringAPI.Objects.BusinessImage
-    case "BusinessHours": return AmoringAPI.Objects.BusinessHours
+    case "Subscription": return AmoringAPI.Objects.Subscription
+    case "Notification": return AmoringAPI.Objects.Notification
     case "Conversation": return AmoringAPI.Objects.Conversation
     case "SignUpResult": return AmoringAPI.Objects.SignUpResult
     case "CheckInToken": return AmoringAPI.Objects.CheckInToken
+    case "UserDevice": return AmoringAPI.Objects.UserDevice
     case "Reaction": return AmoringAPI.Objects.Reaction
     case "Report": return AmoringAPI.Objects.Report
     default: return nil

@@ -1,18 +1,5 @@
 mutation upsertMyProfile($data: ProfileUpdateInput!) {
   upsertMyProfile(data: $data) {
-    id
-    userId
-    name
-    age
-    birthYear
-    height
-    weight
-    mbti
-    education
-    occupation
-    bio
-    gender
-    createdAt
-    updatedAt
+    ... ProfileInfo
   }
 }

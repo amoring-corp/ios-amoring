@@ -1,34 +1,5 @@
 query Conversation($id: ID!) {
   conversation(id: $id) {
-    id
-    status
-    participants {
-      id
-      email
-      status
-      role
-      profile {
-        id
-        name
-      }
-      createdAt
-      updatedAt
-    }
-    messages(take: 10, skip: 0) {
-      id
-      body
-      senderId
-      sender {
-        id
-        profile {
-          name
-        }
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    archivedAt
-    updatedAt
+    ... ConversationInfo
   }
 }

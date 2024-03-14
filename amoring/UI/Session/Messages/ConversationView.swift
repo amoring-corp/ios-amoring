@@ -6,161 +6,169 @@
 //
 
 import SwiftUI
-import Combine
+import AmoringAPI
 
 struct ConversationView: View, KeyboardReadable {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var notificationController: NotificationController
-    let conversation: Conversation
     @State var newMessage = ""
     @State var controlPresented = false
-    @State var alertPresented = false
-    
-    @State var selectedConversation: Conversation? = nil
-    @State var messages: [Message] = []
+    @State var reportAlertPresented = false
+    @State var deleteAlertPresented = false
     
     var body: some View {
-        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
-    
-    
-        ScrollViewReader { proxy in
-            ZStack(alignment: .bottom) {
-                ScrollView {
-                    header()
-                    
-                    if messages.isEmpty {
-                        VStack(spacing: Size.w(15)) {
-                            Image("wine-two")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: Size.w(90), height: Size.w(90))
-                            
-                            Text("메시지를 시작할 수 있어요!")
-                                .font(medium22Font)
-                                .foregroundColor(.gray500)
-                            
-                            Text("서로 좋아요한 상대방과\n이제부터 여기서 메시지를 보낼 수 있어요.\n먼저 메시지를 보내보세요!")
-                                .font(medium16Font)
-                                .foregroundColor(.gray600)
-                                .lineSpacing(6)
-                                .multilineTextAlignment(.center)
+        if let conversation = controller.selectedConversation {
+            let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
+            
+            ScrollViewReader { proxy in
+                ZStack(alignment: .bottom) {
+                    ScrollView {
+                        header()
+                        
+                        if conversation.messages.isEmpty {
+                            VStack(spacing: Size.w(15)) {
+                                Image("wine-two")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: Size.w(90), height: Size.w(90))
+                                
+                                Text("메시지를 시작할 수 있어요!")
+                                    .font(medium22Font)
+                                    .foregroundColor(.gray500)
+                                
+                                Text("서로 좋아요한 상대방과\n이제부터 여기서 메시지를 보낼 수 있어요.\n먼저 메시지를 보내보세요!")
+                                    .font(medium16Font)
+                                    .foregroundColor(.gray600)
+                                    .lineSpacing(6)
+                                    .multilineTextAlignment(.center)
+                            }
+                            .padding(.top, Size.w(50))
+                        } else {
+                            ForEach(conversation.messages.reversed(), id: \.self) { message in
+                                MessageView(message: message)
+                                    .id(message.id)
+                            }
                         }
-                        .padding(.top, Size.w(50))
-                    } else {
-                        ForEach(messages, id: \.self) { message in
-                            MessageView(message: message)
-                                .id(message.id)
+                        /// do not remove this dublicate button. Bug: iOS 15,16 - no top bar while scrolling
+                        messageField(proxy: proxy).opacity(0.01).disabled(true).id("bottom")
+                    }
+                    
+                    .onAppear {
+                        proxy.scrollTo("bottom", anchor: .bottom)
+                    }
+                    .onReceive(keyboardPublisher) { isKeyboardVisible in
+                        if isKeyboardVisible {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                withAnimation {
+                                    proxy.scrollTo("bottom", anchor: .bottom)
+                                    //                                    proxy.scrollTo(messages.last?.id, anchor: .bottom)
+                                }
+                            }
                         }
                     }
-                    /// do not remove this dublicate button. Bug: iOS 15,16 - no top bar while scrolling
-                    messageField(proxy: proxy).opacity(0.01).disabled(true).id("bottom")
+                    .onTapGesture {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    .onChange(of: userManager.newMessage) { newMessage in
+                        // MARK: New message from subscription
+                        //                    if let newMessage, newMessage.senderId == companion?.id {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                            withAnimation {
+                                proxy.scrollTo("bottom", anchor: .bottom)
+                            }
+                        }
+                        //                    }
+                    }
+                    .onDisappear {
+                        DispatchQueue.main.async {
+                            controller.selectedConversation = nil
+                            controller.goToConversation = false
+                        }
+                    }
+                    
+                    messageField(proxy: proxy)
+                        .alertPatched(isPresented: $reportAlertPresented) {
+                            Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("보내기"), action: { report(id: conversation.id) }))
+                        }
+                        .alertPatched(isPresented: $deleteAlertPresented) {
+                            Alert(title: Text("메시지 삭제하기"), message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제"), action: { delete(id: conversation.id) }))
+                        }
                 }
-                
-                .onAppear {
-//                TODO: get messsages from current Conversation
-//                    pass avatar from COnversation list
-                    userManager.getConversation(id: conversation.id) { conv in
-                        print("current messages: \(conv?.messages)")
-                        self.messages = conv?.messages.reversed() ?? []
-                        self.selectedConversation = conv
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.gray1000)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(companion?.profile?.name ?? "")
+                        .font(medium20Font)
+                        .foregroundColor(.yellow300)
+                }
+            }
+            .navigationBarItems(leading:
+                                    BackButton(action: {
+                presentationMode.wrappedValue.dismiss()
+//                controller.selectedConversation = nil
+//                controller.goToConversation = false
+            }, color: Color.yellow300)
+                                , trailing:
+                                    Button(action: {
+                controlPresented = true
+            }) {
+                Image(systemName: "ellipsis")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: Size.w(20), height: Size.w(20))
+                    .rotationEffect(.degrees(90))
+                    .foregroundColor(.yellow300)
+            }
+                .confirmationDialog("", isPresented: $controlPresented, titleVisibility: .hidden) {
+                    Button("삭제") {
+                        deleteAlertPresented = true
+                    }
+                    Button("신고하기") {
+                        reportAlertPresented = true
+                    }
+                    Button("취소", role: .cancel) {
+                    }
+                }
+            )
+        }
+    }
+    
+    func sendMessage(_ proxy: ScrollViewProxy) {
+        if !newMessage.isEmpty, let conversation = controller.selectedConversation {
+            userManager.sendMessage(body: newMessage, id: conversation.id) { error, message in
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
+                } else if let message {
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            if let row = self.controller.conversations.firstIndex(where: { $0.id == message.conversationId }) {
+                                self.controller.conversations[row].messages.insert(Message(messageInfo: message), at: 0)
+                                if let selectedConversation = controller.selectedConversation {
+                                    self.controller.selectedConversation?.messages.insert(Message(messageInfo: message), at: 0)
+                                }
+                            }
+                            newMessage = ""
+                        }
                     }
                     
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         withAnimation {
-                            //                            proxy.scrollTo(messages.last?.id, anchor: .bottom)
                             proxy.scrollTo("bottom", anchor: .bottom)
                         }
                     }
                 }
-                .onReceive(keyboardPublisher) { isKeyboardVisible in
-                    if isKeyboardVisible {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            withAnimation {
-                                proxy.scrollTo("bottom", anchor: .bottom)
-                                //                                    proxy.scrollTo(messages.last?.id, anchor: .bottom)
-                            }
-                        }
-                    }
-                }
-                .onTapGesture {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                }
-                messageField(proxy: proxy)
-                    .alert(isPresented: $alertPresented) {
-                        Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("보내기"), action: { controller.report() }))
-                    }
             }
-        }
-        .frame(maxWidth: .infinity)
-        .background(Color.gray1000)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(companion?.profile?.name ?? "")
-                    .font(medium20Font)
-                    .foregroundColor(.yellow300)
-            }
-        }
-        .navigationBarItems(leading:
-                                BackButton(action: {
-            presentationMode.wrappedValue.dismiss()
-        }, color: Color.yellow300)
-                            , trailing:
-                                Button(action: {
-            controlPresented = true
-        }) {
-            Image(systemName: "ellipsis")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(20), height: Size.w(20))
-                .rotationEffect(.degrees(90))
-                .foregroundColor(.yellow300)
-        }
-            .confirmationDialog("", isPresented: $controlPresented, titleVisibility: .hidden) {
-                Button("삭제") {
-                    presentationMode.wrappedValue.dismiss()
-                    controller.delete(id: conversation.id)
-                }
-                Button("신고하기") {
-                    alertPresented = true
-                }
-                Button("취소", role: .cancel) {
-                }
-            }
-        )
-    }
-    
-    func sendMessage(_ proxy: ScrollViewProxy) {
-        if !newMessage.isEmpty {
-            userManager.sendMessage(body: newMessage, id: conversation.id) { error, id in
-                if let error {
-                    notificationController.setNotification(text: error, type: .error)
-                } else if let id {
-                    withAnimation {
-                        self.messages.append(Message(id: id, body: newMessage, sender: userManager.user, senderId: userManager.user?.id ?? "0", createdAt: Date(), updatedAt: Date()))
-                        
-                        newMessage = ""
-                        
-                        print(self.messages.count)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            withAnimation {
-                                //                        proxy.scrollTo(navigator.selectedConversation?.messages.last?.id, anchor: .bottom)
-                                proxy.scrollTo("bottom", anchor: .bottom)
-                            }
-                        }
-                    }
-                }
-            }
-            
         }
     }
     
     @ViewBuilder
     func header() -> some View {
-        let companion = conversation.participants.first(where: { $0.id != userManager.user?.id })
+        let companion = controller.selectedConversation?.participants.first(where: { $0.id != userManager.user?.id })
         let url = companion?.profile?.images.first?.file?.url ?? ""
         
         VStack {
@@ -179,7 +187,7 @@ struct ConversationView: View, KeyboardReadable {
                 + Text(" 에서")
                     .foregroundColor(.gray500)
                 
-                let diff = Date() - (self.selectedConversation?.createdAt ?? Date())
+                let diff = Date() - (controller.selectedConversation?.createdAt ?? Date())
 //                let endTime: TimeInterval = 24 * 60 * 60
                 
                 Text(diff.toPassedTime())
@@ -232,6 +240,28 @@ struct ConversationView: View, KeyboardReadable {
         }
         .background(Color.gray1000)
     }
+    
+    private func report(id: String) {
+        userManager.reportConversation(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                controller.delete(id: id)
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+    
+    private func delete(id: String) {
+        userManager.deleteConversation(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                controller.delete(id: id)
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
 }
 
 struct MessageView: View {
@@ -243,9 +273,10 @@ struct MessageView: View {
         
         if isOwner {
             HStack(alignment: .bottom) {
-                Text(message.createdAt.toTime())
+                Text(message.createdAt?.toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
+
                 Text(message.body)
                     .foregroundColor(.gray900)
                     .padding()
@@ -264,7 +295,7 @@ struct MessageView: View {
                     .background(Color.gray150)
                     .cornerRadius(16, corners: [.bottomRight, .topLeft, .topRight])
                 
-                Text(message.createdAt.toTime())
+                Text(message.createdAt?.toHM() ?? "")
                     .font(light12Font)
                     .foregroundColor(.gray400)
             }
@@ -274,7 +305,6 @@ struct MessageView: View {
         }
     }
 }
-
 
 //#Preview {
 //    ConversationView()

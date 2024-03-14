@@ -1,0 +1,6 @@
+fragment ImageFragment on ProfileImage {
+  id
+  file {
+    url
+  }
+}

@@ -11,7 +11,12 @@ extension String {
     func toDate(format: String = "yyyy-MM-dd") -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        return dateFormatter.date(from: self) ?? Date()
+        if let date = dateFormatter.date(from: self) {
+            // FIXME: hardcoded time to korean time
+            return date.addingTimeInterval(18 * 60 * 60)
+        } else {
+            return Date()
+        }
     }
     
     func HMSStringtoDate() -> Date {
@@ -187,6 +192,13 @@ extension View {
         }
     }
     
+    /// handling overlaying alerts!
+    public func alertPatched(isPresented: Binding<Bool>, content: () -> Alert) -> some View {
+        self.overlay(
+            EmptyView().alert(isPresented: isPresented, content: content),
+            alignment: .bottomTrailing
+        )
+    }
 //    func customSheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) -> some View where Content : View {
 //
 //    }

@@ -12,7 +12,7 @@ struct NavigatorView<Content: View>: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
     
-    @State var selectedIndex: Int = 1
+    @Binding var selectedIndex: Int
     let titles: [String] = TabBarType.allCases.map({ $0.tabTitle })
     
     @ViewBuilder let content: (Int) -> Content
@@ -67,6 +67,7 @@ struct NavigatorView<Content: View>: View {
     @ViewBuilder
     func setTrailing() -> some View {
         let infoButton = Button(action: {
+            print(UserDefaults.standard.string(forKey: "BOO"))
         }) {
             Image("ic-info")
                 .resizable()
@@ -210,8 +211,8 @@ enum TabBarType: Int, CaseIterable {
 }
 
 
-#Preview {
-    NavigatorView() { index in
-        
-    }
-}
+//#Preview {
+//    NavigatorView() { index in
+//        
+//    }
+//}
