@@ -11,9 +11,10 @@ import CachedAsyncImage
 
 struct ListOfConversations: View {
     @EnvironmentObject var controller: MessagesController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var alertPresented = false
-    @State var selectedConversation: Conversation? = nil
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -65,11 +66,17 @@ struct ListOfConversations: View {
                             .listRowBackground(Color.clear)
                             .swipeActions {
                                 Button(action: {
-                                    self.selectedConversation = conversation
                                     alertPresented = true
                                 }) {
                                     Text("삭제")
                                 }
+                            }
+                            .alertPatched(isPresented: $alertPresented) {
+                                Alert(
+                                    title: Text("메시지 삭제하기"),
+                                    message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"),
+                                    primaryButton: .destructive(Text("삭제"), action: { delete(id: conversation.id) }),
+                                    secondaryButton: .cancel(Text("취소")))
                             }
                     }
                     
@@ -99,16 +106,18 @@ struct ListOfConversations: View {
                     Spacer(minLength: 200)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
-                    
                 }
                 .listStyle(.plain)
-                .alert(isPresented: $alertPresented) {
-                    Alert(
-                        title: Text("메시지 삭제하기"),
-                        message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"),
-                        primaryButton: .destructive(Text("삭제"), action: { controller.delete(id: selectedConversation?.id ?? "0") }),
-                        secondaryButton: .cancel(Text("취소")))
-                }
+            }
+        }
+    }
+    
+    private func delete(id: String) {
+        userManager.deleteConversation(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                controller.delete(id: id)
             }
         }
     }

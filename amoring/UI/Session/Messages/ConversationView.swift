@@ -90,10 +90,10 @@ struct ConversationView: View, KeyboardReadable {
                     
                     messageField(proxy: proxy)
                         .alertPatched(isPresented: $reportAlertPresented) {
-                            Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("보내기"), action: { report(id: conversation.id) }))
+                            Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("보내기"), action: { report(id: conversation.id) }))
                         }
                         .alertPatched(isPresented: $deleteAlertPresented) {
-                            Alert(title: Text("DELETE"), message: Text("Are you sure you want to delete this conversation?"), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("Yes"), action: { delete(id: conversation.id) }))
+                            Alert(title: Text("메시지 삭제하기"), message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제"), action: { delete(id: conversation.id) }))
                         }
                 }
             }

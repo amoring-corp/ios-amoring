@@ -186,9 +186,6 @@
     "Amoring에서 탈퇴 시 해당 계정의 모든 정보는 영구 삭제되며 다시 복수 할 수 없습니다. Amoring 계정을 삭제하시겠습니까?" : {
 
     },
-    "Are you sure you want to delete this conversation?" : {
-
-    },
     "Basic" : {
 
     },
@@ -199,9 +196,6 @@
 
     },
     "DEBUGGING" : {
-
-    },
-    "DELETE" : {
 
     },
     "ERROR" : {
@@ -337,9 +331,6 @@
 
     },
     "smth went wrong!" : {
-
-    },
-    "Yes" : {
 
     },
     "Your password has been successfully updated" : {
