@@ -104,16 +104,18 @@ struct SessionFlow: View {
     private func subscription() {
         userManager.conversationSubscription { newMessage in
             if let newMessage {
-                if scenePhaseHelper.scenePhase != .active {
-                    setInnerPushNotification(newMessage: newMessage)
-                    notificationController.onTapOnPush = { goToCurrentMessage(newMessage: newMessage) }
-                    
-                } else {
-                    if !self.messagesController.goToConversation {
-                        notificationController.setNotification(title: newMessage.sender?.profile?.name, text: newMessage.body, type: .message, action: { goToCurrentMessage(newMessage: newMessage) } )
-                    }
-                }
-               
+//                if scenePhaseHelper.scenePhase != .active {
+//                    notificationController.setInnerPushNotification(newMessage: newMessage)
+//                    notificationController.onTapOnPush = { goToCurrentMessage(newMessage: newMessage) }
+//                    
+//                } else {
+//                    if !self.messagesController.goToConversation {
+//                        notificationController.setNotification(title: newMessage.sender?.profile?.name, text: newMessage.body, type: .message, action: { goToCurrentMessage(newMessage: newMessage) } )
+//                    }
+//                }
+                
+                notificationController.setInnerPushNotification(newMessage: newMessage)
+                notificationController.onTapOnPush = { goToCurrentMessage(newMessage: newMessage) }
                 if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
                     self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
                     if messagesController.selectedConversation != nil {
@@ -124,29 +126,6 @@ struct SessionFlow: View {
                 }
             }
         }
-    }
-    
-    private func setInnerPushNotification(newMessage: MessageInfo) {
-        let content = UNMutableNotificationContent()
-        content.title = newMessage.sender?.profile?.name ?? "TITLE"
-        content.body = newMessage.body
-        
-        content.categoryIdentifier = "newMessage"
-        content
-        if let fileURL: URL = URL(string: newMessage.sender?.profile?.images?.first??.file.url ?? "https://picsum.photos/200/300") {
-            guard let imageData = NSData(contentsOf: fileURL) else {
-                    return
-                }
-            guard let senderId = newMessage.senderId else { return }
-            guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: senderId + ".jpg", data: imageData, options: nil) else {
-                    print("error in UNNotificationAttachment.saveImageToDisk()")
-                    return
-                }
-            content.attachments = [attachment]
-        }
-        let center = UNUserNotificationCenter.current()
-        let request = UNNotificationRequest.init(identifier: "newMessage", content: content, trigger: nil)
-        center.add(request)
     }
 }
 

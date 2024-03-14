@@ -58,6 +58,7 @@ struct ListOfConversations: View {
                                 NavigationLink(isActive: $controller.goToConversation, destination: {
                                     ConversationView()
                                 }, label: { EmptyView() })
+                                .isDetailLink(false)
                                 .opacity(0)
                             )
                             .listRowInsets(EdgeInsets())

@@ -1,0 +1,5 @@
+mutation ReportConversation($id: ID!) {
+    reportConversation(id: $id) {
+    id
+  }
+}

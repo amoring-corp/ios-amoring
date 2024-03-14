@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import AmoringAPI
+import Intents
 
 enum NotificationType {
     case text
@@ -25,7 +27,7 @@ struct NotificationModel: Equatable {
     let action: () -> Void
 }
 
-class NotificationController: NSObject, ObservableObject, UNUserNotificationCenterDelegate  {
+class NotificationController: UNNotificationServiceExtension, ObservableObject, UNUserNotificationCenterDelegate  {
     @Published var notification: NotificationModel? = nil
     @Published var onTapOnPush: () -> Void = { print("empty") }
     
@@ -35,7 +37,7 @@ class NotificationController: NSObject, ObservableObject, UNUserNotificationCent
         /// The notifications settings
             UNUserNotificationCenter.current().delegate = self
             
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert, .providesAppNotificationSettings], completionHandler: {(granted, error) in
                 if (granted) {
                     DispatchQueue.main.async {
                         UIApplication.shared.registerForRemoteNotifications()
@@ -55,17 +57,14 @@ class NotificationController: NSObject, ObservableObject, UNUserNotificationCent
         completionHandler([.banner, .badge, .sound])
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("User Info = ",response.notification.request.content.userInfo)
-//        let content = response.notification.request.content.userInfo
-//        if let aps = content["aps"] as? [String: AnyObject] {
-//            let myValue = aps["my_value"]
-//        }
-        
-        
+
         if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-                    // Handle default action (tapping on notification)
-                    print("Tapped on notification from NotificationController")
             onTapOnPush()
         }
         
@@ -90,6 +89,79 @@ class NotificationController: NSObject, ObservableObject, UNUserNotificationCent
                 }
             }
         }
+    }
+  
+    func setInnerPushNotification(newMessage: MessageInfo) {
+        let senderName = newMessage.sender?.profile?.name ?? "TITLE"
+        let message = newMessage.body
+        var content = UNMutableNotificationContent()
+        content.title = senderName
+        content.body = message
+        content.categoryIdentifier = "newMessage"
+        
+        var personNameComponents = PersonNameComponents()
+        personNameComponents.nickname = newMessage.sender?.profile?.name ?? "TITLE"
+        var image: UIImage? = nil
+        if let urlString = newMessage.sender?.profile?.images?.first??.file.url,
+           let url = URL(string: urlString),
+           let data = try? Data(contentsOf: url) {
+            image = UIImage(data: data)
+        }
+        
+        var avatar: INImage? = nil
+        
+        if let image {
+            avatar = INImage(imageData: image.pngData()!)
+        }
+        
+        let senderPerson = INPerson(
+            personHandle: INPersonHandle(value: "1233211234", type: .unknown),
+            nameComponents: personNameComponents,
+            displayName: senderName,
+            image: avatar,
+            contactIdentifier: nil,
+            customIdentifier: nil,
+            isMe: false,
+            suggestionType: .none
+        )
+
+        let intent = INSendMessageIntent(
+            recipients: [],
+            outgoingMessageType: .outgoingMessageText,
+            content: message,
+            speakableGroupName: INSpeakableString(spokenPhrase: senderName),
+            conversationIdentifier: "newMessage",
+            serviceName: nil,
+            sender: senderPerson,
+            attachments: nil
+        )
+        let interaction = INInteraction(intent: intent, response: nil)
+        interaction.direction = .incoming
+
+        interaction.donate(completion: nil)
+        intent.setImage(avatar, forParameterNamed: \.speakableGroupName)
+        
+        do {
+            content = try content.updating(from: intent) as! UNMutableNotificationContent
+        } catch {
+            print("errrrror updating Intent!")
+        }
+        
+//        if let fileURL: URL = URL(string: newMessage.sender?.profile?.images?.first??.file.url ?? "https://picsum.photos/200/300") {
+//            guard let imageData = NSData(contentsOf: fileURL) else {
+//                    return
+//                }
+//            guard let senderId = newMessage.senderId else { return }
+//            guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: senderId + ".jpg", data: imageData, options: nil) else {
+//                    print("error in UNNotificationAttachment.saveImageToDisk()")
+//                    return
+//                }
+//            content.attachments = [attachment]
+//        }
+        
+        let center = UNUserNotificationCenter.current()
+        let request = UNNotificationRequest.init(identifier: "newMessage", content: content, trigger: nil)
+        center.add(request)
     }
     
     override init() {

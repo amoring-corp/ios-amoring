@@ -70,26 +70,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     }
-    
-    
-    
-//    // Called to let your app know which action was selected by the user for a given notification.
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-//        print("User Info = ",response.notification.request.content.userInfo)
-////        let content = response.notification.request.content.userInfo
-////        if let aps = content["aps"] as? [String: AnyObject] {
-////            let myValue = aps["my_value"]
-////        }
-//        
-//        
-//        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-//                    // Handle default action (tapping on notification)
-//                    print("Tapped on notification")
-//            notificationController.onTapOnPush()
-//        }
-//        
-//        completionHandler()
-//    }
 }
 
 func getPushNotificationDeeplink(notificationDictionary: [AnyHashable:Any]) {

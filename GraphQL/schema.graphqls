@@ -157,6 +157,7 @@ type Conversation {
   messages(take: Int = 10, skip: Int = 0): [Message]!
   createdAt: DateTime
   archivedAt: DateTime
+  deletedAt: DateTime
   updatedAt: DateTime
 }
 
@@ -488,6 +489,8 @@ type Mutation {
   createCheckInByToken(token: String!): CheckIn
   updateCheckInStatus(id: ID!, status: CheckInStatus!): CheckIn
   checkOutFromActive: CheckIn
+  deleteConversation(id: ID!): Conversation!
+  reportConversation(id: ID!): Conversation!
   upsertUserDevice(deviceToken: String!, deviceOs: String): UserDevice
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(

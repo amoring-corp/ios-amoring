@@ -15,7 +15,8 @@ struct ConversationView: View, KeyboardReadable {
     @EnvironmentObject var notificationController: NotificationController
     @State var newMessage = ""
     @State var controlPresented = false
-    @State var alertPresented = false
+    @State var reportAlertPresented = false
+    @State var deleteAlertPresented = false
     
     var body: some View {
         if let conversation = controller.selectedConversation {
@@ -88,8 +89,11 @@ struct ConversationView: View, KeyboardReadable {
                     }
                     
                     messageField(proxy: proxy)
-                        .alert(isPresented: $alertPresented) {
-                            Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("보내기"), action: { controller.report() }))
+                        .alertPatched(isPresented: $reportAlertPresented) {
+                            Alert(title: Text("신고하기"), message: Text("이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("보내기"), action: { report(id: conversation.id) }))
+                        }
+                        .alertPatched(isPresented: $deleteAlertPresented) {
+                            Alert(title: Text("DELETE"), message: Text("Are you sure you want to delete this conversation?"), primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("Yes"), action: { delete(id: conversation.id) }))
                         }
                 }
             }
@@ -122,11 +126,10 @@ struct ConversationView: View, KeyboardReadable {
             }
                 .confirmationDialog("", isPresented: $controlPresented, titleVisibility: .hidden) {
                     Button("삭제") {
-                        presentationMode.wrappedValue.dismiss()
-                        controller.delete(id: conversation.id)
+                        deleteAlertPresented = true
                     }
                     Button("신고하기") {
-                        alertPresented = true
+                        reportAlertPresented = true
                     }
                     Button("취소", role: .cancel) {
                     }
@@ -236,6 +239,28 @@ struct ConversationView: View, KeyboardReadable {
             .padding(.top, Size.w(10))
         }
         .background(Color.gray1000)
+    }
+    
+    private func report(id: String) {
+        userManager.reportConversation(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                controller.delete(id: id)
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+    
+    private func delete(id: String) {
+        userManager.deleteConversation(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                controller.delete(id: id)
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }
 

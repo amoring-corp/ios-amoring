@@ -192,6 +192,13 @@ extension View {
         }
     }
     
+    /// handling overlaying alerts!
+    public func alertPatched(isPresented: Binding<Bool>, content: () -> Alert) -> some View {
+        self.overlay(
+            EmptyView().alert(isPresented: isPresented, content: content),
+            alignment: .bottomTrailing
+        )
+    }
 //    func customSheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) -> some View where Content : View {
 //
 //    }
