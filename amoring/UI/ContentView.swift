@@ -9,8 +9,8 @@ import SwiftUI
 import Apollo
 
 struct ContentView: View {
+    @EnvironmentObject var notificationController: NotificationController
     @StateObject var sessionManager = SessionManager()
-    @StateObject var notificationController = NotificationController()
     @StateObject var businessSignUpController: BusinessSignUpController = BusinessSignUpController()
 
     var body: some View {
@@ -32,7 +32,6 @@ struct ContentView: View {
                 
         )
         .environmentObject(sessionManager)
-        .environmentObject(notificationController)
         .environmentObject(businessSignUpController)
         .onAppear {
             sessionManager.getCurrentSession { success, error in

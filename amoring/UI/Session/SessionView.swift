@@ -89,32 +89,38 @@ struct SessionFlow: View {
         }
     }
     
+    private func goToCurrentMessage(newMessage: MessageInfo) {
+        DispatchQueue.main.async {
+            self.selectedIndex = 2
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation {
+                self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
+                self.messagesController.goToConversation = messagesController.selectedConversation != nil
+            }
+        }
+    }
     
     private func subscription() {
         userManager.conversationSubscription { newMessage in
             if let newMessage {
-                if self.messagesController.selectedConversation == nil {
-                    notificationController.setNotification(title: newMessage.sender?.profile?.name, text: newMessage.body, type: .message, action: {
-                        withAnimation {
-                            self.selectedIndex = 2
-                            self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
-                            
-                            self.messagesController.goToConversation = messagesController.selectedConversation != nil
-                            
-                        }
-                    })
-                    
-                    
-                }
                 if scenePhaseHelper.scenePhase != .active {
                     setInnerPushNotification(newMessage: newMessage)
+                    notificationController.onTapOnPush = { goToCurrentMessage(newMessage: newMessage) }
+                    
+                } else {
+                    if !self.messagesController.goToConversation {
+                        notificationController.setNotification(title: newMessage.sender?.profile?.name, text: newMessage.body, type: .message, action: { goToCurrentMessage(newMessage: newMessage) } )
+                    }
                 }
-                
+               
                 if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
                     self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
-                    if let selectedConversation = messagesController.selectedConversation {
+                    if messagesController.selectedConversation != nil {
                         self.messagesController.selectedConversation?.messages.insert(Message(messageInfo: newMessage), at: 0)
                     }
+                } else {
+                    print("SessionView: finding proper conversation error!")
                 }
             }
         }
@@ -124,9 +130,9 @@ struct SessionFlow: View {
         let content = UNMutableNotificationContent()
         content.title = newMessage.sender?.profile?.name ?? "TITLE"
         content.body = newMessage.body
-        content.badge = 0
+        
         content.categoryIdentifier = "newMessage"
-      
+        content
         if let fileURL: URL = URL(string: newMessage.sender?.profile?.images?.first??.file.url ?? "https://picsum.photos/200/300") {
             guard let imageData = NSData(contentsOf: fileURL) else {
                     return

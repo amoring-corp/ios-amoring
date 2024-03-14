@@ -5,12 +5,12 @@
 //  Created by Sergey Li on 3/7/24.
 //
 
-import Foundation
+import SwiftUI
 import AWSSNS
 import UserNotifications
 
-class AppDelegate: UNNotificationServiceExtension, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
+class AppDelegate: NSObject, UIApplicationDelegate {
+    
     /// The SNS Platform application ARN
     let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"
 
@@ -26,7 +26,7 @@ class AppDelegate: UNNotificationServiceExtension, UIApplicationDelegate, UNUser
         
         AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
         
-        registerForPushNotifications(application: application)
+//        notificationController.registerForPushNotifications(application: application)
         return true
     }
 
@@ -69,54 +69,27 @@ class AppDelegate: UNNotificationServiceExtension, UIApplicationDelegate, UNUser
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        getPushNotificationDeeplink(notificationDictionary: userInfo)
     }
     
-    func registerForPushNotifications(application: UIApplication) {
-        /// The notifications settings
-            UNUserNotificationCenter.current().delegate = self
-            
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
-                if (granted) {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
-                } else {
-                    //Do stuff if unsuccessful...
-                }
-            })
-    }
-
-    // Called when a notification is delivered to a foreground app.
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        print("User Info = ",notification.request.content.userInfo)
-        print("foreground")
-        
-        completionHandler([.banner, .badge, .sound])
-    }
     
-    // Called to let your app know which action was selected by the user for a given notification.
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        print("DID RECEIVE")
-        print("User Info = ",response.notification.request.content.userInfo)
-//        let content = response.notification.request.content.userInfo
-//        if let aps = content["aps"] as? [String: AnyObject] {
-//            let myValue = aps["my_value"]
+    
+//    // Called to let your app know which action was selected by the user for a given notification.
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        print("User Info = ",response.notification.request.content.userInfo)
+////        let content = response.notification.request.content.userInfo
+////        if let aps = content["aps"] as? [String: AnyObject] {
+////            let myValue = aps["my_value"]
+////        }
+//        
+//        
+//        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
+//                    // Handle default action (tapping on notification)
+//                    print("Tapped on notification")
+//            notificationController.onTapOnPush()
 //        }
-        
-        
-        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-                    // Handle default action (tapping on notification)
-                    print("Tapped on notification")
-            
-        }
-        
-        completionHandler()
-    }
+//        
+//        completionHandler()
+//    }
 }
 
 func getPushNotificationDeeplink(notificationDictionary: [AnyHashable:Any]) {

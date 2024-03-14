@@ -11,13 +11,12 @@ import KakaoSDKAuth
 import GoogleSignIn
 import NaverThirdPartyLogin
 
-
-
 @main
 struct amoringApp: App {
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @StateObject var scenePhaseHelper = ScenePhaseHelper()
+    @StateObject var notificationController = NotificationController()
     
     init() {
         KakaoSDK.initSDK(appKey: "88a121ae97540f56f106e7f52609022c")
@@ -54,6 +53,7 @@ struct amoringApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(scenePhaseHelper)
+                .environmentObject(notificationController)
                 .preferredColorScheme(.dark)
                 .environment(\.locale, .init(identifier: "ko"))
                 .onAppear {

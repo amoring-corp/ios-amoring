@@ -27,8 +27,50 @@ struct NotificationModel: Equatable {
 
 class NotificationController: NSObject, ObservableObject, UNUserNotificationCenterDelegate  {
     @Published var notification: NotificationModel? = nil
+    @Published var onTapOnPush: () -> Void = { print("empty") }
     
     @Published var offset: CGSize = CGSize.zero
+    
+    func registerForPushNotifications() {
+        /// The notifications settings
+            UNUserNotificationCenter.current().delegate = self
+            
+            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
+                if (granted) {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                } else {
+                    //Do stuff if unsuccessful...
+                }
+            })
+    }
+
+    // Called when a notification is delivered to a foreground app.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        print("User Info = ",notification.request.content.userInfo)
+        print("foreground")
+        
+        completionHandler([.banner, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("User Info = ",response.notification.request.content.userInfo)
+//        let content = response.notification.request.content.userInfo
+//        if let aps = content["aps"] as? [String: AnyObject] {
+//            let myValue = aps["my_value"]
+//        }
+        
+        
+        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
+                    // Handle default action (tapping on notification)
+                    print("Tapped on notification from NotificationController")
+            onTapOnPush()
+        }
+        
+        completionHandler()
+    }
     
     func setNotification(show: Bool? = nil, title: String? = nil, text: String, type: NotificationType, action: (() -> Void)? = nil) {
         /// removes previous notification before showing new
@@ -50,11 +92,10 @@ class NotificationController: NSObject, ObservableObject, UNUserNotificationCent
         }
     }
     
-//    override init() {
-//        
-//        super.init()
-//        self.registerForPushNotifications()
-//    }
+    override init() {
+        super.init()
+        self.registerForPushNotifications()
+    }
     
     @ViewBuilder
     func body() -> some View {
@@ -123,8 +164,5 @@ class NotificationController: NSObject, ObservableObject, UNUserNotificationCent
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .opacity(notification == nil ? 0 : 1)
     }
-    
-    
-    
     
 }

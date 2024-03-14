@@ -81,8 +81,10 @@ struct ConversationView: View, KeyboardReadable {
                         //                    }
                     }
                     .onDisappear {
-                        controller.selectedConversation = nil
-                        controller.goToConversation = false
+                        DispatchQueue.main.async {
+                            controller.selectedConversation = nil
+                            controller.goToConversation = false
+                        }
                     }
                     
                     messageField(proxy: proxy)
@@ -103,9 +105,9 @@ struct ConversationView: View, KeyboardReadable {
             }
             .navigationBarItems(leading:
                                     BackButton(action: {
-//                presentationMode.wrappedValue.dismiss()
-                controller.selectedConversation = nil
-                controller.goToConversation = false
+                presentationMode.wrappedValue.dismiss()
+//                controller.selectedConversation = nil
+//                controller.goToConversation = false
             }, color: Color.yellow300)
                                 , trailing:
                                     Button(action: {
