@@ -266,6 +266,7 @@ struct BusinessOnboardingView: View {
                     .background(Color.yellow300)
                     .shadow(color: Color.black.opacity(0.1), radius: 50, y: -20)
                 }
+                .ignoresSafeArea(.keyboard, edges: .bottom)
             }
         }
         .navigationBarHidden(true)

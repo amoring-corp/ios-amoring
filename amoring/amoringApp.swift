@@ -37,7 +37,7 @@ struct amoringApp: App {
         NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
         NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted: Bool, error: Error?) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in
             if granted {
                 print("Notifications permission granted")
             } else {

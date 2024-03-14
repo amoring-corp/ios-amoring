@@ -183,8 +183,10 @@ struct UserOnboardingIntro: View {
                     .background(Color.yellow300)
                     .shadow(color: Color.black.opacity(0.1), radius: 50, y: -20)
                 }
+                
             }
             .navigationBarHidden(true)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
 //            .navigationBarTitleDisplayMode(.inline)
             .onTapGesture {
                 closeKeyboard()
