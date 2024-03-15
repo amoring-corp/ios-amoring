@@ -143,8 +143,8 @@
 		853AFD4E2B1DB2150020A570 /* NavigationAmoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */; };
 		853AFD522B1DBD7F0020A570 /* NavigationAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */; };
 		853AFD542B1DC6BF0020A570 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AFD532B1DC6BF0020A570 /* CustomTextField.swift */; };
-		853D16A72BA42BCE006636EC /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 853D16A62BA42BCD006636EC /* schema.graphqls */; };
 		853D16A92BA43F8E006636EC /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 853D16A82BA43F8D006636EC /* Configuration.storekit */; };
+		853D16AD2BA44EAB006636EC /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 853D16AC2BA44EAB006636EC /* schema.graphqls */; };
 		854C7B032B180C5D0060CE03 /* CoctailToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B022B180C5D0060CE03 /* CoctailToggle.swift */; };
 		854C7B052B1815EE0060CE03 /* PurchasedLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */; };
 		854C7B072B1818AB0060CE03 /* LikesFromMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854C7B062B1818AB0060CE03 /* LikesFromMaxView.swift */; };
@@ -456,8 +456,8 @@
 		853AFD4D2B1DB2150020A570 /* NavigationAmoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAmoringController.swift; sourceTree = "<group>"; };
 		853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAuthController.swift; sourceTree = "<group>"; };
 		853AFD532B1DC6BF0020A570 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		853D16A62BA42BCD006636EC /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		853D16A82BA43F8D006636EC /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		853D16AC2BA44EAB006636EC /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		854C7B022B180C5D0060CE03 /* CoctailToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailToggle.swift; sourceTree = "<group>"; };
 		854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedLikesView.swift; sourceTree = "<group>"; };
 		854C7B062B1818AB0060CE03 /* LikesFromMaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesFromMaxView.swift; sourceTree = "<group>"; };
@@ -988,7 +988,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				853D16A62BA42BCD006636EC /* schema.graphqls */,
+				853D16AC2BA44EAB006636EC /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1296,6 +1296,7 @@
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				2B20497C2B95A3E200E633E3 /* BusinessFragment.graphql in Resources */,
+				853D16AD2BA44EAB006636EC /* schema.graphqls in Resources */,
 				850A301F2B0AEF41003B12B7 /* Pretendard-Thin.ttf in Resources */,
 				2B2049E72B9ADE7000E633E3 /* UpsertUserDevice.graphql in Resources */,
 				850A30392B0B236A003B12B7 /* Localizable.xcstrings in Resources */,
@@ -1353,7 +1354,6 @@
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2FADA42B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql in Resources */,
 				850A30242B0AEF41003B12B7 /* Pretendard-ExtraLight.ttf in Resources */,
-				853D16A72BA42BCE006636EC /* schema.graphqls in Resources */,
 				2B20497A2B95A0B000E633E3 /* ProfileFragment.graphql in Resources */,
 				2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */,
 				85769E212B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql in Resources */,

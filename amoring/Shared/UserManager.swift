@@ -1083,7 +1083,20 @@ class UserManager: ObservableObject {
     }
     
     func conversationSubscription(completion: @escaping (MessageInfo?) -> Void) {
-        self.subscription = WSApi.subscribe(subscription: NotificationSubscription()) { result in
+        self.subscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
+            guard let data = try? result.get().data else { return }
+            if let message = data.messageSent?.fragments.messageInfo {
+                print(message.body)
+                self.newMessage = message
+                completion(message)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+        .... continue here
+    func reactionSubscription(completion: @escaping (Reaction?) -> Void) {
+        self.subscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let message = data.messageSent?.fragments.messageInfo {
                 print(message.body)

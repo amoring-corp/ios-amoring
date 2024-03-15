@@ -1,5 +1,21 @@
-subscription Notification {
+subscription MessageSent {
   messageSent {
       ... MessageInfo
+  }
+}
+
+subscription ReactionMatched {
+  reactionMatched {
+    id
+    byProfileId
+    byProfile {
+      ... ProfileInfo
+    }
+    toProfileId
+    type
+    matchedWithId
+    isMatched
+    createdAt
+    updatedAt
   }
 }

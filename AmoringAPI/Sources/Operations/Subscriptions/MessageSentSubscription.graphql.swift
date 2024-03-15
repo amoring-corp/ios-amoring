@@ -3,11 +3,11 @@
 
 @_exported import ApolloAPI
 
-public class NotificationSubscription: GraphQLSubscription {
-  public static let operationName: String = "Notification"
+public class MessageSentSubscription: GraphQLSubscription {
+  public static let operationName: String = "MessageSent"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"subscription Notification { messageSent { __typename ...MessageInfo } }"#,
+      #"subscription MessageSent { messageSent { __typename ...MessageInfo } }"#,
       fragments: [MessageInfo.self]
     ))
 

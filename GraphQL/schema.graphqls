@@ -543,4 +543,5 @@ type Query {
 
 type Subscription {
   messageSent: Message
+  reactionMatched: Reaction
 }
