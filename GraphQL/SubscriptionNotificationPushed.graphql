@@ -1,8 +1,0 @@
-subscription NotificationPushed {
-  notificationPushed {
-    id
-    message {
-      ... MessageInfo
-    }
-  }
-}

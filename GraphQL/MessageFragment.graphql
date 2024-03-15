@@ -3,6 +3,8 @@ fragment MessageInfo on Message {
   conversationId
   body
   senderId
+  senderAvatarUrl
+  senderName
   sender {
     id
     profile {

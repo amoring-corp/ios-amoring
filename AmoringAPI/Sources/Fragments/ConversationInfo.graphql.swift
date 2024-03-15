@@ -209,6 +209,8 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
     public var conversationId: String? { __data["conversationId"] }
     public var body: String { __data["body"] }
     public var senderId: String? { __data["senderId"] }
+    public var senderAvatarUrl: String? { __data["senderAvatarUrl"] }
+    public var senderName: String? { __data["senderName"] }
     public var sender: Sender? { __data["sender"] }
     public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
     public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }

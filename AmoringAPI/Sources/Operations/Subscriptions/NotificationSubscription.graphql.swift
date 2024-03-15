@@ -3,48 +3,31 @@
 
 @_exported import ApolloAPI
 
-public class SendMessageMutation: GraphQLMutation {
-  public static let operationName: String = "SendMessage"
+public class NotificationSubscription: GraphQLSubscription {
+  public static let operationName: String = "Notification"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation SendMessage($body: String!, $conversationId: ID!) { sendMessage(body: $body, conversationId: $conversationId) { __typename ...MessageInfo } }"#,
+      #"subscription Notification { messageSent { __typename ...MessageInfo } }"#,
       fragments: [MessageInfo.self]
     ))
 
-  public var body: String
-  public var conversationId: ID
-
-  public init(
-    body: String,
-    conversationId: ID
-  ) {
-    self.body = body
-    self.conversationId = conversationId
-  }
-
-  public var __variables: Variables? { [
-    "body": body,
-    "conversationId": conversationId
-  ] }
+  public init() {}
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Subscription }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("sendMessage", SendMessage.self, arguments: [
-        "body": .variable("body"),
-        "conversationId": .variable("conversationId")
-      ]),
+      .field("messageSent", MessageSent?.self),
     ] }
 
-    public var sendMessage: SendMessage { __data["sendMessage"] }
+    public var messageSent: MessageSent? { __data["messageSent"] }
 
-    /// SendMessage
+    /// MessageSent
     ///
     /// Parent Type: `Message`
-    public struct SendMessage: AmoringAPI.SelectionSet {
+    public struct MessageSent: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 

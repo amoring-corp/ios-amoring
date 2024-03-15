@@ -262,15 +262,12 @@ type Message {
   body: String!
   senderId: String
   sender: User
+  senderAvatarUrl: String
+  senderName: String
   conversationId: String
   conversation: Conversation
   createdAt: DateTime
   updatedAt: DateTime
-}
-
-type Notification {
-  id: ID!
-  message: Message
 }
 
 """
@@ -502,7 +499,6 @@ type Mutation {
   updateInterest(id: ID!, data: InterestUpdateInput!): Interest!
   deleteInterest(id: ID!): Interest!
   sendMessage(body: String!, conversationId: ID!): Message!
-  sendNotification: Boolean!
   batchUpsertBusinessHours(
     businessId: ID!
     data: [BusinessHoursInput!]!
@@ -546,5 +542,5 @@ type Query {
 }
 
 type Subscription {
-  notificationPushed: Notification
+  messageSent: Message
 }

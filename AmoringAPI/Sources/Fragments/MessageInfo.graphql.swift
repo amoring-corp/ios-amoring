@@ -5,7 +5,7 @@
 
 public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment MessageInfo on Message { __typename id conversationId body senderId sender { __typename id profile { __typename name images { __typename file { __typename url } } } } createdAt updatedAt }"#
+    #"fragment MessageInfo on Message { __typename id conversationId body senderId senderAvatarUrl senderName sender { __typename id profile { __typename name images { __typename file { __typename url } } } } createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -18,6 +18,8 @@ public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
     .field("conversationId", String?.self),
     .field("body", String.self),
     .field("senderId", String?.self),
+    .field("senderAvatarUrl", String?.self),
+    .field("senderName", String?.self),
     .field("sender", Sender?.self),
     .field("createdAt", AmoringAPI.DateTime?.self),
     .field("updatedAt", AmoringAPI.DateTime?.self),
@@ -27,6 +29,8 @@ public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
   public var conversationId: String? { __data["conversationId"] }
   public var body: String { __data["body"] }
   public var senderId: String? { __data["senderId"] }
+  public var senderAvatarUrl: String? { __data["senderAvatarUrl"] }
+  public var senderName: String? { __data["senderName"] }
   public var sender: Sender? { __data["sender"] }
   public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
   public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }

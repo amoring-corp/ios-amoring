@@ -1083,31 +1083,9 @@ class UserManager: ObservableObject {
     }
     
     func conversationSubscription(completion: @escaping (MessageInfo?) -> Void) {
-//        let notification {
-//            let type // newMessage, newReaction, deletedConversation
-//            let payload {
-//                let message?
-//                let conversation?
-//                let reaction?
-//            }
-//        }
-//        
-//        switch notification.type {
-//        case .newMessage {
-//            
-//        }
-//        case .newReaction {
-//            
-//        }
-//        case .deletedConversation {
-//            
-//        }
-//        default: return
-//        }
-        
-        self.subscription = WSApi.subscribe(subscription: NotificationPushedSubscription()) { result in
+        self.subscription = WSApi.subscribe(subscription: NotificationSubscription()) { result in
             guard let data = try? result.get().data else { return }
-            if let message = data.notificationPushed?.message?.fragments.messageInfo {
+            if let message = data.messageSent?.fragments.messageInfo {
                 print(message.body)
                 self.newMessage = message
                 completion(message)

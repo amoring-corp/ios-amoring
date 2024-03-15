@@ -66,7 +66,10 @@ struct SessionFlow: View {
             userManager.activeCheckIn { activeCheckIn in
                 amoringController.checkIn = activeCheckIn
             }
-           
+            
+            /// in App Purchases
+            purchaseController.fetchProducts()
+            
             if self.messagesController.conversations.isEmpty {
                 userManager.getConversations { conversations in
                     if let conversations {

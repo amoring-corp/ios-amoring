@@ -100,9 +100,9 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
         content.categoryIdentifier = "newMessage"
         
         var personNameComponents = PersonNameComponents()
-        personNameComponents.nickname = newMessage.sender?.profile?.name ?? "TITLE"
+        personNameComponents.nickname = newMessage.senderName ?? "unknown"
         var image: UIImage? = nil
-        if let urlString = newMessage.sender?.profile?.images?.first??.file.url,
+        if let urlString = newMessage.senderAvatarUrl,
            let url = URL(string: urlString),
            let data = try? Data(contentsOf: url) {
             image = UIImage(data: data)
