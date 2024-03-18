@@ -29,9 +29,11 @@ struct NotificationModel: Equatable {
 
 class NotificationController: UNNotificationServiceExtension, ObservableObject, UNUserNotificationCenterDelegate  {
     @Published var notification: NotificationModel? = nil
-    @Published var onTapOnPush: () -> Void = { print("empty") }
+    @Published var goToCurrentConversation: () -> Void = { print("empty") }
+    @Published var goToConversationsList: () -> Void = { print("empty") }
     
     @Published var offset: CGSize = CGSize.zero
+    @Published var reaction: ReactionInfo? = nil
     
     func registerForPushNotifications() {
         /// The notifications settings
@@ -65,7 +67,7 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
         print("User Info = ",response.notification.request.content.userInfo)
 
         if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-            onTapOnPush()
+            goToCurrentConversation()
         }
         
         completionHandler()

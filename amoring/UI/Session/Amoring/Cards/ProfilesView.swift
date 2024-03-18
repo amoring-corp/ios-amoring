@@ -11,6 +11,7 @@ struct ProfilesView: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var messagesController: MessagesController
     @EnvironmentObject var userManager: UserManager
     
     @Binding var selectedIndex: Int
@@ -147,12 +148,20 @@ struct ProfilesView: View {
                     notificationController.setNotification(text: error, type: .error)
                 } else {
                     if isMatched {
-                        notificationController.setNotification(text: "MATCHED!", type: .textAndButton, action: {
-                            withAnimation {
-                                self.selectedIndex = 2
-                                // goes furthen into the message?
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            notificationController.setNotification(text: "MATCHED!", type: .textAndButton, action: {
+                                withAnimation {
+                                    self.selectedIndex = 2
+                                }
+                            })
+                            
+                            userManager.getConversations { conversations in
+                                if let conversations {
+                                    self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                                }
                             }
-                        })
+//                        }
+                        
                     } else {
                         print("NO MATHCES!")
                     }

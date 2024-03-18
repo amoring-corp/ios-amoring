@@ -55,6 +55,9 @@ struct SessionFlow: View {
         .overlay(
             purchaseController.purchaseType != nil ? PurchaseView(purchaseType: $purchaseController.purchaseType, model: purchasesList[purchaseController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
         )
+        .overlay(
+            notificationController.reaction != nil ? NewMatchNotification(reaction: notificationController.reaction!).transition(.move(edge: .bottom)) : nil
+        )
         .environmentObject(purchaseController)
         .environmentObject(userManager)
         .environmentObject(messagesController)
@@ -70,17 +73,17 @@ struct SessionFlow: View {
             /// in App Purchases
             purchaseController.fetchProducts()
             
-            if self.messagesController.conversations.isEmpty {
+//            if self.messagesController.conversations.isEmpty {
                 userManager.getConversations { conversations in
                     if let conversations {
                         self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
                         
                     }
                 }
-            }
+//            }
             
-            // MARK: New message from subscription
-            subscription()
+            // MARK: all subscriptions
+            subscriptions()
 
             if let deviceToken = UserDefaults.standard.string(forKey: "deviceTokenForSNS") {
                 userManager.upsertUserDevice(deviceToken: deviceToken) { error in
@@ -104,8 +107,8 @@ struct SessionFlow: View {
         }
     }
     
-    private func subscription() {
-        userManager.conversationSubscription { newMessage in
+    private func subscriptions() {
+        userManager.messageSubscription { newMessage in
             if let newMessage {
 //                if scenePhaseHelper.scenePhase != .active {
 //                    notificationController.setInnerPushNotification(newMessage: newMessage)
@@ -118,7 +121,7 @@ struct SessionFlow: View {
 //                }
                 
                 notificationController.setInnerPushNotification(newMessage: newMessage)
-                notificationController.onTapOnPush = { goToCurrentMessage(newMessage: newMessage) }
+                notificationController.goToCurrentConversation = { goToCurrentMessage(newMessage: newMessage) }
                 if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
                     self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
                     if messagesController.selectedConversation != nil {
@@ -127,6 +130,36 @@ struct SessionFlow: View {
                 } else {
                     print("SessionView: finding proper conversation error!")
                 }
+            }
+        }
+        
+        userManager.reactionSubscription { reaction in
+            if let reaction {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    withAnimation {
+                        notificationController.reaction = reaction
+                    }
+                    
+                    notificationController.goToConversationsList = {
+                        DispatchQueue.main.async {
+                            self.selectedIndex = 2
+                        }
+                    }
+                    
+                    userManager.getConversations { conversations in
+                        if let conversations {
+                            self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                        }
+                    }
+//                }
+                print(reaction.byProfile.fragments.profileInfo)
+            }
+        }
+        
+        userManager.conversationSubscription { id, deletedBy in
+            if let id, let deletedBy {
+                notificationController.setNotification(text: "Conversation with \(deletedBy) was deleted!", type: .text)
+                messagesController.conversations.removeAll(where: { $0.id == id })
             }
         }
     }

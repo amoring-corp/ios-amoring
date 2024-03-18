@@ -6,16 +6,17 @@ subscription MessageSent {
 
 subscription ReactionMatched {
   reactionMatched {
+    ... ReactionInfo
+  }
+}
+
+subscription ConversationDeleted {
+  conversationDeleted {
     id
-    byProfileId
-    byProfile {
-      ... ProfileInfo
+    deletedBy {
+      profile {
+        ... ProfileInfo
+      }
     }
-    toProfileId
-    type
-    matchedWithId
-    isMatched
-    createdAt
-    updatedAt
   }
 }

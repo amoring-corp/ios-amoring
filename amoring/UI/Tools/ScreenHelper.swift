@@ -37,24 +37,18 @@ class Size {
     }
     
     static func safeArea() -> (top: CGFloat, bottom: CGFloat) {
-        /// UIApplication.connectedScenes must be used from main thread only ERROR!
-//        let keyWindow = UIApplication.shared.connectedScenes
-//            .filter({$0.activationState == .foregroundActive})
-//            .map({$0 as? UIWindowScene})
-//            .compactMap({$0})
-//            .first?.windows
-//            .filter({$0.isKeyWindow}).first
-//
-//        if let keyWindow = keyWindow {
-//            return (keyWindow.safeAreaInsets.top, keyWindow.safeAreaInsets.bottom)
-//        } else {
-        switch Size.type {
-        case .button: return (20, 0)
-        case .mini: return (50, 34)
-        case .notch: return (44, 34)
-        case .island: return (59, 34)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        if let window = windowScene?.windows.first {
+            return (window.safeAreaInsets.top, window.safeAreaInsets.bottom)
+        } else {
+            switch Size.type {
+            case .button: return (20, 0)
+            case .mini: return (50, 34)
+            case .notch: return (44, 34)
+            case .island: return (59, 34)
+            }
         }
-//        }
     }
     
     static let statusBarHeight: CGFloat = 44

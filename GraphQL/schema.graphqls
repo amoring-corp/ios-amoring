@@ -155,6 +155,8 @@ type Conversation {
   status: ConversationStatus!
   participants: [User]!
   messages(take: Int = 10, skip: Int = 0): [Message]!
+  deletedById: String
+  deletedBy: User
   createdAt: DateTime
   archivedAt: DateTime
   deletedAt: DateTime
@@ -286,6 +288,7 @@ type Profile {
   bio: String
   gender: Gender
   images: [ProfileImage]
+  avatarUrl: String
   interests: [Interest]
   age: Int
   activeCheckIn: CheckIn
@@ -542,6 +545,7 @@ type Query {
 }
 
 type Subscription {
+  conversationDeleted: Conversation
   messageSent: Message
   reactionMatched: Reaction
 }

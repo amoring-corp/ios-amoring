@@ -67,7 +67,7 @@ struct NavigatorView<Content: View>: View {
     @ViewBuilder
     func setTrailing() -> some View {
         let infoButton = Button(action: {
-            print(UserDefaults.standard.string(forKey: "BOO"))
+            
         }) {
             Image("ic-info")
                 .resizable()

@@ -920,8 +920,7 @@ class UserManager: ObservableObject {
             completion(nil)
             return
         }
-        
-        api.fetch(query: ConversationsQuery()) { result in
+        api.fetch(query: ConversationsQuery(), cachePolicy: .fetchIgnoringCacheCompletely) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -935,6 +934,8 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
+                print("successfully fetched conversation list")
+                print("numbers of conversations: \(data.conversations.count)")
                 completion(data.conversations.compactMap({ $0.fragments.conversationInfo }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)
@@ -1075,15 +1076,17 @@ class UserManager: ObservableObject {
         }
     }
     
-    var subscription: Cancellable?
+    var messageSubscription: Cancellable?
+    var reactionSubscription: Cancellable?
+    var conversationSubscription: Cancellable?
     @Published var newMessage: MessageInfo? = nil
     
     deinit {
-        self.subscription?.cancel()
+        self.messageSubscription?.cancel()
     }
     
-    func conversationSubscription(completion: @escaping (MessageInfo?) -> Void) {
-        self.subscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
+    func messageSubscription(completion: @escaping (MessageInfo?) -> Void) {
+        self.messageSubscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let message = data.messageSent?.fragments.messageInfo {
                 print(message.body)
@@ -1094,16 +1097,27 @@ class UserManager: ObservableObject {
             }
         }
     }
-        .... continue here
-    func reactionSubscription(completion: @escaping (Reaction?) -> Void) {
-        self.subscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
+        
+    func reactionSubscription(completion: @escaping (ReactionInfo?) -> Void) {
+        self.reactionSubscription = WSApi.subscribe(subscription: ReactionMatchedSubscription()) { result in
             guard let data = try? result.get().data else { return }
-            if let message = data.messageSent?.fragments.messageInfo {
-                print(message.body)
-                self.newMessage = message
-                completion(message)
+            if let reaction = data.reactionMatched?.fragments.reactionInfo {
+                print("received reaction by: \(reaction.byProfileId)")
+                completion(reaction)
             } else {
                 completion(nil)
+            }
+        }
+    }
+    
+    func conversationSubscription(completion: @escaping (String?, String?) -> Void) {
+        self.conversationSubscription = WSApi.subscribe(subscription: ConversationDeletedSubscription()) { result in
+            guard let data = try? result.get().data else { return }
+            if let id = data.conversationDeleted?.id, let deletedBy = data.conversationDeleted?.deletedBy?.profile?.fragments.profileInfo.name {
+                print("received conversation deleted: \(id)")
+                completion(id, deletedBy)
+            } else {
+                completion(nil, nil)
             }
         }
     }

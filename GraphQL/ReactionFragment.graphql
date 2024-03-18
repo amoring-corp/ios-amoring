@@ -1,0 +1,16 @@
+fragment ReactionInfo on Reaction {
+  id
+  byProfileId
+  byProfile {
+    ... ProfileInfo
+  }
+  toProfileId
+  toProfile {
+    id
+  }
+  type
+  matchedWithId
+  isMatched
+  createdAt
+  updatedAt
+}
