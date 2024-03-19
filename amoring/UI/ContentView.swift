@@ -12,7 +12,8 @@ struct ContentView: View {
     @EnvironmentObject var notificationController: NotificationController
     @StateObject var sessionManager = SessionManager()
     @StateObject var businessSignUpController: BusinessSignUpController = BusinessSignUpController()
-
+    @EnvironmentObject private var appDelegate: AppDelegate
+    
     var body: some View {
         ZStack {
             switch sessionManager.appState {

@@ -14,9 +14,10 @@ import NaverThirdPartyLogin
 @main
 struct amoringApp: App {
     @Environment(\.scenePhase) var scenePhase
-    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    @StateObject var scenePhaseHelper = ScenePhaseHelper()
+    @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     @StateObject var notificationController = NotificationController()
+    @StateObject var scenePhaseHelper = ScenePhaseHelper()
+    
     
     init() {
         KakaoSDK.initSDK(appKey: "88a121ae97540f56f106e7f52609022c")

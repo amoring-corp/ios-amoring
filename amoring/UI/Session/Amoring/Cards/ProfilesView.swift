@@ -149,6 +149,7 @@ struct ProfilesView: View {
             userManager.reactToProfile(id: profile.id, type: hasLiked ? .like : .dislike) { error, isMatched in
                 if let error {
                     notificationController.setNotification(text: error, type: .error)
+                    // FIXME: move card back for an error [drag offset = 0]
                 } else {
                     if isMatched {
 //                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {

@@ -9,7 +9,7 @@ import SwiftUI
 import AWSSNS
 import UserNotifications
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     /// The SNS Platform application ARN
     let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"

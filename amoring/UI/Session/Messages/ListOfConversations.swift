@@ -83,21 +83,26 @@ struct ListOfConversations: View {
                     Color.clear.frame(height: 40)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
+//                        .listRowSeparator(.hidden)
                     
-                    Text("아래의 메시지들은 곧 삭제됩니다.")
-                        .font(regular14Font)
-                        .foregroundColor(.gray700)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 22)
-                        .background(Color.gray900)
-                        .clipShape(Capsule())
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(.bottom, 20)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
+                    let archivedConversations = controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(Constants.TIME_OFFSET) }
                     
-                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(Constants.TIME_OFFSET) }, id: \.self.id) { conversation in
+                    if !archivedConversations.isEmpty {
+                        Text("아래의 메시지들은 곧 삭제됩니다.")
+                            .font(regular14Font)
+                            .foregroundColor(.gray700)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 22)
+                            .background(Color.gray900)
+                            .clipShape(Capsule())
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.bottom, 20)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
+                    }
+                    
+                    ForEach(archivedConversations, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation, expired: true)
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
@@ -106,6 +111,7 @@ struct ListOfConversations: View {
                     Spacer(minLength: 200)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
             }
