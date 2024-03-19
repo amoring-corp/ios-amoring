@@ -12,9 +12,12 @@ struct PeopleLikesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var messageController: MessagesController
     @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
+    
+    @State var reactions: [ReactionInfo] = []
     
     var body: some View {
-        
         VStack(spacing: 0) {
 //            ZStack {
 //                HStack {
@@ -87,15 +90,17 @@ struct PeopleLikesView: View {
                             .background(Color.gray1000)
                                 
                         ) {
-                            ForEach(messageController.reactions, id: \.self) { reaction in
+                            ForEach(self.reactions, id: \.self) { reaction in
+                                ... continue here
                                 // FIXME: add real reactions here . . .
 //                                let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
 //                                if let profile = user?.profile {
-//                                    NavigationLink(destination: {
-//                                        ProfilePreviewView(profile: profile, reaction: reaction)
-//                                    }) {
-//                                        PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
-//                                    }.disabled(!purchaseController.likeListEnabled)
+                                    NavigationLink(destination: {
+                                        ProfilePreviewView(profile: profile, reaction: reaction)
+                                    }) {
+                                        PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
+                                    }
+                                    .disabled(!purchaseController.likeListEnabled)
 //                                }
                             }
                         }
@@ -121,6 +126,17 @@ struct PeopleLikesView: View {
             presentationMode.wrappedValue.dismiss()
         }, color: .yellow300)
         )
+        .onAppear {
+            userManager.getReactions { error, reactions in
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
+                } else {
+                    self.reactions = reactions
+                }
+                
+                
+            }
+        }
     }
 }
 
@@ -131,8 +147,8 @@ struct ProfilePreviewView: View {
     @EnvironmentObject var messageController: MessagesController
     
     @State var swipeAction: SwipeAction = .doNothing
-    let profile: Profile
-    let reaction: Reaction
+    let profile: ProfileInfo
+    let reaction: ReactionInfo
     
     var body: some View {
         VStack(spacing: 0) {

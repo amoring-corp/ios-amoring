@@ -1,0 +1,5 @@
+query Reactions {
+  reactions(type: like) {
+    ... ReactionInfo
+  }
+}

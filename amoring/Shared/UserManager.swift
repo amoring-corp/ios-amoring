@@ -969,6 +969,33 @@ class UserManager: ObservableObject {
         }
     }
     
+    func getReactions(completion: @escaping (String?, [ReactionInfo]) -> Void) {
+        api.fetch(query: ReactionsQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    completion(value.errors?.first?.errorDescription, [])
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(value.errors?.first?.errorDescription, [])
+                    return
+                }
+                
+                if !data.reactions.isEmpty {
+                    completion(nil, data.reactions.map({ $0!.fragments.reactionInfo }))
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(error.localizedDescription, [])
+            }
+        }
+    }
+    
     func sendMessage(body: String, id: String, completion: @escaping (String?, MessageInfo?) -> Void) {
         self.isLoading = true
         

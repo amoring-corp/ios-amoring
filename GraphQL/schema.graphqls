@@ -538,6 +538,7 @@ type Query {
   interests: [Interest]!
   interest(id: ID!): Interest!
   businessHours(businessId: ID!): [BusinessHours]!
+  reactions(type: ReactionType): [Reaction]!
   users: [User]!
   user(id: ID!): User!
   profiles(role: UserRole): [Profile]!
