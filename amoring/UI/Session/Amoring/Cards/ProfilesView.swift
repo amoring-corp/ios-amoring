@@ -118,17 +118,19 @@ struct ProfilesView: View {
                 }
             }
             
-            if let checkInDate = checkIn.checkedInAt?.toDate() {
-                amoringController.countDown = checkInDate.addingTimeInterval(3 * 60 * 60) - Date()
-                
-                self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+            if let checkedOutAt = checkIn.checkedOutAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") {
+//                amoringController.countDown = checkInDate.addingTimeInterval(3 * 60 * 60) - Date()
+                amoringController.countDown = checkedOutAt - Date()
+                self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true, block: { timer in
                     if let countDown = amoringController.countDown, countDown > 0 {
                         amoringController.countDown = countDown - 1
                     } else {
                         userManager.checkOutFromActive { error in
                             if let error {
                                 notificationController.setNotification(text: error, type: .error)
+                                self.timer?.invalidate()
                             } else {
+                                amoringController.leave()
                                 self.timer?.invalidate()
                             }
                         }
