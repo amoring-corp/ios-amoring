@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 enum SwipeAction{
     case swipeLeft, swipeRight, doNothing
@@ -17,9 +18,9 @@ struct SwipibleProfileVIew: View {
     @Namespace var animation
     @State private var dragOffset = CGSize.zero
     
-    let profile: Profile
+    let profile: ProfileInfo
     @Binding var swipeAction: SwipeAction
-    var onSwiped: (Profile, Bool) -> ()
+    var onSwiped: (ProfileInfo, Bool) -> ()
     @Binding var likes: Int
     
     @State private var fitInScreen = false

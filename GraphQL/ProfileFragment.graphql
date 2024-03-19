@@ -3,6 +3,7 @@ fragment ProfileInfo on Profile {
   userId
   name
   age
+  avatarUrl
   birthYear
   height
   weight

@@ -100,8 +100,8 @@ struct SessionFlow: View {
             self.selectedIndex = 2
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
             withAnimation {
-                self.messagesController.selectedConversation = self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId })
                 self.messagesController.goToConversation = messagesController.selectedConversation != nil
             }
         }
@@ -120,8 +120,11 @@ struct SessionFlow: View {
 //                    }
 //                }
                 
-                notificationController.setInnerPushNotification(newMessage: newMessage)
-                notificationController.goToCurrentConversation = { goToCurrentMessage(newMessage: newMessage) }
+                if self.messagesController.selectedConversation != self.messagesController.conversations.first(where: { $0.id == newMessage.conversationId }) {
+                    notificationController.setInnerPushNotification(newMessage: newMessage)
+                    notificationController.goToCurrentConversation = { goToCurrentMessage(newMessage: newMessage) }
+                }
+                
                 if let row = self.messagesController.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
                     self.messagesController.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
                     if messagesController.selectedConversation != nil {
@@ -135,23 +138,21 @@ struct SessionFlow: View {
         
         userManager.reactionSubscription { reaction in
             if let reaction {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    withAnimation {
-                        notificationController.reaction = reaction
+                withAnimation {
+                    notificationController.reaction = reaction
+                }
+                
+                notificationController.goToConversationsList = {
+                    DispatchQueue.main.async {
+                        self.selectedIndex = 2
                     }
-                    
-                    notificationController.goToConversationsList = {
-                        DispatchQueue.main.async {
-                            self.selectedIndex = 2
-                        }
+                }
+                
+                userManager.getConversations { conversations in
+                    if let conversations {
+                        self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
                     }
-                    
-                    userManager.getConversations { conversations in
-                        if let conversations {
-                            self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
-                        }
-                    }
-//                }
+                }
                 print(reaction.byProfile.fragments.profileInfo)
             }
         }

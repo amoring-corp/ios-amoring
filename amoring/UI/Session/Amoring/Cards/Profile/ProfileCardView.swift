@@ -7,9 +7,10 @@
 
 import SwiftUI
 import CachedAsyncImage
+import AmoringAPI
 
 struct ProfileCardView: View {
-    let profile: Profile
+    let profile: ProfileInfo
     let width: CGFloat
     let height: CGFloat
     
@@ -19,7 +20,7 @@ struct ProfileCardView: View {
                 Color.yellow350
                 VStack {
                     let colors: [Color] = [.black, .black, .black, .black, .black, .black, .black, .black, .clear]
-                    let url = profile.images.first?.file?.url ?? ""
+                    let url = profile.avatarUrl ?? ""
                     CachedAsyncImage(url: URL(string: url), content: { cont in
                         cont
                             .resizable()
@@ -51,7 +52,7 @@ struct ProfileCardView: View {
 struct UserInfoView: View {
     @EnvironmentObject var amoringController: AmoringController
     
-    let profile: Profile
+    let profile: ProfileInfo
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(colors: [

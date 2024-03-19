@@ -35,7 +35,7 @@ class PurchaseController: ObservableObject {
                 // TODO: add all products in appstore and here
                 let products = try await Product.products(for: ["amoring_likes_5"])
                 DispatchQueue.main.async {
-                    print("get products: \(products)")
+                    print("get products: \(products.map({ $0.displayName }))")
                     self.products = products
                 }
                 

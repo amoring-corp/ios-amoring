@@ -278,3 +278,10 @@ extension Collection {
         return allSatisfy { first?[keyPath:key] == $0[keyPath:key] }
     }
 }
+
+func secondElement<T>(of array: [T]) -> T? {
+    guard array.count >= 2 else {
+        return nil
+    }
+    return array[1]
+}

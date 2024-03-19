@@ -76,6 +76,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
       public var userId: String { __data["userId"] }
       public var name: String? { __data["name"] }
       public var age: Int? { __data["age"] }
+      public var avatarUrl: String? { __data["avatarUrl"] }
       public var birthYear: Int? { __data["birthYear"] }
       public var height: Int? { __data["height"] }
       public var weight: Int? { __data["weight"] }

@@ -8,7 +8,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query QueryBusinesses { businesses { __typename ...BusinessInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self]
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self, ProfileInfo.self]
     ))
 
   public init() {}

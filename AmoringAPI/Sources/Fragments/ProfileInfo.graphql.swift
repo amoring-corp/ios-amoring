@@ -5,7 +5,7 @@
 
 public struct ProfileInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment ProfileInfo on Profile { __typename id userId name age birthYear height weight mbti education occupation bio gender images { __typename ...ImageFragment } interests { __typename id name category { __typename id createdAt interests { __typename id name } name updatedAt } categoryId createdAt updatedAt } createdAt updatedAt }"#
+    #"fragment ProfileInfo on Profile { __typename id userId name age avatarUrl birthYear height weight mbti education occupation bio gender images { __typename ...ImageFragment } interests { __typename id name category { __typename id createdAt interests { __typename id name } name updatedAt } categoryId createdAt updatedAt } createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -18,6 +18,7 @@ public struct ProfileInfo: AmoringAPI.SelectionSet, Fragment {
     .field("userId", String.self),
     .field("name", String?.self),
     .field("age", Int?.self),
+    .field("avatarUrl", String?.self),
     .field("birthYear", Int?.self),
     .field("height", Int?.self),
     .field("weight", Int?.self),
@@ -36,6 +37,7 @@ public struct ProfileInfo: AmoringAPI.SelectionSet, Fragment {
   public var userId: String { __data["userId"] }
   public var name: String? { __data["name"] }
   public var age: Int? { __data["age"] }
+  public var avatarUrl: String? { __data["avatarUrl"] }
   public var birthYear: Int? { __data["birthYear"] }
   public var height: Int? { __data["height"] }
   public var weight: Int? { __data["weight"] }

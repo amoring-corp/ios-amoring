@@ -10,6 +10,7 @@ import SwiftUI
 struct MessagesView: View {
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var torchIsOn = false
     @State var haveTable = false
@@ -30,16 +31,15 @@ struct MessagesView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.gray1000)
             .navigationBarTitleDisplayMode(.inline)
-     
-
-//            .onChange(of: userManager.newMessage) { newMessage in
-//                // MARK: New message from subscription
-//                if let newMessage {
-//                    if let row = self.controller.conversations.firstIndex(where: { $0.id == newMessage.conversationId }) {
-//                        self.controller.conversations[row].messages.insert(Message(messageInfo: newMessage), at: 0)
-//                    }
-//                }
-//            }
+            .onAppear {
+                userManager.getReactions { error, reactions in
+                    if let error {
+                        notificationController.setNotification(text: error, type: .error)
+                    } else {
+                        controller.reactions = reactions
+                    }
+                }
+            }
     }
 }
 

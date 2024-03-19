@@ -7,18 +7,19 @@
 
 import SwiftUI
 import CachedAsyncImage
+import AmoringAPI
 
 struct ExpandedView: View {
-    let profile: Profile
+    let profile: ProfileInfo
     
-    private func pictures() -> [String] {
-        var temp: [MutatingImage] = []
-        if profile.images.count > 2 {
-            temp = profile.images
-            temp.removeFirst()
-        }
-        return temp.map({ $0.file?.url ?? "" })
-    }
+//    private func pictures() -> [String] {
+//        var temp: [MutatingImage] = []
+//        if profile.images.count > 2 {
+//            temp = profile.images
+//            temp.removeFirst()
+//        }
+//        return temp.map({ $0.file?.url ?? "" })
+//    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -39,36 +40,41 @@ struct ExpandedView: View {
                 .padding(Size.w(22))
                 .background(Color.yellow350)
             }
-            if !profile.interests.isEmpty {
+            if !(profile.interests?.isEmpty ?? true) {
                 VStack(alignment: .leading) {
                     Text("관심사")
                         .font(bold26Font)
                         .foregroundColor(.black)
-                    let tags: [String] = profile.interests.map { $0.name }
-                    TagCloudView(tags: tags)
+                    if let tags = profile.interests?.map({ $0?.name }) {
+                        TagCloudView(tags: tags)
+                    }
+                    
                 }
                 .padding(Size.w(22))
                 .background(Color.yellow350)
             }
             
-            VStack(spacing: 0) {
-                ForEach(pictures(), id: \.self) { url in
-                    VStack(spacing: 0) {
-                        Color.gray1000.frame(height: 2).frame(minWidth: UIScreen.main.bounds.width)
-                        //                        Color.red.frame(height: 300)
-                        CachedAsyncImage(url: URL(string: url), content: { cont in
-                            cont
-                                .resizable()
-                                .scaledToFill()
-                        }, placeholder: {
-                            ZStack {
-                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
-                            }
-                        })
+            if let images = profile.images.map({ $0.map({ $0?.fragments.imageFragment.file.url })}) {
+                VStack(spacing: 0) {
+                    ForEach(images, id: \.self) { url in
+                        VStack(spacing: 0) {
+                            Color.gray1000.frame(height: 2).frame(minWidth: UIScreen.main.bounds.width)
+                            //                        Color.red.frame(height: 300)
+                            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
+                                cont
+                                    .resizable()
+                                    .scaledToFill()
+                            }, placeholder: {
+                                ZStack {
+                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                                }
+                            })
+                        }
                     }
                 }
+                .padding(.top, Size.w(28))
             }
-            .padding(.top, Size.w(28))
+           
         }
         .background(Color.yellow350)
     }
@@ -96,13 +102,14 @@ struct ExpandedView: View {
     
     @ViewBuilder
     private func InterestsView() -> some View {
-        if !profile.interests.isEmpty {
+        if !(profile.interests?.isEmpty ?? true) {
             VStack(alignment: .leading) {
                 Text("관심사")
                     .font(bold26Font)
                     .foregroundColor(.black)
-                let tags: [String] = profile.interests.map { $0.name }
-                TagCloudView(tags: tags)
+                if let tags = profile.interests?.map({ $0?.name }) {
+                    TagCloudView(tags: tags)
+                }
             }
             .padding(Size.w(22))
             .background(Color.yellow350)

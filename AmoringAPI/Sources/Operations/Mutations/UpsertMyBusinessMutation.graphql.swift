@@ -8,7 +8,7 @@ public class UpsertMyBusinessMutation: GraphQLMutation {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"mutation UpsertMyBusiness($data: BusinessUpdateInput!) { upsertMyBusiness(data: $data) { __typename ...BusinessInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self]
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self, ProfileInfo.self]
     ))
 
   public var data: BusinessUpdateInput

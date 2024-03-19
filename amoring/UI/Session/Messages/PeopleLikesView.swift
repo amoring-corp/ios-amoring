@@ -7,15 +7,14 @@
 
 import SwiftUI
 import AmoringAPI
+import CachedAsyncImage
 
 struct PeopleLikesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var messageController: MessagesController
+    @EnvironmentObject var messagesController: MessagesController
     @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
-    
-    @State var reactions: [ReactionInfo] = []
     
     var body: some View {
         VStack(spacing: 0) {
@@ -67,41 +66,33 @@ struct PeopleLikesView: View {
                     .frame(maxWidth: .infinity)
                     .background(LinearGradient(colors: likeGradient, startPoint: .topTrailing, endPoint: .bottomLeading))
                     .padding(.top, Size.w(16))
-                    
                 }
                 
                 VStack {
-                    let columns: [GridItem] = [
-                        GridItem(.flexible(), spacing: Size.w(20)),
-                        GridItem(.flexible(), spacing: Size.w(20))
-                    ]
-                    
-                    LazyVGrid(columns: columns, spacing: Size.w(20), pinnedViews: [.sectionHeaders]) {
-                        Section(header:
-                                    HStack {
-                            Text("리스트")
-                            Text("(\(messageController.reactions.count))")
-                        }
-                            .font(medium18Font)
-                            .foregroundColor(.yellow300)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.vertical)
-                            .padding(.top, Size.w(10))
-                            .background(Color.gray1000)
-                                
-                        ) {
-                            ForEach(self.reactions, id: \.self) { reaction in
-                                ... continue here
-                                // FIXME: add real reactions here . . .
-//                                let user = Dummy.users.first(where: { $0.id == reaction.byUserId })
-//                                if let profile = user?.profile {
+                    let columns: [GridItem] = Array(repeatElement(GridItem(.flexible(), spacing: 20), count: 2))
+                    GeometryReader { proxy in
+                        LazyVGrid(columns: columns, spacing: Size.w(20), pinnedViews: [.sectionHeaders]) {
+                            Section(header:
+                                        HStack {
+                                Text("리스트")
+                                Text("(\(messagesController.reactions.count))")
+                            }
+                                .font(medium18Font)
+                                .foregroundColor(.yellow300)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.vertical)
+                                .padding(.top, Size.w(10))
+                                .background(Color.gray1000)
+                                    
+                            ) {
+                                ForEach(messagesController.reactions, id: \.self) { reaction in
                                     NavigationLink(destination: {
-                                        ProfilePreviewView(profile: profile, reaction: reaction)
+                                        ProfilePreviewView(reaction: reaction)
                                     }) {
-                                        PeopleLikesListObject(user: user, enabled: purchaseController.likeListEnabled)
+                                        PeopleLikesListObject(width: cellWidth(for: proxy.size), reaction: reaction, enabled: true)
                                     }
-                                    .disabled(!purchaseController.likeListEnabled)
-//                                }
+//                                    .disabled(!purchaseController.likeListEnabled)
+                                }
                             }
                         }
                     }
@@ -126,34 +117,31 @@ struct PeopleLikesView: View {
             presentationMode.wrappedValue.dismiss()
         }, color: .yellow300)
         )
-        .onAppear {
-            userManager.getReactions { error, reactions in
-                if let error {
-                    notificationController.setNotification(text: error, type: .error)
-                } else {
-                    self.reactions = reactions
-                }
-                
-                
-            }
-        }
+        
     }
+    
+    func cellWidth(for size: CGSize) -> CGFloat {
+        /// where 20 - spacing
+            (size.width - ((CGFloat(2) - 1) * 20)) / CGFloat(2)
+        }
 }
 
 struct ProfilePreviewView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var purchaseController: PurchaseController
-    @EnvironmentObject var messageController: MessagesController
+    @EnvironmentObject var messagesController: MessagesController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     
     @State var swipeAction: SwipeAction = .doNothing
-    let profile: ProfileInfo
+    
     let reaction: ReactionInfo
     
     var body: some View {
         VStack(spacing: 0) {
             // TODO: Create separate object instead of using SwipibleProfileVIew for smooth animation ?
-            SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
+            SwipibleProfileVIew(profile: reaction.byProfile.fragments.profileInfo, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
         }
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading:
@@ -163,46 +151,81 @@ struct ProfilePreviewView: View {
         )
     }
     
-    private func performSwipe(profile: Profile, hasLiked: Bool) {
+//    private func performSwipe(profile: ProfileInfo, hasLiked: Bool) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+//            removeTopItem()
+//            if hasLiked {
+//                if amoringController.likes > 0 {
+//                    withAnimation {
+//                        amoringController.likes -= 1
+//                    }
+//                } else {
+//                    withAnimation {
+//                        purchaseController.purchasedLikes -= 1
+//                    }
+//                }
+//            }
+//        }
+//        //        onSwiped(profile, hasLiked)
+//    }
+    
+    
+    private func performSwipe(profile: ProfileInfo, hasLiked: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            removeTopItem()
-            if hasLiked {
-                if amoringController.likes > 0 {
-                    withAnimation {
-                        amoringController.likes -= 1
-                    }
+            userManager.reactToProfile(id: profile.id, type: hasLiked ? .like : .dislike) { error, isMatched in
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
                 } else {
-                    withAnimation {
-                        purchaseController.purchasedLikes -= 1
+                    if isMatched {
+                            userManager.getConversations { conversations in
+                                if let conversations {
+                                    self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                                }
+                            }
+                    } else {
+                        print("NO MATHCES!")
+                    }
+                    removeTopItem()
+                    if hasLiked {
+                        if amoringController.likes > 0 {
+                            withAnimation {
+                                amoringController.likes -= 1
+                            }
+                        } else {
+                            withAnimation {
+                                purchaseController.purchasedLikes -= 1
+                            }
+                        }
                     }
                 }
             }
         }
         //        onSwiped(profile, hasLiked)
     }
-    
     private func removeTopItem() {
         presentationMode.wrappedValue.dismiss()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation {
-                messageController.reactions.removeAll(where: { $0 == reaction })
+                messagesController.reactions.removeAll(where: { $0.id == reaction.id })
             }
         }
     }
 }
 
 struct PeopleLikesListObject: View {
-    let user: UserInfo?
+    let width: CGFloat
+    let reaction: ReactionInfo?
     let enabled: Bool
     
     var body: some View {
-        let url = user?.profile?.images?.first??.file.url ?? ""
+        let url = reaction?.byProfile.avatarUrl ?? ""
         
         ZStack(alignment: .bottom) {
-            AsyncImage(url: URL(string: url), content: { image in
+            CachedAsyncImage(url: URL(string: url), content: { image in
                 image
                     .resizable()
                     .scaledToFill()
+                    .frame(width: width, height: Size.w(220))
                     .blur(radius: enabled ? 0 : 10)
             }, placeholder: {
                 ZStack {
@@ -210,8 +233,10 @@ struct PeopleLikesListObject: View {
                     ProgressView().tint(.white)
                 }
                 .frame(maxWidth: .infinity)
-                .frame(minHeight: Size.w(200), alignment: .center)
+                .frame(minHeight: Size.w(220), alignment: .center)
             })
+//            .frame(maxWidth: .infinity)
+//            .frame(minHeight: Size.w(220), alignment: .center)
             
             if enabled {
                 VStack(alignment: .leading, spacing: Size.w(3)) {
@@ -222,7 +247,7 @@ struct PeopleLikesListObject: View {
                         //                                                .padding(.horizontal, Size.w(12))
                         //                                                .padding(.vertical, Size.w(6))
                         //                                                .background(Capsule().fill(Color.gray1000))
-                        if let age = user?.profile?.age {
+                        if let age = reaction?.byProfile.age {
                             Text(age.description + "세")
                                 .font(semiBold12Font)
                                 .foregroundColor(.white)
@@ -241,7 +266,7 @@ struct PeopleLikesListObject: View {
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
-                        Text(user?.profile?.name ?? "")
+                        Text(reaction?.byProfile.name ?? "")
                             .font(medium17Font)
                             .foregroundColor(.white)
                         Circle().fill()
@@ -254,9 +279,10 @@ struct PeopleLikesListObject: View {
                 .padding(.top, Size.w(8))
                 .padding(.bottom, Size.w(10))
                 .background(.ultraThinMaterial)
-                
             }
         }
+//        .frame(maxWidth: .infinity)
+//        .frame(minHeight: Size.w(220), alignment: .center)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }

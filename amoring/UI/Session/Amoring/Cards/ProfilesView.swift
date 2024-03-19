@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 struct ProfilesView: View {
     @EnvironmentObject var amoringController: AmoringController
@@ -23,7 +24,7 @@ struct ProfilesView: View {
     
     @State var swipeAction: SwipeAction = .doNothing
 //    @State var profiles: [Profile] = Dummy.profiles
-    @State var profiles: [Profile] = []
+    @State var profiles: [ProfileInfo] = []
     @State var showAlert: Bool = false
     @State var timer: Timer? = nil
     
@@ -78,9 +79,9 @@ struct ProfilesView: View {
                 
                 ForEach(self.profiles.indices, id:\.self) { index  in
                     let profile = self.profiles[index]
-                    
+//                    
                     if (index == self.profiles.count - 1) {
-                        SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
+                    SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
                     } else if (index == self.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
@@ -109,10 +110,10 @@ struct ProfilesView: View {
         self.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
-            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile }) {
+            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile?.fragments.profileInfo }) {
                 for profile in profiles {
                     if let profile {
-                        self.profiles.append(Profile(profile: profile))
+                        self.profiles.append(profile)
                     }
                 }
             }
@@ -137,7 +138,7 @@ struct ProfilesView: View {
         }
     }
     
-    private func performSwipe(profile: Profile, hasLiked: Bool) {
+    private func performSwipe(profile: ProfileInfo, hasLiked: Bool) {
         withAnimation {
             amoringController.showDetails = false
             amoringController.hidePanel = false

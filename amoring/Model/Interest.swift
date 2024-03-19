@@ -30,14 +30,14 @@ struct Interest: Hashable {
         self.updatedAt = inter.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     }
     
-    init(inter: BusinessInfo.ActiveCheckIn.Profile.Interest) {
-        self.id = inter.id
-        self.name = inter.name ?? ""
+//    init(inter: BusinessInfo.ActiveCheckIn.Profile.Interest) {
+//        self.id = inter.id
+//        self.name = inter.name ?? ""
 //        self.categoryId = inter.categoryId
 //        self.category = inter.category
 //        self.createdAt = inter.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 //        self.updatedAt = inter.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    }
+//    }
 }
 
 struct InterestCategory: Hashable {

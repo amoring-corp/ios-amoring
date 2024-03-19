@@ -10,7 +10,7 @@ import AmoringAPI
 
 class MessagesController: ObservableObject {
 //    @Published var reactions: [Reaction] = []
-    @Published var reactions: [Reaction] = Dummy.reactions
+    @Published var reactions: [ReactionInfo] = []
     @Published var conversations: [Conversation] = []
     @Published var alertPresented = false
     @Published var selectedConversation: Conversation? = nil

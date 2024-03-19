@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ListOfPeopleLikesLink: View {
     @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var messagesController: MessagesController
     
     var body: some View {
-        var listIsEnable = purchaseController.likeListEnabled
+        let listIsEnable = purchaseController.likeListEnabled
         
         VStack(alignment: .leading, spacing: Size.w(14)) {
             Text("리스트")
@@ -27,27 +29,48 @@ struct ListOfPeopleLikesLink: View {
                 
                 HStack {
                     ZStack(alignment: .topLeading) {
-                        Image("person-0")
-                            .resizable()
-                            .blur(radius: listIsEnable ? 0 : 6)
-                            .scaledToFill()
-                            .frame(width: Size.w(73), height: Size.w(98))
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
-                            .padding(2)
-                            .background(Color.gray1000)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .rotationEffect(.degrees(7), anchor: .bottomLeading)
-                            .offset(x: Size.w(15))
+                        if let secondImage = secondElement(of: messagesController.reactions)?.byProfile.avatarUrl {
+                            CachedAsyncImage(url: URL(string: secondImage), content: { cont in
+                                cont
+                                    .resizable()
+                                    .scaledToFill()
+                            }, placeholder: {
+                                ZStack {
+                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                                }
+                            })
+                                .blur(radius: listIsEnable ? 0 : 6)
+                                .frame(width: Size.w(73), height: Size.w(98))
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .padding(2)
+                                .background(Color.gray1000)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .frame(width: Size.w(73), height: Size.w(98))
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .padding(2)
+                                .background(Color.gray1000)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .rotationEffect(.degrees(7), anchor: .bottomLeading)
+                                .offset(x: Size.w(15))
+                        }
                         
-                        Image("person-1")
-                            .resizable()
-                            .blur(radius: listIsEnable ? 0 : 6)
-                            .scaledToFill()
-                            .frame(width: Size.w(73), height: Size.w(98))
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
-                            .padding(2)
-                            .background(Color.gray1000)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        if let firstImage = messagesController.reactions.first?.byProfile.avatarUrl {
+                            CachedAsyncImage(url: URL(string: firstImage), content: { cont in
+                                cont
+                                    .resizable()
+                                    .scaledToFill()
+                            }, placeholder: {
+                                ZStack {
+                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                                }
+                            })
+                                .blur(radius: listIsEnable ? 0 : 6)
+                                .frame(width: Size.w(73), height: Size.w(98))
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .padding(2)
+                                .background(Color.gray1000)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
                         
                         ZStack {
                             HStack {

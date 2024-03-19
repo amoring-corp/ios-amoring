@@ -30,6 +30,11 @@ class UserManager: ObservableObject {
     
     
     init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
+        /// unsubscripe all subscriptions . [case : business login]
+//        self.messageSubscription?.cancel()
+//        self.reactionSubscription?.cancel()
+//        self.conversationSubscription?.cancel()
+        
         self.authUser = authUser
         self.api = api
         self.WSApi = WSApi
@@ -45,6 +50,9 @@ class UserManager: ObservableObject {
             print("I'm a business")
             
             if let business = authUser.business, ((business.phoneNumber?.isEmpty) != nil) {
+//                DispatchQueue.main.async {
+//                    UIApplication.shared.unregisterForRemoteNotifications()
+//                }
                 print("going to Business Session")
                 print(business)
                 //TODO:  pass whole business user here!
@@ -985,6 +993,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
+                print("successfully got list of reactions. Number: \(data.reactions.count)")
                 if !data.reactions.isEmpty {
                     completion(nil, data.reactions.map({ $0!.fragments.reactionInfo }))
                 }
