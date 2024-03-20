@@ -67,6 +67,15 @@ struct SessionFlow: View {
             userManager.getInterests()
             /// getting current active check in for Amoring page
             userManager.activeCheckIn { activeCheckIn in
+                if let activeCheckIn {
+                    userManager.getReactions { error, reactions in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        } else {
+                            messagesController.reactions = reactions
+                        }
+                    }
+                }
                 amoringController.checkIn = activeCheckIn
             }
             
@@ -85,13 +94,6 @@ struct SessionFlow: View {
             // MARK: all subscriptions
             subscriptions()
 
-            if let deviceToken = UserDefaults.standard.string(forKey: "deviceTokenForSNS") {
-                userManager.upsertUserDevice(deviceToken: deviceToken) { error in
-                    if let error {
-                        notificationController.setNotification(text: error, type: .error)
-                    }
-                }
-            }
         }
     }
     
@@ -138,19 +140,26 @@ struct SessionFlow: View {
         
         userManager.reactionSubscription { reaction in
             if let reaction {
-                withAnimation {
-                    notificationController.reaction = reaction
-                }
-                
-                notificationController.goToConversationsList = {
-                    DispatchQueue.main.async {
-                        self.selectedIndex = 2
+                if reaction.isMatched {
+                    withAnimation {
+                        notificationController.reaction = reaction
                     }
-                }
-                
-                userManager.getConversations { conversations in
-                    if let conversations {
-                        self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                    
+                    notificationController.goToConversationsList = {
+                        DispatchQueue.main.async {
+                            self.selectedIndex = 2
+                        }
+                    }
+                    
+                    userManager.getConversations { conversations in
+                        if let conversations {
+                            self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                        }
+                    }
+                } else {
+                    // TODO: need tests
+                    withAnimation {
+                        messagesController.reactions.insert(reaction, at: 0)
                     }
                 }
                 print(reaction.byProfile.fragments.profileInfo)
@@ -214,24 +223,3 @@ struct SessionView: View {
 //#Preview {
 //    SessionView()
 //}
-
-extension UNNotificationAttachment {
-    
-    static func saveImageToDisk(fileIdentifier: String, data: NSData, options: [NSObject : AnyObject]?) -> UNNotificationAttachment? {
-        let fileManager = FileManager.default
-        let folderName = ProcessInfo.processInfo.globallyUniqueString
-        let folderURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(folderName, isDirectory: true)
-        
-        do {
-            try fileManager.createDirectory(at: folderURL!, withIntermediateDirectories: true, attributes: nil)
-            let fileURL = folderURL?.appendingPathComponent(fileIdentifier)
-            try data.write(to: fileURL!, options: [])
-            let attachment = try UNNotificationAttachment(identifier: fileIdentifier, url: fileURL!, options: options)
-            return attachment
-        } catch let error {
-            print("error \(error)")
-        }
-        
-        return nil
-    }
-}

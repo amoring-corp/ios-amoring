@@ -84,7 +84,7 @@ type BusinessImage {
   businessId: String!
   fileId: String!
   sort: Int!
-  file: File!
+  file: File
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -317,7 +317,7 @@ type ProfileImage {
   profileId: String!
   fileId: String!
   sort: Int!
-  file: File!
+  file: File
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -348,7 +348,7 @@ type Reaction {
   toProfile: Profile!
   type: ReactionType!
   matchedWithId: String
-  isMatched: Boolean
+  isMatched: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -426,6 +426,7 @@ type UserDevice {
   id: ID!
   deviceToken: String!
   deviceOs: String
+  deviceEndpointArn: String
   userId: String!
   user: User!
   createdAt: DateTime
@@ -491,7 +492,11 @@ type Mutation {
   checkOutFromActive: CheckIn
   deleteConversation(id: ID!): Conversation!
   reportConversation(id: ID!): Conversation!
-  upsertUserDevice(deviceToken: String!, deviceOs: String): UserDevice
+  upsertUserDevice(
+    deviceToken: String!
+    deviceEndpointArn: String!
+    deviceOs: String
+  ): UserDevice
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!
@@ -548,5 +553,5 @@ type Query {
 type Subscription {
   conversationDeleted: Conversation
   messageSent: Message
-  reactionMatched: Reaction
+  reactionAdded: Reaction
 }

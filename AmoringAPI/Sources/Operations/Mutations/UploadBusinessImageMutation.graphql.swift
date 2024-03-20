@@ -61,14 +61,14 @@ public class UploadBusinessImageMutation: GraphQLMutation {
         .field("businessId", String.self),
         .field("fileId", String.self),
         .field("sort", Int.self),
-        .field("file", File.self),
+        .field("file", File?.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
       public var businessId: String { __data["businessId"] }
       public var fileId: String { __data["fileId"] }
       public var sort: Int { __data["sort"] }
-      public var file: File { __data["file"] }
+      public var file: File? { __data["file"] }
 
       /// UploadBusinessImage.File
       ///

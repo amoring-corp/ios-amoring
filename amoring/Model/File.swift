@@ -19,11 +19,11 @@ struct File: Hashable {
     var createdAt: Date?
     var updatedAt: Date?
     
-    init(file: UserInfo.Profile.Image.File) {
-        self.url = file.url
+    init(file: UserInfo.Profile.Image.File?) {
+        self.url = file?.url
     }
     
-    init(file: BusinessInfo.Image.File) {
-        self.url = file.url
+    init(file: BusinessInfo.Image.File?) {
+        self.url = file?.url
     }
 }

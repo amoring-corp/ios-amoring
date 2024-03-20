@@ -7,22 +7,26 @@ public class UpsertUserDeviceMutation: GraphQLMutation {
   public static let operationName: String = "UpsertUserDevice"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpsertUserDevice($deviceToken: String!, $deviceOs: String) { upsertUserDevice(deviceToken: $deviceToken, deviceOs: $deviceOs) { __typename id deviceToken deviceOs } }"#
+      #"mutation UpsertUserDevice($deviceToken: String!, $deviceEndpointArn: String!, $deviceOs: String) { upsertUserDevice( deviceToken: $deviceToken deviceEndpointArn: $deviceEndpointArn deviceOs: $deviceOs ) { __typename id deviceToken deviceOs } }"#
     ))
 
   public var deviceToken: String
+  public var deviceEndpointArn: String
   public var deviceOs: GraphQLNullable<String>
 
   public init(
     deviceToken: String,
+    deviceEndpointArn: String,
     deviceOs: GraphQLNullable<String>
   ) {
     self.deviceToken = deviceToken
+    self.deviceEndpointArn = deviceEndpointArn
     self.deviceOs = deviceOs
   }
 
   public var __variables: Variables? { [
     "deviceToken": deviceToken,
+    "deviceEndpointArn": deviceEndpointArn,
     "deviceOs": deviceOs
   ] }
 
@@ -34,6 +38,7 @@ public class UpsertUserDeviceMutation: GraphQLMutation {
     public static var __selections: [ApolloAPI.Selection] { [
       .field("upsertUserDevice", UpsertUserDevice?.self, arguments: [
         "deviceToken": .variable("deviceToken"),
+        "deviceEndpointArn": .variable("deviceEndpointArn"),
         "deviceOs": .variable("deviceOs")
       ]),
     ] }

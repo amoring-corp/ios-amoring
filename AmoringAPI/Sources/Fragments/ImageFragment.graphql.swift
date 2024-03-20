@@ -15,11 +15,11 @@ public struct ImageFragment: AmoringAPI.SelectionSet, Fragment {
   public static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
     .field("id", AmoringAPI.ID.self),
-    .field("file", File.self),
+    .field("file", File?.self),
   ] }
 
   public var id: AmoringAPI.ID { __data["id"] }
-  public var file: File { __data["file"] }
+  public var file: File? { __data["file"] }
 
   /// File
   ///

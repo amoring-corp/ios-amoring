@@ -53,8 +53,8 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
     // Called when a notification is delivered to a foreground app.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        print("User Info = ",notification.request.content.userInfo)
-        print("foreground")
+//        print("User Info = ",notification.request.content.userInfo)
+//        print("foreground")
         
         completionHandler([.banner, .badge, .sound])
     }
@@ -64,7 +64,7 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("User Info = ",response.notification.request.content.userInfo)
+//        print("User Info = ",response.notification.request.content.userInfo)
 
         if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
             goToCurrentConversation()

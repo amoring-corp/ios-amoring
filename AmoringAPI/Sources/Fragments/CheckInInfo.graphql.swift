@@ -159,7 +159,7 @@ public struct CheckInInfo: AmoringAPI.SelectionSet, Fragment {
       public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var file: File { __data["file"] }
+      public var file: File? { __data["file"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict

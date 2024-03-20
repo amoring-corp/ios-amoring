@@ -54,7 +54,7 @@ public class UploadMyProfileImagesMutation: GraphQLMutation {
         .field("profileId", String.self),
         .field("fileId", String.self),
         .field("sort", Int.self),
-        .field("file", File.self),
+        .field("file", File?.self),
         .field("createdAt", AmoringAPI.DateTime?.self),
         .field("updatedAt", AmoringAPI.DateTime?.self),
       ] }
@@ -63,7 +63,7 @@ public class UploadMyProfileImagesMutation: GraphQLMutation {
       public var profileId: String { __data["profileId"] }
       public var fileId: String { __data["fileId"] }
       public var sort: Int { __data["sort"] }
-      public var file: File { __data["file"] }
+      public var file: File? { __data["file"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 

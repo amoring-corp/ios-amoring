@@ -3,11 +3,11 @@
 
 @_exported import ApolloAPI
 
-public class ReactionMatchedSubscription: GraphQLSubscription {
-  public static let operationName: String = "ReactionMatched"
+public class ReactionAddedSubscription: GraphQLSubscription {
+  public static let operationName: String = "ReactionAdded"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"subscription ReactionMatched { reactionMatched { __typename ...ReactionInfo } }"#,
+      #"subscription ReactionAdded { reactionAdded { __typename ...ReactionInfo } }"#,
       fragments: [ImageFragment.self, ProfileInfo.self, ReactionInfo.self]
     ))
 
@@ -19,15 +19,15 @@ public class ReactionMatchedSubscription: GraphQLSubscription {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Subscription }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("reactionMatched", ReactionMatched?.self),
+      .field("reactionAdded", ReactionAdded?.self),
     ] }
 
-    public var reactionMatched: ReactionMatched? { __data["reactionMatched"] }
+    public var reactionAdded: ReactionAdded? { __data["reactionAdded"] }
 
-    /// ReactionMatched
+    /// ReactionAdded
     ///
     /// Parent Type: `Reaction`
-    public struct ReactionMatched: AmoringAPI.SelectionSet {
+    public struct ReactionAdded: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -44,7 +44,7 @@ public class ReactionMatchedSubscription: GraphQLSubscription {
       public var toProfile: ToProfile { __data["toProfile"] }
       public var type: GraphQLEnum<AmoringAPI.ReactionType> { __data["type"] }
       public var matchedWithId: String? { __data["matchedWithId"] }
-      public var isMatched: Bool? { __data["isMatched"] }
+      public var isMatched: Bool { __data["isMatched"] }
       public var createdAt: AmoringAPI.DateTime { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime { __data["updatedAt"] }
 
@@ -55,7 +55,7 @@ public class ReactionMatchedSubscription: GraphQLSubscription {
         public var reactionInfo: ReactionInfo { _toFragment() }
       }
 
-      /// ReactionMatched.ByProfile
+      /// ReactionAdded.ByProfile
       ///
       /// Parent Type: `Profile`
       public struct ByProfile: AmoringAPI.SelectionSet {
@@ -89,7 +89,7 @@ public class ReactionMatchedSubscription: GraphQLSubscription {
           public var profileInfo: ProfileInfo { _toFragment() }
         }
 
-        /// ReactionMatched.ByProfile.Image
+        /// ReactionAdded.ByProfile.Image
         ///
         /// Parent Type: `ProfileImage`
         public struct Image: AmoringAPI.SelectionSet {
@@ -99,7 +99,7 @@ public class ReactionMatchedSubscription: GraphQLSubscription {
           public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
 
           public var id: AmoringAPI.ID { __data["id"] }
-          public var file: File { __data["file"] }
+          public var file: File? { __data["file"] }
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict

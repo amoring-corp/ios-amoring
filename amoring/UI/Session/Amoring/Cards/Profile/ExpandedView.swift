@@ -54,7 +54,7 @@ struct ExpandedView: View {
                 .background(Color.yellow350)
             }
             
-            if let images = profile.images.map({ $0.map({ $0?.fragments.imageFragment.file.url })}) {
+            if let images = profile.images.map({ $0.map({ $0?.fragments.imageFragment.file?.url })}) {
                 VStack(spacing: 0) {
                     ForEach(images, id: \.self) { url in
                         VStack(spacing: 0) {

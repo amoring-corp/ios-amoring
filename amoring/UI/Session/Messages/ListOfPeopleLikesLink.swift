@@ -114,7 +114,7 @@ struct ListOfPeopleLikesLink: View {
             .frame(height: Size.w(118), alignment: .bottom)
         }
         .padding(.top, Size.w(16))
-        .padding(.bottom, Size.w(45))
+//        .padding(.bottom, Size.w(45))
         .background(Color.gray1000)
         
 //        .onTapGesture {

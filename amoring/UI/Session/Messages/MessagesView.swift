@@ -31,15 +31,6 @@ struct MessagesView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.gray1000)
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                userManager.getReactions { error, reactions in
-                    if let error {
-                        notificationController.setNotification(text: error, type: .error)
-                    } else {
-                        controller.reactions = reactions
-                    }
-                }
-            }
     }
 }
 

@@ -54,13 +54,13 @@ public class ReactToProfileMutation: GraphQLMutation {
         .field("id", AmoringAPI.ID.self),
         .field("toProfileId", String.self),
         .field("byProfileId", String.self),
-        .field("isMatched", Bool?.self),
+        .field("isMatched", Bool.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
       public var toProfileId: String { __data["toProfileId"] }
       public var byProfileId: String { __data["byProfileId"] }
-      public var isMatched: Bool? { __data["isMatched"] }
+      public var isMatched: Bool { __data["isMatched"] }
     }
   }
 }

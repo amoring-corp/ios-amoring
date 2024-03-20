@@ -25,6 +25,7 @@ struct Profile: Hashable {
     var age: Int?
     var createdAt: Date?
     var updatedAt: Date?
+    var avatarUrl: String?
     
     init() {
         self.id = ""
@@ -51,6 +52,7 @@ struct Profile: Hashable {
         self.age = profile.age
         self.createdAt = profile.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = profile.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.avatarUrl = profile.avatarUrl
     }
     
     init(profile: ProfileInfo) {
@@ -72,6 +74,7 @@ struct Profile: Hashable {
         self.age = profile.age
         self.createdAt = profile.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = profile.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.avatarUrl = profile.avatarUrl
     }
     
     init(profile: BusinessInfo.ActiveCheckIn.Profile) {
@@ -91,6 +94,7 @@ struct Profile: Hashable {
         }
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
+        self.avatarUrl = profile.avatarUrl
     }
     
     init(profile: ConversationInfo.Participant.Profile) {
@@ -110,6 +114,7 @@ struct Profile: Hashable {
         }
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
+        self.avatarUrl = profile.avatarUrl
     }
     
 }

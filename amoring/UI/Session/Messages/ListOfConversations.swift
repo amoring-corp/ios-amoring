@@ -116,6 +116,7 @@ struct ListOfConversations: View {
                 .listStyle(.plain)
             }
         }
+        .padding(.top, Size.w(45))
     }
     
     private func delete(id: String) {

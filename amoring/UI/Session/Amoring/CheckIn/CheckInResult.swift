@@ -12,6 +12,7 @@ struct CheckInResult: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var messagesController: MessagesController
     
     @State var hasTable = false
     @State var hasPremium = false
@@ -115,6 +116,13 @@ struct CheckInResult: View {
                                 notificationController.setNotification(text: error, type: .error)
                             }
                             if let checkIn {
+                                userManager.getReactions { error, reactions in
+                                    if let error {
+                                        notificationController.setNotification(text: error, type: .error)
+                                    } else {
+                                        messagesController.reactions = reactions
+                                    }
+                                }
                                 print(checkIn)
                                 DispatchQueue.main.async {
                                     amoringController.checkIn = checkIn

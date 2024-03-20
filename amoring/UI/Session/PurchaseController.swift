@@ -29,21 +29,22 @@ class PurchaseController: ObservableObject {
         }
     }
     
+    
     func fetchProducts() {
         Task.init(priority: .background) {
             do {
                 // TODO: add all products in appstore and here
-                let products = try await Product.products(for: ["amoring_likes_5"])
+                let products = try await Product.products(for: Constants.products)
                 DispatchQueue.main.async {
-                    print("get products: \(products.map({ $0.displayName }))")
+                    print("get products: \(products.map({ $0.id }))")
                     self.products = products
                 }
                 
                 if let product = products.first {
                     await isPurchased(product: product)
                 }
-                
             } catch {
+                
                 print("There's an error fetching products. \(error.localizedDescription)")
             }
         }
@@ -64,9 +65,9 @@ class PurchaseController: ObservableObject {
         }
     }
     
-    func purchase(_ selectedPlan: Int) {
+    func purchase(_ selectedPlan: String) {
         Task.init(priority: .background) {
-            guard let product = products.first else { return }
+            guard let product = products.first(where: { $0.id == selectedPlan }) else { return }
             
             do {
                 let result = try await product.purchase()
@@ -96,14 +97,14 @@ class PurchaseController: ObservableObject {
         }
     }
     
-    func onPurchaseSuccess(_ selectedPlan: Int) {
+    func onPurchaseSuccess(_ selectedPlan: String) {
         print("purchase...")
         switch purchaseType {
         case .like:
             switch selectedPlan {
-            case 0: self.purchasedLikes += 5
-            case 1: self.purchasedLikes += 10
-            case 2: self.purchasedLikes += 50
+            case Constants.products[0]: self.purchasedLikes += 5
+            case Constants.products[1]: self.purchasedLikes += 10
+            case Constants.products[2]: self.purchasedLikes += 50
             default: return
             }
         case .lounge:

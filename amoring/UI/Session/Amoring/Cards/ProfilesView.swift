@@ -106,6 +106,22 @@ struct ProfilesView: View {
         .onAppear(perform: getProfiles)
     }
     
+    private func refresh() {
+        userManager.activeCheckIn { activeCheckIn in
+            if let activeCheckIn {
+                userManager.getReactions { error, reactions in
+                    if let error {
+                        notificationController.setNotification(text: error, type: .error)
+                    } else {
+                        messagesController.reactions = reactions
+                    }
+                }
+                self.getProfiles()
+            }
+            amoringController.checkIn = activeCheckIn
+        }
+    }
+    
     private func getProfiles() {
         self.profiles.removeAll()
         
@@ -158,12 +174,17 @@ struct ProfilesView: View {
                                     self.selectedIndex = 2
                                 }
                             })
-                            
-                            userManager.getConversations { conversations in
-                                if let conversations {
-                                    self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
-                                }
+                        
+                        /// removing reaction with match from reactions list
+                        withAnimation {
+                            messagesController.reactions.removeAll(where: { $0.toProfile.id == profile.id })
+                        }
+                        
+                        userManager.getConversations { conversations in
+                            if let conversations {
+                                self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
                             }
+                        }
 //                        }
                         
                     } else {

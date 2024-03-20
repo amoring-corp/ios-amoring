@@ -4,8 +4,8 @@ subscription MessageSent {
   }
 }
 
-subscription ReactionMatched {
-  reactionMatched {
+subscription ReactionAdded {
+  reactionAdded {
     ... ReactionInfo
   }
 }

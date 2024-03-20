@@ -79,10 +79,10 @@ public struct MessageInfo: AmoringAPI.SelectionSet, Fragment {
         public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
-          .field("file", File.self),
+          .field("file", File?.self),
         ] }
 
-        public var file: File { __data["file"] }
+        public var file: File? { __data["file"] }
 
         /// Sender.Profile.Image.File
         ///

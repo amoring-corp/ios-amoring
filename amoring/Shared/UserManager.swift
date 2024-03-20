@@ -9,6 +9,7 @@ import SwiftUI
 import AmoringAPI
 import Apollo
 import ApolloWebSocket
+import AWSSNS
 
 class UserManager: ObservableObject {
     @Published var userState: UserState = .initial
@@ -34,11 +35,14 @@ class UserManager: ObservableObject {
 //        self.messageSubscription?.cancel()
 //        self.reactionSubscription?.cancel()
 //        self.conversationSubscription?.cancel()
-        
+
         self.authUser = authUser
         self.api = api
         self.WSApi = WSApi
         self.user = MutatingUser(userInfo: authUser)
+        
+        self.setupAWSSNSService()
+        
         guard let role = authUser.role else {
             print("NO ROLE!")
             self.changeStateWithAnimation(state: .error)
@@ -81,7 +85,6 @@ class UserManager: ObservableObject {
     }
     
     private func setCurrentPhotos() {
-        print(self.pictures.count)
         guard let images = self.user?.profile?.images else { return }
       
         if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
@@ -978,7 +981,7 @@ class UserManager: ObservableObject {
     }
     
     func getReactions(completion: @escaping (String?, [ReactionInfo]) -> Void) {
-        api.fetch(query: ReactionsQuery()) { result in
+        api.fetch(query: ReactionsQuery(), cachePolicy: .returnCacheDataAndFetch) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1135,12 +1138,14 @@ class UserManager: ObservableObject {
     }
         
     func reactionSubscription(completion: @escaping (ReactionInfo?) -> Void) {
-        self.reactionSubscription = WSApi.subscribe(subscription: ReactionMatchedSubscription()) { result in
+        self.reactionSubscription = WSApi.subscribe(subscription: ReactionAddedSubscription()) { result in
             guard let data = try? result.get().data else { return }
-            if let reaction = data.reactionMatched?.fragments.reactionInfo {
+            if let reaction = data.reactionAdded?.fragments.reactionInfo {
                 print("received reaction by: \(reaction.byProfileId)")
+                print("reaction: \(reaction)")
                 completion(reaction)
             } else {
+                print("reaction: ERROR!!")
                 completion(nil)
             }
         }
@@ -1161,7 +1166,7 @@ class UserManager: ObservableObject {
     func upsertUserDevice(deviceToken: String, deviceOs: String? = nil, completion: @escaping (String?) -> Void) {
         self.isLoading = true
         
-        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceOs: GraphQLNullable<String>.some(deviceOs ?? ""))) { result in
+        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceEndpointArn: self.endpointArnForSNS ?? "ERROR FROM FRONTEND!", deviceOs: GraphQLNullable<String>.some(deviceOs ?? ""))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1213,7 +1218,7 @@ class UserManager: ObservableObject {
                 for bus in businesss {
                     self.businesses.append(bus.fragments.businessInfo)
                 }
-                print(self.businesses)
+                print(self.businesses.map({ $0.id }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
@@ -1252,6 +1257,58 @@ class UserManager: ObservableObject {
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
+        }
+    }
+    /// The SNS Platform application ARN
+    let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"
+    @AppStorage("deviceTokenForSNS") var deviceToken: String?
+    @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
+    func setupAWSSNSService() {
+        createEndPoint { error in
+            guard error != nil else { return }
+            self.recreateEndPoint()
+        }
+    }
+    
+    func createEndPoint(completion: @escaping (Error?) -> Void) {
+        /// Create a platform endpoint. In this case,  the endpoint is a
+        /// device endpoint ARN
+        if let deviceToken, let user {
+            let sns = AWSSNS.default()
+            let request = AWSSNSCreatePlatformEndpointInput()
+            request?.token = deviceToken
+            request?.attributes = ["UserId": user.id]
+            request?.platformApplicationArn = SNSPlatformApplicationArn
+            sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
+                if task.error != nil {
+                    print("Error: \(String(describing: task.error))")
+                    completion(task.error)
+                } else {
+                    let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
+
+                    if let endpointArnForSNS = createEndpointResponse.endpointArn {
+                        print("endpointArn: \(endpointArnForSNS)")
+                        self.endpointArnForSNS = endpointArnForSNS
+                        self.upsertUserDevice(deviceToken: deviceToken) { error in
+                        }
+                    }
+                    completion(nil)
+                }
+                return nil
+            })
+        } else {
+            completion(nil)
+        }
+    }
+    /// Delete a platform endpoint. In this case,  the endpoint is a
+    /// device endpoint ARN
+    func recreateEndPoint() {
+        let sns = AWSSNS.default()
+        let deleteRequest = AWSSNSDeleteEndpointInput()
+        deleteRequest?.endpointArn = self.endpointArnForSNS
+        sns.deleteEndpoint(deleteRequest!) { response in
+            print("deleteEndpoint response: \(response?.localizedDescription)")
+            self.createEndPoint { _ in  }
         }
     }
 }

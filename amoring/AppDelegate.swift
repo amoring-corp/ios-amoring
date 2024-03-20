@@ -10,9 +10,8 @@ import AWSSNS
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
-    
-    /// The SNS Platform application ARN
-    let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"
+    @AppStorage("deviceTokenForSNS") var deviceToken: String?
+//    @Published var deviceToken: String? = nil
 
     var window: UIWindow?
     
@@ -31,6 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
         /// Attach the device token to the user defaults
         var token = ""
         for i in 0..<deviceToken.count {
@@ -41,27 +41,29 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         print(token)
 
         UserDefaults.standard.set(token, forKey: "deviceTokenForSNS")
-
-        /// Create a platform endpoint. In this case,  the endpoint is a
-        /// device endpoint ARN
-        let sns = AWSSNS.default()
-        let request = AWSSNSCreatePlatformEndpointInput()
-        request?.token = token
-        request?.platformApplicationArn = SNSPlatformApplicationArn
-        sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
-            if task.error != nil {
-                print("Error: \(String(describing: task.error))")
-            } else {
-                let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-
-                if let endpointArnForSNS = createEndpointResponse.endpointArn {
-                    print("endpointArn: \(endpointArnForSNS)")
-                    UserDefaults.standard.set(endpointArnForSNS, forKey: "endpointArnForSNS")
-                }
-            }
-
-            return nil
-        })
+        self.deviceToken = token
+//        /// Create a platform endpoint. In this case,  the endpoint is a
+//        /// device endpoint ARN
+//        let sns = AWSSNS.default()
+//        let request = AWSSNSCreatePlatformEndpointInput()
+//        request?.token = token
+//        request?.attributes = ["UserId": "HELLO!"]
+//        
+//        request?.platformApplicationArn = SNSPlatformApplicationArn
+//        sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
+//            if task.error != nil {
+//                print("Error: \(String(describing: task.error))")
+//            } else {
+//                let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
+//
+//                if let endpointArnForSNS = createEndpointResponse.endpointArn {
+//                    print("endpointArn: \(endpointArnForSNS)")
+//                    UserDefaults.standard.set(endpointArnForSNS, forKey: "endpointArnForSNS")
+//                }
+//            }
+//
+//            return nil
+//        })
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -70,23 +72,4 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     }
-}
-
-func getPushNotificationDeeplink(notificationDictionary: [AnyHashable:Any]) {
-        print("Notification dictionary = \(notificationDictionary)")
-
-    guard let alert = notificationDictionary["alert"] as? [String: Any],
-          let conversationId = notificationDictionary["conversationId"] as? String
-    else {
-        UserDefaults.standard.setValue("NO ALERT", forKey: "BOO")
-        return
-    }
-    
-              let title = alert["title"] as? String
-              let body = alert["body"] as? String
-
-        
-    UserDefaults.standard.setValue("Body is \(body) Title is \(title) Conv Id is \(conversationId)", forKey: "BOO")
-       print("Body is \(body) Title is \(title) Conv Id is \(conversationId)")
-
 }

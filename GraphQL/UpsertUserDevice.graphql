@@ -1,7 +1,0 @@
-mutation UpsertUserDevice($deviceToken: String!, $deviceOs: String)  {
-  upsertUserDevice(deviceToken: $deviceToken, deviceOs: $deviceOs) {
-    id
-    deviceToken
-    deviceOs
-  }
-}

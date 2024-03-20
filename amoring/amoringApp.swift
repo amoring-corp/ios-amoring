@@ -66,11 +66,10 @@ struct amoringApp: App {
                     } else {
                         GIDSignIn.sharedInstance.handle(url)
                     }
-                    
                 }
                 .onChange(of: scenePhase) {
                     self.scenePhaseHelper.scenePhase = $0
-                    print("current scene phase: \($0)")
+//                    print("current scene phase: \($0)")
                 }
                 .onAppear {
                     self.scenePhaseHelper.scenePhase = scenePhase

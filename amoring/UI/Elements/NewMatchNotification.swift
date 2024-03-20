@@ -87,8 +87,10 @@ struct NewMatchNotification: View {
                 VStack(spacing: 0) {
                     ZStack {
                         HStack(alignment: .top) {
-                            let me = userManager.user?.profile?.images.first?.file?.url
-                            let chatMate = reaction.byProfile.images?.first??.file.url
+                            // MARK: alternative
+//                            let me = reaction.toProfile.avatarUrl
+                            let me = userManager.user?.profile?.avatarUrl
+                            let chatMate = reaction.byProfile.avatarUrl
                             
                             PersonView(lineHeight: 60, stringUrl: me)
                             Spacer()

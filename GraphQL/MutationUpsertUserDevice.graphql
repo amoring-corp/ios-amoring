@@ -1,0 +1,7 @@
+mutation UpsertUserDevice($deviceToken: String!, $deviceEndpointArn: String!, $deviceOs: String)  {
+  upsertUserDevice(deviceToken: $deviceToken, deviceEndpointArn: $deviceEndpointArn, deviceOs: $deviceOs) {
+    id
+    deviceToken
+    deviceOs
+  }
+}

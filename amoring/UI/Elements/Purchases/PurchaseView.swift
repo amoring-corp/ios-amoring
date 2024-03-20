@@ -12,7 +12,7 @@ struct PurchaseView: View {
     @Binding var purchaseType: PurchaseModel.type?
     let model: PurchaseModel
     
-    @State var selectedPlan: Int = 1
+    @State var selectedPlan: String = Constants.products[1]
     
     var body: some View {
         VStack(spacing: 0) {

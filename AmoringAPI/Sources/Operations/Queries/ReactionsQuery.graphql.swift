@@ -44,7 +44,7 @@ public class ReactionsQuery: GraphQLQuery {
       public var toProfile: ToProfile { __data["toProfile"] }
       public var type: GraphQLEnum<AmoringAPI.ReactionType> { __data["type"] }
       public var matchedWithId: String? { __data["matchedWithId"] }
-      public var isMatched: Bool? { __data["isMatched"] }
+      public var isMatched: Bool { __data["isMatched"] }
       public var createdAt: AmoringAPI.DateTime { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime { __data["updatedAt"] }
 
@@ -99,7 +99,7 @@ public class ReactionsQuery: GraphQLQuery {
           public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
 
           public var id: AmoringAPI.ID { __data["id"] }
-          public var file: File { __data["file"] }
+          public var file: File? { __data["file"] }
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict

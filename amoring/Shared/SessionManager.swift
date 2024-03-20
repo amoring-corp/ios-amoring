@@ -95,6 +95,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     }
                     
                     print("Current Token: \(self.sessionToken)")
+                    print("Current User: \(authUser.id)")
                     self.user = authUser.fragments.userInfo
                     self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
                     completion(true, "")

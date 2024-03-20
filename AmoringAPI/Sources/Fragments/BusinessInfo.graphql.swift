@@ -107,11 +107,11 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
       .field("id", AmoringAPI.ID.self),
-      .field("file", File.self),
+      .field("file", File?.self),
     ] }
 
     public var id: AmoringAPI.ID { __data["id"] }
-    public var file: File { __data["file"] }
+    public var file: File? { __data["file"] }
 
     /// Image.File
     ///
@@ -197,7 +197,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
         public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var file: File { __data["file"] }
+        public var file: File? { __data["file"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
