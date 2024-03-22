@@ -1166,7 +1166,7 @@ class UserManager: ObservableObject {
     func upsertUserDevice(deviceToken: String, deviceOs: String? = nil, completion: @escaping (String?) -> Void) {
         self.isLoading = true
         
-        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceEndpointArn: self.endpointArnForSNS ?? "ERROR FROM FRONTEND!", deviceOs: GraphQLNullable<String>.some(deviceOs ?? ""))) { result in
+        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceEndpointArn: self.endpointArnForSNS ?? "ERROR FROM FRONTEND!", deviceOs: GraphQLNullable<String>.some(UIDevice.current.systemVersion))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
