@@ -24,46 +24,60 @@ class PurchaseController: ObservableObject {
     @Published var purchasedIDs: [String] = []
     
     func openPurchase(purchaseType: PurchaseModel.type) {
+        switch purchaseType {
+        case .like:
+            if !self.products.contains(where: { $0.displayName.contains("like") }) {
+                return
+            }
+        case .lounge:
+            print("pass")
+        case .transparent:
+            print("pass")
+        case .list:
+            print("pass")
+        }
         withAnimation {
             self.purchaseType = purchaseType
         }
     }
     
+    static let products = ["amoring_likes_5", "amoring_likes_10", "amoring_likes_50"]
     
     func fetchProducts() {
         Task.init(priority: .background) {
             do {
                 // TODO: add all products in appstore and here
-                let products = try await Product.products(for: Constants.products)
+                
+                let products = try await Product.products(for: PurchaseController.products)
                 DispatchQueue.main.async {
-                    print("get products: \(products.map({ $0.id }))")
+//                    print("get products: \(products.map({ $0.id }))")
+                    print("get products: \(products)")
                     self.products = products
                 }
-                
-                if let product = products.first {
-                    await isPurchased(product: product)
-                }
+//                if let product = products.first {
+//                    await isPurchased(product: product)
+//                }
             } catch {
-                
                 print("There's an error fetching products. \(error.localizedDescription)")
             }
         }
     }
     
-    func isPurchased(product: Product) async {
-        guard let state = await product.currentEntitlement else { return }
-        
-        switch state {
-        case .verified(let transaction):
-            print("isPurchased")
-            DispatchQueue.main.async {
-                self.purchasedIDs.append(transaction.productID)
-            }
-        case .unverified(_, _):
-            print("is not purchased")
-            break
-        }
-    }
+    
+//    func isPurchased(product: Product) async {
+//        guard let state = await product.currentEntitlement else { return }
+//        
+//        switch state {
+//        case .verified(let transaction):
+//            print("isPurchased")
+//            DispatchQueue.main.async {
+//                self.purchasedIDs.append(transaction.productID)
+//            }
+//        case .unverified(_, _):
+//            print("is not purchased")
+//            break
+//        }
+//    }
     
     func purchase(_ selectedPlan: String) {
         Task.init(priority: .background) {
@@ -102,9 +116,9 @@ class PurchaseController: ObservableObject {
         switch purchaseType {
         case .like:
             switch selectedPlan {
-            case Constants.products[0]: self.purchasedLikes += 5
-            case Constants.products[1]: self.purchasedLikes += 10
-            case Constants.products[2]: self.purchasedLikes += 50
+            case PurchaseController.products[0]: self.purchasedLikes += 5
+            case PurchaseController.products[1]: self.purchasedLikes += 10
+            case PurchaseController.products[2]: self.purchasedLikes += 50
             default: return
             }
         case .lounge:

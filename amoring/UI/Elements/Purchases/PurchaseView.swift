@@ -12,7 +12,7 @@ struct PurchaseView: View {
     @Binding var purchaseType: PurchaseModel.type?
     let model: PurchaseModel
     
-    @State var selectedPlan: String = Constants.products[1]
+    @State var selectedPlan: String = PurchaseController.products[0]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -120,6 +120,11 @@ struct PurchaseView: View {
         }
         .foregroundColor(.black)
         .background(Color.gray1000)
+        .onAppear {
+            if let firstPlan = purchaseController.products.map({ $0.id }).first {
+                self.selectedPlan = firstPlan
+            }
+        }
     }
     
     private func bg() -> [Color] {

@@ -16,6 +16,7 @@ import Apollo
 import AmoringAPI
 import NaverThirdPartyLogin
 import ApolloWebSocket
+import AWSSNS
 
 func initApi(token: String) -> ApolloClient {
     return {
@@ -345,6 +346,11 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 }
                 
                 print(sessionToken)
+                
+                /// setting push notification
+                //MARK: Move it if we need pushes for business account
+                self.setupAWSSNSService()
+                
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
                         completion(success, error)
@@ -362,6 +368,92 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             self.sessionToken = ""
             self.changeStateWithAnimation(state: .auth)
             print("Successfully signed out")
+        }
+    }
+    
+    /// The SNS Platform application ARN
+    let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"
+    @AppStorage("deviceTokenForSNS") var deviceToken: String?
+    @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
+    func setupAWSSNSService() {
+        createEndPoint { error in
+            guard error != nil else { return }
+            self.recreateEndPoint()
+        }
+    }
+    
+    func createEndPoint(completion: @escaping (Error?) -> Void) {
+        /// Create a platform endpoint. In this case,  the endpoint is a
+        /// device endpoint ARN
+        if let deviceToken, let user {
+            let sns = AWSSNS.default()
+            let request = AWSSNSCreatePlatformEndpointInput()
+            request?.token = deviceToken
+            request?.attributes = ["UserId": user.id]
+            request?.platformApplicationArn = SNSPlatformApplicationArn
+            sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
+                if task.error != nil {
+                    print("Error: \(String(describing: task.error))")
+                    completion(task.error)
+                } else {
+                    let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
+
+                    if let endpointArnForSNS = createEndpointResponse.endpointArn {
+                        print("endpointArn: \(endpointArnForSNS)")
+                        self.endpointArnForSNS = endpointArnForSNS
+                        self.upsertUserDevice(deviceToken: deviceToken) { error in
+                        }
+                    }
+                    completion(nil)
+                }
+                return nil
+            })
+        } else {
+            completion(nil)
+        }
+    }
+    /// Delete a platform endpoint. In this case,  the endpoint is a
+    /// device endpoint ARN
+    func recreateEndPoint() {
+        let sns = AWSSNS.default()
+        let deleteRequest = AWSSNSDeleteEndpointInput()
+        deleteRequest?.endpointArn = self.endpointArnForSNS
+        sns.deleteEndpoint(deleteRequest!) { response in
+            print("deleteEndpoint response: \(response?.localizedDescription)")
+            self.createEndPoint { _ in  }
+        }
+    }
+    
+    func upsertUserDevice(deviceToken: String, deviceOs: String? = nil, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceEndpointArn: self.endpointArnForSNS ?? "ERROR FROM FRONTEND!", deviceOs: GraphQLNullable<String>.some(UIDevice.current.systemVersion))) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Device token successfully was sent!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
         }
     }
 }

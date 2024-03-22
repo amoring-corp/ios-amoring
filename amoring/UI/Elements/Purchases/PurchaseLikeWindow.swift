@@ -6,39 +6,46 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct PurchaseLikeWindow: View {
+    @EnvironmentObject var purchaseController: PurchaseController
     @Binding var selectedPlan: String
     
     var body: some View {
         HStack(spacing: 0) {
-            PurchaseLikePlan(discount: "최소금액", count: "5", price: "₩ 10,000", selectedPlan: $selectedPlan, planId: Constants.products[0])
-            PurchaseLikePlan(discount: "25% 할인", count: "10", price: "₩ 15,000", selectedPlan: $selectedPlan, planId: Constants.products[1])
-            PurchaseLikePlan(discount: "50% 할인", count: "50", price: "₩ 50,000", selectedPlan: $selectedPlan, planId: Constants.products[2])
+            let likePlans = purchaseController.products.filter({ $0.id.contains("like") }).sorted{ $0.price < $1.price }
+            ForEach(likePlans) { plan in
+                PurchaseLikePlan(selectedPlan: $selectedPlan, product: plan)
+            }
         }
         .padding(.top, Size.w(23))
     }
 }
 
 struct PurchaseLikePlan: View {
-    let discount: String
-    let count: String
-    let price: String
-    
     @Binding var selectedPlan: String
-    let planId: String
-    
+    let product: Product
+    @State var discount: String = ""
+    @State var numberOfLikes: String = ""
+
     var body: some View {
         VStack(spacing: 0) {
             Text(discount)
                 .font(semiBold18Font)
                 .foregroundColor(.white)
-                .opacity(selectedPlan == planId ? 1 : 0.4)
+                .opacity(selectedPlan == product.id ? 1 : 0.4)
                 .padding(.vertical, Size.w(12))
                 .frame(maxWidth: .infinity)
-                .background(Color.black.opacity(selectedPlan == planId ? 1 : 0.1))
-                
-            (Text(count)
+                .background(Color.black.opacity(selectedPlan == product.id ? 1 : 0.1))
+                .onAppear {
+                    if let range = product.description.range(of: " / ") {
+                        self.discount = String(product.description[range.upperBound...])
+                    }
+                    self.numberOfLikes = product.description.components(separatedBy: " /")[0]
+                }
+            
+            (Text(numberOfLikes)
                     .font(bold40Font)
                 + Text("개")
                     .font(medium16Font)
@@ -49,23 +56,23 @@ struct PurchaseLikePlan: View {
             Color.gray1000.opacity(0.2).frame(width: Size.w(16), height: Size.w(2))
                 .padding(.bottom, Size.w(12))
             
-            Text(price)
+            Text(product.displayPrice)
                 .tracking(-0.5)
                 .font(semiBold20Font)
                 .padding(.bottom, Size.w(20))
         }
-        .background(Color.white.opacity(selectedPlan == planId ? 1 : 0.1))
+        .background(Color.white.opacity(selectedPlan == product.id ? 1 : 0.1))
         .cornerRadius(Size.w(12))
-        .shadow(color: Color.black.opacity(selectedPlan == planId ? 0.2 : 0), radius: 15, y: Size.w(40))
-        .offset(y: Size.w(selectedPlan == planId ? -21 : 0))
+        .shadow(color: Color.black.opacity(selectedPlan == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
+        .offset(y: Size.w(selectedPlan == product.id ? -21 : 0))
         .onTapGesture {
             withAnimation(.bouncy) {
-                selectedPlan = planId
+                selectedPlan = product.id
             }
         }
     }
 }
 
 #Preview {
-    PurchaseLikeWindow(selectedPlan: .constant(Constants.products[1]))
+    PurchaseLikeWindow(selectedPlan: .constant(PurchaseController.products[1]))
 }

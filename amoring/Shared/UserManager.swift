@@ -41,8 +41,6 @@ class UserManager: ObservableObject {
         self.WSApi = WSApi
         self.user = MutatingUser(userInfo: authUser)
         
-        self.setupAWSSNSService()
-        
         guard let role = authUser.role else {
             print("NO ROLE!")
             self.changeStateWithAnimation(state: .error)
@@ -57,8 +55,6 @@ class UserManager: ObservableObject {
 //                DispatchQueue.main.async {
 //                    UIApplication.shared.unregisterForRemoteNotifications()
 //                }
-                print("going to Business Session")
-                print(business)
                 //TODO:  pass whole business user here!
                 self.setBusinessPhotos()
                 self.changeStateWithAnimation(state: .businessSession)
@@ -94,7 +90,6 @@ class UserManager: ObservableObject {
         for image in images {
             let urlString = image.file?.url ?? ""
             guard let url = URL(string: urlString) else { return }
-            print(urlString)
             let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
             let image = UIImage(data: data!)
             self.pictures.append(PictureModel.newPicture(image!, urlString))
@@ -111,7 +106,6 @@ class UserManager: ObservableObject {
         for image in images {
             let urlString = image.file?.url ?? ""
             guard let url = URL(string: urlString) else { return }
-            print(urlString)
             if let data = try? Data(contentsOf: url) {
                 if let image = UIImage(data: data) {
                     self.businessPictures.append(PictureModel.newPicture(image, urlString))
@@ -747,10 +741,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("Token successfully was generated!")
-                    //TODO: set timer for expiration period to update token
-                print(data.generateCheckInToken.expiresAt)
-                print(data.generateCheckInToken.token)
+                print("CheckIn Token: \(data.generateCheckInToken.token)")
                 self.isLoading = false
                 completion(nil, data.generateCheckInToken.token)
             case .failure(let error):
@@ -782,8 +773,6 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Check in successfully created by token!")
-                    
-                
                 print(data.createCheckInByToken?.id as Any)
                 
                 self.isLoading = false
@@ -1163,39 +1152,6 @@ class UserManager: ObservableObject {
         }
     }
     
-    func upsertUserDevice(deviceToken: String, deviceOs: String? = nil, completion: @escaping (String?) -> Void) {
-        self.isLoading = true
-        
-        api.perform(mutation: UpsertUserDeviceMutation(deviceToken: deviceToken, deviceEndpointArn: self.endpointArnForSNS ?? "ERROR FROM FRONTEND!", deviceOs: GraphQLNullable<String>.some(UIDevice.current.systemVersion))) { result in
-            switch result {
-            case .success(let value):
-                guard value.errors == nil else {
-                    print(value.errors as Any)
-                    self.isLoading = false
-                    completion(value.errors?.first?.localizedDescription)
-                    return
-                }
-                
-                guard let data = value.data else {
-                    print("NO DATA!")
-                    self.isLoading = false
-                    completion("Oops! Something went wrong")
-                    return
-                }
-                
-                print("Device token successfully was sent!")
-                
-                self.isLoading = false
-                
-                completion(nil)
-            case .failure(let error):
-                debugPrint(error.localizedDescription)
-                self.isLoading = false
-                completion(error.localizedDescription)
-            }
-        }
-    }
-    
     // TODO: move to another Manager
     func getBusinesses() {
         api.fetch(query: QueryBusinessesQuery()) { result in
@@ -1259,58 +1215,7 @@ class UserManager: ObservableObject {
             }
         }
     }
-    /// The SNS Platform application ARN
-    let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"
-    @AppStorage("deviceTokenForSNS") var deviceToken: String?
-    @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
-    func setupAWSSNSService() {
-        createEndPoint { error in
-            guard error != nil else { return }
-            self.recreateEndPoint()
-        }
-    }
     
-    func createEndPoint(completion: @escaping (Error?) -> Void) {
-        /// Create a platform endpoint. In this case,  the endpoint is a
-        /// device endpoint ARN
-        if let deviceToken, let user {
-            let sns = AWSSNS.default()
-            let request = AWSSNSCreatePlatformEndpointInput()
-            request?.token = deviceToken
-            request?.attributes = ["UserId": user.id]
-            request?.platformApplicationArn = SNSPlatformApplicationArn
-            sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
-                if task.error != nil {
-                    print("Error: \(String(describing: task.error))")
-                    completion(task.error)
-                } else {
-                    let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-
-                    if let endpointArnForSNS = createEndpointResponse.endpointArn {
-                        print("endpointArn: \(endpointArnForSNS)")
-                        self.endpointArnForSNS = endpointArnForSNS
-                        self.upsertUserDevice(deviceToken: deviceToken) { error in
-                        }
-                    }
-                    completion(nil)
-                }
-                return nil
-            })
-        } else {
-            completion(nil)
-        }
-    }
-    /// Delete a platform endpoint. In this case,  the endpoint is a
-    /// device endpoint ARN
-    func recreateEndPoint() {
-        let sns = AWSSNS.default()
-        let deleteRequest = AWSSNSDeleteEndpointInput()
-        deleteRequest?.endpointArn = self.endpointArnForSNS
-        sns.deleteEndpoint(deleteRequest!) { response in
-            print("deleteEndpoint response: \(response?.localizedDescription)")
-            self.createEndPoint { _ in  }
-        }
-    }
 }
 
 enum ReactType {

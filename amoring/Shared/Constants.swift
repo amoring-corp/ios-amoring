@@ -8,8 +8,6 @@
 import Foundation
 
 class Constants {
-    static let products = ["amoring_likes_5", "amoring_likes_10", "amoring_likes_50"]
-    
     static let TIME_OFFSET: Double = 9 * 60 * 60 // TODO: get from swift function?
     static let genderOptions = ["MALE", "FEMALE"]
     

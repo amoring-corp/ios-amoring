@@ -65,35 +65,37 @@ struct SessionFlow: View {
         .onAppear {
             /// sets current interests from DB
             userManager.getInterests()
-            /// getting current active check in for Amoring page
-            userManager.activeCheckIn { activeCheckIn in
-                if let activeCheckIn {
-                    userManager.getReactions { error, reactions in
-                        if let error {
-                            notificationController.setNotification(text: error, type: .error)
-                        } else {
-                            messagesController.reactions = reactions
+            
+            if userManager.user?.profile != nil {
+                /// getting current active check in for Amoring page
+                userManager.activeCheckIn { activeCheckIn in
+                    if let activeCheckIn {
+                        userManager.getReactions { error, reactions in
+                            if let error {
+                                notificationController.setNotification(text: error, type: .error)
+                            } else {
+                                messagesController.reactions = reactions
+                            }
                         }
                     }
+                    amoringController.checkIn = activeCheckIn
                 }
-                amoringController.checkIn = activeCheckIn
-            }
-            
-            /// in App Purchases
-            purchaseController.fetchProducts()
-            
-//            if self.messagesController.conversations.isEmpty {
-                userManager.getConversations { conversations in
-                    if let conversations {
-                        self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
-                        
+                
+                /// in App Purchases
+                purchaseController.fetchProducts()
+                
+    //            if self.messagesController.conversations.isEmpty {
+                    userManager.getConversations { conversations in
+                        if let conversations {
+                            self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                            
+                        }
                     }
-                }
-//            }
-            
-            // MARK: all subscriptions
-            subscriptions()
-
+    //            }
+                
+                // MARK: all subscriptions
+                subscriptions()
+            }
         }
     }
     
