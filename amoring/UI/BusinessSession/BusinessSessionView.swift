@@ -17,6 +17,7 @@ struct BusinessSessionView: View {
     @State var isLoading = false
     @State var expired = false
     @State var qrcode: QRCode.Document? = nil
+    @State var available = true
     
     @State var timer: Timer? = nil
     
@@ -82,10 +83,14 @@ struct BusinessSessionView: View {
                             .disabled(true)
                             .padding(.top, Size.w(22))
                             .onAppear {
+                                self.available = true
                                 setToken()
                                 withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
                                     xOffset = -size * Double(images.count)
                                 }
+                            }
+                            .onDisappear {
+                                self.available = false
                             }
                         }
                         
@@ -202,9 +207,11 @@ struct BusinessSessionView: View {
                     isLoading = false
                 }
                 
-                let timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: { timer in
-                    print("updating token ...")
-                    self.setToken()
+                self.timer = Timer.scheduledTimer(withTimeInterval: 6 * 2, repeats: true, block: { timer in
+                    if available {
+                        print("updating token ...")
+                        self.setToken()
+                    }
                     timer.invalidate()
 //                    self.setToken()
                 })

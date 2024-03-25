@@ -817,7 +817,6 @@
 			children = (
 				850A300E2B0AEDF8003B12B7 /* SessionView.swift */,
 				850A302A2B0B0D62003B12B7 /* NavigatorView.swift */,
-				85B028A02B2FE7B300A738AB /* PurchaseController.swift */,
 				85D0DEDF2B3A6B130029DA5D /* NavigationController.swift */,
 				850A302C2B0B1BA5003B12B7 /* Nearby */,
 				850A302D2B0B1BAE003B12B7 /* Amoring */,
@@ -927,6 +926,7 @@
 				8522A5FE2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift */,
 				8522A6002B2C4B96008AF703 /* PurchaseLoungeWindow.swift */,
 				8522A6022B2C4BAD008AF703 /* PurchaseLikeWindow.swift */,
+				85B028A02B2FE7B300A738AB /* PurchaseController.swift */,
 				8522A5FC2B2C4B4C008AF703 /* Data.swift */,
 				85F190482B5FAC0500FA7686 /* BorderButton.swift */,
 			);

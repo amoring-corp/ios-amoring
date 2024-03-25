@@ -15,8 +15,8 @@ struct PurchaseModel {
         case list
     }
     
-    func id() -> String {
-        switch self.type {
+    static func id(type: PurchaseModel.type) -> String {
+        switch type {
         case .like:
             return  "amoring_likes_5"
         case .lounge:

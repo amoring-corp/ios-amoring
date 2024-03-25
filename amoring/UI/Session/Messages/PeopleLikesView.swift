@@ -141,7 +141,7 @@ struct ProfilePreviewView: View {
     var body: some View {
         VStack(spacing: 0) {
             // TODO: Create separate object instead of using SwipibleProfileVIew for smooth animation ?
-            SwipibleProfileVIew(profile: reaction.byProfile.fragments.profileInfo, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $amoringController.likes)
+            SwipibleProfileVIew(profile: reaction.byProfile.fragments.profileInfo, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $purchaseController.likes)
         }
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading:
@@ -177,19 +177,19 @@ struct ProfilePreviewView: View {
                     notificationController.setNotification(text: error, type: .error)
                 } else {
                     if isMatched {
-                            userManager.getConversations { conversations in
-                                if let conversations {
-                                    self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
-                                }
+                        userManager.getConversations { conversations in
+                            if let conversations {
+                                self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
                             }
+                        }
                     } else {
                         print("NO MATHCES!")
                     }
                     removeTopItem()
                     if hasLiked {
-                        if amoringController.likes > 0 {
+                        if purchaseController.likes > 0 {
                             withAnimation {
-                                amoringController.likes -= 1
+                                purchaseController.likes -= 1
                             }
                         } else {
                             withAnimation {

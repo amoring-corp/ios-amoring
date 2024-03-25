@@ -17,9 +17,6 @@ class AmoringController: ObservableObject {
     @Published var checkIn: CheckInInfo? = nil
     @Published var countDown: TimeInterval? = nil
 
-    // TODO: Not sure if this object should be here...
-    @Published var likes: Int = 20
-    
     func leave() {
         // TODO: Save to DB and delete current check in object
         withAnimation {

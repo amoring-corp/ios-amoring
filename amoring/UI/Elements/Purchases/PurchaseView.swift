@@ -12,8 +12,6 @@ struct PurchaseView: View {
     @Binding var purchaseType: PurchaseModel.type?
     let model: PurchaseModel
     
-    @State var selectedPlan: String = PurchaseController.products[0]
-    
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -65,13 +63,13 @@ struct PurchaseView: View {
                         ZStack {
                             switch model.type {
                             case .like:
-                                PurchaseLikeWindow(selectedPlan: $selectedPlan)
+                                PurchaseLikeWindow()
                             case .lounge:
-                                PurchaseLoungeWindow()
+                                PurchaseLoungeWindow(purchaseType: model.type)
                             case .transparent:
-                                PurchaseSimpleWindow(emoji: "😶‍🌫️")
+                                PurchaseSimpleWindow(purchaseType: model.type, emoji: "😶‍🌫️")
                             case .list:
-                                PurchaseSimpleWindow(emoji: "🧡👀")
+                                PurchaseSimpleWindow(purchaseType: model.type, emoji: "🧡👀")
                             }
                         }
                             .padding(.top, Size.w(36))
@@ -103,7 +101,7 @@ struct PurchaseView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: bg(), startPoint: .topTrailing, endPoint: .bottomLeading))
                 Button(action: {
-                    purchaseController.purchase(selectedPlan)
+                    purchaseController.purchase()
                 }) {
                     Text("구매하기")
                         .font(semiBold22Font)
@@ -120,11 +118,11 @@ struct PurchaseView: View {
         }
         .foregroundColor(.black)
         .background(Color.gray1000)
-        .onAppear {
-            if let firstPlan = purchaseController.products.map({ $0.id }).first {
-                self.selectedPlan = firstPlan
-            }
-        }
+//        .onAppear {
+//            if let firstPlan = purchaseController.products.map({ $0.id }).first {
+//                self.selectedPlan = firstPlan
+//            }
+//        }
     }
     
     private func bg() -> [Color] {

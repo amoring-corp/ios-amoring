@@ -11,9 +11,10 @@ struct PurchaseLoungeWindow: View {
     @EnvironmentObject var purchaseController: PurchaseController
     @State var isOn = false
     @State var timer: Timer? = nil
+    let purchaseType: PurchaseModel.type
     
     var body: some View {
-        let plan = purchaseController.products.first(where: { $0.id == "lounge_extension_pass" })
+        let plan = purchaseController.products.first(where: { $0.id == PurchaseModel.id(type: purchaseType) })
         VStack(spacing: 0) {
             Text(plan?.displayName ?? "")
                 .font(semiBold18Font)
@@ -52,6 +53,6 @@ struct PurchaseLoungeWindow: View {
     }
 }
 
-#Preview {
-    PurchaseLoungeWindow()
-}
+//#Preview {
+//    PurchaseLoungeWindow()
+//}

@@ -110,7 +110,6 @@ struct UserOnboardingPhoto: View {
             .padding(.horizontal, Size.w(22))
             .padding(.bottom, Size.w(36))
         }
-        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.yellow300)
         .navigationBarBackButtonHidden()
@@ -123,11 +122,10 @@ struct UserOnboardingPhoto: View {
         }
         .navigationBarItems(leading:
                                 BackButton(action: {
-            sessionManager.signOut()
+//            sessionManager.signOut()
             self.presentationMode.wrappedValue.dismiss()
         })
         )
-        
     }
     
     private func removePicture() {

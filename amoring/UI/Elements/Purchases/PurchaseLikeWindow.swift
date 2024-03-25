@@ -10,13 +10,12 @@ import StoreKit
 
 struct PurchaseLikeWindow: View {
     @EnvironmentObject var purchaseController: PurchaseController
-    @Binding var selectedPlan: String
     
     var body: some View {
         HStack(spacing: 0) {
             let likePlans = purchaseController.products.filter({ $0.id.contains("like") }).sorted{ $0.price < $1.price }
             ForEach(likePlans) { plan in
-                PurchaseLikePlan(selectedPlan: $selectedPlan, product: plan)
+                PurchaseLikePlan(product: plan)
             }
         }
         .padding(.top, Size.w(23))
@@ -24,7 +23,7 @@ struct PurchaseLikeWindow: View {
 }
 
 struct PurchaseLikePlan: View {
-    @Binding var selectedPlan: String
+    @EnvironmentObject var purchaseController: PurchaseController
     let product: Product
     @State var discount: String = ""
     @State var numberOfLikes: String = ""
@@ -34,10 +33,10 @@ struct PurchaseLikePlan: View {
             Text(discount)
                 .font(semiBold18Font)
                 .foregroundColor(.white)
-                .opacity(selectedPlan == product.id ? 1 : 0.4)
+                .opacity(purchaseController.selectedPlan == product.id ? 1 : 0.4)
                 .padding(.vertical, Size.w(12))
                 .frame(maxWidth: .infinity)
-                .background(Color.black.opacity(selectedPlan == product.id ? 1 : 0.1))
+                .background(Color.black.opacity(purchaseController.selectedPlan == product.id ? 1 : 0.1))
                 .onAppear {
                     if let range = product.description.range(of: " / ") {
                         self.discount = String(product.description[range.upperBound...])
@@ -61,18 +60,18 @@ struct PurchaseLikePlan: View {
                 .font(semiBold20Font)
                 .padding(.bottom, Size.w(20))
         }
-        .background(Color.white.opacity(selectedPlan == product.id ? 1 : 0.1))
+        .background(Color.white.opacity(purchaseController.selectedPlan == product.id ? 1 : 0.1))
         .cornerRadius(Size.w(12))
-        .shadow(color: Color.black.opacity(selectedPlan == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
-        .offset(y: Size.w(selectedPlan == product.id ? -21 : 0))
+        .shadow(color: Color.black.opacity(purchaseController.selectedPlan == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
+        .offset(y: Size.w(purchaseController.selectedPlan == product.id ? -21 : 0))
         .onTapGesture {
             withAnimation(.bouncy) {
-                selectedPlan = product.id
+                purchaseController.selectedPlan = product.id
             }
         }
     }
 }
 
 #Preview {
-    PurchaseLikeWindow(selectedPlan: .constant(PurchaseController.products[1]))
+    PurchaseLikeWindow()
 }
