@@ -85,9 +85,9 @@ struct AccountPhoto: View {
                 let images = pictures.map({ $0.picture })
                 userManager.deleteMyAllProfileImages { success in
                     userManager.uploadMyProfileImages(images: images) { success in
-                        sessionManager.getCurrentSession(delay: 0) { success, error in
-                            notificationController.setNotification(show: !success, text: error, type: .error)
-                        }
+//                        sessionManager.getCurrentSession(delay: 0) { success, error in
+//                            notificationController.setNotification(show: !success, text: error, type: .error)
+//                        }
                     }
                 }
             }) {

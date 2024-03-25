@@ -186,7 +186,8 @@ class UserManager: ObservableObject {
     
     func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        
+        self.pictures.removeAll()
+        self.user?.profile?.images.removeAll()
         let dispatchGroup = DispatchGroup()
         var successList: [Bool] = []
         for (index,image) in images.enumerated(){
@@ -194,7 +195,6 @@ class UserManager: ObservableObject {
             if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
                 dispatchGroup.enter()
 
-                // TODO: test with image\(index).jpeg
                 let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
                 self.saveImage(file: file, sort: index) { success in
                     successList.append(success)
@@ -231,6 +231,15 @@ class UserManager: ObservableObject {
                 
                 print("Image was successfully uploaded!")
                 print(data.uploadMyProfileImage)
+                self.user?.profile?.images.insert(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment), at: sort)
+                
+                let urlString = data.uploadMyProfileImage.file?.url ?? ""
+                guard let url = URL(string: urlString) else { return }
+                if let data = try? Data(contentsOf: url) {
+                    if let image = UIImage(data: data) {
+                        self.pictures.insert(PictureModel.newPicture(image, urlString), at: sort)
+                    }
+                }
                 completion(true)
             case .failure(let error):
                 print(error)
@@ -242,7 +251,8 @@ class UserManager: ObservableObject {
     
     func uploadBusinessImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        
+        self.businessPictures.removeAll()
+        self.user?.business?.images?.removeAll()
         let dispatchGroup = DispatchGroup()
         var successList: [Bool] = []
         for (index,image) in images.enumerated(){
@@ -287,6 +297,16 @@ class UserManager: ObservableObject {
                 
                 print("Image was successfully uploaded!")
                 print(data.uploadBusinessImage)
+//                self.user?.business?.images?.append(MutatingImage(image: data.uploadBusinessImage))
+                self.user?.business?.images?.insert(MutatingImage(image: data.uploadBusinessImage), at: sort)
+                
+                let urlString = data.uploadBusinessImage.file?.url ?? ""
+                guard let url = URL(string: urlString) else { return }
+                if let data = try? Data(contentsOf: url) {
+                    if let image = UIImage(data: data) {
+                        self.businessPictures.insert(PictureModel.newPicture(image, urlString), at: sort)
+                    }
+                }
                 completion(true)
             case .failure(let error):
                 print(error)
@@ -485,7 +505,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                // FIXME: Do we even need this variable?
+                // Do we even need this variable?
                 _ = data.upsertMyProfile
                 print(data.upsertMyProfile.id)
                 self.user?.profile = profile
@@ -504,14 +524,14 @@ class UserManager: ObservableObject {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors as Any)
-                    // FIXME: maybe?
+                    // MARK: maybe?
 //                    self.interestCategories = Constants.interestCategories
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
-                    // FIXME: maybe?
+                    // MARK: maybe?
 //                    self.interestCategories = Constants.interestCategories
                     return
                 }
@@ -537,7 +557,7 @@ class UserManager: ObservableObject {
                 }
             case .failure(let error):
                 debugPrint(error.localizedDescription)
-                // FIXME: maybe?
+                // MARK: maybe?
 //                self.interestCategories = Constants.interestCategories
             }
         }

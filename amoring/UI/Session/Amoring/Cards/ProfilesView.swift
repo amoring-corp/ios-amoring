@@ -134,6 +134,7 @@ struct ProfilesView: View {
             if let checkedOutAt = checkIn.checkedOutAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") {
 //                amoringController.countDown = checkInDate.addingTimeInterval(3 * 60 * 60) - Date()
                 amoringController.countDown = checkedOutAt - Date()
+                
                 self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true, block: { timer in
                     if let countDown = amoringController.countDown, countDown > 0 {
                         amoringController.countDown = countDown - 1

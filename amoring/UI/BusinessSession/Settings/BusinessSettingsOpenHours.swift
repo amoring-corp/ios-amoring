@@ -64,7 +64,6 @@ struct BusinessSettingsOpenHours: View {
                                     Text("➊ 영업시간을 알려주세요.")
                                         .font(medium14Font)
                                         .foregroundColor(.yellow600)
-                                    // TODO: Implement saving
                                     HStack(spacing: 0) {
                                         ZStack {
                                             DatePicker("", selection: $sunday.openAt, displayedComponents: .hourAndMinute)

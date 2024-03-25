@@ -248,12 +248,12 @@ struct BusinessListView: View {
     private func sort(sorting: businessSorting) {
         switch sorting {
         case .recs:
-            // TODO: Implement recommendations
+            // TODO: backend. Implement recommendations
             userManager.businesses = userManager.businesses.sorted(by: { $0.addressSigungu ?? "" > $1.addressSigungu ?? ""})
         case .name:
             userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
         case .distance:
-            // TODO: Implement distance
+            // TODO: backend. Implement distance
             userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
         }
     }
@@ -290,7 +290,7 @@ struct BusinessRow: View {
                     
                     Spacer()
                     
-                    // TODO: get range from location and business .. what? lat and long?
+                    // TODO: backend. get range from location and business .. what? lat and long?
                     Text("1.0km")
                 }
                 .font(regular16Font)

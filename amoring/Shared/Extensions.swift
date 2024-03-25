@@ -12,8 +12,7 @@ extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         if let date = dateFormatter.date(from: self) {
-            // FIXME: hardcoded time to korean time
-            return date.addingTimeInterval(9 * 60 * 60)
+            return date.addingTimeInterval(TimeInterval(TIME_OFFSET))
         } else {
             return Date()
         }

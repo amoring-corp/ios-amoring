@@ -96,9 +96,9 @@ struct BusinessSettingsImages: View {
                             // TODO: find better way to refresh images
                             userManager.deleteAllBusinessImages { success in
                                 userManager.uploadBusinessImages(images: images) { success in
-                                    sessionManager.getCurrentSession(delay: 0) { success, error in
-                                        notificationController.setNotification(show: !success, text: error, type: .error)
-                                    }
+//                                    sessionManager.getCurrentSession(delay: 0) { success, error in
+//                                        notificationController.setNotification(show: !success, text: error, type: .error)
+//                                    }
                                 }
                             }
                         }) {

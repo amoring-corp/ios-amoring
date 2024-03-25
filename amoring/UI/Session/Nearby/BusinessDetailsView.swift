@@ -83,8 +83,7 @@ struct BusinessDetailsView: View {
                                 .alert(isPresented: $showAlert) {
                                     let address = business.address ?? ""
                                     let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
-                                    // FIXME: Need alert text
-                                    return Alert(title: Text("Address: '\(fullAddress)' successfully copied to clipboard"))
+                                    return Alert(title: Text(fullAddress))
                                 }
                                 
                                 if let phone = business.phoneNumber {

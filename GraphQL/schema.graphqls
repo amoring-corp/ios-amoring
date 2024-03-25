@@ -497,6 +497,7 @@ type Mutation {
     deviceEndpointArn: String!
     deviceOs: String
   ): UserDevice
+  disconnectUserDevice(deviceToken: String!): Boolean
   createInterestCategory(data: InterestCategoryInput!): InterestCategory!
   updateInterestCategory(
     id: ID!
@@ -507,6 +508,7 @@ type Mutation {
   updateInterest(id: ID!, data: InterestUpdateInput!): Interest!
   deleteInterest(id: ID!): Interest!
   sendMessage(body: String!, conversationId: ID!): Message!
+  sendPush(userId: ID!, message: String!): Boolean!
   batchUpsertBusinessHours(
     businessId: ID!
     data: [BusinessHoursInput!]!

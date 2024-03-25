@@ -5,22 +5,6 @@ mutation uploadMyProfileImage($image: Upload!, $sort: Int!) {
       file: $image
     }
   ) {
-    id
-    profileId
-    fileId
-    sort
-    file {
-      id
-      name
-      mimetype
-      url
-      path
-      width
-      height
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
+    ... ImageFragment
   }
 }

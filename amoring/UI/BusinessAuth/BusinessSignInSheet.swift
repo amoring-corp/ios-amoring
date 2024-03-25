@@ -103,7 +103,7 @@ struct BusinessSignInSheet: View {
                 .padding(.bottom, Size.w(22))
                     
                 HStack(spacing: Size.w(16)) {
-                    //TODO: forgot password
+                    //TODO: backend. forgot password
                     NavigationLink(destination: {
                         ForgotPasswordEmail()
                     }) {

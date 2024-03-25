@@ -166,4 +166,19 @@ class Constants {
 //        (063, "전라북도"),
 //        (064, "제주특별자치도")
 //    ]
+    static var version: String {
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        else {
+            return ""
+        }
+        return version
+    }
+
+    static var build: String {
+        guard let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        else {
+            return ""
+        }
+        return build
+    }
 }

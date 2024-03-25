@@ -62,7 +62,7 @@ struct UserInfoView: View {
                 Color.yellow350
             ], startPoint: .top, endPoint: .bottom)
             
-            // TODO: make it conditional
+            // TODO: backend. make it conditional
             Image("tables-background")
                 .resizable()
                 .scaledToFill()

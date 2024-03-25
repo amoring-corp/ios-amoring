@@ -198,7 +198,6 @@ struct BusinessOnboardingView: View {
                                     }
                                 }
                                 .onChange(of: presentImporter) { bool in
-                                    // TODO: need tests
                                     UITabBar.appearance().isHidden = !bool
                                 }
                             }

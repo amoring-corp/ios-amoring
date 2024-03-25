@@ -265,7 +265,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 if let confirmationNumber = value.data?.signUp.confirmationNumber, let emailConfirmationToken = value.data?.signUp.emailConfirmationToken, let authUser = value.data?.signUp.user {
                     self.emailConfirmationToken = emailConfirmationToken
-                    // FIXME: ! create a decoder
                     self.user = authUser.fragments.userInfo
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         withAnimation {
@@ -365,6 +364,9 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     func signOut() {
         DispatchQueue.main.async {
+            self.deleteEndPoint() { _ in
+                self.disconnectUserDevice()
+            }
             self.sessionToken = ""
             self.changeStateWithAnimation(state: .auth)
             print("Successfully signed out")
@@ -414,11 +416,17 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     }
     /// Delete a platform endpoint. In this case,  the endpoint is a
     /// device endpoint ARN
-    func recreateEndPoint() {
+    func deleteEndPoint(completion: @escaping (Error?) -> Void) {
         let sns = AWSSNS.default()
         let deleteRequest = AWSSNSDeleteEndpointInput()
         deleteRequest?.endpointArn = self.endpointArnForSNS
         sns.deleteEndpoint(deleteRequest!) { response in
+            completion(response)
+            
+        }
+    }
+    func recreateEndPoint() {
+        deleteEndPoint { response in
             print("deleteEndpoint response: \(response?.localizedDescription)")
             self.createEndPoint { _ in  }
         }
@@ -454,6 +462,37 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 self.isLoading = false
                 completion(error.localizedDescription)
             }
+        }
+    }
+    
+    func disconnectUserDevice() {
+        if let deviceToken {
+            self.isLoading = true
+            api.perform(mutation: DisconnectUserDeviceMutation(deviceToken: deviceToken)) { result in
+                switch result {
+                case .success(let value):
+                    guard value.errors == nil else {
+                        print(value.errors as Any)
+                        self.isLoading = false
+                        return
+                    }
+                    
+                    guard let data = value.data else {
+                        print("NO DATA!")
+                        self.isLoading = false
+                        return
+                    }
+                    
+                    print("Device token successfully was disconnected!")
+                    
+                    self.isLoading = false
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                    self.isLoading = false
+                }
+            }
+        } else {
+            return
         }
     }
 }

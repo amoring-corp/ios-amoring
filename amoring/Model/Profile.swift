@@ -46,7 +46,7 @@ struct Profile: Hashable {
         self.bio = profile.bio
         self.gender = profile.gender?.value
         self.images = profile.images == nil ? [] : profile.images!.compactMap{
-            MutatingImage(image: $0!)
+            MutatingImage(image: $0?.fragments.imageFragment)
         }
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
@@ -68,7 +68,7 @@ struct Profile: Hashable {
         self.bio = profile.bio
         self.gender = profile.gender?.value
         self.images = profile.images == nil ? [] : profile.images!.compactMap{
-            MutatingImage(image: $0!)
+            MutatingImage(image: $0?.fragments.imageFragment)
         }
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
@@ -90,7 +90,7 @@ struct Profile: Hashable {
         self.bio = profile.bio
         self.gender = profile.gender?.value
         self.images = profile.images == nil ? [] : profile.images!.compactMap{
-            MutatingImage(image: $0!)
+            MutatingImage(image: $0?.fragments.imageFragment)
         }
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
@@ -110,7 +110,7 @@ struct Profile: Hashable {
         self.bio = profile.bio
         self.gender = profile.gender?.value
         self.images = profile.images == nil ? [] : profile.images!.compactMap{
-            MutatingImage(image: $0!)
+            MutatingImage(image: $0?.fragments.imageFragment)
         }
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age

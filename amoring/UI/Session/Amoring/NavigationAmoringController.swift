@@ -13,12 +13,10 @@ class AmoringController: ObservableObject {
 //    @Published var amoring: Bool = false
     @Published var showDetails: Bool = false
     @Published var hidePanel: Bool = false
-    // TODO: fetch this object when app starts
     @Published var checkIn: CheckInInfo? = nil
     @Published var countDown: TimeInterval? = nil
 
     func leave() {
-        // TODO: Save to DB and delete current check in object
         withAnimation {
 //            self.checkIn?.checkedOutAt = Date()
             self.checkIn = nil

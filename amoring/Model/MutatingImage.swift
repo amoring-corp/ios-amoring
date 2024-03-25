@@ -17,19 +17,31 @@ struct MutatingImage: Hashable {
     var createdAt: Date?
     var updatedAt: Date?
     
-    init(image: UserInfo.Profile.Image) {
-        self.id = image.id
-        self.file =  File(file: image.file)
-    }
+//    init(image: UserInfo.Profile.Image) {
+//        self.id = image.id
+//        self.file =  File(file: image.file)
+//    }
     
-    init(image: ProfileInfo.Image) {
-        self.id = image.id
-        self.file = File(file: image.file)
-    }
+//    init(image: ProfileInfo.Image) {
+//        self.id = image.id
+//        self.file = File(file: image.file)
+//    }
     
-    init(image: ConversationInfo.Participant.Profile.Image) {
-        self.id = image.id
-        self.file = File(file: image.file)
+//    init(image: ConversationInfo.Participant.Profile.Image) {
+//        self.id = image.id
+//        self.file = File(file: image.file)
+//    }
+    
+//    init(image: BusinessInfo.ActiveCheckIn.Profile.Image) {
+//        self.id = image.id
+//        self.file = File(file: image.file)
+//    }
+    
+    init(image: ImageFragment?) {
+        if let image {
+            self.id = image.id
+            self.file = File(file: image.file)
+        }
     }
     
     init(image: BusinessInfo.Image) {
@@ -37,7 +49,7 @@ struct MutatingImage: Hashable {
         self.file = File(file: image.file)
     }
     
-    init(image: BusinessInfo.ActiveCheckIn.Profile.Image) {
+    init(image: UploadBusinessImageMutation.Data.UploadBusinessImage) {
         self.id = image.id
         self.file = File(file: image.file)
     }

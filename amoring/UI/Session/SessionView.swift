@@ -141,6 +141,7 @@ struct SessionFlow: View {
         }
         
         userManager.reactionSubscription { reaction in
+            // TODO: need tests. Sometimes reaction comes to second user as well ...
             if let reaction {
                 if reaction.isMatched {
                     withAnimation {
@@ -159,7 +160,6 @@ struct SessionFlow: View {
                         }
                     }
                 } else {
-                    // TODO: need tests
                     withAnimation {
                         messagesController.reactions.insert(reaction, at: 0)
                     }
@@ -200,7 +200,6 @@ struct SessionView: View {
     
     @ViewBuilder
     func getTabView(selectedIndex: Binding<Int>, index: Int) -> some View {
-        // FIXME: for now it's walk around. which hides bottom navigation if it navigates to child
 //        NavigationStackBackport.NavigationStack(path: $navigator.path) {
             ZStack {
                 let type = TabBarType(rawValue: index) ?? .amoring

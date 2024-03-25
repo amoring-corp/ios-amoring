@@ -7,7 +7,8 @@ public class UploadMyProfileImageMutation: GraphQLMutation {
   public static let operationName: String = "uploadMyProfileImage"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation uploadMyProfileImage($image: Upload!, $sort: Int!) { uploadMyProfileImage(data: { sort: $sort, file: $image }) { __typename id profileId fileId sort file { __typename id name mimetype url path width height createdAt updatedAt } createdAt updatedAt } }"#
+      #"mutation uploadMyProfileImage($image: Upload!, $sort: Int!) { uploadMyProfileImage(data: { sort: $sort, file: $image }) { __typename ...ImageFragment } }"#,
+      fragments: [ImageFragment.self]
     ))
 
   public var image: Upload
@@ -50,54 +51,20 @@ public class UploadMyProfileImageMutation: GraphQLMutation {
       public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .field("id", AmoringAPI.ID.self),
-        .field("profileId", String.self),
-        .field("fileId", String.self),
-        .field("sort", Int.self),
-        .field("file", File?.self),
-        .field("createdAt", AmoringAPI.DateTime?.self),
-        .field("updatedAt", AmoringAPI.DateTime?.self),
+        .fragment(ImageFragment.self),
       ] }
 
       public var id: AmoringAPI.ID { __data["id"] }
-      public var profileId: String { __data["profileId"] }
-      public var fileId: String { __data["fileId"] }
-      public var sort: Int { __data["sort"] }
       public var file: File? { __data["file"] }
-      public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
-      public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
-      /// UploadMyProfileImage.File
-      ///
-      /// Parent Type: `File`
-      public struct File: AmoringAPI.SelectionSet {
+      public struct Fragments: FragmentContainer {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
-        public static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
-          .field("id", AmoringAPI.ID.self),
-          .field("name", String?.self),
-          .field("mimetype", String?.self),
-          .field("url", String?.self),
-          .field("path", String?.self),
-          .field("width", Int?.self),
-          .field("height", Int?.self),
-          .field("createdAt", AmoringAPI.DateTime?.self),
-          .field("updatedAt", AmoringAPI.DateTime?.self),
-        ] }
-
-        public var id: AmoringAPI.ID { __data["id"] }
-        public var name: String? { __data["name"] }
-        public var mimetype: String? { __data["mimetype"] }
-        public var url: String? { __data["url"] }
-        public var path: String? { __data["path"] }
-        public var width: Int? { __data["width"] }
-        public var height: Int? { __data["height"] }
-        public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
-        public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+        public var imageFragment: ImageFragment { _toFragment() }
       }
+
+      public typealias File = ImageFragment.File
     }
   }
 }

@@ -18,13 +18,7 @@ class MessagesController: ObservableObject {
     
     func delete(id: String) {
         withAnimation {
-            // TODO: implement removing from backend
             self.conversations.removeAll(where: { $0.id == id })
         }
-    }
-    
-    //TODO: implement this function. Send Conversation to admin
-    func report() {
-        
     }
 }

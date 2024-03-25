@@ -78,11 +78,11 @@ struct BusinessOnboardingStep2: View {
                             .padding(.bottom, Size.w(40))
                         
                         PickerButton(title: "분류*") {
-                            if let businessCategory = controller.business.businessCategory {
+//                            if let businessCategory = controller.business.businessCategory {
                                 Text(businessCategory)
                                     .foregroundColor(.black)
                                     .font(medium18Font)
-                            }
+//                            }
                         }
                         .onTapGesture {
                             withAnimation {

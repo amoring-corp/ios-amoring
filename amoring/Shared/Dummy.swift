@@ -72,11 +72,11 @@ class Dummy {
 //        ], district: "강남", open: "11:00 PM".timeToDate(), close: "10:00 AM".timeToDate()),
 //    ]
     
-    static let reactions = [
-        Reaction(byUserId: "3", toUserId: "0", like: true),
-        Reaction(byUserId: "4", toUserId: "0", like: true),
-        Reaction(byUserId: "5", toUserId: "0", like: true),
-    ]
+//    static let reactions = [
+//        Reaction(byUserId: "3", toUserId: "0", like: true),
+//        Reaction(byUserId: "4", toUserId: "0", like: true),
+//        Reaction(byUserId: "5", toUserId: "0", like: true),
+//    ]
     
 //    static let conversations = [
 //        Conversation(

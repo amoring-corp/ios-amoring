@@ -51,8 +51,8 @@ struct LogoLoadingView: View {
                 Text("@mellowingfactory")
                     .font(regular14Font)
                     .foregroundColor(.yellow350)
-                // FIXME: pass version here
-                Text("1.0.0")
+                Text(Constants.version)
+//                Text("v. \(Constants.version) build \(Constants.build)")
                     .font(regular14Font)
                     .foregroundColor(.yellow350)
                     .padding(.bottom, 30)
@@ -177,8 +177,7 @@ struct LogoLoadingViewAsBG: View {
                 Text("@mellowingfactory")
                     .font(regular14Font)
                     .foregroundColor(.yellow350)
-                // FIXME: pass version here
-                Text("1.0.0")
+                Text(Constants.version)
                     .font(regular14Font)
                     .foregroundColor(.yellow350)
                     .padding(.bottom, 30)

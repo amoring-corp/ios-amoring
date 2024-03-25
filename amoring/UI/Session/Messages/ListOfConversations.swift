@@ -141,7 +141,7 @@ struct ChatRow: View {
             
             let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
             //            let url: String? = user?.profile?.images??.first?.map({ $0.file.url ?? "" })
-            let url: String? = user?.profile?.images.first?.file?.url
+            let url: String? = user?.profile?.avatarUrl
             
             CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
                 image
@@ -152,7 +152,7 @@ struct ChatRow: View {
             .clipShape(Circle())
             .padding(.trailing, Size.w(12))
             .blur(radius: expired ? 6 : 0)
-            
+
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Text(user?.profile?.name ?? "")

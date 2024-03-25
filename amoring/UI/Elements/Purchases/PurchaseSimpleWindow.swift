@@ -10,9 +10,6 @@ import SwiftUI
 struct PurchaseSimpleWindow: View {
     @EnvironmentObject var purchaseController: PurchaseController
     let purchaseType: PurchaseModel.type
-//    let title: String = "라운지 확장 패스"
-//    // FIXME: price from revenue cat
-//    let price: String = "₩ 10,000"
     let emoji: String
     
     var body: some View {

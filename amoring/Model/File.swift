@@ -26,4 +26,8 @@ struct File: Hashable {
     init(file: BusinessInfo.Image.File?) {
         self.url = file?.url
     }
+    
+    init(file: UploadBusinessImageMutation.Data.UploadBusinessImage.File?) {
+        self.url = file?.url
+    }
 }

@@ -1,0 +1,3 @@
+mutation DisconnectUserDevice($deviceToken: String!) {
+  disconnectUserDevice(deviceToken: $deviceToken)
+}
