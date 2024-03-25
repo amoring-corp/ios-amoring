@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct PurchaseLoungeWindow: View {
+    @EnvironmentObject var purchaseController: PurchaseController
     @State var isOn = false
     @State var timer: Timer? = nil
-    let title: String = "라운지 확장 패스"
-    // FIXME: price from revenue cat
-    let price: String = "₩ 5,000"
     
     var body: some View {
+        let plan = purchaseController.products.first(where: { $0.id == "lounge_extension_pass" })
         VStack(spacing: 0) {
-            Text(title)
+            Text(plan?.displayName ?? "")
                 .font(semiBold18Font)
                 .foregroundColor(.white)
                 .padding(.vertical, Size.w(12))
@@ -40,7 +39,7 @@ struct PurchaseLoungeWindow: View {
             Color.gray300.frame(width: Size.w(16), height: Size.w(2))
                 .padding(.bottom, Size.w(20))
             
-            Text(price)
+            Text(plan?.displayPrice ?? "")
                 .tracking(-0.5)
                 .font(semiBold24Font)
                 .padding(.bottom, Size.w(20))

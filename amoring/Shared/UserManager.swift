@@ -934,6 +934,7 @@ class UserManager: ObservableObject {
                     completion(nil)
                     return
                 }
+                
                 print("successfully fetched conversation list")
                 print("numbers of conversations: \(data.conversations.count)")
                 completion(data.conversations.compactMap({ $0.fragments.conversationInfo }))
@@ -1215,7 +1216,6 @@ class UserManager: ObservableObject {
             }
         }
     }
-    
 }
 
 enum ReactType {

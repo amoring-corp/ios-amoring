@@ -30,28 +30,32 @@ class PurchaseController: ObservableObject {
                 return
             }
         case .lounge:
-            print("pass")
+            if !self.products.contains(where: { $0.id == "lounge_extension_pass" }) {
+                return
+            }
         case .transparent:
-            print("pass")
+            if !self.products.contains(where: { $0.id == "hidden_mode_pass" }) {
+                return
+            }
         case .list:
-            print("pass")
+            if !self.products.contains(where: { $0.id == "list_view_pass" }) {
+                return
+            }
         }
         withAnimation {
             self.purchaseType = purchaseType
         }
     }
     
-    static let products = ["amoring_likes_5", "amoring_likes_10", "amoring_likes_50"]
+    static let products = ["amoring_likes_5", "amoring_likes_10", "amoring_likes_50", "hidden_mode_pass", "lounge_extension_pass", "list_view_pass"]
     
     func fetchProducts() {
         Task.init(priority: .background) {
             do {
                 // TODO: add all products in appstore and here
-                
                 let products = try await Product.products(for: PurchaseController.products)
                 DispatchQueue.main.async {
-//                    print("get products: \(products.map({ $0.id }))")
-                    print("get products: \(products)")
+                    print("get products: \(products.map({ $0.id }))")
                     self.products = products
                 }
 //                if let product = products.first {
@@ -62,7 +66,6 @@ class PurchaseController: ObservableObject {
             }
         }
     }
-    
     
 //    func isPurchased(product: Product) async {
 //        guard let state = await product.currentEntitlement else { return }

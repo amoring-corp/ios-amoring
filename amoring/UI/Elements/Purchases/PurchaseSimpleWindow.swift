@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct PurchaseSimpleWindow: View {
-    let title: String = "라운지 확장 패스"
-    // FIXME: price from revenue cat
-    let price: String = "₩ 10,000"
+    @EnvironmentObject var purchaseController: PurchaseController
+//    let title: String = "라운지 확장 패스"
+//    // FIXME: price from revenue cat
+//    let price: String = "₩ 10,000"
     let emoji: String
     
     var body: some View {
+        let plan = purchaseController.products.first(where: { $0.id == PurchaseModel.id(purchaseController.purchaseType) })
+        
         VStack(spacing: 0) {
-            Text(title)
+            Text(plan.)
                 .font(semiBold18Font)
                 .foregroundColor(.white)
                 .padding(.vertical, Size.w(12))

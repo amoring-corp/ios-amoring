@@ -15,6 +15,19 @@ struct PurchaseModel {
         case list
     }
     
+    func id() -> String {
+        switch self.type {
+        case .like:
+            return  "amoring_likes_5"
+        case .lounge:
+            return "lounge_extension_pass"
+        case .transparent:
+            return "hidden_mode_pass"
+        case .list:
+            return "list_view_pass"
+        }
+    }
+    
     let barTitle: String
     let title: String
     var titleImage: String?
