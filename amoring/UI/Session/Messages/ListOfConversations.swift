@@ -49,7 +49,7 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date().addingTimeInterval(Constants.TIME_OFFSET) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date().addingTimeInterval(TIME_OFFSET_D) }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             .onTapGesture {
                                 controller.selectedConversation = conversation
@@ -85,7 +85,7 @@ struct ListOfConversations: View {
                         .listRowBackground(Color.clear)
 //                        .listRowSeparator(.hidden)
                     
-                    let archivedConversations = controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(Constants.TIME_OFFSET) }
+                    let archivedConversations = controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(TIME_OFFSET_D) }
                     
                     if !archivedConversations.isEmpty {
                         Text("아래의 메시지들은 곧 삭제됩니다.")
@@ -169,7 +169,7 @@ struct ChatRow: View {
                     
                     Spacer()
                     
-                    let diff = Date().addingTimeInterval(-Constants.TIME_OFFSET) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
+                    let diff = Date().addingTimeInterval(-TIME_OFFSET_D) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
                     //                    let diff: TimeInterval = 0
                     if conversation.messages.isEmpty {
                         Text("New")
@@ -192,7 +192,7 @@ struct ChatRow: View {
                     .padding(.vertical, Size.w(6))
                 
                 let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
-                let eraseTime = archivedAt - Date().addingTimeInterval(Constants.TIME_OFFSET)
+                let eraseTime = archivedAt - Date().addingTimeInterval(TIME_OFFSET_D)
                 
                 Text(eraseTime.toEraseTime())
                     .font(regular12Font)

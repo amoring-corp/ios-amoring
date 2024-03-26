@@ -27,5 +27,6 @@ func loadFileFromLocalPath(_ url: URL) -> Data? {
 }
 
 let TIME_OFFSET = TimeZone.current.secondsFromGMT()
+let TIME_OFFSET_D: Double = Double(TimeZone.current.secondsFromGMT())
 let TIME_OFFSET_MINUTES = TIME_OFFSET / 60
 let TIME_OFFSET_HOURS = TIME_OFFSET_MINUTES / 60

@@ -31,7 +31,7 @@ struct BusinessPlan: View {
                     HStack {
                         Text("플랜")
                         Spacer()
-                            // TODO: pass real plan from revenue cat
+                            // MARK: pass real plan from revenue cat when needed
                         Text("Basic")
                     }
                         .font(regular16Font)
@@ -45,7 +45,7 @@ struct BusinessPlan: View {
                     HStack {
                         Text("월 청구 비용")
                         Spacer()
-                            // TODO: pass real price from revenue cat
+                            // MARK: pass real price from revenue cat when needed
                         Text("₩ 100,000")
                     }
                         .font(regular16Font)
@@ -59,7 +59,7 @@ struct BusinessPlan: View {
                     HStack {
                         Text("갱신 예정일")
                         Spacer()
-                            // TODO: pass real expiration date from revenue cat
+                            // MARK: pass real expiration date from revenue cat when needed
                         Text("2024.05.03")
                     }
                         .font(regular16Font)

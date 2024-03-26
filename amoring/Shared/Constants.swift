@@ -8,7 +8,6 @@
 import Foundation
 
 class Constants {
-    static let TIME_OFFSET: Double = 9 * 60 * 60 // TODO: get from swift function?
     static let genderOptions = ["MALE", "FEMALE"]
     
     static let businessTypes = ["클럽", "라운지", "주점", "바", "펍", "호프", "포차", "이자카야", "카페", "페스티벌"]

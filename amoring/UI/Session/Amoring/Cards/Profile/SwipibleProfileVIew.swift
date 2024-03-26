@@ -21,12 +21,12 @@ struct SwipibleProfileVIew: View {
     let profile: ProfileInfo
     @Binding var swipeAction: SwipeAction
     var onSwiped: (ProfileInfo, Bool) -> ()
-    @Binding var likes: Int
     
     @State private var fitInScreen = false
     @State private var scrollOffset: CGFloat = 0
     @State private var showButtons: Bool = false
     @State var heightPadding: CGFloat = Size.w(131)
+    @State var showAlert: Bool = false
 
     private let nope = "NOPE"
     private let like = "LIKE"
@@ -130,11 +130,21 @@ struct SwipibleProfileVIew: View {
             .offset(x: self.dragOffset.width)
 //            .offset(x: self.dragOffset.width,y: self.dragOffset.height)
             .rotationEffect(.degrees(self.dragOffset.width * 0.06), anchor: .center)
+            .alertPatched(isPresented: $showAlert) {
+                Alert(title: Text("좋아요를 전부 사용하셨습니다, 지금 더 구매하실까요?"), primaryButton: .default(Text("구매하기"), action: {
+                    purchaseController.openPurchase(purchaseType: .like)
+                }), secondaryButton: .cancel(Text("취소")))
+            }
             .simultaneousGesture(DragGesture(minimumDistance: 10).onChanged{ value in
                 if !amoringController.showDetails {
                     self.dragOffset = value.translation
                 }
-                
+                if value.translation.width > 50 && purchaseController.purchasedLikes <= 0 && purchaseController.likes <= 0 {
+                    withAnimation(.default){
+                        self.dragOffset = .zero
+                    }
+                    showAlert = true
+                }
             }.onEnded{ value in
                 if !amoringController.showDetails {
                     performDragEnd(value.translation)
@@ -142,24 +152,16 @@ struct SwipibleProfileVIew: View {
                 }
             }).onChange(of: swipeAction, perform: { newValue in
                 if newValue != .doNothing {
-                    if newValue == .swipeRight && purchaseController.purchasedLikes <= 0 && self.likes <= 0 {
-                        purchaseController.openPurchase(purchaseType: .like)
-                        withAnimation(.default){
-                            self.dragOffset = .zero
-                        }
-                        swipeAction = .doNothing
-                    } else {
-                        performSwipe(newValue)
-                    }
+                    performSwipe(newValue)
                 }
             })
+            
             if !amoringController.showDetails || showButtons {
-                LikeDisLikeButtons(swipeAction: $swipeAction)
+                LikeDisLikeButtons(swipeAction: $swipeAction, showAlert: $showAlert)
                     .transition(.move(edge: .bottom))
             }
         }
         .frame(alignment: .bottom)
-        
     }
     
     
@@ -181,21 +183,13 @@ struct SwipibleProfileVIew: View {
         print("performDragEnd")
         let translationX = translation.width
         if (hasLiked(translationX)) {
-            if purchaseController.purchasedLikes <= 0 && self.likes <= 0 {
-                purchaseController.openPurchase(purchaseType: .like)
-                withAnimation(.default){
-                    self.dragOffset = .zero
-                }
-            } else {
-                withAnimation(.linear(duration: 0.3)){
-                    self.dragOffset = translation
-                    self.dragOffset.width += screenWidthLimit
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    onSwiped(profile, true)
-                }
+            withAnimation(.linear(duration: 0.3)){
+                self.dragOffset = translation
+                self.dragOffset.width += screenWidthLimit
             }
-            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                onSwiped(profile, true)
+            }
         } else if(hasDisliked(translationX)){
             withAnimation(.linear(duration: 0.3)){
                 self.dragOffset = translation

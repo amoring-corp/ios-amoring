@@ -78,7 +78,7 @@ struct ProfilesView: View {
                     let profile = self.profiles[index]
 //                    
                     if (index == self.profiles.count - 1) {
-                    SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe, likes: $purchaseController.likes)
+                    SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe)
                     } else if (index == self.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {

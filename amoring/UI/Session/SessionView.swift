@@ -97,6 +97,7 @@ struct SessionFlow: View {
                 subscriptions()
             }
         }
+        .onDisappear(perform: unsubscribe)
     }
     
     private func goToCurrentMessage(newMessage: MessageInfo) {
@@ -109,6 +110,12 @@ struct SessionFlow: View {
                 self.messagesController.goToConversation = messagesController.selectedConversation != nil
             }
         }
+    }
+    
+    private func unsubscribe() {
+        userManager.messageSubscription?.cancel()
+        userManager.reactionSubscription?.cancel()
+        userManager.conversationSubscription?.cancel()
     }
     
     private func subscriptions() {

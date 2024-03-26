@@ -9,7 +9,7 @@ import SwiftUI
 import CachedAsyncImage
 
 struct NearbyView: View {
-    @State var district: district = .all
+    @State var district: districtEnum = .all
     @State var scrollOffset: CGFloat = 0
     
     var body: some View {
@@ -55,7 +55,7 @@ enum businessType: CaseIterable {
     }
 }
 
-enum district: Int {
+enum districtEnum: Int, CaseIterable {
     case all, gangnam, itaewon, hongdae, apgujeong, other
     
     func title() -> String {
@@ -94,7 +94,7 @@ enum businessSorting: CaseIterable {
 struct BusinessListView: View {
     @EnvironmentObject var userManager: UserManager
     @Binding var scrollOffset: CGFloat
-    @Binding var district: district
+    @Binding var district: districtEnum
     
     @State var type: businessType = .all
     @State var sorting: businessSorting = .recs
@@ -209,7 +209,7 @@ struct BusinessListView: View {
         .foregroundColor(.yellow300)
     }
     
-    private func filter(newType: businessType? = nil, newDistrict: district? = nil) {
+    private func filter(newType: businessType? = nil, newDistrict: districtEnum? = nil) {
         if let newType {
             switch newType {
             case .all:
@@ -221,6 +221,9 @@ struct BusinessListView: View {
             switch self.district {
             case .all:
                 userManager.businesses = userManager.businesses
+            case .other:
+                userManager.businesses = userManager.businesses.filter { biz in
+                !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
             default:
                 userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
             }
@@ -230,6 +233,9 @@ struct BusinessListView: View {
             switch newDistrict {
             case .all:
                 userManager.businesses = userManager.businessesInit
+            case .other:
+                userManager.businesses = userManager.businessesInit.filter { biz in
+                !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
             default:
                 userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
             }
@@ -311,7 +317,7 @@ struct BusinessRow: View {
 }
 
 struct DistrictsView: View {
-    @Binding var selectedChip: district
+    @Binding var selectedChip: districtEnum
     
     var body: some View {
         VStack(alignment: .leading, spacing: Size.w(20)) {
@@ -342,8 +348,8 @@ struct DistrictsView: View {
 }
 
 struct DistrictChip: View {
-    @Binding var selectedChip: district
-    let district: district
+    @Binding var selectedChip: districtEnum
+    let district: districtEnum
     
     var body: some View {
         Text(district.title())

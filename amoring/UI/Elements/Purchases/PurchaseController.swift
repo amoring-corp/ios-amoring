@@ -148,7 +148,6 @@ class PurchaseController: ObservableObject {
             return
         }
         
-        //TODO: buy and close
         withAnimation {
             self.purchaseType = nil
         }

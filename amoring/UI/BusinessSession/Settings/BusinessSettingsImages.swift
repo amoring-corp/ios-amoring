@@ -93,7 +93,6 @@ struct BusinessSettingsImages: View {
                     } else {
                         Button(action: {
                             let images = pictures.map({ $0.picture })
-                            // TODO: find better way to refresh images
                             userManager.deleteAllBusinessImages { success in
                                 userManager.uploadBusinessImages(images: images) { success in
 //                                    sessionManager.getCurrentSession(delay: 0) { success, error in

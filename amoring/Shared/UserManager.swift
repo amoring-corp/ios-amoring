@@ -1195,6 +1195,7 @@ class UserManager: ObservableObject {
                 for bus in businesss {
                     self.businesses.append(bus.fragments.businessInfo)
                 }
+                self.businessesInit = self.businesses
                 print(self.businesses.map({ $0.id }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)

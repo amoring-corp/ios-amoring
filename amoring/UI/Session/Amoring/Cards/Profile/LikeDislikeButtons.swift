@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LikeDisLikeButtons: View {
+    @EnvironmentObject var purchaseController: PurchaseController
     @Binding var swipeAction: SwipeAction
+    @Binding var showAlert: Bool
     
     var body: some View {
         VStack {
@@ -30,7 +32,11 @@ struct LikeDisLikeButtons: View {
                 Spacer()
                 
                 Button(action: {
-                    swipeAction = .swipeRight
+                    if purchaseController.purchasedLikes <= 0 && purchaseController.likes <= 0 {
+                        showAlert = true
+                    } else {
+                        swipeAction = .swipeRight
+                    }
                 }) {
                     ZStack {
                         Circle().frame(width: Size.w(76), height: Size.w(76))
