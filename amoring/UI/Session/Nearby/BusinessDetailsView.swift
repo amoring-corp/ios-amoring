@@ -194,14 +194,14 @@ struct BusinessDetailsView: View {
     private func getBusinessHours() {
         if let businessHours = business.businessHours {
             if businessHours.allEqual(by: \.openAt) && businessHours.allEqual(by: \.closeAt) && businessHours.count >= 7 {
-                self.weekdays = "매일  |  \(businessHours.first!.openAt.toHM()) - \(businessHours.first!.closeAt.toHM())"
+                self.weekdays = "매일  |  \(businessHours.first!.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(businessHours.first!.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
             } else {
                 /// monday or tuestday   and   saturday or sunday
                 if let sunday = businessHours.first(where: { $0.day == .sunday }) {
-                    self.weekdays = "평일  |  \(sunday.openAt.toHM()) - \(sunday.closeAt.toHM())"
+                    self.weekdays = "평일  |  \(sunday.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(sunday.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
                 }
                 if let monday = businessHours.first(where: { $0.day == .monday }) {
-                    self.weekends = "주말  |  \(monday.openAt.toHM()) - \(monday.closeAt.toHM())"
+                    self.weekends = "주말  |  \(monday.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(monday.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
                 }
             }
         }

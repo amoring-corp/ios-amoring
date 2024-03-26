@@ -410,7 +410,7 @@ struct BusinessSettingsOpenHours: View {
     
     @ViewBuilder
     private func timeWindow(time: Date) -> some View {
-        Text(time.toHM())
+        Text(time.toHM(timeZone: TimeZone(secondsFromGMT: 0)))
             .font(medium18Font)
             .foregroundColor(.black)
             .frame(maxWidth: .infinity)

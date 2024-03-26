@@ -207,7 +207,7 @@ struct BusinessSessionView: View {
                     isLoading = false
                 }
                 
-                self.timer = Timer.scheduledTimer(withTimeInterval: 6 * 2, repeats: true, block: { timer in
+                self.timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: { timer in
                     if available {
                         print("updating token ...")
                         self.setToken()

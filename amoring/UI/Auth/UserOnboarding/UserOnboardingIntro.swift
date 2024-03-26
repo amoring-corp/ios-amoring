@@ -28,7 +28,7 @@ struct UserOnboardingIntro: View {
 //        NavigationView {
             ZStack(alignment: .bottom) {
                 VStack(spacing: 0) {
-                    CustomNavigationView(offset: $contentOffset, title: "소개하기", back: { self.presentationMode.wrappedValue.dismiss() })
+                    CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() })
                     TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                         VStack(alignment: .leading, spacing: 0) {
                             Text("회원님을 소개하세요")

@@ -30,7 +30,6 @@ struct ContentView: View {
         .overlay(
             notificationController.body()
             , alignment: .top
-                
         )
         .environmentObject(sessionManager)
         .environmentObject(businessSignUpController)

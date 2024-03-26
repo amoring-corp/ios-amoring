@@ -558,7 +558,7 @@ struct TimeWindow: View {
                 .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
                 .frame(height: Size.w(58))
                 .opacity(0.1)
-            Text(time.toHM())
+            Text(time.toHM(timeZone: TimeZone(secondsFromGMT: 0)))
                 .font(medium18Font)
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity)

@@ -121,11 +121,12 @@ extension Date {
         return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
     }
     
-    func toHM() -> String {
+    func toHM(timeZone: TimeZone? = nil) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "a hh:mm"
         formatter.locale = Locale.current
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.timeZone = timeZone
+//        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.amSymbol = "오전"
         formatter.pmSymbol = "오후"
         return formatter.string(from: self)
@@ -135,7 +136,6 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        
         return formatter.string(from: self)
     }
     

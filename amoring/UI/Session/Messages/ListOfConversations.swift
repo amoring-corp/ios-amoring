@@ -49,7 +49,7 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date().addingTimeInterval(TIME_OFFSET_D) }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date() }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             .onTapGesture {
                                 controller.selectedConversation = conversation
@@ -85,7 +85,7 @@ struct ListOfConversations: View {
                         .listRowBackground(Color.clear)
 //                        .listRowSeparator(.hidden)
                     
-                    let archivedConversations = controller.conversations.filter { $0.archivedAt ?? Date() <= Date().addingTimeInterval(TIME_OFFSET_D) }
+                    let archivedConversations = controller.conversations.filter { $0.archivedAt ?? Date() <= Date() }
                     
                     if !archivedConversations.isEmpty {
                         Text("아래의 메시지들은 곧 삭제됩니다.")
@@ -169,8 +169,6 @@ struct ChatRow: View {
                     
                     Spacer()
                     
-                    let diff = Date().addingTimeInterval(-TIME_OFFSET_D) - (conversation.messages.last?.createdAt ?? Date().addingTimeInterval(-186400))
-                    //                    let diff: TimeInterval = 0
                     if conversation.messages.isEmpty {
                         Text("New")
                             .font(semiBold12Font)
@@ -180,9 +178,12 @@ struct ChatRow: View {
                             .background(Color.yellow300)
                             .clipShape(Capsule())
                     } else {
-                        Text(diff.toPassedTime())
-                            .font(regular14Font)
-                            .foregroundColor(expired ? .gray600 : (diff > 61 ? .gray700 : .yellow300))
+                        if let createdAt = conversation.messages.reversed().last?.createdAt {
+                            let diff = Date() - createdAt
+                            Text(diff.toPassedTime())
+                                .font(regular14Font)
+                                .foregroundColor(expired ? .gray600 : (diff > 61 ? .gray700 : .yellow300))
+                        }
                     }
                 }
                 
@@ -191,13 +192,14 @@ struct ChatRow: View {
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
-                let archivedAt = conversation.archivedAt ?? Date().addingTimeInterval(-46000)
-                let eraseTime = archivedAt - Date().addingTimeInterval(TIME_OFFSET_D)
-                
-                Text(eraseTime.toEraseTime())
-                    .font(regular12Font)
-                    .foregroundColor(.gray700)
-                    .opacity(expired ? 0 : 1)
+                if let archivedAt = conversation.archivedAt {
+                    let eraseTime = archivedAt - Date()
+                    
+                    Text(eraseTime.toEraseTime())
+                        .font(regular12Font)
+                        .foregroundColor(.gray700)
+                        .opacity(expired ? 0 : 1)
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
         }

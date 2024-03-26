@@ -956,7 +956,7 @@ class UserManager: ObservableObject {
                 }
                 
                 print("successfully fetched conversation list")
-                print("numbers of conversations: \(data.conversations.count)")
+                print("numbers of conversations: \(data.conversations)")
                 completion(data.conversations.compactMap({ $0.fragments.conversationInfo }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)
