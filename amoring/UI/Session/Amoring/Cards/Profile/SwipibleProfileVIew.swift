@@ -15,12 +15,16 @@ enum SwipeAction{
 struct SwipibleProfileVIew: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var messagesController: MessagesController
     @Namespace var animation
     @State private var dragOffset = CGSize.zero
     
     let profile: ProfileInfo
     @Binding var swipeAction: SwipeAction
-    var onSwiped: (ProfileInfo, Bool) -> ()
+//    var onSwiped: (ProfileInfo, Bool) -> ()
+    @Binding var selectedIndex: Int
     
     @State private var fitInScreen = false
     @State private var scrollOffset: CGFloat = 0
@@ -207,6 +211,61 @@ struct SwipibleProfileVIew: View {
                 self.dragOffset = .zero
             }
         }
+    }
+    
+    private func onSwiped(_ profile: ProfileInfo,_ hasLiked: Bool) {
+        withAnimation {
+            amoringController.showDetails = false
+            amoringController.hidePanel = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            userManager.reactToProfile(id: profile.id, type: hasLiked ? .like : .dislike) { error, isMatched in
+                if let error {
+                    withAnimation(.default){
+                        self.dragOffset = .zero
+                    }
+                    notificationController.setNotification(text: error, type: .error)
+                } else {
+                    if isMatched {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            notificationController.setNotification(text: "새로운 인연이 생겼어요!", type: .textAndButton, action: {
+                                withAnimation {
+                                    self.selectedIndex = 2
+                                }
+                            })
+                        
+                        /// removing reaction with match from reactions list
+                        withAnimation {
+                            messagesController.reactions.removeAll(where: { $0.toProfile.id == profile.id })
+                        }
+                        
+                        userManager.getConversations { conversations in
+                            if let conversations {
+                                self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                            }
+                        }
+//                        }
+                        
+                    } else {
+                        print("NO MATHCES!")
+                    }
+                    amoringController.profiles.removeLast()
+                    
+                    if hasLiked {
+                        if purchaseController.likes > 0 {
+                            withAnimation {
+                                purchaseController.likes -= 1
+                            }
+                        } else {
+                            withAnimation {
+                                purchaseController.purchasedLikes -= 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //        onSwiped(profile, hasLiked)
     }
     
     private func hasLiked(_ value: Double) -> Bool {

@@ -12,8 +12,6 @@ struct UserOnboardingInterests: View {
     @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-
-    
     @State var next: Bool = false
     @State var contentOffset: CGFloat = 0
     

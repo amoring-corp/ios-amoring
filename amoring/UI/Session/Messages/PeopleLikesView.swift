@@ -141,7 +141,7 @@ struct ProfilePreviewView: View {
     var body: some View {
         VStack(spacing: 0) {
             // TODO: Create separate object instead of using SwipibleProfileVIew for smooth animation ?
-            SwipibleProfileVIew(profile: reaction.byProfile.fragments.profileInfo, swipeAction: $swipeAction, onSwiped: performSwipe)
+            SwipibleProfileVIew(profile: reaction.byProfile.fragments.profileInfo, swipeAction: $swipeAction, selectedIndex: .constant(2))
         }
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading:

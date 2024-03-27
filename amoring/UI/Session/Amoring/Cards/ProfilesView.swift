@@ -18,15 +18,11 @@ struct ProfilesView: View {
     @Binding var selectedIndex: Int
     
     @State var isOn = false
-
     @State var swipeAction: SwipeAction = .doNothing
-//    @State var profiles: [Profile] = Dummy.profiles
-    @State var profiles: [ProfileInfo] = []
     @State var showAlert: Bool = false
     @State var timer: Timer? = nil
     
     //    var onSwiped: (User, Bool) -> ()
-    
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -74,12 +70,12 @@ struct ProfilesView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
                 
-                ForEach(self.profiles.indices, id:\.self) { index  in
-                    let profile = self.profiles[index]
-//                    
-                    if (index == self.profiles.count - 1) {
-                    SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, onSwiped: performSwipe)
-                    } else if (index == self.profiles.count - 2) {
+                ForEach(amoringController.profiles.indices, id:\.self) { index  in
+                    let profile = amoringController.profiles[index]
+//
+                    if (index == amoringController.profiles.count - 1) {
+                    SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, selectedIndex: $selectedIndex)
+                    } else if (index == amoringController.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
                                 ProfileCardView(profile: profile,
@@ -120,13 +116,13 @@ struct ProfilesView: View {
     }
     
     private func getProfiles() {
-        self.profiles.removeAll()
+        amoringController.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
             if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile?.fragments.profileInfo }) {
                 for profile in profiles {
                     if let profile {
-                        self.profiles.append(profile)
+                        amoringController.profiles.append(profile)
                     }
                 }
             }
@@ -154,60 +150,61 @@ struct ProfilesView: View {
         }
     }
     
-    private func performSwipe(profile: ProfileInfo, hasLiked: Bool) {
-        withAnimation {
-            amoringController.showDetails = false
-            amoringController.hidePanel = false
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            userManager.reactToProfile(id: profile.id, type: hasLiked ? .like : .dislike) { error, isMatched in
-                if let error {
-                    notificationController.setNotification(text: error, type: .error)
-                    // FIXME: move card back for an error [drag offset = 0]
-                } else {
-                    if isMatched {
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            notificationController.setNotification(text: "MATCHED!", type: .textAndButton, action: {
-                                withAnimation {
-                                    self.selectedIndex = 2
-                                }
-                            })
-                        
-                        /// removing reaction with match from reactions list
-                        withAnimation {
-                            messagesController.reactions.removeAll(where: { $0.toProfile.id == profile.id })
-                        }
-                        
-                        userManager.getConversations { conversations in
-                            if let conversations {
-                                self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
-                            }
-                        }
+    // MARK: removed to: SwipibleProfileView
+//    private func performSwipe(profile: ProfileInfo, hasLiked: Bool) {
+//        withAnimation {
+//            amoringController.showDetails = false
+//            amoringController.hidePanel = false
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+//            userManager.reactToProfile(id: profile.id, type: hasLiked ? .like : .dislike) { error, isMatched in
+//                if let error {
+//                    notificationController.setNotification(text: error, type: .error)
+//                    // FIXME: move card back for an error [drag offset = 0]
+//                } else {
+//                    if isMatched {
+////                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                            notificationController.setNotification(text: "새로운 인연이 생겼어요!", type: .textAndButton, action: {
+//                                withAnimation {
+//                                    self.selectedIndex = 2
+//                                }
+//                            })
+//                        
+//                        /// removing reaction with match from reactions list
+//                        withAnimation {
+//                            messagesController.reactions.removeAll(where: { $0.toProfile.id == profile.id })
 //                        }
-                        
-                    } else {
-                        print("NO MATHCES!")
-                    }
-                    removeTopItem()
-                    if hasLiked {
-                        if purchaseController.likes > 0 {
-                            withAnimation {
-                                purchaseController.likes -= 1
-                            }
-                        } else {
-                            withAnimation {
-                                purchaseController.purchasedLikes -= 1
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //        onSwiped(profile, hasLiked)
-    }
+//                        
+//                        userManager.getConversations { conversations in
+//                            if let conversations {
+//                                self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+//                            }
+//                        }
+////                        }
+//                        
+//                    } else {
+//                        print("NO MATHCES!")
+//                    }
+//                    removeTopItem()
+//                    if hasLiked {
+//                        if purchaseController.likes > 0 {
+//                            withAnimation {
+//                                purchaseController.likes -= 1
+//                            }
+//                        } else {
+//                            withAnimation {
+//                                purchaseController.purchasedLikes -= 1
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        //        onSwiped(profile, hasLiked)
+//    }
     
     private func removeTopItem() {
-        self.profiles.removeLast()
+        amoringController.profiles.removeLast()
     }
 }
 

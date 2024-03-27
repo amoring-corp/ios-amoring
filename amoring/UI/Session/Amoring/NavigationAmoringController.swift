@@ -15,7 +15,8 @@ class AmoringController: ObservableObject {
     @Published var hidePanel: Bool = false
     @Published var checkIn: CheckInInfo? = nil
     @Published var countDown: TimeInterval? = nil
-
+    @Published var profiles: [ProfileInfo] = []
+    
     func leave() {
         withAnimation {
 //            self.checkIn?.checkedOutAt = Date()

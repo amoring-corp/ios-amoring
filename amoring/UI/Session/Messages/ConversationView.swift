@@ -17,6 +17,7 @@ struct ConversationView: View, KeyboardReadable {
     @State var controlPresented = false
     @State var reportAlertPresented = false
     @State var deleteAlertPresented = false
+    @State var goToBusinessDetails = false
     
     var body: some View {
         if let conversation = controller.selectedConversation {
@@ -81,12 +82,6 @@ struct ConversationView: View, KeyboardReadable {
                         }
                         //                    }
                     }
-                    .onDisappear {
-                        DispatchQueue.main.async {
-                            controller.selectedConversation = nil
-                            controller.goToConversation = false
-                        }
-                    }
                     
                     messageField(proxy: proxy)
                         .alertPatched(isPresented: $reportAlertPresented) {
@@ -110,8 +105,6 @@ struct ConversationView: View, KeyboardReadable {
             .navigationBarItems(leading:
                                     BackButton(action: {
                 presentationMode.wrappedValue.dismiss()
-//                controller.selectedConversation = nil
-//                controller.goToConversation = false
             }, color: Color.yellow300)
                                 , trailing:
                                     Button(action: {
@@ -170,6 +163,7 @@ struct ConversationView: View, KeyboardReadable {
     func header() -> some View {
         let companion = controller.selectedConversation?.participants.first(where: { $0.id != userManager.user?.id })
         let url = companion?.profile?.images.first?.file?.url ?? ""
+        let business = controller.selectedConversation?.checkIns.first(where: { $0.profileId != userManager.user?.profile?.id })?.business
         
         VStack {
             AsyncImage(url: URL(string: url), content: { image in
@@ -182,11 +176,31 @@ struct ConversationView: View, KeyboardReadable {
             .padding(.top, Size.w(30))
             
             VStack(spacing: 10) {
-                Text("강남, Channel")
-                    .foregroundColor(.yellow300)
-                + Text(" 에서")
-                    .foregroundColor(.gray500)
-                
+                    (Text("\(business?.addressSigungu ?? ""), \(business?.businessName ?? "")")
+                        .foregroundColor(.yellow300)
+                    + Text(" 에서")
+                        .foregroundColor(.gray500)
+                    )
+                    .onTapGesture {
+                        if business != nil {
+                            goToBusinessDetails = true
+                        }
+                    }
+                    .background(
+                        NavigationLink(isActive: $goToBusinessDetails, destination: {
+                            BusinessDetailsView(business: Business(businessInfo: business!.fragments.businessInfo))
+                        }, label: { EmptyView() })
+                        .isDetailLink(false)
+                        .opacity(0)
+                    )
+                    .onDisappear {
+                        if !goToBusinessDetails {
+                            DispatchQueue.main.async {
+                                controller.selectedConversation = nil
+                                controller.goToConversation = false
+                            }
+                        }
+                    }
                 let diff = Date() - (controller.selectedConversation?.createdAt ?? Date())
 //                let endTime: TimeInterval = 24 * 60 * 60
                 

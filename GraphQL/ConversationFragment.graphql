@@ -1,6 +1,9 @@
 fragment ConversationInfo on Conversation {
     id
     status
+    checkIns {
+        ... CheckInInfo
+    }
     participants {
       ... UserInfo
     }

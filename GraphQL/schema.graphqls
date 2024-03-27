@@ -154,6 +154,7 @@ type Conversation {
   id: ID!
   status: ConversationStatus!
   participants: [User]!
+  checkIns: [CheckIn]!
   messages(take: Int = 10, skip: Int = 0): [Message]!
   deletedById: String
   deletedBy: User
