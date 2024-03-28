@@ -821,10 +821,10 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateCheckInStatus(id: String, completion: @escaping (String?, CheckInInfo?) -> Void) {
+    func updateCheckInStatus(id: String, hasTable: Bool, completion: @escaping (String?, CheckInInfo?) -> Void) {
         self.isLoading = true
         
-        api.perform(mutation: UpdateCheckInStatusMutation(id: id)) { result in
+        api.perform(mutation: UpdateCheckInStatusMutation(id: id, hasTable: hasTable)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {

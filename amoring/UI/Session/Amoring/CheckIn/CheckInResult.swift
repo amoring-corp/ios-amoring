@@ -111,7 +111,7 @@ struct CheckInResult: View {
                 
                 Button(action: {
                     withAnimation {
-                        userManager.updateCheckInStatus(id: id) { error, checkIn in
+                        userManager.updateCheckInStatus(id: id, hasTable: hasTable) { error, checkIn in
                             if let error {
                                 notificationController.setNotification(text: error, type: .error)
                             }

@@ -1,5 +1,5 @@
-mutation UpdateCheckInStatus($id: ID!) {
-  updateCheckInStatus(id: $id, status: confirmed) {
+mutation UpdateCheckInStatus($id: ID!, $hasTable: Boolean!) {
+  updateCheckInStatus(id: $id, status: confirmed, hasTable: $hasTable) {
     ... CheckInInfo
   }
 }

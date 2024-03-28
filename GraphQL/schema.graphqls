@@ -129,6 +129,7 @@ type CheckIn {
   profileId: String!
   profile: Profile
   status: CheckInStatus!
+  hasTable: Boolean!
   checkedInAt: DateTime
   checkedOutAt: DateTime
   createdAt: DateTime!
@@ -489,7 +490,11 @@ type Mutation {
   uploadBusinessRegistrationFile(businessId: ID!, file: Upload!): File!
   generateCheckInToken: CheckInToken!
   createCheckInByToken(token: String!): CheckIn
-  updateCheckInStatus(id: ID!, status: CheckInStatus!): CheckIn
+  updateCheckInStatus(
+    id: ID!
+    status: CheckInStatus!
+    hasTable: Boolean!
+  ): CheckIn
   checkOutFromActive: CheckIn
   deleteConversation(id: ID!): Conversation!
   reportConversation(id: ID!): Conversation!

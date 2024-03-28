@@ -7,17 +7,25 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
   public static let operationName: String = "UpdateCheckInStatus"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpdateCheckInStatus($id: ID!) { updateCheckInStatus(id: $id, status: confirmed) { __typename ...CheckInInfo } }"#,
+      #"mutation UpdateCheckInStatus($id: ID!, $hasTable: Boolean!) { updateCheckInStatus(id: $id, status: confirmed, hasTable: $hasTable) { __typename ...CheckInInfo } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, ImageFragment.self, ProfileInfo.self]
     ))
 
   public var id: ID
+  public var hasTable: Bool
 
-  public init(id: ID) {
+  public init(
+    id: ID,
+    hasTable: Bool
+  ) {
     self.id = id
+    self.hasTable = hasTable
   }
 
-  public var __variables: Variables? { ["id": id] }
+  public var __variables: Variables? { [
+    "id": id,
+    "hasTable": hasTable
+  ] }
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
@@ -27,7 +35,8 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
     public static var __selections: [ApolloAPI.Selection] { [
       .field("updateCheckInStatus", UpdateCheckInStatus?.self, arguments: [
         "id": .variable("id"),
-        "status": "confirmed"
+        "status": "confirmed",
+        "hasTable": .variable("hasTable")
       ]),
     ] }
 
