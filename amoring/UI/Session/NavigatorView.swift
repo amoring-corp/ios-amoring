@@ -11,13 +11,13 @@ struct NavigatorView<Content: View>: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
-    
     @Binding var selectedIndex: Int
     let titles: [String] = TabBarType.allCases.map({ $0.tabTitle })
     
     @ViewBuilder let content: (Int) -> Content
     
     @State var showAlert = false
+    @State var showInfo = false
     
     var body: some View {
         ZStack {
@@ -29,6 +29,10 @@ struct NavigatorView<Content: View>: View {
             }
             
             TabBarBottomView(tabbarTitles: titles, selectedIndex: $selectedIndex)
+            // TODO: add info here . ..
+//                .sheet(isPresented: $showInfo) {
+//                    Text("info")
+//                }
         }
         .ignoresSafeArea()
         .toolbar {
@@ -67,7 +71,7 @@ struct NavigatorView<Content: View>: View {
     @ViewBuilder
     func setTrailing() -> some View {
         let infoButton = Button(action: {
-            
+            showInfo.toggle()
         }) {
             Image("ic-info")
                 .resizable()
@@ -186,6 +190,7 @@ struct TabBarBottomView: View {
                     .foregroundColor(isSelected ? .yellow200 : .gray600)
                     .font(regular14Font)
             }.frame(maxWidth: .infinity)
+                .badge(1)
         }
     }
 }

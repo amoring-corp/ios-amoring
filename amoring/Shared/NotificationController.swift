@@ -34,43 +34,10 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
     
     @Published var offset: CGSize = CGSize.zero
     @Published var reaction: ReactionInfo? = nil
-    
-    func registerForPushNotifications() {
-        /// The notifications settings
-            UNUserNotificationCenter.current().delegate = self
-            
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert, .providesAppNotificationSettings], completionHandler: {(granted, error) in
-                if (granted) {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
-                } else {
-                    //Do stuff if unsuccessful...
-                }
-            })
-    }
 
-    // Called when a notification is delivered to a foreground app.
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-//        print("User Info = ",notification.request.content.userInfo)
-//        print("foreground")
-        
-        completionHandler([.banner, .badge, .sound])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-//        print("User Info = ",response.notification.request.content.userInfo)
-
-        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-            goToCurrentConversation()
-        }
-        
-        completionHandler()
+    override init() {
+        super.init()
+        self.registerForPushNotifications()
     }
     
     func setNotification(show: Bool? = nil, title: String? = nil, text: String, type: NotificationType, action: (() -> Void)? = nil) {
@@ -166,9 +133,38 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
         center.add(request)
     }
     
-    override init() {
-        super.init()
-        self.registerForPushNotifications()
+    func registerForPushNotifications() {
+        /// The notifications settings
+            UNUserNotificationCenter.current().delegate = self
+            
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert, .providesAppNotificationSettings], completionHandler: {(granted, error) in
+                if (granted) {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                } else {
+                    //Do stuff if unsuccessful...
+                }
+            })
+    }
+
+    // Called when a notification is delivered to a foreground app.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        print("User Info = ",response.notification.request.content.userInfo)
+
+        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
+            goToCurrentConversation()
+        }
+        
+        completionHandler()
     }
     
     @ViewBuilder

@@ -184,7 +184,6 @@
 		85D0DED62B3534840029DA5D /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 85D0DED52B3534840029DA5D /* KakaoSDKCommon */; };
 		85D0DED82B3534840029DA5D /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 85D0DED72B3534840029DA5D /* KakaoSDKUser */; };
 		85D0DEDB2B3564530029DA5D /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D0DEDA2B3564530029DA5D /* TestView.swift */; };
-		85D0DEE02B3A6B130029DA5D /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D0DEDF2B3A6B130029DA5D /* NavigationController.swift */; };
 		85D0DEE22B3BA9000029DA5D /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D0DEE12B3BA9000029DA5D /* AdaptsToKeyboard.swift */; };
 		85D26F652B1F07C000E3C55F /* SwipibleProfileVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D26F642B1F07C000E3C55F /* SwipibleProfileVIew.swift */; };
 		85D26F672B2015FE00E3C55F /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D26F662B2015FE00E3C55F /* CheckInView.swift */; };
@@ -495,7 +494,6 @@
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		85B028A42B301A2B00A738AB /* PeopleLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleLikesView.swift; sourceTree = "<group>"; };
 		85D0DEDA2B3564530029DA5D /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		85D0DEDF2B3A6B130029DA5D /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		85D0DEE12B3BA9000029DA5D /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
 		85D26F642B1F07C000E3C55F /* SwipibleProfileVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipibleProfileVIew.swift; sourceTree = "<group>"; };
 		85D26F662B2015FE00E3C55F /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
@@ -817,7 +815,6 @@
 			children = (
 				850A300E2B0AEDF8003B12B7 /* SessionView.swift */,
 				850A302A2B0B0D62003B12B7 /* NavigatorView.swift */,
-				85D0DEDF2B3A6B130029DA5D /* NavigationController.swift */,
 				850A302C2B0B1BA5003B12B7 /* Nearby */,
 				850A302D2B0B1BAE003B12B7 /* Amoring */,
 				850A302E2B0B1C9A003B12B7 /* Messages */,
@@ -1607,7 +1604,6 @@
 				850A300B2B0AEA09003B12B7 /* SessionManager.swift in Sources */,
 				85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */,
 				8522A5FF2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift in Sources */,
-				85D0DEE02B3A6B130029DA5D /* NavigationController.swift in Sources */,
 				85FC20922B0C514400DC1950 /* DragRelocateDelegate.swift in Sources */,
 				850BE9B72B61F23500EC8EAB /* BusinessSettingsOpenHours.swift in Sources */,
 				850A30352B0B1CE3003B12B7 /* MessagesView.swift in Sources */,

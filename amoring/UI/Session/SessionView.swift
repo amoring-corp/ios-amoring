@@ -148,7 +148,6 @@ struct SessionFlow: View {
         }
         
         userManager.reactionSubscription { reaction in
-            // TODO: need tests. Sometimes reaction comes to second user as well ...
             if let reaction {
                 if reaction.isMatched {
                     withAnimation {

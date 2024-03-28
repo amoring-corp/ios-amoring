@@ -41,7 +41,7 @@ struct SignInSheet: View {
                         .onTapGesture {
                             sessionManager.signInWithGoogle { success, error  in
                                 if !success {
-                                    notificationController.notification = NotificationModel(type: .error, text: error, action: {})
+                                    notificationController.setNotification(text: error, type:  .error)
                                 }
                             }
                         }

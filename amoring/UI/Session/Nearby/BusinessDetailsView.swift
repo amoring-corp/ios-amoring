@@ -77,6 +77,7 @@ struct BusinessDetailsView: View {
                                             .scaledToFit()
                                             .frame(width: Size.w(24), height: Size.w(24))
                                         Text("\(business.address ?? "") \(business.addressDetails ?? "")")
+                                            .lineLimit(1)
                                         Image(systemName: "doc.on.doc")
                                     }
                                 }

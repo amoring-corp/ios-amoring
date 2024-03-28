@@ -16,14 +16,26 @@ struct amoringApp: App {
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     @StateObject var notificationController = NotificationController()
-    @StateObject var scenePhaseHelper = ScenePhaseHelper()
-    
+//    @StateObject var scenePhaseHelper = ScenePhaseHelper()
     
     init() {
         KakaoSDK.initSDK(appKey: "88a121ae97540f56f106e7f52609022c")
-        
-        // Naver SDK Initializing
-        
+        naverSDKinit()
+
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in
+            if granted {
+                print("Notifications permission granted")
+            } else {
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        }
+    }
+    
+    // Naver SDK Initializing
+    private func naverSDKinit() {
         // 네이버 앱으로 로그인 허용
         NaverThirdPartyLoginConnection.getSharedInstance()?.isNaverAppOauthEnable = true
         // 브라우저 로그인 허용
@@ -37,23 +49,12 @@ struct amoringApp: App {
         NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey
         NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
         NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in
-            if granted {
-                print("Notifications permission granted")
-            } else {
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                DispatchQueue.main.async {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-        }
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(scenePhaseHelper)
+//                .environmentObject(scenePhaseHelper)
                 .environmentObject(notificationController)
                 .preferredColorScheme(.dark)
                 .environment(\.locale, .init(identifier: "ko"))
@@ -67,13 +68,13 @@ struct amoringApp: App {
                         GIDSignIn.sharedInstance.handle(url)
                     }
                 }
-                .onChange(of: scenePhase) {
-                    self.scenePhaseHelper.scenePhase = $0
+//                .onChange(of: scenePhase) {
+//                    self.scenePhaseHelper.scenePhase = $0
 //                    print("current scene phase: \($0)")
-                }
-                .onAppear {
-                    self.scenePhaseHelper.scenePhase = scenePhase
-                }
+//                }
+//                .onAppear {
+//                    self.scenePhaseHelper.scenePhase = scenePhase
+//                }
         }
     }
     

@@ -89,9 +89,9 @@ struct PeopleLikesView: View {
                                     NavigationLink(destination: {
                                         ProfilePreviewView(reaction: reaction)
                                     }) {
-                                        PeopleLikesListObject(width: cellWidth(for: proxy.size), reaction: reaction, enabled: true)
+                                        PeopleLikesListObject(width: cellWidth(for: proxy.size), reaction: reaction, enabled: purchaseController.likeListEnabled)
                                     }
-//                                    .disabled(!purchaseController.likeListEnabled)
+                                    .disabled(!purchaseController.likeListEnabled)
                                 }
                             }
                         }

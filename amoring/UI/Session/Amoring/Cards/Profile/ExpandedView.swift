@@ -12,15 +12,6 @@ import AmoringAPI
 struct ExpandedView: View {
     let profile: ProfileInfo
     
-//    private func pictures() -> [String] {
-//        var temp: [MutatingImage] = []
-//        if profile.images.count > 2 {
-//            temp = profile.images
-//            temp.removeFirst()
-//        }
-//        return temp.map({ $0.file?.url ?? "" })
-//    }
-    
     var body: some View {
         VStack(spacing: 0) {
             if profile.height != nil || profile.weight != nil || profile.occupation != nil || profile.education != nil || profile.mbti != nil {

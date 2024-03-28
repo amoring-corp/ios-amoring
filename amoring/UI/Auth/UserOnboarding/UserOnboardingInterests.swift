@@ -80,9 +80,6 @@ struct UserOnboardingInterests: View {
             .shadow(color: Color.black.opacity(0.1), radius: 50, y: -20)
         }
         .navigationBarHidden(true)
-        .onAppear {
-            userManager.getInterests()
-        }
         //        .navigationBarItems(leading:
         //                                Button(action: {
         //            self.presentationMode.wrappedValue.dismiss()

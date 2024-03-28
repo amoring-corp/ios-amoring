@@ -131,19 +131,11 @@ struct ForgotPasswordOTP: View {
     private func signUp() {
         sessionManager.verifyEmail(code: controller.confirmCode, email: controller.email, password: controller.password) { success, error in
             if !success {
-                    withAnimation {
-                        notificationController.notification = NotificationModel(type: .error, text: error, action: {})
-                    }
-                
+                withAnimation {
+                    notificationController.setNotification(text: error, type: .error)
+                }
             }
         }
-        
-//        if controller.confirmCode == "123456" {
-//            sessionManager.changeStateWithAnimation(state: .session(user: User(id: "")))
-//        } else {
-//            self.bordersColor = Color.red700
-//            self.error = "인증번호가 일치하지 않습니다."
-//        }
     }
 }
 

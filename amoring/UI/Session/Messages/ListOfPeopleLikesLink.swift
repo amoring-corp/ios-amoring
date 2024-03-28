@@ -116,10 +116,6 @@ struct ListOfPeopleLikesLink: View {
         .padding(.top, Size.w(16))
 //        .padding(.bottom, Size.w(45))
         .background(Color.gray1000)
-        
-//        .onTapGesture {
-//            navigator.path.append(NavigatorPath.listOfLikes)
-//        }
     }
 }
 

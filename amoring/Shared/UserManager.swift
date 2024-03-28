@@ -82,7 +82,6 @@ class UserManager: ObservableObject {
     
     private func setCurrentPhotos() {
         guard let images = self.user?.profile?.images else { return }
-      
         if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
             
         }
@@ -188,28 +187,35 @@ class UserManager: ObservableObject {
         self.isLoading = true
         self.pictures.removeAll()
         self.user?.profile?.images.removeAll()
-        let dispatchGroup = DispatchGroup()
+//        let dispatchGroup = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: "taskQueue")
+        let semaphore = DispatchSemaphore(value: 1)
         var successList: [Bool] = []
         for (index,image) in images.enumerated(){
-            let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
-            if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
-                dispatchGroup.enter()
-
-                let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
-                self.saveImage(file: file, sort: index) { success in
-                    successList.append(success)
-                    dispatchGroup.leave()
+            dispatchQueue.async {
+                let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
+                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
+    //                dispatchGroup.enter()
+                    semaphore.wait()
+                    let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+                    self.saveImage(file: file, sort: index) { success in
+                        successList.append(success)
+    //                    dispatchGroup.leave()
+                        semaphore.signal()
+                        // TODO: need tests
+                        if index + 1 >= images.count {
+                            self.isLoading = false
+                            print("sending: \(successList.filter{$0}.count) images finished")
+                            completion(successList.filter{$0}.count >= 3)
+                        }
+                    }
+                } else {
+                    print("wrong image data!")
+                    self.isLoading = false
+                    completion(true)
                 }
-            } else {
-                print("wrong image data!")
-                completion(true)
             }
         }
-        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-            self.isLoading = false
-            print("sending: \(successList.filter{$0}.count) images finished")
-            completion(successList.filter{$0}.count >= 3)
-        })
     }
     
     
@@ -230,14 +236,24 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Image was successfully uploaded!")
-                print(data.uploadMyProfileImage)
-                self.user?.profile?.images.insert(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment), at: sort)
+                print(data.uploadMyProfileImage.file?.url)
+                print(sort)
+                if self.user?.profile?.images.count ?? 0 >= sort {
+                    self.user?.profile?.images.insert(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment), at: sort)
+                } else {
+                    self.user?.profile?.images.append(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment))
+                }
+                
                 
                 let urlString = data.uploadMyProfileImage.file?.url ?? ""
                 guard let url = URL(string: urlString) else { return }
                 if let data = try? Data(contentsOf: url) {
                     if let image = UIImage(data: data) {
-                        self.pictures.insert(PictureModel.newPicture(image, urlString), at: sort)
+                        if self.pictures.count >= sort {
+                            self.pictures.insert(PictureModel.newPicture(image, urlString), at: sort)
+                        } else {
+                            self.pictures.append(PictureModel.newPicture(image, urlString))
+                        }
                     }
                 }
                 completion(true)
@@ -255,7 +271,7 @@ class UserManager: ObservableObject {
         self.user?.business?.images?.removeAll()
         let dispatchGroup = DispatchGroup()
         var successList: [Bool] = []
-        for (index,image) in images.enumerated(){
+        for (index,image) in images.enumerated() {
             let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
             
             if let data = resizedImage!.jpegData(compressionQuality: 0.8) {

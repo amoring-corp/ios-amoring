@@ -13,7 +13,7 @@ struct AmoringView: View {
     @Binding var selectedIndex: Int
     
     var body: some View {
-        Group {
+        ZStack {
             if amoringController.checkIn != nil {
                 ProfilesView(selectedIndex: $selectedIndex)
             } else {

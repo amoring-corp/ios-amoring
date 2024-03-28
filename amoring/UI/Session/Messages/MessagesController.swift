@@ -9,7 +9,6 @@ import SwiftUI
 import AmoringAPI
 
 class MessagesController: ObservableObject {
-//    @Published var reactions: [Reaction] = []
     @Published var reactions: [ReactionInfo] = []
     @Published var conversations: [Conversation] = []
     @Published var alertPresented = false
