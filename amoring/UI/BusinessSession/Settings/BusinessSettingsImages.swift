@@ -18,7 +18,6 @@ struct BusinessSettingsImages: View {
     @State private var confirmRemoveImageIndex: Int = 0
     @State private var showRemoveConfirmation: Bool = false
     @State private var showContentTypeSheet: Bool = false
-    @State private var showPermissionDenied: Bool = false
     @State private var editIndex: Int? = nil
     
     var body: some View {
@@ -59,7 +58,7 @@ struct BusinessSettingsImages: View {
                                 self.editIndex = confirmRemoveImageIndex
                                 showContentTypeSheet.toggle()
                             }),
-                            .destructive(Text("삭제"), action: userManager.removeBusinessPicture),
+                            .destructive(Text("삭제"), action: self.removePicture),
                             .cancel()
                         ])
                     } else {
@@ -84,26 +83,19 @@ struct BusinessSettingsImages: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.bottom, Size.w(30))
                 
-                HStack {
-                    if userManager.isLoading {
-                        ProgressView()
-                            .tint(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(20)
-                    } else {
-                        Button(action: {
-                            let images = pictures.map({ $0.picture })
-                            userManager.deleteAllBusinessImages { success in
-                                userManager.uploadBusinessImages(images: images) { success in
-//                                    sessionManager.getCurrentSession(delay: 0) { success, error in
-//                                        notificationController.setNotification(show: !success, text: error, type: .error)
-//                                    }
-                                }
-                            }
-                        }) {
-                            FullSizeButton(title: "저장", color: .black, bg: .yellow200, loadingColor: .gray1000)
+                Button(action: {
+                    guard self.pictures != userManager.businessPictures else { return }
+                    
+                    let images = pictures.map({ $0.picture })
+                    userManager.deleteAllBusinessImages { success in
+                        userManager.uploadBusinessImages(images: images) { success in
+                            //                                    sessionManager.getCurrentSession(delay: 0) { success, error in
+                            //                                        notificationController.setNotification(show: !success, text: error, type: .error)
+                            //                                    }
                         }
                     }
+                }) {
+                    FullSizeButton(title: "저장", color: .black, bg: .yellow200, isLoading: userManager.isLoading, loadingColor: .gray1000)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, Size.w(16))
@@ -113,6 +105,10 @@ struct BusinessSettingsImages: View {
             .background(Color.yellow300)
         }
         .navigationBarHidden(true)
+    }
+    
+    func removePicture() {
+        self.pictures.remove(at: confirmRemoveImageIndex)
     }
 }
 

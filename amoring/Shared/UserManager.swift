@@ -113,14 +113,6 @@ class UserManager: ObservableObject {
         }
     }
     
-    func removePicture() {
-        self.pictures.remove(at: confirmRemoveImageIndex)
-    }
-    
-    func removeBusinessPicture() {
-        self.businessPictures.remove(at: confirmRemoveImageIndex)
-    }
-    
     func refreshUser() {
         self.isLoading = true
         api.fetch(query: QueryAuthenticatedUserQuery()) { result in
@@ -269,29 +261,40 @@ class UserManager: ObservableObject {
         self.isLoading = true
         self.businessPictures.removeAll()
         self.user?.business?.images?.removeAll()
-        let dispatchGroup = DispatchGroup()
+//        let dispatchGroup = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: "taskQueue")
+        let semaphore = DispatchSemaphore(value: 1)
         var successList: [Bool] = []
         for (index,image) in images.enumerated() {
-            let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
-            
-            if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
-                dispatchGroup.enter()
+            dispatchQueue.async {
+                let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
                 
-                let file = GraphQLFile(fieldName: "image", originalName: "image", mimeType: "image/jpeg", data: data)
-                self.saveBusinessImage(file: file, sort: index) { success in
-                    successList.append(success)
-                    dispatchGroup.leave()
+                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
+                    //                dispatchGroup.enter()
+                    semaphore.wait()
+                    let file = GraphQLFile(fieldName: "image", originalName: "image", mimeType: "image/jpeg", data: data)
+                    self.saveBusinessImage(file: file, sort: index) { success in
+                        successList.append(success)
+                        semaphore.signal()
+                        //                    dispatchGroup.leave()
+                        // TODO: need tests
+                        if index + 1 >= images.count {
+                            self.isLoading = false
+                            print("sending: \(successList.filter{$0}.count) images finished")
+                            completion(successList.filter{$0}.count >= 3)
+                        }
+                    }
+                } else {
+                    print("wrong image data!")
+                    completion(true)
                 }
-            } else {
-                print("wrong image data!")
-                completion(true)
             }
         }
-        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-            self.isLoading = false
-            print("sending: \(successList.filter{$0}.count) images finished")
-            completion(successList.filter{$0}.count >= 3)
-        })
+//        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
+//            self.isLoading = false
+//            print("sending: \(successList.filter{$0}.count) images finished")
+//            completion(successList.filter{$0}.count >= 3)
+//        })
     }
     
     private func saveBusinessImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
@@ -311,16 +314,23 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("Image was successfully uploaded!")
-                print(data.uploadBusinessImage)
-//                self.user?.business?.images?.append(MutatingImage(image: data.uploadBusinessImage))
-                self.user?.business?.images?.insert(MutatingImage(image: data.uploadBusinessImage), at: sort)
-                
+                print("Image: \(data.uploadBusinessImage.file?.url)  ..uploaded!")
+                print(sort)
+                if self.user?.business?.images?.count ?? 0 >= sort {
+                    self.user?.business?.images?.insert(MutatingImage(image: data.uploadBusinessImage), at: sort)
+                } else {
+                    self.user?.business?.images?.append(MutatingImage(image: data.uploadBusinessImage))
+                }
+
                 let urlString = data.uploadBusinessImage.file?.url ?? ""
                 guard let url = URL(string: urlString) else { return }
                 if let data = try? Data(contentsOf: url) {
                     if let image = UIImage(data: data) {
-                        self.businessPictures.insert(PictureModel.newPicture(image, urlString), at: sort)
+                        if self.businessPictures.count >= sort {
+                            self.businessPictures.insert(PictureModel.newPicture(image, urlString), at: sort)
+                        } else {
+                            self.businessPictures.append(PictureModel.newPicture(image, urlString))
+                        }
                     }
                 }
                 completion(true)

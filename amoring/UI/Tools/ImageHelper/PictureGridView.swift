@@ -101,11 +101,11 @@ struct PictureGridView: View {
     @ViewBuilder
     func getCellView(cell: GridCell, number: Int) -> some View {
         if let picture = cell.picture, let index = pictures.firstIndex(of: picture) {
-            return AnyView(AddedImageView(image: picture.picture, number: number, action:{
+            AddedImageView(image: picture.picture, number: number, action:{
                 onAddedImageClick(index)
-            }))
+            })
         } else {
-            return AnyView(AddImageView(number: number, action: onAddImageClick))
+            AddImageView(number: number, action: onAddImageClick)
         }
     }
 }

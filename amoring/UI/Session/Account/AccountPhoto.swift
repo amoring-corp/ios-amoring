@@ -14,11 +14,12 @@ struct AccountPhoto: View {
     @EnvironmentObject var notificationController: NotificationController
     
     @State private var droppedOutside: Bool = false
+    @State private var confirmRemoveImageIndex: Int = 0
     @State private var showRemoveConfirmation: Bool = false
     @State private var showContentTypeSheet: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var editIndex: Int? = nil
-    @State var pictures: [PictureModel] = []
+    @State private var pictures: [PictureModel] = []
     
     var body: some View {
         VStack {
@@ -56,7 +57,7 @@ struct AccountPhoto: View {
                             self.editIndex = userManager.confirmRemoveImageIndex
                             showContentTypeSheet.toggle()
                         }),
-                        .destructive(Text("삭제"), action: userManager.removePicture),
+                        .destructive(Text("삭제"), action: self.removePicture),
                         .cancel()
                     ])
                 } else {
@@ -82,6 +83,8 @@ struct AccountPhoto: View {
                 .padding(.bottom, Size.w(30))
             
             Button(action: {
+                guard self.pictures != userManager.pictures else { return }
+                
                 let images = pictures.map({ $0.picture })
                 userManager.deleteMyAllProfileImages { success in
                     userManager.uploadMyProfileImages(images: images) { success in
@@ -113,7 +116,9 @@ struct AccountPhoto: View {
         )
     }
     
-
+    func removePicture() {
+        self.pictures.remove(at: confirmRemoveImageIndex)
+    }
 }
 
 #Preview {
