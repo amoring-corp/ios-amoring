@@ -83,6 +83,7 @@ struct AccountPhoto: View {
                 .padding(.bottom, Size.w(30))
             
             Button(action: {
+                /// do nothing if images are haven't been changed
                 guard self.pictures != userManager.pictures else { return }
                 
                 let images = pictures.map({ $0.picture })
