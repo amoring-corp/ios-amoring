@@ -11,6 +11,8 @@ struct NavigatorView<Content: View>: View {
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
+    @StateObject var navigationController = NavigationController()
+    
     @Binding var selectedIndex: Int
     let titles: [String] = TabBarType.allCases.map({ $0.tabTitle })
     
@@ -27,125 +29,15 @@ struct NavigatorView<Content: View>: View {
                         .tag(index)
                 }
             }
-            
             TabBarBottomView(tabbarTitles: titles, selectedIndex: $selectedIndex)
-            // TODO: add info here . ..
-//                .sheet(isPresented: $showInfo) {
-//                    Text("info")
-//                }
         }
         .ignoresSafeArea()
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                setTitle()
-            }
-        }
-        .navigationBarItems(
-            leading: setLeading(),
-            trailing: setTrailing()
-        )
-    }
-    
-    @ViewBuilder
-    func setTitle() -> some View {
-        let title =
-        Text("AMORING")
-            .font(bold20Font)
-            .foregroundColor(.yellow300)
-        switch selectedIndex {
-        case 0:
-            title
-        case 1:
-            if amoringController.checkIn == nil {
-                title
-            } else {
-                EmptyView()
-            }
-        case 2:
-            title
-        case 3: EmptyView()
-        default: EmptyView()
-        }
-    }
-    
-    @ViewBuilder
-    func setTrailing() -> some View {
-        let infoButton = Button(action: {
-            showInfo.toggle()
-        }) {
-            Image("ic-info")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(32), height: Size.w(32))
-        }
-        
-        switch selectedIndex {
-        case 0:
-            infoButton
-        case 1:
-            if amoringController.checkIn == nil {
-                infoButton
-            } else {
-                HStack {
-                    Text(amoringController.countDown.toString())
-                        .font(medium16Font)
-                        .foregroundColor(.yellow300)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .lineLimit(1)
-                    Button(action: {
-                        showAlert = true
-                    }) {
-                        Image("ic-leave-room")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: Size.w(32), height: Size.w(32))
-                    }
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("체크아웃하기"),
-                              message: Text("라운지 체크아웃 시\n프로필이 더 이상 소개되지 않습니다.\n라운지에서 체크아웃 하시겠습니까?"),
-                              primaryButton: .cancel(Text("취소")), secondaryButton: .default(Text("확인"), action: leave))
-                    }
-                }
-            }
-        case 2: infoButton
-        case 3: EmptyView()
-        default: EmptyView()
-        }
-    }
-    
-    @ViewBuilder
-    func setLeading() -> some View {
-        switch selectedIndex {
-        case 0:
-            EmptyView()
-        case 1:
-            if amoringController.checkIn != nil {
-                Text("AMORING")
-                .font(bold20Font)
-                .foregroundColor(.yellow300)
-            } else {
-                EmptyView()
-            }
-        case 2: EmptyView()
-        case 3: EmptyView()
-        default: EmptyView()
-        }
-    }
-    
-    func leave() {
-        userManager.checkOutFromActive { error in
-            if let error {
-                notificationController.setNotification(text: error, type: .error)
-            } else {
-                amoringController.leave()
-            }
-        }
+        .environmentObject(navigationController)
     }
 }
 
-
 struct TabBarBottomView: View {
-    
+    @EnvironmentObject var navigationController: NavigationController
     let tabbarTitles: [String]
     @Binding var selectedIndex: Int
     
@@ -164,7 +56,7 @@ struct TabBarBottomView: View {
             .background(Color.gray1000)
             .zIndex(2)
         }
-//        .offset(y: navigator.path.isEmpty ? 0 : 100)
+        .offset(y: navigationController.barAppear ? 0 : 100)
     }
     
     @ViewBuilder
