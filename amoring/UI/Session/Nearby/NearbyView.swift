@@ -32,7 +32,7 @@ struct NearbyView: View {
             }
             .navigationBarItems(
                 trailing: Button(action: {
-    //                showInfo.toggle()
+                    //                showInfo.toggle()
                 }) {
                     Image("ic-info")
                         .resizable()
@@ -46,7 +46,7 @@ struct NearbyView: View {
 
 enum businessType: CaseIterable {
     case all, club, lounge, bar, pub, kr_bar, jujeob, hoff, izakaya, cafe, festival
-//    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
+    //    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
     func title() -> String {
         switch self {
         case .all:
@@ -121,101 +121,101 @@ struct BusinessListView: View {
     @State var sorting: businessSorting = .recs
     
     var body: some View {
-            LazyVStack(alignment: .center, spacing: 0, pinnedViews: [.sectionHeaders]) {
-                count
-                    .padding(.horizontal, Size.w(22))
-                    .padding(.bottom, Size.w(15))
-                    .opacity(CGFloat(1) - (scrollOffset / Size.w(200)))
+        LazyVStack(alignment: .center, spacing: 0, pinnedViews: [.sectionHeaders]) {
+            count
+                .padding(.horizontal, Size.w(22))
+                .padding(.bottom, Size.w(15))
+                .opacity(CGFloat(1) - (scrollOffset / Size.w(200)))
+            
+            Section(header:
+                        VStack {
+                Divider()
                 
-                Section(header:
-                            VStack {
-                    Divider()
-                    
-                    HStack(alignment: .center) {
-                        if scrollOffset > Size.w(200) {
-                            count
-                        }
-                        
-                        Spacer()
-                        
-                        Menu {
-                            Picker(selection: $type, label: EmptyView()) {
-                                ForEach(businessType.allCases, id: \.self) {
-                                    Text($0.title())
-                                        .font(regular16Font)
-                                        .foregroundColor(.yellow300)
-                                }
-                            }
-                        } label: {
-                            HStack {
-                                Text(type.title())
-                                    .font(regular16Font)
-                                Image(systemName: "chevron.down")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: Size.w(8))
-                            }
-                            .frame(minWidth: Size.w(60), alignment: .trailing)
-                            .foregroundColor(.yellow300)
-                        }
-                        .padding(.trailing, Size.w(12))
-                        .onChange(of: type) { newType in
-                            filter(newType: newType)
-                        }
-                        .onChange(of: district) { newDistrict in
-                            filter(newDistrict: newDistrict)
-                        }
-                        
-                        Divider().frame(height: Size.w(24))
-                        
-                        Menu {
-                            Picker(selection: $sorting, label: EmptyView()) {
-                                ForEach(businessSorting.allCases, id: \.self) {
-                                    Text($0.title())
-                                        .font(regular16Font)
-                                        .foregroundColor(.yellow300)
-                                }
-                            }
-                        } label: {
-                            HStack {
-                                Text(sorting.title())
-                                    .font(regular16Font)
-                                Image(systemName: "chevron.down")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: Size.w(8))
-                            }
-                            .frame(minWidth: Size.w(60), alignment: .leading)
-                            .foregroundColor(.yellow300)
-                        }
-                        .padding(.leading, Size.w(12))
-                        .onChange(of: sorting) { sorting in
-                            sort(sorting: sorting)
-                        }
+                HStack(alignment: .center) {
+                    if scrollOffset > Size.w(200) {
+                        count
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, Size.w(22))
-                    .padding(.vertical, Size.w(10))
                     
-                    Divider()
-                        .opacity(scrollOffset / Size.w(200))
+                    Spacer()
                     
-                }
-                    .background(Color.gray1000)
-                        
-                ) {
-                    ForEach(userManager.businesses, id: \.self.id) { business in
-                        NavigationLink(destination: {
-                            BusinessDetailsView(business: Business(businessInfo: business))
-                                .onAppear(perform: navigationController.hideBar)
-                                .onDisappear(perform: navigationController.showBar)
-                        }) {
-                            BusinessRow(business: Business(businessInfo: business))
+                    Menu {
+                        Picker(selection: $type, label: EmptyView()) {
+                            ForEach(businessType.allCases, id: \.self) {
+                                Text($0.title())
+                                    .font(regular16Font)
+                                    .foregroundColor(.yellow300)
+                            }
                         }
+                    } label: {
+                        HStack {
+                            Text(type.title())
+                                .font(regular16Font)
+                            Image(systemName: "chevron.down")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: Size.w(8))
+                        }
+                        .frame(minWidth: Size.w(60), alignment: .trailing)
+                        .foregroundColor(.yellow300)
+                    }
+                    .padding(.trailing, Size.w(12))
+                    .onChange(of: type) { newType in
+                        filter(newType: newType)
+                    }
+                    .onChange(of: district) { newDistrict in
+                        filter(newDistrict: newDistrict)
+                    }
+                    
+                    Divider().frame(height: Size.w(24))
+                    
+                    Menu {
+                        Picker(selection: $sorting, label: EmptyView()) {
+                            ForEach(businessSorting.allCases, id: \.self) {
+                                Text($0.title())
+                                    .font(regular16Font)
+                                    .foregroundColor(.yellow300)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Text(sorting.title())
+                                .font(regular16Font)
+                            Image(systemName: "chevron.down")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: Size.w(8))
+                        }
+                        .frame(minWidth: Size.w(60), alignment: .leading)
+                        .foregroundColor(.yellow300)
+                    }
+                    .padding(.leading, Size.w(12))
+                    .onChange(of: sorting) { sorting in
+                        sort(sorting: sorting)
                     }
                 }
-                Spacer(minLength: 200)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, Size.w(22))
+                .padding(.vertical, Size.w(10))
+                
+                Divider()
+                    .opacity(scrollOffset / Size.w(200))
+                
             }
+                .background(Color.gray1000)
+                    
+            ) {
+                ForEach(userManager.businesses, id: \.self.id) { business in
+                    NavigationLink(destination: {
+                        BusinessDetailsView(business: Business(businessInfo: business))
+                            .onAppear(perform: navigationController.hideBar)
+                            .onDisappear(perform: navigationController.showBar)
+                    }) {
+                        BusinessRow(business: Business(businessInfo: business))
+                    }
+                }
+            }
+            Spacer(minLength: 200)
+        }
         .onAppear {
             userManager.getBusinesses()
         }
@@ -245,7 +245,7 @@ struct BusinessListView: View {
                 userManager.businesses = userManager.businesses
             case .other:
                 userManager.businesses = userManager.businesses.filter { biz in
-                !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
             default:
                 userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
             }
@@ -257,7 +257,7 @@ struct BusinessListView: View {
                 userManager.businesses = userManager.businessesInit
             case .other:
                 userManager.businesses = userManager.businessesInit.filter { biz in
-                !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
             default:
                 userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
             }
@@ -331,10 +331,10 @@ struct BusinessRow: View {
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets())
         .listRowBackground(Color.clear)
-//        .onTapGesture {
-//            navigator.selectedBusiness = business
-//            navigator.path.append(NavigatorPath.business)
-//        }
+        //        .onTapGesture {
+        //            navigator.selectedBusiness = business
+        //            navigator.path.append(NavigatorPath.business)
+        //        }
     }
 }
 
