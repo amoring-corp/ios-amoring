@@ -66,7 +66,7 @@ struct AmoringView: View {
                         )
                 }
             }
-         
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

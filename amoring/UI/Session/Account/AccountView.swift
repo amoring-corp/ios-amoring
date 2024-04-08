@@ -202,14 +202,23 @@ struct MenuLineLink<Content: View>: View {
     @EnvironmentObject var navigationController: NavigationController
     let title: String
     var color: Color = Color.gray600
+    var isBusinessSession: Bool = false
     
     @ViewBuilder let content: Content
     
     var body: some View {
         NavigationLink(destination: {
             content
-                .onAppear(perform: navigationController.hideBar)
-                .onDisappear(perform: navigationController.showBar)
+                .onAppear {
+                    if !isBusinessSession {
+                        navigationController.hideBar()
+                    }
+                }
+                .onDisappear {
+                    if !isBusinessSession {
+                        navigationController.showBar()
+                    }
+                }
         }) {
             HStack {
                 Text(title)
