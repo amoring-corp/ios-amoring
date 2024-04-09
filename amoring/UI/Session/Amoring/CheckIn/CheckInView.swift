@@ -64,7 +64,6 @@ struct CheckInView: View {
         case .success(let result):
             userManager.createCheckInByToken(token: result.string) { error, businessName, id in
                 if let businessName, let id {
-                    print(businessName)
                     self.businessName = businessName
                     self.id = id
                     openResult = true

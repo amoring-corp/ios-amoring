@@ -8,7 +8,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query QueryBusinesses { businesses { __typename ...BusinessInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self, ProfileInfo.self]
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
   public init() {}
@@ -59,7 +59,6 @@ public class QueryBusinessesQuery: GraphQLQuery {
       public var phoneNumber: String? { __data["phoneNumber"] }
       public var registrationNumber: String? { __data["registrationNumber"] }
       public var images: [Image?]? { __data["images"] }
-      public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
       public var latitude: Double? { __data["latitude"] }
       public var longitude: Double? { __data["longitude"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
@@ -94,8 +93,6 @@ public class QueryBusinessesQuery: GraphQLQuery {
       }
 
       public typealias Image = BusinessInfo.Image
-
-      public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
     }
   }
 }

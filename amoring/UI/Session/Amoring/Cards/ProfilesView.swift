@@ -33,15 +33,17 @@ struct ProfilesView: View {
                 HStack {
                     CoctailToggle(isOn: $isOn)
                     Spacer()
-                    LikesFromMaxView(likes: purchaseController.likes, maxLikes: purchaseController.maxLikes)
-                        .onTapGesture {
-                            purchaseController.openPurchase(purchaseType: .like)
-                        }
-                    if purchaseController.purchasedLikes > 0 {
-                        PurchasedLikesView(likes: purchaseController.purchasedLikes)
+                    if let gender = userManager.user?.profile?.gender, gender == .male {
+                        LikesFromMaxView()
                             .onTapGesture {
                                 purchaseController.openPurchase(purchaseType: .like)
                             }
+                        if purchaseController.purchasedLikes > 0 {
+                            PurchasedLikesView(likes: purchaseController.purchasedLikes)
+                                .onTapGesture {
+                                    purchaseController.openPurchase(purchaseType: .like)
+                                }
+                        }
                     }
                 }
                 .padding(.vertical, 16)
@@ -70,12 +72,12 @@ struct ProfilesView: View {
                 }
                 .frame(maxHeight: .infinity, alignment: .center)
                 
-                ForEach(amoringController.profiles.indices, id:\.self) { index  in
-                    let profile = amoringController.profiles[index]
+                ForEach(userManager.profiles.indices, id:\.self) { index  in
+                    let profile = userManager.profiles[index]
 //
-                    if (index == amoringController.profiles.count - 1) {
+                    if (index == userManager.profiles.count - 1) {
                     SwipibleProfileVIew(profile: profile, swipeAction: $swipeAction, selectedIndex: $selectedIndex)
-                    } else if (index == amoringController.profiles.count - 2) {
+                    } else if (index == userManager.profiles.count - 2) {
                         GeometryReader { reader in
                             ZStack {
                                 ProfileCardView(profile: profile,
@@ -116,16 +118,17 @@ struct ProfilesView: View {
     }
     
     private func getProfiles() {
-        amoringController.profiles.removeAll()
+        userManager.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
-            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile?.fragments.profileInfo }) {
-                for profile in profiles {
-                    if let profile {
-                        amoringController.profiles.append(profile)
-                    }
-                }
-            }
+            userManager.getVisibleProfiles()
+//            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile?.fragments.profileInfo }) {
+//                for profile in profiles {
+//                    if let profile {
+//                        userManager.profiles.append(profile)
+//                    }
+//                }
+//            }
             
             if let checkedOutAt = checkIn.checkedOutAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") {
 //                amoringController.countDown = checkInDate.addingTimeInterval(3 * 60 * 60) - Date()
@@ -204,7 +207,7 @@ struct ProfilesView: View {
 //    }
     
     private func removeTopItem() {
-        amoringController.profiles.removeLast()
+        userManager.profiles.removeLast()
     }
 }
 

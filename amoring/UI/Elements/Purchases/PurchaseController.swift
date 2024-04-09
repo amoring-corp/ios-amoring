@@ -11,7 +11,7 @@ import StoreKit
 class PurchaseController: ObservableObject {
     @Published var purchaseType: PurchaseModel.type? = nil
     
-    @Published var likes: Int = 10
+    @Published var usedLikesCount: Int = 0
     @Published var maxLikes: Int = 10
     @Published var purchasedLikes: Int = 1
     @Published var amoringCommunityIsOn: Bool = false

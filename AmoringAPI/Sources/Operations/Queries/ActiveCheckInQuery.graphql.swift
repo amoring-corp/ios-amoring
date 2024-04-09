@@ -8,7 +8,7 @@ public class ActiveCheckInQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query ActiveCheckIn { activeCheckIn { __typename ...CheckInInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, ImageFragment.self, ProfileInfo.self]
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self]
     ))
 
   public init() {}
@@ -41,8 +41,8 @@ public class ActiveCheckInQuery: GraphQLQuery {
       public var businessId: String { __data["businessId"] }
       public var business: Business? { __data["business"] }
       public var profileId: String { __data["profileId"] }
-      public var profile: Profile? { __data["profile"] }
       public var status: GraphQLEnum<AmoringAPI.CheckInStatus> { __data["status"] }
+      public var hasTable: Bool { __data["hasTable"] }
       public var checkedInAt: AmoringAPI.DateTime? { __data["checkedInAt"] }
       public var checkedOutAt: AmoringAPI.DateTime? { __data["checkedOutAt"] }
       public var createdAt: AmoringAPI.DateTime { __data["createdAt"] }
@@ -86,7 +86,6 @@ public class ActiveCheckInQuery: GraphQLQuery {
         public var phoneNumber: String? { __data["phoneNumber"] }
         public var registrationNumber: String? { __data["registrationNumber"] }
         public var images: [Image?]? { __data["images"] }
-        public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
         public var latitude: Double? { __data["latitude"] }
         public var longitude: Double? { __data["longitude"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
@@ -121,67 +120,6 @@ public class ActiveCheckInQuery: GraphQLQuery {
         }
 
         public typealias Image = BusinessInfo.Image
-
-        public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
-      }
-
-      /// ActiveCheckIn.Profile
-      ///
-      /// Parent Type: `Profile`
-      public struct Profile: AmoringAPI.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
-
-        public var id: AmoringAPI.ID { __data["id"] }
-        public var userId: String { __data["userId"] }
-        public var name: String? { __data["name"] }
-        public var age: Int? { __data["age"] }
-        public var avatarUrl: String? { __data["avatarUrl"] }
-        public var birthYear: Int? { __data["birthYear"] }
-        public var height: Int? { __data["height"] }
-        public var weight: Int? { __data["weight"] }
-        public var mbti: String? { __data["mbti"] }
-        public var education: String? { __data["education"] }
-        public var occupation: String? { __data["occupation"] }
-        public var bio: String? { __data["bio"] }
-        public var gender: GraphQLEnum<AmoringAPI.Gender>? { __data["gender"] }
-        public var images: [Image?]? { __data["images"] }
-        public var interests: [Interest?]? { __data["interests"] }
-        public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
-        public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
-
-        public struct Fragments: FragmentContainer {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public var profileInfo: ProfileInfo { _toFragment() }
-        }
-
-        /// ActiveCheckIn.Profile.Image
-        ///
-        /// Parent Type: `ProfileImage`
-        public struct Image: AmoringAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
-
-          public var id: AmoringAPI.ID { __data["id"] }
-          public var file: File? { __data["file"] }
-
-          public struct Fragments: FragmentContainer {
-            public let __data: DataDict
-            public init(_dataDict: DataDict) { __data = _dataDict }
-
-            public var imageFragment: ImageFragment { _toFragment() }
-          }
-
-          public typealias File = ImageFragment.File
-        }
-
-        public typealias Interest = ProfileInfo.Interest
       }
     }
   }

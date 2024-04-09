@@ -26,14 +26,14 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "SignInResult": return AmoringAPI.Objects.SignInResult
     case "User": return AmoringAPI.Objects.User
     case "Profile": return AmoringAPI.Objects.Profile
-    case "ProfileImage": return AmoringAPI.Objects.ProfileImage
-    case "File": return AmoringAPI.Objects.File
-    case "Interest": return AmoringAPI.Objects.Interest
-    case "InterestCategory": return AmoringAPI.Objects.InterestCategory
+    case "CheckIn": return AmoringAPI.Objects.CheckIn
     case "Business": return AmoringAPI.Objects.Business
     case "BusinessHours": return AmoringAPI.Objects.BusinessHours
     case "BusinessImage": return AmoringAPI.Objects.BusinessImage
-    case "CheckIn": return AmoringAPI.Objects.CheckIn
+    case "File": return AmoringAPI.Objects.File
+    case "ProfileImage": return AmoringAPI.Objects.ProfileImage
+    case "Interest": return AmoringAPI.Objects.Interest
+    case "InterestCategory": return AmoringAPI.Objects.InterestCategory
     case "Subscription": return AmoringAPI.Objects.Subscription
     case "Message": return AmoringAPI.Objects.Message
     case "Reaction": return AmoringAPI.Objects.Reaction

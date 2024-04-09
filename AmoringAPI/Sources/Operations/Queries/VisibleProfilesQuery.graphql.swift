@@ -3,37 +3,31 @@
 
 @_exported import ApolloAPI
 
-public class UpsertMyProfileMutation: GraphQLMutation {
-  public static let operationName: String = "upsertMyProfile"
+public class VisibleProfilesQuery: GraphQLQuery {
+  public static let operationName: String = "VisibleProfiles"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation upsertMyProfile($data: ProfileUpdateInput!) { upsertMyProfile(data: $data) { __typename ...ProfileInfo } }"#,
+      #"query VisibleProfiles { visibleProfiles { __typename ...ProfileInfo } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, ImageFragment.self, ProfileInfo.self]
     ))
 
-  public var data: ProfileUpdateInput
-
-  public init(data: ProfileUpdateInput) {
-    self.data = data
-  }
-
-  public var __variables: Variables? { ["data": data] }
+  public init() {}
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("upsertMyProfile", UpsertMyProfile.self, arguments: ["data": .variable("data")]),
+      .field("visibleProfiles", [VisibleProfile?].self),
     ] }
 
-    public var upsertMyProfile: UpsertMyProfile { __data["upsertMyProfile"] }
+    public var visibleProfiles: [VisibleProfile?] { __data["visibleProfiles"] }
 
-    /// UpsertMyProfile
+    /// VisibleProfile
     ///
     /// Parent Type: `Profile`
-    public struct UpsertMyProfile: AmoringAPI.SelectionSet {
+    public struct VisibleProfile: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -71,7 +65,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
         public var profileInfo: ProfileInfo { _toFragment() }
       }
 
-      /// UpsertMyProfile.ActiveCheckIn
+      /// VisibleProfile.ActiveCheckIn
       ///
       /// Parent Type: `CheckIn`
       public struct ActiveCheckIn: AmoringAPI.SelectionSet {
@@ -98,7 +92,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
           public var checkInInfo: CheckInInfo { _toFragment() }
         }
 
-        /// UpsertMyProfile.ActiveCheckIn.Business
+        /// VisibleProfile.ActiveCheckIn.Business
         ///
         /// Parent Type: `Business`
         public struct Business: AmoringAPI.SelectionSet {
@@ -141,7 +135,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
             public var businessInfo: BusinessInfo { _toFragment() }
           }
 
-          /// UpsertMyProfile.ActiveCheckIn.Business.BusinessHour
+          /// VisibleProfile.ActiveCheckIn.Business.BusinessHour
           ///
           /// Parent Type: `BusinessHours`
           public struct BusinessHour: AmoringAPI.SelectionSet {
@@ -166,7 +160,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
         }
       }
 
-      /// UpsertMyProfile.Image
+      /// VisibleProfile.Image
       ///
       /// Parent Type: `ProfileImage`
       public struct Image: AmoringAPI.SelectionSet {

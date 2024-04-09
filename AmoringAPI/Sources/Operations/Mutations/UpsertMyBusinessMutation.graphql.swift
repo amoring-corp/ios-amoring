@@ -8,7 +8,7 @@ public class UpsertMyBusinessMutation: GraphQLMutation {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"mutation UpsertMyBusiness($data: BusinessUpdateInput!) { upsertMyBusiness(data: $data) { __typename ...BusinessInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, ImageFragment.self, ProfileInfo.self]
+      fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
   public var data: BusinessUpdateInput
@@ -65,7 +65,6 @@ public class UpsertMyBusinessMutation: GraphQLMutation {
       public var phoneNumber: String? { __data["phoneNumber"] }
       public var registrationNumber: String? { __data["registrationNumber"] }
       public var images: [Image?]? { __data["images"] }
-      public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
       public var latitude: Double? { __data["latitude"] }
       public var longitude: Double? { __data["longitude"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
@@ -100,8 +99,6 @@ public class UpsertMyBusinessMutation: GraphQLMutation {
       }
 
       public typealias Image = BusinessInfo.Image
-
-      public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
     }
   }
 }

@@ -187,9 +187,9 @@ struct ProfilePreviewView: View {
                     }
                     removeTopItem()
                     if hasLiked {
-                        if purchaseController.likes > 0 {
+                        if purchaseController.usedLikesCount < purchaseController.maxLikes {
                             withAnimation {
-                                purchaseController.likes -= 1
+                                purchaseController.usedLikesCount += 1
                             }
                         } else {
                             withAnimation {
@@ -256,13 +256,14 @@ struct PeopleLikesListObject: View {
                                 .background(Capsule().fill(Color.gray1000))
                         }
                         
-                        
-                        Text("테이블")
-                            .font(semiBold12Font)
-                            .foregroundColor(.black)
-                            .padding(.horizontal, Size.w(8))
-                            .padding(.vertical, Size.w(4))
-                            .background(Capsule().fill(Color.green200))
+                        if let hasTable = reaction?.byProfile.activeCheckIn?.hasTable, hasTable {
+                            Text("테이블")
+                                .font(semiBold12Font)
+                                .foregroundColor(.black)
+                                .padding(.horizontal, Size.w(8))
+                                .padding(.vertical, Size.w(4))
+                                .background(Capsule().fill(Color.green200))
+                        }
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {

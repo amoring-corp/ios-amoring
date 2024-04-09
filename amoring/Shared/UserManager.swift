@@ -22,7 +22,7 @@ class UserManager: ObservableObject {
     @Published var interestCategories: [InterestCategory] = []
     @Published var businessesInit: [BusinessInfo] = []
     @Published var businesses: [BusinessInfo] = []
-    @Published var profiles: [Profile] = []
+    @Published var profiles: [ProfileInfo] = []
     
     @Published var pictures: [PictureModel] = []
     @Published var businessPictures: [PictureModel] = []
@@ -1229,9 +1229,43 @@ class UserManager: ObservableObject {
         }
     }
     
-    // TODO: move to another Manager
-    func getProfiles() {
-        api.fetch(query: ProfilesQuery()) { result in
+    // MARK: fetching all profiles [use for tests]
+//    func getProfiles() {
+//        api.fetch(query: ProfilesQuery()) { result in
+//            switch result {
+//            case .success(let value):
+//                guard value.errors == nil else {
+//                    print(value.errors as Any)
+//                    return
+//                }
+//                
+//                guard let data = value.data else {
+//                    print("NO DATA!")
+//                    return
+//                }
+//                
+//                let profiles = data.profiles
+//                self.profiles = []
+//                
+////                self.profiles.append(contentsOf: Dummy.profiles)
+//                
+//                for profile in profiles {
+//                    if let profile {
+//                        //MARK:  excepting default db profile, excepting myself
+//                        if profile.id != "3" && profile.id != self.user?.profile?.id {
+//                            self.profiles.append(profile.fragments.profileInfo)
+//                        }
+//                    }
+//                }
+//                
+//            case .failure(let error):
+//                debugPrint(error.localizedDescription)
+//            }
+//        }
+//    }
+    
+    func getVisibleProfiles() {
+        api.fetch(query: VisibleProfilesQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1244,7 +1278,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                let profiles = data.profiles
+                let profiles = data.visibleProfiles
                 self.profiles = []
                 
 //                self.profiles.append(contentsOf: Dummy.profiles)
@@ -1252,9 +1286,9 @@ class UserManager: ObservableObject {
                 for profile in profiles {
                     if let profile {
                         //MARK:  excepting default db profile, excepting myself
-                        if profile.id != "3" && profile.id != self.user?.profile?.id {
-                            self.profiles.append(Profile(profile: profile.fragments.profileInfo))
-                        }
+//                        if profile.id != "3" && profile.id != self.user?.profile?.id {
+                            self.profiles.append(profile.fragments.profileInfo)
+//                        }
                     }
                 }
                 

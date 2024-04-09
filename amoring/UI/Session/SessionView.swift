@@ -77,6 +77,15 @@ struct SessionFlow: View {
                                 messagesController.reactions = reactions
                             }
                         }
+                        
+                        withAnimation {
+                            if let maxLikes = userManager.user?.profile?.maxLikes {
+                                purchaseController.maxLikes = maxLikes
+                            }
+                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
+                                purchaseController.usedLikesCount = usedLikesCount
+                            }
+                        }
                     }
                     amoringController.checkIn = activeCheckIn
                 }

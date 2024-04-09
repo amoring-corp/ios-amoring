@@ -61,12 +61,13 @@ struct UserInfoView: View {
                 Color.yellow350,
                 Color.yellow350
             ], startPoint: .top, endPoint: .bottom)
+            if let hasTable = profile.activeCheckIn?.hasTable, hasTable {
+                Image("tables-background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: Size.w(165))
+            }
             
-            // TODO: backend. make it conditional
-            Image("tables-background")
-                .resizable()
-                .scaledToFill()
-                .frame(height: Size.w(165))
             
             VStack(spacing: Size.w(10)) {
                 HStack {
@@ -87,13 +88,14 @@ struct UserInfoView: View {
                             .background(Capsule().fill(Color.gray1000))
                     }
                     
-                    
-                    Text("테이블")
-                        .font(semiBold12Font)
-                        .foregroundColor(.black)
-                        .padding(.horizontal, Size.w(12))
-                        .padding(.vertical, Size.w(6))
-                        .background(Capsule().fill(Color.green200))
+                    if let hasTable = profile.activeCheckIn?.hasTable, hasTable {
+                        Text("테이블")
+                            .font(semiBold12Font)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, Size.w(12))
+                            .padding(.vertical, Size.w(6))
+                            .background(Capsule().fill(Color.green200))
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: amoringController.showDetails ? .leading : .center)
                 

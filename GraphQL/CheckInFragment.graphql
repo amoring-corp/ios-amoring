@@ -5,10 +5,8 @@ fragment CheckInInfo on CheckIn {
       ... BusinessInfo
     }
     profileId
-    profile {
-      ... ProfileInfo
-    }
     status
+    hasTable
     checkedInAt
     checkedOutAt
     createdAt

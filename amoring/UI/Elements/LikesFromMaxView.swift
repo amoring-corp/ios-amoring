@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct LikesFromMaxView: View {
-    let likes: Int
-    var maxLikes: Int = 4
-    
+    @EnvironmentObject var purchaseController: PurchaseController
     var body: some View {
         HStack {
             Image("ic-heart-empty")
             
-            Text(likes.description) +
+            Text((purchaseController.maxLikes - purchaseController.usedLikesCount).description) +
             Text("/") +
-            Text(maxLikes.description)
+            Text(purchaseController.maxLikes.description)
         }
         .font(semiBold12Font)
         .foregroundColor(.gray200)
@@ -31,7 +29,7 @@ struct LikesFromMaxView: View {
 
 #Preview {
     VStack {
-        LikesFromMaxView(likes: 2)
+        LikesFromMaxView()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.gray1000)
