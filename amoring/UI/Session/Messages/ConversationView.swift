@@ -13,6 +13,7 @@ struct ConversationView: View, KeyboardReadable {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var amoringController: AmoringController
     @State var newMessage = ""
     @State var controlPresented = false
     @State var reportAlertPresented = false
@@ -208,6 +209,16 @@ struct ConversationView: View, KeyboardReadable {
                     .foregroundColor(.yellow300)
                 + Text(" 에 메시지가 활성화 되었습니다.")
                     .foregroundColor(.gray500)
+                
+                // TODO: use it for lounge user!
+                if false {
+                    if let myBusinessName = amoringController.checkIn?.business?.businessName {
+                        Text("라운지 모드 활성: ")
+                            .foregroundColor(.yellow300)
+                        + Text("\(myBusinessName) 외부에 있을 수도 있습니다")
+                            .foregroundColor(.gray500)
+                    }
+                }
             }
             .font(regular14Font)
             .padding(.bottom, Size.w(15))
