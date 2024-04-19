@@ -91,34 +91,51 @@ class PurchaseController: ObservableObject {
 //        }
 //    }
     
-    func purchase() {
+    func purchase(completion: @escaping (String?, String?) -> Void) {
         Task.init(priority: .background) {
-            guard let product = products.first(where: { $0.id == self.selectedPlan }) else { return }
-            
+            print("abracadabra")
+            guard let product = products.first(where: { $0.id == self.selectedPlan }) else {
+                completion("no products", nil)
+                return
+            }
+            print(product.description)
+            print(product.id)
             do {
                 let result = try await product.purchase()
                 
                 switch result {
                     
                 case .success(let verification):
+                    print("verification: \(verification)")
                     switch verification {
                     case .verified(let transaction):
+                        print("transaction: \(transaction)")
+                        
                         DispatchQueue.main.async {
                             self.purchasedIDs.append(transaction.productID)
                             self.onPurchaseSuccess()
+                            completion(nil, String(transaction.id))
                         }
-                    case .unverified(_, _):
+                    case .unverified(_, let error):
+                        print("unverified error: \(error)")
+                        completion(error.localizedDescription, nil)
                         break
                     }
                 case .userCancelled:
+                    print("canceled")
+                    completion("canceled", nil)
                     break
                 case .pending:
+                    print("pending...")
+                    completion("pending...", nil)
                     break
                 @unknown default:
+                    completion("unknown error", nil)
                     break
                 }
             } catch {
                 print("There's an error purchasing products. \(error.localizedDescription)")
+                completion(error.localizedDescription, nil)
             }
         }
     }

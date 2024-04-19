@@ -146,6 +146,7 @@ class UserManager: ObservableObject {
     func createProfile(profile: Profile, completion: @escaping (Bool) -> Void) {
         self.isLoading = true
         let input = ProfileData(profile: profile).data
+        
         api.perform(mutation: UpsertMyProfileMutation(data: ProfileUpdateInput(input))) { result in
             switch result {
             case .success(let value):
@@ -1131,6 +1132,39 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Conversation successfully was reported!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
+        }
+    }
+    
+    func createPurchase(transactionId: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: CreatePurchaseMutation(transactionId: transactionId)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                print(data.createPurchase?.id)
+                print("Purchase successfully was created!")
                 
                 self.isLoading = false
                 

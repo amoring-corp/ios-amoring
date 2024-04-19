@@ -129,17 +129,69 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let token = appleIdCredential.identityToken?.base64EncodedString()  else {
+            guard let code = appleIdCredential.authorizationCode else {
+                print("no code")
                 return
+                    
             }
-            let UserIdentifier = appleIdCredential.user
-//            self.token = token
-            print("token\n")
-            print(token)
-            print("UserIdentifier\n")
-            print(UserIdentifier)
-//            self.signedIn = true
-            // TODO: connect sign in with token here ...
+//            guard let token = appleIdCredential.identityToken?.base64EncodedString()  else {
+//                return
+//            }
+            
+            if let codeString = String(bytes: code, encoding: .utf8) {
+                print("code utf: \(codeString)")
+                self.signInWithAppleCode(code: codeString) { _,_ in }
+            } else {
+                print("not a valid UTF-8 sequence")
+                
+            }
+        } else {
+            print("No apple credentials")
+        }
+    }
+    
+    private func signInWithAppleCode(code: String, completion: @escaping (Bool, String) -> Void) {
+        api.perform(mutation: SignInWithAppleMutation(code: code)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    completion(false, value.errors?.first?.localizedDescription ?? "")
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false, "Something went wrong")
+                    return
+                }
+                
+                guard let sessionToken = data.signInWithApple.sessionToken else {
+                    print("NO TOKEN!")
+                    completion(false, "No authentication token")
+                    return
+                }
+                
+                guard data.signInWithApple.user != nil else {
+                    print("NO USER!")
+                    completion(false, "No user")
+                    return
+                }
+                
+                print(sessionToken)
+                
+                /// setting push notification
+                //MARK: Move it if we need pushes for business account
+                self.setupAWSSNSService()
+                self.lastProvider = .apple
+                self.sessionToken = sessionToken
+                self.getCurrentSession(delay: 0) { success, error in
+                        completion(success, error)
+                }
+//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
         }
     }
     
@@ -152,9 +204,53 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 print(error.localizedDescription)
             } else {
                 if let token = result?.user.idToken?.tokenString {
-                    self.lastProvider = .google
-                    self.signInWithToken(token: token, completion: completion)
+                    self.signInWithGoogleToken(token: token, completion: completion)
                 }
+            }
+        }
+    }
+    
+    private func signInWithGoogleToken(token: String, completion: @escaping (Bool, String) -> Void) {
+        api.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    completion(false, value.errors?.first?.localizedDescription ?? "")
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion(false, "Something went wrong")
+                    return
+                }
+                
+                guard let sessionToken = data.signInWithGoogle.sessionToken else {
+                    print("NO TOKEN!")
+                    completion(false, "No authentication token")
+                    return
+                }
+                
+                guard data.signInWithGoogle.user != nil else {
+                    print("NO USER!")
+                    completion(false, "No user")
+                    return
+                }
+                
+                print(sessionToken)
+                
+                /// setting push notification
+                //MARK: Move it if we need pushes for business account
+                self.setupAWSSNSService()
+                self.lastProvider = .google
+                self.sessionToken = sessionToken
+                self.getCurrentSession(delay: 0) { success, error in
+                        completion(success, error)
+                }
+//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
             }
         }
     }
@@ -169,6 +265,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     self.lastProvider = .kakao
                     UserApi.shared.me() { (user, error) in
                         print("---------")
+                        print(oauthToken)
                         print(user as Any)
                         print(error as Any)
                     }
@@ -184,6 +281,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     self.lastProvider = .kakao
                     UserApi.shared.me() { (user, error) in
                         print("--------- ++++++++")
+                        print(oauthToken)
                         print(user)
                         print(error)
                     }
@@ -315,52 +413,6 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             }
         }
     }
-    
-    private func signInWithToken(token: String, completion: @escaping (Bool, String) -> Void) {
-        api.perform(mutation: SignInWithGoogleMutation(idToken: token)) { result in
-            switch result {
-            case .success(let value):
-                guard value.errors == nil else {
-                    print(value.errors as Any)
-                    completion(false, value.errors?.first?.localizedDescription ?? "")
-                    return
-                }
-                
-                guard let data = value.data else {
-                    print("NO DATA!")
-                    completion(false, "Something went wrong")
-                    return
-                }
-                
-                guard let sessionToken = data.signInWithGoogle.sessionToken else {
-                    print("NO TOKEN!")
-                    completion(false, "No authentication token")
-                    return
-                }
-                
-                guard data.signInWithGoogle.user != nil else {
-                    print("NO USER!")
-                    completion(false, "No user")
-                    return
-                }
-                
-                print(sessionToken)
-                
-                /// setting push notification
-                //MARK: Move it if we need pushes for business account
-                self.setupAWSSNSService()
-                
-                self.sessionToken = sessionToken
-                self.getCurrentSession(delay: 0) { success, error in
-                        completion(success, error)
-                }
-//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
-            case .failure(let error):
-                debugPrint(error.localizedDescription)
-            }
-        }
-    }
-    
     
     func signOut() {
         DispatchQueue.main.async {

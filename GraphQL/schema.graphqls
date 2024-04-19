@@ -344,6 +344,21 @@ input ProfileUpdateInput {
   images: [ProfileImageInput]
 }
 
+type Purchase {
+  id: ID
+  userId: String
+  user: User
+  transactionId: String
+  productId: String
+  quantity: Int
+  price: Int
+  currency: String
+  purchasedAt: DateTime
+  expiresAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 type Reaction {
   id: ID!
   byProfileId: String!
@@ -461,6 +476,9 @@ type Mutation {
   anySignIn(email: String!): SignInResult!
   validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
+  signInWithNaver(idToken: String!): SignInResult!
+  signInWithKakao(idToken: String!): SignInResult!
+  signInWithApple(code: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
   verifyUserEmail(
     userId: ID!
@@ -530,6 +548,7 @@ type Mutation {
   disconnectInterestsFromProfile(profileId: ID!, interestIds: [ID!]!): Profile!
   connectInterestsToMyProfile(interestIds: [ID!]!): Profile!
   disconnectInterestsFromMyProfile(interestIds: [ID!]!): Profile!
+  createPurchase(transactionId: String!): Purchase
 
   """
   React to a profile by authenticated user

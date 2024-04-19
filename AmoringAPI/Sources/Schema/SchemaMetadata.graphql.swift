@@ -39,6 +39,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Reaction": return AmoringAPI.Objects.Reaction
     case "Conversation": return AmoringAPI.Objects.Conversation
     case "Query": return AmoringAPI.Objects.Query
+    case "Purchase": return AmoringAPI.Objects.Purchase
     case "SignUpResult": return AmoringAPI.Objects.SignUpResult
     case "CheckInToken": return AmoringAPI.Objects.CheckInToken
     case "UserDevice": return AmoringAPI.Objects.UserDevice
