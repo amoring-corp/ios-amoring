@@ -77,19 +77,19 @@ struct SettingsView: View {
                     
                     MenuTitle(title: "매장 프로필", color: Color.yellow700)
                     VStack(spacing: 0) {
-                        MenuLineLink(title: "기본정보", color: Color.yellow900) {
+                        MenuLineLink(title: "기본정보", color: Color.yellow900, isBusinessSession: true) {
                             BusinessSettingsInfo()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "영업시간", color: Color.yellow900) {
+                        MenuLineLink(title: "영업시간", color: Color.yellow900, isBusinessSession: true) {
                             BusinessSettingsOpenHours()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "사진", color: Color.yellow900) {
+                        MenuLineLink(title: "사진", color: Color.yellow900, isBusinessSession: true) {
                             BusinessSettingsImages()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "인증정보", color: Color.yellow900) {
+                        MenuLineLink(title: "인증정보", color: Color.yellow900, isBusinessSession: true) {
                             BusinessSettingsCertification()
                         }
                     }
@@ -129,15 +129,15 @@ struct SettingsView: View {
                     
                     MenuTitle(title: "서비스 지원", color: Color.yellow700)
                     VStack(spacing: 0) {
-                        MenuLineLink(title: "서비스 이용 약관", color: Color.yellow900) {
+                        MenuLineLink(title: "서비스 이용 약관", color: Color.yellow900, isBusinessSession: true) {
                             Text("서비스 이용 약관")
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "개인정보 보호 방침", color: Color.yellow900) {
+                        MenuLineLink(title: "개인정보 보호 방침", color: Color.yellow900, isBusinessSession: true) {
                             Text("개인정보 보호 방침")
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "문의하기 / 신고하기", color: Color.yellow900) {
+                        MenuLineLink(title: "문의하기 / 신고하기", color: Color.yellow900, isBusinessSession: true) {
                             BusinessEmail()
                         }
                     }

@@ -9,24 +9,44 @@ import SwiftUI
 import CachedAsyncImage
 
 struct NearbyView: View {
+    @EnvironmentObject var navigationController: NavigationController
     @State var district: districtEnum = .all
     @State var scrollOffset: CGFloat = 0
     
     var body: some View {
-        TrackableScrollView(contentOffset: $scrollOffset) {
-            DistrictsView(selectedChip: $district)
-            
-            BusinessListView(scrollOffset: $scrollOffset, district: $district)
-           
+        NavigationView {
+            TrackableScrollView(contentOffset: $scrollOffset) {
+                DistrictsView(selectedChip: $district)
+                
+                BusinessListView(scrollOffset: $scrollOffset, district: $district)
+                
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.gray1000)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("AMORING")
+                        .font(bold20Font)
+                        .foregroundColor(.yellow300)
+                }
+            }
+            .navigationBarItems(
+                trailing: Button(action: {
+                    //                showInfo.toggle()
+                }) {
+                    Image("ic-info")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Size.w(32), height: Size.w(32))
+                }
+            )
         }
-        .frame(maxWidth: .infinity)
-        .background(Color.gray1000)
     }
 }
 
 enum businessType: CaseIterable {
     case all, club, lounge, bar, pub, kr_bar, jujeob, hoff, izakaya, cafe, festival
-//    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
+    //    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
     func title() -> String {
         switch self {
         case .all:
@@ -92,6 +112,7 @@ enum businessSorting: CaseIterable {
 }
 
 struct BusinessListView: View {
+    @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userManager: UserManager
     @Binding var scrollOffset: CGFloat
     @Binding var district: districtEnum
@@ -186,6 +207,8 @@ struct BusinessListView: View {
                 ForEach(userManager.businesses, id: \.self.id) { business in
                     NavigationLink(destination: {
                         BusinessDetailsView(business: Business(businessInfo: business))
+                            .onAppear(perform: navigationController.hideBar)
+                            .onDisappear(perform: navigationController.showBar)
                     }) {
                         BusinessRow(business: Business(businessInfo: business))
                     }
@@ -193,7 +216,6 @@ struct BusinessListView: View {
             }
             Spacer(minLength: 200)
         }
-        
         .onAppear {
             userManager.getBusinesses()
         }
@@ -223,7 +245,7 @@ struct BusinessListView: View {
                 userManager.businesses = userManager.businesses
             case .other:
                 userManager.businesses = userManager.businesses.filter { biz in
-                !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
             default:
                 userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
             }
@@ -235,7 +257,7 @@ struct BusinessListView: View {
                 userManager.businesses = userManager.businessesInit
             case .other:
                 userManager.businesses = userManager.businessesInit.filter { biz in
-                !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
             default:
                 userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
             }
@@ -309,10 +331,10 @@ struct BusinessRow: View {
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets())
         .listRowBackground(Color.clear)
-//        .onTapGesture {
-//            navigator.selectedBusiness = business
-//            navigator.path.append(NavigatorPath.business)
-//        }
+        //        .onTapGesture {
+        //            navigator.selectedBusiness = business
+        //            navigator.path.append(NavigatorPath.business)
+        //        }
     }
 }
 

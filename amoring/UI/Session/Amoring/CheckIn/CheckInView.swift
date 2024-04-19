@@ -11,6 +11,7 @@ import NavigationStackBackport
 struct CheckInView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var navigationController: NavigationController
     
     @State var torchIsOn = false
     @State var openResult = false
@@ -45,6 +46,8 @@ struct CheckInView: View {
             
             NavigationLink(isActive: $openResult, destination: {
                 CheckInResult(businessName: businessName, id: self.id)
+                    .onAppear(perform: navigationController.hideBar)
+                    .onDisappear(perform: navigationController.showBar)
             }) {
                 EmptyView()
             }
@@ -61,7 +64,6 @@ struct CheckInView: View {
         case .success(let result):
             userManager.createCheckInByToken(token: result.string) { error, businessName, id in
                 if let businessName, let id {
-                    print(businessName)
                     self.businessName = businessName
                     self.id = id
                     openResult = true

@@ -1,0 +1,13 @@
+mutation SignInWithKakao($idToken: String!) {
+  signInWithKakao(idToken: $idToken) {
+    sessionToken
+    user {
+      id
+      email
+      status
+      role
+      createdAt
+      updatedAt
+    }
+  }
+}

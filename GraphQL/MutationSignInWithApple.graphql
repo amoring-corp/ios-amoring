@@ -1,0 +1,12 @@
+mutation SignInWithApple($code: String!) {
+  signInWithApple(code: $code) {
+    sessionToken
+    user {
+      id
+      email
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}

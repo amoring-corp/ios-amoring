@@ -125,7 +125,7 @@ struct Business: Codable, Equatable, Hashable {
             MutatingImage(image: $0!) }
         self.businessHours = businessInfo.businessHours == nil ? [] : businessInfo.businessHours!.map {
             BusinessHours(data: $0!) }
-        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
+//        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
     }
     
     init(businessInfo: BusinessInfo) {
@@ -158,6 +158,6 @@ struct Business: Codable, Equatable, Hashable {
             MutatingImage(image: $0!) }
         self.businessHours = businessInfo.businessHours == nil ? [] : businessInfo.businessHours!.map {
             BusinessHours(data: $0!) }
-        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
+//        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
     }
 }

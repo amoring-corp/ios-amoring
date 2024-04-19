@@ -28,13 +28,6 @@ fragment BusinessInfo on Business {
         url
     }
   }
-  activeCheckIns {
-    profile {
-      ... ProfileInfo
-    }
-    createdAt
-    updatedAt
-  }
   latitude
   longitude
   createdAt

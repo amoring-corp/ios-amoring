@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PurchaseView: View {
     @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var userManager: UserManager
     @Binding var purchaseType: PurchaseModel.type?
     let model: PurchaseModel
     
@@ -101,7 +103,17 @@ struct PurchaseView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: bg(), startPoint: .topTrailing, endPoint: .bottomLeading))
                 Button(action: {
-                    purchaseController.purchase()
+                    purchaseController.purchase { error, transactionId in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        } else if let transactionId {
+                            userManager.createPurchase(transactionId: transactionId) { error in
+                                if let error {
+                                    notificationController.setNotification(text: error, type: .error)
+                                }
+                            }
+                        }
+                    }
                 }) {
                     Text("구매하기")
                         .font(semiBold22Font)

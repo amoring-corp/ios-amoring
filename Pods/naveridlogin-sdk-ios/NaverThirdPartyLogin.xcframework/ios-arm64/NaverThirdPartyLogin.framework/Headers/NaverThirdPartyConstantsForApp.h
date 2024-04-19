@@ -32,7 +32,7 @@ typedef enum {
     OK
 } OAuthLoginState;
 
-#define kServiceAppUrlScheme    @"https://amoring.com/callback"
+#define kServiceAppUrlScheme    @"https://amoring-be.antonmaker.com/purchase-hook/ios"
 
 #define kConsumerKey            @"AHo_nAzjTU9agyq6uYsR"
 #define kConsumerSecret         @"pD80HofVRM"

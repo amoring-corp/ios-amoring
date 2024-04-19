@@ -27,10 +27,17 @@ struct Profile: Hashable {
     var updatedAt: Date?
     var avatarUrl: String?
     
+    var maxLikes: Int
+    var usedLikesCount: Int
+    
     init() {
         self.id = ""
         self.images = []
         self.interests = []
+        //MARK: HARDCODED
+        self.maxLikes = 10
+        //MARK: HARDCODED
+        self.usedLikesCount = 10
     }
     
     init(profile: UserInfo.Profile) {
@@ -53,6 +60,9 @@ struct Profile: Hashable {
         self.createdAt = profile.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = profile.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.avatarUrl = profile.avatarUrl
+        
+        self.maxLikes = profile.maxLikes
+        self.usedLikesCount = profile.usedLikesCount
     }
     
     init(profile: ProfileInfo) {
@@ -75,27 +85,30 @@ struct Profile: Hashable {
         self.createdAt = profile.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = profile.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.avatarUrl = profile.avatarUrl
+        
+        self.maxLikes = profile.maxLikes
+        self.usedLikesCount = profile.usedLikesCount
     }
     
-    init(profile: BusinessInfo.ActiveCheckIn.Profile) {
-        self.id = profile.id
-        self.userId = profile.userId
-        self.name = profile.name
-        self.birthYear = profile.birthYear
-        self.height = profile.height
-        self.weight = profile.weight
-        self.mbti = profile.mbti
-        self.education = profile.education
-        self.occupation = profile.occupation
-        self.bio = profile.bio
-        self.gender = profile.gender?.value
-        self.images = profile.images == nil ? [] : profile.images!.compactMap{
-            MutatingImage(image: $0?.fragments.imageFragment)
-        }
-        self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
-        self.age = profile.age
-        self.avatarUrl = profile.avatarUrl
-    }
+//    init(profile: BusinessInfo.ActiveCheckIn.Profile) {
+//        self.id = profile.id
+//        self.userId = profile.userId
+//        self.name = profile.name
+//        self.birthYear = profile.birthYear
+//        self.height = profile.height
+//        self.weight = profile.weight
+//        self.mbti = profile.mbti
+//        self.education = profile.education
+//        self.occupation = profile.occupation
+//        self.bio = profile.bio
+//        self.gender = profile.gender?.value
+//        self.images = profile.images == nil ? [] : profile.images!.compactMap{
+//            MutatingImage(image: $0?.fragments.imageFragment)
+//        }
+//        self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
+//        self.age = profile.age
+//        self.avatarUrl = profile.avatarUrl
+//    }
     
     init(profile: ConversationInfo.Participant.Profile) {
         self.id = profile.id
@@ -115,6 +128,9 @@ struct Profile: Hashable {
         self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
         self.age = profile.age
         self.avatarUrl = profile.avatarUrl
+        
+        self.maxLikes = profile.maxLikes
+        self.usedLikesCount = profile.usedLikesCount
     }
     
 }

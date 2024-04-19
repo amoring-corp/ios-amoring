@@ -188,7 +188,10 @@ struct BusinessDetailsView: View {
                 PhotoViewer(images: business.images!, showPhotoViewer: $showPhotoViewer, selection: $selection) : nil
             )
             .animation(.default, value: showPhotoViewer)
-            .onAppear(perform: getBusinessHours)
+            .onAppear {
+                
+                getBusinessHours()
+            }
         
     }
     

@@ -32,7 +32,7 @@ struct LikeDisLikeButtons: View {
                 Spacer()
                 
                 Button(action: {
-                    if purchaseController.purchasedLikes <= 0 && purchaseController.likes <= 0 {
+                    if purchaseController.purchasedLikes <= 0 && purchaseController.usedLikesCount >= purchaseController.maxLikes {
                         showAlert = true
                     } else {
                         swipeAction = .swipeRight

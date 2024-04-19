@@ -77,6 +77,15 @@ struct SessionFlow: View {
                                 messagesController.reactions = reactions
                             }
                         }
+                        
+                        withAnimation {
+                            if let maxLikes = userManager.user?.profile?.maxLikes {
+                                purchaseController.maxLikes = maxLikes
+                            }
+                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
+                                purchaseController.usedLikesCount = usedLikesCount
+                            }
+                        }
                     }
                     amoringController.checkIn = activeCheckIn
                 }
@@ -88,7 +97,6 @@ struct SessionFlow: View {
                     userManager.getConversations { conversations in
                         if let conversations {
                             self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
-                            
                         }
                     }
     //            }
@@ -188,20 +196,19 @@ struct SessionView: View {
     @Binding var selectedIndex: Int
     
     var body: some View {
-        NavigationView {
+        
             NavigatorView(selectedIndex: $selectedIndex) { index in
                 getTabView(selectedIndex: $selectedIndex, index: index)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitleDisplayMode(.inline)
-            .safeAreaInset(edge: .top, content: {
-                Color.clear
-                    .frame(height: 0)
-//                    .background(.bar)
-                    .background(Color.gray1000)
-                    .border(.black)
-            })
-        }
+//            .safeAreaInset(edge: .top, content: {
+//                Color.clear
+//                    .frame(height: 0)
+////                    .background(.bar)
+//                    .background(Color.gray1000)
+//                    .border(.black)
+//            })
     }
     
     @ViewBuilder

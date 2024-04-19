@@ -13,6 +13,7 @@ struct ListOfConversations: View {
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var navigationController: NavigationController
     
     @State var alertPresented = false
     
@@ -58,6 +59,8 @@ struct ListOfConversations: View {
                             .background(
                                 NavigationLink(isActive: $controller.goToConversation, destination: {
                                     ConversationView()
+                                        .onAppear(perform: navigationController.hideBar)
+                                        .onDisappear(perform: navigationController.showBar)
                                 }, label: { EmptyView() })
                                 .isDetailLink(false)
                                 .opacity(0)

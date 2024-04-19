@@ -295,6 +295,8 @@ type Profile {
   age: Int
   activeCheckIn: CheckIn
   isOnline: Boolean!
+  usedLikesCount: Int!
+  maxLikes: Int!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -340,6 +342,21 @@ input ProfileUpdateInput {
   bio: String
   gender: Gender
   images: [ProfileImageInput]
+}
+
+type Purchase {
+  id: ID
+  userId: String
+  user: User
+  transactionId: String
+  productId: String
+  quantity: Int
+  price: Int
+  currency: String
+  purchasedAt: DateTime
+  expiresAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type Reaction {
@@ -459,6 +476,9 @@ type Mutation {
   anySignIn(email: String!): SignInResult!
   validateMyPassword(password: String!): Boolean!
   signInWithGoogle(idToken: String!): SignInResult!
+  signInWithNaver(idToken: String!): SignInResult!
+  signInWithKakao(idToken: String!): SignInResult!
+  signInWithApple(code: String!): SignInResult!
   signUp(data: SignUpInput!): SignUpResult!
   verifyUserEmail(
     userId: ID!
@@ -473,8 +493,6 @@ type Mutation {
   uploadMyProfileImages(data: [ProfileImageInput!]!): [ProfileImage]!
   deleteMyProfileImage(id: ID!): ProfileImage!
   deleteMyAllProfileImages: [ID]!
-  connectInterestsToMyProfile(interestIds: [ID!]!): Profile!
-  disconnectInterestsFromMyProfile(interestIds: [ID!]!): Profile!
   createBusiness(data: BusinessCreateInput!): Business!
   updateBusiness(id: ID!, data: BusinessUpdateInput!): Business!
   uploadBusinessImage(
@@ -525,6 +543,12 @@ type Mutation {
   ): BusinessHours!
   deleteBusinessHours(businessId: ID!, day: Day!): ID!
   deleteAllBusinessHours(businessId: ID!): Int!
+  updateProfile(id: ID!, data: ProfileUpdateInput!): Profile!
+  connectInterestsToProfile(profileId: ID!, interestIds: [ID!]!): Profile!
+  disconnectInterestsFromProfile(profileId: ID!, interestIds: [ID!]!): Profile!
+  connectInterestsToMyProfile(interestIds: [ID!]!): Profile!
+  disconnectInterestsFromMyProfile(interestIds: [ID!]!): Profile!
+  createPurchase(transactionId: String!): Purchase
 
   """
   React to a profile by authenticated user
@@ -534,9 +558,6 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!
-  updateProfile(id: ID!, data: ProfileUpdateInput!): Profile!
-  connectInterestsToProfile(profileId: ID!, interestIds: [ID!]!): Profile!
-  disconnectInterestsFromProfile(profileId: ID!, interestIds: [ID!]!): Profile!
 }
 
 type Query {
@@ -550,12 +571,13 @@ type Query {
   interestCategory(id: ID!): InterestCategory!
   interests: [Interest]!
   interest(id: ID!): Interest!
+  profiles(role: UserRole): [Profile]!
+  visibleProfiles: [Profile]!
+  profile(id: ID!): Profile
   businessHours(businessId: ID!): [BusinessHours]!
   reactions(type: ReactionType): [Reaction]!
   users: [User]!
   user(id: ID!): User!
-  profiles(role: UserRole): [Profile]!
-  profile(id: ID!): Profile!
 }
 
 type Subscription {

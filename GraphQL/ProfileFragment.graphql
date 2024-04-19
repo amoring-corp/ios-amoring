@@ -12,6 +12,9 @@ fragment ProfileInfo on Profile {
   occupation
   bio
   gender
+  activeCheckIn {
+    ... CheckInInfo
+  }
   images {
     ... ImageFragment
   }
@@ -34,4 +37,6 @@ fragment ProfileInfo on Profile {
   }
   createdAt
   updatedAt
+  usedLikesCount
+  maxLikes
 }

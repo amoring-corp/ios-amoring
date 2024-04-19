@@ -143,7 +143,7 @@ struct SwipibleProfileVIew: View {
                 if !amoringController.showDetails {
                     self.dragOffset = value.translation
                 }
-                if value.translation.width > 50 && purchaseController.purchasedLikes <= 0 && purchaseController.likes <= 0 {
+                if value.translation.width > 50 && purchaseController.purchasedLikes <= 0 && purchaseController.usedLikesCount >= purchaseController.maxLikes {
                     withAnimation(.default){
                         self.dragOffset = .zero
                     }
@@ -235,9 +235,7 @@ struct SwipibleProfileVIew: View {
                             })
                         
                         /// removing reaction with match from reactions list
-                        withAnimation {
-                            messagesController.reactions.removeAll(where: { $0.toProfile.id == profile.id })
-                        }
+                        
                         
                         userManager.getConversations { conversations in
                             if let conversations {
@@ -249,12 +247,15 @@ struct SwipibleProfileVIew: View {
                     } else {
                         print("NO MATHCES!")
                     }
-                    amoringController.profiles.removeLast()
                     
+                    withAnimation {
+                        messagesController.reactions.removeAll(where: { $0.byProfileId == profile.id })
+                    }
+                    userManager.profiles.removeLast()
                     if hasLiked {
-                        if purchaseController.likes > 0 {
+                        if purchaseController.usedLikesCount < purchaseController.maxLikes {
                             withAnimation {
-                                purchaseController.likes -= 1
+                                purchaseController.usedLikesCount += 1
                             }
                         } else {
                             withAnimation {
