@@ -156,6 +156,12 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
     public var business: Business? { __data["business"] }
     public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
     public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+    public var usedLikesCount: Int { __data["usedLikesCount"] }
+    public var maxLikes: Int { __data["maxLikes"] }
+    public var likesCredit: Int? { __data["likesCredit"] }
+    public var loungePassExpiredAt: AmoringAPI.DateTime? { __data["loungePassExpiredAt"] }
+    public var invisiblePassExpiredAt: AmoringAPI.DateTime? { __data["invisiblePassExpiredAt"] }
+    public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
@@ -191,7 +197,9 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
       public var interests: [Interest?]? { __data["interests"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+      @available(*, deprecated, message: "Use field from User instead")
       public var usedLikesCount: Int { __data["usedLikesCount"] }
+      @available(*, deprecated, message: "Use field from User instead")
       public var maxLikes: Int { __data["maxLikes"] }
 
       public struct Fragments: FragmentContainer {

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct PurchaseLoungeWindow: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     @State var isOn = false
     @State var timer: Timer? = nil
     let purchaseType: PurchaseModel.type
     
     var body: some View {
-        let plan = purchaseController.products.first(where: { $0.id == PurchaseModel.id(type: purchaseType) })
+        let plan = userManager.products.first(where: { $0.id == PurchaseModel.id(type: purchaseType) })
         VStack(spacing: 0) {
             Text(plan?.displayName ?? "")
                 .font(semiBold18Font)

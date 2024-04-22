@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct LikesFromMaxView: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     var body: some View {
         HStack {
             Image("ic-heart-empty")
-            
-            Text((purchaseController.maxLikes - purchaseController.usedLikesCount).description) +
+            // TODO: better way to implement
+            Text(((userManager.user?.maxLikes ?? 10) - (userManager.user?.usedLikesCount ?? 0)).description) +
             Text("/") +
-            Text(purchaseController.maxLikes.description)
+            Text(String(userManager.user?.maxLikes ?? 10))
         }
         .font(semiBold12Font)
         .foregroundColor(.gray200)

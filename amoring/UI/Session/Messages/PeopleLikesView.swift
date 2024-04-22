@@ -12,7 +12,6 @@ import CachedAsyncImage
 struct PeopleLikesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var messagesController: MessagesController
-    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
     
@@ -42,7 +41,7 @@ struct PeopleLikesView: View {
 //            .padding(.horizontal, Size.w(22))
             
             ScrollView(showsIndicators: false) {
-                if !purchaseController.likeListEnabled {
+                if !userManager.visibleReactionsPassEnabled() {
                     VStack {
                         Text("오늘밤,\n리스트 보기를 활성화해보세요.\n누가 먼저 ‘좋아요’를 보냈는지 알려드릴게요!")
                             .font(semiBold16Font)
@@ -51,7 +50,7 @@ struct PeopleLikesView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom, Size.w(5))
                         Button(action: {
-                            purchaseController.openPurchase(purchaseType: .list)
+                            userManager.openPurchase(purchaseType: .list)
                         }) {
                             Text("구매하기")
                                 .font(semiBold16Font)
@@ -89,9 +88,9 @@ struct PeopleLikesView: View {
                                     NavigationLink(destination: {
                                         ProfilePreviewView(reaction: reaction)
                                     }) {
-                                        PeopleLikesListObject(width: cellWidth(for: proxy.size), reaction: reaction, enabled: purchaseController.likeListEnabled)
+                                        PeopleLikesListObject(width: cellWidth(for: proxy.size), reaction: reaction, enabled: userManager.visibleReactionsPassEnabled())
                                     }
-                                    .disabled(!purchaseController.likeListEnabled)
+                                    .disabled(!userManager.visibleReactionsPassEnabled())
                                 }
                             }
                         }
@@ -129,7 +128,6 @@ struct PeopleLikesView: View {
 struct ProfilePreviewView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var amoringController: AmoringController
-    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var messagesController: MessagesController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
@@ -187,13 +185,13 @@ struct ProfilePreviewView: View {
                     }
                     removeTopItem()
                     if hasLiked {
-                        if purchaseController.usedLikesCount < purchaseController.maxLikes {
+                        if userManager.user?.usedLikesCount ?? 0 < userManager.user?.maxLikes ?? 10 {
                             withAnimation {
-                                purchaseController.usedLikesCount += 1
+                                userManager.user?.usedLikesCount += 1
                             }
                         } else {
                             withAnimation {
-                                purchaseController.purchasedLikes -= 1
+                                userManager.user?.likesCredit -= 1
                             }
                         }
                     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LikeDisLikeButtons: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     @Binding var swipeAction: SwipeAction
     @Binding var showAlert: Bool
     
@@ -32,7 +32,7 @@ struct LikeDisLikeButtons: View {
                 Spacer()
                 
                 Button(action: {
-                    if purchaseController.purchasedLikes <= 0 && purchaseController.usedLikesCount >= purchaseController.maxLikes {
+                    if userManager.disableLikes() {
                         showAlert = true
                     } else {
                         swipeAction = .swipeRight

@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct PurchaseSimpleWindow: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     let purchaseType: PurchaseModel.type
     let emoji: String
     
     var body: some View {
-        let plan = purchaseController.products.first(where: { $0.id == PurchaseModel.id(type: purchaseType) })
+        let plan = userManager.products.first(where: { $0.id == PurchaseModel.id(type: purchaseType) })
         
         VStack(spacing: 0) {
             Text(plan?.displayName ?? "")

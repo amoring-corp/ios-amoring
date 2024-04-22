@@ -11,4 +11,12 @@ fragment UserInfo on User {
   }
   createdAt
   updatedAt
+  
+  usedLikesCount
+  maxLikes
+  likesCredit
+                    
+  loungePassExpiredAt
+  invisiblePassExpiredAt
+  visibleReactionsPassExpiredAt
 }

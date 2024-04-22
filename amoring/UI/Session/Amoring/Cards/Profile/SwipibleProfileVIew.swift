@@ -14,7 +14,6 @@ enum SwipeAction{
 
 struct SwipibleProfileVIew: View {
     @EnvironmentObject var amoringController: AmoringController
-    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var messagesController: MessagesController
@@ -136,18 +135,20 @@ struct SwipibleProfileVIew: View {
             .rotationEffect(.degrees(self.dragOffset.width * 0.06), anchor: .center)
             .alertPatched(isPresented: $showAlert) {
                 Alert(title: Text("좋아요를 전부 사용하셨습니다, 지금 더 구매하실까요?"), primaryButton: .default(Text("구매하기"), action: {
-                    purchaseController.openPurchase(purchaseType: .like)
+                    userManager.openPurchase(purchaseType: .like)
                 }), secondaryButton: .cancel(Text("취소")))
             }
             .simultaneousGesture(DragGesture(minimumDistance: 10).onChanged{ value in
                 if !amoringController.showDetails {
                     self.dragOffset = value.translation
                 }
-                if value.translation.width > 50 && purchaseController.purchasedLikes <= 0 && purchaseController.usedLikesCount >= purchaseController.maxLikes {
-                    withAnimation(.default){
-                        self.dragOffset = .zero
+                if value.translation.width > 50 {
+                    if userManager.disableLikes() {
+                        withAnimation(.default){
+                            self.dragOffset = .zero
+                        }
+                        showAlert = true
                     }
-                    showAlert = true
                 }
             }.onEnded{ value in
                 if !amoringController.showDetails {
@@ -253,13 +254,13 @@ struct SwipibleProfileVIew: View {
                     }
                     userManager.profiles.removeLast()
                     if hasLiked {
-                        if purchaseController.usedLikesCount < purchaseController.maxLikes {
+                        if userManager.user?.usedLikesCount ?? 0 >= userManager.user?.maxLikes ?? 10 {
                             withAnimation {
-                                purchaseController.usedLikesCount += 1
+                                userManager.user?.usedLikesCount += 1
                             }
                         } else {
                             withAnimation {
-                                purchaseController.purchasedLikes -= 1
+                                userManager.user?.likesCredit -= 1
                             }
                         }
                     }

@@ -9,11 +9,11 @@ import SwiftUI
 import StoreKit
 
 struct PurchaseLikeWindow: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     
     var body: some View {
         HStack(spacing: 0) {
-            let likePlans = purchaseController.products.filter({ $0.id.contains("like") }).sorted{ $0.price < $1.price }
+            let likePlans = userManager.products.filter({ $0.id.contains("like") }).sorted{ $0.price < $1.price }
             ForEach(likePlans) { plan in
                 PurchaseLikePlan(product: plan)
             }
@@ -23,7 +23,7 @@ struct PurchaseLikeWindow: View {
 }
 
 struct PurchaseLikePlan: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     let product: Product
     @State var discount: String = ""
     @State var numberOfLikes: String = ""
@@ -33,10 +33,10 @@ struct PurchaseLikePlan: View {
             Text(discount)
                 .font(semiBold18Font)
                 .foregroundColor(.white)
-                .opacity(purchaseController.selectedPlan == product.id ? 1 : 0.4)
+                .opacity(userManager.selectedPlan == product.id ? 1 : 0.4)
                 .padding(.vertical, Size.w(12))
                 .frame(maxWidth: .infinity)
-                .background(Color.black.opacity(purchaseController.selectedPlan == product.id ? 1 : 0.1))
+                .background(Color.black.opacity(userManager.selectedPlan == product.id ? 1 : 0.1))
                 .onAppear {
                     if let range = product.description.range(of: " / ") {
                         self.discount = String(product.description[range.upperBound...])
@@ -60,13 +60,13 @@ struct PurchaseLikePlan: View {
                 .font(semiBold20Font)
                 .padding(.bottom, Size.w(20))
         }
-        .background(Color.white.opacity(purchaseController.selectedPlan == product.id ? 1 : 0.1))
+        .background(Color.white.opacity(userManager.selectedPlan == product.id ? 1 : 0.1))
         .cornerRadius(Size.w(12))
-        .shadow(color: Color.black.opacity(purchaseController.selectedPlan == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
-        .offset(y: Size.w(purchaseController.selectedPlan == product.id ? -21 : 0))
+        .shadow(color: Color.black.opacity(userManager.selectedPlan == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
+        .offset(y: Size.w(userManager.selectedPlan == product.id ? -21 : 0))
         .onTapGesture {
             withAnimation(.bouncy) {
-                purchaseController.selectedPlan = product.id
+                userManager.selectedPlan = product.id
             }
         }
     }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PurchaseView: View {
-    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     @Binding var purchaseType: PurchaseModel.type?
@@ -103,15 +102,9 @@ struct PurchaseView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: bg(), startPoint: .topTrailing, endPoint: .bottomLeading))
                 Button(action: {
-                    purchaseController.purchase { error, transactionId in
+                    userManager.purchase { error in
                         if let error {
                             notificationController.setNotification(text: error, type: .error)
-                        } else if let transactionId {
-                            userManager.createPurchase(transactionId: transactionId) { error in
-                                if let error {
-                                    notificationController.setNotification(text: error, type: .error)
-                                }
-                            }
                         }
                     }
                 }) {
@@ -131,7 +124,7 @@ struct PurchaseView: View {
         .foregroundColor(.black)
         .background(Color.gray1000)
 //        .onAppear {
-//            if let firstPlan = purchaseController.products.map({ $0.id }).first {
+//            if let firstPlan = userManager.products.map({ $0.id }).first {
 //                self.selectedPlan = firstPlan
 //            }
 //        }

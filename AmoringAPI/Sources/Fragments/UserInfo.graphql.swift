@@ -5,7 +5,7 @@
 
 public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment UserInfo on User { __typename id email status role profile { __typename ...ProfileInfo } business { __typename ...BusinessInfo } createdAt updatedAt }"#
+    #"fragment UserInfo on User { __typename id email status role profile { __typename ...ProfileInfo } business { __typename ...BusinessInfo } createdAt updatedAt usedLikesCount maxLikes likesCredit loungePassExpiredAt invisiblePassExpiredAt visibleReactionsPassExpiredAt }"#
   }
 
   public let __data: DataDict
@@ -22,6 +22,12 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     .field("business", Business?.self),
     .field("createdAt", AmoringAPI.DateTime?.self),
     .field("updatedAt", AmoringAPI.DateTime?.self),
+    .field("usedLikesCount", Int.self),
+    .field("maxLikes", Int.self),
+    .field("likesCredit", Int?.self),
+    .field("loungePassExpiredAt", AmoringAPI.DateTime?.self),
+    .field("invisiblePassExpiredAt", AmoringAPI.DateTime?.self),
+    .field("visibleReactionsPassExpiredAt", AmoringAPI.DateTime?.self),
   ] }
 
   public var id: AmoringAPI.ID { __data["id"] }
@@ -32,6 +38,12 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public var business: Business? { __data["business"] }
   public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
   public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+  public var usedLikesCount: Int { __data["usedLikesCount"] }
+  public var maxLikes: Int { __data["maxLikes"] }
+  public var likesCredit: Int? { __data["likesCredit"] }
+  public var loungePassExpiredAt: AmoringAPI.DateTime? { __data["loungePassExpiredAt"] }
+  public var invisiblePassExpiredAt: AmoringAPI.DateTime? { __data["invisiblePassExpiredAt"] }
+  public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
 
   /// Profile
   ///
@@ -64,7 +76,9 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     public var interests: [Interest?]? { __data["interests"] }
     public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
     public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+    @available(*, deprecated, message: "Use field from User instead")
     public var usedLikesCount: Int { __data["usedLikesCount"] }
+    @available(*, deprecated, message: "Use field from User instead")
     public var maxLikes: Int { __data["maxLikes"] }
 
     public struct Fragments: FragmentContainer {

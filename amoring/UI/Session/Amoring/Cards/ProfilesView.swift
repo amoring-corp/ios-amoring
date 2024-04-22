@@ -10,7 +10,6 @@ import AmoringAPI
 
 struct ProfilesView: View {
     @EnvironmentObject var amoringController: AmoringController
-    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var messagesController: MessagesController
     @EnvironmentObject var userManager: UserManager
@@ -36,12 +35,12 @@ struct ProfilesView: View {
                     if let gender = userManager.user?.profile?.gender, gender == .male {
                         LikesFromMaxView()
                             .onTapGesture {
-                                purchaseController.openPurchase(purchaseType: .like)
+                                userManager.openPurchase(purchaseType: .like)
                             }
-                        if purchaseController.purchasedLikes > 0 {
-                            PurchasedLikesView(likes: purchaseController.purchasedLikes)
+                        if userManager.user?.likesCredit ?? 0 > 0 {
+                            PurchasedLikesView()
                                 .onTapGesture {
-                                    purchaseController.openPurchase(purchaseType: .like)
+                                    userManager.openPurchase(purchaseType: .like)
                                 }
                         }
                     }

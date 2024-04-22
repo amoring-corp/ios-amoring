@@ -55,7 +55,9 @@ public class ProfilesQuery: GraphQLQuery {
       public var interests: [Interest?]? { __data["interests"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+      @available(*, deprecated, message: "Use field from User instead")
       public var usedLikesCount: Int { __data["usedLikesCount"] }
+      @available(*, deprecated, message: "Use field from User instead")
       public var maxLikes: Int { __data["maxLikes"] }
 
       public struct Fragments: FragmentContainer {

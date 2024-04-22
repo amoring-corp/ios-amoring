@@ -19,6 +19,15 @@ struct MutatingUser: Hashable {
     var createdAt: Date?
     var updatedAt: Date?
     
+    var usedLikesCount: Int = 0
+    var maxLikes: Int = 10
+    var likesCredit: Int = 0
+
+    var loungePassExpiredAt: Date?
+    var invisiblePassExpiredAt: Date?
+    var visibleReactionsPassExpiredAt: Date?
+    
+    
     init(userInfo: UserInfo) {
         self.id = userInfo.id
         self.email = userInfo.email
@@ -28,6 +37,14 @@ struct MutatingUser: Hashable {
         self.business = userInfo.business == nil ? nil : Business(businessInfo: userInfo.business!)
         self.createdAt = userInfo.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = userInfo.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        
+        self.usedLikesCount = userInfo.usedLikesCount
+        self.maxLikes = userInfo.maxLikes
+        self.likesCredit = userInfo.likesCredit ?? 0
+        
+        self.loungePassExpiredAt = userInfo.loungePassExpiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.invisiblePassExpiredAt = userInfo.invisiblePassExpiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.visibleReactionsPassExpiredAt = userInfo.visibleReactionsPassExpiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     }
     
     init(userInfo: ConversationInfo.Participant) {

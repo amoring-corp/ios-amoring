@@ -295,8 +295,8 @@ type Profile {
   age: Int
   activeCheckIn: CheckIn
   isOnline: Boolean!
-  usedLikesCount: Int!
-  maxLikes: Int!
+  usedLikesCount: Int! @deprecated(reason: "Use field from User instead")
+  maxLikes: Int! @deprecated(reason: "Use field from User instead")
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -429,6 +429,13 @@ type User {
   role: UserRole
   profile: Profile
   business: Business
+  purchases: [Purchase]!
+  usedLikesCount: Int!
+  maxLikes: Int!
+  likesCredit: Int
+  loungePassExpiredAt: DateTime
+  invisiblePassExpiredAt: DateTime
+  visibleReactionsPassExpiredAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -577,7 +584,7 @@ type Query {
   businessHours(businessId: ID!): [BusinessHours]!
   reactions(type: ReactionType): [Reaction]!
   users: [User]!
-  user(id: ID!): User!
+  user(id: ID!): User
 }
 
 type Subscription {

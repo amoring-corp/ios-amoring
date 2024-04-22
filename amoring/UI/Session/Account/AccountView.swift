@@ -11,7 +11,6 @@ import CachedAsyncImage
 struct AccountView: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
-    @EnvironmentObject var purchaseController: PurchaseController
     @EnvironmentObject var navigationController: NavigationController
     
     @State private var logoutAlertPresented = false
@@ -97,32 +96,34 @@ struct AccountView: View {
                         MenuTitle(title: "프리미엄 구매하기")
                         
                         VStack(spacing: 0) {
-                            MenuLineButton(title: "+ 좋아요", subtitle: "\(purchaseController.purchasedLikes)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { purchaseController.openPurchase(purchaseType: .like) }
+                            MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
                             
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                            
                             
                             MenuLineButton(title: "라운지 확장",
-                                           subtitle: purchaseController.amoringCommunityIsOn ? purchaseController.communityExpiredTime().toExpiredTime() : "구매하기",
-                                           fontColor: purchaseController.amoringCommunityIsOn ? Color.yellow200 : Color.gray600,
-                                           subFontColor: purchaseController.amoringCommunityIsOn ? Color.yellow350 : Color.gray300)
-                            { purchaseController.openPurchase(purchaseType: .lounge) }
+                                           subtitle: userManager.loungePassEnabled() ? ((userManager.user?.loungePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+                                           fontColor: userManager.loungePassEnabled() ? Color.yellow200 : Color.gray600,
+                                           subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
+                            { userManager.openPurchase(purchaseType: .lounge) }
                             
                             
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             
+                            
                             MenuLineButton(title: "프로필 투명모드",
-                                           subtitle: purchaseController.isHidden ? purchaseController.isHiddenExpiredTime().toExpiredTime() : "구매하기",
-                                           fontColor: purchaseController.isHidden ? Color.yellow200 : Color.gray600,
-                                           subFontColor: purchaseController.isHidden ? Color.yellow350 : Color.gray300)
-                            { purchaseController.openPurchase(purchaseType: .transparent) }
+                                           subtitle: userManager.invisiblePassEnabled() ? ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+                                           fontColor: userManager.invisiblePassEnabled() ? Color.yellow200 : Color.gray600,
+                                           subFontColor: userManager.invisiblePassEnabled() ? Color.yellow350 : Color.gray300)
+                            { userManager.openPurchase(purchaseType: .transparent) }
                             
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             
                             MenuLineButton(title: "리스트 보기",
-                                           subtitle: purchaseController.likeListEnabled ? purchaseController.likeListEnabledExpiredTime().toExpiredTime() : "구매하기",
-                                           fontColor: purchaseController.likeListEnabled ? Color.yellow200 : Color.gray600,
-                                           subFontColor: purchaseController.likeListEnabled ? Color.yellow350 : Color.gray300)
-                            { purchaseController.openPurchase(purchaseType: .list) }
+                                           subtitle: userManager.visibleReactionsPassEnabled() ? ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+                                           fontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow200 : Color.gray600,
+                                           subFontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow350 : Color.gray300)
+                            { userManager.openPurchase(purchaseType: .list) }
                             
                         }
                         .background(Color.black)

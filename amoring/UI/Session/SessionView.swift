@@ -13,7 +13,6 @@ struct SessionFlow: View {
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var scenePhaseHelper: ScenePhaseHelper
-    @StateObject var purchaseController = PurchaseController()
     @StateObject var userManager: UserManager
     @StateObject var messagesController = MessagesController()
     @StateObject var amoringController = AmoringController()
@@ -53,18 +52,22 @@ struct SessionFlow: View {
             }
         }
         .overlay(
-            purchaseController.purchaseType != nil ? PurchaseView(purchaseType: $purchaseController.purchaseType, model: purchasesList[purchaseController.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
+            userManager.purchaseType != nil ? PurchaseView(purchaseType: $userManager.purchaseType, model: purchasesList[userManager.purchaseType!.rawValue]).transition(.move(edge: .bottom)) : nil
         )
         .overlay(
             notificationController.reaction != nil ? NewMatchNotification(reaction: notificationController.reaction!).transition(.move(edge: .bottom)) : nil
         )
-        .environmentObject(purchaseController)
+//        .environmentObject(purchaseController)
         .environmentObject(userManager)
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
             /// sets current interests from DB
             userManager.getInterests()
+            
+            
+            /// in App Purchases
+            userManager.fetchProducts()
             
             if userManager.user?.profile != nil {
                 /// getting current active check in for Amoring page
@@ -78,20 +81,17 @@ struct SessionFlow: View {
                             }
                         }
                         
-                        withAnimation {
-                            if let maxLikes = userManager.user?.profile?.maxLikes {
-                                purchaseController.maxLikes = maxLikes
-                            }
-                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
-                                purchaseController.usedLikesCount = usedLikesCount
-                            }
-                        }
+//                        withAnimation {
+//                            if let maxLikes = userManager.user?.profile?.maxLikes {
+//                                userManager.maxLikes = maxLikes
+//                            }
+//                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
+//                                userManager.usedLikesCount = usedLikesCount
+//                            }
+//                        }
                     }
                     amoringController.checkIn = activeCheckIn
                 }
-                
-                /// in App Purchases
-                purchaseController.fetchProducts()
                 
     //            if self.messagesController.conversations.isEmpty {
                     userManager.getConversations { conversations in

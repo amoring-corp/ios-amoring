@@ -9,11 +9,11 @@ import SwiftUI
 import CachedAsyncImage
 
 struct ListOfPeopleLikesLink: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var messagesController: MessagesController
     
     var body: some View {
-        let listIsEnable = purchaseController.likeListEnabled
+        let listIsEnable = userManager.visibleReactionsPassEnabled()
         
         VStack(alignment: .leading, spacing: Size.w(14)) {
             Text("리스트")

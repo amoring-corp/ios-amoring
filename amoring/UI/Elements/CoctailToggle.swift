@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoctailToggle: View {
-    @EnvironmentObject var purchaseController: PurchaseController
+    @EnvironmentObject var userManager: UserManager
     @Binding var isOn: Bool
 //    @State var isOn: Bool = false
     
@@ -42,12 +42,12 @@ struct CoctailToggle: View {
         .frame(width: 62, height: 32)
         .cornerRadius(18)
         .onTapGesture {
-            if purchaseController.amoringCommunityIsOn {
+            if userManager.loungePassEnabled() {
                 withAnimation {
                     self.isOn.toggle()
                 }
             } else {
-                purchaseController.openPurchase(purchaseType: .lounge)
+                userManager.openPurchase(purchaseType: .lounge)
             }
         }
     }

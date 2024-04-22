@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct PurchasedLikesView: View {
-    let likes: Int
+    @EnvironmentObject var userManager: UserManager
+    
     var body: some View {
+        let likes = userManager.user?.likesCredit ?? 0
         HStack {
             Image("ic-heart-fill")
                 .resizable()
@@ -31,7 +33,7 @@ struct PurchasedLikesView: View {
 
 #Preview {
     VStack {
-        PurchasedLikesView(likes: 12)
+        PurchasedLikesView()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.gray1000)
