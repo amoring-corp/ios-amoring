@@ -15,7 +15,8 @@ struct ForgotPasswordOTP: View {
     
     @State var bordersColor: Color = Color.clear
     @State var error: String = ""
-    @State var goToPassword: Bool = false
+    
+    @State var showAlert = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -50,17 +51,9 @@ struct ForgotPasswordOTP: View {
                     .padding(.bottom, Size.w(42))
             }
             
-            Text(error)
-                .font(regular16Font)
-                .foregroundColor(.red700)
-                .padding(.leading, Size.w(14))
-                .padding(.bottom, Size.w(42))
-            
             HStack {
                 Spacer()
-                Button(action: {
-                    print("resend OTP code")
-                }) {
+                Button(action: resendRequest) {
                     Image("ic-refresh")
                         .resizable()
                         .scaledToFit()
@@ -85,22 +78,20 @@ struct ForgotPasswordOTP: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(30))
             
-            NavigationLink(isActive: $goToPassword, destination: {
-                ForgotPasswordPass()
-            }) {
-                EmptyView()
-            }
-            
             HStack {
-                Button(action: {
-                    goToPassword = true
-                }) {
-                    BlackButton(title: "다음", enabled: !(controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")), isLoading: sessionManager.isLoading)
+                Button(action: redeemUserPasswordResetToken) {
+                    BlackButton(title: "확인", enabled: !(controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")), isLoading: sessionManager.isLoading)
                 }
                 .disabled((controller.confirmCode.count < 6 || controller.confirmCode.contains(" ")))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Your password has been successfully updated"), dismissButton: .default(Text("OK"), action: {
+                    sessionManager.getCurrentSession(delay: 0) {_,_ in }
+                }))
+            }
+            
         }
         .padding(.horizontal, Size.w(22))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -128,12 +119,24 @@ struct ForgotPasswordOTP: View {
         }
     }
     
-    private func signUp() {
-        sessionManager.verifyEmail(code: controller.confirmCode, email: controller.email, password: controller.password) { success, error in
-            if !success {
-                withAnimation {
-                    notificationController.setNotification(text: error, type: .error)
-                }
+    private func redeemUserPasswordResetToken() {
+        sessionManager.redeemUserPasswordResetToken(code: controller.confirmCode, email: controller.email, password: controller.password, token: controller.token) { success , error in
+        
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                self.showAlert = true
+            }
+        }
+    }
+    
+    private func resendRequest() {
+        sessionManager.requestUserPasswordReset(email: controller.email) { error, token in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            }
+            if let token {
+                controller.token = token
             }
         }
     }

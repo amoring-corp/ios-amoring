@@ -11,8 +11,9 @@ struct ForgotPasswordPass: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var controller: BusinessSignUpController
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
     
-    @State var showAlert = false
+    @State var goToOTP: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -53,24 +54,29 @@ struct ForgotPasswordPass: View {
             Spacer()
             
             HStack {
-                Button(action: {
-                    
-                    // email, OTP, password
-//                    sessionManager.confirmNewPassword(email: controller.email, password: controller.password) { success in
-                        showAlert = true
-//                    }
+                NavigationLink(isActive: $goToOTP, destination: {
+                    ForgotPasswordOTP()
                 }) {
-                    BlackButton(title: "확인", enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword(), isLoading: sessionManager.isLoading)
+                    EmptyView()
+                }
+                
+                Button(action: {
+                    sessionManager.requestUserPasswordReset(email: controller.email) { error, token in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        }
+                        if let token {
+                            controller.token = token
+                            goToOTP = true
+                        }
+                    }
+                }) {
+                    BlackButton(title: "다음", enabled: (controller.password == controller.confirmPassword) && controller.password.isStrongPassword(), isLoading: sessionManager.isLoading)
                 }
                 .disabled(!(controller.password.isStrongPassword()) || (controller.password != controller.confirmPassword))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Your password has been successfully updated"), dismissButton: .default(Text("OK"), action: {
-                    sessionManager.getCurrentSession(delay: 0) {_,_ in }
-                }))
-            }
         }
         .animation(.default, value: controller.password)
         .padding(.horizontal, Size.w(22))

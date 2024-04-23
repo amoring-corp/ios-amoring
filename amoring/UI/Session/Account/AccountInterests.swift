@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AccountInterests: View {
-    @EnvironmentObject var controller: UserOnboardingController
     @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     

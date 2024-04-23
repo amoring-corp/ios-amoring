@@ -274,6 +274,10 @@ type Message {
   updatedAt: DateTime
 }
 
+type PasswordResetRequestResult {
+  confirmationToken: String!
+}
+
 """
 
 """
@@ -354,7 +358,6 @@ type Purchase {
   price: Int
   currency: String
   purchasedAt: DateTime
-  expiresAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -492,8 +495,13 @@ type Mutation {
     confirmationNumber: String!
     emailConfirmationToken: String!
   ): Boolean!
-  sendUserPasswordResetLink(email: String!): Boolean!
-  redeemUserPasswordResetToken(token: String!, password: String!): Boolean!
+  requestUserPasswordReset(email: String!): PasswordResetRequestResult!
+  redeemUserPasswordResetToken(
+    confirmationToken: String!
+    confirmationNumber: String!
+    email: String!
+    password: String!
+  ): Boolean!
   upsertMyProfile(data: ProfileUpdateInput!): Profile!
   upsertMyBusiness(data: BusinessUpdateInput!): Business!
   uploadMyProfileImage(data: ProfileImageInput!): ProfileImage!

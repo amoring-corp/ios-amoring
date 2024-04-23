@@ -547,6 +547,59 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             return
         }
     }
+    
+    func requestUserPasswordReset(email: String, completion: @escaping (String?, String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: RequestUserPasswordResetMutation(email: email)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription, nil)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong", nil)
+                    return
+                }
+                
+                print("Request for User Password Reset was successfully send!")
+                
+                self.isLoading = false
+                completion(nil, data.requestUserPasswordReset.confirmationToken)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription, nil)
+            }
+        }
+    }
+    
+    func redeemUserPasswordResetToken(code: String, email: String, password: String, token: String, completion: @escaping (Bool, String?) -> Void) {
+            self.isLoading = true
+            api.perform(mutation: RedeemUserPasswordResetTokenMutation(confirmationToken: token, confirmationNumber: code, email: email, password: password)) { result in
+                self.isLoading = false
+                switch result {
+                case .success(let value):
+                    guard let passed = value.data?.redeemUserPasswordResetToken else {
+                        print("Wrong data format!")
+                        completion(false, "Wrong code!")
+                        return
+                    }
+
+                    completion(true, nil)
+                    
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                    completion(false, error.localizedDescription)
+                }
+            }
+    }
 }
 
 extension SessionManager : UIApplicationDelegate, NaverThirdPartyLoginConnectionDelegate {

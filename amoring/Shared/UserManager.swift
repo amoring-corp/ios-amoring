@@ -1301,6 +1301,7 @@ class UserManager: ObservableObject {
         }
     }
     
+    
     // MARK: Purcahse Controller
     @Published var purchaseType: PurchaseModel.type? = nil
 //    @Published var usedLikesCount: Int = 0

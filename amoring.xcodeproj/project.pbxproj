@@ -49,8 +49,11 @@
 		2B2FADA42B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */; };
 		2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */; };
 		2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */; };
-		2B3FD45F2BD612C60090BA9D /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD45E2BD612C60090BA9D /* schema.graphqls */; };
 		2B3FD4682BD772920090BA9D /* PurchaseFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD4672BD772920090BA9D /* PurchaseFragment.graphql */; };
+		2B3FD46A2BD78D790090BA9D /* AccountCoupons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */; };
+		2B3FD46C2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */; };
+		2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */; };
+		2B3FD4702BD797C30090BA9D /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46F2BD797C30090BA9D /* schema.graphqls */; };
 		2B6A7D4F2BC5253A0038E48E /* QueryVisibleProfiles.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D4E2BC5253A0038E48E /* QueryVisibleProfiles.graphql */; };
 		2B6A7D532BC908860038E48E /* MutationSignInWithApple.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */; };
 		2B6A7D552BC908B30038E48E /* MutationSignInWithKakao.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */; };
@@ -365,8 +368,11 @@
 		2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCheckOutFromActive.graphql; sourceTree = "<group>"; };
 		2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReactToProfile.graphql; sourceTree = "<group>"; };
 		2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreatePurchase.graphql; sourceTree = "<group>"; };
-		2B3FD45E2BD612C60090BA9D /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B3FD4672BD772920090BA9D /* PurchaseFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PurchaseFragment.graphql; sourceTree = "<group>"; };
+		2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoupons.swift; sourceTree = "<group>"; };
+		2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationResetUserPasswordReset.graphql; sourceTree = "<group>"; };
+		2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationRedeemUserPasswordResetToken.graphql; sourceTree = "<group>"; };
+		2B3FD46F2BD797C30090BA9D /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B6A7D4E2BC5253A0038E48E /* QueryVisibleProfiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryVisibleProfiles.graphql; sourceTree = "<group>"; };
 		2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithApple.graphql; sourceTree = "<group>"; };
 		2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithKakao.graphql; sourceTree = "<group>"; };
@@ -904,6 +910,7 @@
 				85F1903E2B5F8B6900FA7686 /* AccountInterests.swift */,
 				85F190442B5F9DF000FA7686 /* AccountEmail.swift */,
 				85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */,
+				2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -996,8 +1003,8 @@
 			isa = PBXGroup;
 			children = (
 				85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */,
-				85769E162B69CA000064005D /* ForgotPasswordOTP.swift */,
 				85769E182B69CC1F0064005D /* ForgotPasswordPass.swift */,
+				85769E162B69CA000064005D /* ForgotPasswordOTP.swift */,
 			);
 			path = BusinessForgotPassword;
 			sourceTree = "<group>";
@@ -1005,7 +1012,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B3FD45E2BD612C60090BA9D /* schema.graphqls */,
+				2B3FD46F2BD797C30090BA9D /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1063,6 +1070,8 @@
 				2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */,
 				2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */,
 				2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */,
+				2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */,
+				2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1329,7 +1338,6 @@
 				2B2049942B9989A000E633E3 /* SubscriptionNotification.graphql in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
 				2B2049862B96D05500E633E3 /* MessageFragment.graphql in Resources */,
-				2B3FD45F2BD612C60090BA9D /* schema.graphqls in Resources */,
 				8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */,
 				2B2FAD902B7F542C009CB2C6 /* MutationGenerateCheckInToken.graphql in Resources */,
 				2B3FD4682BD772920090BA9D /* PurchaseFragment.graphql in Resources */,
@@ -1365,6 +1373,7 @@
 				2B20497E2B95A45D00E633E3 /* UserFragment.graphql in Resources */,
 				8538D55D2B5685A00040E017 /* QueryInterestCategories.graphql in Resources */,
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
+				2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */,
 				2B6A7D4F2BC5253A0038E48E /* QueryVisibleProfiles.graphql in Resources */,
 				8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */,
 				85769E252B6B7C640064005D /* MutationDeleteMyAllProfileImages.graphql in Resources */,
@@ -1379,12 +1388,14 @@
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
+				2B3FD4702BD797C30090BA9D /* schema.graphqls in Resources */,
 				2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */,
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2C42D52BA7C46E00EA1ACA /* ReactionFragment.graphql in Resources */,
 				2B2FADA42B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql in Resources */,
 				2B1A224C2BA848D600FA352D /* QueryReactions.graphql in Resources */,
 				850A30242B0AEF41003B12B7 /* Pretendard-ExtraLight.ttf in Resources */,
+				2B3FD46C2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql in Resources */,
 				2B20497A2B95A0B000E633E3 /* ProfileFragment.graphql in Resources */,
 				2B2FAD942B804C39009CB2C6 /* MutationCreateCheckInByToken.graphql in Resources */,
 				85769E212B6B2B3A0064005D /* MutationUploadMyProfileImage.graphql in Resources */,
@@ -1553,6 +1564,7 @@
 				2B20498C2B9975F300E633E3 /* MutatingImage.swift in Sources */,
 				85F190392B5F643100FA7686 /* AccountPhoto.swift in Sources */,
 				850A30262B0AEF6C003B12B7 /* DesignSystem.swift in Sources */,
+				2B3FD46A2BD78D790090BA9D /* AccountCoupons.swift in Sources */,
 				2B2049902B99778200E633E3 /* UpdateBusinessData.swift in Sources */,
 				85FB6B992B464F2A0023A889 /* Global.swift in Sources */,
 				85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */,

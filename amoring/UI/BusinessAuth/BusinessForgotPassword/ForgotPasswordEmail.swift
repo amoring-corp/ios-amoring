@@ -42,7 +42,7 @@ struct ForgotPasswordEmail: View {
             HStack {
                 NavigationLink(destination: {
 //                    sessionManager.getCode {}
-                    ForgotPasswordOTP()
+                    ForgotPasswordPass()
                 }) {
                     BlackButton(title: "다음", enabled: controller.email.isEmailValid())
                 }

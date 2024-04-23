@@ -12,4 +12,5 @@ class BusinessSignUpController: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var confirmCode: String = ""
+    @Published var token: String = ""
 }
