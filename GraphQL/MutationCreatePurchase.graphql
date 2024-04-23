@@ -1,5 +1,5 @@
 mutation CreatePurchase($transactionId: String!) {
   createPurchase(transactionId: $transactionId) {
-    id
+    ... PurchaseFragment
   }
 }

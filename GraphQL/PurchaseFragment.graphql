@@ -1,0 +1,6 @@
+fragment PurchaseFragment on Purchase {
+  id
+  user {
+    ... UserInfo
+  }
+}

@@ -107,7 +107,6 @@ struct AccountView: View {
                                            subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
                             { userManager.openPurchase(purchaseType: .lounge) }
                             
-                            
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             
                             

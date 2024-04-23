@@ -1404,8 +1404,8 @@ class UserManager: ObservableObject {
                         
                         DispatchQueue.main.async {
                             self.purchasedIDs.append(transaction.productID)
-                            self.onPurchaseSuccess()
-                            self.createPurchase(transactionId: String(transaction.id)) { error in
+                            self.createPurchase(transactionId: String(transaction.id)) { error, user in
+                                self.onPurchaseSuccess(user: user)
                                 completion(error)
                             }
                         }
@@ -1433,28 +1433,21 @@ class UserManager: ObservableObject {
         }
     }
     
-    // MARK: updating UI after purchase
-    // TODO: need to work with backend
-    func onPurchaseSuccess() {
+    func onPurchaseSuccess(user: UserInfo?) {
         DispatchQueue.main.async {
             withAnimation {
                 print("purchase...")
-                switch self.purchaseType {
-                case .like:
-                    switch self.selectedPlan {
-                    case UserManager.products[0]: self.user?.likesCredit += 5
-                    case UserManager.products[1]: self.user?.likesCredit += 10
-                    case UserManager.products[2]: self.user?.likesCredit += 50
-                    default: return
-                    }
-                case .lounge:
-                    self.user?.loungePassExpiredAt =  Date().addingTimeInterval(12 * 60 * 60)
-                case .transparent:
-                    self.user?.invisiblePassExpiredAt =  Date().addingTimeInterval(12 * 60 * 60)
-                case .list:
-                    self.user?.visibleReactionsPassExpiredAt =  Date().addingTimeInterval(12 * 60 * 60)
-                case nil:
-                    return
+                if let likesCredit = user?.likesCredit {
+                    self.user?.likesCredit = likesCredit
+                }
+                if let loungePassExpiredAt = user?.loungePassExpiredAt {
+                    self.user?.loungePassExpiredAt = loungePassExpiredAt.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                }
+                if let invisiblePassExpiredAt = user?.invisiblePassExpiredAt {
+                    self.user?.invisiblePassExpiredAt = invisiblePassExpiredAt.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                }
+                if let visibleReactionsPassExpiredAt = user?.visibleReactionsPassExpiredAt {
+                    self.user?.visibleReactionsPassExpiredAt = visibleReactionsPassExpiredAt.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 }
                 
                 self.purchaseType = nil
@@ -1462,7 +1455,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func createPurchase(transactionId: String, completion: @escaping (String?) -> Void) {
+    func createPurchase(transactionId: String, completion: @escaping (String?, UserInfo?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: CreatePurchaseMutation(transactionId: transactionId)) { result in
@@ -1471,56 +1464,29 @@ class UserManager: ObservableObject {
                 guard value.errors == nil else {
                     print(value.errors as Any)
                     self.isLoading = false
-                    completion(value.errors?.first?.localizedDescription)
+                    completion(value.errors?.first?.localizedDescription, nil)
                     return
                 }
                 
                 guard let data = value.data else {
                     print("NO DATA!")
                     self.isLoading = false
-                    completion("Oops! Something went wrong")
+                    completion("Oops! Something went wrong", nil)
                     return
                 }
                 print(data.createPurchase?.id)
                 print("Purchase successfully was created!")
                 
                 self.isLoading = false
-                
-                completion(nil)
+                let userInfo = data.createPurchase?.user?.fragments.userInfo
+                completion(nil, userInfo)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
-                completion(error.localizedDescription)
+                completion(error.localizedDescription, nil)
             }
         }
     }
-    
-//    func communityExpiredTime() -> TimeInterval {
-//        if let amoringCommunityIsOnTime {
-//            // MARK: 12 hours - amoringCommunityIsOnTime
-//            return (amoringCommunityIsOnTime.addingTimeInterval(12 * 60 * 60) - Date())
-//        } else {
-//            return 0
-//        }
-//    }
-//    
-//    func isHiddenExpiredTime() -> TimeInterval {
-//        if let isHiddenTime {
-//            // MARK: 12 hours - isHiddenTime
-//            return (isHiddenTime.addingTimeInterval(12 * 60 * 60) - Date())
-//        } else {
-//            return 0
-//        }
-//    }
-//    
-//    func likeListEnabledExpiredTime() -> TimeInterval {
-//        if let likeListEnabledTime {
-//            // MARK: 12 hours - likeListEnabledTime
-//            return (likeListEnabledTime.addingTimeInterval(12 * 60 * 60) - Date())
-//        } else {
-//            return 0
-//        }
-//    }
     
     func disableLikes() -> Bool {
         return user?.likesCredit ?? 0 <= 0 && user?.usedLikesCount ?? 0 >= user?.maxLikes ?? 10
