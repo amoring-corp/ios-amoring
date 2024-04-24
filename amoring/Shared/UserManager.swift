@@ -1285,7 +1285,7 @@ class UserManager: ObservableObject {
                 self.profiles = []
                 
 //                self.profiles.append(contentsOf: Dummy.profiles)
-                
+//                print(profiles.map({ $0?.fragments.profileInfo.name }))
                 for profile in profiles {
                     if let profile {
                         //MARK:  excepting default db profile, excepting myself
@@ -1307,7 +1307,7 @@ class UserManager: ObservableObject {
 //    @Published var usedLikesCount: Int = 0
 //    @Published var maxLikes: Int = 10
 //    @Published var purchasedLikes: Int = 1
-//    @Published var amoringCommunityIsOn: Bool = false
+//    @Published var amorinчgCommunityIsOn: Bool = false
 //    @Published var isHidden: Bool = false
 //    @Published var likeListEnabled: Bool = false
 //    

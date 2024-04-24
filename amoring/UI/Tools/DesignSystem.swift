@@ -75,6 +75,7 @@ let regular12Font: Font = Font.custom(pretendardRegular, size: Size.w(12))
 
 let medium34Font: Font = Font.custom(pretendardMedium, size: Size.w(34))
 let medium30Font: Font = Font.custom(pretendardMedium, size: Size.w(30))
+let medium28Font: Font = Font.custom(pretendardMedium, size: Size.w(28))
 let medium22Font: Font = Font.custom(pretendardMedium, size: Size.w(22))
 let medium20Font: Font = Font.custom(pretendardMedium, size: Size.w(20))
 let medium18Font: Font = Font.custom(pretendardMedium, size: Size.w(18))

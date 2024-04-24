@@ -54,6 +54,8 @@
 		2B3FD46C2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */; };
 		2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */; };
 		2B3FD4702BD797C30090BA9D /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46F2BD797C30090BA9D /* schema.graphqls */; };
+		2B3FD4722BD7AFC70090BA9D /* CouponDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */; };
+		2B3FD4742BD89A120090BA9D /* YellowBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */; };
 		2B6A7D4F2BC5253A0038E48E /* QueryVisibleProfiles.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D4E2BC5253A0038E48E /* QueryVisibleProfiles.graphql */; };
 		2B6A7D532BC908860038E48E /* MutationSignInWithApple.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */; };
 		2B6A7D552BC908B30038E48E /* MutationSignInWithKakao.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */; };
@@ -373,6 +375,8 @@
 		2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationResetUserPasswordReset.graphql; sourceTree = "<group>"; };
 		2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationRedeemUserPasswordResetToken.graphql; sourceTree = "<group>"; };
 		2B3FD46F2BD797C30090BA9D /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailsView.swift; sourceTree = "<group>"; };
+		2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowBorderButton.swift; sourceTree = "<group>"; };
 		2B6A7D4E2BC5253A0038E48E /* QueryVisibleProfiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryVisibleProfiles.graphql; sourceTree = "<group>"; };
 		2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithApple.graphql; sourceTree = "<group>"; };
 		2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithKakao.graphql; sourceTree = "<group>"; };
@@ -911,6 +915,7 @@
 				85F190442B5F9DF000FA7686 /* AccountEmail.swift */,
 				85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */,
 				2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */,
+				2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -980,6 +985,7 @@
 				855013542B749A1100D9D568 /* YellowButton.swift */,
 				85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */,
 				85FB6B922B4622F20023A889 /* FullSizeButton.swift */,
+				2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */,
 				85FB6B942B4628EC0023A889 /* CustomSheet.swift */,
 				854C7B022B180C5D0060CE03 /* CoctailToggle.swift */,
 				854C7B042B1815EE0060CE03 /* PurchasedLikesView.swift */,
@@ -1614,6 +1620,7 @@
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
 				2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */,
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
+				2B3FD4722BD7AFC70090BA9D /* CouponDetailsView.swift in Sources */,
 				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,
 				855013552B749A1100D9D568 /* YellowButton.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
@@ -1647,6 +1654,7 @@
 				85FC20802B0C510100DC1950 /* UserOnboardingBio.swift in Sources */,
 				855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */,
 				8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */,
+				2B3FD4742BD89A120090BA9D /* YellowBorderButton.swift in Sources */,
 				850A300F2B0AEDF8003B12B7 /* SessionView.swift in Sources */,
 				850A30312B0B1CC7003B12B7 /* NearbyView.swift in Sources */,
 				85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */,

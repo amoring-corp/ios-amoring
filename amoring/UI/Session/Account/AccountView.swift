@@ -63,7 +63,6 @@ struct AccountView: View {
                             .font(semiBold28Font)
                             .foregroundColor(.white)
                         
-                        
                         MenuTitle(title: "내 프로필")
                         
                         VStack(spacing: 0) {
@@ -153,7 +152,9 @@ struct AccountView: View {
                         
                         
                         MenuTitle(title: "내 계정")
-                        
+                            .onAppear {
+                                navigationController.showBar()
+                            }
                         VStack(spacing: 0) {
                             MenuLineButton(title: "로그아웃", action: { logoutAlertPresented = true })
                                 .alert("로그아웃", isPresented: $logoutAlertPresented, actions: {
@@ -218,11 +219,11 @@ struct MenuLineLink<Content: View>: View {
                         navigationController.hideBar()
                     }
                 }
-                .onDisappear {
-                    if !isBusinessSession {
-                        navigationController.showBar()
-                    }
-                }
+//                .onDisappear {
+//                    if !isBusinessSession {
+//                        navigationController.showBar()
+//                    }
+//                }
         }) {
             HStack {
                 Text(title)
@@ -236,7 +237,6 @@ struct MenuLineLink<Content: View>: View {
             .padding(.horizontal, Size.w(20))
             .padding(.vertical, Size.w(23))
         }
-        
     }
 }
 
