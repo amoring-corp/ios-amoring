@@ -60,6 +60,7 @@
 		2B6A7D532BC908860038E48E /* MutationSignInWithApple.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */; };
 		2B6A7D552BC908B30038E48E /* MutationSignInWithKakao.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
+		2BF570232BD8B60400587960 /* PurchaseProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF570222BD8B60400587960 /* PurchaseProducts.swift */; };
 		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
 		85064AF12B292ECF0074E45A /* LikeDislikeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */; };
@@ -381,6 +382,7 @@
 		2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithApple.graphql; sourceTree = "<group>"; };
 		2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithKakao.graphql; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		2BF570222BD8B60400587960 /* PurchaseProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseProducts.swift; sourceTree = "<group>"; };
 		36E9464CB26CE4E393883EFE /* Pods_amoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring_amoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring-amoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-amoring-amoringUITests/Pods-amoring-amoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 				8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */,
 				2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */,
 				855EC98C2B9EAA2200679394 /* Conversation.swift */,
+				2BF570222BD8B60400587960 /* PurchaseProducts.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1607,6 +1610,7 @@
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
 				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,
+				2BF570232BD8B60400587960 /* PurchaseProducts.swift in Sources */,
 				850BE9B52B61080300EC8EAB /* BusinessSettingsInfo.swift in Sources */,
 				850BE9C02B62015900EC8EAB /* BusinessEmailSuccess.swift in Sources */,
 				85E8E9442B3145390054EBCE /* ConversationView.swift in Sources */,

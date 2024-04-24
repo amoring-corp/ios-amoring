@@ -1304,21 +1304,9 @@ class UserManager: ObservableObject {
     
     // MARK: Purcahse Controller
     @Published var purchaseType: PurchaseModel.type? = nil
-//    @Published var usedLikesCount: Int = 0
-//    @Published var maxLikes: Int = 10
-//    @Published var purchasedLikes: Int = 1
-//    @Published var amorinчgCommunityIsOn: Bool = false
-//    @Published var isHidden: Bool = false
-//    @Published var likeListEnabled: Bool = false
-//    
-//    @Published var amoringCommunityIsOnTime: Date? = nil
-//    @Published var isHiddenTime: Date? = nil
-//    @Published var likeListEnabledTime: Date? = nil
-    
     @Published var products: [Product] = []
     @Published var purchasedIDs: [String] = []
-    
-    @Published var selectedPlan: String = UserManager.products[0]
+    @Published var selectedPlan: PurchaseProduct = .amoring_likes_5
     
     func openPurchase(purchaseType: PurchaseModel.type) {
         switch purchaseType {
@@ -1326,35 +1314,37 @@ class UserManager: ObservableObject {
             if !self.products.contains(where: { $0.displayName.contains("like") }) {
                 return
             }
-            self.selectedPlan = UserManager.products[1]
+            self.selectedPlan = .amoring_likes_10
         case .lounge:
-            if !self.products.contains(where: { $0.id == "lounge_extension_pass" }) {
+            if !self.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue }) {
 //                self.sele
                 return
             }
-            self.selectedPlan = "lounge_extension_pass"
+            self.selectedPlan = .lounge_extension_pass
         case .transparent:
-            if !self.products.contains(where: { $0.id == "hidden_mode_pass" }) {
+            if !self.products.contains(where: { $0.id == PurchaseProduct.hidden_mode_pass.rawValue }) {
                 return
             }
-            self.selectedPlan = "hidden_mode_pass"
+            self.selectedPlan = .hidden_mode_pass
         case .list:
-            if !self.products.contains(where: { $0.id == "list_view_pass" }) {
+            if !self.products.contains(where: { $0.id == PurchaseProduct.list_view_pass.rawValue }) {
                 return
             }
-            self.selectedPlan = "list_view_pass"
+            self.selectedPlan = .list_view_pass
         }
         withAnimation {
             self.purchaseType = purchaseType
         }
     }
     
-    static let products = ["amoring_likes_5", "amoring_likes_10", "amoring_likes_50", "hidden_mode_pass", "lounge_extension_pass", "list_view_pass"]
+    
+    
+//    static let products = ["amoring_likes_5", "amoring_likes_10", "amoring_likes_50", "hidden_mode_pass", "lounge_extension_pass", "list_view_pass"]
     
     func fetchProducts() {
         Task.init(priority: .background) {
             do {
-                let products = try await Product.products(for: UserManager.products)
+                let products = try await Product.products(for: PurchaseProduct.allCases.map({ $0.rawValue }))
                 DispatchQueue.main.async {
                     print("get products: \(products.map({ $0.id }))")
                     self.products = products
@@ -1386,7 +1376,7 @@ class UserManager: ObservableObject {
     
     func purchase(completion: @escaping (String?) -> Void) {
         Task.init(priority: .background) {
-            guard let product = products.first(where: { $0.id == self.selectedPlan }) else {
+            guard let product = products.first(where: { $0.id == self.selectedPlan.rawValue }) else {
                 completion("no products")
                 return
             }

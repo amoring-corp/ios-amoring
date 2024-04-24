@@ -33,10 +33,10 @@ struct PurchaseLikePlan: View {
             Text(discount)
                 .font(semiBold18Font)
                 .foregroundColor(.white)
-                .opacity(userManager.selectedPlan == product.id ? 1 : 0.4)
+                .opacity(userManager.selectedPlan.rawValue == product.id ? 1 : 0.4)
                 .padding(.vertical, Size.w(12))
                 .frame(maxWidth: .infinity)
-                .background(Color.black.opacity(userManager.selectedPlan == product.id ? 1 : 0.1))
+                .background(Color.black.opacity(userManager.selectedPlan.rawValue == product.id ? 1 : 0.1))
                 .onAppear {
                     if let range = product.description.range(of: " / ") {
                         self.discount = String(product.description[range.upperBound...])
@@ -60,13 +60,13 @@ struct PurchaseLikePlan: View {
                 .font(semiBold20Font)
                 .padding(.bottom, Size.w(20))
         }
-        .background(Color.white.opacity(userManager.selectedPlan == product.id ? 1 : 0.1))
+        .background(Color.white.opacity(userManager.selectedPlan.rawValue == product.id ? 1 : 0.1))
         .cornerRadius(Size.w(12))
-        .shadow(color: Color.black.opacity(userManager.selectedPlan == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
-        .offset(y: Size.w(userManager.selectedPlan == product.id ? -21 : 0))
+        .shadow(color: Color.black.opacity(userManager.selectedPlan.rawValue == product.id ? 0.2 : 0), radius: 15, y: Size.w(40))
+        .offset(y: Size.w(userManager.selectedPlan.rawValue == product.id ? -21 : 0))
         .onTapGesture {
             withAnimation(.bouncy) {
-                userManager.selectedPlan = product.id
+                userManager.selectedPlan = PurchaseProduct(rawValue: product.id) ?? .amoring_likes_5
             }
         }
     }
