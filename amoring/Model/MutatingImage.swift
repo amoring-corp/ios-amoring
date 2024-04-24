@@ -53,5 +53,4 @@ struct MutatingImage: Hashable {
         self.id = image.id
         self.file = File(file: image.file)
     }
-    
 }

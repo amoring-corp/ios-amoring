@@ -329,9 +329,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 if let sessionToken = value.data?.signIn.sessionToken {
                     print(sessionToken)
                     self.sessionToken = sessionToken
-                    if self.rememberEmail {
-                        self.businessEmail = email
-                    }
+                    self.businessEmail = self.rememberEmail ? email : ""
                     self.lastProvider = .none
                     self.getCurrentSession(delay: 0) { success, error in
                             completion(success, error)
