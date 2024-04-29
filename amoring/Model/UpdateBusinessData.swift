@@ -56,8 +56,8 @@ struct UpdateBusinessData {
                 "phoneNumber": business.phoneNumber,
                 "registrationNumber": business.registrationNumber,
                 "bio": business.bio,
-                "latitude": business.latitude,
-                "longitude": business.longitude,
+                "latitude": business.lat,
+                "longitude": business.lng,
             ])
         } else {
             return InputDict([:])

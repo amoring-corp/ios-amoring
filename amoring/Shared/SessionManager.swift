@@ -20,7 +20,7 @@ import AWSSNS
 
 func initApi(token: String) -> ApolloClient {
     return {
-        let url = URL(string: "https://amoring-be.antonmaker.com/graphql")!
+        let url = URL(string: "\(Constants.domain)/graphql")!
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"] // Add your headers here
         

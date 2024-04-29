@@ -44,6 +44,7 @@ struct Business: Codable, Equatable, Hashable {
     var businessHours: [BusinessHours]?
     
     var checkedInProfiles: [Profile]?
+    var checkedInAvatarUrls: [String]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -111,8 +112,8 @@ struct Business: Codable, Equatable, Hashable {
         self.addressSigunguCode = businessInfo.addressSigunguCode
         self.addressSigunguEnglish = businessInfo.addressSigunguEnglish
         self.addressZonecode = businessInfo.addressZonecode
-        self.latitude = businessInfo.latitude
-        self.longitude = businessInfo.longitude
+        self.latitude = businessInfo.lat
+        self.longitude = businessInfo.lng
         self.representativeTitle = businessInfo.representativeTitle
         self.representativeName = businessInfo.representativeName
         self.phoneNumber = businessInfo.phoneNumber
@@ -125,7 +126,7 @@ struct Business: Codable, Equatable, Hashable {
             MutatingImage(image: $0!) }
         self.businessHours = businessInfo.businessHours == nil ? [] : businessInfo.businessHours!.map {
             BusinessHours(data: $0!) }
-//        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
+        self.checkedInAvatarUrls = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ $0?.profile?.avatarUrl ?? "" })
     }
     
     init(businessInfo: BusinessInfo) {
@@ -144,8 +145,8 @@ struct Business: Codable, Equatable, Hashable {
         self.addressSigunguCode = businessInfo.addressSigunguCode
         self.addressSigunguEnglish = businessInfo.addressSigunguEnglish
         self.addressZonecode = businessInfo.addressZonecode
-        self.latitude = businessInfo.latitude
-        self.longitude = businessInfo.longitude
+        self.latitude = businessInfo.lat
+        self.longitude = businessInfo.lng
         self.representativeTitle = businessInfo.representativeTitle
         self.representativeName = businessInfo.representativeName
         self.phoneNumber = businessInfo.phoneNumber
@@ -159,5 +160,6 @@ struct Business: Codable, Equatable, Hashable {
         self.businessHours = businessInfo.businessHours == nil ? [] : businessInfo.businessHours!.map {
             BusinessHours(data: $0!) }
 //        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
+        self.checkedInAvatarUrls = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ $0?.profile?.avatarUrl ?? "" })
     }
 }

@@ -8,6 +8,11 @@ fragment BusinessInfo on Business {
   businessHours {
     ... BusinessHoursInfo
   }
+  activeCheckIns {
+    profile {
+      avatarUrl
+    }
+  }
   address
   addressBname
   addressDetails
@@ -28,8 +33,8 @@ fragment BusinessInfo on Business {
         url
     }
   }
-  latitude
-  longitude
+  lat
+  lng
   createdAt
   updatedAt
 }

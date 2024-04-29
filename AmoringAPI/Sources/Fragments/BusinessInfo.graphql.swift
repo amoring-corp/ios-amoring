@@ -5,7 +5,7 @@
 
 public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } latitude longitude createdAt updatedAt }"#
+    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -21,6 +21,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     .field("businessIndustry", String?.self),
     .field("businessCategory", String?.self),
     .field("businessHours", [BusinessHour?]?.self),
+    .field("activeCheckIns", [ActiveCheckIn?].self),
     .field("address", String?.self),
     .field("addressBname", String?.self),
     .field("addressDetails", String?.self),
@@ -36,8 +37,8 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     .field("phoneNumber", String?.self),
     .field("registrationNumber", String?.self),
     .field("images", [Image?]?.self),
-    .field("latitude", Double?.self),
-    .field("longitude", Double?.self),
+    .field("lat", Double?.self),
+    .field("lng", Double?.self),
     .field("createdAt", AmoringAPI.DateTime?.self),
     .field("updatedAt", AmoringAPI.DateTime?.self),
   ] }
@@ -49,6 +50,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public var businessIndustry: String? { __data["businessIndustry"] }
   public var businessCategory: String? { __data["businessCategory"] }
   public var businessHours: [BusinessHour?]? { __data["businessHours"] }
+  public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
   public var address: String? { __data["address"] }
   public var addressBname: String? { __data["addressBname"] }
   public var addressDetails: String? { __data["addressDetails"] }
@@ -64,8 +66,8 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public var phoneNumber: String? { __data["phoneNumber"] }
   public var registrationNumber: String? { __data["registrationNumber"] }
   public var images: [Image?]? { __data["images"] }
-  public var latitude: Double? { __data["latitude"] }
-  public var longitude: Double? { __data["longitude"] }
+  public var lat: Double? { __data["lat"] }
+  public var lng: Double? { __data["lng"] }
   public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
   public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -91,6 +93,38 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
       public init(_dataDict: DataDict) { __data = _dataDict }
 
       public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
+    }
+  }
+
+  /// ActiveCheckIn
+  ///
+  /// Parent Type: `CheckIn`
+  public struct ActiveCheckIn: AmoringAPI.SelectionSet {
+    public let __data: DataDict
+    public init(_dataDict: DataDict) { __data = _dataDict }
+
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
+      .field("profile", Profile?.self),
+    ] }
+
+    public var profile: Profile? { __data["profile"] }
+
+    /// ActiveCheckIn.Profile
+    ///
+    /// Parent Type: `Profile`
+    public struct Profile: AmoringAPI.SelectionSet {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .field("avatarUrl", String?.self),
+      ] }
+
+      public var avatarUrl: String? { __data["avatarUrl"] }
     }
   }
 

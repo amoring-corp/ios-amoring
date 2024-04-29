@@ -53,9 +53,13 @@
 		2B3FD46A2BD78D790090BA9D /* AccountCoupons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */; };
 		2B3FD46C2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */; };
 		2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */; };
-		2B3FD4702BD797C30090BA9D /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46F2BD797C30090BA9D /* schema.graphqls */; };
 		2B3FD4722BD7AFC70090BA9D /* CouponDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */; };
 		2B3FD4742BD89A120090BA9D /* YellowBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */; };
+		2B650B302BDA466200066DC0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B2F2BDA466200066DC0 /* LocationManager.swift */; };
+		2B650B342BDF93DC00066DC0 /* NearLocationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B332BDF93DC00066DC0 /* NearLocationInput.swift */; };
+		2B650B362BDF942B00066DC0 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B650B352BDF942B00066DC0 /* schema.graphqls */; };
+		2B650B382BDFBB1200066DC0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B372BDFBB1200066DC0 /* WebView.swift */; };
+		2B650B3A2BDFBC4F00066DC0 /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B392BDFBC4F00066DC0 /* NavigationWrapper.swift */; };
 		2B6A7D4F2BC5253A0038E48E /* QueryVisibleProfiles.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D4E2BC5253A0038E48E /* QueryVisibleProfiles.graphql */; };
 		2B6A7D532BC908860038E48E /* MutationSignInWithApple.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */; };
 		2B6A7D552BC908B30038E48E /* MutationSignInWithKakao.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */; };
@@ -375,9 +379,13 @@
 		2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoupons.swift; sourceTree = "<group>"; };
 		2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationResetUserPasswordReset.graphql; sourceTree = "<group>"; };
 		2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationRedeemUserPasswordResetToken.graphql; sourceTree = "<group>"; };
-		2B3FD46F2BD797C30090BA9D /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailsView.swift; sourceTree = "<group>"; };
 		2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowBorderButton.swift; sourceTree = "<group>"; };
+		2B650B2F2BDA466200066DC0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		2B650B332BDF93DC00066DC0 /* NearLocationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearLocationInput.swift; sourceTree = "<group>"; };
+		2B650B352BDF942B00066DC0 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B650B372BDFBB1200066DC0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		2B650B392BDFBC4F00066DC0 /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
 		2B6A7D4E2BC5253A0038E48E /* QueryVisibleProfiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryVisibleProfiles.graphql; sourceTree = "<group>"; };
 		2B6A7D522BC908860038E48E /* MutationSignInWithApple.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithApple.graphql; sourceTree = "<group>"; };
 		2B6A7D542BC908B30038E48E /* MutationSignInWithKakao.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignInWithKakao.graphql; sourceTree = "<group>"; };
@@ -801,6 +809,7 @@
 				85FB6B982B464F2A0023A889 /* Global.swift */,
 				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
 				2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */,
+				2B650B2F2BDA466200066DC0 /* LocationManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1000,9 +1009,11 @@
 				8538D5232B4E1EDD0040E017 /* BackButton.swift */,
 				8538D5252B4E211B0040E017 /* XButton.swift */,
 				8538D5292B4E2DF60040E017 /* CodeInputView.swift */,
+				2B650B372BDFBB1200066DC0 /* WebView.swift */,
 				85769E1C2B69EF580064005D /* MKWebView.swift */,
 				85769E1A2B69D6A20064005D /* Triange.swift */,
 				2B2C42D82BA7E6B000EA1ACA /* LineShape.swift */,
+				2B650B392BDFBC4F00066DC0 /* NavigationWrapper.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -1020,7 +1031,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2B3FD46F2BD797C30090BA9D /* schema.graphqls */,
+				2B650B352BDF942B00066DC0 /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1133,6 +1144,7 @@
 				2B20498F2B99778200E633E3 /* UpdateBusinessData.swift */,
 				855EC98C2B9EAA2200679394 /* Conversation.swift */,
 				2BF570222BD8B60400587960 /* PurchaseProducts.swift */,
+				2B650B332BDF93DC00066DC0 /* NearLocationInput.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1397,7 +1409,7 @@
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
-				2B3FD4702BD797C30090BA9D /* schema.graphqls in Resources */,
+				2B650B362BDF942B00066DC0 /* schema.graphqls in Resources */,
 				2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */,
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2C42D52BA7C46E00EA1ACA /* ReactionFragment.graphql in Resources */,
@@ -1579,6 +1591,7 @@
 				85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */,
 				85FC209B2B0D717700DC1950 /* Constants.swift in Sources */,
 				8538D5532B5607FD0040E017 /* AppState.swift in Sources */,
+				2B650B302BDA466200066DC0 /* LocationManager.swift in Sources */,
 				85FC209F2B0D75AB00DC1950 /* UserManager.swift in Sources */,
 				850A2FDF2B0AE54B003B12B7 /* ContentView.swift in Sources */,
 				8538D52A2B4E2DF60040E017 /* CodeInputView.swift in Sources */,
@@ -1644,7 +1657,10 @@
 				85F1903F2B5F8B6900FA7686 /* AccountInterests.swift in Sources */,
 				851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */,
 				850BE9CE2B6342FF00EC8EAB /* Profile.swift in Sources */,
+				2B650B3A2BDFBC4F00066DC0 /* NavigationWrapper.swift in Sources */,
+				2B650B342BDF93DC00066DC0 /* NearLocationInput.swift in Sources */,
 				850A300B2B0AEA09003B12B7 /* SessionManager.swift in Sources */,
+				2B650B382BDFBB1200066DC0 /* WebView.swift in Sources */,
 				85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */,
 				8522A5FF2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift in Sources */,
 				85FC20922B0C514400DC1950 /* DragRelocateDelegate.swift in Sources */,
@@ -1844,6 +1860,8 @@
 				INFOPLIST_FILE = amoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Amoring;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera for scanning QR Code.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to access your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to access your location";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1888,6 +1906,8 @@
 				INFOPLIST_FILE = amoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Amoring;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera for scanning QR Code.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to access your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to access your location";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

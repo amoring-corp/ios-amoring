@@ -31,8 +31,8 @@ public struct BusinessUpdateInput: InputObject {
     registrationNumber: GraphQLNullable<String> = nil,
     category: GraphQLNullable<String> = nil,
     bio: GraphQLNullable<String> = nil,
-    latitude: GraphQLNullable<Double> = nil,
-    longitude: GraphQLNullable<Double> = nil
+    lat: GraphQLNullable<Double> = nil,
+    lng: GraphQLNullable<Double> = nil
   ) {
     __data = InputDict([
       "ownerId": ownerId,
@@ -55,8 +55,8 @@ public struct BusinessUpdateInput: InputObject {
       "registrationNumber": registrationNumber,
       "category": category,
       "bio": bio,
-      "latitude": latitude,
-      "longitude": longitude
+      "lat": lat,
+      "lng": lng
     ])
   }
 
@@ -160,13 +160,13 @@ public struct BusinessUpdateInput: InputObject {
     set { __data["bio"] = newValue }
   }
 
-  public var latitude: GraphQLNullable<Double> {
-    get { __data["latitude"] }
-    set { __data["latitude"] = newValue }
+  public var lat: GraphQLNullable<Double> {
+    get { __data["lat"] }
+    set { __data["lat"] = newValue }
   }
 
-  public var longitude: GraphQLNullable<Double> {
-    get { __data["longitude"] }
-    set { __data["longitude"] = newValue }
+  public var lng: GraphQLNullable<Double> {
+    get { __data["lng"] }
+    set { __data["lng"] = newValue }
   }
 }

@@ -3,37 +3,31 @@
 
 @_exported import ApolloAPI
 
-public class UpsertMyBusinessMutation: GraphQLMutation {
-  public static let operationName: String = "UpsertMyBusiness"
+public class QueryAllBusinessesQuery: GraphQLQuery {
+  public static let operationName: String = "QueryAllBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpsertMyBusiness($data: BusinessUpdateInput!) { upsertMyBusiness(data: $data) { __typename ...BusinessInfo } }"#,
+      #"query QueryAllBusinesses { businesses { __typename ...BusinessInfo } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
-  public var data: BusinessUpdateInput
-
-  public init(data: BusinessUpdateInput) {
-    self.data = data
-  }
-
-  public var __variables: Variables? { ["data": data] }
+  public init() {}
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("upsertMyBusiness", UpsertMyBusiness.self, arguments: ["data": .variable("data")]),
+      .field("businesses", [Business].self),
     ] }
 
-    public var upsertMyBusiness: UpsertMyBusiness { __data["upsertMyBusiness"] }
+    public var businesses: [Business] { __data["businesses"] }
 
-    /// UpsertMyBusiness
+    /// Business
     ///
     /// Parent Type: `Business`
-    public struct UpsertMyBusiness: AmoringAPI.SelectionSet {
+    public struct Business: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -78,7 +72,7 @@ public class UpsertMyBusinessMutation: GraphQLMutation {
         public var businessInfo: BusinessInfo { _toFragment() }
       }
 
-      /// UpsertMyBusiness.BusinessHour
+      /// Business.BusinessHour
       ///
       /// Parent Type: `BusinessHours`
       public struct BusinessHour: AmoringAPI.SelectionSet {

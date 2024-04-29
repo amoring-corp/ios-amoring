@@ -178,6 +178,7 @@ public class SignUpMutation: GraphQLMutation {
               public var businessIndustry: String? { __data["businessIndustry"] }
               public var businessCategory: String? { __data["businessCategory"] }
               public var businessHours: [BusinessHour?]? { __data["businessHours"] }
+              public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
               public var address: String? { __data["address"] }
               public var addressBname: String? { __data["addressBname"] }
               public var addressDetails: String? { __data["addressDetails"] }
@@ -193,8 +194,8 @@ public class SignUpMutation: GraphQLMutation {
               public var phoneNumber: String? { __data["phoneNumber"] }
               public var registrationNumber: String? { __data["registrationNumber"] }
               public var images: [Image?]? { __data["images"] }
-              public var latitude: Double? { __data["latitude"] }
-              public var longitude: Double? { __data["longitude"] }
+              public var lat: Double? { __data["lat"] }
+              public var lng: Double? { __data["lng"] }
               public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
               public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -225,6 +226,8 @@ public class SignUpMutation: GraphQLMutation {
                   public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
                 }
               }
+
+              public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
               public typealias Image = BusinessInfo.Image
             }
@@ -271,6 +274,7 @@ public class SignUpMutation: GraphQLMutation {
           public var businessIndustry: String? { __data["businessIndustry"] }
           public var businessCategory: String? { __data["businessCategory"] }
           public var businessHours: [BusinessHour?]? { __data["businessHours"] }
+          public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
           public var address: String? { __data["address"] }
           public var addressBname: String? { __data["addressBname"] }
           public var addressDetails: String? { __data["addressDetails"] }
@@ -286,8 +290,8 @@ public class SignUpMutation: GraphQLMutation {
           public var phoneNumber: String? { __data["phoneNumber"] }
           public var registrationNumber: String? { __data["registrationNumber"] }
           public var images: [Image?]? { __data["images"] }
-          public var latitude: Double? { __data["latitude"] }
-          public var longitude: Double? { __data["longitude"] }
+          public var lat: Double? { __data["lat"] }
+          public var lng: Double? { __data["lng"] }
           public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
           public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -318,6 +322,8 @@ public class SignUpMutation: GraphQLMutation {
               public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
             }
           }
+
+          public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
           public typealias Image = BusinessInfo.Image
         }

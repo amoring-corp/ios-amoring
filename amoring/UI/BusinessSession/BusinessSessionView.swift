@@ -7,6 +7,7 @@
 
 import SwiftUI
 import QRCode
+import CachedAsyncImage
 
 struct BusinessSessionView: View {
     @EnvironmentObject var userManager: UserManager
@@ -68,30 +69,58 @@ struct BusinessSessionView: View {
                                 .font(regular16Font)
                                 .foregroundColor(.yellow300)
                             
-                            let images = ["person-1", "person-2", "person-3", "person-4"]
+                            let fakeimages = ["person-1", "person-2", "person-3", "person-4"]
                             
-                            let size = geometry.size.width / 2
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: Size.w(16)) {
-                                    list(images: images, size: size)
-                                    list(images: images, size: size)
-                                    list(images: images, size: size)
-                                    list(images: images, size: size)
+                            if let images = business?.checkedInAvatarUrls {
+                                let size = geometry.size.width / 2
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: Size.w(16)) {
+                                        list(images: images, size: size)
+                                        list(images: images, size: size)
+                                        list(images: images, size: size)
+                                        list(images: images, size: size)
+                                    }
+                                    .offset(x: xOffset)
                                 }
-                                .offset(x: xOffset)
-                            }
-                            .disabled(true)
-                            .padding(.top, Size.w(22))
-                            .onAppear {
-                                self.available = true
-                                setToken()
-                                withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
-                                    xOffset = -size * Double(images.count)
+                                .disabled(true)
+                                .padding(.top, Size.w(22))
+                                .onAppear {
+                                    self.available = true
+                                    setToken()
+                                    withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
+                                        xOffset = -size * Double(images.count)
+                                    }
                                 }
+                                .onDisappear {
+                                    self.available = false
+                                }
+                            } else {
+                                let size = geometry.size.width / 2
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: Size.w(16)) {
+                                        fakelist(images: fakeimages, size: size)
+                                        fakelist(images: fakeimages, size: size)
+                                        fakelist(images: fakeimages, size: size)
+                                        fakelist(images: fakeimages, size: size)
+                                    }
+                                    .offset(x: xOffset)
+                                }
+                                .disabled(true)
+                                .padding(.top, Size.w(22))
+                                .onAppear {
+                                    self.available = true
+                                    setToken()
+                                    withAnimation(.linear(duration: Double(fakeimages.count * 4)).repeatForever(autoreverses: false)) {
+                                        xOffset = -size * Double(fakeimages.count)
+                                    }
+                                }
+                                .onDisappear {
+                                    self.available = false
+                                }
+                                
                             }
-                            .onDisappear {
-                                self.available = false
-                            }
+                            
+                            
                         }
                         
                         if expired {
@@ -159,7 +188,7 @@ struct BusinessSessionView: View {
         )
     }
     
-    func list(images: [String], size: CGFloat) -> some View {
+    func fakelist(images: [String], size: CGFloat) -> some View {
         let inSize = size < 20 ? size : (size - 20)
         return ForEach(0..<images.count, id: \.self) {
             Image(images[$0])
@@ -173,6 +202,34 @@ struct BusinessSessionView: View {
                     RoundedRectangle(cornerRadius: 15).stroke(Color.yellow700)
                 )
                 .padding(1)
+//                .frame(width: size, height: size)
+        }
+    }
+    
+    func list(images: [String], size: CGFloat) -> some View {
+        let inSize = size < 20 ? size : (size - 20)
+        return ForEach(0..<images.count, id: \.self) { index in
+            CachedAsyncImage(url: URL(string: images[index]), content: { cont in
+                cont
+                    .resizable()
+                    .scaledToFill() .blur(radius: 6)
+                    .frame(width: 90, height: 120)
+                    .background(Color.gray)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15).stroke(Color.yellow700)
+                    )
+                    .padding(1)
+            }, placeholder: {
+                ZStack {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                }
+            })
+            
+//            Image(images[$0])
+//                .resizable()
+//                .scaledToFill()
+               
 //                .frame(width: size, height: size)
         }
     }

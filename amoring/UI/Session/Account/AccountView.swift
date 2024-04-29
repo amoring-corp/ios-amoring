@@ -95,9 +95,9 @@ struct AccountView: View {
                         MenuTitle(title: "프리미엄 구매하기")
                         
                         VStack(spacing: 0) {
-//                            MenuLineLink(title: "쿠폰함") {
-//                                AccountCoupons()
-//                            }
+                            MenuLineLink(title: "쿠폰함") {
+                                AccountCoupons()
+                            }
                             
                             MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
                             
@@ -135,11 +135,16 @@ struct AccountView: View {
                         
                         VStack(spacing: 0) {
                             MenuLineLink(title: "서비스 이용 약관") {
-                                Text("서비스 이용 약관")
+                                NavigationWrapper(title: "서비스 이용 약관") {
+                                    WebView(url: URL(string: "\(Constants.domain)/terms-and-conditions")!)
+                                }
                             }
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             MenuLineLink(title: "개인정보 보호 방침") {
-                                Text("개인정보 보호 방침")
+                                NavigationWrapper(title: "개인정보 보호 방침") {
+                                    WebView(url: URL(string: "\(Constants.domain)/privacy-policy")!)
+                                }
+                                
                             }
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             

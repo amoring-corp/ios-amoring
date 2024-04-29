@@ -7,39 +7,62 @@
 
 import SwiftUI
 import CachedAsyncImage
+import CoreLocationUI
 
 struct NearbyView: View {
     @EnvironmentObject var navigationController: NavigationController
+    @StateObject var locationManager = LocationManager()
     @State var district: districtEnum = .all
     @State var scrollOffset: CGFloat = 0
     
     var body: some View {
-        NavigationView {
-            TrackableScrollView(contentOffset: $scrollOffset) {
-                DistrictsView(selectedChip: $district)
-                
-                BusinessListView(scrollOffset: $scrollOffset, district: $district)
-                
-            }
-            .frame(maxWidth: .infinity)
-            .background(Color.gray1000)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("AMORING")
-                        .font(bold20Font)
-                        .foregroundColor(.yellow300)
+        ZStack {
+            if locationManager.locationStatus == .authorizedAlways || locationManager.locationStatus == .authorizedWhenInUse {
+                NavigationView {
+                    TrackableScrollView(contentOffset: $scrollOffset) {
+//                        Text("location status: \(locationManager.statusString)")
+//                        Text("\(locationManager.lastLocation?.coordinate.latitude ?? 0), \(locationManager.lastLocation?.coordinate.longitude ?? 0)")
+                        DistrictsView(selectedChip: $district)
+                        
+                        BusinessListView(scrollOffset: $scrollOffset, district: $district)
+                            .environmentObject(locationManager)
+                        
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(Color.gray1000)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            Text("AMORING")
+                                .font(bold20Font)
+                                .foregroundColor(.yellow300)
+                        }
+                    }
+                    .navigationBarItems(
+                        trailing: Button(action: {
+                            //                showInfo.toggle()
+                        }) {
+                            Image("ic-info")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: Size.w(32), height: Size.w(32))
+                        }
+                    )
                 }
+            } else {
+                LocationAccessScreen().environmentObject(locationManager)
             }
-            .navigationBarItems(
-                trailing: Button(action: {
-                    //                showInfo.toggle()
-                }) {
-                    Image("ic-info")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: Size.w(32), height: Size.w(32))
-                }
-            )
+        }
+    }
+}
+
+struct LocationAccessScreen: View {
+    @EnvironmentObject var locationManager: LocationManager
+    var body: some View {
+        VStack {
+            LocationButton(.shareMyCurrentLocation, action: {
+                locationManager.requestAlwaysAuthorization()
+            })
         }
     }
 }
@@ -114,6 +137,7 @@ enum businessSorting: CaseIterable {
 struct BusinessListView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var locationManager: LocationManager
     @Binding var scrollOffset: CGFloat
     @Binding var district: districtEnum
     
@@ -216,8 +240,16 @@ struct BusinessListView: View {
             }
             Spacer(minLength: 200)
         }
+        .onChange(of: locationManager.lastLocation?.coordinate.latitude) { lat in
+            // TODO: need refactoring
+            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
+                userManager.getBusinesses(lat: lat, lng: lng)
+            }
+        }
         .onAppear {
-            userManager.getBusinesses()
+            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
+                userManager.getBusinesses(lat: lat, lng: lng)
+            }
         }
     }
     

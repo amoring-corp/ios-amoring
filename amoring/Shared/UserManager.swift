@@ -1203,8 +1203,38 @@ class UserManager: ObservableObject {
     }
     
     // TODO: move to another Manager
-    func getBusinesses() {
-        api.fetch(query: QueryBusinessesQuery()) { result in
+//    func getBusinesses() {
+//        api.fetch(query: QueryBusinessesQuery()) { result in
+//            switch result {
+//            case .success(let value):
+//                guard value.errors == nil else {
+//                    print(value.errors as Any)
+//                    return
+//                }
+//                
+//                guard let data = value.data else {
+//                    print("NO DATA!")
+//                    return
+//                }
+//                
+//                let businesss = data.businesses
+//                self.businesses = []
+//                self.businessesInit = []
+//                
+//                for bus in businesss {
+//                    self.businesses.append(bus.fragments.businessInfo)
+//                }
+//                self.businessesInit = self.businesses
+//                print(self.businesses.map({ $0.id }))
+//            case .failure(let error):
+//                debugPrint(error.localizedDescription)
+//            }
+//        }
+//    }
+    
+    func getBusinesses(lat: Double, lng: Double) {
+        let input = InputDict(["lat": lat, "lng": lng])
+        api.fetch(query: QueryBusinessesQuery(near: NearLocationInput(input))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {

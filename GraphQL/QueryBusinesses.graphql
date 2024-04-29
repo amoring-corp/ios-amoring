@@ -1,5 +1,11 @@
-query QueryBusinesses {
+query QueryAllBusinesses {
   businesses {
+    ... BusinessInfo
+  }
+}
+
+query QueryBusinesses($near: NearLocationInput!) {
+  businesses(near: $near) {
     ... BusinessInfo
   }
 }

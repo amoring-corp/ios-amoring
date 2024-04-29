@@ -7,11 +7,17 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationName: String = "QueryBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryBusinesses { businesses { __typename ...BusinessInfo } }"#,
+      #"query QueryBusinesses($near: NearLocationInput!) { businesses(near: $near) { __typename ...BusinessInfo } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
-  public init() {}
+  public var near: NearLocationInput
+
+  public init(near: NearLocationInput) {
+    self.near = near
+  }
+
+  public var __variables: Variables? { ["near": near] }
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
@@ -19,7 +25,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("businesses", [Business].self),
+      .field("businesses", [Business].self, arguments: ["near": .variable("near")]),
     ] }
 
     public var businesses: [Business] { __data["businesses"] }
@@ -44,6 +50,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
       public var businessIndustry: String? { __data["businessIndustry"] }
       public var businessCategory: String? { __data["businessCategory"] }
       public var businessHours: [BusinessHour?]? { __data["businessHours"] }
+      public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
       public var address: String? { __data["address"] }
       public var addressBname: String? { __data["addressBname"] }
       public var addressDetails: String? { __data["addressDetails"] }
@@ -59,8 +66,8 @@ public class QueryBusinessesQuery: GraphQLQuery {
       public var phoneNumber: String? { __data["phoneNumber"] }
       public var registrationNumber: String? { __data["registrationNumber"] }
       public var images: [Image?]? { __data["images"] }
-      public var latitude: Double? { __data["latitude"] }
-      public var longitude: Double? { __data["longitude"] }
+      public var lat: Double? { __data["lat"] }
+      public var lng: Double? { __data["lng"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -91,6 +98,8 @@ public class QueryBusinessesQuery: GraphQLQuery {
           public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
         }
       }
+
+      public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
       public typealias Image = BusinessInfo.Image
     }
