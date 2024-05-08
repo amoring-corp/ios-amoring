@@ -45,6 +45,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "CheckInToken": return AmoringAPI.Objects.CheckInToken
     case "UserDevice": return AmoringAPI.Objects.UserDevice
     case "Report": return AmoringAPI.Objects.Report
+    case "BusinessDistrict": return AmoringAPI.Objects.BusinessDistrict
     default: return nil
     }
   }

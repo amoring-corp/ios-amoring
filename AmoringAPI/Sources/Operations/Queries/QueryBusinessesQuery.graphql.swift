@@ -7,17 +7,25 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationName: String = "QueryBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryBusinesses($near: NearLocationInput!) { businesses(near: $near) { __typename ...BusinessInfo } }"#,
+      #"query QueryBusinesses($near: NearLocationInput, $districts: [String!]) { businesses(near: $near, districts: $districts) { __typename ...BusinessInfo } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
-  public var near: NearLocationInput
+  public var near: GraphQLNullable<NearLocationInput>
+  public var districts: GraphQLNullable<[String]>
 
-  public init(near: NearLocationInput) {
+  public init(
+    near: GraphQLNullable<NearLocationInput>,
+    districts: GraphQLNullable<[String]>
+  ) {
     self.near = near
+    self.districts = districts
   }
 
-  public var __variables: Variables? { ["near": near] }
+  public var __variables: Variables? { [
+    "near": near,
+    "districts": districts
+  ] }
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
@@ -25,7 +33,10 @@ public class QueryBusinessesQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("businesses", [Business].self, arguments: ["near": .variable("near")]),
+      .field("businesses", [Business].self, arguments: [
+        "near": .variable("near"),
+        "districts": .variable("districts")
+      ]),
     ] }
 
     public var businesses: [Business] { __data["businesses"] }

@@ -8,11 +8,13 @@
 import SwiftUI
 import CachedAsyncImage
 import CoreLocationUI
+import CoreLocation
+import AmoringAPI
 
 struct NearbyView: View {
     @EnvironmentObject var navigationController: NavigationController
     @StateObject var locationManager = LocationManager()
-    @State var district: districtEnum = .all
+    @State var district: District = District.all
     @State var scrollOffset: CGFloat = 0
     
     var body: some View {
@@ -23,8 +25,9 @@ struct NearbyView: View {
 //                        Text("location status: \(locationManager.statusString)")
 //                        Text("\(locationManager.lastLocation?.coordinate.latitude ?? 0), \(locationManager.lastLocation?.coordinate.longitude ?? 0)")
                         DistrictsView(selectedChip: $district)
+                            .environmentObject(locationManager)
                         
-                        BusinessListView(scrollOffset: $scrollOffset, district: $district)
+                        BusinessListView(scrollOffset: $scrollOffset)
                             .environmentObject(locationManager)
                         
                     }
@@ -98,27 +101,6 @@ enum businessType: CaseIterable {
     }
 }
 
-enum districtEnum: Int, CaseIterable {
-    case all, gangnam, itaewon, hongdae, apgujeong, other
-    
-    func title() -> String {
-        switch self {
-        case .all:
-            "전체"
-        case .gangnam:
-            "강남"
-        case .itaewon:
-            "이태원"
-        case .hongdae:
-            "홍대"
-        case .apgujeong:
-            "압구정"
-        case .other:
-            "기타"
-        }
-    }
-}
-
 enum businessSorting: CaseIterable {
     case recs, name, distance
     
@@ -139,7 +121,6 @@ struct BusinessListView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var locationManager: LocationManager
     @Binding var scrollOffset: CGFloat
-    @Binding var district: districtEnum
     
     @State var type: businessType = .all
     @State var sorting: businessSorting = .recs
@@ -183,12 +164,6 @@ struct BusinessListView: View {
                         .foregroundColor(.yellow300)
                     }
                     .padding(.trailing, Size.w(12))
-                    .onChange(of: type) { newType in
-                        filter(newType: newType)
-                    }
-                    .onChange(of: district) { newDistrict in
-                        filter(newDistrict: newDistrict)
-                    }
                     
                     Divider().frame(height: Size.w(24))
                     
@@ -213,9 +188,6 @@ struct BusinessListView: View {
                         .foregroundColor(.yellow300)
                     }
                     .padding(.leading, Size.w(12))
-                    .onChange(of: sorting) { sorting in
-                        sort(sorting: sorting)
-                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, Size.w(22))
@@ -240,17 +212,6 @@ struct BusinessListView: View {
             }
             Spacer(minLength: 200)
         }
-        .onChange(of: locationManager.lastLocation?.coordinate.latitude) { lat in
-            // TODO: need refactoring
-            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
-                userManager.getBusinesses(lat: lat, lng: lng)
-            }
-        }
-        .onAppear {
-            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
-                userManager.getBusinesses(lat: lat, lng: lng)
-            }
-        }
     }
     
     var count: some View {
@@ -263,63 +224,64 @@ struct BusinessListView: View {
         .foregroundColor(.yellow300)
     }
     
-    private func filter(newType: businessType? = nil, newDistrict: districtEnum? = nil) {
-        if let newType {
-            switch newType {
-            case .all:
-                userManager.businesses = userManager.businessesInit
-            default:
-                userManager.businesses = userManager.businessesInit.filter { $0.businessCategory == newType.title() }
-            }
-            
-            switch self.district {
-            case .all:
-                userManager.businesses = userManager.businesses
-            case .other:
-                userManager.businesses = userManager.businesses.filter { biz in
-                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
-            default:
-                userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
-            }
-        }
-        
-        if let newDistrict {
-            switch newDistrict {
-            case .all:
-                userManager.businesses = userManager.businessesInit
-            case .other:
-                userManager.businesses = userManager.businessesInit.filter { biz in
-                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
-            default:
-                userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
-            }
-            
-            switch self.type {
-            case .all:
-                userManager.businesses = userManager.businesses
-            default:
-                userManager.businesses = userManager.businesses.filter { $0.businessCategory == self.type.title() }
-            }
-        }
-        
-        sort(sorting: self.sorting)
-    }
-    
-    private func sort(sorting: businessSorting) {
-        switch sorting {
-        case .recs:
-            // TODO: backend. Implement recommendations
-            userManager.businesses = userManager.businesses.sorted(by: { $0.addressSigungu ?? "" > $1.addressSigungu ?? ""})
-        case .name:
-            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
-        case .distance:
-            // TODO: backend. Implement distance
-            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
-        }
-    }
+//    private func filter(newType: businessType? = nil, newDistrict: districtEnum? = nil) {
+//        if let newType {
+//            switch newType {
+//            case .all:
+//                userManager.businesses = userManager.businessesInit
+//            default:
+//                userManager.businesses = userManager.businessesInit.filter { $0.businessCategory == newType.title() }
+//            }
+//            
+//            switch self.district {
+//            case .all:
+//                userManager.businesses = userManager.businesses
+//            case .other:
+//                userManager.businesses = userManager.businesses.filter { biz in
+//                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+//            default:
+//                userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
+//            }
+//        }
+//        
+//        if let newDistrict {
+//            switch newDistrict {
+//            case .all:
+//                userManager.businesses = userManager.businessesInit
+//            case .other:
+//                userManager.businesses = userManager.businessesInit.filter { biz in
+//                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+//            default:
+//                userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
+//            }
+//            
+//            switch self.type {
+//            case .all:
+//                userManager.businesses = userManager.businesses
+//            default:
+//                userManager.businesses = userManager.businesses.filter { $0.businessCategory == self.type.title() }
+//            }
+//        }
+//        
+//        sort(sorting: self.sorting)
+//    }
+//    
+//    private func sort(sorting: businessSorting) {
+//        switch sorting {
+//        case .recs:
+//            // TODO: backend. Implement recommendations
+//            userManager.businesses = userManager.businesses.sorted(by: { $0.addressSigungu ?? "" > $1.addressSigungu ?? ""})
+//        case .name:
+//            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
+//        case .distance:
+//            // TODO: backend. Implement distance
+//            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
+//        }
+//    }
 }
 
 struct BusinessRow: View {
+    @EnvironmentObject var locationManager: LocationManager
     let business: Business
     
     var body: some View {
@@ -349,9 +311,30 @@ struct BusinessRow: View {
                     Text("\(business.businessCategory ?? "")  |  \(business.addressSigungu ?? "")")
                     
                     Spacer()
-                    
-                    // TODO: backend. get range from location and business .. what? lat and long?
-                    Text("1.0km")
+                 
+                    if let busLatitude = business.latitude, let busLongitude = business.longitude, let latitude = locationManager.lastLocation?.coordinate.latitude, let longitude = locationManager.lastLocation?.coordinate.longitude {
+                        let busCoordinate = CLLocation(latitude: busLatitude, longitude: busLongitude)
+                        let myCoordinate = CLLocation(latitude: latitude, longitude: longitude)
+                        let distanceInMeters = busCoordinate.distance(from: myCoordinate)
+                        let distanceInMetersString = String(format: "%.0f", distanceInMeters)
+                        let distanceInKm = String(format: "%.1f", distanceInMeters / 1000)
+
+                        Text(distanceInMeters > 1000 ? "\(distanceInKm) km" : "\(distanceInMetersString) m")
+                            .onAppear {
+                                print("bus: \(busLatitude), \(busLongitude)")
+                                print("my: \(latitude), \(longitude)")
+                            }
+//                            .onChange(of: locationManager.lastLocation) { a in
+//                                if let latitude = locationManager.lastLocation?.coordinate.latitude, let longitude =
+//                                    locationManager.lastLocation?.coordinate.longitude {
+//                                    let myCoordinate = CLLocation(latitude: latitude, longitude: longitude)
+//                                    let distanceInMeters = busCoordinate.distance(from: myCoordinate)
+//                                    print("abraca")
+//                                    print(distanceInMeters)
+//                                }
+//                            }
+                            
+                    }
                 }
                 .font(regular16Font)
                 .foregroundColor(.gray600)
@@ -371,7 +354,8 @@ struct BusinessRow: View {
 }
 
 struct DistrictsView: View {
-    @Binding var selectedChip: districtEnum
+    @EnvironmentObject var userManager: UserManager
+    @Binding var selectedChip: District
     
     var body: some View {
         VStack(alignment: .leading, spacing: Size.w(20)) {
@@ -380,17 +364,19 @@ struct DistrictsView: View {
                 .foregroundColor(.yellow300)
             
             HStack(spacing: 0) {
-                DistrictChip(selectedChip: $selectedChip, district: .all)
+                DistrictChip(selectedChip: $selectedChip, district: District.nearby)
                     .padding(.trailing, Size.w(12))
                 Divider()
                     .frame(height: Size.w(24))
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        DistrictChip(selectedChip: $selectedChip, district: .gangnam)
-                        DistrictChip(selectedChip: $selectedChip, district: .itaewon)
-                        DistrictChip(selectedChip: $selectedChip, district: .hongdae)
-                        DistrictChip(selectedChip: $selectedChip, district: .apgujeong)
-                        DistrictChip(selectedChip: $selectedChip, district: .other)
+                        DistrictChip(selectedChip: $selectedChip, district: District.all)
+                        ForEach(userManager.districts, id: \.self.id) { disctrict in
+                            DistrictChip(selectedChip: $selectedChip, district: disctrict)
+                        }
+                        if userManager.districts.count > 5 {
+                            DistrictChip(selectedChip: $selectedChip, district: District.other)
+                        }
                     }.padding(.horizontal, Size.w(12))
                 }
             }
@@ -402,11 +388,13 @@ struct DistrictsView: View {
 }
 
 struct DistrictChip: View {
-    @Binding var selectedChip: districtEnum
-    let district: districtEnum
+    @EnvironmentObject var locationManager: LocationManager
+    @EnvironmentObject var userManager: UserManager
+    @Binding var selectedChip: District
+    let district: District
     
     var body: some View {
-        Text(district.title())
+        Text(district.name)
             .font(regular16Font)
             .foregroundColor(selectedChip == district ? .yellow300 : .yellow600)
             .padding(.vertical, Size.w(8))
@@ -418,10 +406,38 @@ struct DistrictChip: View {
             )
             .padding(2)
             .onTapGesture {
-                withAnimation {
-                    selectedChip = selectedChip == district ? .all : district
+                if selectedChip != district {
+                    action(district: district) {
+                        withAnimation {
+                            selectedChip = district
+                        }
+                    }
                 }
             }
+    }
+
+    private func action(district: District, completion: @escaping () -> Void) {
+        switch district {
+        case District.all: userManager.getBusinesses(completion: completion)
+        case District.nearby:
+            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
+                userManager.getBusinesses(lat: lat, lng: lng, completion: completion)
+            } else {
+
+            }
+            // FIXME: opposite
+        case  District.other: 
+            let index = 4
+            var other: [District] = []
+            if userManager.districts.count > index {
+                let elementsAfterIndex = Array(userManager.districts[(index + 1)...])
+                other = elementsAfterIndex
+                print("Elements after index \(index):", elementsAfterIndex)
+            }
+            userManager.getBusinesses(districts: other.map({ $0.code }), completion: completion)
+        default:
+            userManager.getBusinesses(districts: [district.code], completion: completion)
+        }
     }
 }
 

@@ -61,6 +61,16 @@ input BusinessCreateInput {
 """
 
 """
+type BusinessDistrict {
+  id: ID!
+  code: String!
+  name: String!
+  count: Int!
+}
+
+"""
+
+"""
 type BusinessHours {
   id: ID!
   day: Day!
@@ -592,8 +602,9 @@ type Mutation {
 
 type Query {
   authenticatedUser: User
-  businesses(near: NearLocationInput): [Business!]!
+  businesses(near: NearLocationInput, districts: [String!]): [Business!]!
   business(id: ID!): Business
+  businessDistricts: [BusinessDistrict!]
   activeCheckIn: CheckIn
   conversations: [Conversation!]!
   conversation(id: ID!): Conversation

@@ -1204,7 +1204,7 @@ class UserManager: ObservableObject {
     
     // TODO: move to another Manager
 //    func getBusinesses() {
-//        api.fetch(query: QueryBusinessesQuery()) { result in
+//        api.fetch(query: QueryAllBusinessesQuery()) { result in
 //            switch result {
 //            case .success(let value):
 //                guard value.errors == nil else {
@@ -1232,9 +1232,51 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getBusinesses(lat: Double, lng: Double) {
-        let input = InputDict(["lat": lat, "lng": lng])
-        api.fetch(query: QueryBusinessesQuery(near: NearLocationInput(input))) { result in
+    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, completion: @escaping () -> Void) {
+        var input: NearLocationInput? = nil
+        var districtsList: [String]? = nil
+        if let lat {
+            input = NearLocationInput(InputDict(["lat": lat, "lng": lng]))
+        }
+        if let districts {
+            districtsList = districts
+        }
+        
+        api.fetch(query: QueryBusinessesQuery(near: GraphQLHelper.graphQLNullableFrom(input), districts: GraphQLHelper.graphQLNullableFrom(districtsList))) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    completion()
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    completion()
+                    return
+                }
+                
+                
+                self.businesses = []
+//                self.businessesInit = []
+                
+                for bus in data.businesses {
+                    self.businesses.append(bus.fragments.businessInfo)
+                }
+//                self.businessesInit = self.businesses
+                print(self.businesses.map({ $0.id }))
+                completion()
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion()
+            }
+        }
+    }
+    
+    @Published var districts: [District] = []
+    func getBusinessDistricts() {
+        api.fetch(query: BusinessDistrictsQuery()) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1247,14 +1289,10 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                let businesss = data.businesses
-                self.businesses = []
-                self.businessesInit = []
-                
-                for bus in businesss {
-                    self.businesses.append(bus.fragments.businessInfo)
+                if let dists = data.businessDistricts?.map({ $0.fragments.districtFragment }) {
+                    self.districts = dists.map({ District(districtFragment: $0) })
                 }
-                self.businessesInit = self.businesses
+                
                 print(self.businesses.map({ $0.id }))
             case .failure(let error):
                 debugPrint(error.localizedDescription)

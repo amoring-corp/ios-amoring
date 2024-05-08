@@ -1,0 +1,6 @@
+fragment DistrictFragment on BusinessDistrict {
+    id
+    code
+    name
+    count
+}

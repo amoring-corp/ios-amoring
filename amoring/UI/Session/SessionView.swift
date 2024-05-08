@@ -69,6 +69,12 @@ struct SessionFlow: View {
             /// in App Purchases
             userManager.fetchProducts()
             
+            /// sets current business districts from DB
+            userManager.getBusinessDistricts()
+            
+            /// gets current businesses from DB
+            userManager.getBusinesses {}
+            
             if userManager.user?.profile != nil {
                 /// getting current active check in for Amoring page
                 userManager.activeCheckIn { activeCheckIn in
