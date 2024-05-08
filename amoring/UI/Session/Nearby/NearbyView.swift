@@ -27,7 +27,7 @@ struct NearbyView: View {
                         DistrictsView(selectedChip: $district)
                             .environmentObject(locationManager)
                         
-                        BusinessListView(scrollOffset: $scrollOffset)
+                        BusinessListView(scrollOffset: $scrollOffset, selectedChip: $district)
                             .environmentObject(locationManager)
                         
                     }
@@ -121,7 +121,7 @@ struct BusinessListView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var locationManager: LocationManager
     @Binding var scrollOffset: CGFloat
-    
+    @Binding var selectedChip: District
     @State var type: businessType = .all
     @State var sorting: businessSorting = .recs
     
@@ -175,6 +175,9 @@ struct BusinessListView: View {
                                     .foregroundColor(.yellow300)
                             }
                         }
+                        .onChange(of: sorting) { sort in
+                            action(district: selectedChip, sort: sort == .name ? .businessName : nil) { }
+                        }
                     } label: {
                         HStack {
                             Text(sorting.title())
@@ -222,6 +225,30 @@ struct BusinessListView: View {
         }
         .font(medium18Font)
         .foregroundColor(.yellow300)
+    }
+    
+    private func action(district: District, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
+        switch district {
+        case District.all: userManager.getBusinesses(sort: sort, completion: completion)
+        case District.nearby:
+            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
+                userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
+            } else {
+
+            }
+            // FIXME: opposite
+        case  District.other:
+            let index = 4
+            var other: [District] = []
+            if userManager.districts.count > index {
+                let elementsAfterIndex = Array(userManager.districts[(index + 1)...])
+                other = elementsAfterIndex
+                print("Elements after index \(index):", elementsAfterIndex)
+            }
+            userManager.getBusinesses(districts: other.map({ $0.code }), sort: sort, completion: completion)
+        default:
+            userManager.getBusinesses(districts: [district.code], sort: sort, completion: completion)
+        }
     }
     
 //    private func filter(newType: businessType? = nil, newDistrict: districtEnum? = nil) {
@@ -416,12 +443,12 @@ struct DistrictChip: View {
             }
     }
 
-    private func action(district: District, completion: @escaping () -> Void) {
+    private func action(district: District, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
         switch district {
-        case District.all: userManager.getBusinesses(completion: completion)
+        case District.all: userManager.getBusinesses(sort: sort, completion: completion)
         case District.nearby:
             if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
-                userManager.getBusinesses(lat: lat, lng: lng, completion: completion)
+                userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
             } else {
 
             }
@@ -434,9 +461,9 @@ struct DistrictChip: View {
                 other = elementsAfterIndex
                 print("Elements after index \(index):", elementsAfterIndex)
             }
-            userManager.getBusinesses(districts: other.map({ $0.code }), completion: completion)
+            userManager.getBusinesses(districts: other.map({ $0.code }), sort: sort, completion: completion)
         default:
-            userManager.getBusinesses(districts: [district.code], completion: completion)
+            userManager.getBusinesses(districts: [district.code], sort: sort, completion: completion)
         }
     }
 }

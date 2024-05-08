@@ -4,8 +4,8 @@ query QueryAllBusinesses {
   }
 }
 
-query QueryBusinesses($near: NearLocationInput, $districts: [String!]) {
-  businesses(near: $near, districts: $districts) {
+query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy) {
+  businesses(near: $near, districts: $districts, sort: $sort) {
     ... BusinessInfo
   }
 }

@@ -1232,17 +1232,21 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, completion: @escaping () -> Void) {
+    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
         var input: NearLocationInput? = nil
         var districtsList: [String]? = nil
+        var businessSortBy: BusinessSortBy? = nil
         if let lat {
             input = NearLocationInput(InputDict(["lat": lat, "lng": lng]))
         }
         if let districts {
             districtsList = districts
         }
+        if let sort {
+            businessSortBy = BusinessSortBy(field: .case(sort), order: .case(.asc))
+        }
         
-        api.fetch(query: QueryBusinessesQuery(near: GraphQLHelper.graphQLNullableFrom(input), districts: GraphQLHelper.graphQLNullableFrom(districtsList))) { result in
+        api.fetch(query: QueryBusinessesQuery(near: GraphQLHelper.graphQLNullableFrom(input), districts: GraphQLHelper.graphQLNullableFrom(districtsList), sort: GraphQLHelper.graphQLNullableFrom(businessSortBy))) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {

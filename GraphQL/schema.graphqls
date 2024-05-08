@@ -104,6 +104,17 @@ input BusinessImageInput {
   file: Upload!
 }
 
+input BusinessSortBy {
+  field: BusinessSortField!
+  order: SortOrder!
+}
+
+enum BusinessSortField {
+  businessName
+  createdAt
+  updatedAt
+}
+
 input BusinessUpdateInput {
   ownerId: String
   businessName: String
@@ -442,6 +453,11 @@ type SignUpResult {
   user: User!
 }
 
+enum SortOrder {
+  asc
+  desc
+}
+
 """
 File upload type
 """
@@ -602,7 +618,11 @@ type Mutation {
 
 type Query {
   authenticatedUser: User
-  businesses(near: NearLocationInput, districts: [String!]): [Business!]!
+  businesses(
+    near: NearLocationInput
+    districts: [String!]
+    sort: BusinessSortBy
+  ): [Business!]!
   business(id: ID!): Business
   businessDistricts: [BusinessDistrict!]
   activeCheckIn: CheckIn
