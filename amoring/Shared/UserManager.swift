@@ -1232,7 +1232,7 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
+    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, sort: BusinessSortField? = nil, nearByOnly: Bool? = nil, completion: @escaping () -> Void) {
         var input: NearLocationInput? = nil
         var districtsList: [String]? = nil
         var businessSortBy: BusinessSortBy? = nil
@@ -1246,7 +1246,7 @@ class UserManager: ObservableObject {
             businessSortBy = BusinessSortBy(field: .case(sort), order: .case(.asc))
         }
         
-        api.fetch(query: QueryBusinessesQuery(near: GraphQLHelper.graphQLNullableFrom(input), districts: GraphQLHelper.graphQLNullableFrom(districtsList), sort: GraphQLHelper.graphQLNullableFrom(businessSortBy))) { result in
+        api.fetch(query: QueryBusinessesQuery(near: GraphQLHelper.graphQLNullableFrom(input), districts: GraphQLHelper.graphQLNullableFrom(districtsList), sort: GraphQLHelper.graphQLNullableFrom(businessSortBy), nearByOnly: nearByOnly ?? false, take: .none, skip: .none)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1265,7 +1265,7 @@ class UserManager: ObservableObject {
                 self.businesses = []
 //                self.businessesInit = []
                 
-                for bus in data.businesses {
+                for bus in data.businesses.items {
                     self.businesses.append(bus.fragments.businessInfo)
                 }
 //                self.businessesInit = self.businesses

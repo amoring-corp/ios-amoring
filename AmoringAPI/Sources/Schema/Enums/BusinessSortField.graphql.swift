@@ -4,6 +4,7 @@
 import ApolloAPI
 
 public enum BusinessSortField: String, EnumType {
+  case distance = "distance"
   case businessName = "businessName"
   case createdAt = "createdAt"
   case updatedAt = "updatedAt"

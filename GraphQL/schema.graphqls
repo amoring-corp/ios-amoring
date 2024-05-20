@@ -1,5 +1,4 @@
 """
-
 """
 type Business {
   id: ID!
@@ -29,6 +28,7 @@ type Business {
   images(take: Int, skip: Int): [BusinessImage]
   businessHours: [BusinessHours]
   activeCheckIns(take: Int, skip: Int, gender: Gender): [CheckIn]!
+  distance: Int
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -59,7 +59,6 @@ input BusinessCreateInput {
 }
 
 """
-
 """
 type BusinessDistrict {
   id: ID!
@@ -69,7 +68,6 @@ type BusinessDistrict {
 }
 
 """
-
 """
 type BusinessHours {
   id: ID!
@@ -87,7 +85,6 @@ input BusinessHoursInput {
 }
 
 """
-
 """
 type BusinessImage {
   id: ID!
@@ -110,6 +107,7 @@ input BusinessSortBy {
 }
 
 enum BusinessSortField {
+  distance
   businessName
   createdAt
   updatedAt
@@ -141,7 +139,13 @@ input BusinessUpdateInput {
 }
 
 """
+"""
+type BusinessesList {
+  items: [Business!]!
+  total: Int!
+}
 
+"""
 """
 type CheckIn {
   id: ID!
@@ -164,7 +168,6 @@ enum CheckInStatus {
 }
 
 """
-
 """
 type CheckInToken {
   token: String!
@@ -229,7 +232,6 @@ enum Gender {
 }
 
 """
-
 """
 type Interest {
   id: ID!
@@ -241,7 +243,6 @@ type Interest {
 }
 
 """
-
 """
 type InterestCategory {
   id: ID!
@@ -315,7 +316,6 @@ type PasswordResetRequestResult {
 }
 
 """
-
 """
 type Profile {
   id: ID!
@@ -354,7 +354,6 @@ input ProfileCreateInput {
 }
 
 """
-
 """
 type ProfileImage {
   id: ID!
@@ -417,7 +416,6 @@ enum ReactionType {
 }
 
 """
-
 """
 type Report {
   id: ID!
@@ -464,7 +462,6 @@ File upload type
 scalar Upload
 
 """
-
 """
 type User {
   id: ID!
@@ -622,7 +619,10 @@ type Query {
     near: NearLocationInput
     districts: [String!]
     sort: BusinessSortBy
-  ): [Business!]!
+    nearByOnly: Boolean
+    take: Int
+    skip: Int
+  ): BusinessesList!
   business(id: ID!): Business
   businessDistricts: [BusinessDistrict!]
   activeCheckIn: CheckIn

@@ -228,15 +228,13 @@ struct BusinessListView: View {
     }
     
     private func action(district: District, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
+        let lat = locationManager.lastLocation?.coordinate.latitude
+        let lng = locationManager.lastLocation?.coordinate.longitude
+        
         switch district {
-        case District.all: userManager.getBusinesses(sort: sort, completion: completion)
+        case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
         case District.nearby:
-            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
-                userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
-            } else {
-
-            }
-            // FIXME: opposite
+            userManager.getBusinesses(lat: lat, lng: lng, sort: sort, nearByOnly: true, completion: completion)
         case  District.other:
             let index = 4
             var other: [District] = []
@@ -245,9 +243,9 @@ struct BusinessListView: View {
                 other = elementsAfterIndex
                 print("Elements after index \(index):", elementsAfterIndex)
             }
-            userManager.getBusinesses(districts: other.map({ $0.code }), sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: other.map({ $0.code }), sort: sort, completion: completion)
         default:
-            userManager.getBusinesses(districts: [district.code], sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: [district.code], sort: sort, completion: completion)
         }
     }
     
@@ -444,16 +442,14 @@ struct DistrictChip: View {
     }
 
     private func action(district: District, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
+        let lat = locationManager.lastLocation?.coordinate.latitude
+        let lng = locationManager.lastLocation?.coordinate.longitude
+        
         switch district {
-        case District.all: userManager.getBusinesses(sort: sort, completion: completion)
+        case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
         case District.nearby:
-            if let lat = locationManager.lastLocation?.coordinate.latitude, let lng = locationManager.lastLocation?.coordinate.longitude {
-                userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
-            } else {
-
-            }
-            // FIXME: opposite
-        case  District.other: 
+            userManager.getBusinesses(lat: lat, lng: lng, sort: sort, nearByOnly: true, completion: completion)
+        case  District.other:
             let index = 4
             var other: [District] = []
             if userManager.districts.count > index {
@@ -461,9 +457,9 @@ struct DistrictChip: View {
                 other = elementsAfterIndex
                 print("Elements after index \(index):", elementsAfterIndex)
             }
-            userManager.getBusinesses(districts: other.map({ $0.code }), sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: other.map({ $0.code }), sort: sort, completion: completion)
         default:
-            userManager.getBusinesses(districts: [district.code], sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: [district.code], sort: sort, completion: completion)
         }
     }
 }
