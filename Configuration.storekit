@@ -1,5 +1,5 @@
 {
-  "identifier" : "07D188EE",
+  "identifier" : "5F7F8C61",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -7,7 +7,7 @@
     {
       "displayPrice" : "6.99",
       "familyShareable" : false,
-      "internalID" : "6479863961",
+      "internalID" : "6503226520",
       "localizations" : [
         {
           "description" : "Hidden mode pass",
@@ -27,17 +27,17 @@
     {
       "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "6479869259",
+      "internalID" : "6503226679",
       "localizations" : [
-        {
-          "description" : "Lounge Extension Pass",
-          "displayName" : "Lounge Extension Pass",
-          "locale" : "en_US"
-        },
         {
           "description" : "라운지 확장 패스",
           "displayName" : "라운지 확장 패스",
           "locale" : "ko"
+        },
+        {
+          "description" : "Lounge Extension Pass",
+          "displayName" : "Lounge Extension Pass",
+          "locale" : "en_US"
         }
       ],
       "productID" : "lounge_extension_pass",
@@ -47,17 +47,17 @@
     {
       "displayPrice" : "9.99",
       "familyShareable" : false,
-      "internalID" : "6479677231",
+      "internalID" : "6503226508",
       "localizations" : [
-        {
-          "description" : "10 / 25% 할인",
-          "displayName" : "10 likes",
-          "locale" : "ko"
-        },
         {
           "description" : "10 / 25% off",
           "displayName" : "10 likes",
           "locale" : "en_US"
+        },
+        {
+          "description" : "10 / 25% 할인",
+          "displayName" : "10 likes",
+          "locale" : "ko"
         }
       ],
       "productID" : "amoring_likes_10",
@@ -67,7 +67,7 @@
     {
       "displayPrice" : "6.99",
       "familyShareable" : false,
-      "internalID" : "6479399639",
+      "internalID" : "6503225804",
       "localizations" : [
         {
           "description" : "5 / basic",
@@ -87,17 +87,17 @@
     {
       "displayPrice" : "34.99",
       "familyShareable" : false,
-      "internalID" : "6479682077",
+      "internalID" : "6503226376",
       "localizations" : [
-        {
-          "description" : "50 / 50% off",
-          "displayName" : "50 likes",
-          "locale" : "en_US"
-        },
         {
           "description" : "50 / 50% 할인",
           "displayName" : "50 likes",
           "locale" : "ko"
+        },
+        {
+          "description" : "50 / 50% off",
+          "displayName" : "50 likes",
+          "locale" : "en_US"
         }
       ],
       "productID" : "amoring_likes_50",
@@ -107,7 +107,7 @@
     {
       "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "6479865007",
+      "internalID" : "6503226464",
       "localizations" : [
         {
           "description" : "리스트 보기 패스",
@@ -126,10 +126,10 @@
     }
   ],
   "settings" : {
-    "_applicationInternalID" : "6474838531",
-    "_developerTeamID" : "6S83TJN3P8",
+    "_applicationInternalID" : "6503225435",
+    "_developerTeamID" : "294GP7M6QM",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 735122111.18527198,
+    "_lastSynchronizedDate" : 738471910.62594104,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [

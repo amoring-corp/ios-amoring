@@ -48,7 +48,7 @@ struct LogoLoadingView: View {
             
             VStack(spacing: 0) {
                 Spacer()
-                Text("@mellowingfactory")
+                Text("@amoring")
                     .font(regular14Font)
                     .foregroundColor(.yellow350)
                 Text(Constants.version)
@@ -174,7 +174,7 @@ struct LogoLoadingViewAsBG: View {
             
             VStack(spacing: 0) {
                 Spacer()
-                Text("@mellowingfactory")
+                Text("@amoring")
                     .font(regular14Font)
                     .foregroundColor(.yellow350)
                 Text(Constants.version)

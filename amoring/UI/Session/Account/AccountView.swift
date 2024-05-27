@@ -91,45 +91,59 @@ struct AccountView: View {
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                         
+                        let likesAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_5.rawValue }) &&
+                        userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_10.rawValue }) &&
+                        userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_50.rawValue })
+                        let loungeAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue })
+                        let hiddenAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.hidden_mode_pass.rawValue })
+                        let listAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.list_view_pass.rawValue })
                         
-                        MenuTitle(title: "프리미엄 구매하기")
-                        
-                        VStack(spacing: 0) {
-//                            MenuLineLink(title: "쿠폰함") {
-//                                AccountCoupons()
-//                            }
+                        if listAvailable || loungeAvailable || hiddenAvailable || listAvailable {
+                            MenuTitle(title: "프리미엄 구매하기")
                             
-                            MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
-                            
-                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                            
-                            
-                            MenuLineButton(title: "라운지 확장",
-                                           subtitle: userManager.loungePassEnabled() ? ((userManager.user?.loungePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
-                                           fontColor: userManager.loungePassEnabled() ? Color.yellow200 : Color.gray600,
-                                           subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
-                            { userManager.openPurchase(purchaseType: .lounge) }
-                            
-                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                            
-                            
-                            MenuLineButton(title: "프로필 투명모드",
-                                           subtitle: userManager.invisiblePassEnabled() ? ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
-                                           fontColor: userManager.invisiblePassEnabled() ? Color.yellow200 : Color.gray600,
-                                           subFontColor: userManager.invisiblePassEnabled() ? Color.yellow350 : Color.gray300)
-                            { userManager.openPurchase(purchaseType: .transparent) }
-                            
-                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                            
-                            MenuLineButton(title: "리스트 보기",
-                                           subtitle: userManager.visibleReactionsPassEnabled() ? ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
-                                           fontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow200 : Color.gray600,
-                                           subFontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow350 : Color.gray300)
-                            { userManager.openPurchase(purchaseType: .list) }
-                            
+                            VStack(spacing: 0) {
+    //                            MenuLineLink(title: "쿠폰함") {
+    //                                AccountCoupons()
+    //                            }
+                                
+                                if likesAvailable {
+                                    MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
+                                    
+                                    Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                                }
+                                
+                                if loungeAvailable {
+                                    MenuLineButton(title: "라운지 확장",
+                                                   subtitle: userManager.loungePassEnabled() ? ((userManager.user?.loungePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+                                                   fontColor: userManager.loungePassEnabled() ? Color.yellow200 : Color.gray600,
+                                                   subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
+                                    { userManager.openPurchase(purchaseType: .lounge) }
+                                    
+                                    Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                                }
+                                
+                                if hiddenAvailable {
+                                    MenuLineButton(title: "프로필 투명모드",
+                                                   subtitle: userManager.invisiblePassEnabled() ? ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+                                                   fontColor: userManager.invisiblePassEnabled() ? Color.yellow200 : Color.gray600,
+                                                   subFontColor: userManager.invisiblePassEnabled() ? Color.yellow350 : Color.gray300)
+                                    { userManager.openPurchase(purchaseType: .transparent) }
+                                    
+                                    Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                                }
+                                
+                                if listAvailable {
+                                    MenuLineButton(title: "리스트 보기",
+                                                   subtitle: userManager.visibleReactionsPassEnabled() ? ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+                                                   fontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow200 : Color.gray600,
+                                                   subFontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow350 : Color.gray300)
+                                    { userManager.openPurchase(purchaseType: .list) }
+                                }
+                            }
+                            .background(Color.black)
+                            .clipShape(RoundedRectangle(cornerRadius: 14))
                         }
-                        .background(Color.black)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        
                         
                         MenuTitle(title: "서비스 지원")
                         

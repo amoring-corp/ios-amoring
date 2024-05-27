@@ -203,6 +203,23 @@ struct BusinessListView: View {
                 .background(Color.gray1000)
                     
             ) {
+                // TODO: Implement pagination here!
+//                ForEach(0..<20) { num in
+//                                    Text(num.description)
+//                                        .font(.title)
+//                                        .padding()
+//                                        .onAppear {
+//                                            if num >= 19 {
+//                                                userManager.isLoading = true
+//                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                                                    userManager.getBusinesses {
+//                                                        userManager.isLoading = false
+//                                                    }
+//                                                }
+//                                            }
+//                                            print(num)
+//                                        }
+//                                }
                 ForEach(userManager.businesses, id: \.self.id) { business in
                     NavigationLink(destination: {
                         BusinessDetailsView(business: Business(businessInfo: business))

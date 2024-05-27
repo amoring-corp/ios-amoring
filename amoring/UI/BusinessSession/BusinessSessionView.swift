@@ -71,7 +71,7 @@ struct BusinessSessionView: View {
                             
                             let fakeimages = ["person-1", "person-2", "person-3", "person-4"]
                             
-                            if let images = business?.checkedInAvatarUrls {
+                            if let images = business?.checkedInAvatarUrls, images.count > 2 {
                                 let size = geometry.size.width / 2
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: Size.w(16)) {

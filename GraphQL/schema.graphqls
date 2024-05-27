@@ -1,4 +1,5 @@
 """
+
 """
 type Business {
   id: ID!
@@ -59,6 +60,7 @@ input BusinessCreateInput {
 }
 
 """
+
 """
 type BusinessDistrict {
   id: ID!
@@ -68,6 +70,7 @@ type BusinessDistrict {
 }
 
 """
+
 """
 type BusinessHours {
   id: ID!
@@ -85,6 +88,7 @@ input BusinessHoursInput {
 }
 
 """
+
 """
 type BusinessImage {
   id: ID!
@@ -139,6 +143,7 @@ input BusinessUpdateInput {
 }
 
 """
+
 """
 type BusinessesList {
   items: [Business!]!
@@ -146,6 +151,7 @@ type BusinessesList {
 }
 
 """
+
 """
 type CheckIn {
   id: ID!
@@ -168,6 +174,7 @@ enum CheckInStatus {
 }
 
 """
+
 """
 type CheckInToken {
   token: String!
@@ -232,6 +239,7 @@ enum Gender {
 }
 
 """
+
 """
 type Interest {
   id: ID!
@@ -243,6 +251,7 @@ type Interest {
 }
 
 """
+
 """
 type InterestCategory {
   id: ID!
@@ -316,6 +325,7 @@ type PasswordResetRequestResult {
 }
 
 """
+
 """
 type Profile {
   id: ID!
@@ -354,6 +364,7 @@ input ProfileCreateInput {
 }
 
 """
+
 """
 type ProfileImage {
   id: ID!
@@ -416,6 +427,7 @@ enum ReactionType {
 }
 
 """
+
 """
 type Report {
   id: ID!
@@ -462,6 +474,7 @@ File upload type
 scalar Upload
 
 """
+
 """
 type User {
   id: ID!

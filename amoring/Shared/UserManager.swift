@@ -29,6 +29,7 @@ class UserManager: ObservableObject {
     @Published var businessPictures: [PictureModel] = []
     
     @Published var confirmRemoveImageIndex: Int = 0
+    @Published var total: Int = 0
     
     
     init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
@@ -1232,51 +1233,60 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, sort: BusinessSortField? = nil, nearByOnly: Bool? = nil, completion: @escaping () -> Void) {
-        var input: NearLocationInput? = nil
-        var districtsList: [String]? = nil
-        var businessSortBy: BusinessSortBy? = nil
-        if let lat {
-            input = NearLocationInput(InputDict(["lat": lat, "lng": lng]))
-        }
-        if let districts {
-            districtsList = districts
-        }
-        if let sort {
-            businessSortBy = BusinessSortBy(field: .case(sort), order: .case(.asc))
-        }
-        
-        api.fetch(query: QueryBusinessesQuery(near: GraphQLHelper.graphQLNullableFrom(input), districts: GraphQLHelper.graphQLNullableFrom(districtsList), sort: GraphQLHelper.graphQLNullableFrom(businessSortBy), nearByOnly: nearByOnly ?? false, take: .none, skip: .none)) { result in
-            switch result {
-            case .success(let value):
-                guard value.errors == nil else {
-                    print(value.errors as Any)
+    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, sort: BusinessSortField? = nil, nearByOnly: Bool? = nil, take: Int? = nil, skip: Int? = nil, completion: @escaping () -> Void) {
+            var input: NearLocationInput? = nil
+            var districtsList: [String]? = nil
+            var businessSortBy: BusinessSortBy? = nil
+            if let lat {
+                input = NearLocationInput(InputDict(["lat": lat, "lng": lng]))
+            }
+            if let districts {
+                districtsList = districts
+            }
+            if let sort {
+                businessSortBy = BusinessSortBy(field: .case(sort), order: .case(.asc))
+            }
+            
+            api.fetch(query: QueryBusinessesQuery(
+                near: GraphQLHelper.graphQLNullableFrom(input),
+                districts: GraphQLHelper.graphQLNullableFrom(districtsList),
+                sort: GraphQLHelper.graphQLNullableFrom(businessSortBy),
+                nearByOnly: nearByOnly ?? false,
+                take: GraphQLHelper.graphQLNullableFrom(take),
+                skip: GraphQLHelper.graphQLNullableFrom(skip)
+            )) { result in
+                switch result {
+                case .success(let value):
+                    guard value.errors == nil else {
+                        print(value.errors as Any)
+                        completion()
+                        return
+                    }
+                    
+                    guard let data = value.data else {
+                        print("NO DATA!")
+                        completion()
+                        return
+                    }
+                    
+                    
+                    self.businesses = []
+    //                self.businessesInit = []
+                    
+                    for bus in data.businesses.items {
+                        self.businesses.append(bus.fragments.businessInfo)
+                    }
+    //                self.businessesInit = self.businesses
+                    self.total = data.businesses.total
+                    print(self.businesses.map({ $0.id }))
+                    print("total: \(self.total)")
                     completion()
-                    return
-                }
-                
-                guard let data = value.data else {
-                    print("NO DATA!")
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
                     completion()
-                    return
                 }
-                
-                
-                self.businesses = []
-//                self.businessesInit = []
-                
-                for bus in data.businesses.items {
-                    self.businesses.append(bus.fragments.businessInfo)
-                }
-//                self.businessesInit = self.businesses
-                print(self.businesses.map({ $0.id }))
-                completion()
-            case .failure(let error):
-                debugPrint(error.localizedDescription)
-                completion()
             }
         }
-    }
     
     @Published var districts: [District] = []
     func getBusinessDistricts() {
@@ -1340,7 +1350,7 @@ class UserManager: ObservableObject {
 //    }
     
     func getVisibleProfiles() {
-        api.fetch(query: VisibleProfilesQuery()) { result in
+        api.fetch(query: VisibleProfilesQuery(), cachePolicy: .fetchIgnoringCacheCompletely) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1355,7 +1365,8 @@ class UserManager: ObservableObject {
                 
                 let profiles = data.visibleProfiles
                 self.profiles = []
-                
+                print("visible profiles: ")
+                print(profiles.map({ $0?.id }))
 //                self.profiles.append(contentsOf: Dummy.profiles)
 //                print(profiles.map({ $0?.fragments.profileInfo.name }))
                 for profile in profiles {
