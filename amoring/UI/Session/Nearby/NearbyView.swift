@@ -233,7 +233,7 @@ struct BusinessListView: View {
             Spacer(minLength: 200)
         }
     }
-    
+
     var count: some View {
         HStack {
             Text("라운지")

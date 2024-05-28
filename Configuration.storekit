@@ -1,5 +1,5 @@
 {
-  "identifier" : "5F7F8C61",
+  "identifier" : "0CEC278B",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -129,7 +129,7 @@
     "_applicationInternalID" : "6503225435",
     "_developerTeamID" : "294GP7M6QM",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 738471910.62594104,
+    "_lastSynchronizedDate" : 738593236.01297605,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -159,7 +159,10 @@
         "name" : "Subscription Status"
       },
       {
-        "current" : null,
+        "current" : {
+          "index" : 3,
+          "type" : "generic"
+        },
         "enabled" : false,
         "name" : "App Transaction"
       },

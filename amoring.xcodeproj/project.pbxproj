@@ -55,6 +55,7 @@
 		2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */; };
 		2B3FD4722BD7AFC70090BA9D /* CouponDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */; };
 		2B3FD4742BD89A120090BA9D /* YellowBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */; };
+		2B55DA8D2C0609D000174EB5 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 2B55DA8C2C0609D000174EB5 /* Configuration.storekit */; };
 		2B650B302BDA466200066DC0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B2F2BDA466200066DC0 /* LocationManager.swift */; };
 		2B650B342BDF93DC00066DC0 /* NearLocationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B332BDF93DC00066DC0 /* NearLocationInput.swift */; };
 		2B650B382BDFBB1200066DC0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B650B372BDFBB1200066DC0 /* WebView.swift */; };
@@ -224,7 +225,6 @@
 		85F190472B5FAB3C00FA7686 /* AccountEmailSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */; };
 		85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190482B5FAC0500FA7686 /* BorderButton.swift */; };
 		85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */; };
-		85F231B52C045118003D8D35 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 85F231B42C042FE3003D8D35 /* Configuration.storekit */; };
 		85F231B72C04603B003D8D35 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 85F231B62C04603B003D8D35 /* schema.graphqls */; };
 		85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8A2B43EC820023A889 /* BlackButton.swift */; };
 		85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */; };
@@ -386,6 +386,7 @@
 		2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationRedeemUserPasswordResetToken.graphql; sourceTree = "<group>"; };
 		2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailsView.swift; sourceTree = "<group>"; };
 		2B3FD4732BD89A120090BA9D /* YellowBorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowBorderButton.swift; sourceTree = "<group>"; };
+		2B55DA8C2C0609D000174EB5 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		2B650B2F2BDA466200066DC0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		2B650B332BDF93DC00066DC0 /* NearLocationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearLocationInput.swift; sourceTree = "<group>"; };
 		2B650B372BDFBB1200066DC0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -554,7 +555,6 @@
 		85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEmailSuccess.swift; sourceTree = "<group>"; };
 		85F190482B5FAC0500FA7686 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyProfileImage.graphql; sourceTree = "<group>"; };
-		85F231B42C042FE3003D8D35 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		85F231B62C04603B003D8D35 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		85FB6B8A2B43EC820023A889 /* BlackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackButton.swift; sourceTree = "<group>"; };
 		85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerButton.swift; sourceTree = "<group>"; };
@@ -740,7 +740,7 @@
 		850A2FD02B0AE54B003B12B7 = {
 			isa = PBXGroup;
 			children = (
-				85F231B42C042FE3003D8D35 /* Configuration.storekit */,
+				2B55DA8C2C0609D000174EB5 /* Configuration.storekit */,
 				85806C452B22F6800077D12C /* GraphQL */,
 				850A30382B0B236A003B12B7 /* Localizable.xcstrings */,
 				850A2FDB2B0AE54B003B12B7 /* amoring */,
@@ -1403,7 +1403,7 @@
 				85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */,
 				2B6A7D552BC908B30038E48E /* MutationSignInWithKakao.graphql in Resources */,
 				2B2049742B9072EF00E633E3 /* MutationSendMessage.graphql in Resources */,
-				85F231B52C045118003D8D35 /* Configuration.storekit in Resources */,
+				2B55DA8D2C0609D000174EB5 /* Configuration.storekit in Resources */,
 				8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */,
 				85F190412B5F90EE00FA7686 /* MutationDisconnectInterestsFromMyProfile.graphql in Resources */,
 				850A301E2B0AEF41003B12B7 /* Pretendard-Regular.ttf in Resources */,
