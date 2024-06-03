@@ -15,6 +15,7 @@ import NaverThirdPartyLogin
 struct amoringApp: App {
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
+    @AppStorage("appLanguage") var appLanguage = UserDefaults.standard.integer(forKey: "appLanguage")
     @StateObject var notificationController = NotificationController()
 //    @StateObject var scenePhaseHelper = ScenePhaseHelper()
     
@@ -57,7 +58,8 @@ struct amoringApp: App {
 //                .environmentObject(scenePhaseHelper)
                 .environmentObject(notificationController)
                 .preferredColorScheme(.dark)
-                .environment(\.locale, .init(identifier: "ko"))
+//                .environment(\.locale, .init(identifier: "ko"))
+                .environment(\.locale, .init(identifier: languageList[appLanguage].loc))
                 .onAppear {
                     setupUI()
                 }

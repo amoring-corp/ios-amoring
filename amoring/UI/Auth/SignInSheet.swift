@@ -162,3 +162,4 @@ struct SignInSheet: View {
 #Preview {
     SignInSheet(businessSheetPresented: .constant(false))
 }
+

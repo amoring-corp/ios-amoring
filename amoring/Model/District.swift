@@ -17,7 +17,7 @@ struct District: Equatable {
     init(id: String, code: String, name: String, count: Int) {
         self.id = id
         self.code = code
-        self.name = name
+        self.name = name.localized
         self.count = count
     }
     

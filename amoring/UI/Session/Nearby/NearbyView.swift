@@ -74,30 +74,32 @@ enum businessType: CaseIterable {
     case all, club, lounge, bar, pub, kr_bar, jujeob, hoff, izakaya, cafe, festival
     //    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
     func title() -> String {
+        var title = "전체"
         switch self {
         case .all:
-            return "전체"
+            title = "전체"
         case .lounge:
-            return "라운지"
+            title = "라운지"
         case .pub:
-            return "펍"
+            title = "펍"
         case .bar:
-            return "바"
+            title = "바"
         case .kr_bar:
-            return "포차"
+            title = "포차"
         case .club:
-            return "클럽"
+            title = "클럽"
         case .jujeob:
-            return "주점"
+            title = "주점"
         case .hoff:
-            return "호프"
+            title = "호프"
         case .izakaya:
-            return "이자카야"
+            title = "이자카야"
         case .cafe:
-            return "카페"
+            title = "카페"
         case .festival:
-            return "페스티벌"
+            title = "페스티벌"
         }
+        return title.localized
     }
 }
 

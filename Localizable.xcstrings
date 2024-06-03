@@ -33,7 +33,14 @@
 
     },
     "@amoring" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@amoring"
+          }
+        }
+      }
     },
     "/" : {
 
@@ -122,22 +129,64 @@
 
     },
     "• QR코드는 실시간으로 업데이트 되기때문에 이미지는" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• The QR code is updated in real time and will only be valid for two hours."
+          }
+        }
+      }
     },
     "• 대표 주의사항" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
     },
     "• 체크인은 2시간 동안 유효합니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Conditions apply."
+          }
+        }
+      }
     },
     "+" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+"
+          }
+        }
+      }
     },
     "~" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "~"
+          }
+        }
+      }
     },
     "🍸 테이블이 있습니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍸 I have a table."
+          }
+        }
+      }
     },
     "👩🏻" : {
 
@@ -149,7 +198,14 @@
 
     },
     "🙈 no more profiles" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🙈 no more profiles"
+          }
+        }
+      }
     },
     "🙋🏻" : {
 
@@ -158,10 +214,24 @@
 
     },
     "₩ 100,000" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "₩ 100,000"
+          }
+        }
+      }
     },
     "₩ 250,000" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "₩ 250,000"
+          }
+        }
+      }
     },
     "8-16 자의 문자구성" : {
 
@@ -173,10 +243,24 @@
 
     },
     "102-001128-711" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "102-001128-711"
+          }
+        }
+      }
     },
     "2024.05.03" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2024.05.03"
+          }
+        }
+      }
     },
     "➊ 영업시간을 알려주세요." : {
 
@@ -210,19 +294,54 @@
 
     },
     "Basic" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic"
+          }
+        }
+      }
     },
     "Business" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Business"
+          }
+        }
+      }
     },
     "Business Sign IN" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Business Sign IN"
+          }
+        }
+      }
     },
     "DEBUGGING" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DEBUGGING"
+          }
+        }
+      }
     },
     "ERROR" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR"
+          }
+        }
+      }
     },
     "female" : {
       "extractionState" : "manual",
@@ -242,10 +361,24 @@
       }
     },
     "KB 국민은행" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KB Bank"
+          }
+        }
+      }
     },
     "LOGO" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LOGO"
+          }
+        }
+      }
     },
     "male" : {
       "extractionState" : "manual",
@@ -287,13 +420,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Amoring"
+            "value" : "Lounge"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "아모링"
+            "value" : "라운지"
           }
         }
       }
@@ -321,7 +454,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nearby"
+            "value" : "Search Area"
           }
         },
         "ko" : {
@@ -333,28 +466,84 @@
       }
     },
     "New" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Picker here" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picker here"
+          }
+        }
+      }
     },
     "Purchases" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases"
+          }
+        }
+      }
     },
     "QR코드를 스캔하여 체크인해주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please scan the QR code to check in."
+          }
+        }
+      }
     },
     "Sign Up" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        }
+      }
     },
     "smth went wrong!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "smh went wrong!"
+          }
+        }
+      }
     },
     "Your password has been successfully updated" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your password has been successfully updated"
+          }
+        }
+      }
     },
     "가입 전 준비해주세요" : {
 
@@ -422,6 +611,23 @@
     "내 매장" : {
 
     },
+    "내 주변" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "My area"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내 주변"
+          }
+        }
+      }
+    },
     "네" : {
 
     },
@@ -447,7 +653,14 @@
 
     },
     "라운지" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lounges"
+          }
+        }
+      }
     },
     "라운지 모드 활성: " : {
 
@@ -807,7 +1020,14 @@
 
     },
     "전체" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
     },
     "전체동의" : {
 
@@ -855,7 +1075,14 @@
 
     },
     "지역" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
     },
     "직업" : {
 
