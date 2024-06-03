@@ -226,6 +226,7 @@
 		85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190482B5FAC0500FA7686 /* BorderButton.swift */; };
 		85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */; };
 		85F231B72C04603B003D8D35 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 85F231B62C04603B003D8D35 /* schema.graphqls */; };
+		85F231B92C0D6386003D8D35 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 85F231B82C0D6386003D8D35 /* StoreKitTestCertificate.cer */; };
 		85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8A2B43EC820023A889 /* BlackButton.swift */; };
 		85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */; };
 		85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */; };
@@ -556,6 +557,7 @@
 		85F190482B5FAC0500FA7686 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyProfileImage.graphql; sourceTree = "<group>"; };
 		85F231B62C04603B003D8D35 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		85F231B82C0D6386003D8D35 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		85FB6B8A2B43EC820023A889 /* BlackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackButton.swift; sourceTree = "<group>"; };
 		85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerButton.swift; sourceTree = "<group>"; };
 		85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingIntro.swift; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 			isa = PBXGroup;
 			children = (
 				2B55DA8C2C0609D000174EB5 /* Configuration.storekit */,
+				85F231B82C0D6386003D8D35 /* StoreKitTestCertificate.cer */,
 				85806C452B22F6800077D12C /* GraphQL */,
 				850A30382B0B236A003B12B7 /* Localizable.xcstrings */,
 				850A2FDB2B0AE54B003B12B7 /* amoring */,
@@ -1419,6 +1422,7 @@
 				2B2049882B9733F000E633E3 /* BusinessHoursFragment.graphql in Resources */,
 				851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */,
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
+				85F231B92C0D6386003D8D35 /* StoreKitTestCertificate.cer in Resources */,
 				8538D57E2B57AF520040E017 /* QueryProfiles.graphql in Resources */,
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
 				2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */,
