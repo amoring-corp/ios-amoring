@@ -7,13 +7,14 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationName: String = "QueryBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy, $nearByOnly: Boolean!, $take: Int, $skip: Int) { businesses( near: $near districts: $districts sort: $sort nearByOnly: $nearByOnly take: $take skip: $skip ) { __typename items { __typename ...BusinessInfo } total } }"#,
+      #"query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy, $typeId: [String!], $nearByOnly: Boolean!, $take: Int, $skip: Int) { businesses( near: $near districts: $districts sort: $sort typeId: $typeId nearByOnly: $nearByOnly take: $take skip: $skip ) { __typename items { __typename ...BusinessInfo } total } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
   public var near: GraphQLNullable<NearLocationInput>
   public var districts: GraphQLNullable<[String]>
   public var sort: GraphQLNullable<BusinessSortBy>
+  public var typeId: GraphQLNullable<[String]>
   public var nearByOnly: Bool
   public var take: GraphQLNullable<Int>
   public var skip: GraphQLNullable<Int>
@@ -22,6 +23,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
     near: GraphQLNullable<NearLocationInput>,
     districts: GraphQLNullable<[String]>,
     sort: GraphQLNullable<BusinessSortBy>,
+    typeId: GraphQLNullable<[String]>,
     nearByOnly: Bool,
     take: GraphQLNullable<Int>,
     skip: GraphQLNullable<Int>
@@ -29,6 +31,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
     self.near = near
     self.districts = districts
     self.sort = sort
+    self.typeId = typeId
     self.nearByOnly = nearByOnly
     self.take = take
     self.skip = skip
@@ -38,6 +41,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
     "near": near,
     "districts": districts,
     "sort": sort,
+    "typeId": typeId,
     "nearByOnly": nearByOnly,
     "take": take,
     "skip": skip
@@ -53,6 +57,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
         "near": .variable("near"),
         "districts": .variable("districts"),
         "sort": .variable("sort"),
+        "typeId": .variable("typeId"),
         "nearByOnly": .variable("nearByOnly"),
         "take": .variable("take"),
         "skip": .variable("skip")
@@ -94,7 +99,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
         public var id: AmoringAPI.ID { __data["id"] }
         public var ownerId: String? { __data["ownerId"] }
         public var businessName: String? { __data["businessName"] }
-        public var businessType: String? { __data["businessType"] }
+        public var businessType: BusinessType? { __data["businessType"] }
         public var businessIndustry: String? { __data["businessIndustry"] }
         public var businessCategory: String? { __data["businessCategory"] }
         public var businessHours: [BusinessHour?]? { __data["businessHours"] }
@@ -125,6 +130,8 @@ public class QueryBusinessesQuery: GraphQLQuery {
 
           public var businessInfo: BusinessInfo { _toFragment() }
         }
+
+        public typealias BusinessType = BusinessInfo.BusinessType
 
         /// Businesses.Item.BusinessHour
         ///

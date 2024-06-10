@@ -28,6 +28,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Profile": return AmoringAPI.Objects.Profile
     case "CheckIn": return AmoringAPI.Objects.CheckIn
     case "Business": return AmoringAPI.Objects.Business
+    case "BusinessType": return AmoringAPI.Objects.BusinessType
     case "BusinessHours": return AmoringAPI.Objects.BusinessHours
     case "BusinessImage": return AmoringAPI.Objects.BusinessImage
     case "File": return AmoringAPI.Objects.File

@@ -25,7 +25,7 @@ struct UpdateBusinessData {
                 "addressSigunguCode": business.addressSigunguCode,
                 "addressSigunguEnglish": business.addressSigunguEnglish,
                 "addressZonecode": business.addressZonecode,
-                "businessType": business.businessType,
+                "businessTypeId": business.businessType?.id,
                 "businessIndustry": business.businessIndustry,
                 "businessCategory": business.businessCategory,
                 "representativeTitle": business.representativeTitle,
@@ -33,8 +33,8 @@ struct UpdateBusinessData {
                 "phoneNumber": business.phoneNumber,
                 "registrationNumber": business.registrationNumber,
                 "bio": business.bio,
-                "latitude": business.latitude,
-                "longitude": business.longitude,
+                "lat": business.latitude,
+                "lng": business.longitude,
             ])
         } else if let business = businessInfo  {
             return InputDict([
@@ -48,7 +48,7 @@ struct UpdateBusinessData {
                 "addressSigunguCode": business.addressSigunguCode,
                 "addressSigunguEnglish": business.addressSigunguEnglish,
                 "addressZonecode": business.addressZonecode,
-                "businessType": business.businessType,
+                "businessTypeId": business.businessType?.id,
                 "businessIndustry": business.businessIndustry,
                 "businessCategory": business.businessCategory,
                 "representativeTitle": business.representativeTitle,
@@ -56,8 +56,8 @@ struct UpdateBusinessData {
                 "phoneNumber": business.phoneNumber,
                 "registrationNumber": business.registrationNumber,
                 "bio": business.bio,
-                "latitude": business.lat,
-                "longitude": business.lng,
+                "lat": business.lat,
+                "lng": business.lng,
             ])
         } else {
             return InputDict([:])

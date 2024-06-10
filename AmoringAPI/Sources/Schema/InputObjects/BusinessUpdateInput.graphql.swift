@@ -13,7 +13,7 @@ public struct BusinessUpdateInput: InputObject {
   public init(
     ownerId: GraphQLNullable<String> = nil,
     businessName: GraphQLNullable<String> = nil,
-    businessType: GraphQLNullable<String> = nil,
+    businessTypeId: GraphQLNullable<String> = nil,
     businessIndustry: GraphQLNullable<String> = nil,
     businessCategory: GraphQLNullable<String> = nil,
     address: GraphQLNullable<String> = nil,
@@ -37,7 +37,7 @@ public struct BusinessUpdateInput: InputObject {
     __data = InputDict([
       "ownerId": ownerId,
       "businessName": businessName,
-      "businessType": businessType,
+      "businessTypeId": businessTypeId,
       "businessIndustry": businessIndustry,
       "businessCategory": businessCategory,
       "address": address,
@@ -70,9 +70,9 @@ public struct BusinessUpdateInput: InputObject {
     set { __data["businessName"] = newValue }
   }
 
-  public var businessType: GraphQLNullable<String> {
-    get { __data["businessType"] }
-    set { __data["businessType"] = newValue }
+  public var businessTypeId: GraphQLNullable<String> {
+    get { __data["businessTypeId"] }
+    set { __data["businessTypeId"] = newValue }
   }
 
   public var businessIndustry: GraphQLNullable<String> {

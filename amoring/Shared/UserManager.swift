@@ -1233,10 +1233,20 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getBusinesses(lat: Double? = nil, lng: Double? = nil, districts: [String]? = nil, sort: BusinessSortField? = nil, nearByOnly: Bool? = nil, take: Int? = nil, skip: Int? = nil, completion: @escaping () -> Void) {
+    func getBusinesses(
+        lat: Double? = nil,
+        lng: Double? = nil,
+        districts: [String]? = nil,
+        sort: BusinessSortField? = nil,
+        typeId: String? = nil,
+        nearByOnly: Bool? = nil,
+        take: Int? = nil,
+        skip: Int? = nil,
+        completion: @escaping () -> Void) {
             var input: NearLocationInput? = nil
             var districtsList: [String]? = nil
             var businessSortBy: BusinessSortBy? = nil
+            var typeIdList: [String] = []
             if let lat {
                 input = NearLocationInput(InputDict(["lat": lat, "lng": lng]))
             }
@@ -1246,11 +1256,15 @@ class UserManager: ObservableObject {
             if let sort {
                 businessSortBy = BusinessSortBy(field: .case(sort), order: .case(.asc))
             }
+            if let typeId {
+                typeIdList = [typeId]
+            }
             
             api.fetch(query: QueryBusinessesQuery(
                 near: GraphQLHelper.graphQLNullableFrom(input),
                 districts: GraphQLHelper.graphQLNullableFrom(districtsList),
                 sort: GraphQLHelper.graphQLNullableFrom(businessSortBy),
+                typeId: GraphQLHelper.graphQLNullableFrom(typeIdList),
                 nearByOnly: nearByOnly ?? false,
                 take: GraphQLHelper.graphQLNullableFrom(take),
                 skip: GraphQLHelper.graphQLNullableFrom(skip)
@@ -1308,6 +1322,32 @@ class UserManager: ObservableObject {
                 }
                 
                 print(self.businesses.map({ $0.id }))
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+    }
+    
+    @Published var businessTypes: [BusinessTypeModel] = [BusinessTypeModel(id: "ALL", name: "ALL")]
+    func getBusinessTypes() {
+        api.fetch(query: BusinessTypesQuery()) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    return
+                }
+                
+                if let types = data.businessTypes {
+                    self.businessTypes = types.map({ BusinessTypeModel(id: $0.id, name: $0.name) })
+                    self.businessTypes.insert(BusinessTypeModel(id: "ALL", name: "ALL"), at: 0)
+                }
+                print(self.businessTypes)
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }

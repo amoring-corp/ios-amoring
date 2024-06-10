@@ -1,0 +1,6 @@
+query BusinessTypes {
+  businessTypes {
+    id
+    name
+  }
+}

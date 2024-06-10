@@ -16,8 +16,8 @@ struct BusinessOnboardingStep2: View {
     
     @State var businessName: String = ""
     @State var representativeTitle: String = ""
-    @State var businessType: String = ""
-    @State var businessCategory: String = "클럽"
+    @State var businessCategory: String = ""
+    @State var businessType: BusinessTypeModel = BusinessTypeModel()
     @State var address: String = ""
     @State var registrationNumber: String = ""
     @State var phoneNumber: String = ""
@@ -79,10 +79,17 @@ struct BusinessOnboardingStep2: View {
                         
                         PickerButton(title: "분류*") {
 //                            if let businessCategory = controller.business.businessCategory {
-                                Text(businessCategory)
+                            Text(businessType.name ?? "EMPTY")
                                     .foregroundColor(.black)
                                     .font(medium18Font)
-//                            }
+                            }
+//                        }
+                        .onAppear {
+                            if let firstType = userManager.businessTypes.first {
+                                withAnimation {
+                                    self.businessType = firstType
+                                }
+                            }
                         }
                         .onTapGesture {
                             withAnimation {
@@ -374,7 +381,7 @@ struct BusinessOnboardingStep2: View {
                         .frame(maxWidth: .infinity)
                     
                     let pass =
-                    !businessCategory.isEmpty
+                    self.businessType != BusinessTypeModel()
                     && !((controller.business.bio?.isEmpty) == nil)
                     && !phoneNumber.isEmpty
                     //                    && !((controller.business.open?.isEmpty) == nil)
@@ -407,18 +414,13 @@ struct BusinessOnboardingStep2: View {
         }
         .overlay(
             typesSheetPresented ? CustomSheet {
-                Picker("", selection: $businessCategory) {
-                    ForEach(Constants.businessTypes, id: \.self) { option in
-                        Text(option).tag(option)
+                Picker("", selection: $businessType) {
+                    ForEach(userManager.businessTypes, id: \.self) { type in
+                        Text(type.name ?? "").tag(type.id)
                             .foregroundColor(.black)
                     }
                 }
                 .pickerStyle(.wheel)
-                .onAppear {
-                    withAnimation {
-                        controller.business.businessCategory = self.businessCategory
-                    }
-                }
             } : nil
         )
         .overlay(
@@ -440,7 +442,8 @@ struct BusinessOnboardingStep2: View {
     
     private func save() {
         controller.business.phoneNumber = phoneNumber.count >= 1 && selectedCode.count >= 1 ? selectedCode + phoneNumber : nil
-        controller.business.businessCategory = self.businessCategory
+//        controller.business.businessCategory = self.businessCategory
+        controller.business.businessType = self.businessType
         
         
         userManager.upsertMyBusiness(business: controller.business) { error in

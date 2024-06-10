@@ -13,8 +13,8 @@ import AmoringAPI
 
 struct NearbyView: View {
     @EnvironmentObject var navigationController: NavigationController
+    @StateObject var filter = NearbyFilterController()
     @StateObject var locationManager = LocationManager()
-    @State var district: District = District.all
     @State var scrollOffset: CGFloat = 0
     
     var body: some View {
@@ -24,10 +24,10 @@ struct NearbyView: View {
                     TrackableScrollView(contentOffset: $scrollOffset) {
 //                        Text("location status: \(locationManager.statusString)")
 //                        Text("\(locationManager.lastLocation?.coordinate.latitude ?? 0), \(locationManager.lastLocation?.coordinate.longitude ?? 0)")
-                        DistrictsView(selectedChip: $district)
+                        DistrictsView()
                             .environmentObject(locationManager)
                         
-                        BusinessListView(scrollOffset: $scrollOffset, selectedChip: $district)
+                        BusinessListView(scrollOffset: $scrollOffset)
                             .environmentObject(locationManager)
                         
                     }
@@ -56,6 +56,7 @@ struct NearbyView: View {
                 LocationAccessScreen().environmentObject(locationManager)
             }
         }
+        .environmentObject(filter)
     }
 }
 
@@ -70,38 +71,37 @@ struct LocationAccessScreen: View {
     }
 }
 
-enum businessType: CaseIterable {
-    case all, club, lounge, bar, pub, kr_bar, jujeob, hoff, izakaya, cafe, festival
-    //    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
-    func title() -> String {
-        var title = "전체"
-        switch self {
-        case .all:
-            title = "전체"
-        case .lounge:
-            title = "라운지"
-        case .pub:
-            title = "펍"
-        case .bar:
-            title = "바"
-        case .kr_bar:
-            title = "포차"
-        case .club:
-            title = "클럽"
-        case .jujeob:
-            title = "주점"
-        case .hoff:
-            title = "호프"
-        case .izakaya:
-            title = "이자카야"
-        case .cafe:
-            title = "카페"
-        case .festival:
-            title = "페스티벌"
-        }
-        return title.localized
-    }
-}
+
+//enum businessType: CaseIterable {
+//    case all, club, lounge, bar, pub, kr_bar, jujeob, hoff, izakaya, cafe, festival
+//    //    ["클럽", "라운지", "바", "펍", "포차", "주점", "호프", "이자카야", "카페", "페스티벌"]
+//    func title() -> String {
+//        switch self {
+//        case .all:
+//            return "전체"
+//        case .lounge:
+//            return "라운지"
+//        case .pub:
+//            return "펍"
+//        case .bar:
+//            return "바"
+//        case .kr_bar:
+//            return "포차"
+//        case .club:
+//            return "클럽"
+//        case .jujeob:
+//            return "주점"
+//        case .hoff:
+//            return "호프"
+//        case .izakaya:
+//            return "이자카야"
+//        case .cafe:
+//            return "카페"
+//        case .festival:
+//            return "페스티벌"
+//        }
+//    }
+//}
 
 enum businessSorting: CaseIterable {
     case recs, name, distance
@@ -122,10 +122,8 @@ struct BusinessListView: View {
     @EnvironmentObject var navigationController: NavigationController
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var locationManager: LocationManager
+    @EnvironmentObject var filter: NearbyFilterController
     @Binding var scrollOffset: CGFloat
-    @Binding var selectedChip: District
-    @State var type: businessType = .all
-    @State var sorting: businessSorting = .recs
     
     var body: some View {
         LazyVStack(alignment: .center, spacing: 0, pinnedViews: [.sectionHeaders]) {
@@ -146,16 +144,19 @@ struct BusinessListView: View {
                     Spacer()
                     
                     Menu {
-                        Picker(selection: $type, label: EmptyView()) {
-                            ForEach(businessType.allCases, id: \.self) {
-                                Text($0.title())
+                        Picker(selection: $filter.businessType, label: EmptyView()) {
+                            ForEach(userManager.businessTypes, id: \.self) {
+                                Text($0.name ?? "")
                                     .font(regular16Font)
                                     .foregroundColor(.yellow300)
                             }
                         }
+                        .onChange(of: filter.businessType) { type in
+                            action() { }
+                        }
                     } label: {
                         HStack {
-                            Text(type.title())
+                            Text(filter.businessType.name ?? "")
                                 .font(regular16Font)
                             Image(systemName: "chevron.down")
                                 .resizable()
@@ -164,25 +165,32 @@ struct BusinessListView: View {
                         }
                         .frame(minWidth: Size.w(60), alignment: .trailing)
                         .foregroundColor(.yellow300)
+//                        .onAppear {
+//                            withAnimation {
+//                                if let firstType = userManager.businessTypes.first {
+//                                    self.type = firstType
+//                                }
+//                            }
+//                        }
                     }
                     .padding(.trailing, Size.w(12))
                     
                     Divider().frame(height: Size.w(24))
                     
                     Menu {
-                        Picker(selection: $sorting, label: EmptyView()) {
+                        Picker(selection: $filter.sorting, label: EmptyView()) {
                             ForEach(businessSorting.allCases, id: \.self) {
                                 Text($0.title())
                                     .font(regular16Font)
                                     .foregroundColor(.yellow300)
                             }
                         }
-                        .onChange(of: sorting) { sort in
-                            action(district: selectedChip, sort: sort == .name ? .businessName : nil) { }
+                        .onChange(of: filter.sorting) { sort in
+                            action() { }
                         }
                     } label: {
                         HStack {
-                            Text(sorting.title())
+                            Text(filter.sorting.title())
                                 .font(regular16Font)
                             Image(systemName: "chevron.down")
                                 .resizable()
@@ -246,14 +254,16 @@ struct BusinessListView: View {
         .foregroundColor(.yellow300)
     }
     
-    private func action(district: District, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
+    private func action(completion: @escaping () -> Void) {
         let lat = locationManager.lastLocation?.coordinate.latitude
         let lng = locationManager.lastLocation?.coordinate.longitude
+        let type = filter.businessType.id == "ALL" ? nil : filter.businessType.id
+        let sort: BusinessSortField? = filter.sorting == .name ? .businessName : nil
         
-        switch district {
-        case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
+        switch filter.selectedDistrict {
+        case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, typeId: type, completion: completion)
         case District.nearby:
-            userManager.getBusinesses(lat: lat, lng: lng, sort: sort, nearByOnly: true, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, sort: sort, typeId: type, nearByOnly: true, completion: completion)
         case  District.other:
             let index = 4
             var other: [District] = []
@@ -262,9 +272,9 @@ struct BusinessListView: View {
                 other = elementsAfterIndex
                 print("Elements after index \(index):", elementsAfterIndex)
             }
-            userManager.getBusinesses(lat: lat, lng: lng, districts: other.map({ $0.code }), sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: other.map({ $0.code }), sort: sort, typeId: type, completion: completion)
         default:
-            userManager.getBusinesses(lat: lat, lng: lng, districts: [district.code], sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: [filter.selectedDistrict.code], sort: sort, typeId: type, completion: completion)
         }
     }
     
@@ -352,7 +362,7 @@ struct BusinessRow: View {
                     .font(semiBold20Font)
                     .foregroundColor(.gray200)
                 HStack {
-                    Text("\(business.businessCategory ?? "")  |  \(business.addressSigungu ?? "")")
+                    Text("\(business.businessType?.name ?? "")  |  \(business.addressSigungu ?? "")")
                     
                     Spacer()
                  
@@ -399,7 +409,6 @@ struct BusinessRow: View {
 
 struct DistrictsView: View {
     @EnvironmentObject var userManager: UserManager
-    @Binding var selectedChip: District
     
     var body: some View {
         VStack(alignment: .leading, spacing: Size.w(20)) {
@@ -408,18 +417,18 @@ struct DistrictsView: View {
                 .foregroundColor(.yellow300)
             
             HStack(spacing: 0) {
-                DistrictChip(selectedChip: $selectedChip, district: District.nearby)
+                DistrictChip(district: District.nearby)
                     .padding(.trailing, Size.w(12))
                 Divider()
                     .frame(height: Size.w(24))
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        DistrictChip(selectedChip: $selectedChip, district: District.all)
+                        DistrictChip(district: District.all)
                         ForEach(userManager.districts, id: \.self.id) { disctrict in
-                            DistrictChip(selectedChip: $selectedChip, district: disctrict)
+                            DistrictChip(district: disctrict)
                         }
                         if userManager.districts.count > 5 {
-                            DistrictChip(selectedChip: $selectedChip, district: District.other)
+                            DistrictChip(district: District.other)
                         }
                     }.padding(.horizontal, Size.w(12))
                 }
@@ -434,40 +443,42 @@ struct DistrictsView: View {
 struct DistrictChip: View {
     @EnvironmentObject var locationManager: LocationManager
     @EnvironmentObject var userManager: UserManager
-    @Binding var selectedChip: District
+    @EnvironmentObject var filter: NearbyFilterController
     let district: District
     
     var body: some View {
         Text(district.name)
             .font(regular16Font)
-            .foregroundColor(selectedChip == district ? .yellow300 : .yellow600)
+            .foregroundColor(filter.selectedDistrict == district ? .yellow300 : .yellow600)
             .padding(.vertical, Size.w(8))
             .padding(.horizontal, Size.w(20))
-            .background(selectedChip == district ? Color.yellow350.opacity(0.15) : Color.clear)
+            .background(filter.selectedDistrict == district ? Color.yellow350.opacity(0.15) : Color.clear)
             .clipShape(Capsule())
             .overlay(
-                Capsule().stroke(selectedChip == district ? Color.yellow300 : Color.yellow800)
+                Capsule().stroke(filter.selectedDistrict == district ? Color.yellow300 : Color.yellow800)
             )
             .padding(2)
             .onTapGesture {
-                if selectedChip != district {
-                    action(district: district) {
+                if filter.selectedDistrict != district {
+                    
                         withAnimation {
-                            selectedChip = district
+                            filter.selectedDistrict = district
                         }
-                    }
+                    action() {}
                 }
             }
     }
 
-    private func action(district: District, sort: BusinessSortField? = nil, completion: @escaping () -> Void) {
+    private func action(completion: @escaping () -> Void) {
         let lat = locationManager.lastLocation?.coordinate.latitude
         let lng = locationManager.lastLocation?.coordinate.longitude
+        let type = filter.businessType.id == "ALL" ? nil : filter.businessType.id
+        let sort: BusinessSortField? = filter.sorting == .name ? .businessName : nil
         
-        switch district {
-        case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, completion: completion)
+        switch filter.selectedDistrict {
+        case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, typeId: type, completion: completion)
         case District.nearby:
-            userManager.getBusinesses(lat: lat, lng: lng, sort: sort, nearByOnly: true, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, sort: sort, typeId: type, nearByOnly: true, completion: completion)
         case  District.other:
             let index = 4
             var other: [District] = []
@@ -476,9 +487,9 @@ struct DistrictChip: View {
                 other = elementsAfterIndex
                 print("Elements after index \(index):", elementsAfterIndex)
             }
-            userManager.getBusinesses(lat: lat, lng: lng, districts: other.map({ $0.code }), sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: other.map({ $0.code }), sort: sort, typeId: type, completion: completion)
         default:
-            userManager.getBusinesses(lat: lat, lng: lng, districts: [district.code], sort: sort, completion: completion)
+            userManager.getBusinesses(lat: lat, lng: lng, districts: [filter.selectedDistrict.code], sort: sort, typeId: type, completion: completion)
         }
     }
 }

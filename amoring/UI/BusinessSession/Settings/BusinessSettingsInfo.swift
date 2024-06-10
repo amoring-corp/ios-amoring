@@ -9,10 +9,11 @@ import SwiftUI
 
 struct BusinessSettingsInfo: View {
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var notificationController: NotificationController
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
 
-    @State var businessCategory: String = "클럽"
+    @State var businessType: BusinessTypeModel = BusinessTypeModel()
     @State var phoneNumber: String = ""
     @State var bio: String = ""
     
@@ -35,7 +36,7 @@ struct BusinessSettingsInfo: View {
                             .padding(.bottom, Size.w(40))
                         
                             PickerButton(title: "분류*") {
-                                    Text(businessCategory)
+                                Text(businessType.name ?? "")
                                         .foregroundColor(.black)
                                         .font(medium18Font)
                                 
@@ -113,7 +114,7 @@ struct BusinessSettingsInfo: View {
                         .frame(maxWidth: .infinity)
 
                     let pass =
-                    !businessCategory.isEmpty
+                    self.businessType != BusinessTypeModel()
                     && !bio.isEmpty
                     && !phoneNumber.isEmpty
                     
@@ -128,10 +129,15 @@ struct BusinessSettingsInfo: View {
                                 if let business = userManager.user?.business {
                                     var edited = business
                                     edited.bio = self.bio
-                                    edited.businessCategory = self.businessCategory
+                                    edited.businessType = self.businessType
                                     edited.phoneNumber = self.selectedCode + self.phoneNumber
-                                    userManager.upsertMyBusiness(business: edited) { success in
-                                        print(edited)
+                                    userManager.upsertMyBusiness(business: edited) { error in
+                                        if let error {
+                                            print(error)
+                                            notificationController.setNotification(text: error, type: .error)
+                                        }
+                                        
+                                        userManager.user?.business = edited
                                         presentationMode.wrappedValue.dismiss()
                                     }
                                 }
@@ -153,7 +159,8 @@ struct BusinessSettingsInfo: View {
         .navigationBarHidden(true)
         .onAppear {
             self.phoneNumber = String(userManager.user?.business?.phoneNumber?.dropFirst(3) ?? "")
-            self.businessCategory = userManager.user?.business?.businessCategory ?? ""
+            print(userManager.user?.business?.businessType)
+            self.businessType = userManager.user?.business?.businessType ?? BusinessTypeModel()
             self.bio = userManager.user?.business?.bio ?? ""
         }
         .onTapGesture {
@@ -165,9 +172,9 @@ struct BusinessSettingsInfo: View {
         }
         .overlay(
             typesSheetPresented ? CustomSheet {
-                Picker("", selection: $businessCategory) {
-                    ForEach(Constants.businessTypes, id: \.self) { option in
-                        Text(option).tag(option)
+                Picker("", selection: $businessType) {
+                    ForEach(userManager.businessTypes, id: \.self) { type in
+                        Text(type.name ?? "").tag(type.id)
                             .foregroundColor(.black)
                     }
                 }

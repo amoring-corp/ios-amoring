@@ -5,7 +5,7 @@
 
 public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng createdAt updatedAt }"#
+    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType { __typename id name } businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -17,7 +17,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     .field("id", AmoringAPI.ID.self),
     .field("ownerId", String?.self),
     .field("businessName", String?.self),
-    .field("businessType", String?.self),
+    .field("businessType", BusinessType?.self),
     .field("businessIndustry", String?.self),
     .field("businessCategory", String?.self),
     .field("businessHours", [BusinessHour?]?.self),
@@ -46,7 +46,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public var id: AmoringAPI.ID { __data["id"] }
   public var ownerId: String? { __data["ownerId"] }
   public var businessName: String? { __data["businessName"] }
-  public var businessType: String? { __data["businessType"] }
+  public var businessType: BusinessType? { __data["businessType"] }
   public var businessIndustry: String? { __data["businessIndustry"] }
   public var businessCategory: String? { __data["businessCategory"] }
   public var businessHours: [BusinessHour?]? { __data["businessHours"] }
@@ -70,6 +70,24 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public var lng: Double? { __data["lng"] }
   public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
   public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+
+  /// BusinessType
+  ///
+  /// Parent Type: `BusinessType`
+  public struct BusinessType: AmoringAPI.SelectionSet {
+    public let __data: DataDict
+    public init(_dataDict: DataDict) { __data = _dataDict }
+
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessType }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
+      .field("id", AmoringAPI.ID.self),
+      .field("name", String.self),
+    ] }
+
+    public var id: AmoringAPI.ID { __data["id"] }
+    public var name: String { __data["name"] }
+  }
 
   /// BusinessHour
   ///
