@@ -71,6 +71,8 @@ struct SessionFlow: View {
             
             /// sets current business districts from DB
             userManager.getBusinessDistricts()
+            /// sets current business types from DB
+            userManager.getBusinessTypes()
             
             /// gets current businesses from DB
             userManager.getBusinesses {}

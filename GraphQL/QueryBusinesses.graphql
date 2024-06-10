@@ -1,5 +1,5 @@
-query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy, $nearByOnly: Boolean!, $take: Int, $skip: Int) {
-  businesses(near: $near, districts: $districts, sort: $sort, nearByOnly: $nearByOnly, take: $take, skip: $skip) {
+query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy, $typeId: [String!], $nearByOnly: Boolean!, $take: Int, $skip: Int) {
+  businesses(near: $near, districts: $districts, sort: $sort, typeId: $typeId, nearByOnly: $nearByOnly, take: $take, skip: $skip) {
     items {
       ... BusinessInfo
     }

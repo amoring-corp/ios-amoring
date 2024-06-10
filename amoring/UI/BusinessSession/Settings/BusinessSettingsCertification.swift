@@ -29,7 +29,7 @@ struct BusinessSettingsCertification: View {
                     
                     DisabledMenuLine(title: "매장명", text: business?.businessName)
                     DisabledMenuLine(title: "대표자명", text: business?.representativeName)
-                    DisabledMenuLine(title: "업태", text: business?.businessType)
+//                    DisabledMenuLine(title: "업태", text: business?.businessType)
                     DisabledMenuLine(title: "종목", text: business?.businessIndustry)
                     DisabledMenuLine(title: "주소", text: business?.address)
                     DisabledMenuLine(title: "사업자등록번호", text: business?.registrationNumber)

@@ -85,7 +85,7 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
         public var id: AmoringAPI.ID { __data["id"] }
         public var ownerId: String? { __data["ownerId"] }
         public var businessName: String? { __data["businessName"] }
-        public var businessType: String? { __data["businessType"] }
+        public var businessType: BusinessType? { __data["businessType"] }
         public var businessIndustry: String? { __data["businessIndustry"] }
         public var businessCategory: String? { __data["businessCategory"] }
         public var businessHours: [BusinessHour?]? { __data["businessHours"] }
@@ -116,6 +116,8 @@ public class UpdateCheckInStatusMutation: GraphQLMutation {
 
           public var businessInfo: BusinessInfo { _toFragment() }
         }
+
+        public typealias BusinessType = BusinessInfo.BusinessType
 
         /// UpdateCheckInStatus.Business.BusinessHour
         ///

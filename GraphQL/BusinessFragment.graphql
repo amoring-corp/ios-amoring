@@ -2,7 +2,10 @@ fragment BusinessInfo on Business {
   id
   ownerId
   businessName
-  businessType
+  businessType {
+     id
+     name
+  }
   businessIndustry
   businessCategory
   businessHours {

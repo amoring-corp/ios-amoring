@@ -1,12 +1,10 @@
 """
-
 """
 type Business {
   id: ID!
   ownerId: String
   owner: User
   businessName: String
-  businessType: String
   businessIndustry: String
   businessCategory: String
   address: String
@@ -29,6 +27,8 @@ type Business {
   images(take: Int, skip: Int): [BusinessImage]
   businessHours: [BusinessHours]
   activeCheckIns(take: Int, skip: Int, gender: Gender): [CheckIn]!
+  businessTypeId: String
+  businessType: BusinessType
   distance: Int
   createdAt: DateTime
   updatedAt: DateTime
@@ -46,7 +46,7 @@ input BusinessCreateInput {
   addressBname: String
   addressZonecode: String
   addressDetails: String
-  businessType: String
+  businessTypeId: String
   businessIndustry: String
   businessCategory: String
   representativeTitle: String
@@ -60,7 +60,6 @@ input BusinessCreateInput {
 }
 
 """
-
 """
 type BusinessDistrict {
   id: ID!
@@ -70,7 +69,6 @@ type BusinessDistrict {
 }
 
 """
-
 """
 type BusinessHours {
   id: ID!
@@ -88,7 +86,6 @@ input BusinessHoursInput {
 }
 
 """
-
 """
 type BusinessImage {
   id: ID!
@@ -117,10 +114,25 @@ enum BusinessSortField {
   updatedAt
 }
 
+"""
+"""
+type BusinessType {
+  id: ID!
+  name: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+"""
+input BusinessTypeInput {
+  name: String!
+}
+
 input BusinessUpdateInput {
   ownerId: String
   businessName: String
-  businessType: String
+  businessTypeId: String
   businessIndustry: String
   businessCategory: String
   address: String
@@ -143,7 +155,6 @@ input BusinessUpdateInput {
 }
 
 """
-
 """
 type BusinessesList {
   items: [Business!]!
@@ -151,7 +162,6 @@ type BusinessesList {
 }
 
 """
-
 """
 type CheckIn {
   id: ID!
@@ -174,7 +184,6 @@ enum CheckInStatus {
 }
 
 """
-
 """
 type CheckInToken {
   token: String!
@@ -239,7 +248,6 @@ enum Gender {
 }
 
 """
-
 """
 type Interest {
   id: ID!
@@ -251,7 +259,6 @@ type Interest {
 }
 
 """
-
 """
 type InterestCategory {
   id: ID!
@@ -325,7 +332,6 @@ type PasswordResetRequestResult {
 }
 
 """
-
 """
 type Profile {
   id: ID!
@@ -364,7 +370,6 @@ input ProfileCreateInput {
 }
 
 """
-
 """
 type ProfileImage {
   id: ID!
@@ -427,7 +432,6 @@ enum ReactionType {
 }
 
 """
-
 """
 type Report {
   id: ID!
@@ -474,7 +478,6 @@ File upload type
 scalar Upload
 
 """
-
 """
 type User {
   id: ID!
@@ -573,6 +576,9 @@ type Mutation {
   deleteAllBusinessImages(businessId: ID!): [ID!]
   uploadBusinessRegistrationFile(businessId: ID!, file: Upload!): File!
   generateCheckInToken: CheckInToken!
+  createBusinessType(data: BusinessTypeInput!): BusinessType!
+  updateBusinessType(id: ID!, data: BusinessTypeInput!): BusinessType!
+  deleteBusinessType(id: ID!): BusinessType!
   createCheckInByToken(token: String!): CheckIn
   updateCheckInStatus(
     id: ID!
@@ -632,12 +638,15 @@ type Query {
     near: NearLocationInput
     districts: [String!]
     sort: BusinessSortBy
+    typeId: [String!]
     nearByOnly: Boolean
     take: Int
     skip: Int
   ): BusinessesList!
   business(id: ID!): Business
   businessDistricts: [BusinessDistrict!]
+  businessTypes: [BusinessType!]
+  businessType(id: ID!): BusinessType
   activeCheckIn: CheckIn
   conversations: [Conversation!]!
   conversation(id: ID!): Conversation

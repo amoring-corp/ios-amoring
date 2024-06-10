@@ -16,7 +16,7 @@ struct BusinessOnboardingView: View {
     
     @State var name: String = ""
     @State var representativeName: String = ""
-    @State var businessType: String = ""
+    @State var businessCategory: String = ""
     @State var businessIndustry: String = ""
     @State var registrationNumber: String = ""
     @State var addressDetails: String = ""
@@ -74,7 +74,7 @@ struct BusinessOnboardingView: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "사업자등록증의 업태를 입력하세요.", text: $businessType, font: regular18Font)
+                                CustomTextField(placeholder: "사업자등록증의 업태를 입력하세요.", text: $businessCategory, font: regular18Font)
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -230,7 +230,7 @@ struct BusinessOnboardingView: View {
                         let pass =
                         !name.isEmpty
                         && !representativeName.isEmpty
-                        && !businessType.isEmpty
+                        && !businessCategory.isEmpty
                         && !businessIndustry.isEmpty
                         && !((controller.business.address?.isEmpty) == nil)
 //                        && !((controller.business.detailedAddress?.isEmpty) == nil)
@@ -240,7 +240,7 @@ struct BusinessOnboardingView: View {
                         Button(action: {
                             controller.business.businessName = name.count >= 1 ? name : nil
                             controller.business.representativeName = representativeName.count >= 1 ? representativeName : nil
-                            controller.business.businessType = businessType.count >= 1 ? businessType : nil
+                            controller.business.businessCategory = businessCategory.count >= 1 ? businessCategory : nil
                             controller.business.businessIndustry = businessIndustry.count >= 1 ? businessIndustry : nil
                             controller.business.addressDetails = addressDetails
                             controller.business.registrationNumber = registrationNumber.count >= 1 ? registrationNumber : nil

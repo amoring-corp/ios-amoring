@@ -15,7 +15,7 @@ struct Business: Codable, Equatable, Hashable {
     //    var owner: User?
     var businessName: String?
     ///종목
-    var businessType: String?
+    var businessType: BusinessTypeModel?
     ///업태
     var businessIndustry: String?
     var businessCategory: String?
@@ -66,7 +66,7 @@ struct Business: Codable, Equatable, Hashable {
         //        case images
     }
     
-    init(id: String? = nil, ownerId: String? = nil, businessName: String? = nil, businessType: String? = nil, businessIndustry: String? = nil, businessCategory: String? = nil, address: String? = nil, addressBname: String? = nil, addressDetails: String? = nil, addressJibun: String? = nil, addressSido: String? = nil, addressSigungu: String? = nil, addressSigunguCode: String? = nil, addressSigunguEnglish: String? = nil, addressZonecode: String? = nil, latitude: Double? = nil, longitude: Double? = nil, representativeTitle: String? = nil, representativeName: String? = nil, phoneNumber: String? = nil, registrationNumber: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, bio: String? = nil, images: [MutatingImage]? = nil, businessHours: [BusinessHours]? = nil, checkedInProfiles: [Profile]? = nil) {
+    init(id: String? = nil, ownerId: String? = nil, businessName: String? = nil, businessType: BusinessTypeModel? = nil, businessIndustry: String? = nil, businessCategory: String? = nil, address: String? = nil, addressBname: String? = nil, addressDetails: String? = nil, addressJibun: String? = nil, addressSido: String? = nil, addressSigungu: String? = nil, addressSigunguCode: String? = nil, addressSigunguEnglish: String? = nil, addressZonecode: String? = nil, latitude: Double? = nil, longitude: Double? = nil, representativeTitle: String? = nil, representativeName: String? = nil, phoneNumber: String? = nil, registrationNumber: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, bio: String? = nil, images: [MutatingImage]? = nil, businessHours: [BusinessHours]? = nil, checkedInProfiles: [Profile]? = nil) {
         self.id = id
         self.ownerId = ownerId
         self.businessName = businessName
@@ -100,7 +100,7 @@ struct Business: Codable, Equatable, Hashable {
         self.id = businessInfo.id
         self.ownerId = businessInfo.ownerId
         self.businessName = businessInfo.businessName
-        self.businessType = businessInfo.businessType
+        self.businessType = BusinessTypeModel(id: businessInfo.businessType?.id, name: businessInfo.businessType?.name)
         self.businessIndustry = businessInfo.businessIndustry
         self.businessCategory = businessInfo.businessCategory
         self.address = businessInfo.address
@@ -133,7 +133,7 @@ struct Business: Codable, Equatable, Hashable {
         self.id = businessInfo.id
         self.ownerId = businessInfo.ownerId
         self.businessName = businessInfo.businessName
-        self.businessType = businessInfo.businessType
+        self.businessType = BusinessTypeModel(id: businessInfo.businessType?.id, name: businessInfo.businessType?.name)
         self.businessIndustry = businessInfo.businessIndustry
         self.businessCategory = businessInfo.businessCategory
         self.address = businessInfo.address

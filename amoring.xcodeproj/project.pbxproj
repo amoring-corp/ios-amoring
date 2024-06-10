@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B09F68E2C0DF86800112140 /* BusinessTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09F68D2C0DF86800112140 /* BusinessTypeModel.swift */; };
 		2B16C2652BA1CA5B005B5D6B /* ScenePhaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */; };
 		2B1A224C2BA848D600FA352D /* QueryReactions.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B1A224B2BA848D600FA352D /* QueryReactions.graphql */; };
 		2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B20496D2B903AA700E633E3 /* QueryConversations.graphql */; };
@@ -48,6 +49,9 @@
 		2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */; };
 		2B2FADA42B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */; };
 		2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */; };
+		2B364C1A2C169F2700BBE82B /* QueryBusinessTypes.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B364C192C169F2600BBE82B /* QueryBusinessTypes.graphql */; };
+		2B364C1C2C16E9A900BBE82B /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B364C1B2C16E9A900BBE82B /* schema.graphqls */; };
+		2B364C1E2C16EFA400BBE82B /* NearbyFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B364C1D2C16EFA400BBE82B /* NearbyFilterController.swift */; };
 		2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */; };
 		2B3FD4682BD772920090BA9D /* PurchaseFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD4672BD772920090BA9D /* PurchaseFragment.graphql */; };
 		2B3FD46A2BD78D790090BA9D /* AccountCoupons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */; };
@@ -225,7 +229,6 @@
 		85F190472B5FAB3C00FA7686 /* AccountEmailSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */; };
 		85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190482B5FAC0500FA7686 /* BorderButton.swift */; };
 		85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */; };
-		85F231B72C04603B003D8D35 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 85F231B62C04603B003D8D35 /* schema.graphqls */; };
 		85F231B92C0D6386003D8D35 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 85F231B82C0D6386003D8D35 /* StoreKitTestCertificate.cer */; };
 		85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8A2B43EC820023A889 /* BlackButton.swift */; };
 		85FB6B8D2B44D3BB0023A889 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */; };
@@ -296,6 +299,7 @@
 
 /* Begin PBXFileReference section */
 		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B09F68D2C0DF86800112140 /* BusinessTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypeModel.swift; sourceTree = "<group>"; };
 		2B16C25F2BA06D14005B5D6B /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSMobileClientXCF.xcframework; path = "../Downloads/aws-sdk-ios-carthage.framework/AWSMobileClientXCF.xcframework"; sourceTree = "<group>"; };
 		2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePhaseHelper.swift; sourceTree = "<group>"; };
 		2B1A224B2BA848D600FA352D /* QueryReactions.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryReactions.graphql; sourceTree = "<group>"; };
@@ -380,6 +384,9 @@
 		2B2FAD952B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUpdateCheckInStatus.graphql; sourceTree = "<group>"; };
 		2B2FADA32B8DCC5C009CB2C6 /* MutationCheckOutFromActive.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCheckOutFromActive.graphql; sourceTree = "<group>"; };
 		2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReactToProfile.graphql; sourceTree = "<group>"; };
+		2B364C192C169F2600BBE82B /* QueryBusinessTypes.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryBusinessTypes.graphql; sourceTree = "<group>"; };
+		2B364C1B2C16E9A900BBE82B /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B364C1D2C16EFA400BBE82B /* NearbyFilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyFilterController.swift; sourceTree = "<group>"; };
 		2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreatePurchase.graphql; sourceTree = "<group>"; };
 		2B3FD4672BD772920090BA9D /* PurchaseFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PurchaseFragment.graphql; sourceTree = "<group>"; };
 		2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoupons.swift; sourceTree = "<group>"; };
@@ -556,7 +563,6 @@
 		85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEmailSuccess.swift; sourceTree = "<group>"; };
 		85F190482B5FAC0500FA7686 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		85F1904A2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyProfileImage.graphql; sourceTree = "<group>"; };
-		85F231B62C04603B003D8D35 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		85F231B82C0D6386003D8D35 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		85FB6B8A2B43EC820023A889 /* BlackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackButton.swift; sourceTree = "<group>"; };
 		85FB6B8C2B44D3BB0023A889 /* PickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerButton.swift; sourceTree = "<group>"; };
@@ -902,6 +908,7 @@
 			children = (
 				850A30302B0B1CC7003B12B7 /* NearbyView.swift */,
 				851AF8F32B3D2494005A8DEB /* BusinessDetailsView.swift */,
+				2B364C1D2C16EFA400BBE82B /* NearbyFilterController.swift */,
 			);
 			path = Nearby;
 			sourceTree = "<group>";
@@ -1046,7 +1053,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				85F231B62C04603B003D8D35 /* schema.graphqls */,
+				2B364C1B2C16E9A900BBE82B /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1108,6 +1115,7 @@
 				2B3FD46B2BD7970B0090BA9D /* MutationResetUserPasswordReset.graphql */,
 				2B3FD46D2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql */,
 				2B6DD2892BE4DCA000D035C7 /* QueryBusinessDistricts.graphql */,
+				2B364C192C169F2600BBE82B /* QueryBusinessTypes.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1163,6 +1171,7 @@
 				2BF570222BD8B60400587960 /* PurchaseProducts.swift */,
 				2B650B332BDF93DC00066DC0 /* NearLocationInput.swift */,
 				2B6DD2932BEB274500D035C7 /* District.swift */,
+				2B09F68D2C0DF86800112140 /* BusinessTypeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1397,9 +1406,9 @@
 				855207D22BB174C5004F8245 /* MutationDisconnectUserDevice.graphql in Resources */,
 				85769E2F2B707DD00064005D /* MutationDeleteBusinessHours.graphql in Resources */,
 				850A301C2B0AEF41003B12B7 /* Pretendard-ExtraBold.ttf in Resources */,
-				85F231B72C04603B003D8D35 /* schema.graphqls in Resources */,
 				8538D53D2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql in Resources */,
 				855013492B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql in Resources */,
+				2B364C1A2C169F2700BBE82B /* QueryBusinessTypes.graphql in Resources */,
 				8538D57A2B57A5AE0040E017 /* QueryBusinesses.graphql in Resources */,
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
 				2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */,
@@ -1416,6 +1425,7 @@
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
 				2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */,
 				2B6A7D4F2BC5253A0038E48E /* QueryVisibleProfiles.graphql in Resources */,
+				2B364C1C2C16E9A900BBE82B /* schema.graphqls in Resources */,
 				8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */,
 				85769E252B6B7C640064005D /* MutationDeleteMyAllProfileImages.graphql in Resources */,
 				2B2049822B95EC3800E633E3 /* CheckInFragment.graphql in Resources */,
@@ -1582,6 +1592,7 @@
 				850BE9D02B6343A100EC8EAB /* File.swift in Sources */,
 				85FB6B9D2B4785CE0023A889 /* CheckInResult.swift in Sources */,
 				85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */,
+				2B364C1E2C16EFA400BBE82B /* NearbyFilterController.swift in Sources */,
 				2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */,
 				2B2C42D72BA7C90600EA1ACA /* NewMatchNotification.swift in Sources */,
 				8538D5412B50B4CA0040E017 /* ImageHelper.swift in Sources */,
@@ -1696,6 +1707,7 @@
 				85B028A32B3019B500A738AB /* MessagesController.swift in Sources */,
 				85FC20802B0C510100DC1950 /* UserOnboardingBio.swift in Sources */,
 				855013882B7B4AEB00D9D568 /* DepositInfoView.swift in Sources */,
+				2B09F68E2C0DF86800112140 /* BusinessTypeModel.swift in Sources */,
 				8522A6032B2C4BAD008AF703 /* PurchaseLikeWindow.swift in Sources */,
 				2B3FD4742BD89A120090BA9D /* YellowBorderButton.swift in Sources */,
 				850A300F2B0AEDF8003B12B7 /* SessionView.swift in Sources */,
