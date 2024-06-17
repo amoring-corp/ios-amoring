@@ -17,7 +17,7 @@ struct AccountBio: View {
     
     var body: some View {
         VStack {
-            Text("40자까지 작성이 가능해요.\n파워풀한 자기소개 한줄을 부탁드려요!")
+            Text("40자까지 작성이 가능해요.\n파워풀한 자기소개 한줄을 부탁드려요!".localized)
                 .font(regular16Font)
                 .foregroundColor(.gray600)
                 .multilineTextAlignment(.center)

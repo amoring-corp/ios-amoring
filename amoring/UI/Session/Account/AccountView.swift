@@ -87,6 +87,12 @@ struct AccountView: View {
                             MenuLineLink(title: "관심사") {
                                 AccountInterests()
                             }
+                            
+//                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+//                            
+//                            MenuLineLink(title: "쿠폰함") {
+//                                AccountCoupons()
+//                            }
                         }
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -102,12 +108,8 @@ struct AccountView: View {
                             MenuTitle(title: "프리미엄 구매하기")
                             
                             VStack(spacing: 0) {
-    //                            MenuLineLink(title: "쿠폰함") {
-    //                                AccountCoupons()
-    //                            }
-                                
                                 if likesAvailable {
-                                    MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
+                                    MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)" + "개 남음".localized, image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
                                     
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                                 }
@@ -212,7 +214,7 @@ struct MenuTitle: View {
     let title: String
     var color: Color = Color.yellow300
     var body: some View {
-        Text(title)
+        Text(LocalizedStringKey(title))
             .font(medium18Font)
             .foregroundColor(color)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -245,7 +247,7 @@ struct MenuLineLink<Content: View>: View {
 //                }
         }) {
             HStack {
-                Text(title)
+                Text(title.localized)
                     
                 Spacer()
                 
@@ -277,13 +279,13 @@ struct MenuLineButton: View {
                         .frame(width: 18, height: 18)
                         .foregroundColor(fontColor)
                 }
-                Text(title)
+                Text(LocalizedStringKey(title))
                     .font(regular16Font)
                     .foregroundColor(fontColor)
                 Spacer()
                 
                 if let subtitle {
-                    Text(subtitle)
+                    Text(subtitle.localized)
                         .font(regular16Font)
                         .foregroundColor(subFontColor)
                 }

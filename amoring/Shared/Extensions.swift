@@ -73,17 +73,13 @@ extension String {
     
     var localized: String {
         let lang = languageList[UserDefaults.standard.integer(forKey: "appLanguage")].loc
-        print(lang)
         if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
-            print("1")
             let bundle = Bundle(path: path)
             return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
         } else if let path = Bundle.main.path(forResource: "en", ofType: "lproj") {
-            print("2")
             let bundle = Bundle(path: path)
             return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
         } else {
-            print("3")
             return ""
         }
     }

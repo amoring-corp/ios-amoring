@@ -44,7 +44,7 @@ struct MultilineCustomTextField: View {
                 .autocorrectionDisabled()
                 .lineLimit(linelimit)
                 .placeholder(when: text.isEmpty) {
-                    Text(placeholder ?? "")
+                    Text(placeholder?.localized ?? "")
                         .font(regular20Font)
                         .foregroundColor(.gray200)
                 }
@@ -78,7 +78,7 @@ struct CustomSecureField: View {
                     }
                 }
                 .placeholder(when: text.isEmpty) {
-                    Text(placeholder ?? "")
+                    Text(placeholder?.localized ?? "")
                         .font(placeholderFont)
                         .foregroundColor(.gray200)
                 }
@@ -95,7 +95,7 @@ struct CustomSecureField: View {
             Button(action: {
                 show.toggle()
             }) {
-                Text(show ? "숨기기" : "보기")
+                Text(show ? "숨기기".localized : "보기".localized)
                     .font(bold16Font)
                     .foregroundColor(.yellow600)
             }

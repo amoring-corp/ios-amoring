@@ -17,6 +17,28 @@
         }
       }
     },
+    " *3개의 사진은 꼭 " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " at least 3 photos "
+          }
+        }
+      }
+    },
+    " *키와 몸무게 " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " *weight and height "
+          }
+        }
+      }
+    },
     " 에 메시지가 활성화 되었습니다." : {
 
     },
@@ -168,6 +190,17 @@
         }
       }
     },
+    "+ 좋아요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ likes"
+          }
+        }
+      }
+    },
     "~" : {
       "localizations" : {
         "en" : {
@@ -240,7 +273,14 @@
 
     },
     "40자까지 작성이 가능해요.\n파워풀한 자기소개 한줄을 부탁드려요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your self-introduction can be up to 40 characters long.\nMake an impactful impression with your self-introduction!"
+          }
+        }
+      }
     },
     "102-001128-711" : {
       "localizations" : {
@@ -372,6 +412,9 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "LOGO" : {
       "localizations" : {
@@ -563,8 +606,26 @@
     "개" : {
 
     },
+    "개 남음" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " left"
+          }
+        }
+      }
+    },
     "개인정보 보호 방침" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        }
+      }
     },
     "개인정보 취급방침" : {
 
@@ -585,13 +646,27 @@
 
     },
     "계정 삭제" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account"
+          }
+        }
+      }
     },
     "계좌번호" : {
 
     },
     "관심사" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interests"
+          }
+        }
+      }
     },
     "광고 제거" : {
 
@@ -600,16 +675,41 @@
 
     },
     "구매하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase"
+          }
+        }
+      }
     },
     "기본정보" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic information"
+          }
+        }
+      }
     },
     "기억하기" : {
 
     },
     "남성" : {
 
+    },
+    "내 계정" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        }
+      }
     },
     "내 매장" : {
 
@@ -627,6 +727,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "내 주변"
+          }
+        }
+      }
+    },
+    "내 프로필" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Profile"
           }
         }
       }
@@ -652,8 +763,37 @@
     "돌아가기" : {
 
     },
+    "등 기본정보를 알려주세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
+    },
     "등록" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register"
+          }
+        }
+      }
+    },
+    "등록해주셔야 합니다. 그래야 인연을 찾을 확률이 높아져요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "for your profile. Having more photos increases your chances of finding a match."
+          }
+        }
+      }
     },
     "라운지" : {
       "localizations" : {
@@ -674,6 +814,17 @@
     "라운지 체크아웃 시\n프로필이 더 이상 소개되지 않습니다.\n라운지에서 체크아웃 하시겠습니까?" : {
 
     },
+    "라운지 확장" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lounge expansion"
+          }
+        }
+      }
+    },
     "라운지 확장을 위해서는\n비즈니스 멤버십 구독이 필요합니다." : {
 
     },
@@ -684,7 +835,14 @@
 
     },
     "로그아웃" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout"
+          }
+        }
+      }
     },
     "로그아웃 하시면, 라운지 활동이나 다른 멤버로부터의 메시지 알림을 받으실 수 없습니다. 로그아웃 하시겠습니까?" : {
 
@@ -696,7 +854,14 @@
 
     },
     "리스트 보기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View list"
+          }
+        }
+      }
     },
     "리스트 확인하기 >" : {
 
@@ -765,13 +930,27 @@
 
     },
     "문의하기 / 신고하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inquiry / Report"
+          }
+        }
+      }
     },
     "반갑습니다!" : {
 
     },
     "보기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
     },
     "보내기" : {
 
@@ -828,13 +1007,27 @@
 
     },
     "사진" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pictures"
+          }
+        }
+      }
     },
     "사진* (최소 3개이상)" : {
 
     },
     "사진아래 번호 순서로 노출이 됩니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The photos will be displayed in the order that you select them."
+          }
+        }
+      }
     },
     "사진은 최소 3장 이상 필요하며,\n사진아래 번호 순서로 노출이 됩니다." : {
 
@@ -843,7 +1036,14 @@
 
     },
     "삭제" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
     },
     "상세주소*" : {
 
@@ -855,7 +1055,25 @@
 
     },
     "서비스 이용 약관" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and conditions"
+          }
+        }
+      }
+    },
+    "서비스 지원" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service Support"
+          }
+        }
+      }
     },
     "선택하기" : {
 
@@ -867,10 +1085,24 @@
 
     },
     "소개글" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self-introduction"
+          }
+        }
+      }
     },
     "숨기기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide"
+          }
+        }
+      }
     },
     "숫자" : {
 
@@ -989,11 +1221,19 @@
     "인연은 신뢰속에서 시작됩니다.\n회원님을 소개하고 인연을 만들어보세요." : {
 
     },
-    "인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와 몸무게** 등 기본정보를 알려주세요." : {
-
-    },
     "인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와** 몸무게 등 기본정보를 알려주세요." : {
 
+    },
+    "인연은 신뢰속에서 시작됩니다. 회원님의" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please introduce yourself. All relationships begin with trust.\nPlease provide your"
+          }
+        }
+      }
     },
     "인증된 정보의 불가피한 수정이 필요하신 경우\n서비스지원 > 문의하기 이용 바랍니다." : {
 
@@ -1016,8 +1256,26 @@
     "자동로그인" : {
 
     },
+    "저는 코튼같고 클린한 사람입니다 ㅋㅋㅋㅋ몇자냐 생각보다 40자가 길군아." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hi, my name is Amoring. I like edm so I go to many festivals. Let’s rave!"
+          }
+        }
+      }
+    },
     "저장" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
     },
     "저희 서비스는 아직 이성 매칭만 가능해요.\n등록 후 변경은 불가하니 신중하게 입력하세요." : {
 
@@ -1088,7 +1346,14 @@
       }
     },
     "직업" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Job"
+          }
+        }
+      }
     },
     "첨부가능 파일 형식은 Png, Jpg, PDF 입니다.\n파일은 1개만 첨부가 가능하며, 파일 첨부 후 파일을 다시 첨부시 마지막으로 첨부된 파일이 최종 등록됩니다." : {
 
@@ -1103,7 +1368,14 @@
 
     },
     "쿠폰함" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coupons"
+          }
+        }
+      }
     },
     "쿠폰함이 비어있습니다." : {
 
@@ -1118,10 +1390,61 @@
 
     },
     "프로필 사진 추가" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a profile picture"
+          }
+        }
+      }
+    },
+    "프로필 투명모드" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Control who sees you"
+          }
+        }
+      }
+    },
+    "프로필에" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must choose"
+          }
+        }
+      }
     },
     "프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!" : {
 
+    },
+    "프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\\n그래야 인연을 찾을 확률이 높아져요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must choose at least 3 photos for your profile. Having more photos increases your chances of finding a match."
+          }
+        }
+      }
+    },
+    "프리미엄 구매하기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase premium"
+          }
+        }
+      }
     },
     "플랜" : {
 
@@ -1142,7 +1465,14 @@
 
     },
     "회원가입을 위해 최소 3개의 사진이 필요합니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 photos are required to continue."
+          }
+        }
+      }
     },
     "회원님에 대한 인상을 남길 수 있는\n파워풀한 자기소개 한줄을 부탁드려요!" : {
 

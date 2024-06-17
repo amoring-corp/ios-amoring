@@ -28,7 +28,7 @@ struct CustomNavigationView: View {
                 
                 HStack {
                     Spacer()
-                    Text(title)
+                    Text(title.localized)
                         .font(medium20Font)
                         .foregroundColor(foregroundColor)
                     Spacer()
@@ -55,7 +55,7 @@ struct CustomNavigationViewLogout: View {
                 HStack {
                     Spacer()
                     Button(action: action) {
-                        Text("로그아웃")
+                        Text("로그아웃".localized)
                             .font(semiBold16Font)
                             .foregroundColor(.black)
                     }

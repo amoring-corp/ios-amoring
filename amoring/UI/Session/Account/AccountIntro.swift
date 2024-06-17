@@ -30,7 +30,7 @@ struct AccountIntro: View {
                 CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() }, foregroundColor: Color.yellow300, dividerColor: Color.gray900, bg: Color.gray1000)
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와 몸무게** 등 기본정보를 알려주세요.")
+                        (Text("인연은 신뢰속에서 시작됩니다. 회원님의".localized) + Text(" *키와 몸무게 ".localized).bold() + Text("등 기본정보를 알려주세요.".localized))
                             .font(regular16Font)
                             .foregroundColor(.gray600)
                             .lineSpacing(5)
@@ -38,9 +38,9 @@ struct AccountIntro: View {
                             .padding(.horizontal, Size.w(14))
                             .padding(.top, Size.w(40))
                             .padding(.bottom, Size.w(40))
-                        
+                        continue here...
                         VStack(alignment: .leading) {
-                            Text("직업")
+                            Text("직업".localized)
                                 .font(regular16Font)
                                 .foregroundColor(.gray200)
                                 .padding(.leading, Size.w(14))
