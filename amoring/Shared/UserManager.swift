@@ -1429,7 +1429,7 @@ class UserManager: ObservableObject {
     @Published var purchaseType: PurchaseModel.type? = nil
     @Published var products: [Product] = []
     @Published var purchasedIDs: [String] = []
-    @Published var selectedPlan: PurchaseProduct = .amoring_likes_5
+    @Published var selectedPlan: PurchaseProduct = .test_likes_5
     
     func openPurchase(purchaseType: PurchaseModel.type) {
         switch purchaseType {

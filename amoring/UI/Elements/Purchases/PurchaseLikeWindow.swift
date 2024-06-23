@@ -66,7 +66,7 @@ struct PurchaseLikePlan: View {
         .offset(y: Size.w(userManager.selectedPlan.rawValue == product.id ? -21 : 0))
         .onTapGesture {
             withAnimation(.bouncy) {
-                userManager.selectedPlan = PurchaseProduct(rawValue: product.id) ?? .amoring_likes_5
+                userManager.selectedPlan = PurchaseProduct(rawValue: product.id) ?? .test_likes_5
             }
         }
     }

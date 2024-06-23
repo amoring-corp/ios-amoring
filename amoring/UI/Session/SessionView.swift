@@ -104,7 +104,8 @@ struct SessionFlow: View {
     //            if self.messagesController.conversations.isEmpty {
                     userManager.getConversations { conversations in
                         if let conversations {
-                            self.messagesController.conversations = conversations.compactMap({ Conversation(conversationInfo: $0) })
+                            self.messagesController.conversations = conversations.compactMap({
+                                Conversation(conversationInfo: $0) })
                         }
                     }
     //            }

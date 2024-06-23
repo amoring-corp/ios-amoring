@@ -1,13 +1,13 @@
 {
-  "identifier" : "6F1E4833",
+  "identifier" : "DC664AF7",
   "nonRenewingSubscriptions" : [
 
   ],
   "products" : [
     {
-      "displayPrice" : "10000",
+      "displayPrice" : "6.99",
       "familyShareable" : false,
-      "internalID" : "6503226520",
+      "internalID" : "6479863961",
       "localizations" : [
         {
           "description" : "Hidden mode pass",
@@ -25,19 +25,19 @@
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "5000",
+      "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "6503226679",
+      "internalID" : "6479869259",
       "localizations" : [
-        {
-          "description" : "라운지 확장 패스",
-          "displayName" : "라운지 확장 패스",
-          "locale" : "ko"
-        },
         {
           "description" : "Lounge Extension Pass",
           "displayName" : "Lounge Extension Pass",
           "locale" : "en_US"
+        },
+        {
+          "description" : "라운지 확장 패스",
+          "displayName" : "라운지 확장 패스",
+          "locale" : "ko"
         }
       ],
       "productID" : "lounge_extension_pass",
@@ -45,19 +45,19 @@
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "15000",
+      "displayPrice" : "9.99",
       "familyShareable" : false,
-      "internalID" : "6503226508",
+      "internalID" : "6479677231",
       "localizations" : [
-        {
-          "description" : "10 / 25% off",
-          "displayName" : "10 likes",
-          "locale" : "en_US"
-        },
         {
           "description" : "10 / 25% 할인",
           "displayName" : "10 likes",
           "locale" : "ko"
+        },
+        {
+          "description" : "10 / 25% off",
+          "displayName" : "10 likes",
+          "locale" : "en_US"
         }
       ],
       "productID" : "amoring_likes_10",
@@ -65,39 +65,34 @@
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "10000",
+      "displayPrice" : "6.99",
       "familyShareable" : false,
-      "internalID" : "6503225804",
+      "internalID" : "6504473034",
       "localizations" : [
-        {
-          "description" : "5 / basic",
-          "displayName" : "5 likes",
-          "locale" : "en_US"
-        },
         {
           "description" : "5 / 최소금액",
           "displayName" : "5 likes",
           "locale" : "ko"
         }
       ],
-      "productID" : "amoring_likes_5",
+      "productID" : "test_likes_5",
       "referenceName" : "Purchase 5 likes",
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "50000",
+      "displayPrice" : "34.99",
       "familyShareable" : false,
-      "internalID" : "6503226376",
+      "internalID" : "6479682077",
       "localizations" : [
-        {
-          "description" : "50 / 50% 할인",
-          "displayName" : "50 likes",
-          "locale" : "ko"
-        },
         {
           "description" : "50 / 50% off",
           "displayName" : "50 likes",
           "locale" : "en_US"
+        },
+        {
+          "description" : "50 / 50% 할인",
+          "displayName" : "50 likes",
+          "locale" : "ko"
         }
       ],
       "productID" : "amoring_likes_50",
@@ -105,9 +100,9 @@
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "5000",
+      "displayPrice" : "3.99",
       "familyShareable" : false,
-      "internalID" : "6503226464",
+      "internalID" : "6479865007",
       "localizations" : [
         {
           "description" : "리스트 보기 패스",
@@ -126,10 +121,12 @@
     }
   ],
   "settings" : {
-    "_askToBuyEnabled" : true,
+    "_applicationInternalID" : "6474838531",
+    "_developerTeamID" : "6S83TJN3P8",
     "_failTransactionsEnabled" : false,
-    "_locale" : "ko",
-    "_storefront" : "KOR",
+    "_lastSynchronizedDate" : 740715596.32159305,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
     "_storeKitErrors" : [
       {
         "current" : null,
@@ -137,10 +134,7 @@
         "name" : "Load Products"
       },
       {
-        "current" : {
-          "index" : 1,
-          "type" : "purchase"
-        },
+        "current" : null,
         "enabled" : false,
         "name" : "Purchase"
       },
@@ -160,10 +154,7 @@
         "name" : "Subscription Status"
       },
       {
-        "current" : {
-          "index" : 3,
-          "type" : "generic"
-        },
+        "current" : null,
         "enabled" : false,
         "name" : "App Transaction"
       },
@@ -187,10 +178,6 @@
   "subscriptionGroups" : [
 
   ],
-  "subscriptionOffersKeyPair" : {
-    "id" : "ECA75B4F",
-    "privateKey" : "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQge1u/BpfezUhVbgmiGRBCYW1xARHJLN+iCA3uiJaQIgOgCgYIKoZIzj0DAQehRANCAATo/xQg3lE4ClF+Egh4HWAWjJi1gPW8nDfORm8HP7TPOFAiXinJDpi3GghWyHEZ+s2PFxkspaIwQHu68VM5N4NS"
-  },
   "version" : {
     "major" : 3,
     "minor" : 0

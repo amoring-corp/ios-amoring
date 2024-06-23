@@ -91,7 +91,7 @@ struct AccountView: View {
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                         
-                        let likesAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_5.rawValue }) &&
+                        let likesAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.test_likes_5.rawValue }) &&
                         userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_10.rawValue }) &&
                         userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_50.rawValue })
                         let loungeAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue })
@@ -106,7 +106,7 @@ struct AccountView: View {
     //                                AccountCoupons()
     //                            }
                                 
-                                if likesAvailable {
+                                if likesAvailable && userManager.user?.profile?.gender != .female {
                                     MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
                                     
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
