@@ -18,7 +18,7 @@ struct YellowButton: View {
                 ProgressView().tint(.black)
             } else {
                 // "저장"
-                Text(title)
+                Text(title.localized)
             }
         }
             .font(medium18Font)

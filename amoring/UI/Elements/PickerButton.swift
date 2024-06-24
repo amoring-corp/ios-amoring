@@ -15,14 +15,14 @@ struct PickerButton<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let title {
-                Text(title)
+                Text(title.localized)
                     .font(regular16Font)
                     .foregroundColor(titleColor)
                     .padding(.leading, Size.w(14))
             }
             HStack {
                 ZStack {
-                    Text("선택하기")
+                    Text("선택하기".localized)
                         .foregroundColor(.gray400)
                     content()
                         .font(medium18Font)
@@ -53,7 +53,7 @@ struct SmallPickerButton<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let title {
-                Text(title)
+                Text(title.localized)
                     .font(regular16Font)
                     .foregroundColor(.black)
                     .padding(.leading, Size.w(14))

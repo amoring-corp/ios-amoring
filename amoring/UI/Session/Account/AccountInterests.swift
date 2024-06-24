@@ -22,7 +22,7 @@ struct AccountInterests: View {
                 CustomNavigationView(offset: $contentOffset, title: "관심사", back: { self.presentationMode.wrappedValue.dismiss() }, foregroundColor: Color.yellow300, dividerColor: Color.gray900, bg: Color.gray1000)
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("흥미있는 것들을 최대 7개까지 골라주세요. 서로의 관심사를 알면 더 쉽게 대화를 시작할 수 있어요!")
+                        Text("흥미있는 것들을 최대 7개까지 골라주세요. 서로의 관심사를 알면 더 쉽게 대화를 시작할 수 있어요!".localized)
                             .font(regular16Font)
                             .foregroundColor(.gray600)
                             .lineSpacing(5)

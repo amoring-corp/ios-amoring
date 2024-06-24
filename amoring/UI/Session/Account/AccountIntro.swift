@@ -38,7 +38,7 @@ struct AccountIntro: View {
                             .padding(.horizontal, Size.w(14))
                             .padding(.top, Size.w(40))
                             .padding(.bottom, Size.w(40))
-                        continue here...
+
                         VStack(alignment: .leading) {
                             Text("직업".localized)
                                 .font(regular16Font)

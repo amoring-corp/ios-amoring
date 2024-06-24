@@ -21,7 +21,7 @@ struct AccountEmail: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                Text("무슨 일이신가요?\n아래에 남겨주시면 답변해 드리겠습니다.")
+                Text("무슨 일이신가요?\n아래에 남겨주시면 답변해 드리겠습니다.".localized)
                     .font(regular16Font)
                     .foregroundColor(.gray600)
                     .multilineTextAlignment(.center)
@@ -77,7 +77,7 @@ struct AccountEmail: View {
         )
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(success ? "접수완료" : "문의 / 신고하기")
+                Text(success ? "접수완료".localized : "문의 / 신고하기".localized)
                     .font(medium20Font)
                     .foregroundColor(.yellow300)
             }
@@ -94,7 +94,7 @@ struct AccountEmail: View {
     @ViewBuilder
     private func typeButton(isReport: Bool) -> some View {
         let selected = isReport == self.isReport
-        Text(isReport ? "신고하기" : "문의하기")
+        Text(isReport ? "신고하기".localized : "문의하기".localized)
             .font(regular16Font)
             .foregroundColor(selected ? .yellow300 : .yellow600)
             .frame(maxWidth: .infinity)
