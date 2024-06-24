@@ -117,7 +117,11 @@ struct AccountView: View {
                                                    subtitle: userManager.loungePassEnabled() ? ((userManager.user?.loungePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
                                                    fontColor: userManager.loungePassEnabled() ? Color.yellow200 : Color.gray600,
                                                    subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
-                                    { userManager.openPurchase(purchaseType: .lounge) }
+                                    {
+                                        if !userManager.loungePassEnabled() {
+                                            userManager.openPurchase(purchaseType: .lounge)
+                                        }
+                                    }
                                     
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                                 }
@@ -127,7 +131,11 @@ struct AccountView: View {
                                                    subtitle: userManager.invisiblePassEnabled() ? ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
                                                    fontColor: userManager.invisiblePassEnabled() ? Color.yellow200 : Color.gray600,
                                                    subFontColor: userManager.invisiblePassEnabled() ? Color.yellow350 : Color.gray300)
-                                    { userManager.openPurchase(purchaseType: .transparent) }
+                                    {
+                                        if !userManager.invisiblePassEnabled() {
+                                            userManager.openPurchase(purchaseType: .transparent)
+                                        }
+                                    }
                                     
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                                 }
@@ -137,7 +145,11 @@ struct AccountView: View {
                                                    subtitle: userManager.visibleReactionsPassEnabled() ? ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
                                                    fontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow200 : Color.gray600,
                                                    subFontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow350 : Color.gray300)
-                                    { userManager.openPurchase(purchaseType: .list) }
+                                    {
+                                        if !userManager.visibleReactionsPassEnabled() {
+                                            userManager.openPurchase(purchaseType: .list)
+                                        }
+                                    }
                                 }
                             }
                             .background(Color.black)

@@ -254,7 +254,7 @@ struct SwipibleProfileVIew: View {
                     }
                     userManager.profiles.removeLast()
                     if hasLiked {
-                        if userManager.user?.usedLikesCount ?? 0 >= userManager.user?.maxLikes ?? 10 {
+                        if userManager.user?.usedLikesCount ?? 0 < userManager.user?.maxLikes ?? 10 {
                             withAnimation {
                                 userManager.user?.usedLikesCount += 1
                             }

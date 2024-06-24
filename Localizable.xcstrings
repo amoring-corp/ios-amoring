@@ -284,19 +284,19 @@
         }
       }
     },
-    "navi.AMORING" : {
+    "navi.LOUNGE" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Amoring"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "아모링"
+            "value" : "라운지"
           }
         }
       }

@@ -98,7 +98,7 @@ enum TabBarType: Int, CaseIterable {
         case .nearby:
             return "navi.NEARBY"
         case .amoring:
-            return "navi.AMORING"
+            return "navi.LOUNGE"
         case .messages:
             return "navi.MESSAGES"
         case .account:

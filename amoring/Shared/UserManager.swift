@@ -975,6 +975,7 @@ class UserManager: ObservableObject {
             case .success(let value):
                 guard value.errors == nil else {
                     print(value.errors as Any)
+                    print("errors")
                     completion(nil)
                     return
                 }
@@ -989,6 +990,7 @@ class UserManager: ObservableObject {
                 print("numbers of conversations: \(data.conversations)")
                 completion(data.conversations.compactMap({ $0.fragments.conversationInfo }))
             case .failure(let error):
+                print("faliure")
                 debugPrint(error.localizedDescription)
                 completion(nil)
             }
@@ -1394,6 +1396,7 @@ class UserManager: ObservableObject {
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
+                    print("errors")
                     print(value.errors as Any)
                     return
                 }
@@ -1419,6 +1422,7 @@ class UserManager: ObservableObject {
                 }
                 
             case .failure(let error):
+                print("faliure")
                 debugPrint(error.localizedDescription)
             }
         }
@@ -1498,9 +1502,11 @@ class UserManager: ObservableObject {
 //    }
     
     func purchase(completion: @escaping (String?) -> Void) {
-        Task.init(priority: .background) {
+        self.isLoading = true
+        Task.init(priority: .high) {
             guard let product = products.first(where: { $0.id == self.selectedPlan.rawValue }) else {
                 completion("no products")
+                self.isLoading = false
                 return
             }
             print(product.description)
@@ -1520,28 +1526,34 @@ class UserManager: ObservableObject {
                             self.purchasedIDs.append(transaction.productID)
                             self.createPurchase(transactionId: String(transaction.id)) { error, user in
                                 self.onPurchaseSuccess(user: user)
+                                self.isLoading = false
                                 completion(error)
                             }
                         }
                     case .unverified(_, let error):
                         print("unverified error: \(error)")
+                        self.isLoading = false
                         completion(error.localizedDescription)
                         break
                     }
                 case .userCancelled:
                     print("canceled")
+                    self.isLoading = false
                     completion("canceled")
                     break
                 case .pending:
                     print("pending...")
+                    self.isLoading = false
                     completion("pending...")
                     break
                 @unknown default:
+                    self.isLoading = false
                     completion("unknown error")
                     break
                 }
             } catch {
                 print("There's an error purchasing products. \(error.localizedDescription)")
+                self.isLoading = false
                 completion(error.localizedDescription)
             }
         }

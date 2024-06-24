@@ -255,7 +255,7 @@ extension Optional where Wrapped == TimeInterval {
 extension TimeInterval {
     func toPassedTime() -> String {
         if self < 61 {
-            return "지금"
+            return "방금 전"
         } else if self > 86400 {
             return "만료됨"
         } else {

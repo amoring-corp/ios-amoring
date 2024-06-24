@@ -1885,7 +1885,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"amoring/Preview Content\"";
-				DEVELOPMENT_TEAM = 294GP7M6QM;
+				DEVELOPMENT_TEAM = 6S83TJN3P8;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1909,7 +1909,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.socialpoint.amoring;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
 				PRODUCT_NAME = Amoring;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

@@ -64,7 +64,7 @@ struct UserOnboardingIntro: View {
                             }
                             .padding(.bottom, Size.w(30))
                             
-                            PickerButton(title: "키") {
+                            PickerButton(title: "키*") {
                                 if let height = controller.profile.height {
                                     Text("\(Int(height).description)cm")
                                 }
@@ -166,7 +166,7 @@ struct UserOnboardingIntro: View {
                         .padding(.horizontal, Size.w(32))
                         .padding(.top, Size.w(25))
                         
-                        let pass = !controller.profile.height.isNil && !controller.profile.weight.isNil
+                        let pass = !controller.profile.height.isNil
                         
                         Button(action: {
                             if pass {

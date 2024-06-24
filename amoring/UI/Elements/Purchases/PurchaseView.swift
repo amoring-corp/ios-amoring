@@ -108,11 +108,19 @@ struct PurchaseView: View {
                         }
                     }
                 }) {
-                    Text("구매하기")
-                        .font(semiBold22Font)
-                        .foregroundColor(.yellow200)
-                        .padding(.vertical, Size.w(24))
-                        .frame(maxWidth: .infinity)
+                    if userManager.isLoading {
+                        ProgressView()
+                            .tint(.white)
+                            .padding(.vertical, Size.w(24))
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        Text("구매하기")
+                            .font(semiBold22Font)
+                            .foregroundColor(.yellow200)
+                            .padding(.vertical, Size.w(24))
+                            .frame(maxWidth: .infinity)
+                    }
+                    
                 }
                 .background(Color.black)
                 

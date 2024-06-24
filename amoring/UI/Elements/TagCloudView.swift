@@ -28,7 +28,7 @@ struct TagCloudView: View {
     private func generateContent(in g: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
-        let filteredTags = self.tags.filter({ $0 != nil })
+        let filteredTags = self.tags.filter({ $0 != nil && $0 != "" })
         
         return ZStack(alignment: .topLeading) {
             ForEach(filteredTags, id: \.self) { tag in

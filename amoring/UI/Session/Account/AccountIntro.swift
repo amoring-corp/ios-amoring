@@ -69,7 +69,7 @@ struct AccountIntro: View {
                             }
                         }
                         
-                        PickerButton(title: "몸무게*", titleColor: .gray200) {
+                        PickerButton(title: "몸무게", titleColor: .gray200) {
                                 Text("\(Int(weight).description)kg")
                             
                         }
@@ -142,8 +142,7 @@ struct AccountIntro: View {
                     .padding(.horizontal, Size.w(32))
                     .padding(.top, Size.w(25))
                     
-//                    let pass = !controller.profile.height.isNil && !controller.profile.weight.isNil
-                    let pass = true
+                    let pass = userManager.user?.profile?.height != nil
                     
                     Button(action: {
                         userManager.user?.profile?.height = self.height

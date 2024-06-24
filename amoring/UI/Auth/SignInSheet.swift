@@ -51,7 +51,8 @@ struct SignInSheet: View {
                             : nil
                              
                         )
-                    Spacer().frame(maxWidth: Size.w(20))
+                    Spacer()
+//                        .frame(maxWidth: Size.w(20))
                     Image("SNS-apple")
                         .resizable()
                         .scaledToFit()
@@ -62,7 +63,8 @@ struct SignInSheet: View {
                             lastProvider == .apple ?
                             SignInTooltip(provider: .apple) : nil
                         )
-                    Spacer().frame(maxWidth: Size.w(20))
+                    Spacer()
+//                        .frame(maxWidth: Size.w(20))
                     Image("SNS-kakao")
                         .resizable()
                         .scaledToFit()
@@ -73,7 +75,8 @@ struct SignInSheet: View {
                             lastProvider == .kakao ?
                             SignInTooltip(provider: .kakao) : nil
                         )
-                    Spacer().frame(maxWidth: Size.w(20))
+                    Spacer()
+//                        .frame(maxWidth: Size.w(20))
                     Image("SNS-naver")
                         .resizable()
                         .scaledToFit()
@@ -85,31 +88,19 @@ struct SignInSheet: View {
                             lastProvider == .naver ?
                             SignInTooltip(provider: .naver) : nil
                         )
-                    Spacer().frame(maxWidth: Size.w(20))
-                    Image("SNS-facebook")
-                        .resizable()
-                        .scaledToFit()
-                        .onTapGesture {
-                            withAnimation {
-//                                sessionManager.appState = .session(user: User(id: "dummy"))
-                            }
-                        }
-                        .overlay(
-                            lastProvider == .facebook ?
-                            SignInTooltip(provider: .facebook) : nil
-                        )
-                    //                    Button(action: goNext) {
-                    //                        Text("Facebook")
-                    //                    }
-                    //                    ThirdPartyProvider.shared.googleButton()
-                    //                    ThirdPartyProvider.shared.appleButton()
-                    //
-                    //                    HStack(spacing: 20) {
-                    //                        Button(action: goNext) {
-                    //                            Text("Naver")
-                    //                        }
-                    //                        ThirdPartyProvider.shared.kakaoButton()
-                    //                    }
+//                    Spacer().frame(maxWidth: Size.w(20))
+//                    Image("SNS-facebook")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .onTapGesture {
+//                            withAnimation {
+////                                sessionManager.appState = .session(user: User(id: "dummy"))
+//                            }
+//                        }
+//                        .overlay(
+//                            lastProvider == .facebook ?
+//                            SignInTooltip(provider: .facebook) : nil
+//                        )
                 }
                 .frame(maxWidth: UIScreen.main.bounds.width - Size.w(60), maxHeight: Size.w(54))
                 
