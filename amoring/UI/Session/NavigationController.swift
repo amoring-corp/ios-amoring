@@ -9,6 +9,8 @@ import SwiftUI
 
 class NavigationController: ObservableObject {
     @Published var barAppear: Bool = true
+    @Published var goToBusinessDetails = false
+    @Published var goToUserDetails = false
     
     func hideBar() {
         withAnimation {
@@ -17,8 +19,10 @@ class NavigationController: ObservableObject {
     }
     
     func showBar() {
-        withAnimation {
-            barAppear = true
+        if !goToBusinessDetails && !goToUserDetails {
+            withAnimation {
+                barAppear = true
+            }
         }
     }
 }

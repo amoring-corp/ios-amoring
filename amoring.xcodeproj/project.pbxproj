@@ -220,6 +220,7 @@
 		85E8E9402B3140580054EBCE /* ListOfConversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E93F2B3140580054EBCE /* ListOfConversations.swift */; };
 		85E8E9422B3140850054EBCE /* ListOfPeopleLikesLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */; };
 		85E8E9442B3145390054EBCE /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E8E9432B3145390054EBCE /* ConversationView.swift */; };
+		85EE623D2C2966F900E32CC2 /* ProfileDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EE623C2C2966F900E32CC2 /* ProfileDetailsView.swift */; };
 		85F190392B5F643100FA7686 /* AccountPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F190382B5F643100FA7686 /* AccountPhoto.swift */; };
 		85F1903B2B5F70EF00FA7686 /* AccountBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F1903A2B5F70EF00FA7686 /* AccountBio.swift */; };
 		85F1903D2B5F820000FA7686 /* AccountIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F1903C2B5F820000FA7686 /* AccountIntro.swift */; };
@@ -553,6 +554,7 @@
 		85E8E93F2B3140580054EBCE /* ListOfConversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfConversations.swift; sourceTree = "<group>"; };
 		85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfPeopleLikesLink.swift; sourceTree = "<group>"; };
 		85E8E9432B3145390054EBCE /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		85EE623C2C2966F900E32CC2 /* ProfileDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailsView.swift; sourceTree = "<group>"; };
 		85F190382B5F643100FA7686 /* AccountPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPhoto.swift; sourceTree = "<group>"; };
 		85F1903A2B5F70EF00FA7686 /* AccountBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBio.swift; sourceTree = "<group>"; };
 		85F1903C2B5F820000FA7686 /* AccountIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountIntro.swift; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 				85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */,
 				85B028A42B301A2B00A738AB /* PeopleLikesView.swift */,
 				85B028A22B3019B500A738AB /* MessagesController.swift */,
+				85EE623C2C2966F900E32CC2 /* ProfileDetailsView.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -1672,6 +1675,7 @@
 				855013552B749A1100D9D568 /* YellowButton.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
+				85EE623D2C2966F900E32CC2 /* ProfileDetailsView.swift in Sources */,
 				851AF8FA2B3E9F3D005A8DEB /* SignInSheet.swift in Sources */,
 				85FC20902B0C514400DC1950 /* ImagePicker.swift in Sources */,
 				8538D5222B4E1C500040E017 /* BusinessSignUpEmail.swift in Sources */,

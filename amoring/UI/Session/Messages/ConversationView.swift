@@ -14,11 +14,11 @@ struct ConversationView: View, KeyboardReadable {
     @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var amoringController: AmoringController
+    @EnvironmentObject var navigationController: NavigationController
     @State var newMessage = ""
     @State var controlPresented = false
     @State var reportAlertPresented = false
     @State var deleteAlertPresented = false
-    @State var goToBusinessDetails = false
     
     var body: some View {
         if let conversation = controller.selectedConversation {
@@ -167,14 +167,28 @@ struct ConversationView: View, KeyboardReadable {
         let business = controller.selectedConversation?.checkIns.first(where: { $0.profileId != userManager.user?.profile?.id })?.business
         
         VStack {
-            AsyncImage(url: URL(string: url), content: { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            }, placeholder: {ProgressView()})
+                AsyncImage(url: URL(string: url), content: { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                }, placeholder: {ProgressView()})
             .frame(width: Size.w(64), height: Size.w(64))
             .clipShape(Circle())
             .padding(.top, Size.w(30))
+//            .onTapGesture {
+//                if business != nil {
+//                    navigationController.goToUserDetails = true
+//                }
+//            }
+            .background(
+                NavigationLink(isActive: $navigationController.goToUserDetails, destination: {
+                    
+//                        ProfileDetailsView(profile: profileInfo)
+                    
+                }, label: { EmptyView() })
+                .isDetailLink(false)
+                .opacity(0)
+            )
             
             VStack(spacing: 10) {
                     (Text("\(business?.addressSigungu ?? ""), \(business?.businessName ?? "")")
@@ -184,18 +198,18 @@ struct ConversationView: View, KeyboardReadable {
                     )
                     .onTapGesture {
                         if business != nil {
-                            goToBusinessDetails = true
+                            navigationController.goToBusinessDetails = true
                         }
                     }
                     .background(
-                        NavigationLink(isActive: $goToBusinessDetails, destination: {
+                        NavigationLink(isActive: $navigationController.goToBusinessDetails, destination: {
                             BusinessDetailsView(business: Business(businessInfo: business!.fragments.businessInfo))
                         }, label: { EmptyView() })
                         .isDetailLink(false)
                         .opacity(0)
                     )
                     .onDisappear {
-                        if !goToBusinessDetails {
+                        if !navigationController.goToBusinessDetails && !navigationController.goToUserDetails {
                             DispatchQueue.main.async {
                                 controller.selectedConversation = nil
                                 controller.goToConversation = false

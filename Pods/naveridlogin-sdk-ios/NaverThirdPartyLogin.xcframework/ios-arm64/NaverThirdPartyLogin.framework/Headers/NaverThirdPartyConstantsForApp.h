@@ -32,8 +32,8 @@ typedef enum {
     OK
 } OAuthLoginState;
 
-#define kServiceAppUrlScheme    @"https://amoring-be.antonmaker.com/purchase-hook/ios"
+#define kServiceAppUrlScheme    @"https://amoring-be.antonmaker.com/naver-callback"
 
-#define kConsumerKey            @"AHo_nAzjTU9agyq6uYsR"
-#define kConsumerSecret         @"pD80HofVRM"
+#define kConsumerKey            @"hUQdqfvA4NNaVr6tLvSS"
+#define kConsumerSecret         @"DlQ5afDzVe"
 #define kServiceAppName         @"Amoring"

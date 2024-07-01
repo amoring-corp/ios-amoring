@@ -12,6 +12,7 @@ struct Conversation: Hashable {
     var id: String
     var status: GraphQLEnum<ConversationStatus>?
     var participants: [MutatingUser]
+//    var companionInfo: ProfileInfo
     var checkIns: [CheckInInfo]
     var messages: [Message]
     var createdAt: Date?

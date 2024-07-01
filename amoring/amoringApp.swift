@@ -19,7 +19,7 @@ struct amoringApp: App {
 //    @StateObject var scenePhaseHelper = ScenePhaseHelper()
     
     init() {
-        KakaoSDK.initSDK(appKey: "88a121ae97540f56f106e7f52609022c")
+        KakaoSDK.initSDK(appKey: "0489ce9b77b8476eeebcc7461a9b3166")
         naverSDKinit()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in

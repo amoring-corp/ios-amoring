@@ -11,6 +11,7 @@ import CachedAsyncImage
 
 struct BusinessDetailsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var navigationController: NavigationController
     @State var showPhotoViewer = false
     @State var selection: Int = 0
     @State var showAlert: Bool = false
@@ -189,7 +190,6 @@ struct BusinessDetailsView: View {
             )
             .animation(.default, value: showPhotoViewer)
             .onAppear {
-                
                 getBusinessHours()
             }
         
