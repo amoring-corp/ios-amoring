@@ -108,7 +108,7 @@ enum businessSorting: CaseIterable {
     func title() -> String {
         switch self {
         case .recs:
-            return "추천순"
+            return "유저순"
         case .name:
             return "이름순"
         case .distance:
@@ -357,9 +357,18 @@ struct BusinessRow: View {
             )
             
             VStack(alignment: .leading, spacing: Size.w(10)) {
-                Text(business.businessName ?? "")
-                    .font(semiBold20Font)
-                    .foregroundColor(.gray200)
+                HStack {
+                    Text(business.businessName ?? "")
+                        .font(semiBold20Font)
+                        .foregroundColor(.gray200)
+                    
+                    Spacer()
+                    
+                    Text((business.activeCheckInCount?.description ?? 0.description) + "명")
+                        .font(regular16Font)
+                        .foregroundColor(.gray600)
+                }
+                
                 HStack {
                     Text("\(business.businessType?.name ?? "")  |  \(business.addressSigungu ?? "")")
                     

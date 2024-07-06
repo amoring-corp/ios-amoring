@@ -801,7 +801,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func createCheckInByToken(token: String, completion: @escaping (String?, String?, String?) -> Void) {
+    func createCheckInByToken(token: String, completion: @escaping (String?, AmoringAPI.BusinessInfo?, String?) -> Void) {
         self.isLoading = true
         
         api.perform(mutation: CreateCheckInByTokenMutation(token: token)) { result in
@@ -825,7 +825,8 @@ class UserManager: ObservableObject {
                 print(data.createCheckInByToken?.id as Any)
                 
                 self.isLoading = false
-                completion(nil, data.createCheckInByToken?.business?.businessName, data.createCheckInByToken?.id)
+                completion(nil, data.createCheckInByToken?.business?.fragments.businessInfo, data.createCheckInByToken?.id)
+                
             case .failure(let error):
                 debugPrint(error.localizedDescription)
                 self.isLoading = false
@@ -1287,14 +1288,11 @@ class UserManager: ObservableObject {
                     
                     
                     self.businesses = []
-    //                self.businessesInit = []
-                    
                     for bus in data.businesses.items {
                         self.businesses.append(bus.fragments.businessInfo)
                     }
-    //                self.businessesInit = self.businesses
                     self.total = data.businesses.total
-                    print(self.businesses.map({ $0.id }))
+                    
                     print("total: \(self.total)")
                     completion()
                 case .failure(let error):
@@ -1330,7 +1328,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    @Published var businessTypes: [BusinessTypeModel] = [BusinessTypeModel(id: "ALL", name: "ALL")]
+    @Published var businessTypes: [BusinessTypeModel] = [BusinessTypeModel(id: "ALL", name: "전체")]
     func getBusinessTypes() {
         api.fetch(query: BusinessTypesQuery()) { result in
             switch result {
@@ -1347,7 +1345,7 @@ class UserManager: ObservableObject {
                 
                 if let types = data.businessTypes {
                     self.businessTypes = types.map({ BusinessTypeModel(id: $0.id, name: $0.name) })
-                    self.businessTypes.insert(BusinessTypeModel(id: "ALL", name: "ALL"), at: 0)
+                    self.businessTypes.insert(BusinessTypeModel(id: "ALL", name: "전체"), at: 0)
                 }
                 print(self.businessTypes)
             case .failure(let error):

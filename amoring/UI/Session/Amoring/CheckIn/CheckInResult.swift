@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct CheckInResult: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -19,6 +20,7 @@ struct CheckInResult: View {
     
     let businessName: String
     let id: String
+    var image: String?
     
     var body: some View {
         //        if let resultString = navigator.resultString {
@@ -41,14 +43,21 @@ struct CheckInResult: View {
                 .foregroundColor(.yellow300)
                 .padding(.top, Size.w(12))
             
-            // pass image from business ?
-            Image("channel-lounge-profile")
-                .frame(width: Size.w(90), height: Size.w(90))
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14).stroke(Color.yellow700)
-                )
-                .padding(Size.w(40))
+            CachedAsyncImage(url: URL(string: image ?? ""), content: { cont in
+                cont
+                    .resizable()
+                    .scaledToFill()
+            }, placeholder: {
+                ZStack {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                }
+            })
+            .frame(width: Size.w(90), height: Size.w(90))
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .overlay(
+                RoundedRectangle(cornerRadius: 14).stroke(Color.yellow700)
+            )
+            .padding(Size.w(40))
             
             HStack {
                 Image(systemName: hasTable ? "checkmark.square" : "square")
@@ -128,7 +137,7 @@ struct CheckInResult: View {
                                     amoringController.checkIn = checkIn
                                 }
                                 
-//                                self.presentationMode.wrappedValue.dismiss()
+                                //                                self.presentationMode.wrappedValue.dismiss()
                             }
                         }
                     }
@@ -157,16 +166,16 @@ struct CheckInResult: View {
                     .foregroundColor(.yellow300)
             }
         }
-        .navigationBarItems(trailing:
-                                Button(action: {
-            
-        }) {
-            Image("ic-info")
-                .resizable()
-                .scaledToFit()
-                .frame(width: Size.w(32), height: Size.w(32))
-        }
-        )
+//        .navigationBarItems(trailing:
+//                                Button(action: {
+//            
+//        }) {
+//            Image("ic-info")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: Size.w(32), height: Size.w(32))
+//        }
+//        )
         //        }
     }
 }

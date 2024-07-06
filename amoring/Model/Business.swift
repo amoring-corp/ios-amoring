@@ -45,6 +45,7 @@ struct Business: Codable, Equatable, Hashable {
     
     var checkedInProfiles: [Profile]?
     var checkedInAvatarUrls: [String]?
+    var activeCheckInCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -66,7 +67,7 @@ struct Business: Codable, Equatable, Hashable {
         //        case images
     }
     
-    init(id: String? = nil, ownerId: String? = nil, businessName: String? = nil, businessType: BusinessTypeModel? = nil, businessIndustry: String? = nil, businessCategory: String? = nil, address: String? = nil, addressBname: String? = nil, addressDetails: String? = nil, addressJibun: String? = nil, addressSido: String? = nil, addressSigungu: String? = nil, addressSigunguCode: String? = nil, addressSigunguEnglish: String? = nil, addressZonecode: String? = nil, latitude: Double? = nil, longitude: Double? = nil, representativeTitle: String? = nil, representativeName: String? = nil, phoneNumber: String? = nil, registrationNumber: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, bio: String? = nil, images: [MutatingImage]? = nil, businessHours: [BusinessHours]? = nil, checkedInProfiles: [Profile]? = nil) {
+    init(id: String? = nil, ownerId: String? = nil, businessName: String? = nil, businessType: BusinessTypeModel? = nil, businessIndustry: String? = nil, businessCategory: String? = nil, address: String? = nil, addressBname: String? = nil, addressDetails: String? = nil, addressJibun: String? = nil, addressSido: String? = nil, addressSigungu: String? = nil, addressSigunguCode: String? = nil, addressSigunguEnglish: String? = nil, addressZonecode: String? = nil, latitude: Double? = nil, longitude: Double? = nil, representativeTitle: String? = nil, representativeName: String? = nil, phoneNumber: String? = nil, registrationNumber: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, bio: String? = nil, images: [MutatingImage]? = nil, businessHours: [BusinessHours]? = nil, checkedInProfiles: [Profile]? = nil, activeCheckInCount: Int? = nil) {
         self.id = id
         self.ownerId = ownerId
         self.businessName = businessName
@@ -127,6 +128,7 @@ struct Business: Codable, Equatable, Hashable {
         self.businessHours = businessInfo.businessHours == nil ? [] : businessInfo.businessHours!.map {
             BusinessHours(data: $0!) }
         self.checkedInAvatarUrls = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ $0?.profile?.avatarUrl ?? "" })
+        self.activeCheckInCount = businessInfo.activeCheckIns.count
     }
     
     init(businessInfo: BusinessInfo) {
@@ -161,5 +163,6 @@ struct Business: Codable, Equatable, Hashable {
             BusinessHours(data: $0!) }
 //        self.checkedInProfiles = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ Profile(profile: $0!.profile!) })
         self.checkedInAvatarUrls = businessInfo.activeCheckIns.isEmpty ? [] : businessInfo.activeCheckIns.map({ $0?.profile?.avatarUrl ?? "" })
+        self.activeCheckInCount = businessInfo.activeCheckIns.count
     }
 }

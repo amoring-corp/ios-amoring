@@ -26,7 +26,7 @@ struct UserOnboardingBio: View {
                 .padding(.top, Size.w(56))
                 .padding(.bottom, Size.w(10))
             
-            Text("회원님에 대한 인상을 남길 수 있는\n파워풀한 자기소개 한줄을 부탁드려요!")
+            Text("회원님에 대한 인상을 남길 수 있는\n파워풀한 자기소개 한줄을 부탁드려요 (최대 40자)")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))

@@ -26,7 +26,7 @@ struct AccountBio: View {
                 .padding(.bottom, Size.w(40))
             
    
-            MultilineCustomTextField(placeholder: "저는 코튼같고 클린한 사람입니다 ㅋㅋㅋㅋ몇자냐 생각보다 40자가 길군아.", text: $bio)
+            MultilineCustomTextField(placeholder: "예) 등산과 자전거를 즐기는 아웃도어 매니아. 주말을 함께 즐겨요!", text: $bio)
             
             Spacer()
                 .onChange(of: bio, perform: { newValue in

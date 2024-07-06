@@ -5,7 +5,7 @@
 
 public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType { __typename id name } businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng createdAt updatedAt }"#
+    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType { __typename id name } businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename id profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -124,9 +124,11 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
+      .field("id", AmoringAPI.ID.self),
       .field("profile", Profile?.self),
     ] }
 
+    public var id: AmoringAPI.ID { __data["id"] }
     public var profile: Profile? { __data["profile"] }
 
     /// ActiveCheckIn.Profile

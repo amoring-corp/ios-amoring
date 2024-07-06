@@ -17,6 +17,7 @@ struct CheckInView: View {
     @State var openResult = false
     @State var businessName: String = ""
     @State var id: String = ""
+    @State var image: String? = nil
     
     /// height of bottom bar + padding
     let bottomSpacing = Size.w(75) + Size.w(16)
@@ -33,9 +34,9 @@ struct CheckInView: View {
                 .border(Color.yellow600)
             
             VStack(alignment: .leading, spacing: Size.w(7)) {
-                Text("• QR코드는 실시간으로 업데이트 되기때문에 이미지는")
-                Text("• 체크인은 2시간 동안 유효합니다.")
-                Text("• 대표 주의사항")
+                Text("• 체크인은 3시간 동안 유효해요.")
+                Text("• 유효기간 만료 후에는 QR코드를 재스캔해주세요.")
+                Text("• 다른 매장에서 이용시, 체크 아웃 후 이용해주세요.")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(light14Font)
@@ -45,7 +46,7 @@ struct CheckInView: View {
             Spacer()
             
             NavigationLink(isActive: $openResult, destination: {
-                CheckInResult(businessName: businessName, id: self.id)
+                CheckInResult(businessName: businessName, id: self.id, image: self.image)
                     .onAppear(perform: navigationController.hideBar)
                     .onDisappear(perform: navigationController.showBar)
             }) {
@@ -62,10 +63,11 @@ struct CheckInView: View {
     func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
         case .success(let result):
-            userManager.createCheckInByToken(token: result.string) { error, businessName, id in
-                if let businessName, let id {
-                    self.businessName = businessName
-                    self.id = id
+            userManager.createCheckInByToken(token: result.string) { error, business, id in
+                if let business {
+                    self.businessName = business.businessName ?? ""
+                    self.id = id ?? ""
+                    self.image = business.images?.first?.map({ $0.file?.url ?? "" })
                     openResult = true
                 }
                 if let error {
