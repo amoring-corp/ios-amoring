@@ -201,6 +201,7 @@
 		85B028A12B2FE7B300A738AB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A02B2FE7B300A738AB /* PurchaseController.swift */; };
 		85B028A32B3019B500A738AB /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A22B3019B500A738AB /* MessagesController.swift */; };
 		85B028A52B301A2B00A738AB /* PeopleLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B028A42B301A2B00A738AB /* PeopleLikesView.swift */; };
+		85B583C82C3BB09900D9EEC2 /* AccountPhotoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B583C72C3BB09900D9EEC2 /* AccountPhotoSettings.swift */; };
 		85D0DECF2B352AE90029DA5D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 85D0DECE2B352AE90029DA5D /* GoogleSignIn */; };
 		85D0DED12B352AE90029DA5D /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 85D0DED02B352AE90029DA5D /* GoogleSignInSwift */; };
 		85D0DED42B3534840029DA5D /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 85D0DED32B3534840029DA5D /* KakaoSDKAuth */; };
@@ -540,6 +541,7 @@
 		85B028A02B2FE7B300A738AB /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		85B028A22B3019B500A738AB /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		85B028A42B301A2B00A738AB /* PeopleLikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleLikesView.swift; sourceTree = "<group>"; };
+		85B583C72C3BB09900D9EEC2 /* AccountPhotoSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPhotoSettings.swift; sourceTree = "<group>"; };
 		85D0DEDA2B3564530029DA5D /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		85D0DEE12B3BA9000029DA5D /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
 		85D26F642B1F07C000E3C55F /* SwipibleProfileVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipibleProfileVIew.swift; sourceTree = "<group>"; };
@@ -941,6 +943,7 @@
 			isa = PBXGroup;
 			children = (
 				850A30362B0B1CF0003B12B7 /* AccountView.swift */,
+				85B583C72C3BB09900D9EEC2 /* AccountPhotoSettings.swift */,
 				85F190382B5F643100FA7686 /* AccountPhoto.swift */,
 				85F1903A2B5F70EF00FA7686 /* AccountBio.swift */,
 				85F1903C2B5F820000FA7686 /* AccountIntro.swift */,
@@ -1654,6 +1657,7 @@
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
 				855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
+				85B583C82C3BB09900D9EEC2 /* AccountPhotoSettings.swift in Sources */,
 				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,
 				2BF570232BD8B60400587960 /* PurchaseProducts.swift in Sources */,

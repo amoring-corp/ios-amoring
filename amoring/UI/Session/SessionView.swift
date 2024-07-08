@@ -62,61 +62,79 @@ struct SessionFlow: View {
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
-            /// sets current interests from DB
-            userManager.getInterests()
-            
-            
-            /// in App Purchases
-            userManager.fetchProducts()
-            
             /// sets current business districts from DB
             userManager.getBusinessDistricts()
             /// sets current business types from DB
             userManager.getBusinessTypes()
-            
-            /// gets current businesses from DB
-            userManager.getBusinesses {}
-            
-            if userManager.user?.profile != nil {
-                /// getting current active check in for Amoring page
-                userManager.activeCheckIn { activeCheckIn in
-                    if let activeCheckIn {
-                        userManager.getReactions { error, reactions in
-                            if let error {
-                                notificationController.setNotification(text: error, type: .error)
-                            } else {
-                                messagesController.reactions = reactions
+        }
+    }
+}
+
+struct SessionView: View {
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var messagesController: MessagesController
+    @EnvironmentObject var amoringController: AmoringController
+    
+    @Binding var selectedIndex: Int
+    
+    var body: some View {
+            NavigatorView(selectedIndex: $selectedIndex) { index in
+                getTabView(selectedIndex: $selectedIndex, index: index)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                /// sets current interests from DB
+                userManager.getInterests()
+                
+                /// in App Purchases
+                userManager.fetchProducts()
+                
+                /// gets current businesses from DB
+                userManager.getBusinesses {}
+                
+                if userManager.user?.profile != nil {
+                    /// getting current active check in for Amoring page
+                    userManager.activeCheckIn { activeCheckIn in
+                        if let activeCheckIn {
+                            userManager.getReactions { error, reactions in
+                                if let error {
+                                    notificationController.setNotification(text: error, type: .error)
+                                } else {
+                                    messagesController.reactions = reactions
+                                }
+                            }
+                            
+    //                        withAnimation {
+    //                            if let maxLikes = userManager.user?.profile?.maxLikes {
+    //                                userManager.maxLikes = maxLikes
+    //                            }
+    //                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
+    //                                userManager.usedLikesCount = usedLikesCount
+    //                            }
+    //                        }
+                        }
+                        amoringController.checkIn = activeCheckIn
+                    }
+                    
+        //            if self.messagesController.conversations.isEmpty {
+                        userManager.getConversations { conversations in
+                            if let conversations {
+                                self.messagesController.conversations = conversations.compactMap({
+                                    Conversation(conversationInfo: $0) })
                             }
                         }
-                        
-//                        withAnimation {
-//                            if let maxLikes = userManager.user?.profile?.maxLikes {
-//                                userManager.maxLikes = maxLikes
-//                            }
-//                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
-//                                userManager.usedLikesCount = usedLikesCount
-//                            }
-//                        }
-                    }
-                    amoringController.checkIn = activeCheckIn
+        //            }
+                    
+                    // MARK: all subscriptions
+                    subscriptions()
                 }
-                
-    //            if self.messagesController.conversations.isEmpty {
-                    userManager.getConversations { conversations in
-                        if let conversations {
-                            self.messagesController.conversations = conversations.compactMap({
-                                Conversation(conversationInfo: $0) })
-                        }
-                    }
-    //            }
-                
-                // MARK: all subscriptions
-                subscriptions()
             }
+            .onDisappear(perform: unsubscribe)
         }
-        .onDisappear(perform: unsubscribe)
-    }
-    
+        
     private func goToCurrentMessage(newMessage: MessageInfo) {
         DispatchQueue.main.async {
             self.selectedIndex = 2
@@ -141,7 +159,7 @@ struct SessionFlow: View {
 //                if scenePhaseHelper.scenePhase != .active {
 //                    notificationController.setInnerPushNotification(newMessage: newMessage)
 //                    notificationController.onTapOnPush = { goToCurrentMessage(newMessage: newMessage) }
-//                    
+//
 //                } else {
 //                    if !self.messagesController.goToConversation {
 //                        notificationController.setNotification(title: newMessage.sender?.profile?.name, text: newMessage.body, type: .message, action: { goToCurrentMessage(newMessage: newMessage) } )
@@ -197,20 +215,6 @@ struct SessionFlow: View {
                 messagesController.conversations.removeAll(where: { $0.id == id })
             }
         }
-    }
-}
-
-struct SessionView: View {
-    @EnvironmentObject var userManager: UserManager
-    @Binding var selectedIndex: Int
-    
-    var body: some View {
-        
-            NavigatorView(selectedIndex: $selectedIndex) { index in
-                getTabView(selectedIndex: $selectedIndex, index: index)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .navigationBarTitleDisplayMode(.inline)
 //            .safeAreaInset(edge: .top, content: {
 //                Color.clear
 //                    .frame(height: 0)
@@ -220,6 +224,8 @@ struct SessionView: View {
 //            })
     }
     
+
+
     @ViewBuilder
     func getTabView(selectedIndex: Binding<Int>, index: Int) -> some View {
 //        NavigationStackBackport.NavigationStack(path: $navigator.path) {

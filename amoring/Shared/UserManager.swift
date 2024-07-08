@@ -30,6 +30,8 @@ class UserManager: ObservableObject {
     
     @Published var confirmRemoveImageIndex: Int = 0
     @Published var total: Int = 0
+        // TODO: NEED BACKEND VARIABLE IN USER TABLE!
+    @Published var blurring: Bool = false
     
     
     init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
@@ -1347,7 +1349,7 @@ class UserManager: ObservableObject {
                     self.businessTypes = types.map({ BusinessTypeModel(id: $0.id, name: $0.name) })
                     self.businessTypes.insert(BusinessTypeModel(id: "ALL", name: "전체"), at: 0)
                 }
-                print(self.businessTypes)
+                print("Business types count: \(self.businessTypes.count)")
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }

@@ -11,6 +11,7 @@ class NavigationController: ObservableObject {
     @Published var barAppear: Bool = true
     @Published var goToBusinessDetails = false
     @Published var goToUserDetails = false
+    @Published var goToPhotoDetails = false
     
     func hideBar() {
         withAnimation {

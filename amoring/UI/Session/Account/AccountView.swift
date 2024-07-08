@@ -66,8 +66,14 @@ struct AccountView: View {
                         MenuTitle(title: "내 프로필")
                         
                         VStack(spacing: 0) {
-                            MenuLineLink(title: "사진") {
-                                AccountPhoto()
+                            if userManager.user?.profile?.gender != .female {
+                                MenuLineLink(title: "사진") {
+                                    AccountPhoto()
+                                }
+                            } else {
+                                MenuLineLink(title: "사진") {
+                                    AccountPhotoSettings()
+                                }
                             }
                             
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
@@ -87,6 +93,12 @@ struct AccountView: View {
                             MenuLineLink(title: "관심사") {
                                 AccountInterests()
                             }
+                            
+                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                            
+                            MenuLineLink(title: "쿠폰함") {
+                                AccountCoupons()
+                            }
                         }
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -102,10 +114,6 @@ struct AccountView: View {
                             MenuTitle(title: "프리미엄 구매하기")
                             
                             VStack(spacing: 0) {
-    //                            MenuLineLink(title: "쿠폰함") {
-    //                                AccountCoupons()
-    //                            }
-                                
                                 if likesAvailable && userManager.user?.profile?.gender != .female {
                                     MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
                                     
@@ -333,4 +341,3 @@ struct MenuLineToggle: View {
 #Preview {
     AccountView()
 }
-
