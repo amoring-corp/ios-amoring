@@ -130,11 +130,16 @@ struct SettingsView: View {
                     MenuTitle(title: "서비스 지원", color: Color.yellow700)
                     VStack(spacing: 0) {
                         MenuLineLink(title: "서비스 이용 약관", color: Color.yellow900, isBusinessSession: true) {
-                            Text("서비스 이용 약관")
+                            NavigationWrapper(title: "서비스 이용 약관") {
+                                WebView(url: URL(string: "\(Constants.domain)/terms-and-conditions")!)
+                            }
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         MenuLineLink(title: "개인정보 보호 방침", color: Color.yellow900, isBusinessSession: true) {
-                            Text("개인정보 보호 방침")
+                            NavigationWrapper(title: "개인정보 보호 방침") {
+                                WebView(url: URL(string: "\(Constants.domain)/privacy-policy")!)
+                            }
+                            
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
                         MenuLineLink(title: "문의하기 / 신고하기", color: Color.yellow900, isBusinessSession: true) {
