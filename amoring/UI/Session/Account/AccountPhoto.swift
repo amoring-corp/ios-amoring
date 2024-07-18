@@ -105,7 +105,7 @@ struct AccountPhoto: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("사진")
+                Text("내 사진")
                     .font(medium20Font)
                     .foregroundColor(.yellow300)
             }

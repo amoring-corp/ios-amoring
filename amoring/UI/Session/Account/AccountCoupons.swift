@@ -38,13 +38,17 @@ struct AccountCoupons: View {
                                     CouponRow(coupon: coupon)
                                 }
                             }
+                            
+                            Text("TEST MODE")
+                                    .font(.headline)
+                                    .foregroundColor(Color.gray300)
+                                    .padding(40)
                         }
                         .padding(.horizontal, Size.w(22))
                         .padding(.top, 21)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-            
         }
             .background(Color.gray1000)
         .navigationBarBackButtonHidden(true)

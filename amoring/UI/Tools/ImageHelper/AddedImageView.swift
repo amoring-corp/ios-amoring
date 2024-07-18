@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddedImageView: View {
+    @EnvironmentObject var userManager: UserManager
     @State private var isTapped: Bool = false
     let image: UIImage
     let number: Int
@@ -19,7 +20,9 @@ struct AddedImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(1, contentMode: .fit)
                 .background(.gray100)
+                .blur(radius: userManager.blurring ? 6 : 0)
                 .cornerRadius(8)
+                
             Text(number.description)
                 .font(semiBold16Font)
                 .foregroundColor(.white)

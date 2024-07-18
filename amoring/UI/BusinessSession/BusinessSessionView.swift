@@ -13,6 +13,7 @@ struct BusinessSessionView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
     @StateObject var businessSessionController = BusinessSessionController()
+    @StateObject var navigationController = NavigationController()
     
     @State var xOffset: CGFloat = 0
     @State var isLoading = false
@@ -171,7 +172,9 @@ struct BusinessSessionView: View {
                 }
                 .navigationBarItems(trailing:
                                         NavigationLink(destination: {
-                    MenuView().environmentObject(businessSessionController)
+                    MenuView()
+                        .environmentObject(businessSessionController)
+                        .environmentObject(navigationController)
                 }) {
                     Image("ic-hamburger")
                         .resizable()
