@@ -163,7 +163,7 @@ struct ConversationView: View, KeyboardReadable {
     @ViewBuilder
     func header() -> some View {
         let companion = controller.selectedConversation?.participants.first(where: { $0.id != userManager.user?.id })
-        let url = companion?.profile?.images.first?.file?.url ?? ""
+        let url = companion?.profile?.images?.first??.file?.url ?? ""
         let business = controller.selectedConversation?.checkIns.first(where: { $0.profileId != userManager.user?.profile?.id })?.business
         
         VStack {
@@ -175,16 +175,17 @@ struct ConversationView: View, KeyboardReadable {
             .frame(width: Size.w(64), height: Size.w(64))
             .clipShape(Circle())
             .padding(.top, Size.w(30))
-//            .onTapGesture {
-//                if business != nil {
-//                    navigationController.goToUserDetails = true
-//                }
-//            }
+            .onTapGesture {
+                if business != nil, let profile = companion?.profile {
+                    navigationController.goToUserDetails = true
+                }
+            }
             .background(
                 NavigationLink(isActive: $navigationController.goToUserDetails, destination: {
-                    
-//                        ProfileDetailsView(profile: profileInfo)
-                    
+                    // TODO: implement view
+                    if let profile = companion?.profile?.fragments.profileInfo {
+                        ProfileDetailsView(profile: profile)
+                    }
                 }, label: { EmptyView() })
                 .isDetailLink(false)
                 .opacity(0)

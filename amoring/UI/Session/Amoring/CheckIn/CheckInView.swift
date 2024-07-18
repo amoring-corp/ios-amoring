@@ -34,9 +34,9 @@ struct CheckInView: View {
                 .border(Color.yellow600)
             
             VStack(alignment: .leading, spacing: Size.w(7)) {
-                Text("• 체크인은 3시간 동안 유효해요.")
-                Text("• 유효기간 만료 후에는 QR코드를 재스캔해주세요.")
-                Text("• 다른 매장에서 이용시, 체크 아웃 후 이용해주세요.")
+                Text("• 체크인은 3시간 동안 유효합니다.")
+                Text("• 체크인 연장 시 QR 재스캔 부탁드립니다.")
+                Text("• 원격 접속 방지를 위하여 QR은 실시간으로 업데이트 됩니다.")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(light14Font)

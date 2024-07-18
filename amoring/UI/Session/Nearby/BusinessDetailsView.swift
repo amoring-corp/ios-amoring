@@ -21,177 +21,177 @@ struct BusinessDetailsView: View {
     @State var weekends: String? = nil
     
     var body: some View {
-            VStack {
-                ScrollView {
+        VStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    Divider()
+                        .padding(.top, Size.w(16))
+                        .padding(.bottom, Size.w(40))
+                    
                     VStack(spacing: 0) {
-                        Divider()
-                            .padding(.top, Size.w(16))
+                        let url = business.images?.first?.file?.url ?? ""
+                        
+                        CachedAsyncImage(url: URL(string: url), content: { cont in
+                            cont
+                                .resizable()
+                                .scaledToFill()
+                        }, placeholder: {
+                            ZStack {
+                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                            }
+                        })
+                        .frame(width: Size.w(90), height: Size.w(90))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14).stroke(Color.yellow700)
+                        )
+                        .padding(.bottom, Size.w(30))
+                        
+                        Text(business.businessName ?? "")
+                            .font(extraBold28Font)
+                            .foregroundColor(.yellow200)
+                            .padding(.bottom, Size.w(12))
+                        
+                        Text("\(business.businessCategory ?? "")  |  \(business.addressSigungu ?? "no disctrict")")
+                            .font(regular18Font)
+                            .foregroundColor(.yellow200)
+                            .padding(.bottom, Size.w(30))
+                        
+                        Text(business.bio ?? "")
+                            .font(regular16Font)
+                            .foregroundColor(.yellow300)
+                            .lineSpacing(6)
+                            .multilineTextAlignment(.center)
                             .padding(.bottom, Size.w(40))
                         
-                        VStack(spacing: 0) {
-                            let url = business.images?.first?.file?.url ?? ""
-                            
-                            CachedAsyncImage(url: URL(string: url), content: { cont in
-                                cont
-                                    .resizable()
-                                    .scaledToFill()
-                            }, placeholder: {
-                                ZStack {
-                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                        VStack(alignment: .leading, spacing: Size.w(26)) {
+                            Button(action: {
+                                if let address = business.address {
+                                    let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
+                                    UIPasteboard.general.setValue(fullAddress, forPasteboardType: UTType.plainText.identifier)
+                                    showAlert = true
                                 }
-                            })
-                            .frame(width: Size.w(90), height: Size.w(90))
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14).stroke(Color.yellow700)
-                            )
-                            .padding(.bottom, Size.w(30))
+                            }) {
+                                HStack {
+                                    Image("ic-pin")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: Size.w(24), height: Size.w(24))
+                                    Text("\(business.address ?? "") \(business.addressDetails ?? "")")
+                                        .lineLimit(1)
+                                    Image(systemName: "doc.on.doc")
+                                }
+                            }
+                            .alert(isPresented: $showAlert) {
+                                let address = business.address ?? ""
+                                let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
+                                return Alert(title: Text(fullAddress))
+                            }
                             
-                            Text(business.businessName ?? "")
-                                .font(extraBold28Font)
-                                .foregroundColor(.yellow200)
-                                .padding(.bottom, Size.w(12))
-                            
-                            Text("\(business.businessCategory ?? "")  |  \(business.addressSigungu ?? "no disctrict")")
-                                .font(regular18Font)
-                                .foregroundColor(.yellow200)
-                                .padding(.bottom, Size.w(30))
-                            
-                            Text(business.bio ?? "")
-                                .font(regular16Font)
-                                .foregroundColor(.yellow300)
-                                .lineSpacing(6)
-                                .multilineTextAlignment(.center)
-                                .padding(.bottom, Size.w(40))
-                            
-                            VStack(alignment: .leading, spacing: Size.w(26)) {
+                            if let phone = business.phoneNumber {
                                 Button(action: {
-                                    if let address = business.address {
-                                        let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
-                                        UIPasteboard.general.setValue(fullAddress, forPasteboardType: UTType.plainText.identifier)
-                                            showAlert = true
-                                    }
+                                    let telephone = "tel://"
+                                    let formattedString = telephone + phone
+                                    guard let url = URL(string: formattedString) else { return }
+                                    UIApplication.shared.open(url)
                                 }) {
                                     HStack {
-                                        Image("ic-pin")
+                                        Image("ic-phone")
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: Size.w(24), height: Size.w(24))
-                                        Text("\(business.address ?? "") \(business.addressDetails ?? "")")
-                                            .lineLimit(1)
-                                        Image(systemName: "doc.on.doc")
-                                    }
-                                }
-                                .alert(isPresented: $showAlert) {
-                                    let address = business.address ?? ""
-                                    let fullAddress = business.addressDetails == nil ? address : address + " " + business.addressDetails!
-                                    return Alert(title: Text(fullAddress))
-                                }
-                                
-                                if let phone = business.phoneNumber {
-                                    Button(action: {
-                                        let telephone = "tel://"
-                                        let formattedString = telephone + phone
-                                        guard let url = URL(string: formattedString) else { return }
-                                        UIApplication.shared.open(url)
-                                    }) {
-                                        HStack {
-                                            Image("ic-phone")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: Size.w(24), height: Size.w(24))
-                                            Text(phone)
-                                        }
-                                    }
-                                }		
-                                
-                                if let weekdays {
-                                    HStack {
-                                        Image("ic-clock")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: Size.w(24), height: Size.w(24))
-                                        
-                                        Text(weekdays)
-                                        Spacer()
-                                    }
-                                }
-                                if let weekends {
-                                    HStack {
-                                        Image("ic-clock")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: Size.w(24), height: Size.w(24))
-                                        
-                                        Text(weekends)
-                                        Spacer()
-                                    }
-                                }
-                            }
-                            .foregroundColor(.yellow400)
-                            .font(regular16Font)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom, Size.w(50))
-                            
-                            if let images = business.images {
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack {
-                                        ForEach(Array(images.enumerated()), id: \.offset) { index, element in
-                                            let url = element.file?.url ?? ""
-                                            CachedAsyncImage(url: URL(string: url), content: { cont in
-                                                cont
-                                                    .resizable()
-                                                    .scaledToFill()
-                                            }, placeholder: {
-                                                ZStack {
-                                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
-                                                }
-                                            })
-                                            .frame(width: Size.w(120), height: Size.w(120))
-                                            .clipShape(RoundedRectangle(cornerRadius: 14))
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 14).stroke(Color.yellow700)
-                                            )
-                                            .padding(5)
-                                            .onTapGesture {
-                                                self.selection = index
-                                                showPhotoViewer = true
-                                            }
-                                        }
+                                        Text(phone)
                                     }
                                 }
                             }
                             
-                            Spacer().frame(height: 100)
+                            if let weekdays {
+                                HStack {
+                                    Image("ic-clock")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: Size.w(24), height: Size.w(24))
+                                    
+                                    Text(weekdays)
+                                    Spacer()
+                                }
+                            }
+                            if let weekends {
+                                HStack {
+                                    Image("ic-clock")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: Size.w(24), height: Size.w(24))
+                                    
+                                    Text(weekends)
+                                    Spacer()
+                                }
+                            }
                         }
-                        .padding(.horizontal, Size.w(22))
+                        .foregroundColor(.yellow400)
+                        .font(regular16Font)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, Size.w(50))
+                        
+                        if let images = business.images {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(Array(images.enumerated()), id: \.offset) { index, element in
+                                        let url = element.file?.url ?? ""
+                                        CachedAsyncImage(url: URL(string: url), content: { cont in
+                                            cont
+                                                .resizable()
+                                                .scaledToFill()
+                                        }, placeholder: {
+                                            ZStack {
+                                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                                            }
+                                        })
+                                        .frame(width: Size.w(120), height: Size.w(120))
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 14).stroke(Color.yellow700)
+                                        )
+                                        .padding(5)
+                                        .onTapGesture {
+                                            self.selection = index
+                                            showPhotoViewer = true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        Spacer().frame(height: 100)
                     }
+                    .padding(.horizontal, Size.w(22))
                 }
             }
-            .frame(maxWidth: .infinity)
-            .background(Color.gray1000)
-            .navigationBarHidden(showPhotoViewer)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(business.businessName ?? "noname")
-                        .font(medium20Font)
-                        .foregroundColor(.yellow300)
-                }
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.gray1000)
+        .navigationBarHidden(showPhotoViewer)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(business.businessName ?? "noname")
+                    .font(medium20Font)
+                    .foregroundColor(.yellow300)
             }
-            .navigationBarItems(leading:
-                                    BackButton(action: {
-                presentationMode.wrappedValue.dismiss()
-            }, color: Color.yellow300)
-            )
-            .overlay(
-                !(business.images?.isEmpty ?? true) && showPhotoViewer ?
-                PhotoViewer(images: business.images!, showPhotoViewer: $showPhotoViewer, selection: $selection) : nil
-            )
-            .animation(.default, value: showPhotoViewer)
-            .onAppear {
-                getBusinessHours()
-            }
+        }
+        .navigationBarItems(leading:
+                                BackButton(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, color: Color.yellow300)
+        )
+        .overlay(
+            !(business.images?.isEmpty ?? true) && showPhotoViewer ?
+            PhotoViewer(images: business.images!, showPhotoViewer: $showPhotoViewer, selection: $selection) : nil
+        )
+        .animation(.default, value: showPhotoViewer)
+        .onAppear {
+            getBusinessHours()
+        }
         
     }
     

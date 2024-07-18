@@ -17,6 +17,28 @@
         }
       }
     },
+    " *3개의 사진은 꼭 " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " at least 3 photos"
+          }
+        }
+      }
+    },
+    " *키와 몸무게 " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " *weight and height "
+          }
+        }
+      }
+    },
     " 에 메시지가 활성화 되었습니다." : {
 
     },
@@ -25,6 +47,17 @@
     },
     " 의" : {
 
+    },
+    " 인연은 신뢰속에서 시작됩니다. 회원님의" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please introduce yourself. All relationships begin with trust.\nPlease provide your"
+          }
+        }
+      }
     },
     "(%@)" : {
 
@@ -121,23 +154,98 @@
     "%lld시간 후 메시지가 사라집니다." : {
 
     },
-    "• 다른 매장에서 이용시, 체크 아웃 후 이용해주세요." : {
-
+    "• QR코드는 실시간으로 업데이트 되기때문에 이미지는" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• The QR code is updated in real time and will only be valid for two hours."
+          }
+        }
+      }
     },
-    "• 유효기간 만료 후에는 QR코드를 재스캔해주세요." : {
-
+    "• 원격 접속 방지를 위하여 QR은 실시간으로 업데이트 됩니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• The QR refreshes in real-time to block remote login."
+          }
+        }
+      }
+    },
+    "• 체크인 연장 시 QR 재스캔 부탁드립니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• For check in extension, please re-scan the QR."
+          }
+        }
+      }
+    },
+    "• 체크인은 2시간 동안 유효합니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Conditions apply."
+          }
+        }
+      }
+    },
+    "• 체크인은 3시간 동안 유효합니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Check in is valid for 3 hours."
+          }
+        }
+      }
     },
     "• 체크인은 3시간 동안 유효해요." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Check in is valid for 3 hours."
+          }
+        }
+      }
     },
     "+" : {
 
+    },
+    "+ 좋아요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ likes"
+          }
+        }
+      }
     },
     "~" : {
 
     },
     "🍸 테이블이 있습니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍸 I have a table."
+          }
+        }
+      }
     },
     "👩🏻" : {
 
@@ -170,7 +278,14 @@
 
     },
     "40자까지 작성이 가능해요.\n파워풀한 자기소개 한줄을 부탁드려요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your self-introduction can be up to 40 characters long.\nMake an impactful impression with your self-introduction!"
+          }
+        }
+      }
     },
     "102-001128-711" : {
 
@@ -245,7 +360,20 @@
       }
     },
     "KB 국민은행" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KB Bank"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 1" : {
+      "extractionState" : "manual"
     },
     "LOGO" : {
 
@@ -289,8 +417,8 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Amoring"
+            "state" : "translated",
+            "value" : "Lounge"
           }
         },
         "ko" : {
@@ -324,7 +452,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nearby"
+            "value" : "Search Area"
           }
         },
         "ko" : {
@@ -336,28 +464,84 @@
       }
     },
     "New" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Picker here" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picker here"
+          }
+        }
+      }
     },
     "Purchases" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases"
+          }
+        }
+      }
     },
     "QR코드를 스캔하여 체크인해주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please scan the QR code to check in."
+          }
+        }
+      }
     },
     "Sign Up" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        }
+      }
     },
     "smth went wrong!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "smth went wrong!"
+          }
+        }
+      }
     },
     "Your password has been successfully updated" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your password has been successfully updated"
+          }
+        }
+      }
     },
     "가입 전 준비해주세요" : {
 
@@ -374,8 +558,26 @@
     "개" : {
 
     },
+    "개 남음" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " left"
+          }
+        }
+      }
+    },
     "개인정보 보호 방침" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        }
+      }
     },
     "개인정보 취급방침" : {
 
@@ -396,25 +598,53 @@
 
     },
     "계정 삭제" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account"
+          }
+        }
+      }
     },
     "계좌번호" : {
 
     },
     "관심사" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interests"
+          }
+        }
+      }
     },
     "광고 제거" : {
 
     },
     "교육" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Education"
+          }
+        }
+      }
     },
     "구매하기" : {
 
     },
     "기본정보" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic information"
+          }
+        }
+      }
     },
     "기억하기" : {
 
@@ -424,6 +654,39 @@
     },
     "내 매장" : {
 
+    },
+    "내 주변" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My area"
+          }
+        }
+      }
+    },
+    "내 프로필" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Profile"
+          }
+        }
+      }
+    },
+    "내용을 작성해주세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please input your inquiry here."
+          }
+        }
+      }
     },
     "네" : {
 
@@ -443,6 +706,17 @@
     "다음" : {
 
     },
+    "답변 받을 이메일" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your email"
+          }
+        }
+      }
+    },
     "대표자명*" : {
 
     },
@@ -452,8 +726,26 @@
     "등록" : {
 
     },
+    "등록해주셔야 합니다. 그래야 인연을 찾을 확률이 높아져요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "for your profile. Having more photos increases your chances of finding a match."
+          }
+        }
+      }
+    },
     "라운지" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lounge"
+          }
+        }
+      }
     },
     "라운지 모드 활성: " : {
 
@@ -463,6 +755,17 @@
     },
     "라운지 체크아웃 시\n프로필이 더 이상 소개되지 않습니다.\n라운지에서 체크아웃 하시겠습니까?" : {
 
+    },
+    "라운지 확장" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lounge expansion"
+          }
+        }
+      }
     },
     "라운지 확장을 위해서는\n비즈니스 멤버십 구독이 필요합니다." : {
 
@@ -474,7 +777,14 @@
 
     },
     "로그아웃" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout"
+          }
+        }
+      }
     },
     "로그아웃 하시면, 라운지 활동이나 다른 멤버로부터의 메시지 알림을 받으실 수 없습니다. 로그아웃 하시겠습니까?" : {
 
@@ -486,7 +796,14 @@
 
     },
     "리스트 보기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View list"
+          }
+        }
+      }
     },
     "리스트 확인하기 >" : {
 
@@ -553,29 +870,82 @@
         }
       }
     },
+    "몸무게*" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "weight*"
+          }
+        }
+      }
+    },
     "무슨 일이신가요?\n아래에 남겨주시면 답변해 드리겠습니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How may I help you?\nWe will respond to any inquiries sent below."
+          }
+        }
+      }
     },
     "무제한" : {
 
     },
     "문의 / 신고하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inquiries / Reports"
+          }
+        }
+      }
     },
     "문의하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact Us"
+          }
+        }
+      }
     },
     "문의하기 / 신고하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inquiry / Report"
+          }
+        }
+      }
     },
     "반갑습니다!" : {
 
     },
     "보기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
     },
     "보내기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        }
+      }
     },
     "보안을 위해 대문자, 소문자, 숫자, 특수문자를 조합하여 8~16자 이내의 비밀번호로 설정해주세요." : {
 
@@ -629,13 +999,27 @@
 
     },
     "사진" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pictures"
+          }
+        }
+      }
     },
     "사진* (최소 3개이상)" : {
 
     },
     "사진아래 번호 순서로 노출이 됩니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The photos will be displayed in the order that you select them."
+          }
+        }
+      }
     },
     "사진은 최소 3장 이상 필요하며,\n사진아래 번호 순서로 노출이 됩니다." : {
 
@@ -644,7 +1028,14 @@
 
     },
     "삭제" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
     },
     "상세주소*" : {
 
@@ -656,10 +1047,35 @@
 
     },
     "서비스 이용 약관" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and conditions"
+          }
+        }
+      }
+    },
+    "서비스 지원" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service Support"
+          }
+        }
+      }
     },
     "선택하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        }
+      }
     },
     "성별을 골라주세요" : {
 
@@ -668,10 +1084,24 @@
 
     },
     "소개글" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self-introduction"
+          }
+        }
+      }
     },
     "숨기기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide"
+          }
+        }
+      }
     },
     "숫자" : {
 
@@ -680,7 +1110,14 @@
 
     },
     "신고하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
     },
     "아니요" : {
 
@@ -738,6 +1175,28 @@
     },
     "영업시간*" : {
 
+    },
+    "예: 고졸, 학사, 석사, 박사..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. High school, bachelor's degree, etc."
+          }
+        }
+      }
+    },
+    "예: 대학생" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. student, office worker, etc."
+          }
+        }
+      }
     },
     "예) 등산과 자전거를 즐기는 아웃도어 매니아. 주말을 함께 즐겨요!" : {
       "extractionState" : "manual"
@@ -827,13 +1286,27 @@
 
     },
     "저장" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
     },
     "저희 서비스는 아직 이성 매칭만 가능해요.\n등록 후 변경은 불가하니 신중하게 입력하세요." : {
 
     },
     "전체" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
     },
     "전체동의" : {
 
@@ -848,13 +1321,31 @@
 
     },
     "접수완료" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "inquiry / report completed"
+          }
+        }
+      }
     },
     "접수하신 사항에 대해 정확히 확인한 후\n빠른 답변 처리가 될 수 있도록 노력하겠습니다.\n이용해주셔서 감사합니다." : {
 
     },
     "정기적으로 운영하시는 일자별 영업정보를 알려주세요." : {
 
+    },
+    "제목을 입력해주세요. (20자 이내)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a subject line (20 characters max)"
+          }
+        }
+      }
     },
     "종목*" : {
 
@@ -881,10 +1372,24 @@
 
     },
     "지역" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
     },
     "직업" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Job"
+          }
+        }
+      }
     },
     "첨부가능 파일 형식은 Png, Jpg, PDF 입니다.\n파일은 1개만 첨부가 가능하며, 파일 첨부 후 파일을 다시 첨부시 마지막으로 첨부된 파일이 최종 등록됩니다." : {
 
@@ -896,10 +1401,28 @@
 
     },
     "쿠폰함" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coupons"
+          }
+        }
+      }
     },
     "쿠폰함이 비어있습니다." : {
 
+    },
+    "키*" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height*"
+          }
+        }
+      }
     },
     "테이블" : {
 
@@ -911,10 +1434,57 @@
 
     },
     "프로필 사진 추가" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a profile picture"
+          }
+        }
+      }
+    },
+    "프로필 투명모드" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Control who sees you"
+          }
+        }
+      }
+    },
+    "프로필에" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must choose"
+          }
+        }
+      }
     },
     "프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must choose at least 3 photos for your profile. Having more photos increases your chances of finding a match."
+          }
+        }
+      }
+    },
+    "프리미엄 구매하기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase premium"
+          }
+        }
+      }
     },
     "플랜" : {
 
@@ -935,7 +1505,14 @@
 
     },
     "회원가입을 위해 최소 3개의 사진이 필요합니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 photos are required to continue."
+          }
+        }
+      }
     },
     "회원님에 대한 인상을 남길 수 있는\n파워풀한 자기소개 한줄을 부탁드려요 (최대 40자)" : {
 
@@ -965,7 +1542,14 @@
 
     },
     "흥미있는 것들을 최대 7개까지 골라주세요. 서로의 관심사를 알면 더 쉽게 대화를 시작할 수 있어요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please pick up to seven of your interests. Knowing each other's interests makes it easier to start a conversation!"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

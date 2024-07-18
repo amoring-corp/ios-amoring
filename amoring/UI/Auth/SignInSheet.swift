@@ -34,7 +34,8 @@ struct SignInSheet: View {
                     .foregroundColor(.gray600)
                     .padding(.bottom, Size.w(40))
                 
-                HStack {
+                HStack(spacing: Size.w(16)) {
+                    Spacer()
                     Image("SNS-google")
                         .resizable()
                         .scaledToFit()
@@ -51,8 +52,7 @@ struct SignInSheet: View {
                             : nil
                              
                         )
-                    Spacer()
-//                        .frame(maxWidth: Size.w(20))
+                    
                     Image("SNS-apple")
                         .resizable()
                         .scaledToFit()
@@ -63,31 +63,31 @@ struct SignInSheet: View {
                             lastProvider == .apple ?
                             SignInTooltip(provider: .apple) : nil
                         )
-                    Spacer()
+//                    Spacer()
 //                        .frame(maxWidth: Size.w(20))
-                    Image("SNS-kakao")
-                        .resizable()
-                        .scaledToFit()
-                        .onTapGesture {
-                            sessionManager.signInWithKakao()
-                        }
-                        .overlay(
-                            lastProvider == .kakao ?
-                            SignInTooltip(provider: .kakao) : nil
-                        )
-                    Spacer()
-//                        .frame(maxWidth: Size.w(20))
-                    Image("SNS-naver")
-                        .resizable()
-                        .scaledToFit()
-                        .onTapGesture {
-                            sessionManager.signInWithNaver()
-//                            self.sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
-                        }
-                        .overlay(
-                            lastProvider == .naver ?
-                            SignInTooltip(provider: .naver) : nil
-                        )
+//                    Image("SNS-kakao")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .onTapGesture {
+//                            sessionManager.signInWithKakao()
+//                        }
+//                        .overlay(
+//                            lastProvider == .kakao ?
+//                            SignInTooltip(provider: .kakao) : nil
+//                        )
+//                    Spacer()
+////                        .frame(maxWidth: Size.w(20))
+//                    Image("SNS-naver")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .onTapGesture {
+//                            sessionManager.signInWithNaver()
+////                            self.sessionManager.changeStateWithAnimation(state: .session(user: User(id: "dummy")))
+//                        }
+//                        .overlay(
+//                            lastProvider == .naver ?
+//                            SignInTooltip(provider: .naver) : nil
+//                        )
 //                    Spacer().frame(maxWidth: Size.w(20))
 //                    Image("SNS-facebook")
 //                        .resizable()
@@ -101,6 +101,7 @@ struct SignInSheet: View {
 //                            lastProvider == .facebook ?
 //                            SignInTooltip(provider: .facebook) : nil
 //                        )
+                    Spacer()
                 }
                 .frame(maxWidth: UIScreen.main.bounds.width - Size.w(60), maxHeight: Size.w(54))
                 

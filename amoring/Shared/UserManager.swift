@@ -1408,14 +1408,9 @@ class UserManager: ObservableObject {
                 self.profiles = []
                 print("visible profiles: ")
                 print(profiles.map({ $0?.id }))
-//                self.profiles.append(contentsOf: Dummy.profiles)
-//                print(profiles.map({ $0?.fragments.profileInfo.name }))
                 for profile in profiles {
                     if let profile {
-                        //MARK:  excepting default db profile, excepting myself
-//                        if profile.id != "3" && profile.id != self.user?.profile?.id {
-                            self.profiles.append(profile.fragments.profileInfo)
-//                        }
+                        self.profiles.append(profile.fragments.profileInfo)
                     }
                 }
                 

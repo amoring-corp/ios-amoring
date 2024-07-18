@@ -266,8 +266,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     UserApi.shared.me() { (user, error) in
                         print("---------")
                         print(oauthToken)
-                        print(user as Any)
-                        print(error as Any)
+//                        print(user as Any)
+                        print("user?.kakaoAccount?.email: \(user?.kakaoAccount?.email)")
+//                        print(error as Any)
+                        
                     }
                 }
             }
