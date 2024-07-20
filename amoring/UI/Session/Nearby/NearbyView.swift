@@ -455,7 +455,7 @@ struct DistrictChip: View {
     let district: District
     
     var body: some View {
-        Text(district.name)
+        Text(NSLocalizedString(district.name, comment: ""))
             .font(regular16Font)
             .foregroundColor(filter.selectedDistrict == district ? .yellow300 : .yellow600)
             .padding(.vertical, Size.w(8))

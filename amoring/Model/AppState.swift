@@ -17,9 +17,8 @@ enum AppState {
 
 enum UserState {
     case initial
+    case phoneValidation
     case userOnboarding
-//    case imageUploading
-//    case interestsConnection
     case session
     case businessOnboarding
     case businessSession

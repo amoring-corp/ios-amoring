@@ -73,6 +73,10 @@
 		2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */; };
 		2B6DD2942BEB274500D035C7 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2932BEB274500D035C7 /* District.swift */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
+		2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */; };
+		2BF3DEA62C4BA350008D3D0D /* PhoneAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */; };
+		2BF3DEA82C4BB0FB008D3D0D /* PhoneAuthOtp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA72C4BB0FB008D3D0D /* PhoneAuthOtp.swift */; };
+		2BF3DEAA2C4BB84B008D3D0D /* PhoneAuthSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA92C4BB84B008D3D0D /* PhoneAuthSuccess.swift */; };
 		2BF570232BD8B60400587960 /* PurchaseProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF570222BD8B60400587960 /* PurchaseProducts.swift */; };
 		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
@@ -409,6 +413,10 @@
 		2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHelper.swift; sourceTree = "<group>"; };
 		2B6DD2932BEB274500D035C7 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthPhone.swift; sourceTree = "<group>"; };
+		2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthController.swift; sourceTree = "<group>"; };
+		2BF3DEA72C4BB0FB008D3D0D /* PhoneAuthOtp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthOtp.swift; sourceTree = "<group>"; };
+		2BF3DEA92C4BB84B008D3D0D /* PhoneAuthSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthSuccess.swift; sourceTree = "<group>"; };
 		2BF570222BD8B60400587960 /* PurchaseProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseProducts.swift; sourceTree = "<group>"; };
 		36E9464CB26CE4E393883EFE /* Pods_amoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring_amoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -729,6 +737,17 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		2BF3DEA22C4BA307008D3D0D /* PhoneAuth */ = {
+			isa = PBXGroup;
+			children = (
+				2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */,
+				2BF3DEA72C4BB0FB008D3D0D /* PhoneAuthOtp.swift */,
+				2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */,
+				2BF3DEA92C4BB84B008D3D0D /* PhoneAuthSuccess.swift */,
+			);
+			path = PhoneAuth;
+			sourceTree = "<group>";
+		};
 		85064AF22B292EDB0074E45A /* CheckIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -855,6 +874,7 @@
 				851AF8F92B3E9F3D005A8DEB /* SignInSheet.swift */,
 				853AFD512B1DBD7F0020A570 /* NavigationAuthController.swift */,
 				850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */,
+				2BF3DEA22C4BA307008D3D0D /* PhoneAuth */,
 				85FC20752B0C510100DC1950 /* UserOnboarding */,
 			);
 			path = Auth;
@@ -1593,6 +1613,7 @@
 				8522A6012B2C4B96008AF703 /* PurchaseLoungeWindow.swift in Sources */,
 				850BE9D02B6343A100EC8EAB /* File.swift in Sources */,
 				85FB6B9D2B4785CE0023A889 /* CheckInResult.swift in Sources */,
+				2BF3DEA62C4BA350008D3D0D /* PhoneAuthController.swift in Sources */,
 				85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */,
 				2B364C1E2C16EFA400BBE82B /* NearbyFilterController.swift in Sources */,
 				2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */,
@@ -1676,6 +1697,7 @@
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
 				2B3FD4722BD7AFC70090BA9D /* CouponDetailsView.swift in Sources */,
 				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,
+				2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */,
 				855013552B749A1100D9D568 /* YellowButton.swift in Sources */,
 				850BE9D22B63596100EC8EAB /* NotificationController.swift in Sources */,
 				850A30402B0B2DEF003B12B7 /* BusinessSignInSheet.swift in Sources */,
@@ -1691,6 +1713,7 @@
 				85FC209D2B0D729300DC1950 /* Extensions.swift in Sources */,
 				85D26F6C2B20198B00E3C55F /* CodeScanner.swift in Sources */,
 				850BE9BC2B61FA9F00EC8EAB /* BusinessSettingsCertification.swift in Sources */,
+				2BF3DEAA2C4BB84B008D3D0D /* PhoneAuthSuccess.swift in Sources */,
 				85F190472B5FAB3C00FA7686 /* AccountEmailSuccess.swift in Sources */,
 				85F1903F2B5F8B6900FA7686 /* AccountInterests.swift in Sources */,
 				851AF8F82B3E8E46005A8DEB /* LogoLoadingView.swift in Sources */,
@@ -1703,6 +1726,7 @@
 				8522A5FF2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift in Sources */,
 				85FC20922B0C514400DC1950 /* DragRelocateDelegate.swift in Sources */,
 				850BE9B72B61F23500EC8EAB /* BusinessSettingsOpenHours.swift in Sources */,
+				2BF3DEA82C4BB0FB008D3D0D /* PhoneAuthOtp.swift in Sources */,
 				850A30352B0B1CE3003B12B7 /* MessagesView.swift in Sources */,
 				85FB6B972B4646DD0023A889 /* CustomNavigationView.swift in Sources */,
 				8522A5F22B2BDFE7008AF703 /* Dummy.swift in Sources */,

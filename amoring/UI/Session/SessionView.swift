@@ -24,6 +24,8 @@ struct SessionFlow: View {
             switch userManager.userState {
             case .initial:
                 EmptyView()
+            case .phoneValidation:
+                PhoneAuthPhone()
             case .userOnboarding:
                 UserOnboardingView()
             case .session:
@@ -39,7 +41,7 @@ struct SessionFlow: View {
                     .background(Color.yellow100)
                     .onTapGesture {
                         sessionManager.signOut()
-//                        sessionManager.changeStateWithAnimation(state: .auth)
+                        //                        sessionManager.changeStateWithAnimation(state: .auth)
                     }
             case .error:
                 Text("ERROR")

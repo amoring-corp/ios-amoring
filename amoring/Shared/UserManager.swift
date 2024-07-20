@@ -68,12 +68,16 @@ class UserManager: ObservableObject {
             }
         case .case(.user):
             print("I'm a user")
-            if authUser.profile != nil {
-                self.setCurrentPhotos()
-                self.changeStateWithAnimation(state: .session)
-            } else {
+//            if !authUser.validated {
+//            if true {
+//                self.changeStateWithAnimation(state: .phoneValidation)
+//            } else 
+            if authUser.profile == nil {
                 print("User not onboarded yet")
                 self.changeStateWithAnimation(state: .userOnboarding)
+            } else {
+                self.setCurrentPhotos()
+                self.changeStateWithAnimation(state: .session)
             }
         case .case(.admin):
             print("I'm an admin")
