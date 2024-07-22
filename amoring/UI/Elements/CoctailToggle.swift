@@ -42,13 +42,13 @@ struct CoctailToggle: View {
         .frame(width: 62, height: 32)
         .cornerRadius(18)
         .onTapGesture {
-            if userManager.loungePassEnabled() {
+//            if userManager.loungePassEnabled() {
                 withAnimation {
                     self.isOn.toggle()
                 }
-            } else {
-                userManager.openPurchase(purchaseType: .lounge)
-            }
+//            } else {
+//                userManager.openPurchase(purchaseType: .lounge)
+//            }
         }
     }
 }

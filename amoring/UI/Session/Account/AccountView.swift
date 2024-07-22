@@ -106,11 +106,11 @@ struct AccountView: View {
                         let likesAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.test_likes_5.rawValue }) &&
                         userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_10.rawValue }) &&
                         userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_50.rawValue })
-                        let loungeAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue })
+//                        let loungeAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue })
                         let hiddenAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.hidden_mode_pass.rawValue })
                         let listAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.list_view_pass.rawValue })
                         
-                        if listAvailable || loungeAvailable || hiddenAvailable || listAvailable {
+                        if listAvailable || hiddenAvailable || listAvailable {
                             MenuTitle(title: "프리미엄 구매하기")
                             
                             VStack(spacing: 0) {
@@ -120,19 +120,19 @@ struct AccountView: View {
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                                 }
                                 
-                                if loungeAvailable {
-                                    MenuLineButton(title: "라운지 확장",
-                                                   subtitle: userManager.loungePassEnabled() ? ((userManager.user?.loungePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
-                                                   fontColor: userManager.loungePassEnabled() ? Color.yellow200 : Color.gray600,
-                                                   subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
-                                    {
-                                        if !userManager.loungePassEnabled() {
-                                            userManager.openPurchase(purchaseType: .lounge)
-                                        }
-                                    }
-                                    
-                                    Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                                }
+//                                if loungeAvailable {
+//                                    MenuLineButton(title: "라운지 확장",
+//                                                   subtitle: userManager.loungePassEnabled() ? ((userManager.user?.loungePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
+//                                                   fontColor: userManager.loungePassEnabled() ? Color.yellow200 : Color.gray600,
+//                                                   subFontColor: userManager.loungePassEnabled() ? Color.yellow350 : Color.gray300)
+//                                    {
+//                                        if !userManager.loungePassEnabled() {
+//                                            userManager.openPurchase(purchaseType: .lounge)
+//                                        }
+//                                    }
+//                                    
+//                                    Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+//                                }
                                 
                                 if hiddenAvailable {
                                     MenuLineButton(title: "프로필 투명모드",
