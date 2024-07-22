@@ -101,6 +101,12 @@ struct ConversationView: View, KeyboardReadable {
                     Text(companion?.profile?.name ?? "")
                         .font(medium20Font)
                         .foregroundColor(.yellow300)
+                        .onTapGesture {
+                            let business = controller.selectedConversation?.checkIns.first(where: { $0.profileId != userManager.user?.profile?.id })?.business
+                            if business != nil, let profile = companion?.profile {
+                                navigationController.goToUserDetails = true
+                            }
+                        }
                 }
             }
             .navigationBarItems(leading:
