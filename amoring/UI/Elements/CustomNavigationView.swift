@@ -28,7 +28,7 @@ struct CustomNavigationView: View {
                 
                 HStack {
                     Spacer()
-                    Text(title)
+                    Text(NSLocalizedString(title, comment: ""))
                         .font(medium20Font)
                         .foregroundColor(foregroundColor)
                     Spacer()

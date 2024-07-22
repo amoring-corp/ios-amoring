@@ -57,7 +57,7 @@ struct amoringApp: App {
 //                .environmentObject(scenePhaseHelper)
                 .environmentObject(notificationController)
                 .preferredColorScheme(.dark)
-                .environment(\.locale, .init(identifier: "ko"))
+//                .environment(\.locale, .init(identifier: "ko"))
                 .onAppear {
                     setupUI()
                 }

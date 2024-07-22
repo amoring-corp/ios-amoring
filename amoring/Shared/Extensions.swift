@@ -69,6 +69,20 @@ extension String {
             return false
         }
     }
+    
+    func localized() -> String {
+        let languageList: [(loc: String, lang: String, number: Int)] = [("en", "English", 0), ("ko", "한국어", 1)]
+        let lang = languageList[UserDefaults.standard.integer(forKey: "appLanguage")].loc
+        if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
+            let bundle = Bundle(path: path)
+            return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+        } else if let path = Bundle.main.path(forResource: "en", ofType: "lproj") {
+            let bundle = Bundle(path: path)
+            return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+        } else {
+            return ""
+        }
+    }
 }
 
 extension Optional where Wrapped == String {

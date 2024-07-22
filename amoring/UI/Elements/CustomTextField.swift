@@ -20,7 +20,7 @@ struct CustomTextField: View {
             .autocapitalization(.none)
             .keyboardType(keyboardType)
             .placeholder(when: text.isEmpty) {
-                Text(placeholder ?? "")
+                Text(NSLocalizedString(placeholder ?? "", comment: ""))
                     .font(placeholderFont)
                     .foregroundColor(.gray200)
             }

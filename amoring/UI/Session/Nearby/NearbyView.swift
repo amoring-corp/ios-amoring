@@ -145,7 +145,7 @@ struct BusinessListView: View {
                     Menu {
                         Picker(selection: $filter.businessType, label: EmptyView()) {
                             ForEach(userManager.businessTypes, id: \.self) {
-                                Text($0.name ?? "")
+                                Text(NSLocalizedString($0.name ?? "", comment: ""))
                                     .font(regular16Font)
                                     .foregroundColor(.yellow300)
                             }
@@ -155,7 +155,7 @@ struct BusinessListView: View {
                         }
                     } label: {
                         HStack {
-                            Text(filter.businessType.name ?? "")
+                            Text(NSLocalizedString(filter.businessType.name ?? "", comment: ""))
                                 .font(regular16Font)
                             Image(systemName: "chevron.down")
                                 .resizable()

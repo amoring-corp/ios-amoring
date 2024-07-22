@@ -28,17 +28,6 @@
         }
       }
     },
-    " *키와 몸무게 " : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " *weight and height "
-          }
-        }
-      }
-    },
     " 에 메시지가 활성화 되었습니다." : {
 
     },
@@ -48,13 +37,13 @@
     " 의" : {
 
     },
-    " 인연은 신뢰속에서 시작됩니다. 회원님의" : {
+    " 인연은 신뢰속에서 시작됩니다. 회원님의 *" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please introduce yourself. All relationships begin with trust.\nPlease provide your"
+            "value" : "Please introduce yourself. All relationships begin with trust.\nPlease provide your *"
           }
         }
       }
@@ -67,6 +56,28 @@
     },
     "@amoring" : {
 
+    },
+    "*키와 몸무게" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*weight and height"
+          }
+        }
+      }
+    },
+    "*키와 몸무게 " : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*weight and height"
+          }
+        }
+      }
     },
     "/" : {
 
@@ -643,7 +654,14 @@
       }
     },
     "구매하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase"
+          }
+        }
+      }
     },
     "기본정보" : {
       "localizations" : {
@@ -734,6 +752,16 @@
     },
     "돌아가기" : {
 
+    },
+    "등 기본정보를 알려주세요." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
     },
     "등록" : {
 
@@ -891,7 +919,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "weight*"
+            "value" : "Weight*"
           }
         }
       }
@@ -1216,6 +1244,17 @@
         }
       }
     },
+    "예: 대학생, 직장인..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. college student, office worker"
+          }
+        }
+      }
+    },
     "예) 등산과 자전거를 즐기는 아웃도어 매니아. 주말을 함께 즐겨요!" : {
       "extractionState" : "manual"
     },
@@ -1279,11 +1318,19 @@
     "인연은 신뢰속에서 시작됩니다.\n회원님을 소개하고 인연을 만들어보세요." : {
 
     },
-    "인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와 몸무게** 등 기본정보를 알려주세요." : {
-
-    },
     "인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와** 몸무게 등 기본정보를 알려주세요." : {
 
+    },
+    "인연은 신뢰속에서 시작됩니다. 회원님의 " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Please introduce yourself. All relationships begin with trust. Please provide your "
+          }
+        }
+      }
     },
     "인증된 정보의 불가피한 수정이 필요하신 경우\n서비스지원 > 문의하기 이용 바랍니다." : {
 
@@ -1434,7 +1481,14 @@
 
     },
     "취소" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
     },
     "쿠폰함" : {
       "localizations" : {
@@ -1581,7 +1635,14 @@
 
     },
     "흐려지기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blurring"
+          }
+        }
+      }
     },
     "흥미있는 것들을 최대 7개까지 골라주세요. 서로의 관심사를 알면 더 쉽게 대화를 시작할 수 있어요!" : {
       "localizations" : {

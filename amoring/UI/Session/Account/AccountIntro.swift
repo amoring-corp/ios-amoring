@@ -27,10 +27,14 @@ struct AccountIntro: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() }, foregroundColor: Color.yellow300, dividerColor: Color.gray900, bg: Color.gray1000)
+                CustomNavigationView(offset: .constant(100), title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() }, foregroundColor: Color.yellow300, dividerColor: Color.gray900, bg: Color.gray1000)
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와 몸무게** 등 기본정보를 알려주세요.")
+                        (
+                        Text("인연은 신뢰속에서 시작됩니다. 회원님의 ") +
+                        Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
+                        Text("등 기본정보를 알려주세요.")
+                         )
                             .font(regular16Font)
                             .foregroundColor(.gray600)
                             .lineSpacing(5)
@@ -69,7 +73,7 @@ struct AccountIntro: View {
                             }
                         }
                         
-                        PickerButton(title: "몸무게", titleColor: .gray200) {
+                        PickerButton(title: "몸무게*", titleColor: .gray200) {
                                 Text("\(Int(weight).description)kg")
                             
                         }
