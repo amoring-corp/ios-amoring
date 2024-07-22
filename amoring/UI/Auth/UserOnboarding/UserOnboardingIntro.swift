@@ -13,9 +13,9 @@ struct UserOnboardingIntro: View {
     
     @State var height: Int = 160
     @State var weight: Int = 60
-    @State var occupation: String = ""
+//    @State var occupation: String = ""
     @State var mbti: mbtiE = .ENFJ
-    @State var education: String = ""
+//    @State var education: String = ""
     
     @State var heightPresented: Bool = false
     @State var weightPresented: Bool = false
@@ -50,17 +50,17 @@ struct UserOnboardingIntro: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "예: 대학생, 직장인...", text: $occupation, font: regular18Font)
-                                    .onChange(of: occupation, perform: { newValue in
-                                        if(newValue.count >= 20){
-                                            occupation = String(newValue.prefix(20))
-                                        }
-                                        if(newValue.count >= 1){
-                                            controller.profile.occupation = newValue
-                                        } else {
-                                            controller.profile.occupation = nil
-                                        }
-                                    })
+                                CustomTextField(placeholder: "예: 대학생, 직장인...", text: $controller.profile.occupation ?? "", font: regular18Font)
+//                                    .onChange(of: occupation, perform: { newValue in
+//                                        if(newValue.count >= 20){
+//                                            occupation = String(newValue.prefix(20))
+//                                        }
+//                                        if(newValue.count >= 1){
+//                                            controller.profile.occupation = newValue
+//                                        } else {
+//                                            controller.profile.occupation = nil
+//                                        }
+//                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -122,17 +122,17 @@ struct UserOnboardingIntro: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "예: 고졸, 학사, 석사, 박사...", text: $education, font: regular18Font)
-                                    .onChange(of: education, perform: { newValue in
-                                        if(newValue.count >= 20){
-                                            education = String(newValue.prefix(20))
-                                        }
-                                        if(newValue.count >= 1){
-                                            controller.profile.education = newValue
-                                        } else {
-                                            controller.profile.education = nil
-                                        }
-                                    })
+                                CustomTextField(placeholder: "예: 고졸, 학사, 석사, 박사...", text: $controller.profile.education ?? "", font: regular18Font)
+//                                    .onChange(of: education, perform: { newValue in
+//                                        if(newValue.count >= 20){
+//                                            education = String(newValue.prefix(20))
+//                                        }
+//                                        if(newValue.count >= 1){
+//                                            controller.profile.education = newValue
+//                                        } else {
+//                                            controller.profile.education = nil
+//                                        }
+//                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -155,12 +155,12 @@ struct UserOnboardingIntro: View {
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                         
-                        TagCloudView(tags: [
-                            controller.profile.occupation,
-                            controller.profile.height.toHeight(),
-                            controller.profile.weight.toWeight(),
-                            controller.profile.mbti,
-                            controller.profile.education
+                        DeletableTagCloudView(tags: [
+                            (controller.profile.occupation, .ocu),
+                            (controller.profile.height.toHeight(), .height),
+                            (controller.profile.weight.toWeight(), .weight),
+                            (controller.profile.mbti, .mbti),
+                            (controller.profile.education, .edu)
                         ], totalHeight: CGFloat.infinity, isDark: true)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, Size.w(32))

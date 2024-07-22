@@ -64,6 +64,8 @@ struct SessionFlow: View {
         .environmentObject(messagesController)
         .environmentObject(amoringController)
         .onAppear {
+            /// sets current interests from DB
+            userManager.getInterests()
             /// sets current business districts from DB
             userManager.getBusinessDistricts()
             /// sets current business types from DB
@@ -88,8 +90,6 @@ struct SessionView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                /// sets current interests from DB
-                userManager.getInterests()
                 
                 /// in App Purchases
                 userManager.fetchProducts()

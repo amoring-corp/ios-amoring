@@ -7,6 +7,95 @@
 
 import SwiftUI
 
+enum fieldType {
+    case height, weight, mbti, ocu, edu
+}
+
+struct DeletableTagCloudView: View {
+    @EnvironmentObject var controller: UserOnboardingController
+    var tags: [(String?, fieldType)]
+    @State var totalHeight
+          = CGFloat.zero       // << variant for ScrollView/List
+    //    = CGFloat.infinity   // << variant for VStacktotalHeight: CGFloat.infinity,
+    var isDark: Bool = false
+    
+    
+    var body: some View {
+        VStack {
+            GeometryReader { geometry in
+                self.generateContent(in: geometry)
+            }
+        }
+        .frame(height: totalHeight)// << variant for ScrollView/List
+        //.frame(maxHeight: totalHeight) // << variant for VStack
+    }
+
+    private func generateContent(in g: GeometryProxy) -> some View {
+        var width = CGFloat.zero
+        var height = CGFloat.zero
+        let filteredTags = self.tags.filter({ $0.0 != nil && $0.0 != "" })
+        
+        return ZStack(alignment: .topLeading) {
+            ForEach(filteredTags, id: \.1) { tag in
+                self.item(for: tag.0)
+                    .padding(.trailing, 8)
+                    .padding(.vertical, 4)
+                    .alignmentGuide(.leading, computeValue: { d in
+                        if (abs(width - d.width) > g.size.width)
+                        {
+                            width = 0
+                            height -= d.height
+                        }
+                        let result = width
+                        if tag == filteredTags.last! {
+                            width = 0 //last item
+                        } else {
+                            width -= d.width
+                        }
+                        return result
+                    })
+                    .alignmentGuide(.top, computeValue: {d in
+                        let result = height
+                        if tag == filteredTags.last! {
+                            height = 0 // last item
+                        }
+                        return result
+                    })
+                    .onTapGesture {
+                        withAnimation {
+                            switch tag.1 {
+                            case .edu:
+                                controller.profile.education = nil
+                            case .height:
+                                controller.profile.height = nil
+                            case .weight:
+                                controller.profile.weight = nil
+                            case .mbti:
+                                controller.profile.mbti = nil
+                            case .ocu:
+                                controller.profile.occupation = nil
+                            }
+                        }
+                    }
+            }
+        }.background(viewHeightReader($totalHeight))
+    }
+
+    private func item(for text: String?) -> some View {
+        text == nil ? nil : Chip(text: text ?? "", isDark: isDark)
+    }
+
+    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
+        return GeometryReader { geometry -> Color in
+            let rect = geometry.frame(in: .local)
+            DispatchQueue.main.async {
+                binding.wrappedValue = rect.size.height
+            }
+            return .clear
+        }
+    }
+}
+
 struct TagCloudView: View {
     var tags: [String?]
     @State var totalHeight

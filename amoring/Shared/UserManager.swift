@@ -1177,7 +1177,7 @@ class UserManager: ObservableObject {
         self.messageSubscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let message = data.messageSent?.fragments.messageInfo {
-                print(message.body)
+                print("New message: \(message.body)")
                 self.newMessage = message
                 completion(message)
             } else {
