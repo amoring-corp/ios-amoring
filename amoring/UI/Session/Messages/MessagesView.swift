@@ -42,16 +42,16 @@ struct MessagesView: View {
                         .foregroundColor(.yellow300)
                 }
             }
-            .navigationBarItems(
-                trailing: Button(action: {
-    //                showInfo.toggle()
-                }) {
-                    Image("ic-info")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: Size.w(32), height: Size.w(32))
-                }
-            )
+//            .navigationBarItems(
+//                trailing: Button(action: {
+//    //                showInfo.toggle()
+//                }) {
+//                    Image("ic-info")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: Size.w(32), height: Size.w(32))
+//                }
+//            )
         }
     }
 }

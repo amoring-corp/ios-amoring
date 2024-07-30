@@ -28,28 +28,28 @@ struct CouponDetailsView: View {
                     .padding(.bottom, 30)
                 
                 VStack(alignment: .center, spacing: 8) {
-                    Text(coupon.subtitle)
+                    Text(NSLocalizedString(coupon.subtitle, comment: ""))
                         .font(regular18Font)
                         .foregroundColor(.gray600)
                     
-                    Text(coupon.title)
+                    Text(NSLocalizedString(coupon.title, comment: ""))
                         .font(medium28Font)
                         .foregroundColor(.gray200)
                     
-                    Text(coupon.expirationDate.toString(format: nil) + " 까지")
+                    Text("\(coupon.expirationDate.toString(format: nil)) 까지")
                         .font(regular18Font)
                         .foregroundColor(.gray600)
                 }
                 .padding(.bottom, 30)
                 
                 VStack(spacing: 40) {
-                    Text(coupon.description)
+                    Text(NSLocalizedString(coupon.description, comment: ""))
                         .font(regular16Font)
                         .foregroundColor(.gray200)
                         .multilineTextAlignment(.center)
                         .lineSpacing(6)
                     
-                    Text(coupon.body)
+                    Text(NSLocalizedString(coupon.body, comment: ""))
                         .font(regular16Font)
                         .foregroundColor(.gray600)
                         .multilineTextAlignment(.leading)
