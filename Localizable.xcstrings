@@ -108,6 +108,17 @@
     "%@ m" : {
 
     },
+    "%@ 까지" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valid until %@"
+          }
+        }
+      }
+    },
     "%@ 외부에 있을 수도 있습니다" : {
 
     },
@@ -350,6 +361,68 @@
     "Business Sign IN" : {
 
     },
+    "coupon1.body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes:\n* This coupon is given once to new member of Amoring.\n* It can not be used in combination with other coupons.\n* Expired coupons will not be reissued. Please use them before the expiration date.\n* The coupon can only be redeemed once at a partnered location."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유의사항\n• 본 쿠폰은 신규회원에게 1회 지급되는 쿠폰입니다.\n• 다른 쿠폰과 중복사용 불가합니다.\n• 유효기간이 지난 쿠폰은 재발행 되지 않으니 유효기간 내에 사용해 주시기 바랍니다.\n• 쿠폰 사용 하기 버튼을 누르면 사용된 쿠폰은 회수할 수 없습니다. 꼭 매장에서 제시하여 사용해주세요."
+          }
+        }
+      }
+    },
+    "coupon1.desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome!\nPresent this coupon to an Amoring partnered establishment.\nAs a welcoming gift, have a free drink on us!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "반가워요 회원님!\\n아모링 가맹 매장에서 해당 쿠폰을 제시해주세요.\\n환영의 의미로 아모링이 무료로 술 한잔 쏩니다!"
+          }
+        }
+      }
+    },
+    "coupon1.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amoring | Welcome coupon"
+          }
+        }
+      }
+    },
+    "coupon1.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free drink coupon"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무료 드링크 교환권"
+          }
+        }
+      }
+    },
     "DEBUGGING" : {
 
     },
@@ -550,9 +623,6 @@
         }
       }
     },
-    "TEST MODE" : {
-
-    },
     "Your password has been successfully updated" : {
       "localizations" : {
         "en" : {
@@ -683,7 +753,14 @@
 
     },
     "내 사진" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My pictures"
+          }
+        }
+      }
     },
     "내 주변" : {
       "extractionState" : "manual",
@@ -731,7 +808,14 @@
 
     },
     "다양한 이벤트에 참여하여 쿠폰을 받으세요.\n유효기간이 만료된 쿠폰은\n자동으로 목록에서 삭제됩니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Participate in various events to get \nreceive coupons.\n Expired coupons are automatically \nremoved from the list."
+          }
+        }
+      }
     },
     "다음" : {
 
@@ -814,7 +898,14 @@
 
     },
     "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 좋아요하면,\n이제부터 여기서 메시지를 보낼 수 있어요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find someone you like in the lounge.\nIf you and the other person like each other, you \ncan message them here from now on!"
+          }
+        }
+      }
     },
     "로그아웃" : {
       "localizations" : {
@@ -885,7 +976,14 @@
 
     },
     "메시지" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages"
+          }
+        }
+      }
     },
     "메시지 삭제하기" : {
 
@@ -1124,7 +1222,14 @@
 
     },
     "세" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yo"
+          }
+        }
+      }
     },
     "소개글" : {
       "localizations" : {
@@ -1208,7 +1313,14 @@
 
     },
     "연결된 인연이\n이곳에 나타납니다" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous connections\nappear here"
+          }
+        }
+      }
     },
     "영문 대문자" : {
 
@@ -1490,6 +1602,17 @@
         }
       }
     },
+    "쿠폰 사용 하기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this coupon"
+          }
+        }
+      }
+    },
     "쿠폰함" : {
       "localizations" : {
         "en" : {
@@ -1501,7 +1624,14 @@
       }
     },
     "쿠폰함이 비어있습니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You do not currently have \nany coupons."
+          }
+        }
+      }
     },
     "키*" : {
       "extractionState" : "manual",

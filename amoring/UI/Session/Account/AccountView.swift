@@ -49,7 +49,7 @@ struct AccountView: View {
                                 .background(Capsule().fill(Color.yellow300))
                             
                             if let age = userManager.user?.profile?.age {
-                                Text(age.description + "세")
+                                (Text(age.description) + Text("세"))
                                     .font(semiBold12Font)
                                     .foregroundColor(.gray1000)
                                     .padding(.horizontal, Size.w(12))

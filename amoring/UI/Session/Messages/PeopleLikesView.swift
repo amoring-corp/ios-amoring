@@ -246,7 +246,7 @@ struct PeopleLikesListObject: View {
                         //                                                .padding(.vertical, Size.w(6))
                         //                                                .background(Capsule().fill(Color.gray1000))
                         if let age = reaction?.byProfile.age {
-                            Text(age.description + "세")
+                            (Text(age.description) + Text("세"))
                                 .font(semiBold12Font)
                                 .foregroundColor(.white)
                                 .padding(.horizontal, Size.w(8))

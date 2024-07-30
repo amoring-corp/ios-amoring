@@ -80,7 +80,7 @@ struct UserInfoView: View {
                         .background(Capsule().fill(Color.gray1000))
                     
                     if let age = profile.age {
-                        Text(age.description + "세")
+                        (Text(age.description) + Text("세"))
                             .font(semiBold12Font)
                             .foregroundColor(.white)
                             .padding(.horizontal, Size.w(12))
