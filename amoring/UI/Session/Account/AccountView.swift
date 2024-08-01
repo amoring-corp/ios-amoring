@@ -68,7 +68,7 @@ struct AccountView: View {
                         VStack(spacing: 0) {
                             if userManager.user?.profile?.gender != .female {
                                 MenuLineLink(title: "사진") {
-                                    AccountPhoto()
+                                    AccountPhoto(goFurther: .constant(nil))
                                 }
                             } else {
                                 MenuLineLink(title: "사진") {
@@ -115,7 +115,7 @@ struct AccountView: View {
                             
                             VStack(spacing: 0) {
                                 if likesAvailable && userManager.user?.profile?.gender != .female {
-                                    MenuLineButton(title: "+ 좋아요", subtitle: "\(userManager.user?.likesCredit ?? 0)개 남음", image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
+                                    MenuLineButton(title: "+ 좋아요", subtitle: String(format: NSLocalizedString("%d개 남음", comment: ""), userManager.user?.likesCredit ?? 0), image: "ic-heart-fill", fontColor: Color.yellow200, subFontColor: Color.yellow350) { userManager.openPurchase(purchaseType: .like) }
                                     
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                                 }
@@ -197,7 +197,7 @@ struct AccountView: View {
                         VStack(spacing: 0) {
                             MenuLineButton(title: "로그아웃", action: { logoutAlertPresented = true })
                                 .alert("로그아웃", isPresented: $logoutAlertPresented, actions: {
-                                    Button("로그아웃", action: sessionManager.signOut)
+                                    Button("로그아웃", role: .destructive, action: sessionManager.signOut)
                                     Button("취소", role: .cancel, action: {})
                                 }, message: { Text("로그아웃 하시면, 라운지 활동이나 다른 멤버로부터의 메시지 알림을 받으실 수 없습니다. 로그아웃 하시겠습니까?") })
                             

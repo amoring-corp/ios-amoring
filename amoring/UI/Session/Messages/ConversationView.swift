@@ -225,11 +225,18 @@ struct ConversationView: View, KeyboardReadable {
                     }
                 let diff = Date() - (controller.selectedConversation?.createdAt ?? Date())
 //                let endTime: TimeInterval = 24 * 60 * 60
+                if isEnglish {
+                    Text(NSLocalizedString("에 메시지가 활성화 되었습니다.", comment: ""))
+                        .foregroundColor(.gray500)
+                    + Text(diff.toPassedTime())
+                        .foregroundColor(.yellow300)
+                } else {
+                    Text(diff.toPassedTime())
+                        .foregroundColor(.yellow300)
+                    + Text(NSLocalizedString("에 메시지가 활성화 되었습니다.", comment: ""))
+                        .foregroundColor(.gray500)
+                }
                 
-                Text(diff.toPassedTime())
-                    .foregroundColor(.yellow300)
-                + Text(" 에 메시지가 활성화 되었습니다.")
-                    .foregroundColor(.gray500)
                 
                 // TODO: use it for lounge user!
                 if false {

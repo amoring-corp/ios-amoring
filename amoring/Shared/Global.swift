@@ -26,6 +26,10 @@ func loadFileFromLocalPath(_ url: URL) -> Data? {
     return data
 }
 
+var isEnglish: Bool {
+    Locale.current.languageCode == "en"
+}
+
 let TIME_OFFSET = TimeZone.current.secondsFromGMT()
 let TIME_OFFSET_D: Double = Double(TimeZone.current.secondsFromGMT())
 let TIME_OFFSET_MINUTES = TIME_OFFSET / 60

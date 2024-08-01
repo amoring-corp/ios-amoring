@@ -268,33 +268,52 @@ extension Optional where Wrapped == TimeInterval {
 
 extension TimeInterval {
     func toPassedTime() -> String {
-        if self < 61 {
-            return "방금 전"
-        } else if self > 86400 {
-            return "만료됨"
+        if isEnglish {
+            if self < 61 {
+                return "just now"
+            } else if self > 86400 {
+                return "expired"
+            } else {
+                let HMS = self.secondsToHMS()
+                let hours = HMS.0 > 0 ? "\(HMS.0)h " : ""
+                let minutes = HMS.1 > 0 ? "\(HMS.1)m " : ""
+                return  hours + minutes + "ago"
+            }
         } else {
-            let HMS = self.secondsToHMS()
-            let hours = HMS.0 > 0 ? "\(HMS.0)시간 " : ""
-            let minutes = HMS.1 > 0 ? "\(HMS.1)분 " : ""
-            return  hours + minutes + "전"
+            if self < 61 {
+                return "방금 전"
+            } else if self > 86400 {
+                return "만료됨"
+            } else {
+                let HMS = self.secondsToHMS()
+                let hours = HMS.0 > 0 ? "\(HMS.0)시간 " : ""
+                let minutes = HMS.1 > 0 ? "\(HMS.1)분 " : ""
+                return  hours + minutes + "전"
+            }
         }
     }
     
-    func toEraseTime() -> String {
+    func toEraseTime() -> Int {
         let HMS = self.secondsToHMS()
         
         if HMS.0 >= 0 {
-            return "\(HMS.0 + 1)시간 후 메시지가 사라집니다."
+            return HMS.0 + 1
         } else {
-            return "1 시간 후 메시지가 사라집니다."
+            return 1
         }
     }
     
     func toExpiredTime() -> String {
         let HMS = self.secondsToHMS()
-        let hours = HMS.0 > 0 ? "\(HMS.0)시간 " : ""
-        let minutes = HMS.1 > 0 ? "\(HMS.1)분 " : ""
-        return  hours + minutes + "남음"
+        if isEnglish {
+            let hours = HMS.0 > 0 ? "\(HMS.0)h " : ""
+            let minutes = HMS.1 > 0 ? "\(HMS.1)m " : ""
+            return  hours + minutes + "left"
+        } else {
+            let hours = HMS.0 > 0 ? "\(HMS.0)시간 " : ""
+            let minutes = HMS.1 > 0 ? "\(HMS.1)분 " : ""
+            return  hours + minutes + "남음"
+        }
     }
 }
 

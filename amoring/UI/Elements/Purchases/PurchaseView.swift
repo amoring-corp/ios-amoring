@@ -22,7 +22,7 @@ struct PurchaseView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack {
-                    Text(model.barTitle)
+                    Text(NSLocalizedString(model.barTitle, comment: ""))
                 }
                 .font(bold20Font)
                 .foregroundColor(.yellow300)
@@ -39,7 +39,7 @@ struct PurchaseView: View {
                             if let titleImage = model.titleImage {
                                 Image(systemName: titleImage)
                             }
-                            Text(model.title)
+                            Text(NSLocalizedString(model.title, comment: ""))
                         }
                             .font(medium22Font)
                             .foregroundColor(.yellow200)
@@ -49,13 +49,13 @@ struct PurchaseView: View {
                             .clipShape(Capsule())
                             .padding(.top, Size.w(40))
                         
-                        Text(model.subtitle)
+                        Text(NSLocalizedString(model.subtitle, comment: ""))
                             .font(bold26Font)
                             .lineSpacing(5)
                             .multilineTextAlignment(.center)
                             .padding(.top, Size.w(34))
                         
-                        Text(model.description)
+                        Text(NSLocalizedString(model.description, comment: ""))
                             .font(medium16Font)
                             .lineSpacing(7)
                             .multilineTextAlignment(.center)
@@ -75,20 +75,20 @@ struct PurchaseView: View {
                         }
                             .padding(.top, Size.w(36))
                         
-                        Text(model.description2)
+                        Text(NSLocalizedString(model.description2, comment: ""))
                             .font(medium16Font)
                             .lineSpacing(7)
                             .multilineTextAlignment(.center)
                             .padding(.top, Size.w(42))
                         
                         if let description3 = model.description3 {
-                            Text(description3)
+                            Text(NSLocalizedString(description3, comment: ""))
                                 .font(bold16Font)
                                 .multilineTextAlignment(.center)
                                 .padding(.top, Size.w(27))
                         }
                         if let description4 = model.description4 {
-                            Text(description4)
+                            Text(NSLocalizedString(description4, comment: ""))
                                 .font(regular14Font)
                                 .lineSpacing(8)
                                 .multilineTextAlignment(.leading)

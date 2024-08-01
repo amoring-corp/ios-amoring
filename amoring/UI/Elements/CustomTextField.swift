@@ -44,7 +44,7 @@ struct MultilineCustomTextField: View {
                 .autocorrectionDisabled()
                 .lineLimit(linelimit)
                 .placeholder(when: text.isEmpty) {
-                    Text(placeholder ?? "")
+                    Text(NSLocalizedString(placeholder ?? "", comment: ""))
                         .font(regular20Font)
                         .foregroundColor(.gray200)
                 }

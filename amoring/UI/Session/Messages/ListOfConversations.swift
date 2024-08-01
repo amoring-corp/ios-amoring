@@ -190,15 +190,14 @@ struct ChatRow: View {
                     }
                 }
                 
-                Text(conversation.messages.reversed().last?.body ?? "👋 첫인사를 보내보세요!")
+                Text(conversation.messages.reversed().last?.body ?? NSLocalizedString("👋 첫인사를 보내보세요!", comment: ""))
                     .font(regular14Font)
                     .foregroundColor(expired ? .gray600 : (conversation.messages.isEmpty ? .yellow600 : .gray300))
                     .padding(.vertical, Size.w(6))
                 
                 if let archivedAt = conversation.archivedAt {
                     let eraseTime = archivedAt - Date()
-                    
-                    Text(eraseTime.toEraseTime())
+                    Text(String(format: NSLocalizedString("%d시간 후 메시지가 사라집니다.", comment: ""), eraseTime.toEraseTime()))
                         .font(regular12Font)
                         .foregroundColor(.gray700)
                         .opacity(expired ? 0 : 1)

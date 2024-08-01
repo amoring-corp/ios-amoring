@@ -20,6 +20,7 @@ struct AccountPhoto: View {
     @State private var showImagePicker: Bool = false
     @State private var editIndex: Int? = nil
     @State private var pictures: [PictureModel] = []
+    @Binding var goFurther: Bool?
     
     var body: some View {
         VStack {
@@ -112,7 +113,13 @@ struct AccountPhoto: View {
         }
         .navigationBarItems(leading:
                                 BackButton(action: {
-            self.presentationMode.wrappedValue.dismiss()
+            if let goFurther {
+                withAnimation {
+                    self.goFurther = false
+                }
+            } else {
+                self.presentationMode.wrappedValue.dismiss()
+            }
         }, color: Color.yellow300)
         )
     }
@@ -123,5 +130,5 @@ struct AccountPhoto: View {
 }
 
 #Preview {
-    AccountPhoto()
+    AccountPhoto(goFurther: .constant(false))
 }

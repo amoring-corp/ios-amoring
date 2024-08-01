@@ -180,7 +180,7 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
                 }
                 
                 HStack {
-                    Text(notification?.text ?? "")
+                    Text(NSLocalizedString(notification?.text ?? "", comment: ""))
                         .font(regular16Font)
                         .foregroundColor(notification?.type == .error ? .black : .white)
                         .multilineTextAlignment(.center)
@@ -190,7 +190,7 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
                         Spacer()
                         
                         Button(action: notification?.action ?? {}) {
-                            Text("확인하기")
+                            Text(NSLocalizedString("확인하기", comment: ""))
                                 .font(semiBold16Font)
                                 .foregroundColor(.green200)
                         }

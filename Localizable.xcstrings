@@ -28,14 +28,36 @@
         }
       }
     },
-    " 에 메시지가 활성화 되었습니다." : {
-
+    " + 좋아요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " + Likes"
+          }
+        }
+      }
     },
     " 에서" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
     },
     " 의" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
     },
     " 인연은 신뢰속에서 시작됩니다. 회원님의 *" : {
       "extractionState" : "manual",
@@ -53,6 +75,17 @@
     },
     "(%lld)" : {
 
+    },
+    "(userManager.user?.likesCredit ?? 0)개 남음" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(userManager.user?.likesCredit ?? 0)left"
+          }
+        }
+      }
     },
     "@amoring" : {
 
@@ -138,6 +171,38 @@
     "%@kg" : {
 
     },
+    "%@개 남음" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ left"
+          }
+        }
+      }
+    },
+    "%d개 남음" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d left"
+          }
+        }
+      }
+    },
+    "%d시간 후 메시지가 사라집니다." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This message will disappear in %dhours"
+          }
+        }
+      }
+    },
     "%lf m" : {
 
     },
@@ -150,9 +215,6 @@
           }
         }
       }
-    },
-    "%lf시간 후 메시지가 사라집니다." : {
-
     },
     "%lld" : {
 
@@ -173,9 +235,6 @@
     "%lldkg" : {
 
     },
-    "%lld시간 후 메시지가 사라집니다." : {
-
-    },
     "• QR코드는 실시간으로 업데이트 되기때문에 이미지는" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -183,6 +242,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "• The QR code is updated in real time and will only be valid for two hours."
+          }
+        }
+      }
+    },
+    "• 결제 확정 시 귀하의 iTunes 계정에 요금이 청구됩니다.\n• 패스는 구입 시 자동으로 활성화 되며, 다음날 오후 12:00까지 유효합니다.\n• 패스가 활성화 된 기간 동안에는 중복구매 할 수 없습니다.\n• 패스의 잔여시간은 아모링 앱 > 내 계정 > 아모링 구매내역에서 확인이 가능합니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Upon confirmation of payment, the charge will be billed to your iTunes account. \n• The pass is automatically activated upon purchase and is valid until 12:00 PM the following day. \n• You cannot purchase the pass again while it is active. \n• You can check the remaining time of the pass in the Amoring app under My Account > Amoring Purchase History."
           }
         }
       }
@@ -269,6 +339,17 @@
         }
       }
     },
+    "👋 첫인사를 보내보세요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "👋 Send your first greeting!"
+          }
+        }
+      }
+    },
     "👩🏻" : {
 
     },
@@ -350,7 +431,14 @@
       }
     },
     "Amoring에서 탈퇴 시 해당 계정의 모든 정보는 영구 삭제되며 다시 복수 할 수 없습니다. Amoring 계정을 삭제하시겠습니까?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All of your account information will be permanently deleted if you continue. Are you sure you want to continue?"
+          }
+        }
+      }
     },
     "Basic" : {
 
@@ -460,6 +548,9 @@
       "extractionState" : "manual"
     },
     "Key 1" : {
+      "extractionState" : "manual"
+    },
+    "Key 2" : {
       "extractionState" : "manual"
     },
     "LOGO" : {
@@ -646,15 +737,11 @@
 
     },
     "개" : {
-
-    },
-    "개 남음" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : " left"
+            "value" : " "
           }
         }
       }
@@ -680,6 +767,17 @@
     },
     "갱신일 최소 하루 전까지 설정 > Apple ID에서 언제든지 취소할 수 있습니다. 취소할 때까지 요금제가 자동 갱신됩니다." : {
 
+    },
+    "거리순" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by distance"
+          }
+        }
+      }
     },
     "검색 시 상단 노출" : {
 
@@ -723,6 +821,17 @@
         }
       }
     },
+    "구매 시 유의사항" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchasing notes"
+          }
+        }
+      }
+    },
     "구매하기" : {
       "localizations" : {
         "en" : {
@@ -746,8 +855,30 @@
     "기억하기" : {
 
     },
+    "나를 드러내지 않고\n은밀히 인연을 찾아보세요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep your profile hidden while trying to find your match"
+          }
+        }
+      }
+    },
     "남성" : {
 
+    },
+    "내 계정" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        }
+      }
     },
     "내 매장" : {
 
@@ -784,6 +915,17 @@
         }
       }
     },
+    "내가 좋아요 또는 오른쪽으로 스와이프한\n멤버들에게만 프로필을 공개하세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make your profile only visible to users you like."
+          }
+        }
+      }
+    },
     "내용을 작성해주세요." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -796,7 +938,14 @@
       }
     },
     "네" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes"
+          }
+        }
+      }
     },
     "다른 매장에서 이용시, 체크 아웃 후 이용해주세요." : {
       "extractionState" : "manual"
@@ -833,6 +982,17 @@
     },
     "대표자명*" : {
 
+    },
+    "더 많은 좋아요로\n더 많은 인연을 만드세요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make more matches \nwith more likes."
+          }
+        }
+      }
     },
     "돌아가기" : {
 
@@ -895,7 +1055,14 @@
 
     },
     "라운지에 체크인 하시겠습니까?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to check into this lounge?"
+          }
+        }
+      }
     },
     "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 좋아요하면,\n이제부터 여기서 메시지를 보낼 수 있어요!" : {
       "localizations" : {
@@ -918,13 +1085,27 @@
       }
     },
     "로그아웃 하시면, 라운지 활동이나 다른 멤버로부터의 메시지 알림을 받으실 수 없습니다. 로그아웃 하시겠습니까?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you logout, you will be unable to see lounge activities or receive chat notifications. Are you sure you want to logout?"
+          }
+        }
+      }
     },
     "로그인 시 아이디로 사용됩니다.\n인증 코드 확인이 가능한 이메일로 작성해주세요." : {
 
     },
     "리스트" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matches"
+          }
+        }
+      }
     },
     "리스트 보기" : {
       "localizations" : {
@@ -937,13 +1118,34 @@
       }
     },
     "리스트 확인하기 >" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check matches >"
+          }
+        }
+      }
     },
     "리스트에는 회원님을 좋아요한\n라운지 멤버들이 모두 나타납니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This list shows all users at your current location that have liked your profile."
+          }
+        }
+      }
     },
     "마음이 통했어요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You Matched!"
+          }
+        }
+      }
     },
     "마지막, 자기소개 한줄" : {
 
@@ -985,14 +1187,43 @@
         }
       }
     },
+    "메시지 보내기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Message"
+          }
+        }
+      }
+    },
     "메시지 삭제하기" : {
 
+    },
+    "메시지 탭에서 좋아요한\n멤버가 누구인지 확인하세요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See everyone who has \nliked your profile."
+          }
+        }
+      }
     },
     "메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?" : {
 
     },
     "메시지를 시작할 수 있어요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start chatting!"
+          }
+        }
+      }
     },
     "멤버십" : {
 
@@ -1181,11 +1412,36 @@
     "상세주소*" : {
 
     },
+    "새로운 인연이 생겼어요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New match!"
+          }
+        }
+      }
+    },
     "서로 좋아요한 상대방과\n이제부터 여기서 메시지를 보낼 수 있어요.\n먼저 메시지를 보내보세요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can now message each other here.\nSend a message first!"
+          }
+        }
+      }
     },
     "서로가 ‘좋아요'를 통해 연결되었어요.\n먼저 메시지를 보내서 인사를 건내 보세요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Both of you liked each other.\nSend a message to start chatting!"
+          }
+        }
+      }
     },
     "서비스 이용 약관" : {
       "localizations" : {
@@ -1268,7 +1524,14 @@
       }
     },
     "아니요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
     },
     "아래의 내용은 ***전부 필수**로 입력하셔야 합니다.\n고객에게 노출되는 정보이니 정확히 작성해주세요.\n나중에 매장정보에서 수정도 가능합니다." : {
 
@@ -1305,6 +1568,17 @@
     },
     "에 동의하게됩니다.\n당사의 개인정보 사용방식에 관한 내용은 " : {
 
+    },
+    "에 메시지가 활성화 되었습니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The message was activated "
+          }
+        }
+      }
     },
     "에서\n확인하실 수 있습니다." : {
 
@@ -1374,7 +1648,25 @@
 
     },
     "오늘밤,\n리스트 보기를 활성화해보세요.\n누가 먼저 ‘좋아요’를 보냈는지 알려드릴게요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable likes view to see all matches.\n Find out who liked your profile."
+          }
+        }
+      }
+    },
+    "오늘밤, 리스트 보기를 활성화하여\n누가 좋아요를 보냈는지 확인한 후 메시지를 보내세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate the list view to see who \nhas sent you likes and message them."
+          }
+        }
+      }
     },
     "완료" : {
 
@@ -1383,7 +1675,15 @@
 
     },
     "유저순" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by popularity"
+          }
+        }
+      }
     },
     "유효기간 만료 후에는 QR코드를 재스캔해주세요." : {
       "extractionState" : "manual"
@@ -1393,6 +1693,28 @@
     },
     "이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다." : {
 
+    },
+    "이 특별한 좋아요는 하루가 지나도 사라지지 않으니\n중요한 순간을 위해서 미리 준비하세요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchased special likes do not refresh \nafter a day unlike normal likes. \nSo be prepared for the important moments"
+          }
+        }
+      }
+    },
+    "이름순" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by name"
+          }
+        }
+      }
     },
     "이름을 입력해주세요" : {
 
@@ -1425,7 +1747,14 @@
 
     },
     "이제, 좋아요한 라운지 멤버를 확인하고\n먼저 메시지를 보내보세요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See who liked your profile and send them a message"
+          }
+        }
+      }
     },
     "인연은 신뢰속에서 시작됩니다.\n회원님을 소개하고 인연을 만들어보세요." : {
 
@@ -1545,6 +1874,28 @@
     "종목*" : {
 
     },
+    "좋아요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Likes"
+          }
+        }
+      }
+    },
+    "좋아요가 부족해 아쉬운 순간이 있었나요?\n좋아요를 더 추가해 사용해보세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you running out of likes?\nTry adding more likes."
+          }
+        }
+      }
+    },
     "좋아요를 전부 사용하셨습니다, 지금 더 구매하실까요?" : {
 
     },
@@ -1645,13 +1996,42 @@
       }
     },
     "테이블" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Table"
+          }
+        }
+      }
+    },
+    "투명모드" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Control who sees you"
+          }
+        }
+      }
     },
     "특수문자" : {
 
     },
     "파일 첨부하기" : {
 
+    },
+    "패스는 구입시점 부터 12시간동안 적용됩니다.\n구매시 패스가 자동으로 활성화 되니 걱정마세요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This pass lasts for 12 hours after purchasing.\nThis pass is activated automatically upon purchase."
+          }
+        }
+      }
     },
     "프로필 사진 추가" : {
       "localizations" : {
@@ -1722,7 +2102,14 @@
 
     },
     "확인하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check it out"
+          }
+        }
+      }
     },
     "환영합니다!" : {
 

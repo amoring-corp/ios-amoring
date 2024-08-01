@@ -73,6 +73,11 @@
           "description" : "5 / 최소금액",
           "displayName" : "5 likes",
           "locale" : "ko"
+        },
+        {
+          "description" : "5 / basic",
+          "displayName" : "5 likes",
+          "locale" : "en_US"
         }
       ],
       "productID" : "test_likes_5",
@@ -124,7 +129,7 @@
     "_applicationInternalID" : "6474838531",
     "_developerTeamID" : "6S83TJN3P8",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 740715596.32159305,
+    "_lastSynchronizedDate" : 744171023.48331797,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [

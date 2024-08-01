@@ -91,9 +91,12 @@ struct ListOfPeopleLikesLink: View {
                     .padding(.trailing, Size.w(12))
                     
                     VStack(alignment: .leading) {
+                        Spacer()
                         Text(listIsEnable ?  "이제, 좋아요한 라운지 멤버를 확인하고\n먼저 메시지를 보내보세요!" : "리스트에는 회원님을 좋아요한\n라운지 멤버들이 모두 나타납니다.")
                             .font(listIsEnable ? medium14Font : light14Font)
                             .foregroundColor(listIsEnable ? .black : .gray400)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
                             .lineSpacing(6)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom, Size.w(12))
@@ -106,9 +109,10 @@ struct ListOfPeopleLikesLink: View {
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
-                    .frame(height: Size.w(114), alignment: .bottom)
+                    .frame(alignment: .bottom)
                 }
-                .padding(.horizontal, Size.w(22))
+                .padding(.trailing, Size.w(22))
+                .padding(.leading, Size.w(11))
                 .padding(.bottom, Size.w(4))
             }
             .frame(height: Size.w(118), alignment: .bottom)

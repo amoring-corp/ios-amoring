@@ -43,7 +43,7 @@ struct PeopleLikesView: View {
             ScrollView(showsIndicators: false) {
                 if !userManager.visibleReactionsPassEnabled() {
                     VStack {
-                        Text("오늘밤,\n리스트 보기를 활성화해보세요.\n누가 먼저 ‘좋아요’를 보냈는지 알려드릴게요!")
+                        Text(NSLocalizedString("오늘밤,\n리스트 보기를 활성화해보세요.\n누가 먼저 ‘좋아요’를 보냈는지 알려드릴게요!", comment: ""))
                             .font(semiBold16Font)
                             .foregroundColor(.black)
                             .lineSpacing(6)

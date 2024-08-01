@@ -179,7 +179,7 @@ struct BusinessListView: View {
                     Menu {
                         Picker(selection: $filter.sorting, label: EmptyView()) {
                             ForEach(businessSorting.allCases, id: \.self) {
-                                Text($0.title())
+                                Text(NSLocalizedString($0.title(), comment: ""))
                                     .font(regular16Font)
                                     .foregroundColor(.yellow300)
                             }
@@ -189,7 +189,7 @@ struct BusinessListView: View {
                         }
                     } label: {
                         HStack {
-                            Text(filter.sorting.title())
+                            Text(NSLocalizedString(filter.sorting.title(), comment: ""))
                                 .font(regular16Font)
                             Image(systemName: "chevron.down")
                                 .resizable()
@@ -481,7 +481,16 @@ struct DistrictChip: View {
         let lat = locationManager.lastLocation?.coordinate.latitude
         let lng = locationManager.lastLocation?.coordinate.longitude
         let type = filter.businessType.id == "ALL" ? nil : filter.businessType.id
-        let sort: BusinessSortField? = filter.sorting == .name ? .businessName : nil
+        let sort: BusinessSortField? = {
+            switch filter.sorting {
+            case .recs:
+                nil
+            case .name:
+                BusinessSortField.businessName
+            case .distance:
+                BusinessSortField.distance
+            }
+        }()
         
         switch filter.selectedDistrict {
         case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, typeId: type, completion: completion)

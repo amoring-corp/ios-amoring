@@ -16,7 +16,7 @@ struct PurchaseSimpleWindow: View {
         let plan = userManager.products.first(where: { $0.id == PurchaseModel.id(type: purchaseType) })
         
         VStack(spacing: 0) {
-            Text(plan?.displayName ?? "")
+            Text(NSLocalizedString(plan?.displayName ?? "", comment: ""))
                 .font(semiBold18Font)
                 .foregroundColor(.white)
                 .padding(.vertical, Size.w(12))
