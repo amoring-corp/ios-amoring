@@ -29,6 +29,7 @@ struct Profile: Hashable {
     
     var maxLikes: Int
     var usedLikesCount: Int
+    var isBlurred: Bool
     
     init() {
         self.id = ""
@@ -38,6 +39,7 @@ struct Profile: Hashable {
         self.maxLikes = 10
         //MARK: HARDCODED
         self.usedLikesCount = 10
+        self.isBlurred = false
     }
     
     init(profile: UserInfo.Profile) {
@@ -63,6 +65,7 @@ struct Profile: Hashable {
         
         self.maxLikes = profile.maxLikes
         self.usedLikesCount = profile.usedLikesCount
+        self.isBlurred = profile.isBlurred ?? false
     }
     
     init(profile: ProfileInfo) {
@@ -88,6 +91,7 @@ struct Profile: Hashable {
         
         self.maxLikes = profile.maxLikes
         self.usedLikesCount = profile.usedLikesCount
+        self.isBlurred = profile.isBlurred ?? false
     }
     
 //    init(profile: BusinessInfo.ActiveCheckIn.Profile) {
@@ -131,6 +135,7 @@ struct Profile: Hashable {
         
         self.maxLikes = profile.maxLikes
         self.usedLikesCount = profile.usedLikesCount
+        self.isBlurred = profile.isBlurred ?? false
     }
     
 }
@@ -151,7 +156,8 @@ struct ProfileData {
                 "education": profile.education,
                 "occupation": profile.occupation,
                 "bio": profile.bio,
-                "gender": profile.gender
+                "gender": profile.gender,
+                "isBlurred": profile.isBlurred
             ])
         } else if let profileInfo {
             return InputDict([
@@ -164,7 +170,8 @@ struct ProfileData {
                 "education": profileInfo.education,
                 "occupation": profileInfo.occupation,
                 "bio": profileInfo.bio,
-                "gender": profileInfo.gender
+                "gender": profileInfo.gender,
+                "isBlurred": profileInfo.isBlurred ?? false
             ])
         } else {
             return InputDict([:])

@@ -370,6 +370,7 @@ type Profile {
   occupation: String
   bio: String
   gender: Gender
+  isBlurred: Boolean
   images: [ProfileImage]
   avatarUrl: String
   interests: [Interest]
@@ -392,6 +393,7 @@ input ProfileCreateInput {
   occupation: String
   bio: String
   gender: Gender
+  isBlurred: Boolean
 }
 
 """
@@ -423,6 +425,7 @@ input ProfileUpdateInput {
   bio: String
   gender: Gender
   images: [ProfileImageInput]
+  isBlurred: Boolean
 }
 
 type Purchase {

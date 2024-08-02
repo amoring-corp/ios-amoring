@@ -20,7 +20,7 @@ struct AddedImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(1, contentMode: .fit)
                 .background(.gray100)
-                .blur(radius: userManager.blurring ? 6 : 0)
+                .blur(radius: userManager.user?.profile?.isBlurred ?? false ? 6 : 0)
                 .cornerRadius(8)
                 
             Text(number.description)

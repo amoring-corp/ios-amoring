@@ -82,6 +82,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     public var usedLikesCount: Int { __data["usedLikesCount"] }
     @available(*, deprecated, message: "Use field from User instead")
     public var maxLikes: Int { __data["maxLikes"] }
+    public var isBlurred: Bool? { __data["isBlurred"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict

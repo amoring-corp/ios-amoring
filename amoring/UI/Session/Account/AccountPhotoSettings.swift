@@ -11,6 +11,7 @@ struct AccountPhotoSettings: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
     @State var goFurther: Bool? = false
+    @State var isBlurred: Bool = false
     
     var body: some View {
         ZStack {
@@ -40,11 +41,9 @@ struct AccountPhotoSettings: View {
                                 .padding(.vertical, Size.w(23))
                             }
                             
-                            
-                            
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             
-                            Toggle(isOn: $userManager.blurring) {
+                            Toggle(isOn: $isBlurred) {
                                 Text("흐려지기")
                                     .font(regular16Font)
                                     .foregroundColor(Color.gray600)
@@ -52,7 +51,19 @@ struct AccountPhotoSettings: View {
                             .tint(Color.green400)
                             .padding(.horizontal, Size.w(20))
                             .padding(.vertical, Size.w(23))
-                            
+                            .onAppear {
+                                self.isBlurred = userManager.user?.profile?.isBlurred ?? false
+                            }
+                            .onChange(of: isBlurred) { value in
+                                userManager.user?.profile?.isBlurred = self.isBlurred
+                                userManager.updateProfile { success in
+                                    if success {
+                                        self.isBlurred = userManager.user?.profile?.isBlurred ?? false
+                                    } else {
+                                        self.isBlurred.toggle()
+                                    }
+                                }
+                            }
                         }
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 14))

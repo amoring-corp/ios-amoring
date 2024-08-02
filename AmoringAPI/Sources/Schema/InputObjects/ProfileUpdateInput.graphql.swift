@@ -20,7 +20,8 @@ public struct ProfileUpdateInput: InputObject {
     occupation: GraphQLNullable<String> = nil,
     bio: GraphQLNullable<String> = nil,
     gender: GraphQLNullable<GraphQLEnum<Gender>> = nil,
-    images: GraphQLNullable<[ProfileImageInput?]> = nil
+    images: GraphQLNullable<[ProfileImageInput?]> = nil,
+    isBlurred: GraphQLNullable<Bool> = nil
   ) {
     __data = InputDict([
       "name": name,
@@ -32,7 +33,8 @@ public struct ProfileUpdateInput: InputObject {
       "occupation": occupation,
       "bio": bio,
       "gender": gender,
-      "images": images
+      "images": images,
+      "isBlurred": isBlurred
     ])
   }
 
@@ -84,5 +86,10 @@ public struct ProfileUpdateInput: InputObject {
   public var images: GraphQLNullable<[ProfileImageInput?]> {
     get { __data["images"] }
     set { __data["images"] = newValue }
+  }
+
+  public var isBlurred: GraphQLNullable<Bool> {
+    get { __data["isBlurred"] }
+    set { __data["isBlurred"] = newValue }
   }
 }

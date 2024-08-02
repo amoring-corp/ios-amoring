@@ -39,4 +39,5 @@ fragment ProfileInfo on Profile {
   updatedAt
   usedLikesCount
   maxLikes
+  isBlurred
 }

@@ -60,10 +60,19 @@ struct PhoneAuthSuccess: View {
                 .padding(.bottom, Size.w(36))
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        sessionManager.getCurrentSession(delay: 0) { success, error in
-                            notificationController.setNotification(show: !success, text: error, type: .error)
+                        withAnimation {
+                            if userManager.authUser.profile == nil {
+                                userManager.userState = .userOnboarding
+                            } else {
+                                userManager.userState = .session
+                            }
                         }
                     }
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                        sessionManager.getCurrentSession(delay: 0) { success, error in
+//                            notificationController.setNotification(show: !success, text: error, type: .error)
+//                        }
+//                    }
                 }
             }
             .padding(.horizontal, Size.w(22))

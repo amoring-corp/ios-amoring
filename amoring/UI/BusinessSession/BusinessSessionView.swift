@@ -199,10 +199,6 @@ struct BusinessSessionView: View {
             : DepositInfoView().environmentObject(businessSessionController)
                 .transition(.move(edge: .bottom))
         )
-        .onAppear {
-            print("abraca")
-            print(userManager.authUser.business?.isActive)
-        }
     }
     
     func fakelist(images: [String], size: CGFloat) -> some View {

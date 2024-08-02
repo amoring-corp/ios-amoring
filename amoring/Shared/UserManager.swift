@@ -30,9 +30,6 @@ class UserManager: ObservableObject {
     
     @Published var confirmRemoveImageIndex: Int = 0
     @Published var total: Int = 0
-        // TODO: NEED BACKEND VARIABLE IN USER TABLE!
-    @Published var blurring: Bool = false
-    
     
     init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
         /// unsubscripe all subscriptions . [case : business login]

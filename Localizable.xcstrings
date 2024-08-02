@@ -1099,7 +1099,14 @@
       }
     },
     "등록" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register"
+          }
+        }
+      }
     },
     "등록해주셔야 합니다. 그래야 인연을 찾을 확률이 높아져요!" : {
       "extractionState" : "manual",
