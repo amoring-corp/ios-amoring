@@ -731,10 +731,24 @@
 
     },
     "가입함으로써, 귀하는 당사의 " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By signing up, you agree to our "
+          }
+        }
+      }
     },
     "간편하게 SNS로 빠르게 시작해보세요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get started with an SNS account."
+          }
+        }
+      }
     },
     "개" : {
       "localizations" : {
@@ -757,7 +771,14 @@
       }
     },
     "개인정보 취급방침" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        }
+      }
     },
     "개인정보 필수 동의서 (필수)" : {
 
@@ -995,7 +1016,14 @@
       }
     },
     "돌아가기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
     },
     "등 기본정보를 알려주세요." : {
       "localizations" : {
@@ -1353,10 +1381,30 @@
 
     },
     "비즈니스 가입 " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Business Signup"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비즈니스 가입"
+          }
+        }
+      }
     },
     "비즈니스 로그인" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Business Login"
+          }
+        }
+      }
     },
     "비즈니스 멤버십" : {
 
@@ -1511,7 +1559,14 @@
 
     },
     "시작하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's start"
+          }
+        }
+      }
     },
     "신고하기" : {
       "localizations" : {
@@ -1567,7 +1622,14 @@
 
     },
     "에 동의하게됩니다.\n당사의 개인정보 사용방식에 관한 내용은 " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ". You can learn more about how we use your personal information in our "
+          }
+        }
+      }
     },
     "에 메시지가 활성화 되었습니다." : {
       "extractionState" : "manual",
@@ -1581,7 +1643,14 @@
       }
     },
     "에서\n확인하실 수 있습니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "."
+          }
+        }
+      }
     },
     "여성" : {
 
@@ -1732,7 +1801,14 @@
 
     },
     "이용약관" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and Conditions"
+          }
+        }
+      }
     },
     "이용약관 동의 (필수)" : {
 
