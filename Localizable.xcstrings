@@ -455,7 +455,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notes:\n* This coupon is given once to new member of Amoring.\n* It can not be used in combination with other coupons.\n* Expired coupons will not be reissued. Please use them before the expiration date.\n* The coupon can only be redeemed once at a partnered location."
+            "value" : "Notes:\n• This coupon is given once to new member of Amoring.\n• It can not be used in combination with other coupons.\n• Expired coupons will not be reissued. Please use them before the expiration date.\n• The coupon can only be redeemed once at a partnered location."
           }
         },
         "ko" : {
@@ -555,6 +555,23 @@
     },
     "LOGO" : {
 
+    },
+    "Lounges" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lounges"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "라운지"
+          }
+        }
+      }
     },
     "male" : {
       "extractionState" : "manual",
@@ -1066,7 +1083,14 @@
 
     },
     "라운지 체크아웃 시\n프로필이 더 이상 소개되지 않습니다.\n라운지에서 체크아웃 하시겠습니까?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Your profile will no longer be shown to others once you check out of the lounge.\nWould you like to continue?"
+          }
+        }
+      }
     },
     "라운지 확장" : {
       "extractionState" : "manual",
@@ -2017,7 +2041,14 @@
 
     },
     "체크아웃하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checkout"
+          }
+        }
+      }
     },
     "취소" : {
       "localizations" : {
@@ -2172,7 +2203,14 @@
 
     },
     "확인" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
     },
     "확인되었습니다!!" : {
 

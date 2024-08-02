@@ -213,30 +213,44 @@ struct BusinessListView: View {
                     
             ) {
                 // TODO: Implement pagination here!
-//                ForEach(0..<20) { num in
-//                                    Text(num.description)
-//                                        .font(.title)
-//                                        .padding()
-//                                        .onAppear {
-//                                            if num >= 19 {
-//                                                userManager.isLoading = true
-//                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                                                    userManager.getBusinesses {
-//                                                        userManager.isLoading = false
-//                                                    }
-//                                                }
-//                                            }
-//                                            print(num)
-//                                        }
+//                ForEach(0..<21) { num in
+//                    Text(num.description)
+//                        .font(.title)
+//                        .padding()
+//                        .onAppear {
+//                            if num >= fetchCount {
+//                                self.fetchCount += fetchCount
+//                                userManager.isLoading = true
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                                    userManager.getBusinesses(take: 1, skip: 0) {
+//                                        userManager.isLoading = false
+//                                    }
 //                                }
-                ForEach(userManager.businesses, id: \.self.id) { business in
+//                            }
+//                            print(num)
+//                        }
+//                }
+                
+                ForEach(Array(userManager.businesses.enumerated()), id: \.offset) { index, business in
                     NavigationLink(destination: {
                         BusinessDetailsView(business: Business(businessInfo: business))
                             .onAppear(perform: navigationController.hideBar)
                             .onDisappear(perform: navigationController.showBar)
                     }) {
                         BusinessRow(business: Business(businessInfo: business))
+//                            .onAppear {
+//                                print(index)
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                    userManager.getBusinesses(take: 100, skip: userManager.businesses.count) {
+//                                        fetchCount += fetchCount
+//                                        userManager.isLoading = false
+//                                    }
+//                                }
+//                            }
                     }
+                }
+                if userManager.isLoading {
+                    ProgressView()
                 }
             }
             Spacer(minLength: 200)
@@ -245,7 +259,7 @@ struct BusinessListView: View {
 
     var count: some View {
         HStack {
-            Text("라운지")
+            Text("Lounges")
             Text("(\(userManager.businesses.count.description))")
             Spacer()
         }
@@ -257,7 +271,16 @@ struct BusinessListView: View {
         let lat = locationManager.lastLocation?.coordinate.latitude
         let lng = locationManager.lastLocation?.coordinate.longitude
         let type = filter.businessType.id == "ALL" ? nil : filter.businessType.id
-        let sort: BusinessSortField? = filter.sorting == .name ? .businessName : nil
+        let sort: BusinessSortField? = {
+            switch filter.sorting {
+            case .recs:
+                nil
+            case .name:
+                BusinessSortField.businessName
+            case .distance:
+                BusinessSortField.distance
+            }
+        }()
         
         switch filter.selectedDistrict {
         case District.all: userManager.getBusinesses(lat: lat, lng: lng, sort: sort, typeId: type, completion: completion)
@@ -382,10 +405,10 @@ struct BusinessRow: View {
                         let distanceInKm = String(format: "%.1f", distanceInMeters / 1000)
 
                         Text(distanceInMeters > 1000 ? "\(distanceInKm) km" : "\(distanceInMetersString) m")
-                            .onAppear {
-                                print("bus: \(busLatitude), \(busLongitude)")
-                                print("my: \(latitude), \(longitude)")
-                            }
+//                            .onAppear {
+//                                print("bus: \(busLatitude), \(busLongitude)")
+//                                print("my: \(latitude), \(longitude)")
+//                            }
 //                            .onChange(of: locationManager.lastLocation) { a in
 //                                if let latitude = locationManager.lastLocation?.coordinate.latitude, let longitude =
 //                                    locationManager.lastLocation?.coordinate.longitude {

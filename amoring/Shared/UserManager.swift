@@ -1268,7 +1268,6 @@ class UserManager: ObservableObject {
             if let typeId {
                 typeIdList = [typeId]
             }
-            
             api.fetch(query: QueryBusinessesQuery(
                 near: GraphQLHelper.graphQLNullableFrom(input),
                 districts: GraphQLHelper.graphQLNullableFrom(districtsList),
