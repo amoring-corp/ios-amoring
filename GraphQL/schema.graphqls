@@ -1,4 +1,10 @@
+enum AppStoreProvider {
+  apple
+  google
+}
+
 """
+
 """
 type Business {
   id: ID!
@@ -30,6 +36,7 @@ type Business {
   businessTypeId: String
   businessType: BusinessType
   distance: Int
+  isActive: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -57,9 +64,11 @@ input BusinessCreateInput {
   bio: String
   lat: Float
   lng: Float
+  isActive: Boolean!
 }
 
 """
+
 """
 type BusinessDistrict {
   id: ID!
@@ -69,6 +78,7 @@ type BusinessDistrict {
 }
 
 """
+
 """
 type BusinessHours {
   id: ID!
@@ -86,6 +96,7 @@ input BusinessHoursInput {
 }
 
 """
+
 """
 type BusinessImage {
   id: ID!
@@ -115,6 +126,7 @@ enum BusinessSortField {
 }
 
 """
+
 """
 type BusinessType {
   id: ID!
@@ -124,6 +136,7 @@ type BusinessType {
 }
 
 """
+
 """
 input BusinessTypeInput {
   name: String!
@@ -152,9 +165,11 @@ input BusinessUpdateInput {
   bio: String
   lat: Float
   lng: Float
+  isActive: Boolean
 }
 
 """
+
 """
 type BusinessesList {
   items: [Business!]!
@@ -162,6 +177,7 @@ type BusinessesList {
 }
 
 """
+
 """
 type CheckIn {
   id: ID!
@@ -184,6 +200,7 @@ enum CheckInStatus {
 }
 
 """
+
 """
 type CheckInToken {
   token: String!
@@ -248,6 +265,7 @@ enum Gender {
 }
 
 """
+
 """
 type Interest {
   id: ID!
@@ -259,6 +277,7 @@ type Interest {
 }
 
 """
+
 """
 type InterestCategory {
   id: ID!
@@ -331,7 +350,13 @@ type PasswordResetRequestResult {
   confirmationToken: String!
 }
 
+type PhoneVerificationRequestResult {
+  verificationNumber: String!
+  verificationToken: String!
+}
+
 """
+
 """
 type Profile {
   id: ID!
@@ -370,6 +395,7 @@ input ProfileCreateInput {
 }
 
 """
+
 """
 type ProfileImage {
   id: ID!
@@ -432,6 +458,7 @@ enum ReactionType {
 }
 
 """
+
 """
 type Report {
   id: ID!
@@ -478,10 +505,14 @@ File upload type
 scalar Upload
 
 """
+
 """
 type User {
   id: ID!
   email: String
+  isEmailVerified: Boolean
+  phoneNumber: String
+  isPhoneNumberVerified: Boolean
   status: UserStatus
   role: UserRole
   profile: Profile
@@ -548,6 +579,14 @@ type Mutation {
     userId: ID!
     confirmationNumber: String!
     emailConfirmationToken: String!
+  ): Boolean!
+  startPhoneNumberVerification(
+    phoneNumber: String!
+  ): PhoneVerificationRequestResult!
+  verifyPhoneNumber(
+    phoneNumber: String!
+    verificationNumber: String!
+    verificationToken: String!
   ): Boolean!
   requestUserPasswordReset(email: String!): PasswordResetRequestResult!
   redeemUserPasswordResetToken(
@@ -620,7 +659,11 @@ type Mutation {
   disconnectInterestsFromProfile(profileId: ID!, interestIds: [ID!]!): Profile!
   connectInterestsToMyProfile(interestIds: [ID!]!): Profile!
   disconnectInterestsFromMyProfile(interestIds: [ID!]!): Profile!
-  createPurchase(transactionId: String!): Purchase
+  createPurchase(
+    transactionId: String!
+    productId: String
+    store: AppStoreProvider
+  ): Purchase
 
   """
   React to a profile by authenticated user
@@ -655,7 +698,7 @@ type Query {
   interests: [Interest]!
   interest(id: ID!): Interest!
   profiles(role: UserRole): [Profile]!
-  visibleProfiles: [Profile]!
+  visibleProfiles(includeNearby: Boolean): [Profile]!
   profile(id: ID!): Profile
   businessHours(businessId: ID!): [BusinessHours]!
   reactions(type: ReactionType): [Reaction]!

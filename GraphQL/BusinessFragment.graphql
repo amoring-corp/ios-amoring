@@ -38,6 +38,7 @@ fragment BusinessInfo on Business {
   }
   lat
   lng
+  isActive
   createdAt
   updatedAt
 }

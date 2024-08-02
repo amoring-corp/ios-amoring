@@ -160,6 +160,7 @@ public class ConversationDeletedSubscription: GraphQLSubscription {
               public var images: [Image?]? { __data["images"] }
               public var lat: Double? { __data["lat"] }
               public var lng: Double? { __data["lng"] }
+              public var isActive: Bool? { __data["isActive"] }
               public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
               public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 

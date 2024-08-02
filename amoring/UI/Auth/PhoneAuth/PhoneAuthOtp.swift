@@ -15,6 +15,7 @@ struct PhoneAuthOtp: View {
     
     @State var bordersColor: Color = Color.clear
     @State var error: String = ""
+    @State var success: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -41,13 +42,13 @@ struct PhoneAuthOtp: View {
                     onTapInput()
                 }
             
-            if let confirmationNumber = sessionManager.confirmationNumber {
-                Text(confirmationNumber)
-                    .font(semiBold18Font)
-                    .foregroundColor(.black)
-                    .padding(.leading, Size.w(14))
-                    .padding(.bottom, Size.w(42))
-            }
+//            if let verificationNumber = sessionManager.verificationNumber {
+//                Text(verificationNumber)
+//                    .font(semiBold18Font)
+//                    .foregroundColor(.black)
+//                    .padding(.leading, Size.w(14))
+//                    .padding(.bottom, Size.w(42))
+//            }
             
             Text(error)
                 .font(regular16Font)
@@ -58,7 +59,13 @@ struct PhoneAuthOtp: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    // TODO: Implement OTP resending
+                    if let phone = controller.phone {
+                        sessionManager.startPhoneNumberVerification(phoneNumber: phone) { error in
+                            if let error {
+                                notificationController.setNotification(text: error, type: .error)
+                            }
+                        }
+                    }
                 }) {
                     Image("ic-refresh")
                         .resizable()
@@ -85,20 +92,20 @@ struct PhoneAuthOtp: View {
                 .padding(.bottom, Size.w(30))
             
             HStack {
-//                Button(action: {
-                
-//                }) {
-//                    BlackButton(title: "확인", enabled: !(controller.otp.count < 6 || controller.otp.contains(" ")), isLoading: sessionManager.isLoading)
-//                }
-//                .disabled((controller.otp.count < 6 || controller.otp.contains(" ")))
-                
-                // TODO: Implement OTP sending and remove nav link
-                NavigationLink(destination: {
-                    PhoneAuthSuccess()
+                Button(action: {
+                    verify()
                 }) {
                     BlackButton(title: "확인", enabled: !(controller.otp.count < 6 || controller.otp.contains(" ")), isLoading: sessionManager.isLoading)
                 }
                 .disabled((controller.otp.count < 6 || controller.otp.contains(" ")))
+                .background(
+                    NavigationLink(isActive: $success, destination: {
+                        PhoneAuthSuccess()
+                    }) {
+                        EmptyView()
+                    }
+                )
+
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))
@@ -129,14 +136,19 @@ struct PhoneAuthOtp: View {
         }
     }
     
-    private func signIn() {
-//        sessionManager.verifyEmail(code: controller.otp, email: controller.email, password: controller.password) { success, error in
-//            if !success {
-//                withAnimation {
-//                    notificationController.setNotification(text: error, type: .error)
-//                }
-//            }
-//        }
+    private func verify() {
+        if let phone = controller.phone {
+            sessionManager.verifyPhoneNumber(phoneNumber: phone) { success, error in
+                if !success {
+                    withAnimation {
+                        self.error = error
+    //                    notificationController.setNotification(text: error, type: .error)
+                    }
+                } else {
+                    self.success = true
+                }
+            }
+        }
     }
 }
 

@@ -101,6 +101,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
       public var images: [Image?]? { __data["images"] }
       public var lat: Double? { __data["lat"] }
       public var lng: Double? { __data["lng"] }
+      public var isActive: Bool? { __data["isActive"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -167,6 +168,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
     public var loungePassExpiredAt: AmoringAPI.DateTime? { __data["loungePassExpiredAt"] }
     public var invisiblePassExpiredAt: AmoringAPI.DateTime? { __data["invisiblePassExpiredAt"] }
     public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
+    public var isPhoneNumberVerified: Bool? { __data["isPhoneNumberVerified"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
@@ -275,6 +277,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
           public var images: [Image?]? { __data["images"] }
           public var lat: Double? { __data["lat"] }
           public var lng: Double? { __data["lng"] }
+          public var isActive: Bool? { __data["isActive"] }
           public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
           public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -373,6 +376,7 @@ public struct ConversationInfo: AmoringAPI.SelectionSet, Fragment {
       public var images: [Image?]? { __data["images"] }
       public var lat: Double? { __data["lat"] }
       public var lng: Double? { __data["lng"] }
+      public var isActive: Bool? { __data["isActive"] }
       public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
       public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 

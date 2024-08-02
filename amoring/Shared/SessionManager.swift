@@ -57,6 +57,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     @Published var confirmationNumber: String? = nil
     @Published var emailConfirmationToken: String = ""
+    @Published var verificationNumber: String? = nil
+    @Published var verificationToken: String = ""
     @Published var user: UserInfo? = nil
 
     @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
@@ -401,6 +403,67 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                             completion(success, error)
                         }
 //                        self.changeStateWithAnimation(state: .session(user: user))
+                    } else {
+                        print("Failed to verify email")
+                        completion(false, "Failed to verify email")
+                    }
+                    
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                    completion(false, error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func startPhoneNumberVerification(phoneNumber: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        api.perform(mutation: StartPhoneNumberVerificationMutation(phoneNumber: phoneNumber)) { result in
+            self.isLoading = false
+            switch result {
+            case .success(let value):
+                if let errors = value.errors {
+                    print(errors)
+                    completion(errors.first?.localizedDescription)
+                    return
+                }
+                
+                if let verificationNumber = value.data?.startPhoneNumberVerification.verificationNumber, let verificationToken = value.data?.startPhoneNumberVerification.verificationToken {
+                    self.verificationToken = verificationToken
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation {
+                            self.verificationNumber = verificationNumber
+                        }
+                    }
+                    completion(nil)
+                } else {
+                    print("Wrong data!")
+                    completion("Wrong data!")
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(error.localizedDescription)
+            }
+        }
+    }
+    
+    func verifyPhoneNumber(phoneNumber: String, completion: @escaping (Bool, String) -> Void) {
+        self.isLoading = true
+        if let verificationNumber {
+            api.perform(mutation: VerifyPhoneNumberMutation(phoneNumber: phoneNumber, verificationNumber: verificationNumber, verificationToken: self.verificationToken)) { result in
+                self.isLoading = false
+                switch result {
+                case .success(let value):
+                    guard let passed = value.data?.verifyPhoneNumber else {
+                        print("Wrong data format!")
+                        completion(false, "Wrong code!")
+                        return
+                    }
+                    
+                    if passed {
+                        print("OTP successfully veryfied")
+                        completion(true, "")
                     } else {
                         print("Failed to verify email")
                         completion(false, "Failed to verify email")

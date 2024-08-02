@@ -375,7 +375,14 @@
 
     },
     "1초뒤 화면이 전환됩니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-up will proceed in 1 second."
+          }
+        }
+      }
     },
     "8-16 자의 문자구성" : {
 
@@ -1270,7 +1277,14 @@
 
     },
     "먼저, 회원님의 원활한 서비스 이용을 위해\n인증할 휴대폰의 전화번호를 입력해주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your phone number so that we can verify your identity."
+          }
+        }
+      }
     },
     "메세지를 입력하세요." : {
 
@@ -1404,6 +1418,17 @@
         }
       }
     },
+    "번호를 입력해주세요. (‘-’ 제외)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter phone number (without ‘-’)"
+          }
+        }
+      }
+    },
     "보기" : {
       "localizations" : {
         "en" : {
@@ -1485,6 +1510,16 @@
     },
     "비즈니스 멤버십" : {
 
+    },
+    "비지니스 계정 확인이 아직 진행 중 입니다.\n\n연락처:\n\ncontact@amoring.info" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Your business account is still being verified.\n\ncontact info:\n\ncontact@amoring.info"
+          }
+        }
+      }
     },
     "사업자등록번호*" : {
 
@@ -1698,7 +1733,14 @@
 
     },
     "아래의 번호로 인증코드가 전송되었습니다.\n%@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A verification code has been sent to you.\n%@"
+          }
+        }
+      }
     },
     "아모링 비즈니스에 오신걸 환영합니다." : {
 
@@ -1947,7 +1989,14 @@
       }
     },
     "이제 회원님에 대해서 알려주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let’s continue to sign up."
+          }
+        }
+      }
     },
     "이제, 좋아요한 라운지 멤버를 확인하고\n먼저 메시지를 보내보세요!" : {
       "localizations" : {
@@ -1974,13 +2023,45 @@
 
     },
     "인증번호 수신까지 3분 정도 소요될 수 있습니다.\n수신되지 않을 경우 아래 고객센터로 연락주세요.\ncontact@amoring.info" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message will be sent within 3 minutes.\nIf you do not receive a message, please contact us at contact@amoring.info"
+          }
+        }
+      }
     },
     "인증번호 재전송" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resend code"
+          }
+        }
+      }
+    },
+    "인증번호가 일치하지 않습니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check the verification code again."
+          }
+        }
+      }
     },
     "인증번호를 확인하세요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your message"
+          }
+        }
+      }
     },
     "인증완료" : {
 
@@ -1998,7 +2079,14 @@
 
     },
     "입력해 주신 번호로 인증번호가 발송됩니다.\n번호가 틀리지 않았는지 확인해주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A verification code will be sent to you.\nPlease make sure to provide a valid number."
+          }
+        }
+      }
     },
     "자동로그인" : {
 
@@ -2040,7 +2128,14 @@
 
     },
     "전화번호를 입력하세요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your phone #"
+          }
+        }
+      }
     },
     "접근 권한 확인을 위해서\n비밀번호를 다시 한번 입력해주세요." : {
 
@@ -2328,7 +2423,14 @@
       }
     },
     "확인되었습니다!!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’re verified!"
+          }
+        }
+      }
     },
     "확인하기" : {
       "localizations" : {

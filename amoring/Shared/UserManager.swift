@@ -68,10 +68,9 @@ class UserManager: ObservableObject {
             }
         case .case(.user):
             print("I'm a user")
-//            if !authUser.validated {
-//            if true {
-//                self.changeStateWithAnimation(state: .phoneValidation)
-//            } else 
+            if !(authUser.isPhoneNumberVerified ?? false) {
+                self.changeStateWithAnimation(state: .phoneValidation)
+            } else 
             if authUser.profile == nil {
                 print("User not onboarded yet")
                 self.changeStateWithAnimation(state: .userOnboarding)

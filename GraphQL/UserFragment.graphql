@@ -19,4 +19,5 @@ fragment UserInfo on User {
   loungePassExpiredAt
   invisiblePassExpiredAt
   visibleReactionsPassExpiredAt
+  isPhoneNumberVerified
 }

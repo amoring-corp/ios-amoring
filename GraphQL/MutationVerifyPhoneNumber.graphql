@@ -1,0 +1,7 @@
+mutation VerifyPhoneNumber($phoneNumber: String!, $verificationNumber: String!, $verificationToken: String!) {
+  verifyPhoneNumber(
+    phoneNumber: $phoneNumber
+    verificationNumber: $verificationNumber
+    verificationToken: $verificationToken
+  )
+}

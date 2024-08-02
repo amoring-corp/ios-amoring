@@ -10,6 +10,8 @@ import SwiftUI
 struct PhoneAuthPhone: View {
     @StateObject var controller = PhoneAuthController()
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var notificationController: NotificationController
+    @State var success: Bool = false
     
     var body: some View {
         NavigationView {
@@ -48,14 +50,20 @@ struct PhoneAuthPhone: View {
                     .padding(.bottom, Size.w(30))
                 
                 HStack {
-                    NavigationLink(destination: {
-                        // TODO: Backend. Implement getting OTP API
-                        PhoneAuthOtp()
-                            .environmentObject(controller)
+                    Button(action: {
+                        start()
                     }) {
                         BlackButton(title: "다음", enabled: !(controller.phone?.isEmpty ?? true) && !(controller.phone?.count ?? 0 < 11))
                     }
                     .disabled((controller.phone?.isEmpty ?? true) || (controller.phone?.count ?? 0 < 11))
+                    .background(
+                        NavigationLink(isActive: $success, destination: {
+                            PhoneAuthOtp()
+                                .environmentObject(controller)
+                        }) {
+                            EmptyView()
+                        }
+                    )
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.bottom, Size.w(36))
@@ -81,6 +89,18 @@ struct PhoneAuthPhone: View {
             }
 //                                    BackButton(action: sessionManager.signOut)
             )
+        }
+    }
+    
+    private func start() {
+        if let phone = controller.phone {
+            sessionManager.startPhoneNumberVerification(phoneNumber: phone) { error in
+                if let error {
+                    notificationController.setNotification(text: error, type: .error)
+                } else {
+                    self.success = true
+                }
+            }
         }
     }
 }

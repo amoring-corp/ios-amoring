@@ -7,7 +7,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
   public static let operationName: String = "QueryBusinesses"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy, $typeId: [String!], $nearByOnly: Boolean!, $take: Int, $skip: Int) { businesses( near: $near districts: $districts sort: $sort typeId: $typeId nearByOnly: $nearByOnly take: $take skip: $skip ) { __typename items { __typename ...BusinessInfo id activeCheckIns { __typename id } } total } }"#,
+      #"query QueryBusinesses($near: NearLocationInput, $districts: [String!], $sort: BusinessSortBy, $typeId: [String!], $nearByOnly: Boolean!, $take: Int, $skip: Int) { businesses( near: $near districts: $districts sort: $sort typeId: $typeId nearByOnly: $nearByOnly take: $take skip: $skip ) { __typename items { __typename ...BusinessInfo } total } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self]
     ))
 
@@ -93,19 +93,17 @@ public class QueryBusinessesQuery: GraphQLQuery {
         public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Business }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
-          .field("id", AmoringAPI.ID.self),
-          .field("activeCheckIns", [ActiveCheckIn?].self),
           .fragment(BusinessInfo.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
-        public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
         public var ownerId: String? { __data["ownerId"] }
         public var businessName: String? { __data["businessName"] }
         public var businessType: BusinessType? { __data["businessType"] }
         public var businessIndustry: String? { __data["businessIndustry"] }
         public var businessCategory: String? { __data["businessCategory"] }
         public var businessHours: [BusinessHour?]? { __data["businessHours"] }
+        public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
         public var address: String? { __data["address"] }
         public var addressBname: String? { __data["addressBname"] }
         public var addressDetails: String? { __data["addressDetails"] }
@@ -123,6 +121,7 @@ public class QueryBusinessesQuery: GraphQLQuery {
         public var images: [Image?]? { __data["images"] }
         public var lat: Double? { __data["lat"] }
         public var lng: Double? { __data["lng"] }
+        public var isActive: Bool? { __data["isActive"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -131,25 +130,6 @@ public class QueryBusinessesQuery: GraphQLQuery {
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var businessInfo: BusinessInfo { _toFragment() }
-        }
-
-        /// Businesses.Item.ActiveCheckIn
-        ///
-        /// Parent Type: `CheckIn`
-        public struct ActiveCheckIn: AmoringAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("id", AmoringAPI.ID.self),
-          ] }
-
-          public var id: AmoringAPI.ID { __data["id"] }
-          public var profile: Profile? { __data["profile"] }
-
-          public typealias Profile = BusinessInfo.ActiveCheckIn.Profile
         }
 
         public typealias BusinessType = BusinessInfo.BusinessType
@@ -174,6 +154,8 @@ public class QueryBusinessesQuery: GraphQLQuery {
             public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
           }
         }
+
+        public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
         public typealias Image = BusinessInfo.Image
       }

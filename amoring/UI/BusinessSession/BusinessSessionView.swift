@@ -34,132 +34,141 @@ struct BusinessSessionView: View {
                         .padding(.top, Size.w(32))
                         .padding(.bottom, Size.w(12))
                     
-                    Text("지금 당장, 아모링 라운지에 체크인 하세요!")
-                        .font(regular16Font)
-                        .foregroundColor(.yellow300)
-                        .padding(.bottom, Size.w(40))
-                    
-                    ZStack {
-                        VStack(spacing: 0) {
-                            ZStack {
-                                if isLoading {
-                                    ProgressView()
-                                } else {
-                                    if let qrcode = qrcode {
-                                        QRCodeDocumentUIView(document: qrcode)
-                                        // MARK: TESTS
-                                            .onTapGesture {
-                                                withAnimation {
-                                                    self.expired.toggle()
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-                            .frame(width: geometry.size.height / 2.7, height: geometry.size.height / 2.7)
-                            .padding(7)
-                            .background(Color.white)
-                            .cornerRadius(20)
-                            .padding(.bottom, Size.h(32))
-                            
-                            Spacer()
-                            
-                            Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
-                                .multilineTextAlignment(.center)
-                                .lineSpacing(6)
-                                .font(regular16Font)
-                                .foregroundColor(.yellow300)
-                            
-                            let fakeimages = ["person-1", "person-2", "person-3", "person-4"]
-                            
-                            if let images = business?.checkedInAvatarUrls, images.count > 2 {
-                                let size = geometry.size.width / 2
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: Size.w(16)) {
-                                        list(images: images, size: size)
-                                        list(images: images, size: size)
-                                        list(images: images, size: size)
-                                        list(images: images, size: size)
-                                    }
-                                    .offset(x: xOffset)
-                                }
-                                .disabled(true)
-                                .padding(.top, Size.w(22))
-                                .onAppear {
-                                    self.available = true
-                                    setToken()
-                                    withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
-                                        xOffset = -size * Double(images.count)
-                                    }
-                                }
-                                .onDisappear {
-                                    self.available = false
-                                }
-                            } else {
-                                let size = geometry.size.width / 2
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: Size.w(16)) {
-                                        fakelist(images: fakeimages, size: size)
-                                        fakelist(images: fakeimages, size: size)
-                                        fakelist(images: fakeimages, size: size)
-                                        fakelist(images: fakeimages, size: size)
-                                    }
-                                    .offset(x: xOffset)
-                                }
-                                .disabled(true)
-                                .padding(.top, Size.w(22))
-                                .onAppear {
-                                    self.available = true
-                                    setToken()
-                                    withAnimation(.linear(duration: Double(fakeimages.count * 4)).repeatForever(autoreverses: false)) {
-                                        xOffset = -size * Double(fakeimages.count)
-                                    }
-                                }
-                                .onDisappear {
-                                    self.available = false
-                                }
-                                
-                            }
-                            
-                            
-                        }
+                    if business?.isActive ?? false {
+                        Text("지금 당장, 아모링 라운지에 체크인 하세요!")
+                            .font(regular16Font)
+                            .foregroundColor(.yellow300)
+                            .padding(.bottom, Size.w(40))
                         
-                        if expired {
-                            Color.black.background(.ultraThinMaterial).opacity(0.7)
-                            
-                            VStack {
-                                Text("😥")
-                                    .font(semiBold60Font)
-                                    .padding(.top, Size.w(120))
-                                    .padding(.bottom, Size.w(22))
-                                Text("죄송합니다.\n준비된 라운지가 꽉 찼어요\n나중에 체크인 해주세요")
-                                    .font(semiBold28Font)
-                                    .foregroundColor(.yellow350)
-                                    .multilineTextAlignment(.center)
-                                    .lineSpacing(6)
-                                // MARK: TESTS
-                                    .onTapGesture {
-                                        withAnimation {
-                                            self.expired.toggle()
+                        ZStack {
+                            VStack(spacing: 0) {
+                                ZStack {
+                                    if isLoading {
+                                        ProgressView()
+                                    } else {
+                                        if let qrcode = qrcode {
+                                            QRCodeDocumentUIView(document: qrcode)
+                                            // MARK: TESTS
+                                                .onTapGesture {
+                                                    withAnimation {
+                                                        self.expired.toggle()
+                                                    }
+                                                }
                                         }
                                     }
+                                }
+                                .frame(width: geometry.size.height / 2.7, height: geometry.size.height / 2.7)
+                                .padding(7)
+                                .background(Color.white)
+                                .cornerRadius(20)
+                                .padding(.bottom, Size.h(32))
                                 
                                 Spacer()
                                 
-                                HStack {
+                                Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
+                                    .multilineTextAlignment(.center)
+                                    .lineSpacing(6)
+                                    .font(regular16Font)
+                                    .foregroundColor(.yellow300)
+                                
+                                let fakeimages = ["person-1", "person-2", "person-3", "person-4"]
+                                
+                                if let images = business?.checkedInAvatarUrls, images.count > 2 {
+                                    let size = geometry.size.width / 2
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: Size.w(16)) {
+                                            list(images: images, size: size)
+                                            list(images: images, size: size)
+                                            list(images: images, size: size)
+                                            list(images: images, size: size)
+                                        }
+                                        .offset(x: xOffset)
+                                    }
+                                    .disabled(true)
+                                    .padding(.top, Size.w(22))
+                                    .onAppear {
+                                        self.available = true
+                                        setToken()
+                                        withAnimation(.linear(duration: Double(images.count * 4)).repeatForever(autoreverses: false)) {
+                                            xOffset = -size * Double(images.count)
+                                        }
+                                    }
+                                    .onDisappear {
+                                        self.available = false
+                                    }
+                                } else {
+                                    let size = geometry.size.width / 2
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: Size.w(16)) {
+                                            fakelist(images: fakeimages, size: size)
+                                            fakelist(images: fakeimages, size: size)
+                                            fakelist(images: fakeimages, size: size)
+                                            fakelist(images: fakeimages, size: size)
+                                        }
+                                        .offset(x: xOffset)
+                                    }
+                                    .disabled(true)
+                                    .padding(.top, Size.w(22))
+                                    .onAppear {
+                                        self.available = true
+                                        setToken()
+                                        withAnimation(.linear(duration: Double(fakeimages.count * 4)).repeatForever(autoreverses: false)) {
+                                            xOffset = -size * Double(fakeimages.count)
+                                        }
+                                    }
+                                    .onDisappear {
+                                        self.available = false
+                                    }
+                                    
+                                }
+                                
+                                
+                            }
+                            
+                            if expired {
+                                Color.black.background(.ultraThinMaterial).opacity(0.7)
+                                
+                                VStack {
+                                    Text("😥")
+                                        .font(semiBold60Font)
+                                        .padding(.top, Size.w(120))
+                                        .padding(.bottom, Size.w(22))
+                                    Text("죄송합니다.\n준비된 라운지가 꽉 찼어요\n나중에 체크인 해주세요")
+                                        .font(semiBold28Font)
+                                        .foregroundColor(.yellow350)
+                                        .multilineTextAlignment(.center)
+                                        .lineSpacing(6)
+                                    // MARK: TESTS
+                                        .onTapGesture {
+                                            withAnimation {
+                                                self.expired.toggle()
+                                            }
+                                        }
+                                    
                                     Spacer()
-                                    NavigationLink(destination: {
-                                        //TODO: open purchases
-                                        Text("Purchases")
-                                    }) {
-                                        YellowButton(title: "확장하기")
+                                    
+                                    HStack {
+                                        Spacer()
+                                        NavigationLink(destination: {
+                                            //TODO: open purchases
+                                            Text("Purchases")
+                                        }) {
+                                            YellowButton(title: "확장하기")
+                                        }
                                     }
                                 }
+                                .padding(.horizontal, Size.w(22))
                             }
-                            .padding(.horizontal, Size.w(22))
                         }
+                        .padding(.bottom, Size.w(30))
+                    } else {
+                        Spacer()
+                        Text("비지니스 계정 확인이 아직 진행 중 입니다.\n\n연락처:\n\ncontact@amoring.info")
+                            .font(regular16Font)
+                            .foregroundColor(.yellow300)
+                            .multilineTextAlignment(.center)
+                        Spacer()
                     }
-                    .padding(.bottom, Size.w(30))
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -167,6 +176,7 @@ struct BusinessSessionView: View {
                         Text("AMORING")
                             .font(bold20Font)
                             .foregroundColor(.yellow300)
+                            .padding(.bottom, 30)
                           
                     }
                 }
@@ -184,11 +194,15 @@ struct BusinessSessionView: View {
             } //  geometryreader
         }
         .overlay(
-            businessSessionController.showDepositInfo ?
-            DepositInfoView().environmentObject(businessSessionController)
+            ((userManager.authUser.business?.isActive ?? true) || !businessSessionController.showDepositInfo) ?
+            nil
+            : DepositInfoView().environmentObject(businessSessionController)
                 .transition(.move(edge: .bottom))
-            : nil
         )
+        .onAppear {
+            print("abraca")
+            print(userManager.authUser.business?.isActive)
+        }
     }
     
     func fakelist(images: [String], size: CGFloat) -> some View {

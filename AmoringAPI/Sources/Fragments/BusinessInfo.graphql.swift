@@ -5,7 +5,7 @@
 
 public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType { __typename id name } businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename id profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng createdAt updatedAt }"#
+    #"fragment BusinessInfo on Business { __typename id ownerId businessName businessType { __typename id name } businessIndustry businessCategory businessHours { __typename ...BusinessHoursInfo } activeCheckIns { __typename profile { __typename avatarUrl } } address addressBname addressDetails addressJibun addressSido addressSigungu addressSigunguCode addressSigunguEnglish addressZonecode bio representativeTitle representativeName phoneNumber registrationNumber images { __typename id file { __typename url } } lat lng isActive createdAt updatedAt }"#
   }
 
   public let __data: DataDict
@@ -39,6 +39,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     .field("images", [Image?]?.self),
     .field("lat", Double?.self),
     .field("lng", Double?.self),
+    .field("isActive", Bool?.self),
     .field("createdAt", AmoringAPI.DateTime?.self),
     .field("updatedAt", AmoringAPI.DateTime?.self),
   ] }
@@ -68,6 +69,7 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
   public var images: [Image?]? { __data["images"] }
   public var lat: Double? { __data["lat"] }
   public var lng: Double? { __data["lng"] }
+  public var isActive: Bool? { __data["isActive"] }
   public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
   public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
 
@@ -124,11 +126,9 @@ public struct BusinessInfo: AmoringAPI.SelectionSet, Fragment {
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
-      .field("id", AmoringAPI.ID.self),
       .field("profile", Profile?.self),
     ] }
 
-    public var id: AmoringAPI.ID { __data["id"] }
     public var profile: Profile? { __data["profile"] }
 
     /// ActiveCheckIn.Profile

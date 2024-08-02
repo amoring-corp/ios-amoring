@@ -1,0 +1,6 @@
+mutation StartPhoneNumberVerification($phoneNumber: String!) {
+  startPhoneNumberVerification(phoneNumber: $phoneNumber) {
+    verificationNumber
+    verificationToken
+  }
+}

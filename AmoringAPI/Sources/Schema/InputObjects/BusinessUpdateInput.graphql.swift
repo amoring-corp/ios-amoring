@@ -32,7 +32,8 @@ public struct BusinessUpdateInput: InputObject {
     category: GraphQLNullable<String> = nil,
     bio: GraphQLNullable<String> = nil,
     lat: GraphQLNullable<Double> = nil,
-    lng: GraphQLNullable<Double> = nil
+    lng: GraphQLNullable<Double> = nil,
+    isActive: GraphQLNullable<Bool> = nil
   ) {
     __data = InputDict([
       "ownerId": ownerId,
@@ -56,7 +57,8 @@ public struct BusinessUpdateInput: InputObject {
       "category": category,
       "bio": bio,
       "lat": lat,
-      "lng": lng
+      "lng": lng,
+      "isActive": isActive
     ])
   }
 
@@ -168,5 +170,10 @@ public struct BusinessUpdateInput: InputObject {
   public var lng: GraphQLNullable<Double> {
     get { __data["lng"] }
     set { __data["lng"] = newValue }
+  }
+
+  public var isActive: GraphQLNullable<Bool> {
+    get { __data["isActive"] }
+    set { __data["isActive"] = newValue }
   }
 }
