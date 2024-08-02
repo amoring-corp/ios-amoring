@@ -745,7 +745,14 @@
 
     },
     "가입하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
     },
     "가입함으로써, 귀하는 당사의 " : {
       "localizations" : {
@@ -846,6 +853,17 @@
         }
       }
     },
+    "관심사를 알려주세요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell us your interests"
+          }
+        }
+      }
+    },
     "광고 제거" : {
 
     },
@@ -905,7 +923,14 @@
       }
     },
     "남성" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Male"
+          }
+        }
+      }
     },
     "내 계정" : {
       "extractionState" : "manual",
@@ -989,7 +1014,14 @@
       "extractionState" : "manual"
     },
     "다른 사용자들에게 회원님을 소개할 수 있는\n이름을 입력해주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a name that will introduce you to other users."
+          }
+        }
+      }
     },
     "다시 첨부하기" : {
 
@@ -1005,7 +1037,14 @@
       }
     },
     "다음" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
     },
     "답변 받을 이메일" : {
       "extractionState" : "manual",
@@ -1047,7 +1086,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : " "
+            "value" : "."
           }
         }
       }
@@ -1200,7 +1239,14 @@
       }
     },
     "마지막, 자기소개 한줄" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lastly, introduce yourself in one line."
+          }
+        }
+      }
     },
     "마지막으로\n로그인한 계정이예요~" : {
 
@@ -1294,13 +1340,13 @@
         }
       }
     },
-    "몸무게*" : {
+    "몸무게" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Weight*"
+            "value" : "Weight"
           }
         }
       }
@@ -1349,7 +1395,14 @@
       }
     },
     "반갑습니다!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome!"
+          }
+        }
+      }
     },
     "보기" : {
       "localizations" : {
@@ -1469,7 +1522,14 @@
 
     },
     "사진을 추가하세요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add pictures"
+          }
+        }
+      }
     },
     "삭제" : {
       "localizations" : {
@@ -1547,7 +1607,14 @@
       }
     },
     "성별을 골라주세요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your gender"
+          }
+        }
+      }
     },
     "세" : {
       "localizations" : {
@@ -1677,7 +1744,14 @@
       }
     },
     "여성" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Female"
+          }
+        }
+      }
     },
     "연결된 인연이\n이곳에 나타납니다" : {
       "localizations" : {
@@ -1701,7 +1775,7 @@
     "영업시간*" : {
 
     },
-    "예: 고졸, 학사, 석사, 박사..." : {
+    "예: 고등학교, 대학교, 서강대학사, ... " : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1735,7 +1809,15 @@
       }
     },
     "예) 등산과 자전거를 즐기는 아웃도어 매니아. 주말을 함께 즐겨요!" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ex) I enjoy hiking and riding bikes. Let's go outdoors this weekend!"
+          }
+        }
+      }
     },
     "예금주" : {
 
@@ -1810,7 +1892,14 @@
       }
     },
     "이름을 입력해주세요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your name"
+          }
+        }
+      }
     },
     "이메일" : {
 
@@ -1838,10 +1927,24 @@
 
     },
     "이제 같이 둘러보도록 할까요?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's have a look around!"
+          }
+        }
+      }
     },
     "이제 다 끝났어요!\n계속해서 가입하기를 완료해주세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almost done!\nPlease continue to complete your registration."
+          }
+        }
+      }
     },
     "이제 회원님에 대해서 알려주세요." : {
 
@@ -1856,19 +1959,13 @@
         }
       }
     },
-    "인연은 신뢰속에서 시작됩니다.\n회원님을 소개하고 인연을 만들어보세요." : {
-
-    },
-    "인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와** 몸무게 등 기본정보를 알려주세요." : {
-
-    },
     "인연은 신뢰속에서 시작됩니다. 회원님의 " : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : " Please introduce yourself. All relationships begin with trust. Please provide your "
+            "value" : "Relationships start with trust.\nPlease enter your "
           }
         }
       }
@@ -1917,7 +2014,14 @@
       }
     },
     "저희 서비스는 아직 이성 매칭만 가능해요.\n등록 후 변경은 불가하니 신중하게 입력하세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Our service is only available for opposite-sex matches. You can not change your sex after registration. Please choose carefully."
+          }
+        }
+      }
     },
     "전체" : {
       "localizations" : {
@@ -2102,6 +2206,17 @@
         }
       }
     },
+    "키*(필수)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height* (required)"
+          }
+        }
+      }
+    },
     "테이블" : {
       "localizations" : {
         "en" : {
@@ -2239,25 +2354,73 @@
       }
     },
     "회원님에 대한 인상을 남길 수 있는\n파워풀한 자기소개 한줄을 부탁드려요 (최대 40자)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe yourself concisely so others can know a bit about you (40 words or less)"
+          }
+        }
+      }
     },
     "회원님은\n몇년도에 태어났나요?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What year were you born?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "회원님은\n몇년도에 태어났나요?"
+          }
+        }
+      }
     },
     "회원님을 소개하세요" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce yourself!"
+          }
+        }
+      }
     },
     "회원님의 성공적인 비즈니스를 돕기위해\n아래의 이용약관에 동의해주세요." : {
 
     },
     "회원님의 성별을 기준으로\n이성에게만 회원님을 소개해드릴게요!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will be introduced to members of the opposite sex based on your choice."
+          }
+        }
+      }
     },
     "회원님의 첫 인상이 되는 이름이예요!\n등록 후 변경은 불가하니 신중하게 입력하세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your name is the first impression of you!\nPlease enter carefully as changes cannot be made after registration."
+          }
+        }
+      }
     },
     "회원님의 프로필에 표시되는 정보로\n등록 후 변경은 불가하니 신중하게 입력하세요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You cannot change your birth place after registration. Please enter it carefully."
+          }
+        }
+      }
     },
     "회원님이 이용중이신 멤버십 플랜과\n청구내역이 나타납니다." : {
 

@@ -21,14 +21,14 @@ struct UserOnboardingInterests: View {
                 CustomNavigationView(offset: $contentOffset, title: "관심사", back: { self.presentationMode.wrappedValue.dismiss() })
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("회원님을 소개하세요")
+                        Text("관심사를 알려주세요")
                             .font(bold32Font)
                             .foregroundColor(.black)
                             .padding(.horizontal, Size.w(14))
                             .padding(.top, Size.w(56))
                             .padding(.bottom, Size.w(10))
                         
-                        Text("인연은 신뢰속에서 시작됩니다.\n회원님을 소개하고 인연을 만들어보세요.")
+                        Text("흥미있는 것들을 최대 7개까지 골라주세요. 서로의 관심사를 알면 더 쉽게 대화를 시작할 수 있어요!")
                             .font(regular16Font)
                             .foregroundColor(.black)
                             .padding(.horizontal, Size.w(14))

@@ -10,12 +10,16 @@ import SwiftUI
 struct AccountIntro: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userManager: UserManager
+    @StateObject var userOnboardingController: UserOnboardingController = UserOnboardingController()
     
-    @State var height: Int = 160
-    @State var weight: Int = 60
-    @State var occupation: String = ""
-    @State var mbti: mbtiE = .ENFJ
-    @State var education: String = ""
+    @State var height: Int? = nil
+    @State var weight: Int? = nil
+    @State var weightNotNull: Int = 60
+    @State var heightNotNull: Int = 160
+    @State var mbtiNotNull: mbtiE = .INTJ
+    @State var occupation: String? = nil
+    @State var mbti: mbtiE? = nil
+    @State var education: String? = nil
     
     @State var heightPresented: Bool = false
     @State var weightPresented: Bool = false
@@ -31,9 +35,9 @@ struct AccountIntro: View {
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
                         (
-                        Text("인연은 신뢰속에서 시작됩니다. 회원님의 ") +
+                        Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
                         Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
-                        Text("등 기본정보를 알려주세요.")
+                        Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
                          )
                             .font(regular16Font)
                             .foregroundColor(.gray600)
@@ -49,17 +53,19 @@ struct AccountIntro: View {
                                 .foregroundColor(.gray200)
                                 .padding(.leading, Size.w(14))
                             
-                            CustomTextField(placeholder: "예: 대학생, 직장인...", text: $occupation, font: regular18Font)
+                            CustomTextField(placeholder: "예: 대학생, 직장인...", text: $occupation ?? "", font: regular18Font)
                                 .onChange(of: occupation, perform: { newValue in
-                                    if(newValue.count >= 20){
-                                        occupation = String(newValue.prefix(20))
+                                    if(newValue?.count ?? 0 >= 20){
+                                        occupation = String(newValue?.prefix(20) ?? "")
                                     }
                                 })
                         }
                         .padding(.bottom, Size.w(30))
                         
-                        PickerButton(title: "키*", titleColor: .gray200) {
-                            Text("\(Int(height).description)cm")
+                        PickerButton(title: "키*(필수)", titleColor: .gray200) {
+                            if let height {
+                                Text("\(Int(height).description)cm")
+                            }
                         }
                         .padding(.bottom, Size.w(30))
                         .onTapGesture {
@@ -73,9 +79,10 @@ struct AccountIntro: View {
                             }
                         }
                         
-                        PickerButton(title: "몸무게*", titleColor: .gray200) {
+                        PickerButton(title: "몸무게", titleColor: .gray200) {
+                            if let weight {
                                 Text("\(Int(weight).description)kg")
-                            
+                            }
                         }
                         .padding(.bottom, Size.w(30))
                         .onTapGesture {
@@ -91,7 +98,7 @@ struct AccountIntro: View {
                         
                         
                         PickerButton(title: "MBTI", titleColor: .gray200) {
-                            Text(self.mbti.rawValue)
+                            Text(self.mbti?.rawValue ?? "")
                             
                         }
                         .padding(.bottom, Size.w(30))
@@ -112,10 +119,12 @@ struct AccountIntro: View {
                                 .foregroundColor(.gray200)
                                 .padding(.leading, Size.w(14))
                             
-                            CustomTextField(placeholder: "예: 고졸, 학사, 석사, 박사...", text: $education, font: regular18Font)
+                            CustomTextField(placeholder: "예: 고등학교, 대학교, 서강대학사, ... ", text: $education ?? "", font: regular18Font)
                                 .onChange(of: education, perform: { newValue in
-                                    if(newValue.count >= 20){
-                                        education = String(newValue.prefix(20))
+                                    if let newValue {
+                                        if(newValue.count >= 20){
+                                            education = String(newValue.prefix(20))
+                                        }
                                     }
                                 })
                         }
@@ -135,25 +144,43 @@ struct AccountIntro: View {
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
                     
-                    TagCloudView(tags: [
-                        self.occupation,
-                        self.height.toHeight(),
-                        self.weight.toWeight(),
-                        self.mbti.rawValue,
-                        self.education
-                    ], totalHeight: CGFloat.infinity, isDark: false)
+                    DeletableTagCloudView(tags: [
+                        (self.occupation, .ocu),
+                        (self.height.toHeight(), .height),
+                        (self.weight.toWeight(), .weight),
+                        (self.mbti?.rawValue, .mbti),
+                        (self.education, .edu)
+                    ], totalHeight: CGFloat.infinity, isDark: false,
+                                          occupation: $occupation,
+                                          height: $height,
+                                          weight: $weight,
+                                          mbti: $mbti,
+                                          education: $education
+                    )
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, Size.w(32))
                     .padding(.top, Size.w(25))
+                    .environmentObject(userOnboardingController)
                     
-                    let pass = userManager.user?.profile?.height != nil
+//                    TagCloudView(tags: [
+//                        self.occupation,
+//                        self.height.toHeight(),
+//                        self.weight.toWeight(),
+//                        self.mbti.rawValue,
+//                        self.education
+//                    ], totalHeight: CGFloat.infinity, isDark: false)
+//                    .frame(maxWidth: .infinity)
+//                    .padding(.horizontal, Size.w(32))
+//                    .padding(.top, Size.w(25))
+                    
+                    let pass = userManager.user?.profile?.height != nil && self.height != nil
                     
                     Button(action: {
                         userManager.user?.profile?.height = self.height
                         userManager.user?.profile?.weight = self.weight
                         userManager.user?.profile?.occupation = self.occupation
                         userManager.user?.profile?.education = self.education
-                        userManager.user?.profile?.mbti = self.mbti.rawValue
+                        userManager.user?.profile?.mbti = self.mbti?.rawValue
                         if let profile = userManager.user?.profile {
                             userManager.updateProfile { success in
                                 print("Intro Successfully saved")
@@ -166,6 +193,7 @@ struct AccountIntro: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.top, Size.w(16))
                     .padding(.horizontal, Size.w(22))
+                    .disabled(!pass)
                 }
                 .padding(.bottom, Size.w(36))
                 .background(Color.gray1000)
@@ -210,33 +238,60 @@ struct AccountIntro: View {
             ZStack {
                 if mbtiPresented {
                     CustomSheet {
-                        Picker("", selection: $mbti) {
+                        Picker("", selection: $mbtiNotNull) {
                             ForEach(mbtiE.allCases, id: \.self) { object in
                                 Text(object.rawValue).tag(object)
                                     .foregroundColor(.black)
                             }
                         }
                         .pickerStyle(.wheel)
+                        .onAppear {
+                            self.mbtiNotNull = self.mbti == nil ? .INTJ : self.mbti ?? .INTJ
+                            self.mbti = self.mbtiNotNull
+                        }
+                        .onChange(of: self.mbtiNotNull) { newValue in
+                            withAnimation {
+                                self.mbti = newValue
+                            }
+                        }
                     }
                 } else if weightPresented {
                     CustomSheet {
-                        Picker("", selection: $weight) {
+                        Picker("", selection: $weightNotNull) {
                             ForEach(30..<200, id: \.self) { kg in
                                 Text("\(kg)kg").tag(kg)
                                     .foregroundColor(.black)
                             }
                         }
                         .pickerStyle(.wheel)
+                        .onAppear {
+                            self.weightNotNull = self.weight == nil ? 60 : self.weight ?? 60
+                            self.weight = self.weightNotNull
+                        }
+                        .onChange(of: self.weightNotNull) { newValue in
+                            withAnimation {
+                                self.weight = newValue
+                            }
+                        }
                     }
                 } else if heightPresented {
                     CustomSheet {
-                        Picker("", selection: $height) {
+                        Picker("", selection: $heightNotNull) {
                             ForEach(100..<220, id: \.self) { cm in
                                 Text("\(cm)cm").tag(cm)
                                     .foregroundColor(.black)
                             }
                         }
                         .pickerStyle(.wheel)
+                        .onAppear {
+                            self.heightNotNull = self.height == nil ? 160 : self.height ?? 60
+                            self.height = self.heightNotNull
+                        }
+                        .onChange(of: self.heightNotNull) { newValue in
+                            withAnimation {
+                                self.height = newValue
+                            }
+                        }
                     }
                 }
             }

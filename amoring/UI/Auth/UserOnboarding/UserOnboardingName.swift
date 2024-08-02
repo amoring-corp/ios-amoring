@@ -26,7 +26,7 @@ struct UserOnboardingName: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            CustomTextField(placeholder: "이름을 입력해주세요.", text: $controller.profile.name ?? "")
+            CustomTextField(placeholder: "이름을 입력해주세요", text: $controller.profile.name ?? "")
                 .onChange(of: controller.profile.name ?? "", perform: { newValue in
                     if(newValue.count >= 15){
                         controller.profile.name = String(newValue.prefix(15))

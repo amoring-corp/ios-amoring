@@ -38,7 +38,11 @@ struct UserOnboardingIntro: View {
                                 .padding(.top, Size.w(56))
                                 .padding(.bottom, Size.w(10))
                             
-                            Text("인연은 신뢰속에서 시작됩니다.\n회원님의 ***키와** 몸무게 등 기본정보를 알려주세요.")
+                            (
+                            Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
+                            Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
+                            Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
+                             )
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.horizontal, Size.w(14))
@@ -64,7 +68,7 @@ struct UserOnboardingIntro: View {
                             }
                             .padding(.bottom, Size.w(30))
                             
-                            PickerButton(title: "키*") {
+                            PickerButton(title: "키*(필수)") {
                                 if let height = controller.profile.height {
                                     Text("\(Int(height).description)cm")
                                 }
@@ -122,7 +126,7 @@ struct UserOnboardingIntro: View {
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
                                 
-                                CustomTextField(placeholder: "예: 고졸, 학사, 석사, 박사...", text: $controller.profile.education ?? "", font: regular18Font)
+                                CustomTextField(placeholder: "예: 고등학교, 대학교, 서강대학사, ... ", text: $controller.profile.education ?? "", font: regular18Font)
 //                                    .onChange(of: education, perform: { newValue in
 //                                        if(newValue.count >= 20){
 //                                            education = String(newValue.prefix(20))
@@ -161,7 +165,12 @@ struct UserOnboardingIntro: View {
                             (controller.profile.weight.toWeight(), .weight),
                             (controller.profile.mbti, .mbti),
                             (controller.profile.education, .edu)
-                        ], totalHeight: CGFloat.infinity, isDark: true)
+                        ], totalHeight: CGFloat.infinity, isDark: true,
+                                              occupation: .constant(""),
+                                              height: .constant(0),
+                                              weight: .constant(0),
+                                              mbti: .constant(.ENFJ),
+                                              education: .constant(""))
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, Size.w(32))
                         .padding(.top, Size.w(25))

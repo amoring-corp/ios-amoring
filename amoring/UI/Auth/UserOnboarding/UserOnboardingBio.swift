@@ -32,7 +32,7 @@ struct UserOnboardingBio: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            MultilineCustomTextField(placeholder: "40자 이하로 작성해주세요.", text: $controller.profile.bio ?? "")
+            MultilineCustomTextField(placeholder: "예) 등산과 자전거를 즐기는 아웃도어 매니아. 주말을 함께 즐겨요!", text: $controller.profile.bio ?? "")
             
             Spacer()
                 .onChange(of: controller.profile.bio ?? "", perform: { newValue in

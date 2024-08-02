@@ -19,6 +19,11 @@ struct DeletableTagCloudView: View {
     //    = CGFloat.infinity   // << variant for VStacktotalHeight: CGFloat.infinity,
     var isDark: Bool = false
     
+    @Binding var occupation: String?
+    @Binding var height: Int?
+    @Binding var weight: Int?
+    @Binding var mbti: mbtiE?
+    @Binding var education: String?
     
     var body: some View {
         VStack {
@@ -66,14 +71,20 @@ struct DeletableTagCloudView: View {
                             switch tag.1 {
                             case .edu:
                                 controller.profile.education = nil
+                                self.education = nil
                             case .height:
-                                controller.profile.height = nil
+                                print("do nothing for height")
+//                                controller.profile.height = nil
+//                                self.height = nil
                             case .weight:
                                 controller.profile.weight = nil
+                                self.weight = nil
                             case .mbti:
                                 controller.profile.mbti = nil
+                                self.mbti = nil
                             case .ocu:
                                 controller.profile.occupation = nil
+                                self.occupation = nil
                             }
                         }
                     }
