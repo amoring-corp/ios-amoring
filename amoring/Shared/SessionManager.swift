@@ -677,7 +677,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         return
                     }
                     
-                    guard let response = value.data?.tempDeleteUserResolver else {
+                    guard let _ = value.data?.tempDeleteUserResolver else {
                         completion("something went wrong")
                         return
                     }

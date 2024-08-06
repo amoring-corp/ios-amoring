@@ -13,6 +13,7 @@ struct SettingsView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var businessSessionController: BusinessSessionController
+    @EnvironmentObject var notificationController: NotificationController
     
     @State private var logoutAlertPresented = false
     @State private var deleteAlertPresented = false
@@ -163,7 +164,15 @@ struct SettingsView: View {
                         MenuLineButton(title: "계정 삭제", fontColor: Color.yellow900) { deleteAlertPresented = true }
                             .alert("계정 삭제", isPresented: $deleteAlertPresented, actions: {
                                 // TODO: backend. implement account deletion
-                                Button("삭제", role: .destructive, action: sessionManager.signOut)
+                                Button("삭제", role: .destructive, action: {
+                                    sessionManager.tempDeleteUserResolver { error in
+                                        if let error {
+                                            notificationController.setNotification(text: error, type: .error)
+                                        } else {
+                                            sessionManager.signOut()
+                                        }
+                                    }
+                                })
                                 Button("취소", role: .cancel, action: {})
                             }, message: { Text("Amoring에서 탈퇴 시 해당 계정의 모든 정보는 영구 삭제되며 다시 복수 할 수 없습니다. Amoring 계정을 삭제하시겠습니까?") })
                     }

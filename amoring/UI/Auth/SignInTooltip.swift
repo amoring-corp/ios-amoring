@@ -26,7 +26,7 @@ struct SignInTooltip: View {
                 .offset(x: provider == .google ? Size.w(45) : (provider == .facebook ? Size.w(-45): 0))
         }
         .fixedSize()
-        .opacity(hideLastProvider ? 0.1 : 1)
+        .opacity(hideLastProvider ? 0 : 1)
         .offset(y: Size.w(54 + 26))
         .onTapGesture {
             withAnimation {

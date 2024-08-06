@@ -13,6 +13,8 @@ struct BusinessSignUpTerms: View {
     
     @State var termsSelected = false
     @State var privacySelected = false
+    @State var openTerms = false
+    @State var openPrivacy = false
     
     
     var body: some View {
@@ -54,58 +56,87 @@ struct BusinessSignUpTerms: View {
             .padding(.bottom, Size.w(22))
             
             HStack(spacing: Size.w(13)) {
-                Image(systemName: termsSelected ? "checkmark.square" : "square")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(20), height: Size.w(20))
+                HStack(spacing: Size.w(13)) {
+                    Image(systemName: termsSelected ? "checkmark.square" : "square")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Size.w(20), height: Size.w(20))
+                    
+                    Text("이용약관 동의 (필수)")
+                        .font(regular16Font)
+                        .foregroundColor(.yellow800)
+                }
+                    .onTapGesture {
+                        withAnimation {
+                            self.termsSelected.toggle()
+                        }
+                    }
                 
-                Text("이용약관 동의 (필수)")
-                    .font(regular16Font)
-                    .foregroundColor(.yellow800)
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(12), height: Size.w(12))
+//                Spacer()
+                Button(action: {
+                    openTerms = true
+                }) {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: Size.w(12), height: Size.w(12))
+                    }
+                    
+                }
+                .sheet(isPresented: $openTerms) {
+                    WebView(url: URL(string: "\(Constants.domain)/terms-and-conditions")!)
+                }
             }
             .foregroundColor(.yellow600)
             .padding(.horizontal, Size.w(10))
             .padding(.vertical, Size.w(13))
             .background(Color.yellow300)
-            .onTapGesture {
-                withAnimation {
-                    self.termsSelected.toggle()
-                }
-            }
+            
             
             HStack(spacing: Size.w(13)) {
-                Image(systemName: privacySelected ? "checkmark.square" : "square")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(20), height: Size.w(20))
+                HStack(spacing: Size.w(13)) {
+                    Image(systemName: privacySelected ? "checkmark.square" : "square")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Size.w(20), height: Size.w(20))
+                    
+                    Text("개인정보 필수 동의서 (필수)")
+                        .font(regular16Font)
+                        .foregroundColor(.yellow800)
+                }
+                .fixedSize(horizontal: true, vertical: false)
+                .onTapGesture {
+                    withAnimation {
+                        self.privacySelected.toggle()
+                    }
+                }
                 
-                Text("개인정보 필수 동의서 (필수)")
-                    .font(regular16Font)
-                    .foregroundColor(.yellow800)
                 
-                Spacer()
+//                Spacer()
                 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Size.w(12), height: Size.w(12))
+                Button(action: {
+                    openPrivacy = true
+                }) {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: Size.w(12), height: Size.w(12))
+                    }
+                    
+                }
+                .sheet(isPresented: $openPrivacy) {
+                    WebView(url: URL(string: "\(Constants.domain)/privacy-policy")!)
+                }
             }
             .foregroundColor(.yellow600)
             .padding(.horizontal, Size.w(10))
             .padding(.vertical, Size.w(13))
             .background(Color.yellow300)
-            .onTapGesture {
-                withAnimation {
-                    self.privacySelected.toggle()
-                }
-            }
+           
             
             Spacer()
 

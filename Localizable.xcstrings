@@ -762,6 +762,7 @@
       }
     },
     "가입함으로써, 귀하는 당사의 " : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -802,6 +803,7 @@
       }
     },
     "개인정보 취급방침" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1762,6 +1764,7 @@
 
     },
     "에 동의하게됩니다.\n당사의 개인정보 사용방식에 관한 내용은 " : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1783,6 +1786,7 @@
       }
     },
     "에서\n확인하실 수 있습니다." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1963,6 +1967,7 @@
 
     },
     "이용약관" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
