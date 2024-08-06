@@ -66,6 +66,7 @@ struct BusinessSignUpTerms: View {
                         .font(regular16Font)
                         .foregroundColor(.yellow800)
                 }
+                .fixedSize(horizontal: true, vertical: false)
                     .onTapGesture {
                         withAnimation {
                             self.termsSelected.toggle()

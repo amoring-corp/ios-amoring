@@ -12,9 +12,11 @@ struct BusinessSignUpOTP: View {
     @EnvironmentObject var controller: BusinessSignUpController
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var notificationController: NotificationController
+    @StateObject var otpViewModel = OTPViewModel()
     
     @State var bordersColor: Color = Color.clear
     @State var error: String = ""
+    @Namespace private var animation
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -31,15 +33,24 @@ struct BusinessSignUpOTP: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            
-            CodeInputView(text: $controller.confirmCode, modifierColor: bordersColor)
+            OTPView(viewModel: otpViewModel, animation: animation)
                 .padding(.bottom, Size.w(10))
                 .onTapGesture {
                     onTapInput()
                 }
-                .onChange(of: controller.confirmCode) { _ in
+                .onChange(of: otpViewModel.otpField) { newValue in
+                    controller.confirmCode = newValue
                     onTapInput()
                 }
+            
+//            CodeInputView(text: $controller.confirmCode, modifierColor: bordersColor)
+//                .padding(.bottom, Size.w(10))
+//                .onTapGesture {
+//                    onTapInput()
+//                }
+//                .onChange(of: controller.confirmCode) { _ in
+//                    onTapInput()
+//                }
             
             if let confirmationNumber = sessionManager.confirmationNumber {
                 Text(confirmationNumber)
@@ -58,7 +69,13 @@ struct BusinessSignUpOTP: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    print("resend OTP code")
+                    sessionManager.signUp(email: controller.email, password: controller.password) { error in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        } else {
+                            notificationController.setNotification(text: "New OTP code was send", type: .message)
+                        }
+                    }
                 }) {
                     Image("ic-refresh")
                         .resizable()

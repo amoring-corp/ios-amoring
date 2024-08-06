@@ -392,8 +392,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 switch result {
                 case .success(let value):
                     guard let passed = value.data?.verifyUserEmail else {
-                        print("Wrong data format!")
-                        completion(false, "Wrong code!")
+                        print("Wrong data format! Code: \(code). Email: \(email)")
+                        completion(false, "Wrong code! Code: \(code)")
                         return
                     }
 
@@ -404,7 +404,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         }
 //                        self.changeStateWithAnimation(state: .session(user: user))
                     } else {
-                        print("Failed to verify email")
+                        print("Failed to verify email. Code: \(code)")
                         completion(false, "Failed to verify email")
                     }
                     
