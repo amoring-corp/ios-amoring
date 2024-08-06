@@ -16,6 +16,8 @@ struct PhoneAuthOtp: View {
     @State var bordersColor: Color = Color.clear
     @State var error: String = ""
     @State var success: Bool = false
+    @StateObject var otpViewModel = OTPViewModel()
+    @Namespace private var animation
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -32,15 +34,18 @@ struct PhoneAuthOtp: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
             
-            
-            CodeInputView(text: $controller.otp, modifierColor: bordersColor)
-                .padding(.bottom, Size.w(10))
-                .onTapGesture {
-                    onTapInput()
+            OTPView(viewModel: otpViewModel, animation: animation)
+                .onChange(of: otpViewModel.otpField) { newValue in
+                    controller.otp = newValue
                 }
-                .onChange(of: controller.otp) { _ in
-                    onTapInput()
-                }
+//            CodeInputView(text: $controller.otp, modifierColor: bordersColor)
+//                .padding(.bottom, Size.w(10))
+//                .onTapGesture {
+//                    onTapInput()
+//                }
+//                .onChange(of: controller.otp) { _ in
+//                    onTapInput()
+//                }
             
 //            if let verificationNumber = sessionManager.verificationNumber {
 //                Text(verificationNumber)
@@ -155,4 +160,3 @@ struct PhoneAuthOtp: View {
 #Preview {
     BusinessSignUpOTP()
 }
-

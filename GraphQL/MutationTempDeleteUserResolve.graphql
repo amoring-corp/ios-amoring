@@ -1,0 +1,6 @@
+mutation TempDeleteUserResolver($id: ID!) {
+  tempDeleteUserResolver(id: $id) {
+    id
+    email
+  }
+}

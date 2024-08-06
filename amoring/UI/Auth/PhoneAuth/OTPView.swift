@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-implement me today
+
 struct OTPView: View {
     @ObservedObject var viewModel: OTPViewModel
     let animation: Namespace.ID
@@ -16,7 +16,7 @@ struct OTPView: View {
 //    let textBoxHeight: CGFloat = 50
     let textBoxWidth = UIScreen.main.bounds.width / 8.5
     let textBoxHeight = UIScreen.main.bounds.width / 7
-    let spaceBetweenBoxes: CGFloat = 11
+    let spaceBetweenBoxes: CGFloat = 10
     let paddingOfBox: CGFloat = 1
     var textFieldOriginalWidth: CGFloat {
         (textBoxWidth*6)+(spaceBetweenBoxes*3)+((paddingOfBox*2)*3)
@@ -33,6 +33,7 @@ struct OTPView: View {
                     otpText(text: viewModel.otp6)
                 }
                 .matchedGeometryEffect(id: "field", in: animation)
+                .foregroundColor(.black)
                 
                 TextField("", text: $viewModel.otpField)
                     .frame(width: isFocused ? 0 : textFieldOriginalWidth, height: textBoxHeight)
@@ -47,7 +48,7 @@ struct OTPView: View {
     
     private func otpText(text: String) -> some View {
         return Text(text)
-            .font(.title)
+            .font(bold36Font)
             .frame(width: textBoxWidth, height: textBoxHeight)
             .background(Color.gray100)
             .padding(paddingOfBox)
@@ -62,7 +63,7 @@ struct OTPView_Previews: PreviewProvider {
         }
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.bg)
+//        .background(Color.)
     }
 }
 

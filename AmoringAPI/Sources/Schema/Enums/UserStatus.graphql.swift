@@ -7,4 +7,5 @@ public enum UserStatus: String, EnumType {
   case unverified = "unverified"
   case active = "active"
   case inactive = "inactive"
+  case deleted = "deleted"
 }

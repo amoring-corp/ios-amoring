@@ -465,7 +465,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         print("OTP successfully veryfied")
                         completion(true, "")
                     } else {
-                        print("Failed to verify email")
+                        print("Failed to verify phone number")
                         completion(false, "Failed to verify email")
                     }
                     
@@ -662,6 +662,34 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     completion(false, error.localizedDescription)
                 }
             }
+    }
+    
+    func tempDeleteUserResolver(completion: @escaping (String?) -> Void) {
+        if let user {
+        self.isLoading = true
+            api.perform(mutation: TempDeleteUserResolverMutation(id: user.id)) { result in
+                self.isLoading = false
+                switch result {
+                case .success(let value):
+                    if let errors = value.errors {
+                        print(errors)
+                        completion(errors.first?.localizedDescription)
+                        return
+                    }
+                    
+                    guard let response = value.data?.tempDeleteUserResolver else {
+                        completion("something went wrong")
+                        return
+                    }
+                    
+                    completion(nil)
+                   
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                    completion(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 
