@@ -386,10 +386,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
     
-    func verifyEmail(code: String, email: String, password: String, completion: @escaping (Bool, String) -> Void) {
-        if let user = self.user {
+    func verifyEmail(completion: @escaping (Bool, String) -> Void) {
+        if let user = self.user, let verificationNumber {
             self.isLoading = true
-            api.perform(mutation: VerifyUserEmailMutation(userId: user.id, confirmationCode: code, emailConfirmationToken: self.emailConfirmationToken)) { result in
+            api.perform(mutation: VerifyUserEmailMutation(userId: user.id, confirmationCode: verificationNumber, emailConfirmationToken: self.verificationToken)) { result in
                 self.isLoading = false
                 switch result {
                 case .success(let value):
@@ -399,19 +399,24 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     }
                     
                     guard let passed = value.data?.verifyUserEmail else {
-                        print("Wrong data format! Code: \(code). Email: \(email)")
-                        completion(false, "Wrong code! Code: \(code)")
+                        print("Wrong data format! Code: \(verificationNumber)")
+                        completion(false, "Wrong code! Code: \(verificationNumber)")
                         return
                     }
 
                     if passed {
+                        
                         print("OTP successfully veryfied")
-                        self.businessSignIn(email: email, password: password) { success, error in
-                            completion(success, error)
-                        }
+                        completion(true, "")
+//                        self.getCurrentSession(delay: 0) { success, error in
+//                            completion(success, error)
+//                        }
+//                        self.businessSignIn(email: email, password: password) { success, error in
+//                            
+//                        }
 //                        self.changeStateWithAnimation(state: .session(user: user))
                     } else {
-                        print("Failed to verify email. Code: \(code)")
+                        print("Failed to verify email. Code: \(verificationNumber)")
                         completion(false, "Failed to verify email")
                     }
                     

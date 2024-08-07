@@ -12,6 +12,7 @@ struct BusinessSignUpOTP: View {
     @EnvironmentObject var controller: BusinessSignUpController
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var notificationController: NotificationController
+    @EnvironmentObject var userManager: UserManager
     @StateObject var otpViewModel = OTPViewModel()
     
     @State var bordersColor: Color = Color.clear
@@ -67,13 +68,13 @@ struct BusinessSignUpOTP: View {
             //                    onTapInput()
             //                }
             
-//            if let verificationNumber = sessionManager.verificationNumber {
-//                Text(verificationNumber)
-//                    .font(semiBold18Font)
-//                    .foregroundColor(.black)
-//                    .padding(.leading, Size.w(14))
-//                    .padding(.bottom, Size.w(42))
-//            }
+            if let verificationNumber = sessionManager.verificationNumber {
+                Text(verificationNumber)
+                    .font(semiBold18Font)
+                    .foregroundColor(.black)
+                    .padding(.leading, Size.w(14))
+                    .padding(.bottom, Size.w(42))
+            }
             
             Text(error)
                 .font(regular16Font)
@@ -171,10 +172,18 @@ struct BusinessSignUpOTP: View {
     }
     
     private func signUp() {
-        sessionManager.verifyEmail(code: controller.confirmCode, email: controller.email, password: controller.password) { success, error in
+        sessionManager.verifyEmail { success, error in
             if !success {
                 withAnimation {
                     notificationController.setNotification(text: error, type: .error)
+                }
+            } else {
+                withAnimation {
+                    if userManager.authUser.business == nil {
+                        userManager.userState = .businessOnboarding
+                    } else {
+                        userManager.userState = .businessSession
+                    }
                 }
             }
         }

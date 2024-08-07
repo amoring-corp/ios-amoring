@@ -65,7 +65,7 @@ struct BusinessSignUpPassword: View {
                         if let error {
                             notificationController.setNotification(text: error, type: .error)
                         } else {
-                            sessionManager.getCurrentSession(delay: 0) { success, error in
+                            sessionManager.businessSignIn(email: controller.email, password: controller.password) { success, error in
                                 if !success {
                                     notificationController.setNotification(text: error, type: .error)
                                 }
