@@ -19,6 +19,7 @@ struct BusinessSignUpOTP: View {
     @Namespace private var animation
     
     var body: some View {
+        NavigationView {
         VStack(alignment: .leading, spacing: 0) {
             Text("인증코드를 확인하세요")
                 .font(bold32Font)
@@ -32,6 +33,20 @@ struct BusinessSignUpOTP: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(40))
+                .onAppear {
+                    if let email = sessionManager.user?.email {
+                        withAnimation {
+                            self.controller.email = email
+                        }
+                    }
+                    sessionManager.startEmailVerification { error in
+                        if let error {
+                            notificationController.setNotification(text: error, type: .error)
+                        } else {
+                            notificationController.setNotification(text: "OTP code was send", type: .message)
+                        }
+                    }
+                }
             
             OTPView(viewModel: otpViewModel, animation: animation)
                 .padding(.bottom, Size.w(10))
@@ -43,22 +58,22 @@ struct BusinessSignUpOTP: View {
                     onTapInput()
                 }
             
-//            CodeInputView(text: $controller.confirmCode, modifierColor: bordersColor)
-//                .padding(.bottom, Size.w(10))
-//                .onTapGesture {
-//                    onTapInput()
-//                }
-//                .onChange(of: controller.confirmCode) { _ in
-//                    onTapInput()
-//                }
+            //            CodeInputView(text: $controller.confirmCode, modifierColor: bordersColor)
+            //                .padding(.bottom, Size.w(10))
+            //                .onTapGesture {
+            //                    onTapInput()
+            //                }
+            //                .onChange(of: controller.confirmCode) { _ in
+            //                    onTapInput()
+            //                }
             
-            if let confirmationNumber = sessionManager.confirmationNumber {
-                Text(confirmationNumber)
-                    .font(semiBold18Font)
-                    .foregroundColor(.black)
-                    .padding(.leading, Size.w(14))
-                    .padding(.bottom, Size.w(42))
-            }
+//            if let verificationNumber = sessionManager.verificationNumber {
+//                Text(verificationNumber)
+//                    .font(semiBold18Font)
+//                    .foregroundColor(.black)
+//                    .padding(.leading, Size.w(14))
+//                    .padding(.bottom, Size.w(42))
+//            }
             
             Text(error)
                 .font(regular16Font)
@@ -69,13 +84,21 @@ struct BusinessSignUpOTP: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    sessionManager.signUp(email: controller.email, password: controller.password) { error in
+                    sessionManager.startEmailVerification { error in
                         if let error {
                             notificationController.setNotification(text: error, type: .error)
                         } else {
                             notificationController.setNotification(text: "New OTP code was send", type: .message)
                         }
                     }
+                    
+//                    sessionManager.signUp(email: controller.email, password: controller.password) { error in
+//                        if let error {
+//                            notificationController.setNotification(text: error, type: .error)
+//                        } else {
+//                            notificationController.setNotification(text: "New OTP code was send", type: .message)
+//                        }
+//                    }
                 }) {
                     Image("ic-refresh")
                         .resizable()
@@ -125,8 +148,17 @@ struct BusinessSignUpOTP: View {
             }
         }
         .navigationBarItems(leading:
-            BackButton(action: { presentationMode.wrappedValue.dismiss() })
+                                Button(action: {
+            sessionManager.signOut()
+        }) {
+            Text("로그아웃")
+                .foregroundColor(.black)
+        }
         )
+        //        .navigationBarItems(leading:
+        //            BackButton(action: { presentationMode.wrappedValue.dismiss() })
+        //        )
+    }
     }
     
     private func onTapInput() {

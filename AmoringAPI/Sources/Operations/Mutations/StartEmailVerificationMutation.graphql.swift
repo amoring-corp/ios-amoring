@@ -3,20 +3,14 @@
 
 @_exported import ApolloAPI
 
-public class StartPhoneNumberVerificationMutation: GraphQLMutation {
-  public static let operationName: String = "StartPhoneNumberVerification"
+public class StartEmailVerificationMutation: GraphQLMutation {
+  public static let operationName: String = "StartEmailVerification"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation StartPhoneNumberVerification($phoneNumber: String!) { startPhoneNumberVerification(phoneNumber: $phoneNumber) { __typename verificationNumber verificationToken } }"#
+      #"mutation StartEmailVerification { startEmailVerification { __typename verificationNumber verificationToken } }"#
     ))
 
-  public var phoneNumber: String
-
-  public init(phoneNumber: String) {
-    self.phoneNumber = phoneNumber
-  }
-
-  public var __variables: Variables? { ["phoneNumber": phoneNumber] }
+  public init() {}
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
@@ -24,15 +18,15 @@ public class StartPhoneNumberVerificationMutation: GraphQLMutation {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("startPhoneNumberVerification", StartPhoneNumberVerification.self, arguments: ["phoneNumber": .variable("phoneNumber")]),
+      .field("startEmailVerification", StartEmailVerification.self),
     ] }
 
-    public var startPhoneNumberVerification: StartPhoneNumberVerification { __data["startPhoneNumberVerification"] }
+    public var startEmailVerification: StartEmailVerification { __data["startEmailVerification"] }
 
-    /// StartPhoneNumberVerification
+    /// StartEmailVerification
     ///
     /// Parent Type: `VerificationRequestResult`
-    public struct StartPhoneNumberVerification: AmoringAPI.SelectionSet {
+    public struct StartEmailVerification: AmoringAPI.SelectionSet {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 

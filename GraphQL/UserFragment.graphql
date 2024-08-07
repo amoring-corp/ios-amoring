@@ -20,4 +20,5 @@ fragment UserInfo on User {
   invisiblePassExpiredAt
   visibleReactionsPassExpiredAt
   isPhoneNumberVerified
+  isEmailVerified
 }

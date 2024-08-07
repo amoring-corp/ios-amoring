@@ -65,7 +65,11 @@ struct BusinessSignUpPassword: View {
                         if let error {
                             notificationController.setNotification(text: error, type: .error)
                         } else {
-                            goToOTP = true
+                            sessionManager.getCurrentSession(delay: 0) { success, error in
+                                if !success {
+                                    notificationController.setNotification(text: error, type: .error)
+                                }
+                            }
                         }
                     }
                 }) {

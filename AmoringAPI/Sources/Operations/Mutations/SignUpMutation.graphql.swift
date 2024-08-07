@@ -89,6 +89,7 @@ public class SignUpMutation: GraphQLMutation {
         public var invisiblePassExpiredAt: AmoringAPI.DateTime? { __data["invisiblePassExpiredAt"] }
         public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
         public var isPhoneNumberVerified: Bool? { __data["isPhoneNumberVerified"] }
+        public var isEmailVerified: Bool? { __data["isEmailVerified"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict

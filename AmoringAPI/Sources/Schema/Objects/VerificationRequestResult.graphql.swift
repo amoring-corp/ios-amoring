@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public extension Objects {
-  static let PhoneVerificationRequestResult = ApolloAPI.Object(
-    typename: "PhoneVerificationRequestResult",
+  static let VerificationRequestResult = ApolloAPI.Object(
+    typename: "VerificationRequestResult",
     implementedInterfaces: []
   )
 }

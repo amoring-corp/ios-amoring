@@ -24,4 +24,5 @@ enum UserState {
     case businessSession
     case debugging
     case error
+    case emailValidation
 }

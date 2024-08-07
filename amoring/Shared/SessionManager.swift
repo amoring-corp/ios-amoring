@@ -99,7 +99,9 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     
                     print("Current Token: \(self.sessionToken)")
                     print("Current User: \(authUser.id)")
+                    print("email: \(authUser.fragments.userInfo.email)")
                     self.user = authUser.fragments.userInfo
+                    
                     self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
                     completion(true, "")
                 case .failure(let error):
@@ -391,6 +393,11 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 self.isLoading = false
                 switch result {
                 case .success(let value):
+                    if let errors = value.errors {
+                        print(errors)
+                        completion(false, errors.first?.localizedDescription ?? "error")
+                    }
+                    
                     guard let passed = value.data?.verifyUserEmail else {
                         print("Wrong data format! Code: \(code). Email: \(email)")
                         completion(false, "Wrong code! Code: \(code)")
@@ -473,6 +480,38 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     debugPrint(error.localizedDescription)
                     completion(false, error.localizedDescription)
                 }
+            }
+        }
+    }
+    
+    func startEmailVerification(completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        api.perform(mutation: StartEmailVerificationMutation()) { result in
+            self.isLoading = false
+            switch result {
+            case .success(let value):
+                if let errors = value.errors {
+                    print(errors)
+                    completion(errors.first?.localizedDescription)
+                    return
+                }
+                
+                if let verificationNumber = value.data?.startEmailVerification.verificationNumber, let verificationToken = value.data?.startEmailVerification.verificationToken {
+                    self.verificationToken = verificationToken
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation {
+                            self.verificationNumber = verificationNumber
+                        }
+                    }
+                    completion(nil)
+                } else {
+                    print("Wrong data!")
+                    completion("Wrong data!")
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(error.localizedDescription)
             }
         }
     }

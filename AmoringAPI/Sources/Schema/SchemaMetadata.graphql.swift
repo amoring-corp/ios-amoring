@@ -23,6 +23,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
   public static func objectType(forTypename typename: String) -> ApolloAPI.Object? {
     switch typename {
     case "Mutation": return AmoringAPI.Objects.Mutation
+    case "VerificationRequestResult": return AmoringAPI.Objects.VerificationRequestResult
     case "SignInResult": return AmoringAPI.Objects.SignInResult
     case "User": return AmoringAPI.Objects.User
     case "Profile": return AmoringAPI.Objects.Profile
@@ -47,7 +48,6 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "UserDevice": return AmoringAPI.Objects.UserDevice
     case "Report": return AmoringAPI.Objects.Report
     case "BusinessDistrict": return AmoringAPI.Objects.BusinessDistrict
-    case "PhoneVerificationRequestResult": return AmoringAPI.Objects.PhoneVerificationRequestResult
     case "BusinessesList": return AmoringAPI.Objects.BusinessesList
     default: return nil
     }

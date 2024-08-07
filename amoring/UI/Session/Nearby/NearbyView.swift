@@ -387,7 +387,10 @@ struct BusinessRow: View {
                     
                     Spacer()
                     
-                    Text((business.activeCheckInCount?.description ?? 0.description) + "명")
+                    HStack(spacing: 0) {
+                        Text(business.activeCheckInCount?.description ?? 0.description)
+                        Image(systemName: "figure.stand")
+                    }
                         .font(regular16Font)
                         .foregroundColor(.gray600)
                 }

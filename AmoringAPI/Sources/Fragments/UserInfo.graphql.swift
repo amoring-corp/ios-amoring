@@ -5,7 +5,7 @@
 
 public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment UserInfo on User { __typename id email status role profile { __typename ...ProfileInfo } business { __typename ...BusinessInfo } createdAt updatedAt usedLikesCount maxLikes likesCredit loungePassExpiredAt invisiblePassExpiredAt visibleReactionsPassExpiredAt isPhoneNumberVerified }"#
+    #"fragment UserInfo on User { __typename id email status role profile { __typename ...ProfileInfo } business { __typename ...BusinessInfo } createdAt updatedAt usedLikesCount maxLikes likesCredit loungePassExpiredAt invisiblePassExpiredAt visibleReactionsPassExpiredAt isPhoneNumberVerified isEmailVerified }"#
   }
 
   public let __data: DataDict
@@ -29,6 +29,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     .field("invisiblePassExpiredAt", AmoringAPI.DateTime?.self),
     .field("visibleReactionsPassExpiredAt", AmoringAPI.DateTime?.self),
     .field("isPhoneNumberVerified", Bool?.self),
+    .field("isEmailVerified", Bool?.self),
   ] }
 
   public var id: AmoringAPI.ID { __data["id"] }
@@ -46,6 +47,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public var invisiblePassExpiredAt: AmoringAPI.DateTime? { __data["invisiblePassExpiredAt"] }
   public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
   public var isPhoneNumberVerified: Bool? { __data["isPhoneNumberVerified"] }
+  public var isEmailVerified: Bool? { __data["isEmailVerified"] }
 
   /// Profile
   ///

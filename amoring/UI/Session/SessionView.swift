@@ -30,6 +30,8 @@ struct SessionFlow: View {
                 UserOnboardingView()
             case .session:
                 SessionView(selectedIndex: $selectedIndex)
+            case .emailValidation:
+                BusinessSignUpOTP()
             case .businessOnboarding:
                 BusinessOnboardingView()
             case .businessSession:

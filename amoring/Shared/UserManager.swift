@@ -51,7 +51,9 @@ class UserManager: ObservableObject {
         switch role {
         case .case(.business):
             print("I'm a business")
-            
+            if !(authUser.isEmailVerified ?? false) {
+                self.changeStateWithAnimation(state: .emailValidation)
+            } else
             if let business = authUser.business, ((business.phoneNumber?.isEmpty) != nil) {
 //                DispatchQueue.main.async {
 //                    UIApplication.shared.unregisterForRemoteNotifications()
