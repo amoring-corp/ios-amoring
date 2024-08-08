@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 struct AccountCoupons: View {
+    let coupons: [UserInfo.ActiveCoupon?]
     @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var listOfCoupons: [CouponModel] = [
-        CouponModel(image: "voucher-free-drink", title: "coupon1.title", subtitle: "coupon1.subtitle", expirationDate: Date().addingTimeInterval(259200), description: "coupon1.desc", body: "coupon1.body"),
+//    @State var listOfCoupons: [CouponModel] = [
+//        CouponModel(image: "voucher-free-drink", title: "coupon1.title", subtitle: "coupon1.subtitle", expirationDate: Date().addingTimeInterval(259200), description: "coupon1.desc", body: "coupon1.body"),
 //        CouponModel(image: "voucher-free-ticket", title: "무료 입장권", subtitle: "유로포차 | 신규입점", expirationDate: Date().addingTimeInterval(159200), description: "반가워요 회원님!\n아모링 가맹 매장에서 해당 쿠폰을 제시해주세요.\n환영의 의미로 아모링이 무료로 술 한잔 쏩니다!", body: "유의사항\n• 본 쿠폰은 신규회원에게 1회 지급되는 쿠폰입니다.\n• 다른 쿠폰과 중복사용 불가합니다.\n• 유효기간이 지난 쿠폰은 재발행 되지 않으니 유효기간 내에 사용해 주시기 바랍니다.\n• 쿠폰 사용 하기 버튼을 누르면 사용된 쿠폰은 회수할 수 없습니다. 꼭 매장에서 제시하여 사용해주세요."),
 //        CouponModel(image: "voucher-gift", title: "무료 드링크 교환권", subtitle: "아모링 | 생일쿠폰", expirationDate: Date().addingTimeInterval(9200), description: "반가워요 회원님!\n아모링 가맹 매장에서 해당 쿠폰을 제시해주세요.\n환영의 의미로 아모링이 무료로 술 한잔 쏩니다!", body: "유의사항\n• 본 쿠폰은 신규회원에게 1회 지급되는 쿠폰입니다.\n• 다른 쿠폰과 중복사용 불가합니다.\n• 유효기간이 지난 쿠폰은 재발행 되지 않으니 유효기간 내에 사용해 주시기 바랍니다.\n• 쿠폰 사용 하기 버튼을 누르면 사용된 쿠폰은 회수할 수 없습니다. 꼭 매장에서 제시하여 사용해주세요.")
-    ]
+//    ]
     
     var body: some View {
             VStack(spacing: 0) {
@@ -25,13 +27,14 @@ struct AccountCoupons: View {
                     .frame(maxWidth: .infinity)
                     .padding(.top, 21)
                 
-                if listOfCoupons.isEmpty {
+                
+                if coupons.isEmpty {
                     noCoupons()
                 } else {
                     ScrollView(showsIndicators: false) {
 //                    TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                         VStack(alignment: .leading, spacing: 0) {
-                            ForEach(listOfCoupons, id: \.self) { coupon in
+                            ForEach(coupons, id: \.self) { coupon in
                                 NavigationLink(destination: {
                                     CouponDetailsView(coupon: coupon)
                                 }) {
@@ -90,23 +93,26 @@ struct AccountCoupons: View {
     }
  
     @ViewBuilder
-    private func CouponRow(coupon: CouponModel) -> some View {
+    private func CouponRow(coupon: UserInfo.ActiveCoupon?) -> some View {
         HStack(alignment: .center, spacing: 12) {
-            Image(coupon.image)
+            // MARK: hradcoded
+            Image("voucher-free-drink")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 90, height: 90)
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(NSLocalizedString(coupon.subtitle, comment: ""))
+                (Text("아모링") + Text(" | ") + Text(NSLocalizedString(coupon?.coupon.category ?? "", comment: "")))
                     .font(regular16Font)
                     .foregroundColor(.gray600)
                 
-                Text(NSLocalizedString(coupon.title, comment: ""))
+                Text(NSLocalizedString(coupon?.coupon.name ?? "", comment: ""))
                     .font(semiBold20Font)
                     .foregroundColor(.gray200)
+                let expiredAt = coupon?.expiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 
-                Text("\(coupon.expirationDate.toString(format: nil)) 까지")
+                Text("\(expiredAt?.toString(format: nil) ?? "") 까지")
+//                Text("\(coupon.expiredAt?.toDate()) 까지")
                     .font(regular16Font)
                     .foregroundColor(.gray600)
             }
@@ -126,6 +132,6 @@ struct CouponModel: Hashable {
     let body: String
 }
 
-#Preview {
-    AccountCoupons()
-}
+//#Preview {
+//    AccountCoupons()
+//}

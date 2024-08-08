@@ -36,6 +36,8 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "ProfileImage": return AmoringAPI.Objects.ProfileImage
     case "Interest": return AmoringAPI.Objects.Interest
     case "InterestCategory": return AmoringAPI.Objects.InterestCategory
+    case "ActiveCoupon": return AmoringAPI.Objects.ActiveCoupon
+    case "Coupon": return AmoringAPI.Objects.Coupon
     case "Subscription": return AmoringAPI.Objects.Subscription
     case "Message": return AmoringAPI.Objects.Message
     case "Reaction": return AmoringAPI.Objects.Reaction

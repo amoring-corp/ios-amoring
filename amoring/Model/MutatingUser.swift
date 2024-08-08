@@ -26,7 +26,7 @@ struct MutatingUser: Hashable {
     var loungePassExpiredAt: Date?
     var invisiblePassExpiredAt: Date?
     var visibleReactionsPassExpiredAt: Date?
-    
+    var activeCoupons: [UserInfo.ActiveCoupon?]
     
     init(userInfo: UserInfo) {
         self.id = userInfo.id
@@ -45,6 +45,7 @@ struct MutatingUser: Hashable {
         self.loungePassExpiredAt = userInfo.loungePassExpiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.invisiblePassExpiredAt = userInfo.invisiblePassExpiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.visibleReactionsPassExpiredAt = userInfo.visibleReactionsPassExpiredAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.activeCoupons = userInfo.activeCoupons ?? []
     }
     
     init(userInfo: ConversationInfo.Participant) {
@@ -56,6 +57,7 @@ struct MutatingUser: Hashable {
         self.business = nil
         self.createdAt = userInfo.createdAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         self.updatedAt = userInfo.updatedAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        self.activeCoupons = []
     }
     
 }

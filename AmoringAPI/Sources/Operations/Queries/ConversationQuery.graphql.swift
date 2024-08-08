@@ -8,7 +8,7 @@ public class ConversationQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query Conversation($id: ID!) { conversation(id: $id) { __typename ...ConversationInfo } }"#,
-      fragments: [BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, ConversationInfo.self, ImageFragment.self, MessageInfo.self, ProfileInfo.self, UserInfo.self]
+      fragments: [ActiveCouponFragment.self, BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, ConversationInfo.self, CouponFragment.self, ImageFragment.self, MessageInfo.self, ProfileInfo.self, UserInfo.self]
     ))
 
   public var id: ID
@@ -185,6 +185,7 @@ public class ConversationQuery: GraphQLQuery {
         public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
         public var isPhoneNumberVerified: Bool? { __data["isPhoneNumberVerified"] }
         public var isEmailVerified: Bool? { __data["isEmailVerified"] }
+        public var activeCoupons: [ActiveCoupon?]? { __data["activeCoupons"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
@@ -430,6 +431,51 @@ public class ConversationQuery: GraphQLQuery {
           public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
           public typealias Image = BusinessInfo.Image
+        }
+
+        /// Conversation.Participant.ActiveCoupon
+        ///
+        /// Parent Type: `ActiveCoupon`
+        public struct ActiveCoupon: AmoringAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ActiveCoupon }
+
+          public var id: String { __data["id"] }
+          public var coupon: Coupon { __data["coupon"] }
+          public var expiredAt: AmoringAPI.DateTime? { __data["expiredAt"] }
+
+          public struct Fragments: FragmentContainer {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public var activeCouponFragment: ActiveCouponFragment { _toFragment() }
+          }
+
+          /// Conversation.Participant.ActiveCoupon.Coupon
+          ///
+          /// Parent Type: `Coupon`
+          public struct Coupon: AmoringAPI.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Coupon }
+
+            public var category: String { __data["category"] }
+            public var name: String { __data["name"] }
+            public var shortDescription: String { __data["shortDescription"] }
+            public var description: String { __data["description"] }
+            public var validFrom: AmoringAPI.DateTime? { __data["validFrom"] }
+            public var validUntil: AmoringAPI.DateTime? { __data["validUntil"] }
+
+            public struct Fragments: FragmentContainer {
+              public let __data: DataDict
+              public init(_dataDict: DataDict) { __data = _dataDict }
+
+              public var couponFragment: CouponFragment { _toFragment() }
+            }
+          }
         }
       }
 

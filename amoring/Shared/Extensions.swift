@@ -165,6 +165,18 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    func toString(format: String?) -> String? {
+        let formatter = DateFormatter()
+        if let format {
+            formatter.dateFormat = format
+        } else {
+            formatter.dateFormat = "YYYY-MM-dd"
+        }
+        
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter.string(from: self)
+    }
+    
     var startOfDay: Date {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!

@@ -39,6 +39,9 @@
         }
       }
     },
+    " | " : {
+
+    },
     " 에서" : {
       "localizations" : {
         "en" : {
@@ -447,6 +450,9 @@
         }
       }
     },
+    "Are you sure you want to use this Coupon?" : {
+
+    },
     "Basic" : {
 
     },
@@ -737,6 +743,9 @@
           }
         }
       }
+    },
+    "Yes" : {
+
     },
     "Your password has been successfully updated" : {
       "localizations" : {
@@ -1747,6 +1756,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A verification code has been sent to you.\n%@"
+          }
+        }
+      }
+    },
+    "아모링" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amoring"
           }
         }
       }

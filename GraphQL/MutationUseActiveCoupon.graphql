@@ -1,0 +1,5 @@
+mutation UseActiveCoupon($id: String!) {
+  useActiveCoupon(id: $id) {
+    ... ActiveCouponFragment
+  }
+}

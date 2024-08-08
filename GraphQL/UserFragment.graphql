@@ -21,4 +21,25 @@ fragment UserInfo on User {
   visibleReactionsPassExpiredAt
   isPhoneNumberVerified
   isEmailVerified
+  
+  activeCoupons {
+    ... ActiveCouponFragment
+  }
+}
+
+fragment ActiveCouponFragment on ActiveCoupon {
+  id
+  coupon {
+    ... CouponFragment
+  }
+  expiredAt
+}
+
+fragment CouponFragment on Coupon {
+  category
+  name
+  shortDescription
+  description
+  validFrom
+  validUntil
 }

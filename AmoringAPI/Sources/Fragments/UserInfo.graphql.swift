@@ -5,7 +5,7 @@
 
 public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment UserInfo on User { __typename id email status role profile { __typename ...ProfileInfo } business { __typename ...BusinessInfo } createdAt updatedAt usedLikesCount maxLikes likesCredit loungePassExpiredAt invisiblePassExpiredAt visibleReactionsPassExpiredAt isPhoneNumberVerified isEmailVerified }"#
+    #"fragment UserInfo on User { __typename id email status role profile { __typename ...ProfileInfo } business { __typename ...BusinessInfo } createdAt updatedAt usedLikesCount maxLikes likesCredit loungePassExpiredAt invisiblePassExpiredAt visibleReactionsPassExpiredAt isPhoneNumberVerified isEmailVerified activeCoupons { __typename ...ActiveCouponFragment } }"#
   }
 
   public let __data: DataDict
@@ -30,6 +30,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     .field("visibleReactionsPassExpiredAt", AmoringAPI.DateTime?.self),
     .field("isPhoneNumberVerified", Bool?.self),
     .field("isEmailVerified", Bool?.self),
+    .field("activeCoupons", [ActiveCoupon?]?.self),
   ] }
 
   public var id: AmoringAPI.ID { __data["id"] }
@@ -48,6 +49,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
   public var isPhoneNumberVerified: Bool? { __data["isPhoneNumberVerified"] }
   public var isEmailVerified: Bool? { __data["isEmailVerified"] }
+  public var activeCoupons: [ActiveCoupon?]? { __data["activeCoupons"] }
 
   /// Profile
   ///
@@ -294,5 +296,54 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
     public typealias Image = BusinessInfo.Image
+  }
+
+  /// ActiveCoupon
+  ///
+  /// Parent Type: `ActiveCoupon`
+  public struct ActiveCoupon: AmoringAPI.SelectionSet {
+    public let __data: DataDict
+    public init(_dataDict: DataDict) { __data = _dataDict }
+
+    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ActiveCoupon }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
+      .fragment(ActiveCouponFragment.self),
+    ] }
+
+    public var id: String { __data["id"] }
+    public var coupon: Coupon { __data["coupon"] }
+    public var expiredAt: AmoringAPI.DateTime? { __data["expiredAt"] }
+
+    public struct Fragments: FragmentContainer {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public var activeCouponFragment: ActiveCouponFragment { _toFragment() }
+    }
+
+    /// ActiveCoupon.Coupon
+    ///
+    /// Parent Type: `Coupon`
+    public struct Coupon: AmoringAPI.SelectionSet {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Coupon }
+
+      public var category: String { __data["category"] }
+      public var name: String { __data["name"] }
+      public var shortDescription: String { __data["shortDescription"] }
+      public var description: String { __data["description"] }
+      public var validFrom: AmoringAPI.DateTime? { __data["validFrom"] }
+      public var validUntil: AmoringAPI.DateTime? { __data["validUntil"] }
+
+      public struct Fragments: FragmentContainer {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public var couponFragment: CouponFragment { _toFragment() }
+      }
+    }
   }
 }

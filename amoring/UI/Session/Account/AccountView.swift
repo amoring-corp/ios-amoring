@@ -95,10 +95,12 @@ struct AccountView: View {
                                 AccountInterests()
                             }
                             
-                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
-                            
-                            MenuLineLink(title: "쿠폰함") {
-                                AccountCoupons()
+                            if let coupons = userManager.user?.activeCoupons {
+                                Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                                
+                                MenuLineLink(title: "쿠폰함") {
+                                    AccountCoupons(coupons: coupons)
+                                }
                             }
                         }
                         .background(Color.black)

@@ -1424,6 +1424,37 @@ class UserManager: ObservableObject {
         }
     }
     
+    func useCoupon(id: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: UseActiveCouponMutation(id: id)) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Coupon was successfully used! id: \(id)")
+                
+                self.isLoading = false
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
+        }
+    }
     
     // MARK: Purcahse Controller
     @Published var purchaseType: PurchaseModel.type? = nil
