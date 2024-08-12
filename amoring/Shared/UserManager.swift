@@ -1266,7 +1266,7 @@ class UserManager: ObservableObject {
             if let typeId {
                 typeIdList = [typeId]
             }
-            api.fetch(query: QueryBusinessesQuery(
+            let query = QueryBusinessesQuery(
                 near: GraphQLHelper.graphQLNullableFrom(input),
                 districts: GraphQLHelper.graphQLNullableFrom(districtsList),
                 sort: GraphQLHelper.graphQLNullableFrom(businessSortBy),
@@ -1274,7 +1274,8 @@ class UserManager: ObservableObject {
                 nearByOnly: nearByOnly ?? false,
                 take: GraphQLHelper.graphQLNullableFrom(take),
                 skip: GraphQLHelper.graphQLNullableFrom(skip)
-            )) { result in
+            )
+            api.fetch(query: query) { result in
                 switch result {
                 case .success(let value):
                     guard value.errors == nil else {

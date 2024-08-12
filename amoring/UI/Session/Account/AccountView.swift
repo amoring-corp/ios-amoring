@@ -152,12 +152,16 @@ struct AccountView: View {
                                 }
                                 
                                 if listAvailable {
-                                    MenuLineButton(title: "리스트 보기",
-                                                   subtitle: userManager.visibleReactionsPassEnabled() ? ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
-                                                   fontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow200 : Color.gray600,
-                                                   subFontColor: userManager.visibleReactionsPassEnabled() ? Color.yellow350 : Color.gray300)
-                                    {
-                                        if !userManager.visibleReactionsPassEnabled() {
+                                    if userManager.visibleReactionsPassEnabled() {
+                                        MenuLineLink(title: "리스트 보기", subtitle: ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime(), subFontColor: Color.yellow350) {
+                                            PeopleLikesView()
+                                        }
+                                    } else {
+                                        MenuLineButton(title: "리스트 보기",
+                                                       subtitle: "구매하기",
+                                                       fontColor: Color.gray600,
+                                                       subFontColor: Color.gray300)
+                                        {
                                             userManager.openPurchase(purchaseType: .list)
                                         }
                                     }
@@ -181,7 +185,6 @@ struct AccountView: View {
                                 NavigationWrapper(title: "개인정보 보호 방침") {
                                     WebView(url: URL(string: "\(Constants.domain)/privacy-policy")!)
                                 }
-                                
                             }
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             
@@ -256,8 +259,10 @@ struct MenuTitle: View {
 struct MenuLineLink<Content: View>: View {
     @EnvironmentObject var navigationController: NavigationController
     let title: String
+    var subtitle: String? = nil
     var color: Color = Color.gray600
     var isBusinessSession: Bool = false
+    var subFontColor: Color = Color.gray300
     
     @ViewBuilder let content: Content
     
@@ -279,6 +284,12 @@ struct MenuLineLink<Content: View>: View {
                 Text(NSLocalizedString(title, comment: ""))
                     
                 Spacer()
+                
+                if let subtitle {
+                    Text(NSLocalizedString(subtitle, comment: ""))
+                        .font(regular16Font)
+                        .foregroundColor(subFontColor)
+                }
                 
                 Image(systemName: "chevron.right")
             }

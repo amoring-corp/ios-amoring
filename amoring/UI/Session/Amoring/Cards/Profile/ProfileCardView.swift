@@ -108,7 +108,7 @@ struct UserInfoView: View {
                 Text(profile.bio ?? "")
                     .font(medium16Font)
                     .foregroundColor(.black)
-                    .lineLimit(1)
+                    .lineLimit(amoringController.showDetails ? 3 : 1)
                     .frame(maxWidth: .infinity, alignment: amoringController.showDetails ? .leading : .center)
             }
             .padding(.horizontal, Size.w(22))
