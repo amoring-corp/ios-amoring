@@ -51,7 +51,6 @@
 		2B364C1A2C169F2700BBE82B /* QueryBusinessTypes.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B364C192C169F2600BBE82B /* QueryBusinessTypes.graphql */; };
 		2B364C1E2C16EFA400BBE82B /* NearbyFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B364C1D2C16EFA400BBE82B /* NearbyFilterController.swift */; };
 		2B364C1F2C1890EE00BBE82B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2C42D22BA2FB0B00EA1ACA /* StoreKit.framework */; };
-		2B364C282C266C4700BBE82B /* Config.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 2B364C272C266C4700BBE82B /* Config.storekit */; };
 		2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */; };
 		2B3FD4682BD772920090BA9D /* PurchaseFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FD4672BD772920090BA9D /* PurchaseFragment.graphql */; };
 		2B3FD46A2BD78D790090BA9D /* AccountCoupons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */; };
@@ -187,6 +186,7 @@
 		8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */; };
 		855013902B7C86F900D9D568 /* BusinessSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */; };
 		855207D22BB174C5004F8245 /* MutationDisconnectUserDevice.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 855207D12BB174C5004F8245 /* MutationDisconnectUserDevice.graphql */; };
+		8553E0F72C69F0F000C56635 /* Config.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 8553E0F62C69F0F000C56635 /* Config.storekit */; };
 		855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855EC98C2B9EAA2200679394 /* Conversation.swift */; };
 		85769E152B69C8E80064005D /* ForgotPasswordEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */; };
 		85769E172B69CA000064005D /* ForgotPasswordOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85769E162B69CA000064005D /* ForgotPasswordOTP.swift */; };
@@ -397,7 +397,6 @@
 		2B2FADA52B8F65E4009CB2C6 /* MutationReactToProfile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReactToProfile.graphql; sourceTree = "<group>"; };
 		2B364C192C169F2600BBE82B /* QueryBusinessTypes.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryBusinessTypes.graphql; sourceTree = "<group>"; };
 		2B364C1D2C16EFA400BBE82B /* NearbyFilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyFilterController.swift; sourceTree = "<group>"; };
-		2B364C272C266C4700BBE82B /* Config.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Config.storekit; sourceTree = "<group>"; };
 		2B3FD4522BD138630090BA9D /* MutationCreatePurchase.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationCreatePurchase.graphql; sourceTree = "<group>"; };
 		2B3FD4672BD772920090BA9D /* PurchaseFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PurchaseFragment.graphql; sourceTree = "<group>"; };
 		2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoupons.swift; sourceTree = "<group>"; };
@@ -538,6 +537,7 @@
 		8550138D2B7C3E2400D9D568 /* MakeReportInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReportInput.swift; sourceTree = "<group>"; };
 		8550138F2B7C86F900D9D568 /* BusinessSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSessionController.swift; sourceTree = "<group>"; };
 		855207D12BB174C5004F8245 /* MutationDisconnectUserDevice.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDisconnectUserDevice.graphql; sourceTree = "<group>"; };
+		8553E0F62C69F0F000C56635 /* Config.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Config.storekit; sourceTree = "<group>"; };
 		855EC98C2B9EAA2200679394 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		85769E142B69C8E80064005D /* ForgotPasswordEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordEmail.swift; sourceTree = "<group>"; };
 		85769E162B69CA000064005D /* ForgotPasswordOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordOTP.swift; sourceTree = "<group>"; };
@@ -782,7 +782,7 @@
 		850A2FD02B0AE54B003B12B7 = {
 			isa = PBXGroup;
 			children = (
-				2B364C272C266C4700BBE82B /* Config.storekit */,
+				8553E0F62C69F0F000C56635 /* Config.storekit */,
 				85806C452B22F6800077D12C /* GraphQL */,
 				850A30382B0B236A003B12B7 /* Localizable.xcstrings */,
 				850A2FDB2B0AE54B003B12B7 /* amoring */,
@@ -1417,7 +1417,6 @@
 			files = (
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
-				2B364C282C266C4700BBE82B /* Config.storekit in Resources */,
 				2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */,
 				85891C652C634B7D0039380F /* startEmailVerification.graphql in Resources */,
 				2B20497C2B95A3E200E633E3 /* BusinessFragment.graphql in Resources */,
@@ -1479,6 +1478,7 @@
 				850A30202B0AEF41003B12B7 /* Pretendard-Bold.ttf in Resources */,
 				2B2049722B903AFF00E633E3 /* QueryConversation.graphql in Resources */,
 				8538D5722B5768FE0040E017 /* MutationVerifyUserEmailResolver.graphql in Resources */,
+				8553E0F72C69F0F000C56635 /* Config.storekit in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
 				85D28E432C64694F008D5F15 /* schema.graphqls in Resources */,
@@ -1941,7 +1941,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"amoring/Preview Content\"";
-				DEVELOPMENT_TEAM = 6S83TJN3P8;
+				DEVELOPMENT_TEAM = 294GP7M6QM;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1965,7 +1965,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
+				PRODUCT_BUNDLE_IDENTIFIER = com.socialpoint.amoringapp;
 				PRODUCT_NAME = Amoring;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -1988,7 +1988,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"amoring/Preview Content\"";
-				DEVELOPMENT_TEAM = 6S83TJN3P8;
+				DEVELOPMENT_TEAM = 294GP7M6QM;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2012,7 +2012,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mellowing-factory.wethm.amoring";
+				PRODUCT_BUNDLE_IDENTIFIER = com.socialpoint.amoringapp;
 				PRODUCT_NAME = Amoring;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;

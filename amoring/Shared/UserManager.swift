@@ -1461,7 +1461,7 @@ class UserManager: ObservableObject {
     @Published var purchaseType: PurchaseModel.type? = nil
     @Published var products: [Product] = []
     @Published var purchasedIDs: [String] = []
-    @Published var selectedPlan: PurchaseProduct = .test_likes_5
+    @Published var selectedPlan: PurchaseProduct = .ios_5_likes
     
     func openPurchase(purchaseType: PurchaseModel.type) {
         switch purchaseType {
@@ -1469,23 +1469,24 @@ class UserManager: ObservableObject {
             if !self.products.contains(where: { $0.displayName.contains("like") }) {
                 return
             }
-            self.selectedPlan = .amoring_likes_10
+            self.selectedPlan = .ios_10_likes
         case .lounge:
-            if !self.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue }) {
-//                self.sele
-                return
-            }
-            self.selectedPlan = .lounge_extension_pass
+            return
+//            if !self.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue }) {
+////                self.sele
+//                return
+//            }
+//            self.selectedPlan = .lounge_extension_pass
         case .transparent:
-            if !self.products.contains(where: { $0.id == PurchaseProduct.hidden_mode_pass.rawValue }) {
+            if !self.products.contains(where: { $0.id == PurchaseProduct.ios_hidden_mode_pass.rawValue }) {
                 return
             }
-            self.selectedPlan = .hidden_mode_pass
+            self.selectedPlan = .ios_hidden_mode_pass
         case .list:
-            if !self.products.contains(where: { $0.id == PurchaseProduct.list_view_pass.rawValue }) {
+            if !self.products.contains(where: { $0.id == PurchaseProduct.ios_list_view_pass.rawValue }) {
                 return
             }
-            self.selectedPlan = .list_view_pass
+            self.selectedPlan = .ios_list_view_pass
         }
         withAnimation {
             self.purchaseType = purchaseType

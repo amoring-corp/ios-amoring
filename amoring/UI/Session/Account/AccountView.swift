@@ -106,12 +106,12 @@ struct AccountView: View {
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                         
-                        let likesAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.test_likes_5.rawValue }) &&
-                        userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_10.rawValue }) &&
-                        userManager.products.contains(where: { $0.id == PurchaseProduct.amoring_likes_50.rawValue })
+                        let likesAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.ios_5_likes.rawValue }) &&
+                        userManager.products.contains(where: { $0.id == PurchaseProduct.ios_10_likes.rawValue }) &&
+                        userManager.products.contains(where: { $0.id == PurchaseProduct.ios_50_likes.rawValue })
 //                        let loungeAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.lounge_extension_pass.rawValue })
-                        let hiddenAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.hidden_mode_pass.rawValue })
-                        let listAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.list_view_pass.rawValue })
+                        let hiddenAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.ios_hidden_mode_pass.rawValue })
+                        let listAvailable = userManager.products.contains(where: { $0.id == PurchaseProduct.ios_list_view_pass.rawValue })
                         
                         if listAvailable || hiddenAvailable || listAvailable {
                             MenuTitle(title: "프리미엄 구매하기")

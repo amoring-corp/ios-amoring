@@ -388,7 +388,7 @@ struct BusinessRow: View {
                     Spacer()
                     
                     HStack(spacing: 0) {
-                        Text(business.activeCheckInCount?.description ?? 0.description)
+                        Text((business.activeCheckInCount ?? 0).description)
                         Image(systemName: "figure.stand")
                     }
                         .font(regular16Font)
