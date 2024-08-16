@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-import KakaoSDKCommon
-import KakaoSDKAuth
+//import KakaoSDKCommon
+//import KakaoSDKAuth
 import GoogleSignIn
-import NaverThirdPartyLogin
+//import NaverThirdPartyLogin
 
 @main
 struct amoringApp: App {
@@ -19,8 +19,8 @@ struct amoringApp: App {
 //    @StateObject var scenePhaseHelper = ScenePhaseHelper()
     
     init() {
-        KakaoSDK.initSDK(appKey: "0489ce9b77b8476eeebcc7461a9b3166")
-        naverSDKinit()
+//        KakaoSDK.initSDK(appKey: "0489ce9b77b8476eeebcc7461a9b3166")
+//        naverSDKinit()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in
             if granted {
@@ -35,21 +35,21 @@ struct amoringApp: App {
     }
     
     // Naver SDK Initializing
-    private func naverSDKinit() {
-        // 네이버 앱으로 로그인 허용
-        NaverThirdPartyLoginConnection.getSharedInstance()?.isNaverAppOauthEnable = true
-        // 브라우저 로그인 허용
-        NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
-        
-        // 네이버 로그인 세로모드 고정
-        NaverThirdPartyLoginConnection.getSharedInstance().setOnlyPortraitSupportInIphone(true)
-        
-        // NaverThirdPartyConstantsForApp.h에 선언한 상수 등록
-        NaverThirdPartyLoginConnection.getSharedInstance().serviceUrlScheme = kServiceAppUrlScheme
-        NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey
-        NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
-        NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
-    }
+//    private func naverSDKinit() {
+//        // 네이버 앱으로 로그인 허용
+//        NaverThirdPartyLoginConnection.getSharedInstance()?.isNaverAppOauthEnable = true
+//        // 브라우저 로그인 허용
+//        NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
+//        
+//        // 네이버 로그인 세로모드 고정
+//        NaverThirdPartyLoginConnection.getSharedInstance().setOnlyPortraitSupportInIphone(true)
+//        
+//        // NaverThirdPartyConstantsForApp.h에 선언한 상수 등록
+//        NaverThirdPartyLoginConnection.getSharedInstance().serviceUrlScheme = kServiceAppUrlScheme
+//        NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey
+//        NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
+//        NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
+//    }
     
     var body: some Scene {
         WindowGroup {
@@ -62,11 +62,11 @@ struct amoringApp: App {
                     setupUI()
                 }
                 .onOpenURL { url in
-                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                        _ = AuthController.handleOpenUrl(url: url)
-                    } else {
+//                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+//                        _ = AuthController.handleOpenUrl(url: url)
+//                    } else {
                         GIDSignIn.sharedInstance.handle(url)
-                    }
+//                    }
                 }
 //                .onChange(of: scenePhase) {
 //                    self.scenePhaseHelper.scenePhase = $0

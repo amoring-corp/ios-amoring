@@ -31,7 +31,7 @@ struct NearbyView: View {
                             .environmentObject(locationManager)
                         
                     }
-                    .frame(maxWidth: .infinity)
+//                    .frame(maxWidth: .infinity)
                     .background(Color.gray1000)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {

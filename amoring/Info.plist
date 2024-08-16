@@ -15,7 +15,7 @@
 			<string>google</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.709033800937-knpj8kjabi6ncc9gssfftn3t4sj2mppk</string>
+				<string>com.googleusercontent.apps.892096309215-hico3spr5j04fbltr8v5pophl3t28hsm</string>
 			</array>
 		</dict>
 		<dict>
@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>GIDClientID</key>
-	<string>709033800937-knpj8kjabi6ncc9gssfftn3t4sj2mppk.apps.googleusercontent.com</string>
+	<string>892096309215-hico3spr5j04fbltr8v5pophl3t28hsm.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>

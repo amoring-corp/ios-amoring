@@ -35,7 +35,7 @@ func initApi(token: String) -> ApolloClient {
 
 func initWSApi(token: String) -> ApolloClient {
     return {
-        let url = URL(string: "wss://amoring-be.antonmaker.com/graphql")!
+        let url = URL(string: "wss://api.amoring.info/graphql")!
         let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
           let authPayload: JSONEncodableDictionary = ["Authorization": "Bearer \(token)"]
           let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
@@ -533,7 +533,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     }
     
     /// The SNS Platform application ARN
-    let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:241804645484:app/APNS_SANDBOX/Amoring"
+    let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:767397851737:app/APNS/Amoring-IOS"
     @AppStorage("deviceTokenForSNS") var deviceToken: String?
     @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
     func setupAWSSNSService() {
