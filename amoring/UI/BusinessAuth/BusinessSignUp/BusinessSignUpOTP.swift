@@ -68,13 +68,13 @@ struct BusinessSignUpOTP: View {
             //                    onTapInput()
             //                }
             
-            if let verificationNumber = sessionManager.verificationNumber {
-                Text(verificationNumber)
-                    .font(semiBold18Font)
-                    .foregroundColor(.black)
-                    .padding(.leading, Size.w(14))
-                    .padding(.bottom, Size.w(42))
-            }
+//            if let verificationNumber = sessionManager.verificationNumber {
+//                Text(verificationNumber)
+//                    .font(semiBold18Font)
+//                    .foregroundColor(.black)
+//                    .padding(.leading, Size.w(14))
+//                    .padding(.bottom, Size.w(42))
+//            }
             
             Text(error)
                 .font(regular16Font)

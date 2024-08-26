@@ -79,6 +79,7 @@
 		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
 		85064AF12B292ECF0074E45A /* LikeDislikeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */; };
+		850976652C7C1D490033C614 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 850976642C7C1D490033C614 /* PrivacyInfo.xcprivacy */; };
 		850A2FDD2B0AE54B003B12B7 /* amoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850A2FDC2B0AE54B003B12B7 /* amoringApp.swift */; };
 		850A2FDF2B0AE54B003B12B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850A2FDE2B0AE54B003B12B7 /* ContentView.swift */; };
 		850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 850A2FE02B0AE54D003B12B7 /* Assets.xcassets */; };
@@ -429,6 +430,7 @@
 		5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85064AEE2B292EA80074E45A /* ViewHeightKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightKey.swift; sourceTree = "<group>"; };
 		85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDislikeButtons.swift; sourceTree = "<group>"; };
+		850976642C7C1D490033C614 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		850A2FD92B0AE54B003B12B7 /* Amoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		850A2FDC2B0AE54B003B12B7 /* amoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amoringApp.swift; sourceTree = "<group>"; };
 		850A2FDE2B0AE54B003B12B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 				850A2FE32B0AE54D003B12B7 /* Preview Content */,
 				85D0DEDA2B3564530029DA5D /* TestView.swift */,
 				851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */,
+				850976642C7C1D490033C614 /* PrivacyInfo.xcprivacy */,
 			);
 			path = amoring;
 			sourceTree = "<group>";
@@ -1471,6 +1474,7 @@
 				8538D5512B56000A0040E017 /* MutationUploadMyProfileImages.graphql_multi in Resources */,
 				85769E252B6B7C640064005D /* MutationDeleteMyAllProfileImages.graphql in Resources */,
 				2B2049822B95EC3800E633E3 /* CheckInFragment.graphql in Resources */,
+				850976652C7C1D490033C614 /* PrivacyInfo.xcprivacy in Resources */,
 				2B2049882B9733F000E633E3 /* BusinessHoursFragment.graphql in Resources */,
 				851AF8F62B3E8D3B005A8DEB /* Launch Screen .storyboard in Resources */,
 				850A2FE12B0AE54D003B12B7 /* Assets.xcassets in Resources */,
