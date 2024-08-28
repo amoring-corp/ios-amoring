@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         /// Setup AWS Cognito credentials
         let credentialsProvider = AWSCognitoCredentialsProvider(
-            regionType: AWSRegionType.APNortheast2, identityPoolId: "ap-northeast-2:6ea3d189-6866-45a5-b125-af5dc0bd15c2")
+            regionType: AWSRegionType.APNortheast2, identityPoolId: "ap-northeast-2:db7d8417-60c6-4f6c-95ce-010cea9c05ca")
 
         let defaultServiceConfiguration = AWSServiceConfiguration(
             region: AWSRegionType.APNortheast2, credentialsProvider: credentialsProvider)

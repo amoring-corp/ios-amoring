@@ -7,11 +7,17 @@ public class VisibleProfilesQuery: GraphQLQuery {
   public static let operationName: String = "VisibleProfiles"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query VisibleProfiles { visibleProfiles { __typename ...ProfileInfo } }"#,
+      #"query VisibleProfiles($includeNearby: Boolean) { visibleProfiles(includeNearby: $includeNearby) { __typename ...ProfileInfo } }"#,
       fragments: [BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, ImageFragment.self, ProfileInfo.self]
     ))
 
-  public init() {}
+  public var includeNearby: GraphQLNullable<Bool>
+
+  public init(includeNearby: GraphQLNullable<Bool>) {
+    self.includeNearby = includeNearby
+  }
+
+  public var __variables: Variables? { ["includeNearby": includeNearby] }
 
   public struct Data: AmoringAPI.SelectionSet {
     public let __data: DataDict
@@ -19,7 +25,7 @@ public class VisibleProfilesQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("visibleProfiles", [VisibleProfile?].self),
+      .field("visibleProfiles", [VisibleProfile?].self, arguments: ["includeNearby": .variable("includeNearby")]),
     ] }
 
     public var visibleProfiles: [VisibleProfile?] { __data["visibleProfiles"] }

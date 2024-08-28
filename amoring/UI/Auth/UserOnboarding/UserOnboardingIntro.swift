@@ -55,16 +55,19 @@ struct UserOnboardingIntro: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "예: 대학생, 직장인...", text: $controller.profile.occupation ?? "", font: regular18Font)
-//                                    .onChange(of: occupation, perform: { newValue in
-//                                        if(newValue.count >= 20){
-//                                            occupation = String(newValue.prefix(20))
-//                                        }
+                                    .onChange(of: controller.profile.occupation, perform: { newValue in
+                                        if let newValue {
+                                            if(newValue.count >= 20){
+                                                controller.profile.occupation = String(newValue.prefix(20))
+                                            }
+                                        }
+                                        
 //                                        if(newValue.count >= 1){
 //                                            controller.profile.occupation = newValue
 //                                        } else {
 //                                            controller.profile.occupation = nil
 //                                        }
-//                                    })
+                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             
@@ -127,16 +130,19 @@ struct UserOnboardingIntro: View {
                                     .padding(.leading, Size.w(14))
                                 
                                 CustomTextField(placeholder: "예: 고등학교, 대학교, 서강대학사, ... ", text: $controller.profile.education ?? "", font: regular18Font)
-//                                    .onChange(of: education, perform: { newValue in
-//                                        if(newValue.count >= 20){
-//                                            education = String(newValue.prefix(20))
-//                                        }
+                                    .onChange(of: controller.profile.education, perform: { newValue in
+                                        if let newValue {
+                                            if(newValue.count >= 20){
+                                                controller.profile.education = String(newValue.prefix(20))
+                                            }
+                                        }
+                                        
 //                                        if(newValue.count >= 1){
 //                                            controller.profile.education = newValue
 //                                        } else {
 //                                            controller.profile.education = nil
 //                                        }
-//                                    })
+                                    })
                             }
                             .padding(.bottom, Size.w(30))
                             

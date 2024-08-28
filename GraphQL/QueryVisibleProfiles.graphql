@@ -1,5 +1,5 @@
-query VisibleProfiles {
-    visibleProfiles {
+query VisibleProfiles($includeNearby: Boolean) {
+    visibleProfiles(includeNearby: $includeNearby) {
     ... ProfileInfo
   }
 }

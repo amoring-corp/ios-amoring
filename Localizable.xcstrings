@@ -1548,6 +1548,16 @@
     "사업자등록증 첨부*" : {
 
     },
+    "사용시 다른 사용자들에게 내 사진이 흐리게 보이고, 매칭 후에만 사진이 보입니다." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blur your photos in when using Lounge, photos will be unblurred after matching."
+          }
+        }
+      }
+    },
     "사진" : {
       "localizations" : {
         "en" : {
@@ -2173,7 +2183,14 @@
 
     },
     "접수가 완료되었습니다." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your inquiry/report has been received."
+          }
+        }
+      }
     },
     "접수완료" : {
       "localizations" : {
@@ -2187,6 +2204,17 @@
     },
     "접수하신 사항에 대해 정확히 확인한 후\n빠른 답변 처리가 될 수 있도록 노력하겠습니다.\n이용해주셔서 감사합니다." : {
 
+    },
+    "접수하신 사항에 대해 정확히 확인한 후 빠른 답변 처리가 될 수 있도록 노력하겠습니다. 이용해주셔서 감사합니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We will check and process your inquiry/report and get back to you with a response soon. Thank you for using our service."
+          }
+        }
+      }
     },
     "정기적으로 운영하시는 일자별 영업정보를 알려주세요." : {
 

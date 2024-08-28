@@ -144,6 +144,7 @@
 		8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */; };
 		8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */; };
 		8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8523BAD32B4CDF560099CDE4 /* AmoringAPI */; };
+		8524B6B92C7F1E40002CC09B /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8524B6B82C7F1E40002CC09B /* schema.graphqls */; };
 		8538D5222B4E1C500040E017 /* BusinessSignUpEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5212B4E1C500040E017 /* BusinessSignUpEmail.swift */; };
 		8538D5242B4E1EDD0040E017 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5232B4E1EDD0040E017 /* BackButton.swift */; };
 		8538D5262B4E211B0040E017 /* XButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5252B4E211B0040E017 /* XButton.swift */; };
@@ -224,7 +225,6 @@
 		85D26F6D2B20198B00E3C55F /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D26F6A2B20198A00E3C55F /* QRCodeGenerator.swift */; };
 		85D26F6E2B20198B00E3C55F /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D26F6B2B20198A00E3C55F /* ScannerViewController.swift */; };
 		85D26F702B20306500E3C55F /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D26F6F2B20306500E3C55F /* ProfilesView.swift */; };
-		85D28E432C64694F008D5F15 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 85D28E422C64694F008D5F15 /* schema.graphqls */; };
 		85D28E452C647914008D5F15 /* MutationUseActiveCoupon.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 85D28E442C647914008D5F15 /* MutationUseActiveCoupon.graphql */; };
 		85D36AEC2B0F25BC00106BC0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AEB2B0F25BC00106BC0 /* MenuView.swift */; };
 		85D36AEE2B0F261F00106BC0 /* BusinessEnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */; };
@@ -498,6 +498,7 @@
 		8523BAC82B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpPrepare.swift; sourceTree = "<group>"; };
 		8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignIn.graphql; sourceTree = "<group>"; };
 		8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryAuthenticatedUser.graphql; sourceTree = "<group>"; };
+		8524B6B82C7F1E40002CC09B /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		8538D5212B4E1C500040E017 /* BusinessSignUpEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpEmail.swift; sourceTree = "<group>"; };
 		8538D5232B4E1EDD0040E017 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8538D5252B4E211B0040E017 /* XButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XButton.swift; sourceTree = "<group>"; };
@@ -570,7 +571,6 @@
 		85D26F6A2B20198A00E3C55F /* QRCodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		85D26F6B2B20198A00E3C55F /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		85D26F6F2B20306500E3C55F /* ProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
-		85D28E422C64694F008D5F15 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		85D28E442C647914008D5F15 /* MutationUseActiveCoupon.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationUseActiveCoupon.graphql; sourceTree = "<group>"; };
 		85D36AEB2B0F25BC00106BC0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		85D36AED2B0F261F00106BC0 /* BusinessEnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEnterView.swift; sourceTree = "<group>"; };
@@ -1093,7 +1093,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				85D28E422C64694F008D5F15 /* schema.graphqls */,
+				8524B6B82C7F1E40002CC09B /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1485,8 +1485,8 @@
 				8553E0F72C69F0F000C56635 /* Config.storekit in Resources */,
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
-				85D28E432C64694F008D5F15 /* schema.graphqls in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
+				8524B6B92C7F1E40002CC09B /* schema.graphqls in Resources */,
 				2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */,
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2C42D52BA7C46E00EA1ACA /* ReactionFragment.graphql in Resources */,

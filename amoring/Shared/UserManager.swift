@@ -1393,10 +1393,11 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getVisibleProfiles() {
-        api.fetch(query: VisibleProfilesQuery(), cachePolicy: .fetchIgnoringCacheCompletely) { result in
+    func getVisibleProfiles(includeNearby: Bool) {
+        api.fetch(query: VisibleProfilesQuery(includeNearby: GraphQLHelper.graphQLNullableFrom(includeNearby)), cachePolicy: .fetchIgnoringCacheCompletely) { result in
             switch result {
             case .success(let value):
+                print("includeNearby: \(includeNearby)")
                 guard value.errors == nil else {
                     print("errors")
                     print(value.errors as Any)

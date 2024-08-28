@@ -24,8 +24,9 @@ struct AccountEmailSuccess: View {
                 .font(medium22Font)
                 .foregroundColor(.gray500)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 15)
             
-            Text("접수하신 사항에 대해 정확히 확인한 후\n빠른 답변 처리가 될 수 있도록 노력하겠습니다.\n이용해주셔서 감사합니다.")
+            Text("접수하신 사항에 대해 정확히 확인한 후 빠른 답변 처리가 될 수 있도록 노력하겠습니다. 이용해주셔서 감사합니다.")
                 .font(regular16Font)
                 .foregroundColor(.gray600)
                 .lineSpacing(6)

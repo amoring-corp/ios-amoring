@@ -31,6 +31,9 @@ struct ProfilesView: View {
             if !amoringController.hidePanel {
                 HStack {
                     CoctailToggle(isOn: $isOn)
+                        .onChange(of: isOn) { _ in
+                            refresh()
+                        }
                     Spacer()
                     if let gender = userManager.user?.profile?.gender, gender == .male {
                         LikesFromMaxView()
@@ -120,7 +123,7 @@ struct ProfilesView: View {
         userManager.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
-            userManager.getVisibleProfiles()
+            userManager.getVisibleProfiles(includeNearby: self.isOn)
 //            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile?.fragments.profileInfo }) {
 //                for profile in profiles {
 //                    if let profile {

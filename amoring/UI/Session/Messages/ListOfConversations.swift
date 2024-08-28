@@ -52,19 +52,7 @@ struct ListOfConversations: View {
                 List {
                     ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date() }, id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
-                            .onTapGesture {
-                                controller.selectedConversation = conversation
-                                controller.goToConversation = true
-                            }
-                            .background(
-                                NavigationLink(isActive: $controller.goToConversation, destination: {
-                                    ConversationView()
-                                        .onAppear(perform: navigationController.hideBar)
-                                        .onDisappear(perform: navigationController.showBar)
-                                }, label: { EmptyView() })
-                                .isDetailLink(false)
-                                .opacity(0)
-                            )
+                            
                             .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
                             .swipeActions {
@@ -134,7 +122,9 @@ struct ListOfConversations: View {
 }
 
 struct ChatRow: View {
+    @EnvironmentObject var controller: MessagesController
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var navigationController: NavigationController
     
     let conversation: Conversation
     var expired: Bool = false
@@ -145,6 +135,7 @@ struct ChatRow: View {
             let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
             //            let url: String? = user?.profile?.images??.first?.map({ $0.file.url ?? "" })
             let url: String? = user?.profile?.avatarUrl
+//            let business = controller.selectedConversation?.checkIns.first(where: { $0.profileId != userManager.user?.profile?.id })?.business
             
             CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
                 image
@@ -155,7 +146,16 @@ struct ChatRow: View {
             .clipShape(Circle())
             .padding(.trailing, Size.w(12))
             .blur(radius: expired ? 6 : 0)
-
+            .background(Color.gray100.opacity(0.01))
+            .onTapGesture {
+//                if business != nil, let profile = user?.profile {
+                if let profile = user?.profile {
+                    navigationController.goToUserDetailsFromList = true
+                }
+            }
+            
+            
+            
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Text(user?.profile?.name ?? "")
@@ -204,6 +204,29 @@ struct ChatRow: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+            .background(Color.gray100.opacity(0.01))
+            .onTapGesture {
+                controller.selectedConversation = conversation
+                controller.goToConversation = true
+            }
+            .background(
+                NavigationLink(isActive: $controller.goToConversation, destination: {
+                    ConversationView()
+                        .onAppear(perform: navigationController.hideBar)
+                        .onDisappear(perform: navigationController.showBar)
+                }, label: { EmptyView() })
+                .isDetailLink(false)
+                .opacity(0)
+            )
+            .background(
+                NavigationLink(isActive: $navigationController.goToUserDetailsFromList, destination: {
+                    if let profile = user?.profile?.fragments.profileInfo {
+                        ProfileDetailsView(profile: profile)
+                    }
+                }, label: { EmptyView() })
+                .isDetailLink(false)
+                .opacity(0)
+            )
         }
         .frame(height: Size.w(64))
         .padding(.horizontal, Size.w(22))
@@ -211,6 +234,8 @@ struct ChatRow: View {
         .padding(.top, Size.w(10))
         .background(Color.gray1000.opacity(0.01))
         .opacity(expired ? 0.6 : 1)
+        
+        
     }
 }
 

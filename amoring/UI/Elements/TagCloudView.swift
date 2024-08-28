@@ -180,7 +180,7 @@ struct Chip: View {
     var isDark: Bool = false
     
     var body: some View {
-        Text(text)
+        Text(text.prefix(10))
             .font(medium16Font)
             .foregroundColor(isDark ? .gray150 : .black)
             .lineLimit(1)

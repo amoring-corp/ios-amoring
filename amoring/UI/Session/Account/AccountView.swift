@@ -67,15 +67,16 @@ struct AccountView: View {
                         MenuTitle(title: "내 프로필")
                         
                         VStack(spacing: 0) {
-                            if userManager.user?.profile?.gender != .female {
+//                            if userManager.user?.profile?.gender != .female {
                                 MenuLineLink(title: "사진") {
-                                    AccountPhoto(goFurther: .constant(nil))
+//                                    AccountPhoto(goFurther: .constant(nil))
+                                    AccountPhoto()
                                 }
-                            } else {
-                                MenuLineLink(title: "사진") {
-                                    AccountPhotoSettings()
-                                }
-                            }
+//                            } else {
+//                                MenuLineLink(title: "사진") {
+//                                    AccountPhotoSettings()
+//                                }
+//                            }
                             
                             Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                             
