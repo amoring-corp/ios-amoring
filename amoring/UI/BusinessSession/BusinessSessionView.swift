@@ -49,11 +49,11 @@ struct BusinessSessionView: View {
                                         if let qrcode = qrcode {
                                             QRCodeDocumentUIView(document: qrcode)
                                             // MARK: TESTS
-                                                .onTapGesture {
-                                                    withAnimation {
-                                                        self.expired.toggle()
-                                                    }
-                                                }
+//                                                .onTapGesture {
+//                                                    withAnimation {
+//                                                        self.expired.toggle()
+//                                                    }
+//                                                }
                                         }
                                     }
                                 }
@@ -119,10 +119,7 @@ struct BusinessSessionView: View {
                                     .onDisappear {
                                         self.available = false
                                     }
-                                    
                                 }
-                                
-                                
                             }
                             
                             if expired {
@@ -139,11 +136,11 @@ struct BusinessSessionView: View {
                                         .multilineTextAlignment(.center)
                                         .lineSpacing(6)
                                     // MARK: TESTS
-                                        .onTapGesture {
-                                            withAnimation {
-                                                self.expired.toggle()
-                                            }
-                                        }
+//                                        .onTapGesture {
+//                                            withAnimation {
+//                                                self.expired.toggle()
+//                                            }
+//                                        }
                                     
                                     Spacer()
                                     

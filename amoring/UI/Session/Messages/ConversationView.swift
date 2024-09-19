@@ -209,11 +209,17 @@ struct ConversationView: View, KeyboardReadable {
                         }
                     }
                     .background(
-                        NavigationLink(isActive: $navigationController.goToBusinessDetails, destination: {
-                            BusinessDetailsView(business: Business(businessInfo: business!.fragments.businessInfo))
-                        }, label: { EmptyView() })
-                        .isDetailLink(false)
-                        .opacity(0)
+                        Group {
+                            if let business = business?.fragments.businessInfo {
+                                NavigationLink(isActive: $navigationController.goToBusinessDetails, destination: {
+                                    BusinessDetailsView(business: Business(businessInfo: business))
+                                }, label: { EmptyView() })
+                                .isDetailLink(false)
+                                .opacity(0)
+                            } else {
+                                EmptyView()
+                            }
+                        }
                     )
                     .onDisappear {
                         if !navigationController.goToBusinessDetails && !navigationController.goToUserDetails {

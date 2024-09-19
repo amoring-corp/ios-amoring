@@ -34,11 +34,11 @@ struct BusinessHours: Hashable {
         self.closeAt = data.closeAt.HMSStringtoDate()
     }
     
-    init(data: BusinessInfo.BusinessHour) {
-        self.day = DayOfWeek.withLabel(data.day.rawValue) ?? .sunday
-        self.openAt = data.openAt.HMSStringtoDate()
-        self.closeAt = data.closeAt.HMSStringtoDate()
-    }
+//    init(data: BusinessInfo.BusinessHour) {
+//        self.day = DayOfWeek.withLabel(data.day.rawValue) ?? .sunday
+//        self.openAt = data.openAt.HMSStringtoDate()
+//        self.closeAt = data.closeAt.HMSStringtoDate()
+//    }
     
 }
 

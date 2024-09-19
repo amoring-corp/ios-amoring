@@ -11,7 +11,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }
 
-  public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.User }
+  public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.User }
   public static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
     .field("id", AmoringAPI.ID.self),
@@ -58,7 +58,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Profile }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
       .fragment(ProfileInfo.self),
@@ -95,128 +95,9 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
       public var profileInfo: ProfileInfo { _toFragment() }
     }
 
-    /// Profile.ActiveCheckIn
-    ///
-    /// Parent Type: `CheckIn`
-    public struct ActiveCheckIn: AmoringAPI.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    public typealias ActiveCheckIn = ProfileInfo.ActiveCheckIn
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
-
-      public var id: AmoringAPI.ID { __data["id"] }
-      public var businessId: String { __data["businessId"] }
-      public var business: Business? { __data["business"] }
-      public var profileId: String { __data["profileId"] }
-      public var status: GraphQLEnum<AmoringAPI.CheckInStatus> { __data["status"] }
-      public var hasTable: Bool { __data["hasTable"] }
-      public var checkedInAt: AmoringAPI.DateTime? { __data["checkedInAt"] }
-      public var checkedOutAt: AmoringAPI.DateTime? { __data["checkedOutAt"] }
-      public var createdAt: AmoringAPI.DateTime { __data["createdAt"] }
-      public var updatedAt: AmoringAPI.DateTime { __data["updatedAt"] }
-
-      public struct Fragments: FragmentContainer {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public var checkInInfo: CheckInInfo { _toFragment() }
-      }
-
-      /// Profile.ActiveCheckIn.Business
-      ///
-      /// Parent Type: `Business`
-      public struct Business: AmoringAPI.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Business }
-
-        public var id: AmoringAPI.ID { __data["id"] }
-        public var ownerId: String? { __data["ownerId"] }
-        public var businessName: String? { __data["businessName"] }
-        public var businessType: BusinessType? { __data["businessType"] }
-        public var businessIndustry: String? { __data["businessIndustry"] }
-        public var businessCategory: String? { __data["businessCategory"] }
-        public var businessHours: [BusinessHour?]? { __data["businessHours"] }
-        public var activeCheckIns: [ActiveCheckIn?] { __data["activeCheckIns"] }
-        public var address: String? { __data["address"] }
-        public var addressBname: String? { __data["addressBname"] }
-        public var addressDetails: String? { __data["addressDetails"] }
-        public var addressJibun: String? { __data["addressJibun"] }
-        public var addressSido: String? { __data["addressSido"] }
-        public var addressSigungu: String? { __data["addressSigungu"] }
-        public var addressSigunguCode: String? { __data["addressSigunguCode"] }
-        public var addressSigunguEnglish: String? { __data["addressSigunguEnglish"] }
-        public var addressZonecode: String? { __data["addressZonecode"] }
-        public var bio: String? { __data["bio"] }
-        public var representativeTitle: String? { __data["representativeTitle"] }
-        public var representativeName: String? { __data["representativeName"] }
-        public var phoneNumber: String? { __data["phoneNumber"] }
-        public var registrationNumber: String? { __data["registrationNumber"] }
-        public var images: [Image?]? { __data["images"] }
-        public var lat: Double? { __data["lat"] }
-        public var lng: Double? { __data["lng"] }
-        public var isActive: Bool? { __data["isActive"] }
-        public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
-        public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
-
-        public struct Fragments: FragmentContainer {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public var businessInfo: BusinessInfo { _toFragment() }
-        }
-
-        public typealias BusinessType = BusinessInfo.BusinessType
-
-        /// Profile.ActiveCheckIn.Business.BusinessHour
-        ///
-        /// Parent Type: `BusinessHours`
-        public struct BusinessHour: AmoringAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
-
-          public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
-          public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
-          public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
-
-          public struct Fragments: FragmentContainer {
-            public let __data: DataDict
-            public init(_dataDict: DataDict) { __data = _dataDict }
-
-            public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
-          }
-        }
-
-        public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
-
-        public typealias Image = BusinessInfo.Image
-      }
-    }
-
-    /// Profile.Image
-    ///
-    /// Parent Type: `ProfileImage`
-    public struct Image: AmoringAPI.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
-
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ProfileImage }
-
-      public var id: AmoringAPI.ID { __data["id"] }
-      public var file: File? { __data["file"] }
-
-      public struct Fragments: FragmentContainer {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public var imageFragment: ImageFragment { _toFragment() }
-      }
-
-      public typealias File = ImageFragment.File
-    }
+    public typealias Image = ProfileInfo.Image
 
     public typealias Interest = ProfileInfo.Interest
   }
@@ -228,7 +109,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Business }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Business }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
       .fragment(BusinessInfo.self),
@@ -272,26 +153,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
 
     public typealias BusinessType = BusinessInfo.BusinessType
 
-    /// Business.BusinessHour
-    ///
-    /// Parent Type: `BusinessHours`
-    public struct BusinessHour: AmoringAPI.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
-
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
-
-      public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
-      public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
-      public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
-
-      public struct Fragments: FragmentContainer {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
-      }
-    }
+    public typealias BusinessHour = BusinessInfo.BusinessHour
 
     public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 
@@ -305,7 +167,7 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.ActiveCoupon }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.ActiveCoupon }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
       .fragment(ActiveCouponFragment.self),
@@ -322,28 +184,6 @@ public struct UserInfo: AmoringAPI.SelectionSet, Fragment {
       public var activeCouponFragment: ActiveCouponFragment { _toFragment() }
     }
 
-    /// ActiveCoupon.Coupon
-    ///
-    /// Parent Type: `Coupon`
-    public struct Coupon: AmoringAPI.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
-
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Coupon }
-
-      public var category: String { __data["category"] }
-      public var name: String { __data["name"] }
-      public var shortDescription: String { __data["shortDescription"] }
-      public var description: String { __data["description"] }
-      public var validFrom: AmoringAPI.DateTime? { __data["validFrom"] }
-      public var validUntil: AmoringAPI.DateTime? { __data["validUntil"] }
-
-      public struct Fragments: FragmentContainer {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public var couponFragment: CouponFragment { _toFragment() }
-      }
-    }
+    public typealias Coupon = ActiveCouponFragment.Coupon
   }
 }

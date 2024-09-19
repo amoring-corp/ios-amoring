@@ -97,13 +97,13 @@ struct SettingsView: View {
                     .background(Color.yellow200)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     
-                    MenuTitle(title: "구매 및 멤버십", color: Color.yellow700)
-                    VStack(spacing: 0) {
-                        MenuLineButton(title: "멤버십", fontColor: Color.yellow900) {
-                            withAnimation {
-                                businessSessionController.showDepositInfo = true
-                            }                            
-                        }
+//                    MenuTitle(title: "구매 및 멤버십", color: Color.yellow700)
+//                    VStack(spacing: 0) {
+//                        MenuLineButton(title: "멤버십", fontColor: Color.yellow900) {
+//                            withAnimation {
+//                                businessSessionController.showDepositInfo = true
+//                            }                            
+//                        }
                         
                         
 //                        MenuLineLink(title: "멤버십", color: Color.yellow900) {
@@ -124,9 +124,9 @@ struct SettingsView: View {
 //                            MenuLineToggle(isOn: $showGenderRatio, title: "성비 보여주기")
 //                            Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
 //                            MenuLineToggle(isOn: $showMatching, title: "매칭 확률 보여주기")
-                    }
-                    .background(Color.yellow200)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+//                    }
+//                    .background(Color.yellow200)
+//                    .clipShape(RoundedRectangle(cornerRadius: 14))
                     
                     MenuTitle(title: "서비스 지원", color: Color.yellow700)
                     VStack(spacing: 0) {

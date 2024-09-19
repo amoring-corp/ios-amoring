@@ -30,7 +30,7 @@ public class UploadBusinessRegistrationFileMutation: GraphQLMutation {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("uploadBusinessRegistrationFile", UploadBusinessRegistrationFile.self, arguments: [
         "businessId": .variable("id"),
@@ -47,7 +47,7 @@ public class UploadBusinessRegistrationFileMutation: GraphQLMutation {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.File }
+      public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.File }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AmoringAPI.ID.self),

@@ -10,14 +10,14 @@
       "internalID" : "6630372674",
       "localizations" : [
         {
-          "description" : "프로필 투명모드 패스",
-          "displayName" : "프로필 투명모드 패스",
-          "locale" : "ko"
-        },
-        {
-          "description" : "Hidden mode pass",
+          "description" : "Others will not see you, until you like them",
           "displayName" : "Hidden mode pass",
           "locale" : "en_US"
+        },
+        {
+          "description" : "좋아요를 보낸 사용자들에게만 프로필이 보입니다",
+          "displayName" : "프로필 투명모드 패스",
+          "locale" : "ko"
         }
       ],
       "productID" : "ios_hidden_mode_pass",
@@ -30,12 +30,12 @@
       "internalID" : "6630372716",
       "localizations" : [
         {
-          "description" : "10 / 25% off",
+          "description" : "You will receive 10 likes by purchasing.",
           "displayName" : "10 likes",
           "locale" : "en_US"
         },
         {
-          "description" : "10 / 25% 할인",
+          "description" : "좋아요를 10개를 구매하실 수 있습니다.",
           "displayName" : "10 likes",
           "locale" : "ko"
         }
@@ -50,14 +50,14 @@
       "internalID" : "6630372662",
       "localizations" : [
         {
-          "description" : "5 / 최소금액",
-          "displayName" : "5 likes",
-          "locale" : "ko"
-        },
-        {
-          "description" : "5 / basic",
+          "description" : "You will receive 5 likes by purchasing.",
           "displayName" : "5 likes",
           "locale" : "en_US"
+        },
+        {
+          "description" : "좋아요를 5개를 구매하실 수 있습니다.",
+          "displayName" : "5 likes",
+          "locale" : "ko"
         }
       ],
       "productID" : "ios_5_likes",
@@ -70,14 +70,14 @@
       "internalID" : "6630372805",
       "localizations" : [
         {
-          "description" : "50 / 50% off",
-          "displayName" : "50 likes",
-          "locale" : "en_US"
-        },
-        {
-          "description" : "50 / 50% 할인",
+          "description" : "좋아요를 50개를 구매하실 수 있습니다.",
           "displayName" : "50 likes",
           "locale" : "ko"
+        },
+        {
+          "description" : "You will receive 50 likes by purchasing",
+          "displayName" : "50 likes",
+          "locale" : "en_US"
         }
       ],
       "productID" : "ios_50_likes",
@@ -90,12 +90,12 @@
       "internalID" : "6630372793",
       "localizations" : [
         {
-          "description" : "리스트 보기 패스",
+          "description" : "좋아요를 보낸 사용자들을 '메세지'에서 확인 가능합니다.",
           "displayName" : "리스트 보기 패스",
           "locale" : "ko"
         },
         {
-          "description" : "View List Pass",
+          "description" : "View users who've liked you in 'Messages'",
           "displayName" : "View List Pass",
           "locale" : "en_US"
         }
@@ -109,7 +109,7 @@
     "_applicationInternalID" : "6504471622",
     "_developerTeamID" : "294GP7M6QM",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 745140469.51441395,
+    "_lastSynchronizedDate" : 748330630.29198301,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [

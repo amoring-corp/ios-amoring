@@ -16,7 +16,6 @@ struct ProfilesView: View {
     
     @Binding var selectedIndex: Int
     
-    @State var isOn = false
     @State var swipeAction: SwipeAction = .doNothing
     @State var showAlert: Bool = false
     @State var timer: Timer? = nil
@@ -30,8 +29,8 @@ struct ProfilesView: View {
         VStack(alignment: .center, spacing: 0) {
             if !amoringController.hidePanel {
                 HStack {
-                    CoctailToggle(isOn: $isOn)
-                        .onChange(of: isOn) { _ in
+                    CoctailToggle(isOn: $userManager.includeNearby)
+                        .onChange(of: userManager.includeNearby) { _ in
                             refresh()
                         }
                     Spacer()
@@ -123,7 +122,7 @@ struct ProfilesView: View {
         userManager.profiles.removeAll()
         
         if let checkIn = amoringController.checkIn {
-            userManager.getVisibleProfiles(includeNearby: self.isOn)
+            userManager.getVisibleProfiles()
 //            if let profiles = checkIn.business?.activeCheckIns.map({ $0?.profile?.fragments.profileInfo }) {
 //                for profile in profiles {
 //                    if let profile {

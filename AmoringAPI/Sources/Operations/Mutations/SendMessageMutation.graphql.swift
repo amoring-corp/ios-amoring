@@ -31,7 +31,7 @@ public class SendMessageMutation: GraphQLMutation {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("sendMessage", SendMessage.self, arguments: [
         "body": .variable("body"),
@@ -48,7 +48,7 @@ public class SendMessageMutation: GraphQLMutation {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Message }
+      public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Message }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .fragment(MessageInfo.self),

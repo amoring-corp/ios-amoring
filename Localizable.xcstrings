@@ -390,6 +390,17 @@
     "8-16 자의 문자구성" : {
 
     },
+    "25% 할인" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25% off"
+          }
+        }
+      }
+    },
     "30 명" : {
 
     },
@@ -399,6 +410,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your self-introduction can be up to 40 characters long.\nMake an impactful impression with your self-introduction!"
+          }
+        }
+      }
+    },
+    "50% 할인" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50% off"
           }
         }
       }
@@ -2305,6 +2327,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Checkout"
+          }
+        }
+      }
+    },
+    "최소금액" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "basic"
           }
         }
       }

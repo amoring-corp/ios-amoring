@@ -30,7 +30,7 @@ public class DeleteBusinessHoursMutation: GraphQLMutation {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("deleteBusinessHours", AmoringAPI.ID.self, arguments: [
         "businessId": .variable("businessId"),

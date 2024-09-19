@@ -101,7 +101,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     print("Current User: \(authUser.id)")
                     print("email: \(authUser.fragments.userInfo.email)")
                     self.user = authUser.fragments.userInfo
-                    
+                    self.recreateEndPoint()
                     self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
                     completion(true, "")
                 case .failure(let error):
@@ -186,7 +186,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
-                self.setupAWSSNSService()
+//                self.setupAWSSNSService()
                 self.lastProvider = .apple
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
@@ -246,7 +246,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
-                self.setupAWSSNSService()
+//                self.setupAWSSNSService()
                 self.lastProvider = .google
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
@@ -534,6 +534,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     /// The SNS Platform application ARN
     let SNSPlatformApplicationArn = "arn:aws:sns:ap-northeast-2:767397851737:app/APNS/Amoring-IOS"
+//    let SNSPlatformApplicationArn = "arn:aws:cognito-identity:ap-northeast-2:767397851737:identitypool/ap-northeast-2:db7d8417-60c6-4f6c-95ce-010cea9c05ca"
     @AppStorage("deviceTokenForSNS") var deviceToken: String?
     @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
     func setupAWSSNSService() {

@@ -18,13 +18,13 @@ struct PurchaseModel {
     static func id(type: PurchaseModel.type) -> String {
         switch type {
         case .like:
-            return  "test_likes_5"
+            return  "ios_5_likes"
         case .lounge:
             return "lounge_extension_pass"
         case .transparent:
-            return "hidden_mode_pass"
+            return "ios_hidden_mode_pass"
         case .list:
-            return "list_view_pass"
+            return "ios_list_view_pass"
         }
     }
     

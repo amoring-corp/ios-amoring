@@ -70,6 +70,7 @@
 		2B6DD28E2BEB15B400D035C7 /* DistrictFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6DD28D2BEB15B400D035C7 /* DistrictFragment.graphql */; };
 		2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */; };
 		2B6DD2942BEB274500D035C7 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2932BEB274500D035C7 /* District.swift */; };
+		2BD5D0342C9AC8CA001131A6 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BD5D0332C9AC8CA001131A6 /* schema.graphqls */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
 		2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */; };
 		2BF3DEA62C4BA350008D3D0D /* PhoneAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */; };
@@ -144,7 +145,6 @@
 		8523BACB2B4CCCEC0099CDE4 /* MutationSignIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */; };
 		8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */; };
 		8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8523BAD32B4CDF560099CDE4 /* AmoringAPI */; };
-		8524B6B92C7F1E40002CC09B /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 8524B6B82C7F1E40002CC09B /* schema.graphqls */; };
 		8538D5222B4E1C500040E017 /* BusinessSignUpEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5212B4E1C500040E017 /* BusinessSignUpEmail.swift */; };
 		8538D5242B4E1EDD0040E017 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5232B4E1EDD0040E017 /* BackButton.swift */; };
 		8538D5262B4E211B0040E017 /* XButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538D5252B4E211B0040E017 /* XButton.swift */; };
@@ -417,6 +417,7 @@
 		2B6DD28D2BEB15B400D035C7 /* DistrictFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DistrictFragment.graphql; sourceTree = "<group>"; };
 		2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHelper.swift; sourceTree = "<group>"; };
 		2B6DD2932BEB274500D035C7 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
+		2BD5D0332C9AC8CA001131A6 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthPhone.swift; sourceTree = "<group>"; };
 		2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthController.swift; sourceTree = "<group>"; };
@@ -498,7 +499,6 @@
 		8523BAC82B4BB7B80099CDE4 /* BusinessSignUpPrepare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpPrepare.swift; sourceTree = "<group>"; };
 		8523BACA2B4CCCEC0099CDE4 /* MutationSignIn.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationSignIn.graphql; sourceTree = "<group>"; };
 		8523BAD12B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryAuthenticatedUser.graphql; sourceTree = "<group>"; };
-		8524B6B82C7F1E40002CC09B /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		8538D5212B4E1C500040E017 /* BusinessSignUpEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSignUpEmail.swift; sourceTree = "<group>"; };
 		8538D5232B4E1EDD0040E017 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8538D5252B4E211B0040E017 /* XButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XButton.swift; sourceTree = "<group>"; };
@@ -1093,7 +1093,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				8524B6B82C7F1E40002CC09B /* schema.graphqls */,
+				2BD5D0332C9AC8CA001131A6 /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1486,7 +1486,7 @@
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
-				8524B6B92C7F1E40002CC09B /* schema.graphqls in Resources */,
+				2BD5D0342C9AC8CA001131A6 /* schema.graphqls in Resources */,
 				2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */,
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2C42D52BA7C46E00EA1ACA /* ReactionFragment.graphql in Resources */,
@@ -1942,6 +1942,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CODE_SIGN_ENTITLEMENTS = amoring/amoring.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"amoring/Preview Content\"";
@@ -1951,9 +1952,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = amoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Amoring;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera for scanning QR Code.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to access your location";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to access your location";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera for scanning QR Code so you can check in";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to access your location to show nearby businesses";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to access your location to show nearby businesses";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1971,6 +1972,7 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.socialpoint.amoringapp;
 				PRODUCT_NAME = Amoring;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
@@ -1998,9 +2000,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = amoring/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Amoring;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera for scanning QR Code.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to access your location";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to access your location";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera for scanning QR Code so you can check in";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to access your location to show nearby businesses";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to access your location to show nearby businesses";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

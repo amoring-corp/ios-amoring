@@ -114,29 +114,29 @@ struct Profile: Hashable {
 //        self.avatarUrl = profile.avatarUrl
 //    }
     
-    init(profile: ConversationInfo.Participant.Profile) {
-        self.id = profile.id
-        self.userId = profile.userId
-        self.name = profile.name
-        self.birthYear = profile.birthYear
-        self.height = profile.height
-        self.weight = profile.weight
-        self.mbti = profile.mbti
-        self.education = profile.education
-        self.occupation = profile.occupation
-        self.bio = profile.bio
-        self.gender = profile.gender?.value
-        self.images = profile.images == nil ? [] : profile.images!.compactMap{
-            MutatingImage(image: $0?.fragments.imageFragment)
-        }
-        self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
-        self.age = profile.age
-        self.avatarUrl = profile.avatarUrl
-        
-        self.maxLikes = profile.maxLikes
-        self.usedLikesCount = profile.usedLikesCount
-        self.isBlurred = profile.isBlurred ?? false
-    }
+//    init(profile: ConversationInfo.Participant.Profile) {
+//        self.id = profile.id
+//        self.userId = profile.userId
+//        self.name = profile.name
+//        self.birthYear = profile.birthYear
+//        self.height = profile.height
+//        self.weight = profile.weight
+//        self.mbti = profile.mbti
+//        self.education = profile.education
+//        self.occupation = profile.occupation
+//        self.bio = profile.bio
+//        self.gender = profile.gender?.value
+//        self.images = profile.images == nil ? [] : profile.images!.compactMap{
+//            MutatingImage(image: $0?.fragments.imageFragment)
+//        }
+//        self.interests = profile.interests == nil ? [] : profile.interests!.compactMap{ Interest(inter: $0!) }
+//        self.age = profile.age
+//        self.avatarUrl = profile.avatarUrl
+//        
+//        self.maxLikes = profile.maxLikes
+//        self.usedLikesCount = profile.usedLikesCount
+//        self.isBlurred = profile.isBlurred ?? false
+//    }
     
 }
 

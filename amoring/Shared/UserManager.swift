@@ -30,6 +30,7 @@ class UserManager: ObservableObject {
     
     @Published var confirmRemoveImageIndex: Int = 0
     @Published var total: Int = 0
+    @Published var includeNearby: Bool = false
     
     init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
         /// unsubscripe all subscriptions . [case : business login]
@@ -53,6 +54,7 @@ class UserManager: ObservableObject {
             print("I'm a business")
             if !(authUser.isEmailVerified ?? false) {
                 self.changeStateWithAnimation(state: .emailValidation)
+                
             } else
             if let business = authUser.business, ((business.phoneNumber?.isEmpty) != nil) {
 //                DispatchQueue.main.async {
@@ -1165,10 +1167,26 @@ class UserManager: ObservableObject {
     var messageSubscription: Cancellable?
     var reactionSubscription: Cancellable?
     var conversationSubscription: Cancellable?
+    var newCheckinSubscription: Cancellable?
     @Published var newMessage: MessageInfo? = nil
     
     deinit {
         self.messageSubscription?.cancel()
+    }
+    
+    func newCheckinSubscription(completion: @escaping (Bool) -> Void) {
+        print("New checkin starts")
+        self.newCheckinSubscription = WSApi.subscribe(subscription: NewCheckinSubscription()) { result in
+            print("New checkin with result: \(result)")
+            guard let data = try? result.get().data else { return }
+            if let id = data.newCheckin?.id {
+                print("New checkin id: \(id)")
+                completion(true)
+            } else {
+                print("New checkin with errors")
+                completion(false)
+            }
+        }
     }
     
     func messageSubscription(completion: @escaping (MessageInfo?) -> Void) {
@@ -1393,11 +1411,11 @@ class UserManager: ObservableObject {
 //        }
 //    }
     
-    func getVisibleProfiles(includeNearby: Bool) {
-        api.fetch(query: VisibleProfilesQuery(includeNearby: GraphQLHelper.graphQLNullableFrom(includeNearby)), cachePolicy: .fetchIgnoringCacheCompletely) { result in
+    func getVisibleProfiles() {
+        api.fetch(query: VisibleProfilesQuery(includeNearby: GraphQLHelper.graphQLNullableFrom(self.includeNearby)), cachePolicy: .fetchIgnoringCacheCompletely) { result in
             switch result {
             case .success(let value):
-                print("includeNearby: \(includeNearby)")
+                print("includeNearby: \(self.includeNearby)")
                 guard value.errors == nil else {
                     print("errors")
                     print(value.errors as Any)

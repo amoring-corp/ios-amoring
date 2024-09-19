@@ -155,6 +155,7 @@ struct SessionView: View {
         userManager.messageSubscription?.cancel()
         userManager.reactionSubscription?.cancel()
         userManager.conversationSubscription?.cancel()
+        userManager.newCheckinSubscription?.cancel()
     }
     
     private func subscriptions() {
@@ -218,6 +219,10 @@ struct SessionView: View {
                 notificationController.setNotification(text: "Conversation with \(deletedBy) was deleted!", type: .text)
                 messagesController.conversations.removeAll(where: { $0.id == id })
             }
+        }
+        
+        userManager.newCheckinSubscription { success in
+            userManager.getVisibleProfiles()
         }
 //            .safeAreaInset(edge: .top, content: {
 //                Color.clear

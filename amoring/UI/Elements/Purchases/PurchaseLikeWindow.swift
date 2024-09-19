@@ -30,7 +30,7 @@ struct PurchaseLikePlan: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Text(discount)
+            Text(NSLocalizedString(discount, comment: ""))
                 .font(semiBold18Font)
                 .foregroundColor(.white)
                 .opacity(userManager.selectedPlan.rawValue == product.id ? 1 : 0.4)
@@ -38,10 +38,20 @@ struct PurchaseLikePlan: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.black.opacity(userManager.selectedPlan.rawValue == product.id ? 1 : 0.1))
                 .onAppear {
-                    if let range = product.description.range(of: " / ") {
-                        self.discount = String(product.description[range.upperBound...])
+//                    if let range = product.description.range(of: " / ") {
+//                        self.discount = String(product.description[range.upperBound...])
+//                    }
+//                    self.numberOfLikes = product.description.components(separatedBy: " /")[0]
+                    if product.id == "ios_5_likes" {
+                        self.discount = "최소금액"
+                        self.numberOfLikes = "5"
+                    } else if product.id == "ios_10_likes" {
+                        self.discount = "25% 할인"
+                        self.numberOfLikes = "10"
+                    } else if product.id == "ios_50_likes" {
+                        self.discount = "50% 할인"
+                        self.numberOfLikes = "50"
                     }
-                    self.numberOfLikes = product.description.components(separatedBy: " /")[0]
                 }
             
             (Text(numberOfLikes)

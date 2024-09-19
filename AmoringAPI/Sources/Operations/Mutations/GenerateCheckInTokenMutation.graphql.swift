@@ -16,7 +16,7 @@ public class GenerateCheckInTokenMutation: GraphQLMutation {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("generateCheckInToken", GenerateCheckInToken.self),
     ] }
@@ -30,7 +30,7 @@ public class GenerateCheckInTokenMutation: GraphQLMutation {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckInToken }
+      public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.CheckInToken }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("token", String.self),

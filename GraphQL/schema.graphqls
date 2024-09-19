@@ -380,6 +380,7 @@ type Profile {
   bio: String
   gender: Gender
   isBlurred: Boolean
+  isInPrivateMode: Boolean
   images: [ProfileImage]
   avatarUrl: String
   interests: [Interest]
@@ -403,6 +404,7 @@ input ProfileCreateInput {
   bio: String
   gender: Gender
   isBlurred: Boolean
+  isInPrivateMode: Boolean
 }
 
 """
@@ -434,6 +436,7 @@ input ProfileUpdateInput {
   gender: Gender
   images: [ProfileImageInput]
   isBlurred: Boolean
+  isInPrivateMode: Boolean
 }
 
 type Purchase {
@@ -724,6 +727,7 @@ type Query {
 }
 
 type Subscription {
+  newCheckin: CheckIn
   conversationDeleted: Conversation
   messageSent: Message
   reactionAdded: Reaction

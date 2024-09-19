@@ -11,7 +11,7 @@ public struct CheckInInfo: AmoringAPI.SelectionSet, Fragment {
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }
 
-  public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
+  public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.CheckIn }
   public static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
     .field("id", AmoringAPI.ID.self),
@@ -44,7 +44,7 @@ public struct CheckInInfo: AmoringAPI.SelectionSet, Fragment {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Business }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Business }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
       .fragment(BusinessInfo.self),
@@ -88,26 +88,7 @@ public struct CheckInInfo: AmoringAPI.SelectionSet, Fragment {
 
     public typealias BusinessType = BusinessInfo.BusinessType
 
-    /// Business.BusinessHour
-    ///
-    /// Parent Type: `BusinessHours`
-    public struct BusinessHour: AmoringAPI.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
-
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.BusinessHours }
-
-      public var openAt: AmoringAPI.LocalTime { __data["openAt"] }
-      public var closeAt: AmoringAPI.LocalTime { __data["closeAt"] }
-      public var day: GraphQLEnum<AmoringAPI.Day> { __data["day"] }
-
-      public struct Fragments: FragmentContainer {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public var businessHoursInfo: BusinessHoursInfo { _toFragment() }
-      }
-    }
+    public typealias BusinessHour = BusinessInfo.BusinessHour
 
     public typealias ActiveCheckIn = BusinessInfo.ActiveCheckIn
 

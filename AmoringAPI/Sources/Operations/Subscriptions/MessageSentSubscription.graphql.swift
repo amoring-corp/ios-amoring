@@ -17,7 +17,7 @@ public class MessageSentSubscription: GraphQLSubscription {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Subscription }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Subscription }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("messageSent", MessageSent?.self),
     ] }
@@ -31,7 +31,7 @@ public class MessageSentSubscription: GraphQLSubscription {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Message }
+      public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Message }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .fragment(MessageInfo.self),

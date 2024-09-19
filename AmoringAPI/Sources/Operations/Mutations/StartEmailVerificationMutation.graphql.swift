@@ -16,7 +16,7 @@ public class StartEmailVerificationMutation: GraphQLMutation {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("startEmailVerification", StartEmailVerification.self),
     ] }
@@ -30,7 +30,7 @@ public class StartEmailVerificationMutation: GraphQLMutation {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.VerificationRequestResult }
+      public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.VerificationRequestResult }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("verificationNumber", String.self),

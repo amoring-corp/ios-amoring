@@ -312,7 +312,7 @@ extension CodeScannerView {
                 return
             }
             let metadataOutput = AVCaptureMetadataOutput()
-
+            
             if (captureSession!.canAddOutput(metadataOutput)) {
                 captureSession!.addOutput(metadataOutput)
                 captureSession?.addOutput(photoOutput)

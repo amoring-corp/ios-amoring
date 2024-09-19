@@ -22,7 +22,7 @@ public class RequestUserPasswordResetMutation: GraphQLMutation {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
+    public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("requestUserPasswordReset", RequestUserPasswordReset.self, arguments: ["email": .variable("email")]),
     ] }
@@ -36,7 +36,7 @@ public class RequestUserPasswordResetMutation: GraphQLMutation {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { AmoringAPI.Objects.PasswordResetRequestResult }
+      public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.PasswordResetRequestResult }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("confirmationToken", String.self),

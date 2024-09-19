@@ -20,3 +20,9 @@ subscription ConversationDeleted {
     }
   }
 }
+
+subscription NewCheckin {
+  newCheckin {
+    id
+  }
+}
