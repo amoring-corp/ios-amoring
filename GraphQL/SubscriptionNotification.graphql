@@ -22,7 +22,8 @@ subscription ConversationDeleted {
 }
 
 subscription NewCheckin {
-  newCheckin {
+  checkIn {
     id
+    ... CheckInInfo
   }
 }

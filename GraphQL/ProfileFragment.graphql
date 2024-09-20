@@ -40,4 +40,5 @@ fragment ProfileInfo on Profile {
   usedLikesCount
   maxLikes
   isBlurred
+  isInPrivateMode
 }

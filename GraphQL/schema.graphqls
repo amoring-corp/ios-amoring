@@ -727,7 +727,7 @@ type Query {
 }
 
 type Subscription {
-  newCheckin: CheckIn
+  checkIn: CheckIn
   conversationDeleted: Conversation
   messageSent: Message
   reactionAdded: Reaction

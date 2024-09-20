@@ -139,16 +139,22 @@ struct AccountView: View {
 //                                }
                                 
                                 if hiddenAvailable {
-                                    MenuLineButton(title: "프로필 투명모드",
-                                                   subtitle: userManager.invisiblePassEnabled() ? ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime() : "구매하기",
-                                                   fontColor: userManager.invisiblePassEnabled() ? Color.yellow200 : Color.gray600,
-                                                   subFontColor: userManager.invisiblePassEnabled() ? Color.yellow350 : Color.gray300)
-                                    {
-                                        if !userManager.invisiblePassEnabled() {
+                                    if !userManager.invisiblePassEnabled() {
+                                        MenuLineButton(title: "프로필 투명모드",
+                                                       subtitle: "구매하기",
+                                                       fontColor: Color.gray600,
+                                                       subFontColor: Color.gray300)
+                                        {
                                             userManager.openPurchase(purchaseType: .transparent)
                                         }
+                                    } else {
+                                        MenuLineLink(title: "프로필 투명모드",
+                                                     subtitle: ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime(),
+                                                     subFontColor: Color.yellow350) {
+                                            PrivateModeView()
+                                        }
                                     }
-                                    
+
                                     Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
                                 }
                                 

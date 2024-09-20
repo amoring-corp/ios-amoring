@@ -30,6 +30,7 @@ struct Profile: Hashable {
     var maxLikes: Int
     var usedLikesCount: Int
     var isBlurred: Bool
+    var isInPrivateMode: Bool
     
     init() {
         self.id = ""
@@ -40,6 +41,7 @@ struct Profile: Hashable {
         //MARK: HARDCODED
         self.usedLikesCount = 10
         self.isBlurred = false
+        self.isInPrivateMode = false
     }
     
     init(profile: UserInfo.Profile) {
@@ -66,6 +68,7 @@ struct Profile: Hashable {
         self.maxLikes = profile.maxLikes
         self.usedLikesCount = profile.usedLikesCount
         self.isBlurred = profile.isBlurred ?? false
+        self.isInPrivateMode = profile.isInPrivateMode ?? false
     }
     
     init(profile: ProfileInfo) {
@@ -92,6 +95,7 @@ struct Profile: Hashable {
         self.maxLikes = profile.maxLikes
         self.usedLikesCount = profile.usedLikesCount
         self.isBlurred = profile.isBlurred ?? false
+        self.isInPrivateMode = profile.isInPrivateMode ?? false
     }
     
 //    init(profile: BusinessInfo.ActiveCheckIn.Profile) {
@@ -137,7 +141,6 @@ struct Profile: Hashable {
 //        self.usedLikesCount = profile.usedLikesCount
 //        self.isBlurred = profile.isBlurred ?? false
 //    }
-    
 }
 
 struct ProfileData {
@@ -157,7 +160,8 @@ struct ProfileData {
                 "occupation": profile.occupation,
                 "bio": profile.bio,
                 "gender": profile.gender,
-                "isBlurred": profile.isBlurred
+                "isBlurred": profile.isBlurred,
+                "isInPrivateMode": profile.isInPrivateMode
             ])
         } else if let profileInfo {
             return InputDict([
@@ -171,7 +175,8 @@ struct ProfileData {
                 "occupation": profileInfo.occupation,
                 "bio": profileInfo.bio,
                 "gender": profileInfo.gender,
-                "isBlurred": profileInfo.isBlurred ?? false
+                "isBlurred": profileInfo.isBlurred ?? false,
+                "isInPrivateMode": profileInfo.isInPrivateMode ?? false
             ])
         } else {
             return InputDict([:])

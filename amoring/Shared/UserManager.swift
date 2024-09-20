@@ -1175,11 +1175,10 @@ class UserManager: ObservableObject {
     }
     
     func newCheckinSubscription(completion: @escaping (Bool) -> Void) {
-        print("New checkin starts")
         self.newCheckinSubscription = WSApi.subscribe(subscription: NewCheckinSubscription()) { result in
-            print("New checkin with result: \(result)")
+            print("New checkin listening")
             guard let data = try? result.get().data else { return }
-            if let id = data.newCheckin?.id {
+            if let id = data.checkIn?.fragments.checkInInfo.profileId {
                 print("New checkin id: \(id)")
                 completion(true)
             } else {

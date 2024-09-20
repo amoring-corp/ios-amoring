@@ -70,7 +70,8 @@
 		2B6DD28E2BEB15B400D035C7 /* DistrictFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6DD28D2BEB15B400D035C7 /* DistrictFragment.graphql */; };
 		2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */; };
 		2B6DD2942BEB274500D035C7 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2932BEB274500D035C7 /* District.swift */; };
-		2BD5D0342C9AC8CA001131A6 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BD5D0332C9AC8CA001131A6 /* schema.graphqls */; };
+		2BF1AF9F2C9D783000A6C077 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BF1AF9E2C9D783000A6C077 /* schema.graphqls */; };
+		2BF1AFA12C9D893200A6C077 /* PrivateModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
 		2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */; };
 		2BF3DEA62C4BA350008D3D0D /* PhoneAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */; };
@@ -417,7 +418,8 @@
 		2B6DD28D2BEB15B400D035C7 /* DistrictFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DistrictFragment.graphql; sourceTree = "<group>"; };
 		2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHelper.swift; sourceTree = "<group>"; };
 		2B6DD2932BEB274500D035C7 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
-		2BD5D0332C9AC8CA001131A6 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2BF1AF9E2C9D783000A6C077 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateModeView.swift; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthPhone.swift; sourceTree = "<group>"; };
 		2BF3DEA52C4BA350008D3D0D /* PhoneAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthController.swift; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 				85F190462B5FAB3C00FA7686 /* AccountEmailSuccess.swift */,
 				2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */,
 				2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */,
+				2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1093,7 +1096,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2BD5D0332C9AC8CA001131A6 /* schema.graphqls */,
+				2BF1AF9E2C9D783000A6C077 /* schema.graphqls */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
 				2B20497D2B95A45D00E633E3 /* UserFragment.graphql */,
@@ -1486,7 +1489,7 @@
 				850A30232B0AEF41003B12B7 /* Pretendard-Black.ttf in Resources */,
 				851015362B86CFF900ED09E3 /* QueryActiveCheckIn.graphql in Resources */,
 				8523BAD22B4CDDEB0099CDE4 /* QueryAuthenticatedUser.graphql in Resources */,
-				2BD5D0342C9AC8CA001131A6 /* schema.graphqls in Resources */,
+				2BF1AF9F2C9D783000A6C077 /* schema.graphqls in Resources */,
 				2B2C42CD2BA2E18900EA1ACA /* MutationDeleteConversation.graphql in Resources */,
 				2B20496E2B903AA700E633E3 /* QueryConversations.graphql in Resources */,
 				2B2C42D52BA7C46E00EA1ACA /* ReactionFragment.graphql in Resources */,
@@ -1782,6 +1785,7 @@
 				85FC20852B0C510100DC1950 /* UserOnboardingPhoto.swift in Sources */,
 				8550138E2B7C3E2400D9D568 /* MakeReportInput.swift in Sources */,
 				854C7B092B181B1C0060CE03 /* ProfileCardView.swift in Sources */,
+				2BF1AFA12C9D893200A6C077 /* PrivateModeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

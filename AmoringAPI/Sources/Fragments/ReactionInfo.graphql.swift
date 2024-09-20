@@ -73,6 +73,7 @@ public struct ReactionInfo: AmoringAPI.SelectionSet, Fragment {
     @available(*, deprecated, message: "Use field from User instead")
     public var maxLikes: Int { __data["maxLikes"] }
     public var isBlurred: Bool? { __data["isBlurred"] }
+    public var isInPrivateMode: Bool? { __data["isInPrivateMode"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
