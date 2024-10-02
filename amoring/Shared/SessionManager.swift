@@ -53,6 +53,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @AppStorage("sessionToken") var sessionToken: String = ""
     @AppStorage("lastProvider") var lastProvider: lastProvider = .google
     @AppStorage("businessEmail") var businessEmail: String = ""
+    @AppStorage("userEmail") var userEmail: String = ""
     @AppStorage("rememberEmail") var rememberEmail: Bool = true
     
     @Published var confirmationNumber: String? = nil
@@ -101,7 +102,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     print("Current User: \(authUser.id)")
                     print("email: \(authUser.fragments.userInfo.email)")
                     self.user = authUser.fragments.userInfo
-                    self.recreateEndPoint()
+                    if self.shouldSendNotifications {
+                        self.recreateEndPoint()
+                    }
+                    
                     self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
                     completion(true, "")
                 case .failure(let error):
@@ -186,7 +190,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
-//                self.setupAWSSNSService()
+                self.setupAWSSNSService()
                 self.lastProvider = .apple
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
@@ -246,7 +250,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
-//                self.setupAWSSNSService()
+                self.setupAWSSNSService()
                 self.lastProvider = .google
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
@@ -320,6 +324,40 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
         }
     }
 
+    func signInWithEmail(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
+        self.isLoading = true
+        api.perform(mutation: SignInMutation(email: email, password: password)) { result in
+            self.isLoading = false
+            switch result {
+            case .success(let value):
+                if let errors = value.errors {
+                    print(errors)
+                    completion(false, errors.first?.localizedDescription ?? "")
+                    return
+                }
+                
+                if let sessionToken = value.data?.signIn.sessionToken {
+                    print(sessionToken)
+                    self.setupAWSSNSService()
+                    self.sessionToken = sessionToken
+                    self.lastProvider = .none
+                    self.userEmail = email
+                    self.getCurrentSession(delay: 0) { success, error in
+                            completion(success, error)
+                    }
+                    completion(true, "")
+                } else {
+                    print("Wrong data!")
+                    completion(false, "Wrong data")
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(false, error.localizedDescription)
+            }
+        }
+    }
+    
     func businessSignIn(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
         self.isLoading = true
         api.perform(mutation: SignInMutation(email: email, password: password)) { result in
@@ -356,6 +394,40 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     func signUp(email: String, password: String, completion: @escaping (String?) -> Void) {
         self.isLoading = true
         api.perform(mutation: SignUpMutation(email: email, password: password)) { result in
+            self.isLoading = false
+            switch result {
+            case .success(let value):
+                if let errors = value.errors {
+                    print(errors)
+                    completion(errors.first?.localizedDescription)
+                    return
+                }
+                
+                if let confirmationNumber = value.data?.signUp.confirmationNumber, let emailConfirmationToken = value.data?.signUp.emailConfirmationToken, let authUser = value.data?.signUp.user {
+                    self.emailConfirmationToken = emailConfirmationToken
+                    self.user = authUser.fragments.userInfo
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation {
+                            self.confirmationNumber = confirmationNumber
+                        }
+                    }
+                    completion(nil)
+                } else {
+                    print("Wrong data!")
+                    completion("Wrong data!")
+                }
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                completion(error.localizedDescription)
+            }
+        }
+    }
+    
+    // MARK: FOR TESTS
+    func signUpUser(email: String, password: String, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        api.perform(mutation: SignUpUserMutation(email: email, password: password)) { result in
             self.isLoading = false
             switch result {
             case .success(let value):
@@ -537,6 +609,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
 //    let SNSPlatformApplicationArn = "arn:aws:cognito-identity:ap-northeast-2:767397851737:identitypool/ap-northeast-2:db7d8417-60c6-4f6c-95ce-010cea9c05ca"
     @AppStorage("deviceTokenForSNS") var deviceToken: String?
     @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
+    @AppStorage("shouldSendNotifications") var shouldSendNotifications = true
     func setupAWSSNSService() {
         createEndPoint { error in
             guard error != nil else { return }

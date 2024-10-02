@@ -14,6 +14,7 @@ struct SignInView: View {
     
     @State var animate = false
     @State var businessSheetPresented: Bool = false
+    @State var emailSheetPresented: Bool = false
     
     var body: some View {
         NavigationStackBackport.NavigationStack(path: $navigator.path) {
@@ -29,9 +30,11 @@ struct SignInView: View {
                 
                 ZStack(alignment: .bottom) {
                     if animate {
-                        SignInSheet(businessSheetPresented: $businessSheetPresented).environmentObject(navigator)
-                        if self.businessSheetPresented {
+                        SignInSheet(businessSheetPresented: $businessSheetPresented, emailSheetPresented: $emailSheetPresented).environmentObject(navigator)
+                        if businessSheetPresented {
                             BusinessSignInSheet()
+                        } else if emailSheetPresented {
+                            EmailSignInSheet()
                         }
                     }
                 }
@@ -41,10 +44,11 @@ struct SignInView: View {
                 .font(bold20Font)
                 .foregroundColor(.yellow300)
                 .opacity(animate ? 1 : 0), 
-                                trailing: businessSheetPresented ?
+                                trailing: businessSheetPresented || emailSheetPresented ?
                                     Button(action: {
                 withAnimation {
                     self.businessSheetPresented = false
+                    self.emailSheetPresented = false
                 }
             }) {
                 Text("돌아가기")

@@ -7,3 +7,13 @@ mutation signUp($email: String!, $password: String!) {
     }
   }
 }
+
+mutation signUpUser($email: String!, $password: String!) {
+  signUp(data: { email: $email, password: $password, role: user}) {
+    confirmationNumber
+    emailConfirmationToken
+    user {
+      ... UserInfo
+    }
+  }
+}

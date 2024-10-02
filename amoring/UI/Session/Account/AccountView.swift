@@ -182,6 +182,12 @@ struct AccountView: View {
                         MenuTitle(title: "서비스 지원")
                         
                         VStack(spacing: 0) {
+                            MenuLineLink(title: "알림 설정") {
+                                NotificationsControl()
+                            }
+                            Color.gray1000.frame(maxWidth: .infinity).frame(height: 1)
+                            
+                            
                             MenuLineLink(title: "서비스 이용 약관") {
                                 NavigationWrapper(title: "서비스 이용 약관") {
                                     WebView(url: URL(string: "\(Constants.domain)/terms-and-conditions")!)

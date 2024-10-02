@@ -766,9 +766,6 @@
         }
       }
     },
-    "Some description about Private mode toggle in both languages" : {
-
-    },
     "Yes" : {
 
     },
@@ -1234,6 +1231,9 @@
           }
         }
       }
+    },
+    "로그인" : {
+
     },
     "로그인 시 아이디로 사용됩니다.\n인증 코드 확인이 가능한 이메일로 작성해주세요." : {
 
@@ -1815,6 +1815,17 @@
     "안내사항" : {
 
     },
+    "알림 설정" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications Settings"
+          }
+        }
+      }
+    },
     "업태*" : {
 
     },
@@ -2011,6 +2022,16 @@
     },
     "이메일" : {
 
+    },
+    "이메일 로그인" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Or sign in with email"
+          }
+        }
+      }
     },
     "이메일을 입력해주세요" : {
 
@@ -2280,6 +2301,17 @@
         }
       }
     },
+    "좋아요를 보낸 사용자들에게만 프로필이 보입니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Others will not see you, until you like them."
+          }
+        }
+      }
+    },
     "좋아요를 전부 사용하셨습니다, 지금 더 구매하실까요?" : {
 
     },
@@ -2442,6 +2474,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This pass lasts for 12 hours after purchasing.\nThis pass is activated automatically upon purchase."
+          }
+        }
+      }
+    },
+    "푸시 알림" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push Notifications"
+          }
+        }
+      }
+    },
+    "푸시 알림을 활성화합니다. 메세지, 매칭 등에 활용됩니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on/off push notifications. Notifications are used to alert new messages, matches, and more."
           }
         }
       }

@@ -16,6 +16,7 @@ struct SignInSheet: View {
     @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var navigator: NavigationAuthController
     @Binding var businessSheetPresented: Bool
+    @Binding var emailSheetPresented: Bool
     
     @AppStorage("lastProvider") var lastProvider: lastProvider = .none
     
@@ -112,8 +113,19 @@ struct SignInSheet: View {
                 .sheet(isPresented: $openTerms) {
                     WebView(url: URL(string: "\(Constants.domain)/terms-and-conditions")!)
                 }
+                
+                    Button(action: {
+                        withAnimation {
+                            self.emailSheetPresented = true
+                        }
+                    }) {
+                        Text("이메일 로그인")
+                            .font(medium16Font)
+                            .foregroundColor(.gray600)
+                    }
+                    .padding(.top, 13)
+                
                 ZStack {
-                    
                 
                 if isEnglish {
                     TappableText(
@@ -123,13 +135,7 @@ struct SignInSheet: View {
                             "Privacy Policy": { openPrivacy = true }
                         ], font: UIFont.systemFont(ofSize: 14)
                     )
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(6)
-                    .padding(.top, Size.w(50))
-                    .padding(.bottom, Size.w(42))
-                    .padding(.horizontal, Size.w(36))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .zIndex(1)
+                  
                 } else {
                     TappableText(
                         text: "가입함으로써, 귀하는 당사의 이용약관 에 동의하게됩니다.\n당사의 개인정보 사용방식에 관한 내용은 개인정보 취급방침 에서\n확인하실 수 있습니다.",
@@ -138,15 +144,15 @@ struct SignInSheet: View {
                             "개인정보 취급방침": { openPrivacy = true }
                         ], font: UIFont.systemFont(ofSize: 12)
                     )
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(6)
-                    .padding(.top, Size.w(50))
-                    .padding(.bottom, Size.w(42))
-                    .padding(.horizontal, Size.w(36))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .zIndex(1)
                 }
             }
+                .multilineTextAlignment(.center)
+                .lineSpacing(6)
+                .padding(.top, Size.w(40))
+                .padding(.bottom, Size.w(42))
+                .padding(.horizontal, Size.w(36))
+                .fixedSize(horizontal: false, vertical: true)
+                .zIndex(1)
                 .sheet(isPresented: $openPrivacy) {
                     WebView(url: URL(string: "\(Constants.domain)/privacy-policy")!)
                 }
@@ -207,5 +213,5 @@ struct SignInSheet: View {
 }
 
 #Preview {
-    SignInSheet(businessSheetPresented: .constant(false))
+    SignInSheet(businessSheetPresented: .constant(false), emailSheetPresented: .constant(false))
 }

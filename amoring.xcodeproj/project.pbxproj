@@ -70,6 +70,8 @@
 		2B6DD28E2BEB15B400D035C7 /* DistrictFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B6DD28D2BEB15B400D035C7 /* DistrictFragment.graphql */; };
 		2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */; };
 		2B6DD2942BEB274500D035C7 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6DD2932BEB274500D035C7 /* District.swift */; };
+		2BA117B82CA3AB070021CB34 /* NotificationsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA117B72CA3AB070021CB34 /* NotificationsControl.swift */; };
+		2BA117BA2CACE8BD0021CB34 /* EmailSignInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */; };
 		2BF1AF9F2C9D783000A6C077 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BF1AF9E2C9D783000A6C077 /* schema.graphqls */; };
 		2BF1AFA12C9D893200A6C077 /* PrivateModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
@@ -418,6 +420,8 @@
 		2B6DD28D2BEB15B400D035C7 /* DistrictFragment.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DistrictFragment.graphql; sourceTree = "<group>"; };
 		2B6DD2912BEB1C9C00D035C7 /* GraphQLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHelper.swift; sourceTree = "<group>"; };
 		2B6DD2932BEB274500D035C7 /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
+		2BA117B72CA3AB070021CB34 /* NotificationsControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsControl.swift; sourceTree = "<group>"; };
+		2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInSheet.swift; sourceTree = "<group>"; };
 		2BF1AF9E2C9D783000A6C077 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateModeView.swift; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -894,6 +898,7 @@
 				850BE9C52B624C1500EC8EAB /* SignInTooltip.swift */,
 				2BF3DEA22C4BA307008D3D0D /* PhoneAuth */,
 				85FC20752B0C510100DC1950 /* UserOnboarding */,
+				2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -991,6 +996,7 @@
 				2B3FD4692BD78D790090BA9D /* AccountCoupons.swift */,
 				2B3FD4712BD7AFC70090BA9D /* CouponDetailsView.swift */,
 				2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */,
+				2BA117B72CA3AB070021CB34 /* NotificationsControl.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1644,6 +1650,7 @@
 				850BE9D02B6343A100EC8EAB /* File.swift in Sources */,
 				85FB6B9D2B4785CE0023A889 /* CheckInResult.swift in Sources */,
 				2BF3DEA62C4BA350008D3D0D /* PhoneAuthController.swift in Sources */,
+				2BA117B82CA3AB070021CB34 /* NotificationsControl.swift in Sources */,
 				85FB6B8B2B43EC820023A889 /* BlackButton.swift in Sources */,
 				2B364C1E2C16EFA400BBE82B /* NearbyFilterController.swift in Sources */,
 				2B6DD2922BEB1C9C00D035C7 /* GraphQLHelper.swift in Sources */,
@@ -1715,6 +1722,7 @@
 				850BE9B52B61080300EC8EAB /* BusinessSettingsInfo.swift in Sources */,
 				850BE9C02B62015900EC8EAB /* BusinessEmailSuccess.swift in Sources */,
 				85E8E9442B3145390054EBCE /* ConversationView.swift in Sources */,
+				2BA117BA2CACE8BD0021CB34 /* EmailSignInSheet.swift in Sources */,
 				8522A5E92B2A7B39008AF703 /* TrackableScrollView.swift in Sources */,
 				85D26F672B2015FE00E3C55F /* CheckInView.swift in Sources */,
 				85D0DEE22B3BA9000029DA5D /* AdaptsToKeyboard.swift in Sources */,

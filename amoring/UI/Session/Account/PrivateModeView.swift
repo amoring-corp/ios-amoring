@@ -43,7 +43,7 @@ struct PrivateModeView: View {
                     }
                 }
                 
-                Text("A simple on/off switch that toggles hidden mode")
+                Text("좋아요를 보낸 사용자들에게만 프로필이 보입니다.")
                     .font(regular16Font)
                     .foregroundColor(.gray600)
                     .multilineTextAlignment(.leading)

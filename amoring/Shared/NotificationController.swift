@@ -136,7 +136,6 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
     func registerForPushNotifications() {
         /// The notifications settings
             UNUserNotificationCenter.current().delegate = self
-            
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert, .providesAppNotificationSettings], completionHandler: {(granted, error) in
                 if (granted) {
                     DispatchQueue.main.async {
@@ -148,6 +147,10 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
             })
     }
 
+    func unregisterPushNotifications() {
+        UIApplication.shared.unregisterForRemoteNotifications()
+    }
+    
     // Called when a notification is delivered to a foreground app.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .badge, .sound])
