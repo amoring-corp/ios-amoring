@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotificationsControl: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @AppStorage("shouldSendNotifications") var shouldSendNotifications = true
+    @AppStorage("shouldSendNotifications") var shouldSendNotifications = UserDefaults.standard.bool(forKey: "shouldSendNotifications")
     @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var notificationController: NotificationController
     

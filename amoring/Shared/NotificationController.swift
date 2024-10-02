@@ -136,15 +136,19 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
     func registerForPushNotifications() {
         /// The notifications settings
             UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert, .providesAppNotificationSettings], completionHandler: {(granted, error) in
-                if (granted) {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
-                } else {
-                    //Do stuff if unsuccessful...
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in
+            if granted {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
-            })
+            } else {
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        }
     }
 
     func unregisterPushNotifications() {

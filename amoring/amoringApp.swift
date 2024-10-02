@@ -21,17 +21,7 @@ struct amoringApp: App {
     init() {
 //        KakaoSDK.initSDK(appKey: "0489ce9b77b8476eeebcc7461a9b3166")
 //        naverSDKinit()
-
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { (granted: Bool, error: Error?) in
-            if granted {
-                print("Notifications permission granted")
-            } else {
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                DispatchQueue.main.async {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-        }
+        notificationController.registerForPushNotifications()
     }
     
     // Naver SDK Initializing
