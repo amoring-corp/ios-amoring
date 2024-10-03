@@ -79,7 +79,7 @@ struct LikeDisLikeButtons: View {
     }
     
     private func report() {
-        userManager.reportUser(conversationId: nil) { error in
+        userManager.reportUser(userId: profile.userId) { error in
             if let error {
                 notificationController.setNotification(text: error, type: .error)
             } else {

@@ -1,0 +1,5 @@
+mutation ReportUser($userId: ID!) {
+    reportUser(userId: $userId) {
+    id
+  }
+}

@@ -687,7 +687,8 @@ type Mutation {
   React to a profile by authenticated user
   """
   reactToProfile(profileId: String!, type: ReactionType!): Reaction
-  makeReport(data: MakeReportInput!): Report!
+  makeReport(data: MakeReportInput!): Report
+  reportUser(userId: ID!): Report
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!

@@ -24,10 +24,10 @@ public class MakeReportMutation: GraphQLMutation {
 
     public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("makeReport", MakeReport.self, arguments: ["data": .variable("data")]),
+      .field("makeReport", MakeReport?.self, arguments: ["data": .variable("data")]),
     ] }
 
-    public var makeReport: MakeReport { __data["makeReport"] }
+    public var makeReport: MakeReport? { __data["makeReport"] }
 
     /// MakeReport
     ///

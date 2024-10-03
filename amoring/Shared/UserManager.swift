@@ -1156,11 +1156,10 @@ class UserManager: ObservableObject {
         }
     }
     
-    func reportUser(conversationId: String?, completion: @escaping (String?) -> Void) {
+    func reportUser(userId: String, completion: @escaping (String?) -> Void) {
         self.isLoading = true
         
-        // TODO: change this mutation to ReportUserMutation
-        api.perform(mutation: ReportConversationMutation(id: conversationId ?? "")) { result in
+        api.perform(mutation: ReportUserMutation(userId: userId)) { result in
             switch result {
             case .success(let value):
                 guard value.errors == nil else {
@@ -1177,7 +1176,7 @@ class UserManager: ObservableObject {
                     return
                 }
                 
-                print("Conversation successfully was reported!")
+                print("User successfully was reported!")
                 
                 self.isLoading = false
                 
