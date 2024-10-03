@@ -56,7 +56,7 @@ struct SwipibleProfileVIew: View {
                         maxHeight: amoringController.showDetails ? .infinity : reader.size.height - heightPadding, alignment: .top)
                     .cornerRadius(24)
                     /// bottom bar + 56paddiing
-                    .padding(.bottom, amoringController.showDetails ? Size.w(131) : 0)
+                    .padding(.bottom, amoringController.showDetails ? Size.w(171) : 0)
                     .frame(maxWidth: reader.size.width)
                     .background(GeometryReader {
                         // calculate height by consumed background and store in
@@ -162,7 +162,7 @@ struct SwipibleProfileVIew: View {
             })
             
             if !amoringController.showDetails || showButtons {
-                LikeDisLikeButtons(swipeAction: $swipeAction, showAlert: $showAlert)
+                LikeDisLikeButtons(swipeAction: $swipeAction, showAlert: $showAlert, profile: profile)
                     .transition(.move(edge: .bottom))
             }
         }
