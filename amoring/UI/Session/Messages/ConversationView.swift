@@ -19,6 +19,7 @@ struct ConversationView: View, KeyboardReadable {
     @State var controlPresented = false
     @State var reportAlertPresented = false
     @State var deleteAlertPresented = false
+    @State var blockAlertPresented = false
     
     var body: some View {
         if let conversation = controller.selectedConversation {
@@ -91,6 +92,9 @@ struct ConversationView: View, KeyboardReadable {
                         .alertPatched(isPresented: $deleteAlertPresented) {
                             Alert(title: Text("메시지 삭제하기"), message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제"), action: { delete(id: conversation.id) }))
                         }
+                        .alertPatched(isPresented: $blockAlertPresented) {
+                            Alert(title: Text("사용자 차단"), message: Text("사용자를 차단하면 더 이상 연락이 불가합니다, 차단하시겠습니까?"), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제"), action: { block(id: companion?.id ?? "") }))
+                        }
                 }
             }
             .frame(maxWidth: .infinity)
@@ -130,6 +134,9 @@ struct ConversationView: View, KeyboardReadable {
                     }
                     Button("신고하기") {
                         reportAlertPresented = true
+                    }
+                    Button("사용자 차단") {
+                        blockAlertPresented = true
                     }
                     Button("취소", role: .cancel) {
                     }
@@ -318,6 +325,22 @@ struct ConversationView: View, KeyboardReadable {
             } else {
                 controller.delete(id: id)
                 presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+    
+    private func block(id: String) {
+        userManager.blockUser(id: id) { error in
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            } else {
+                userManager.getConversations { conversations in
+                    presentationMode.wrappedValue.dismiss()
+                    if let conversations {
+                        self.controller.conversations = conversations.compactMap({
+                            Conversation(conversationInfo: $0) })
+                    }
+                }
             }
         }
     }

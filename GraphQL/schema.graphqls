@@ -692,6 +692,7 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   updateUser(id: ID!, data: UserUpdateInput!): User!
   tempDeleteUserResolver(id: ID!): User!
+  blockUser(id: ID!): Boolean!
 }
 
 type Query {

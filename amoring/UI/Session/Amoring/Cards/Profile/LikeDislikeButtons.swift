@@ -12,6 +12,7 @@ struct LikeDisLikeButtons: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var amoringController: AmoringController
     @EnvironmentObject var notificationController: NotificationController
+    @State var reportAlertPresented = false
     @Binding var swipeAction: SwipeAction
     @Binding var showAlert: Bool
     let profile: ProfileInfo
@@ -55,7 +56,9 @@ struct LikeDisLikeButtons: View {
                     }
                 }
                 if amoringController.showDetails {
-                    Button(action: report) {
+                    Button(action: {
+                        self.reportAlertPresented = true
+                    }) {
                         Text("신고하기")
                             .font(regular16Font)
                             .foregroundColor(.yellow300)
@@ -68,6 +71,9 @@ struct LikeDisLikeButtons: View {
                             )
                     }
                     .frame(height: 40)
+                    .alertPatched(isPresented: $reportAlertPresented) {
+                        Alert(title: Text("신고하기"), message: Text("해당 사용자를 부적절한 콘텐츠 등의 이유로 신고합니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("보내기"), action: report))
+                    }
                 }
             }
             .padding(.horizontal, Size.w(44 + 22))

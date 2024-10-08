@@ -746,9 +746,6 @@
         }
       }
     },
-    "Report this user" : {
-
-    },
     "Sign Up" : {
       "localizations" : {
         "en" : {
@@ -1582,6 +1579,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blur your photos in when using Lounge, photos will be unblurred after matching."
+          }
+        }
+      }
+    },
+    "사용자 차단" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block user"
+          }
+        }
+      }
+    },
+    "사용자를 차단하면 더 이상 연락이 불가합니다, 차단하시겠습니까?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocking the user will prevent any further contact, are you sure you want to block this user?"
           }
         }
       }
@@ -2564,6 +2583,17 @@
     },
     "한달에" : {
 
+    },
+    "해당 사용자를 부적절한 콘텐츠 등의 이유로 신고합니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report this user for reasons such as inappropriate contents."
+          }
+        }
+      }
     },
     "확인" : {
       "localizations" : {
