@@ -782,10 +782,11 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
             }
     }
     
-    func tempDeleteUserResolver(completion: @escaping (String?) -> Void) {
+    func deleteMyAccount(completion: @escaping (String?) -> Void) {
         if let user {
         self.isLoading = true
-            api.perform(mutation: TempDeleteUserResolverMutation(id: user.id)) { result in
+            api.perform(mutation: DeleteMyAccountMutation()) { result in
+//            api.perform(mutation: TempDeleteUserResolverMutation(id: user.id)) { result in
                 self.isLoading = false
                 switch result {
                 case .success(let value):
@@ -795,7 +796,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                         return
                     }
                     
-                    guard let _ = value.data?.tempDeleteUserResolver else {
+                    guard let _ = value.data?.deleteMyAccount else {
                         completion("something went wrong")
                         return
                     }

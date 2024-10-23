@@ -226,7 +226,7 @@ struct AccountView: View {
                                 .alert("계정 삭제", isPresented: $deleteAlertPresented, actions: {
                                     // TODO: backend. implement account deletion
                                     Button("삭제", role: .destructive, action: {
-                                        sessionManager.tempDeleteUserResolver { error in
+                                        sessionManager.deleteMyAccount { error in
                                             if let error {
                                                 notificationController.setNotification(text: error, type: .error)
                                             } else {

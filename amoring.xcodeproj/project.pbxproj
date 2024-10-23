@@ -73,8 +73,9 @@
 		2BA117B82CA3AB070021CB34 /* NotificationsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA117B72CA3AB070021CB34 /* NotificationsControl.swift */; };
 		2BA117BA2CACE8BD0021CB34 /* EmailSignInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */; };
 		2BA117BC2CAEFF3E0021CB34 /* MutationReportUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */; };
-		2BA117C02CB01A6F0021CB34 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117BF2CB01A6F0021CB34 /* schema.graphqls */; };
 		2BA117C22CB01AE60021CB34 /* BlockUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117C12CB01AE60021CB34 /* BlockUser.graphql */; };
+		2BE8B0842CC8C00400128C6B /* MutationDeleteMyAccount.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */; };
+		2BE8B0862CC8C06A00128C6B /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BE8B0852CC8C06A00128C6B /* schema.graphqls */; };
 		2BF1AFA12C9D893200A6C077 /* PrivateModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
 		2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */; };
@@ -425,8 +426,9 @@
 		2BA117B72CA3AB070021CB34 /* NotificationsControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsControl.swift; sourceTree = "<group>"; };
 		2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInSheet.swift; sourceTree = "<group>"; };
 		2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReportUser.graphql; sourceTree = "<group>"; };
-		2BA117BF2CB01A6F0021CB34 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2BA117C12CB01AE60021CB34 /* BlockUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockUser.graphql; sourceTree = "<group>"; };
+		2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyAccount.graphql; sourceTree = "<group>"; };
+		2BE8B0852CC8C06A00128C6B /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateModeView.swift; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthPhone.swift; sourceTree = "<group>"; };
@@ -1106,7 +1108,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2BA117BF2CB01A6F0021CB34 /* schema.graphqls */,
+				2BE8B0852CC8C06A00128C6B /* schema.graphqls */,
 				2B2049852B96D05500E633E3 /* MessageFragment.graphql */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
@@ -1175,6 +1177,7 @@
 				85D28E442C647914008D5F15 /* MutationUseActiveCoupon.graphql */,
 				2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */,
 				2BA117C12CB01AE60021CB34 /* BlockUser.graphql */,
+				2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1433,6 +1436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BE8B0862CC8C06A00128C6B /* schema.graphqls in Resources */,
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */,
@@ -1445,7 +1449,6 @@
 				850BE9CC2B63204500EC8EAB /* MutationUploadBusinessRegistrationFile.graphql in Resources */,
 				2B2049842B95ED2800E633E3 /* ConversationFragment.graphql in Resources */,
 				2B2049942B9989A000E633E3 /* SubscriptionNotification.graphql in Resources */,
-				2BA117C02CB01A6F0021CB34 /* schema.graphqls in Resources */,
 				8538D5682B5759FD0040E017 /* MutationUpsertMyBusiness.graphql in Resources */,
 				2B2049862B96D05500E633E3 /* MessageFragment.graphql in Resources */,
 				85891C1A2C5CCD2B0039380F /* MutationStartPhoneNumberVerification.graphql in Resources */,
@@ -1473,6 +1476,7 @@
 				8538D53D2B50B20E0040E017 /* MutationUploadMyProfileImages.graphql in Resources */,
 				855013492B72181B00D9D568 /* MutationDeleteAllBusinessHoursResolver.graphql in Resources */,
 				2B364C1A2C169F2700BBE82B /* QueryBusinessTypes.graphql in Resources */,
+				2BE8B0842CC8C00400128C6B /* MutationDeleteMyAccount.graphql in Resources */,
 				8538D57A2B57A5AE0040E017 /* QueryBusinesses.graphql in Resources */,
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
 				2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */,
