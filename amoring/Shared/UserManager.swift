@@ -1676,6 +1676,7 @@ class UserManager: ObservableObject {
         DispatchQueue.main.async {
             withAnimation {
                 print("purchase...")
+                
                 if let likesCredit = user?.likesCredit {
                     self.user?.likesCredit = likesCredit
                 }
