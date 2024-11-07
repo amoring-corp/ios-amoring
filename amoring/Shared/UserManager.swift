@@ -831,6 +831,10 @@ class UserManager: ObservableObject {
                 print(data.createCheckInByToken?.id as Any)
                 
                 self.isLoading = false
+                // TODO: Need tests
+                self.newCheckinSubscription { success in
+                    self.getVisibleProfiles()
+                }
                 completion(nil, data.createCheckInByToken?.business?.fragments.businessInfo, data.createCheckInByToken?.id)
                 
             case .failure(let error):
@@ -927,7 +931,7 @@ class UserManager: ObservableObject {
                 }
                 
                 print("Successfully checked out from active!")
-                
+                self.newCheckinSubscription?.cancel()
                 self.isLoading = false
                 
                 completion(nil)
@@ -1639,6 +1643,10 @@ class UserManager: ObservableObject {
                             self.purchasedIDs.append(transaction.productID)
                             self.createPurchase(transactionId: String(transaction.id)) { error, user in
                                 self.onPurchaseSuccess(user: user)
+                                
+                                Task {
+                                    await transaction.finish()
+                                }
                                 self.isLoading = false
                                 completion(error)
                             }
