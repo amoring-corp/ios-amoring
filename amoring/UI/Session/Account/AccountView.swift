@@ -140,7 +140,7 @@ struct AccountView: View {
                                 
                                 if hiddenAvailable {
                                     if !userManager.invisiblePassEnabled() {
-                                        MenuLineButton(title: "프로필 투명모드",
+                                        MenuLineButton(title: "내 프로필 안보이게 하기",
                                                        subtitle: "구매하기",
                                                        fontColor: Color.gray600,
                                                        subFontColor: Color.gray300)
@@ -148,7 +148,7 @@ struct AccountView: View {
                                             userManager.openPurchase(purchaseType: .transparent)
                                         }
                                     } else {
-                                        MenuLineLink(title: "프로필 투명모드",
+                                        MenuLineLink(title: "내 프로필 안보이게 하기",
                                                      subtitle: ((userManager.user?.invisiblePassExpiredAt ?? Date()) - Date()).toExpiredTime(),
                                                      subFontColor: Color.yellow350) {
                                             PrivateModeView()
@@ -160,11 +160,11 @@ struct AccountView: View {
                                 
                                 if listAvailable {
                                     if userManager.visibleReactionsPassEnabled() {
-                                        MenuLineLink(title: "리스트 보기", subtitle: ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime(), subFontColor: Color.yellow350) {
+                                        MenuLineLink(title: "나를 좋아한 사람 보기", subtitle: ((userManager.user?.visibleReactionsPassExpiredAt ?? Date()) - Date()).toExpiredTime(), subFontColor: Color.yellow350) {
                                             PeopleLikesView()
                                         }
                                     } else {
-                                        MenuLineButton(title: "리스트 보기",
+                                        MenuLineButton(title: "나를 좋아한 사람 보기",
                                                        subtitle: "구매하기",
                                                        fontColor: Color.gray600,
                                                        subFontColor: Color.gray300)

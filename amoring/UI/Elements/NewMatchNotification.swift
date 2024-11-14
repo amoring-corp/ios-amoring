@@ -120,7 +120,7 @@ struct NewMatchNotification: View {
                         .padding(.top, Size.w(30))
                         .padding(.bottom, Size.w(16))
                     
-                    Text("서로가 ‘좋아요'를 통해 연결되었어요.\n먼저 메시지를 보내서 인사를 건내 보세요!")
+                    Text("서로가 ‘좋아요'를 통해 연결되었어요.\n먼저 메시지를 보내서 인사를 건네 보세요!")
                         .font(regular16Font)
                         .foregroundColor(animation ? .gray100 : .black)
                         .lineSpacing(6)

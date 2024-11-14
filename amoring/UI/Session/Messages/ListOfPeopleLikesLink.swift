@@ -75,7 +75,7 @@ struct ListOfPeopleLikesLink: View {
                         ZStack {
                             HStack {
                                 Image(systemName: "heart.fill")
-                                Text("리스트 보기")
+                                Text("나를 좋아한 사람 보기")
                             }
                             .font(semiBold12Font)
                             .foregroundColor(.yellow200)

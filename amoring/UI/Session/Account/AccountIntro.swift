@@ -114,12 +114,12 @@ struct AccountIntro: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("교육")
+                            Text("학력")
                                 .font(regular16Font)
                                 .foregroundColor(.gray200)
                                 .padding(.leading, Size.w(14))
                             
-                            CustomTextField(placeholder: "예: 고등학교, 대학교, 서강대학사, ... ", text: $education ?? "", font: regular18Font)
+                            CustomTextField(placeholder: "예: 아모링대학교", text: $education ?? "", font: regular18Font)
                                 .onChange(of: education, perform: { newValue in
                                     if let newValue {
                                         if(newValue.count >= 20){

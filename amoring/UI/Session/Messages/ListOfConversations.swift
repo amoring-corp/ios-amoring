@@ -59,6 +59,8 @@ struct ListOfConversations: View {
                                 Button(action: {
                                     alertPresented = true
                                 }) {
+                                    // TODO: 매치 취소하기
+//                                    Text("매치 취소하기")
                                     Text("삭제")
                                 }
                             }

@@ -908,6 +908,7 @@
 
     },
     "교육" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -962,6 +963,9 @@
         }
       }
     },
+    "나를 좋아한 사람 보기" : {
+
+    },
     "남성" : {
       "localizations" : {
         "en" : {
@@ -1014,6 +1018,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "My Profile"
+          }
+        }
+      }
+    },
+    "내 프로필 안보이게 하기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide my profile"
           }
         }
       }
@@ -1249,6 +1264,7 @@
       }
     },
     "리스트 보기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1317,6 +1333,9 @@
 
     },
     "매장을 홍보하세요" : {
+
+    },
+    "매치 취소하기" : {
 
     },
     "먼저, 회원님의 원활한 서비스 이용을 위해\n인증할 휴대폰의 전화번호를 입력해주세요." : {
@@ -1676,6 +1695,18 @@
       }
     },
     "서로가 ‘좋아요'를 통해 연결되었어요.\n먼저 메시지를 보내서 인사를 건내 보세요!" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Both of you liked each other.\nSend a message to start chatting!"
+          }
+        }
+      }
+    },
+    "서로가 ‘좋아요'를 통해 연결되었어요.\n먼저 메시지를 보내서 인사를 건네 보세요!" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2580,6 +2611,23 @@
     },
     "플랜과 청구내역" : {
 
+    },
+    "학력" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Education"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "학력"
+          }
+        }
+      }
     },
     "한달에" : {
 
