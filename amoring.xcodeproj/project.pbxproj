@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0180EF2CF0E88100F01623 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2B0180EE2CF0E88100F01623 /* schema.graphqls */; };
+		2B0180F12CF0E8D500F01623 /* MutationConnectUserDevice.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B0180F02CF0E8D500F01623 /* MutationConnectUserDevice.graphql */; };
 		2B09F68E2C0DF86800112140 /* BusinessTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09F68D2C0DF86800112140 /* BusinessTypeModel.swift */; };
 		2B16C2652BA1CA5B005B5D6B /* ScenePhaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */; };
 		2B1A224C2BA848D600FA352D /* QueryReactions.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2B1A224B2BA848D600FA352D /* QueryReactions.graphql */; };
@@ -74,8 +76,9 @@
 		2BA117BA2CACE8BD0021CB34 /* EmailSignInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */; };
 		2BA117BC2CAEFF3E0021CB34 /* MutationReportUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */; };
 		2BA117C22CB01AE60021CB34 /* BlockUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117C12CB01AE60021CB34 /* BlockUser.graphql */; };
+		2BAC5E072CF03DFA00BB4680 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2BAC5E062CF03DFA00BB4680 /* FirebaseMessaging */; };
+		2BAC5E0B2CF041A700BB4680 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BAC5E0A2CF041A700BB4680 /* GoogleService-Info.plist */; };
 		2BE8B0842CC8C00400128C6B /* MutationDeleteMyAccount.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */; };
-		2BE8B0862CC8C06A00128C6B /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BE8B0852CC8C06A00128C6B /* schema.graphqls */; };
 		2BF1AFA12C9D893200A6C077 /* PrivateModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
 		2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */; };
@@ -317,6 +320,8 @@
 
 /* Begin PBXFileReference section */
 		0F57E3CE86B8450235723444 /* Pods-amoringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.release.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B0180EE2CF0E88100F01623 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		2B0180F02CF0E8D500F01623 /* MutationConnectUserDevice.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationConnectUserDevice.graphql; sourceTree = "<group>"; };
 		2B09F68D2C0DF86800112140 /* BusinessTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypeModel.swift; sourceTree = "<group>"; };
 		2B16C25F2BA06D14005B5D6B /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSMobileClientXCF.xcframework; path = "../Downloads/aws-sdk-ios-carthage.framework/AWSMobileClientXCF.xcframework"; sourceTree = "<group>"; };
 		2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePhaseHelper.swift; sourceTree = "<group>"; };
@@ -427,8 +432,8 @@
 		2BA117B92CACE8BD0021CB34 /* EmailSignInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInSheet.swift; sourceTree = "<group>"; };
 		2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReportUser.graphql; sourceTree = "<group>"; };
 		2BA117C12CB01AE60021CB34 /* BlockUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockUser.graphql; sourceTree = "<group>"; };
+		2BAC5E0A2CF041A700BB4680 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyAccount.graphql; sourceTree = "<group>"; };
-		2BE8B0852CC8C06A00128C6B /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateModeView.swift; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthPhone.swift; sourceTree = "<group>"; };
@@ -646,6 +651,7 @@
 				8523BAD42B4CDF560099CDE4 /* AmoringAPI in Frameworks */,
 				85D0DED12B352AE90029DA5D /* GoogleSignInSwift in Frameworks */,
 				2B2049D52B99C8BF00E633E3 /* AWSCognitoIdentityProvider.xcframework in Frameworks */,
+				2BAC5E072CF03DFA00BB4680 /* FirebaseMessaging in Frameworks */,
 				85806C512B22F90E0077D12C /* Apollo in Frameworks */,
 				2B364C1F2C1890EE00BBE82B /* StoreKit.framework in Frameworks */,
 				2B2049DB2B99C8BF00E633E3 /* AWSSNS.xcframework in Frameworks */,
@@ -834,6 +840,7 @@
 				85D0DEDA2B3564530029DA5D /* TestView.swift */,
 				851AF8F52B3E8D3B005A8DEB /* Launch Screen .storyboard */,
 				850976642C7C1D490033C614 /* PrivacyInfo.xcprivacy */,
+				2BAC5E0A2CF041A700BB4680 /* GoogleService-Info.plist */,
 			);
 			path = amoring;
 			sourceTree = "<group>";
@@ -1108,7 +1115,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2BE8B0852CC8C06A00128C6B /* schema.graphqls */,
+				2B0180EE2CF0E88100F01623 /* schema.graphqls */,
 				2B2049852B96D05500E633E3 /* MessageFragment.graphql */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
@@ -1178,6 +1185,7 @@
 				2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */,
 				2BA117C12CB01AE60021CB34 /* BlockUser.graphql */,
 				2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */,
+				2B0180F02CF0E8D500F01623 /* MutationConnectUserDevice.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1335,6 +1343,7 @@
 				8523BAD32B4CDF560099CDE4 /* AmoringAPI */,
 				8538D5632B56B2380040E017 /* QRCode */,
 				2B2049952B998BEB00E633E3 /* ApolloWebSocket */,
+				2BAC5E062CF03DFA00BB4680 /* FirebaseMessaging */,
 			);
 			productName = amoring;
 			productReference = 850A2FD92B0AE54B003B12B7 /* Amoring.app */;
@@ -1404,11 +1413,12 @@
 			};
 			buildConfigurationList = 850A2FD42B0AE54B003B12B7 /* Build configuration list for PBXProject "amoring" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = ko;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
 				ko,
+				en,
 			);
 			mainGroup = 850A2FD02B0AE54B003B12B7;
 			packageReferences = (
@@ -1419,6 +1429,7 @@
 				85D0DED22B3534840029DA5D /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				8523BACC2B4CD1050099CDE4 /* XCLocalSwiftPackageReference "AmoringAPI" */,
 				8538D5622B56B1E50040E017 /* XCRemoteSwiftPackageReference "QRCode" */,
+				2BAC5E052CF03DFA00BB4680 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 850A2FDA2B0AE54B003B12B7 /* Products */;
 			projectDirPath = "";
@@ -1436,7 +1447,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BE8B0862CC8C06A00128C6B /* schema.graphqls in Resources */,
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */,
@@ -1468,6 +1478,7 @@
 				850A30222B0AEF41003B12B7 /* Pretendard-Light.ttf in Resources */,
 				8550134F2B734AF300D9D568 /* MutationValidateMyPassword.graphql in Resources */,
 				2B2FAD962B804C97009CB2C6 /* MutationUpdateCheckInStatus.graphql in Resources */,
+				2B0180F12CF0E8D500F01623 /* MutationConnectUserDevice.graphql in Resources */,
 				85891C1C2C5CCD840039380F /* MutationVerifyPhoneNumber.graphql in Resources */,
 				855207D22BB174C5004F8245 /* MutationDisconnectUserDevice.graphql in Resources */,
 				85769E2F2B707DD00064005D /* MutationDeleteBusinessHours.graphql in Resources */,
@@ -1481,6 +1492,7 @@
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
 				2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */,
 				85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */,
+				2B0180EF2CF0E88100F01623 /* schema.graphqls in Resources */,
 				2B2049742B9072EF00E633E3 /* MutationSendMessage.graphql in Resources */,
 				8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */,
 				85F190412B5F90EE00FA7686 /* MutationDisconnectInterestsFromMyProfile.graphql in Resources */,
@@ -1489,6 +1501,7 @@
 				2B20497E2B95A45D00E633E3 /* UserFragment.graphql in Resources */,
 				8538D55D2B5685A00040E017 /* QueryInterestCategories.graphql in Resources */,
 				850A2FE52B0AE54D003B12B7 /* Preview Assets.xcassets in Resources */,
+				2BAC5E0B2CF041A700BB4680 /* GoogleService-Info.plist in Resources */,
 				2B3FD46E2BD7975F0090BA9D /* MutationRedeemUserPasswordResetToken.graphql in Resources */,
 				2B6A7D4F2BC5253A0038E48E /* QueryVisibleProfiles.graphql in Resources */,
 				85D28E452C647914008D5F15 /* MutationUseActiveCoupon.graphql in Resources */,
@@ -2197,6 +2210,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2BAC5E052CF03DFA00BB4680 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.5.0;
+			};
+		};
 		8522A5EE2B2AC912008AF703 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
@@ -2252,6 +2273,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 85FC20AF2B0EC38000DC1950 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;
+		};
+		2BAC5E062CF03DFA00BB4680 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BAC5E052CF03DFA00BB4680 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		8522A5EF2B2AC912008AF703 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

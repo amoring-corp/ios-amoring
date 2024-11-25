@@ -1,3 +1,8 @@
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
 type ActiveCoupon {
   id: String!
   userId: String!
@@ -645,6 +650,7 @@ type Mutation {
   deleteConversation(id: ID!): Conversation!
   reportConversation(id: ID!): Conversation!
   useActiveCoupon(id: String!): ActiveCoupon
+  connectUserDevice(deviceToken: String!, deviceOs: String): UserDevice
   upsertUserDevice(
     deviceToken: String!
     deviceEndpointArn: String!

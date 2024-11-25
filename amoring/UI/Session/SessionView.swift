@@ -18,6 +18,7 @@ struct SessionFlow: View {
     @StateObject var amoringController = AmoringController()
     
     @State var selectedIndex: Int = 1
+    @AppStorage("deviceTokenForSNS") var deviceToken: String?
     
     var body: some View {
         ZStack {
@@ -72,6 +73,11 @@ struct SessionFlow: View {
             userManager.getBusinessDistricts()
             /// sets current business types from DB
             userManager.getBusinessTypes()
+            if let deviceToken = deviceToken {
+                sessionManager.connectUserDevice(deviceToken: deviceToken) { error in
+                    print(error)
+                }
+            }
         }
     }
 }

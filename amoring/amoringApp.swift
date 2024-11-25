@@ -21,7 +21,7 @@ struct amoringApp: App {
     init() {
 //        KakaoSDK.initSDK(appKey: "0489ce9b77b8476eeebcc7461a9b3166")
 //        naverSDKinit()
-        notificationController.registerForPushNotifications()
+//        notificationController.registerForPushNotifications()
     }
     
     // Naver SDK Initializing

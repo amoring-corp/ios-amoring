@@ -102,10 +102,16 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     print("Current User: \(authUser.id)")
                     print("email: \(authUser.fragments.userInfo.email)")
                     self.user = authUser.fragments.userInfo
-                    if self.shouldSendNotifications {
-                        self.recreateEndPoint()
-                    }
                     
+                    if self.shouldSendNotifications && authUser.fragments.userInfo.business == nil {
+//                        self.recreateEndPoint()
+                        if let token = self.deviceToken {
+                            self.upsertUserDevice(deviceToken: token) { error in
+                                print("Error? : \(error)")
+                            }
+                        }
+                    }
+//                    806c7f0f24d74f0286b46c7e4c7117357a6318e70f5e53c413df50a847f1ec2b9fc2dfc2ebad65e1805047dbbf458670b2c24ad49c0af9d0577821703186e5f58da108fe8e656e6c44328a12d7055538
                     self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
                     completion(true, "")
                 case .failure(let error):
@@ -190,7 +196,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
-                self.setupAWSSNSService()
+//                self.setupAWSSNSService()
                 self.lastProvider = .apple
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
@@ -250,7 +256,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
-                self.setupAWSSNSService()
+//                self.setupAWSSNSService()
                 self.lastProvider = .google
                 self.sessionToken = sessionToken
                 self.getCurrentSession(delay: 0) { success, error in
@@ -338,7 +344,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 
                 if let sessionToken = value.data?.signIn.sessionToken {
                     print(sessionToken)
-                    self.setupAWSSNSService()
+//                    self.setupAWSSNSService()
                     self.sessionToken = sessionToken
                     self.lastProvider = .none
                     self.userEmail = email
@@ -610,58 +616,90 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @AppStorage("deviceTokenForSNS") var deviceToken: String?
     @AppStorage("endpointArnForSNS") var endpointArnForSNS: String?
     @AppStorage("shouldSendNotifications") var shouldSendNotifications = true
-    func setupAWSSNSService() {
-        createEndPoint { error in
-            guard error != nil else { return }
-            self.recreateEndPoint()
-        }
-    }
+//    func setupAWSSNSService() {
+//        createEndPoint { error in
+//            guard error != nil else { return }
+//            self.recreateEndPoint()
+//        }
+//    }
     
-    func createEndPoint(completion: @escaping (Error?) -> Void) {
-        /// Create a platform endpoint. In this case,  the endpoint is a
-        /// device endpoint ARN
-        if let deviceToken, let user {
-            let sns = AWSSNS.default()
-            let request = AWSSNSCreatePlatformEndpointInput()
-            request?.token = deviceToken
-            request?.attributes = ["UserId": user.id]
-            request?.platformApplicationArn = SNSPlatformApplicationArn
-            sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
-                if task.error != nil {
-                    print("Error: \(String(describing: task.error))")
-                    completion(task.error)
-                } else {
-                    let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-
-                    if let endpointArnForSNS = createEndpointResponse.endpointArn {
-                        print("endpointArn: \(endpointArnForSNS)")
-                        self.endpointArnForSNS = endpointArnForSNS
-                        self.upsertUserDevice(deviceToken: deviceToken) { error in
-                        }
-                    }
-                    completion(nil)
-                }
-                return nil
-            })
-        } else {
-            completion(nil)
-        }
-    }
+//    func createEndPoint(completion: @escaping (Error?) -> Void) {
+//        /// Create a platform endpoint. In this case,  the endpoint is a
+//        /// device endpoint ARN
+//        if let deviceToken, let user {
+//            let sns = AWSSNS.default()
+//            let request = AWSSNSCreatePlatformEndpointInput()
+//            request?.token = deviceToken
+//            request?.attributes = ["UserId": user.id]
+//            request?.platformApplicationArn = SNSPlatformApplicationArn
+//            sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
+//                if task.error != nil {
+//                    print("Error: \(String(describing: task.error))")
+//                    completion(task.error)
+//                } else {
+//                    let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
+//
+//                    if let endpointArnForSNS = createEndpointResponse.endpointArn {
+//                        print("endpointArn: \(endpointArnForSNS)")
+//                        self.endpointArnForSNS = endpointArnForSNS
+//                        self.upsertUserDevice(deviceToken: deviceToken) { error in
+//                        }
+//                    }
+//                    completion(nil)
+//                }
+//                return nil
+//            })
+//        } else {
+//            completion(nil)
+//        }
+//    }
     /// Delete a platform endpoint. In this case,  the endpoint is a
     /// device endpoint ARN
     func deleteEndPoint(completion: @escaping (Error?) -> Void) {
-        let sns = AWSSNS.default()
-        let deleteRequest = AWSSNSDeleteEndpointInput()
-        deleteRequest?.endpointArn = self.endpointArnForSNS
-        sns.deleteEndpoint(deleteRequest!) { response in
-            completion(response)
-            
-        }
+//        let sns = AWSSNS.default()
+//        let deleteRequest = AWSSNSDeleteEndpointInput()
+//        deleteRequest?.endpointArn = self.endpointArnForSNS
+//        sns.deleteEndpoint(deleteRequest!) { response in
+//            completion(response)
+//        }
     }
     func recreateEndPoint() {
-        deleteEndPoint { response in
-            print("deleteEndpoint response: \(response?.localizedDescription)")
-            self.createEndPoint { _ in  }
+//        deleteEndPoint { response in
+//            print("deleteEndpoint response: \(response?.localizedDescription)")
+//            self.createEndPoint { _ in  }
+//        }
+    }
+    
+    func connectUserDevice(deviceToken: String, deviceOs: String? = nil, completion: @escaping (String?) -> Void) {
+        self.isLoading = true
+        
+        api.perform(mutation: ConnectUserDeviceMutation(deviceToken: deviceToken, deviceOs: GraphQLNullable<String>.some(UIDevice.current.systemVersion))) { result in
+            switch result {
+            case .success(let value):
+                guard value.errors == nil else {
+                    print(value.errors as Any)
+                    self.isLoading = false
+                    completion(value.errors?.first?.localizedDescription)
+                    return
+                }
+                
+                guard let data = value.data else {
+                    print("NO DATA!")
+                    self.isLoading = false
+                    completion("Oops! Something went wrong")
+                    return
+                }
+                
+                print("Device token successfully was sent!")
+                
+                self.isLoading = false
+                
+                completion(nil)
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+                completion(error.localizedDescription)
+            }
         }
     }
     
@@ -685,7 +723,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                print("Device token successfully was sent!")
+                print("Device token \(deviceToken) was sent!")
                 
                 self.isLoading = false
                 

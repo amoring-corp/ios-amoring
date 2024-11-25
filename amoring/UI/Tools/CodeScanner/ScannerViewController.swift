@@ -290,7 +290,7 @@ extension CodeScannerView {
         }
       
         private func setupCaptureDevice() {
-            captureSession = AVCaptureSession()
+                captureSession = AVCaptureSession()
 
             guard let videoCaptureDevice = parentView.videoCaptureDevice ?? fallbackVideoCaptureDevice else {
                 return

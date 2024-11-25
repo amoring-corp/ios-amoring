@@ -1,0 +1,7 @@
+mutation ConnectUserDevice($deviceToken: String!, $deviceOs: String)  {
+  connectUserDevice(deviceToken: $deviceToken, deviceOs: $deviceOs) {
+    id
+    deviceToken
+    deviceOs
+  }
+}
