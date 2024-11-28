@@ -50,7 +50,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     @Published var isLoading: Bool = false
 
-    @AppStorage("sessionToken") var sessionToken: String = ""
+    @AppStorage("sessionToken") var sessionToken: String = UserDefaults.standard.string(forKey: "sessionToken") ?? ""
     @AppStorage("lastProvider") var lastProvider: lastProvider = .google
     @AppStorage("businessEmail") var businessEmail: String = ""
     @AppStorage("userEmail") var userEmail: String = ""
