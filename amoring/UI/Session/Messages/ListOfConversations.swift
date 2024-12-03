@@ -206,10 +206,14 @@ struct ChatRow: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-            .background(Color.gray100.opacity(0.01))
+            .contentShape(Rectangle())
             .onTapGesture {
-                controller.selectedConversation = conversation
-                controller.goToConversation = true
+//                print("on tap")
+                DispatchQueue.main.async {
+                    controller.selectedConversation = conversation
+                    controller.goToConversation = true
+                }
+//                print("on tap 2")
             }
             .background(
                 NavigationLink(isActive: $controller.goToConversation, destination: {
