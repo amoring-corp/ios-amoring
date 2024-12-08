@@ -1031,6 +1031,12 @@
             "state" : "translated",
             "value" : "Hide my profile"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내 프로필 안보이게 하기"
+          }
         }
       }
     },

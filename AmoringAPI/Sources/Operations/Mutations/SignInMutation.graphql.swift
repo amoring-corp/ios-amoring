@@ -7,7 +7,8 @@ public class SignInMutation: GraphQLMutation {
   public static let operationName: String = "signIn"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation signIn($email: String!, $password: String!) { signIn(email: $email, password: $password) { __typename sessionToken user { __typename id email status role createdAt updatedAt } } }"#
+      #"mutation signIn($email: String!, $password: String!) { signIn(email: $email, password: $password) { __typename sessionToken user { __typename ...UserInfo } } }"#,
+      fragments: [ActiveCouponFragment.self, BusinessHoursInfo.self, BusinessInfo.self, CheckInInfo.self, CouponFragment.self, ImageFragment.self, ProfileInfo.self, UserInfo.self]
     ))
 
   public var email: String
@@ -67,20 +68,39 @@ public class SignInMutation: GraphQLMutation {
         public static var __parentType: any ApolloAPI.ParentType { AmoringAPI.Objects.User }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
-          .field("id", AmoringAPI.ID.self),
-          .field("email", String?.self),
-          .field("status", GraphQLEnum<AmoringAPI.UserStatus>?.self),
-          .field("role", GraphQLEnum<AmoringAPI.UserRole>?.self),
-          .field("createdAt", AmoringAPI.DateTime?.self),
-          .field("updatedAt", AmoringAPI.DateTime?.self),
+          .fragment(UserInfo.self),
         ] }
 
         public var id: AmoringAPI.ID { __data["id"] }
         public var email: String? { __data["email"] }
         public var status: GraphQLEnum<AmoringAPI.UserStatus>? { __data["status"] }
         public var role: GraphQLEnum<AmoringAPI.UserRole>? { __data["role"] }
+        public var profile: Profile? { __data["profile"] }
+        public var business: Business? { __data["business"] }
         public var createdAt: AmoringAPI.DateTime? { __data["createdAt"] }
         public var updatedAt: AmoringAPI.DateTime? { __data["updatedAt"] }
+        public var usedLikesCount: Int { __data["usedLikesCount"] }
+        public var maxLikes: Int { __data["maxLikes"] }
+        public var likesCredit: Int? { __data["likesCredit"] }
+        public var loungePassExpiredAt: AmoringAPI.DateTime? { __data["loungePassExpiredAt"] }
+        public var invisiblePassExpiredAt: AmoringAPI.DateTime? { __data["invisiblePassExpiredAt"] }
+        public var visibleReactionsPassExpiredAt: AmoringAPI.DateTime? { __data["visibleReactionsPassExpiredAt"] }
+        public var isPhoneNumberVerified: Bool? { __data["isPhoneNumberVerified"] }
+        public var isEmailVerified: Bool? { __data["isEmailVerified"] }
+        public var activeCoupons: [ActiveCoupon?]? { __data["activeCoupons"] }
+
+        public struct Fragments: FragmentContainer {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public var userInfo: UserInfo { _toFragment() }
+        }
+
+        public typealias Profile = UserInfo.Profile
+
+        public typealias Business = UserInfo.Business
+
+        public typealias ActiveCoupon = UserInfo.ActiveCoupon
       }
     }
   }

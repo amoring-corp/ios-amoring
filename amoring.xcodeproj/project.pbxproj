@@ -83,6 +83,7 @@
 		2BF3DEA82C4BB0FB008D3D0D /* PhoneAuthOtp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA72C4BB0FB008D3D0D /* PhoneAuthOtp.swift */; };
 		2BF3DEAA2C4BB84B008D3D0D /* PhoneAuthSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA92C4BB84B008D3D0D /* PhoneAuthSuccess.swift */; };
 		2BF570232BD8B60400587960 /* PurchaseProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF570222BD8B60400587960 /* PurchaseProducts.swift */; };
+		2BF7B29D2CFF07710027FC12 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF7B29C2CFF07710027FC12 /* API.swift */; };
 		7A5F3C92A27BDD1BDFC25AB1 /* Pods_amoring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36E9464CB26CE4E393883EFE /* Pods_amoring.framework */; };
 		85064AEF2B292EA80074E45A /* ViewHeightKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AEE2B292EA80074E45A /* ViewHeightKey.swift */; };
 		85064AF12B292ECF0074E45A /* LikeDislikeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85064AF02B292ECF0074E45A /* LikeDislikeButtons.swift */; };
@@ -436,6 +437,7 @@
 		2BF3DEA72C4BB0FB008D3D0D /* PhoneAuthOtp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthOtp.swift; sourceTree = "<group>"; };
 		2BF3DEA92C4BB84B008D3D0D /* PhoneAuthSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthSuccess.swift; sourceTree = "<group>"; };
 		2BF570222BD8B60400587960 /* PurchaseProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseProducts.swift; sourceTree = "<group>"; };
+		2BF7B29C2CFF07710027FC12 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		36E9464CB26CE4E393883EFE /* Pods_amoring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amoring_amoringUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B55E939A2DECAE94F00BABA /* Pods-amoring-amoringUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring-amoringUITests.debug.xcconfig"; path = "Target Support Files/Pods-amoring-amoringUITests/Pods-amoring-amoringUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -877,6 +879,7 @@
 				8538D5402B50B4CA0040E017 /* ImageHelper.swift */,
 				2B16C2642BA1CA5B005B5D6B /* ScenePhaseHelper.swift */,
 				2B650B2F2BDA466200066DC0 /* LocationManager.swift */,
+				2BF7B29C2CFF07710027FC12 /* API.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1727,6 +1730,7 @@
 				85FB6B8F2B44ED210023A889 /* UserOnboardingIntro.swift in Sources */,
 				855EC98D2B9EAA2200679394 /* Conversation.swift in Sources */,
 				850A302B2B0B0D62003B12B7 /* NavigatorView.swift in Sources */,
+				2BF7B29D2CFF07710027FC12 /* API.swift in Sources */,
 				85B583C82C3BB09900D9EEC2 /* AccountPhotoSettings.swift in Sources */,
 				8538D5472B50C5F20040E017 /* BusinessOnboardingController.swift in Sources */,
 				8538D52D2B4E3FA80040E017 /* BusinessOnboardingView.swift in Sources */,
@@ -1989,7 +1993,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
@@ -2037,7 +2041,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;

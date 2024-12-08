@@ -15,8 +15,8 @@ import StoreKit
 class UserManager: ObservableObject {
     @Published var userState: UserState = .initial
     let authUser: UserInfo
-    @Published var api: ApolloClient
-    @Published var WSApi: ApolloClient
+//    @Published var api: ApolloClient
+//    @Published var WSApi: ApolloClient
     @Published var user: MutatingUser? = nil
 
     @Published var isLoading: Bool = false
@@ -32,15 +32,15 @@ class UserManager: ObservableObject {
     @Published var total: Int = 0
     @Published var includeNearby: Bool = false
     
-    init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
+    init(authUser: UserInfo) {
         /// unsubscripe all subscriptions . [case : business login]
 //        self.messageSubscription?.cancel()
 //        self.reactionSubscription?.cancel()
 //        self.conversationSubscription?.cancel()
-
+        
         self.authUser = authUser
-        self.api = api
-        self.WSApi = WSApi
+//        self.api = api
+//        self.WSApi = WSApi
         self.user = MutatingUser(userInfo: authUser)
         
         guard let role = authUser.role else {
@@ -88,6 +88,8 @@ class UserManager: ObservableObject {
         }
     }
     
+    let api = ApolloManager.shared.client
+    
     private func setCurrentPhotos() {
         guard let images = self.user?.profile?.images else { return }
         if self.pictures.map({ $0.url }).sorted() == images.map({ $0.file?.url ?? "" }).sorted() {
@@ -98,8 +100,10 @@ class UserManager: ObservableObject {
             let urlString = image.file?.url ?? ""
             guard let url = URL(string: urlString) else { return }
             let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            let image = UIImage(data: data!)
-            self.pictures.append(PictureModel.newPicture(image!, urlString))
+            if let data {
+                let image = UIImage(data: data)
+                self.pictures.append(PictureModel.newPicture(image!, urlString))
+            }
         }
     }
     
@@ -1245,7 +1249,7 @@ class UserManager: ObservableObject {
     }
     
     func newCheckinSubscription(completion: @escaping (Bool) -> Void) {
-        self.newCheckinSubscription = WSApi.subscribe(subscription: NewCheckinSubscription()) { result in
+        self.newCheckinSubscription = api.subscribe(subscription: NewCheckinSubscription()) { result in
             print("New checkin listening")
             guard let data = try? result.get().data else { return }
             if let id = data.checkIn?.fragments.checkInInfo.profileId {
@@ -1259,7 +1263,7 @@ class UserManager: ObservableObject {
     }
     
     func messageSubscription(completion: @escaping (MessageInfo?) -> Void) {
-        self.messageSubscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
+        self.messageSubscription = api.subscribe(subscription: MessageSentSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let message = data.messageSent?.fragments.messageInfo {
                 print("New message: \(message.body)")
@@ -1272,7 +1276,7 @@ class UserManager: ObservableObject {
     }
         
     func reactionSubscription(completion: @escaping (ReactionInfo?) -> Void) {
-        self.reactionSubscription = WSApi.subscribe(subscription: ReactionAddedSubscription()) { result in
+        self.reactionSubscription = api.subscribe(subscription: ReactionAddedSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let reaction = data.reactionAdded?.fragments.reactionInfo {
                 print("received reaction by: \(reaction.byProfileId)")
@@ -1286,7 +1290,7 @@ class UserManager: ObservableObject {
     }
     
     func conversationSubscription(completion: @escaping (String?, String?) -> Void) {
-        self.conversationSubscription = WSApi.subscribe(subscription: ConversationDeletedSubscription()) { result in
+        self.conversationSubscription = api.subscribe(subscription: ConversationDeletedSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let id = data.conversationDeleted?.id, let deletedBy = data.conversationDeleted?.deletedBy?.profile?.fragments.profileInfo.name {
                 print("received conversation deleted: \(id)")

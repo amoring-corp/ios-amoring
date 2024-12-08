@@ -2,12 +2,7 @@ mutation signIn($email: String!, $password: String!) {
   signIn(email: $email, password: $password) {
     sessionToken
     user {
-      id
-      email
-      status
-      role
-      createdAt
-      updatedAt
+      ... UserInfo
     }
   }
 }

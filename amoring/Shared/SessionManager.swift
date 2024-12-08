@@ -18,32 +18,32 @@ import NaverThirdPartyLogin
 import ApolloWebSocket
 import AWSSNS
 
-func initApi(token: String) -> ApolloClient {
-    return {
-        let url = URL(string: "\(Constants.domain)/graphql")!
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"] // Add your headers here
-        
-        let client = URLSessionClient(sessionConfiguration: configuration)
-        let store = ApolloStore(cache: InMemoryNormalizedCache())
-        let provider = DefaultInterceptorProvider(client: client, store: store)
-        let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
-        
-        return ApolloClient(networkTransport: networkTransport, store: store)
-    }()
-}
-
-func initWSApi(token: String) -> ApolloClient {
-    return {
-        let url = URL(string: "wss://api.amoring.info/graphql")!
-        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
-          let authPayload: JSONEncodableDictionary = ["Authorization": "Bearer \(token)"]
-          let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
-          let WSTransport = WebSocketTransport(websocket: webSocketClient, config: config)
-        let store = ApolloStore(cache: InMemoryNormalizedCache())
-        return ApolloClient(networkTransport: WSTransport, store: store)
-    }()
-}
+//func initApi(token: String) -> ApolloClient {
+//    return {
+//        let url = URL(string: "\(Constants.domain)/graphql")!
+//        let configuration = URLSessionConfiguration.default
+//        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"] // Add your headers here
+//        
+//        let client = URLSessionClient(sessionConfiguration: configuration)
+//        let store = ApolloStore(cache: InMemoryNormalizedCache())
+//        let provider = DefaultInterceptorProvider(client: client, store: store)
+//        let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
+//        
+//        return ApolloClient(networkTransport: networkTransport, store: store)
+//    }()
+//}
+//
+//func initWSApi(token: String) -> ApolloClient {
+//    return {
+//        let url = URL(string: "wss://api.amoring.info/graphql")!
+//        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
+//          let authPayload: JSONEncodableDictionary = ["Authorization": "Bearer \(token)"]
+//          let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
+//          let WSTransport = WebSocketTransport(websocket: webSocketClient, config: config)
+//        let store = ApolloStore(cache: InMemoryNormalizedCache())
+//        return ApolloClient(networkTransport: WSTransport, store: store)
+//    }()
+//}
 
 class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
     @Published var appState: AppState = .initializing
@@ -62,17 +62,20 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @Published var verificationToken: String = ""
     @Published var user: UserInfo? = nil
 
-    @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
-    @Published var wsApi: ApolloClient = initWSApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+//    @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+//    @Published var wsApi: ApolloClient = initWSApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+    let api = ApolloManager.shared.client
     
     func getCurrentSession(delay: Double = 1.5, completion: @escaping (Bool, String) -> Void) {
-        self.api = initApi(token: self.sessionToken)
-        self.wsApi = initWSApi(token: self.sessionToken)
+//        self.api = initApi(token: self.sessionToken)
+//        self.wsApi = initWSApi(token: self.sessionToken)
         
         self.appState = .initializing
+        print("getting session .... ")
+        
         api.fetch(query: QueryAuthenticatedUserQuery()) { result in
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                print("getting session .... ")
+                print("getting session .... inside query")
                 
                 switch result {
                 case .success(let value):
@@ -92,9 +95,10 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     
                     guard let authUser = data.authenticatedUser else {
                         print("NO USER")
+                        print(data)
                         print(self.sessionToken)
                         self.changeStateWithAnimation(state: .auth)
-                        completion(true, "")
+                        completion(false, "token: \(self.sessionToken), desc: \(data.debugDescription)" )
                         return
                     }
                     
@@ -107,7 +111,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     }
                     
                     self.changeStateWithAnimation(state: .session(user: authUser.fragments.userInfo))
-                    completion(true, "")
+                    completion(true, authUser.fragments.userInfo.profile?.debugDescription ?? authUser.fragments.userInfo.business.debugDescription)
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
                     self.changeStateWithAnimation(state: .auth)
@@ -180,7 +184,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                guard data.signInWithApple.user != nil else {
+                guard let user = data.signInWithApple.user?.fragments.userInfo else {
                     print("NO USER!")
                     completion(false, "No user")
                     return
@@ -192,11 +196,13 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 //MARK: Move it if we need pushes for business account
                 self.setupAWSSNSService()
                 self.lastProvider = .apple
-                self.sessionToken = sessionToken
-                self.getCurrentSession(delay: 0) { success, error in
-                        completion(success, error)
-                }
-//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+                ApolloManager.shared.updateToken(newToken: sessionToken)
+//                self.sessionToken = sessionToken
+//                self.getCurrentSession(delay: 0) { success, error in
+//                        completion(success, error)
+//                }
+                self.changeStateWithAnimation(state: .session(user: user))
+                completion(true, "")
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
@@ -240,23 +246,26 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                guard data.signInWithGoogle.user != nil else {
+                guard let user = data.signInWithGoogle.user else {
                     print("NO USER!")
                     completion(false, "No user")
                     return
                 }
                 
-                print(sessionToken)
+                print("token from google: \(sessionToken)")
                 
                 /// setting push notification
                 //MARK: Move it if we need pushes for business account
                 self.setupAWSSNSService()
                 self.lastProvider = .google
+                ApolloManager.shared.updateToken(newToken: sessionToken)
                 self.sessionToken = sessionToken
-                self.getCurrentSession(delay: 0) { success, error in
-                        completion(success, error)
-                }
-//                self.changeStateWithAnimation(state: .session(user: User(id: authUser.id).from(authUser)))
+                
+//                self.getCurrentSession(delay: 0) { success, error in
+//                    completion(success, error)
+//                }
+                self.changeStateWithAnimation(state: .session(user: user.fragments.userInfo))
+                completion(true, "")
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
@@ -336,15 +345,17 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                if let sessionToken = value.data?.signIn.sessionToken {
-                    print(sessionToken)
+                if let user = value.data?.signIn.user?.fragments.userInfo, let sessionToken = value.data?.signIn.sessionToken {
+                    print(user.email)
                     self.setupAWSSNSService()
-                    self.sessionToken = sessionToken
+//                    self.sessionToken = sessionToken
+                    ApolloManager.shared.updateToken(newToken: sessionToken)
                     self.lastProvider = .none
                     self.userEmail = email
-                    self.getCurrentSession(delay: 0) { success, error in
-                            completion(success, error)
-                    }
+//                    self.getCurrentSession(delay: 0) { success, error in
+//                            completion(success, error)
+//                    }
+                    self.changeStateWithAnimation(state: .session(user: user))
                     completion(true, "")
                 } else {
                     print("Wrong data!")
@@ -370,14 +381,16 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                     return
                 }
                 
-                if let sessionToken = value.data?.signIn.sessionToken {
+                if let sessionToken = value.data?.signIn.sessionToken, let user = value.data?.signIn.user?.fragments.userInfo {
                     print(sessionToken)
-                    self.sessionToken = sessionToken
+//                    self.sessionToken = sessionToken
+                    ApolloManager.shared.updateToken(newToken: sessionToken)
                     self.businessEmail = self.rememberEmail ? email : ""
                     self.lastProvider = .none
-                    self.getCurrentSession(delay: 0) { success, error in
-                            completion(success, error)
-                    }
+//                    self.getCurrentSession(delay: 0) { success, error in
+//                            completion(success, error)
+//                    }
+                    self.changeStateWithAnimation(state: .session(user: user))
                     completion(true, "")
                 } else {
                     print("Wrong data!")
@@ -599,6 +612,8 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 self.disconnectUserDevice()
             }
             self.sessionToken = ""
+            self.user = nil
+            ApolloManager.shared.updateToken(newToken: "")
             self.changeStateWithAnimation(state: .auth)
             print("Successfully signed out")
         }

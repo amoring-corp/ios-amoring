@@ -18,9 +18,9 @@ struct AccountView: View {
     @State private var deleteAlertPresented = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
-                Color.gray1000.frame(width: .infinity, height: 1)
+//                Color.gray1000.frame(width: .infinity, height: 1)
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
                         let url = userManager.user?.profile?.images.first?.file?.url ?? ""
@@ -245,7 +245,7 @@ struct AccountView: View {
                     }
                     .padding(.horizontal, Size.w(22))
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity)
                 
                 //            .navigationBarTitleDisplayMode(.inline)
                 //            .navigationBarItems(trailing: Text("").foregroundColor(.gray1000))
