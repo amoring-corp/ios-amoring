@@ -87,6 +87,19 @@ struct SwipibleProfileVIew: View {
                     self.heightPadding = bool ? Size.w(75) : Size.w(131)
                 }
             }
+            .contentShape(Rectangle())
+//            .highPriorityGesture(
+//                TapGesture().onEnded {
+//                    withAnimation {
+//                        amoringController.hidePanel.toggle()
+//                    }
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                        withAnimation(.smooth) {
+//                            amoringController.showDetails.toggle()
+//                        }
+//                    }
+//                }
+//            )
             .onTapGesture {
                 withAnimation {
                     amoringController.hidePanel.toggle()
