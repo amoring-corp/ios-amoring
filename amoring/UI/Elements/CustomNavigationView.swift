@@ -37,7 +37,10 @@ struct CustomNavigationView: View {
                 .opacity(offset / CGFloat(100))
             }
             
-            dividerColor.frame(width: .infinity, height: 1).opacity(offset / CGFloat(100))
+            dividerColor
+                .frame(maxWidth: .infinity)
+                .frame(height: 1)
+                .opacity(offset / CGFloat(100))
         }
         .background(bg)
         .frame(maxWidth: .infinity)
@@ -73,7 +76,10 @@ struct CustomNavigationViewLogout: View {
                 .frame(height: 44)
                 .opacity(offset / CGFloat(100))
             }
-            Color.yellow200.frame(width: .infinity, height: 1).opacity(offset / CGFloat(100))
+            Color.yellow200
+                .frame(maxWidth: .infinity)
+                .frame(height: 1)
+                .opacity(offset / CGFloat(100))
         }
         .background(Color.yellow300)
         .frame(maxWidth: .infinity)

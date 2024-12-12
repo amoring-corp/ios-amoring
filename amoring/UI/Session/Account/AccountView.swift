@@ -20,11 +20,14 @@ struct AccountView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                Color.gray1000.frame(width: .infinity, height: 1)
+                Color.gray1000
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 1)
+                
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
-                        let url = userManager.user?.profile?.images.first?.file?.url ?? ""
-                        
+                        let url = userManager.user?.profile?.avatarUrl ?? ""
+
                         CachedAsyncImage(url: URL(string: url), content: { cont in
                             cont
                                 .resizable()

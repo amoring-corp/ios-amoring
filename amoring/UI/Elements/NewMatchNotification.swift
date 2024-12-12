@@ -100,7 +100,8 @@ struct NewMatchNotification: View {
                         .overlay(
                             Ellipse()
                                 .stroke(Color.yellow900)
-                                .frame(width: .infinity, height: Size.w(64))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: Size.w(64))
                                 .padding(.horizontal, Size.w(22))
                                 .offset(y: Size.w(32))
                             , alignment: .bottom
