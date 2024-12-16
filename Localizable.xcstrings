@@ -965,7 +965,14 @@
       }
     },
     "나를 좋아한 사람 보기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View likes"
+          }
+        }
+      }
     },
     "남성" : {
       "localizations" : {
@@ -1336,6 +1343,39 @@
     "매장을 홍보하세요" : {
 
     },
+    "매치 취소" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "매치 취소하기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel Match"
+          }
+        }
+      }
+    },
+    "매치를 취소하면 서로 연락하거나 프로필을 확인 할 수 없습니다. 매치를 취소 하시겠습니까?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you delete a chat, you will be unable to contact each other or see the other user's profile.\nWould you like to delete this chat?"
+          }
+        }
+      }
+    },
     "먼저, 회원님의 원활한 서비스 이용을 위해\n인증할 휴대폰의 전화번호를 입력해주세요." : {
       "localizations" : {
         "en" : {
@@ -1569,6 +1609,9 @@
       }
     },
     "비즈니스 멤버십" : {
+
+    },
+    "비즈니스 플랜" : {
 
     },
     "비지니스 계정 확인이 아직 진행 중 입니다.\n\n연락처:\n\ncontact@amoring.info" : {
@@ -1984,7 +2027,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "e.g. student, office worker, etc."
+            "value" : "e.g. Amoring Uni"
           }
         }
       }
@@ -2025,6 +2068,9 @@
       }
     },
     "완료" : {
+
+    },
+    "원활한 서비스를 위해서는\n다음과 같은 이용 절차가 필요합니다." : {
 
     },
     "월 청구 비용" : {
@@ -2214,9 +2260,6 @@
       }
     },
     "인증완료" : {
-
-    },
-    "인증정보" : {
 
     },
     "인증코드 발송 전에\n이메일 주소가 틀리지 않았는지 확인해주세요." : {

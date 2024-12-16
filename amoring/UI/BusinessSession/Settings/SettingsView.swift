@@ -90,7 +90,7 @@ struct SettingsView: View {
                             BusinessSettingsImages()
                         }
                         Color.yellow350.frame(maxWidth: .infinity).frame(height: 1)
-                        MenuLineLink(title: "인증정보", color: Color.yellow900, isBusinessSession: true) {
+                        MenuLineLink(title: "상세정보", color: Color.yellow900, isBusinessSession: true) {
                             BusinessSettingsCertification()
                         }
                     }

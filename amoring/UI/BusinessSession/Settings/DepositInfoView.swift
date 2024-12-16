@@ -54,12 +54,12 @@ struct DepositInfoView: View {
             .padding(.top, Size.w(25))
             .padding(.bottom, Size.w(23))
             
-            Text("비즈니스 멤버십")
+            Text("비즈니스 플랜")
                 .font(bold28Font)
                 .foregroundColor(.gray150)
                 .padding(.bottom, Size.w(10))
             
-            Text("라운지 확장을 위해서는\n비즈니스 멤버십 구독이 필요합니다.")
+            Text("원활한 서비스를 위해서는\n다음과 같은 이용 절차가 필요합니다.")
                 .font(medium14Font)
                 .foregroundColor(.gray600)
                 .multilineTextAlignment(.center)

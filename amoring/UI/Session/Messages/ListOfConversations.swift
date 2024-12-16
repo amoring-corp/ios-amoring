@@ -50,7 +50,7 @@ struct ListOfConversations: View {
                 .padding(.bottom, bottomSpacing)
             } else {
                 List {
-                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date() }, id: \.self.id) { conversation in
+                    ForEach(controller.conversations.filter { $0.archivedAt ?? Date() > Date() }.sorted(by: { $0.createdAt ?? Date() > $1.createdAt ?? Date() }), id: \.self.id) { conversation in
                         ChatRow(conversation: conversation)
                             
                             .listRowInsets(EdgeInsets())
@@ -60,14 +60,14 @@ struct ListOfConversations: View {
                                     alertPresented = true
                                 }) {
                                     // TODO: 매치 취소하기
-//                                    Text("매치 취소하기")
-                                    Text("삭제")
+                                    Text("매치 취소")
+//                                    Text("삭제")
                                 }
                             }
                             .alertPatched(isPresented: $alertPresented) {
                                 Alert(
-                                    title: Text("메시지 삭제하기"),
-                                    message: Text("메시지를 삭제하면 서로 연락하거나 프로필을 확인 할 수 없습니다.\n메시지를 삭제 하시겠습니까?"),
+                                    title: Text("매치 취소하기"),
+                                    message: Text("매치를 취소하면 서로 연락하거나 프로필을 확인 할 수 없습니다. 매치를 취소 하시겠습니까?"),
                                     primaryButton: .destructive(Text("삭제"), action: { delete(id: conversation.id) }),
                                     secondaryButton: .cancel(Text("취소")))
                             }

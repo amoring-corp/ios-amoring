@@ -99,7 +99,10 @@ struct ProfilesView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(.gray1000)
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear(perform: getProfiles)
+        .onAppear(perform: initialize)
+        .onDisappear(perform: {
+            userManager.newCheckinSubscription?.cancel()
+        })
     }
     
     private func refresh() {
@@ -115,6 +118,12 @@ struct ProfilesView: View {
                 self.getProfiles()
             }
             amoringController.checkIn = activeCheckIn
+        }
+    }
+    
+    private func initialize() {
+        userManager.newCheckinSubscription { success in
+            self.getProfiles()
         }
     }
     
@@ -207,9 +216,9 @@ struct ProfilesView: View {
 //        //        onSwiped(profile, hasLiked)
 //    }
     
-    private func removeTopItem() {
-        userManager.profiles.removeLast()
-    }
+//    private func removeTopItem() {
+//        userManager.profiles.removeLast()
+//    }
 }
 
 //#Preview {
