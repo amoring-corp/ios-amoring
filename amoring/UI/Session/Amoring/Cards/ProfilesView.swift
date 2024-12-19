@@ -100,9 +100,9 @@ struct ProfilesView: View {
         .background(.gray1000)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: initialize)
-        .onDisappear(perform: {
-            userManager.newCheckinSubscription?.cancel()
-        })
+//        .onDisappear(perform: {
+//            userManager.newCheckinSubscription?.cancel()
+//        })
     }
     
     private func refresh() {
@@ -122,9 +122,9 @@ struct ProfilesView: View {
     }
     
     private func initialize() {
-        userManager.newCheckinSubscription { success in
+//        userManager.newCheckinSubscription { success in
             self.getProfiles()
-        }
+//        }
     }
     
     private func getProfiles() {
