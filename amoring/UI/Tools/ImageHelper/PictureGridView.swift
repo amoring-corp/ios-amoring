@@ -68,11 +68,12 @@ struct PictureGridView: View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
                 getCellView(cell: cells[0], number: 1)
-                    .layoutPriority(1)
+//                    .layoutPriority(1)
                 VStack(spacing: 0) {
                     getCellView(cell: cells[1], number: 2)
                     getCellView(cell: cells[2], number: 3)
                 }
+                .layoutPriority(0)
             }
             HStack(spacing: 0) {
                 getCellView(cell: cells[3], number: 4)

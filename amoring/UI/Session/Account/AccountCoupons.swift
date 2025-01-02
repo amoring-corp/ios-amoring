@@ -55,6 +55,7 @@ struct AccountCoupons: View {
         }
             .background(Color.gray1000)
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("쿠폰함")

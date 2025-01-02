@@ -31,7 +31,7 @@ struct AddedImageView: View {
                 .clipShape(Circle())
                 .padding(Size.w(10))
         }
-        .frame(minWidth: Size.w(106))
+        .frame(minWidth: Size.w(106), minHeight: Size.w(106))
         .padding(Size.w(8))
         .opacity(isTapped ? 0.5 : 1)
         .scaleEffect(isTapped ? 0.9 : 1)

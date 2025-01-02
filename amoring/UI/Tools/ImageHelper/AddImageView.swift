@@ -26,7 +26,8 @@ struct AddImageView: View {
                 .clipShape(Circle())
                 .padding(Size.w(10))
         }
-        .frame(minWidth: Size.w(106))
+        .frame(minWidth: Size.w(106), minHeight: Size.w(106))
+//        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay(
             Image(systemName: "plus")
                 .font(bold24Font)
