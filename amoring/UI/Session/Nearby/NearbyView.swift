@@ -14,45 +14,40 @@ struct NearbyView: View {
     @EnvironmentObject var navigationController: NavigationController
     @StateObject var filter = NearbyFilterController()
     @StateObject var locationManager = LocationManager()
-    @State var scrollOffset: CGFloat = 0
+//    @State var scrollOffset: CGFloat = 0
     
     var body: some View {
-        ZStack {
-            if locationManager.locationStatus == .authorizedAlways || locationManager.locationStatus == .authorizedWhenInUse {
-                NavigationView {
-                    TrackableScrollView(contentOffset: $scrollOffset) {
-//                        Text("location status: \(locationManager.statusString)")
-//                        Text("\(locationManager.lastLocation?.coordinate.latitude ?? 0), \(locationManager.lastLocation?.coordinate.longitude ?? 0)")
-                        DistrictsView()
-                            .environmentObject(locationManager)
+        NavigationView {
+            ZStack {
+                if locationManager.locationStatus == .authorizedAlways || locationManager.locationStatus == .authorizedWhenInUse {
+                    //                    TrackableScrollView(contentOffset: $scrollOffset) {
+                    ScrollView {
+                            
+                            //                        Text("location status: \(locationManager.statusString)")
+                            //                        Text("\(locationManager.lastLocation?.coordinate.latitude ?? 0), \(locationManager.lastLocation?.coordinate.longitude ?? 0)")
+                            DistrictsView()
+                                .environmentObject(locationManager)
+                            
+                            BusinessListView()
+                                .environmentObject(locationManager)
                         
-                        BusinessListView(scrollOffset: $scrollOffset)
-                            .environmentObject(locationManager)
-                        
+                       
+                       
                     }
-//                    .frame(maxWidth: .infinity)
+                    .coordinateSpace(name: "scroll")
                     .background(Color.gray1000)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text("AMORING")
-                                .font(bold20Font)
-                                .foregroundColor(.yellow300)
-                        }
-                    }
-//                    .navigationBarItems(
-//                        trailing: Button(action: {
-                            //                showInfo.toggle()
-//                        }) {
-//                            Image("ic-info")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: Size.w(32), height: Size.w(32))
-//                        }
-//                    )
+                } else {
+                    LocationAccessScreen().environmentObject(locationManager)
                 }
-            } else {
-                LocationAccessScreen().environmentObject(locationManager)
+            }
+            
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("AMORING")
+                        .font(bold20Font)
+                        .foregroundColor(.yellow300)
+                }
             }
         }
         .environmentObject(filter)
@@ -121,7 +116,7 @@ struct BusinessListView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var locationManager: LocationManager
     @EnvironmentObject var filter: NearbyFilterController
-    @Binding var scrollOffset: CGFloat
+    @State var scrollOffset: CGFloat = 0
     
     var body: some View {
         LazyVStack(alignment: .center, spacing: 0, pinnedViews: [.sectionHeaders]) {
@@ -130,106 +125,108 @@ struct BusinessListView: View {
                 .padding(.bottom, Size.w(15))
                 .opacity(CGFloat(1) - (scrollOffset / Size.w(200)))
             
-            Section(header:
-                        VStack {
-                Divider()
-                
-                HStack(alignment: .center) {
-                    if scrollOffset > Size.w(200) {
-                        count
-                    }
-                    
-                    Spacer()
-                    
-                    Menu {
-                        Picker(selection: $filter.businessType, label: EmptyView()) {
-                            ForEach(userManager.businessTypes, id: \.self) {
-                                Text(NSLocalizedString($0.name ?? "", comment: ""))
-                                    .font(regular16Font)
-                                    .foregroundColor(.yellow300)
-                            }
-                        }
-                        .onChange(of: filter.businessType) { type in
-                            action() { }
-                        }
-                    } label: {
-                        HStack {
-                            Text(NSLocalizedString(filter.businessType.name ?? "", comment: ""))
-                                .font(regular16Font)
-                            Image(systemName: "chevron.down")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: Size.w(8))
-                        }
-                        .frame(minWidth: Size.w(60), alignment: .trailing)
-                        .foregroundColor(.yellow300)
-//                        .onAppear {
-//                            withAnimation {
-//                                if let firstType = userManager.businessTypes.first {
-//                                    self.type = firstType
-//                                }
+            Section(
+                header:
+                    VStack {
+                        Divider()
+                        
+                        HStack(alignment: .center) {
+//                            if scrollOffset > Size.w(200) {
+//                                count
 //                            }
-//                        }
-                    }
-                    .padding(.trailing, Size.w(12))
-                    
-                    Divider().frame(height: Size.w(24))
-                    
-                    Menu {
-                        Picker(selection: $filter.sorting, label: EmptyView()) {
-                            ForEach(businessSorting.allCases, id: \.self) {
-                                Text(NSLocalizedString($0.title(), comment: ""))
-                                    .font(regular16Font)
-                                    .foregroundColor(.yellow300)
+                            
+                            Spacer()
+                            
+                            Menu {
+                                Picker(selection: $filter.businessType, label: EmptyView()) {
+                                    ForEach(userManager.businessTypes, id: \.self) {
+                                        Text(NSLocalizedString($0.name ?? "", comment: ""))
+                                            .font(regular16Font)
+                                            .foregroundColor(.yellow300)
+                                    }
+                                }
+                                .onChange(of: filter.businessType) { type in
+                                    action() { }
+                                }
+                            } label: {
+                                HStack {
+                                    Text(NSLocalizedString(filter.businessType.name ?? "", comment: ""))
+                                        .font(regular16Font)
+                                    Image(systemName: "chevron.down")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: Size.w(8))
+                                }
+                                .frame(minWidth: Size.w(60), alignment: .trailing)
+                                .foregroundColor(.yellow300)
+                                //                        .onAppear {
+                                //                            withAnimation {
+                                //                                if let firstType = userManager.businessTypes.first {
+                                //                                    self.type = firstType
+                                //                                }
+                                //                            }
+                                //                        }
                             }
+                            .padding(.trailing, Size.w(12))
+                            
+                            Divider().frame(height: Size.w(24))
+                            
+                            Menu {
+                                Picker(selection: $filter.sorting, label: EmptyView()) {
+                                    ForEach(businessSorting.allCases, id: \.self) {
+                                        Text(NSLocalizedString($0.title(), comment: ""))
+                                            .font(regular16Font)
+                                            .foregroundColor(.yellow300)
+                                    }
+                                }
+                                .onChange(of: filter.sorting) { sort in
+                                    action() { }
+                                }
+                            } label: {
+                                HStack {
+                                    Text(NSLocalizedString(filter.sorting.title(), comment: ""))
+                                        .font(regular16Font)
+                                    Image(systemName: "chevron.down")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: Size.w(8))
+                                }
+                                .frame(minWidth: Size.w(60), alignment: .leading)
+                                .foregroundColor(.yellow300)
+                            }
+                            .padding(.leading, Size.w(12))
                         }
-                        .onChange(of: filter.sorting) { sort in
-                            action() { }
-                        }
-                    } label: {
-                        HStack {
-                            Text(NSLocalizedString(filter.sorting.title(), comment: ""))
-                                .font(regular16Font)
-                            Image(systemName: "chevron.down")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: Size.w(8))
-                        }
-                        .frame(minWidth: Size.w(60), alignment: .leading)
-                        .foregroundColor(.yellow300)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, Size.w(22))
+                        .padding(.vertical, Size.w(10))
+                        
+                        Divider()
+                            .opacity(scrollOffset / Size.w(200))
+                        
                     }
-                    .padding(.leading, Size.w(12))
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, Size.w(22))
-                .padding(.vertical, Size.w(10))
+                    .background(Color.gray1000)
                 
-                Divider()
-                    .opacity(scrollOffset / Size.w(200))
-                
-            }
-                .background(Color.gray1000)
-                    
             ) {
                 // TODO: Implement pagination here!
-//                ForEach(0..<21) { num in
-//                    Text(num.description)
-//                        .font(.title)
-//                        .padding()
-//                        .onAppear {
-//                            if num >= fetchCount {
-//                                self.fetchCount += fetchCount
-//                                userManager.isLoading = true
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                                    userManager.getBusinesses(take: 1, skip: 0) {
-//                                        userManager.isLoading = false
-//                                    }
-//                                }
-//                            }
-//                            print(num)
-//                        }
-//                }
+                //                ForEach(0..<21) { num in
+                //                    Text(num.description)
+                //                        .font(.title)
+                //                        .padding()
+                //                        .onAppear {
+                //                            if num >= fetchCount {
+                //                                self.fetchCount += fetchCount
+                //                                userManager.isLoading = true
+                //                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                //                                    userManager.getBusinesses(take: 1, skip: 0) {
+                //                                        userManager.isLoading = false
+                //                                    }
+                //                                }
+                //                            }
+                //                            print(num)
+                //                        }
+                //                }
                 
+                //                ForEach(userManager.businesses, id: \.self) { business in
                 ForEach(Array(userManager.businesses.enumerated()), id: \.offset) { index, business in
                     NavigationLink(destination: {
                         BusinessDetailsView(business: Business(businessInfo: business))
@@ -237,15 +234,15 @@ struct BusinessListView: View {
                             .onDisappear(perform: navigationController.showBar)
                     }) {
                         BusinessRow(business: Business(businessInfo: business))
-//                            .onAppear {
-//                                print(index)
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                                    userManager.getBusinesses(take: 100, skip: userManager.businesses.count) {
-//                                        fetchCount += fetchCount
-//                                        userManager.isLoading = false
-//                                    }
-//                                }
-//                            }
+                        //                            .onAppear {
+                        //                                print(index)
+                        //                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        //                                    userManager.getBusinesses(take: 100, skip: userManager.businesses.count) {
+                        //                                        fetchCount += fetchCount
+                        //                                        userManager.isLoading = false
+                        //                                    }
+                        //                                }
+                        //                            }
                     }
                 }
                 if userManager.isLoading {
@@ -254,8 +251,17 @@ struct BusinessListView: View {
             }
             Spacer(minLength: 200)
         }
+        // FIXME: lagging! ! !
+//        .background(GeometryReader {
+//            Color.clear.preference(key: ScrollOffsetKey.self,
+//                                   value: -$0.frame(in: .named("scroll")).origin.y)
+//        })
+//        .onPreferenceChange(ScrollOffsetKey.self) {
+//            self.scrollOffset = $0
+//            print("offset >> \($0)")
+//        }
     }
-
+    
     var count: some View {
         HStack {
             Text("Lounges")
@@ -299,60 +305,60 @@ struct BusinessListView: View {
         }
     }
     
-//    private func filter(newType: businessType? = nil, newDistrict: districtEnum? = nil) {
-//        if let newType {
-//            switch newType {
-//            case .all:
-//                userManager.businesses = userManager.businessesInit
-//            default:
-//                userManager.businesses = userManager.businessesInit.filter { $0.businessCategory == newType.title() }
-//            }
-//            
-//            switch self.district {
-//            case .all:
-//                userManager.businesses = userManager.businesses
-//            case .other:
-//                userManager.businesses = userManager.businesses.filter { biz in
-//                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
-//            default:
-//                userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
-//            }
-//        }
-//        
-//        if let newDistrict {
-//            switch newDistrict {
-//            case .all:
-//                userManager.businesses = userManager.businessesInit
-//            case .other:
-//                userManager.businesses = userManager.businessesInit.filter { biz in
-//                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
-//            default:
-//                userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
-//            }
-//            
-//            switch self.type {
-//            case .all:
-//                userManager.businesses = userManager.businesses
-//            default:
-//                userManager.businesses = userManager.businesses.filter { $0.businessCategory == self.type.title() }
-//            }
-//        }
-//        
-//        sort(sorting: self.sorting)
-//    }
-//    
-//    private func sort(sorting: businessSorting) {
-//        switch sorting {
-//        case .recs:
-//            // TODO: backend. Implement recommendations
-//            userManager.businesses = userManager.businesses.sorted(by: { $0.addressSigungu ?? "" > $1.addressSigungu ?? ""})
-//        case .name:
-//            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
-//        case .distance:
-//            // TODO: backend. Implement distance
-//            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
-//        }
-//    }
+    //    private func filter(newType: businessType? = nil, newDistrict: districtEnum? = nil) {
+    //        if let newType {
+    //            switch newType {
+    //            case .all:
+    //                userManager.businesses = userManager.businessesInit
+    //            default:
+    //                userManager.businesses = userManager.businessesInit.filter { $0.businessCategory == newType.title() }
+    //            }
+    //
+    //            switch self.district {
+    //            case .all:
+    //                userManager.businesses = userManager.businesses
+    //            case .other:
+    //                userManager.businesses = userManager.businesses.filter { biz in
+    //                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+    //            default:
+    //                userManager.businesses = userManager.businesses.filter { $0.addressSigungu == self.district.title() }
+    //            }
+    //        }
+    //
+    //        if let newDistrict {
+    //            switch newDistrict {
+    //            case .all:
+    //                userManager.businesses = userManager.businessesInit
+    //            case .other:
+    //                userManager.businesses = userManager.businessesInit.filter { biz in
+    //                    !districtEnum.allCases.map({ $0.title() }).contains(biz.addressSigungu) }
+    //            default:
+    //                userManager.businesses = userManager.businessesInit.filter { $0.addressSigungu == newDistrict.title() }
+    //            }
+    //
+    //            switch self.type {
+    //            case .all:
+    //                userManager.businesses = userManager.businesses
+    //            default:
+    //                userManager.businesses = userManager.businesses.filter { $0.businessCategory == self.type.title() }
+    //            }
+    //        }
+    //
+    //        sort(sorting: self.sorting)
+    //    }
+    //
+    //    private func sort(sorting: businessSorting) {
+    //        switch sorting {
+    //        case .recs:
+    //            // TODO: backend. Implement recommendations
+    //            userManager.businesses = userManager.businesses.sorted(by: { $0.addressSigungu ?? "" > $1.addressSigungu ?? ""})
+    //        case .name:
+    //            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" < $1.businessName ?? ""})
+    //        case .distance:
+    //            // TODO: backend. Implement distance
+    //            userManager.businesses = userManager.businesses.sorted(by: { $0.businessName ?? "" > $1.businessName ?? ""})
+    //        }
+    //    }
 }
 
 import Kingfisher
@@ -365,29 +371,35 @@ struct BusinessRow: View {
         HStack(alignment: .bottom) {
             let urlString = business.images?.first?.file?.url
             let url = URL(string: urlString ?? "")
-
+            
+            let processor = DownsamplingImageProcessor(size: CGSize(width: 200, height: 200))
+            |> RoundCornerImageProcessor(cornerRadius: 14)
+            
             KFImage.url(url)
                 .resizable()
-                .placeholder {
-                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
-                }
+                .setProcessor(processor)
+            //                .placeholder {
+            //                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+            //                }
                 .fade(duration: 1)
                 .cancelOnDisappear(true)
+                .cacheMemoryOnly()
                 .aspectRatio(contentMode: .fill)
-//            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
-//                cont
-//                    .resizable()
-//                    .scaledToFill()
-//            }, placeholder: {
-//                ZStack {
-//                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
-//                }
-//            })
-            .frame(width: Size.w(90), height: Size.w(90))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-            .overlay(
-                RoundedRectangle(cornerRadius: 14).stroke(Color.gray700)
-            )
+            
+            //            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
+            //                cont
+            //                    .resizable()
+            //                    .scaledToFill()
+            //            }, placeholder: {
+            //                ZStack {
+            //                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+            //                }
+            //            })
+                .frame(width: Size.w(90), height: Size.w(90))
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14).stroke(Color.gray700)
+                )
             
             
             VStack(alignment: .leading, spacing: Size.w(10)) {
@@ -402,37 +414,37 @@ struct BusinessRow: View {
                         Text((business.activeCheckInCount ?? 0).description)
                         Image(systemName: "figure.stand")
                     }
-                        .font(regular16Font)
-                        .foregroundColor(.gray600)
+                    .font(regular16Font)
+                    .foregroundColor(.gray600)
                 }
                 
                 HStack {
                     (Text(LocalizedStringKey(business.businessType?.name ?? "")) + Text("  |  \(business.addressSigungu ?? "no disctrict")"))
                     
                     Spacer()
-                 
+                    
                     if let busLatitude = business.latitude, let busLongitude = business.longitude, let latitude = locationManager.lastLocation?.coordinate.latitude, let longitude = locationManager.lastLocation?.coordinate.longitude {
                         let busCoordinate = CLLocation(latitude: busLatitude, longitude: busLongitude)
                         let myCoordinate = CLLocation(latitude: latitude, longitude: longitude)
                         let distanceInMeters = busCoordinate.distance(from: myCoordinate)
                         let distanceInMetersString = String(format: "%.0f", distanceInMeters)
                         let distanceInKm = String(format: "%.1f", distanceInMeters / 1000)
-
+                        
                         Text(distanceInMeters > 1000 ? "\(distanceInKm) km" : "\(distanceInMetersString) m")
-//                            .onAppear {
-//                                print("bus: \(busLatitude), \(busLongitude)")
-//                                print("my: \(latitude), \(longitude)")
-//                            }
-//                            .onChange(of: locationManager.lastLocation) { a in
-//                                if let latitude = locationManager.lastLocation?.coordinate.latitude, let longitude =
-//                                    locationManager.lastLocation?.coordinate.longitude {
-//                                    let myCoordinate = CLLocation(latitude: latitude, longitude: longitude)
-//                                    let distanceInMeters = busCoordinate.distance(from: myCoordinate)
-//                                    print("abraca")
-//                                    print(distanceInMeters)
-//                                }
-//                            }
-                            
+                        //                            .onAppear {
+                        //                                print("bus: \(busLatitude), \(busLongitude)")
+                        //                                print("my: \(latitude), \(longitude)")
+                        //                            }
+                        //                            .onChange(of: locationManager.lastLocation) { a in
+                        //                                if let latitude = locationManager.lastLocation?.coordinate.latitude, let longitude =
+                        //                                    locationManager.lastLocation?.coordinate.longitude {
+                        //                                    let myCoordinate = CLLocation(latitude: latitude, longitude: longitude)
+                        //                                    let distanceInMeters = busCoordinate.distance(from: myCoordinate)
+                        //                                    print("abraca")
+                        //                                    print(distanceInMeters)
+                        //                                }
+                        //                            }
+                        
                     }
                 }
                 .font(regular16Font)
@@ -506,14 +518,14 @@ struct DistrictChip: View {
             .onTapGesture {
                 if filter.selectedDistrict != district {
                     
-                        withAnimation {
-                            filter.selectedDistrict = district
-                        }
+                    withAnimation {
+                        filter.selectedDistrict = district
+                    }
                     action() {}
                 }
             }
     }
-
+    
     private func action(completion: @escaping () -> Void) {
         let lat = locationManager.lastLocation?.coordinate.latitude
         let lng = locationManager.lastLocation?.coordinate.longitude

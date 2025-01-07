@@ -209,9 +209,6 @@
         }
       }
     },
-    "%lf m" : {
-
-    },
     "%lf, %lf" : {
       "localizations" : {
         "ko" : {
@@ -775,17 +772,6 @@
         }
       }
     },
-    "🎵 라틴" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "🎵 Latin"
-          }
-        }
-      }
-    },
     "🎵 락" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -793,6 +779,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "🎵 Rock"
+          }
+        }
+      }
+    },
+    "🎵 라틴" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Latin"
           }
         }
       }

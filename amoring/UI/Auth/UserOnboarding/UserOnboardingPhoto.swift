@@ -23,92 +23,96 @@ struct UserOnboardingPhoto: View {
     @State private var editIndex: Int? = nil
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("사진을 추가하세요")
-                .font(bold32Font)
-                .foregroundColor(.black)
-                .padding(.horizontal, Size.w(36))
-                .padding(.top, Size.w(56))
-                .padding(.bottom, Size.w(10))
-            
-            Text("프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")
-                .font(regular16Font)
-                .foregroundColor(.black)
-                .padding(.horizontal, Size.w(36))
-                .padding(.bottom, Size.w(40))
-            
-            PictureGridView(pictures: $controller.pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
-                confirmRemoveImageIndex = index
-                showRemoveConfirmation.toggle()
-            }, onAddImageClick: {
-                showContentTypeSheet.toggle()
-            }).padding(.horizontal, Size.w(14))
-            
-            Spacer()
-            
-            Text("사진아래 번호 순서로 노출이 됩니다.")
-                .font(regular16Font)
-                .foregroundColor(.black)
-                .multilineTextAlignment(.trailing)
-                .lineSpacing(5)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal, Size.w(36))
-                .padding(.bottom, Size.w(30))
-            
-            NavigationLink(isActive: $goToStep5, destination: {
-                UserOnboardingIntro()
-            }) {
-                EmptyView()
-            }
-            
-            HStack {
-                Button(action: {
-//                    let images = pictures.map({ $0.picture })
-//                    userManager.deleteMyProfileImage { success in
-//                        userManager.uploadMyProfileImages(images: images) { success in
-//                            if success {
-                                goToStep5 = true
-//                            } else {
-//                                notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
-//                            }
-//                            
-//                        }
-//                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("사진을 추가하세요")
+                    .font(bold32Font)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, Size.w(36))
+//                    .padding(.top, Size.w(56))
+                    .padding(.bottom, Size.w(10))
+                
+                Text("프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")
+                    .font(regular16Font)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, Size.w(36))
+                    .padding(.bottom, Size.w(40))
+                
+                PictureGridView(pictures: $controller.pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
+                    confirmRemoveImageIndex = index
+                    showRemoveConfirmation.toggle()
+                }, onAddImageClick: {
+                    showContentTypeSheet.toggle()
+                }).padding(.horizontal, Size.w(14))
+                
+//                Spacer()
+                
+                Text("사진아래 번호 순서로 노출이 됩니다.")
+                    .font(regular16Font)
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.trailing)
+                    .lineSpacing(5)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.horizontal, Size.w(36))
+                    .padding(.bottom, Size.w(30))
+                
+                NavigationLink(isActive: $goToStep5, destination: {
+                    UserOnboardingIntro()
                 }) {
-                    BlackButton(title: "다음", enabled: controller.pictures.count >= 3, isLoading: userManager.isLoading)
+                    EmptyView()
                 }
-                .disabled(userManager.isLoading)
-                .disabled(controller.pictures.count < 3 || userManager.isLoading)
-                .sheet(isPresented: $showContentTypeSheet) {
-                    ImagePicker(pictures: $controller.pictures, photoIndex: editIndex).ignoresSafeArea()
-                        .onDisappear {
-                            self.editIndex = nil
+                
+                HStack {
+                    Button(action: {
+                        //                    let images = pictures.map({ $0.picture })
+                        //                    userManager.deleteMyProfileImage { success in
+                        //                        userManager.uploadMyProfileImages(images: images) { success in
+                        //                            if success {
+                        goToStep5 = true
+                        //                            } else {
+                        //                                notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
+                        //                            }
+                        //
+                        //                        }
+                        //                    }
+                    }) {
+                        BlackButton(title: "다음", enabled: controller.pictures.count >= 3, isLoading: userManager.isLoading)
+                    }
+                    .disabled(userManager.isLoading)
+                    .disabled(controller.pictures.count < 3 || userManager.isLoading)
+                    .sheet(isPresented: $showContentTypeSheet) {
+                        ImagePicker(pictures: $controller.pictures, photoIndex: editIndex).ignoresSafeArea()
+                            .onDisappear {
+                                self.editIndex = nil
+                            }
+                    }
+                    .actionSheet(isPresented: $showRemoveConfirmation) {
+                        if confirmRemoveImageIndex >= 3 {
+                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                                .default(Text("등록"), action: {
+                                    self.editIndex = confirmRemoveImageIndex
+                                    showContentTypeSheet.toggle()
+                                }),
+                                .destructive(Text("삭제"), action: removePicture),
+                                .cancel()
+                            ])
+                        } else {
+                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                                .default(Text("등록"), action: {
+                                    self.editIndex = confirmRemoveImageIndex
+                                    showContentTypeSheet.toggle()
+                                }),
+                                .cancel()
+                            ])
                         }
-                }
-                .actionSheet(isPresented: $showRemoveConfirmation) {
-                    if confirmRemoveImageIndex >= 3 {
-                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
-                            .default(Text("등록"), action: {
-                                self.editIndex = confirmRemoveImageIndex
-                                showContentTypeSheet.toggle()
-                            }),
-                            .destructive(Text("삭제"), action: removePicture),
-                            .cancel()
-                        ])
-                    } else {
-                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
-                            .default(Text("등록"), action: {
-                                self.editIndex = confirmRemoveImageIndex
-                                showContentTypeSheet.toggle()
-                            }),
-                            .cancel()
-                        ])
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.horizontal, Size.w(22))
+//                .padding(.bottom, Size.w(36))
+                
+                Spacer(minLength: 200)
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.horizontal, Size.w(22))
-            .padding(.bottom, Size.w(36))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.yellow300)
