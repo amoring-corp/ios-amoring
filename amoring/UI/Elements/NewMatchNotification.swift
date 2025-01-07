@@ -7,7 +7,7 @@
 
 import SwiftUI
 import AmoringAPI
-import CachedAsyncImage
+import Kingfisher
 
 struct NewMatchNotification: View {
     @EnvironmentObject var notificationController: NotificationController
@@ -155,15 +155,25 @@ struct NewMatchNotification: View {
                 Circle()
                     .fill(Color.yellow300)
                 
-                CachedAsyncImage(url: URL(string: stringUrl ?? ""), content: { cont in
-                    cont
-                        .resizable()
-                        .scaledToFill()
-                }, placeholder: {
-                    ZStack {
+                let url = URL(string: stringUrl ?? "")
+                KFImage.url(url)
+                    .resizable()
+                    .placeholder {
                         ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                     }
-                })
+                    .fade(duration: 1)
+                    .cancelOnDisappear(true)
+                    .aspectRatio(contentMode: .fill)
+                
+//                CachedAsyncImage(url: URL(string: stringUrl ?? ""), content: { cont in
+//                    cont
+//                        .resizable()
+//                        .scaledToFill()
+//                }, placeholder: {
+//                    ZStack {
+//                        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                    }
+//                })
                 .frame(width: Size.w(86), height: Size.w(86))
                 .clipShape(Circle())
             }

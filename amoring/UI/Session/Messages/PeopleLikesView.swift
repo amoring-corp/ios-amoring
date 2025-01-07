@@ -7,7 +7,7 @@
 
 import SwiftUI
 import AmoringAPI
-import CachedAsyncImage
+import Kingfisher
 
 struct PeopleLikesView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -219,20 +219,30 @@ struct PeopleLikesListObject: View {
         let url = reaction?.byProfile.avatarUrl ?? ""
         
         ZStack(alignment: .bottom) {
-            CachedAsyncImage(url: URL(string: url), content: { image in
-                image
-                    .resizable()
-                    .scaledToFill()
+            let url = URL(string: url)
+            KFImage.url(url)
+                .resizable()
+                .placeholder {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                }
+                .fade(duration: 1)
+                .cancelOnDisappear(true)
+                .aspectRatio(contentMode: .fill)
+            
+//            CachedAsyncImage(url: URL(string: url), content: { image in
+//                image
+//                    .resizable()
+//                    .scaledToFill()
                     .frame(width: width, height: Size.w(220))
                     .blur(radius: enabled ? 0 : 10)
-            }, placeholder: {
-                ZStack {
-                    Color.gray1000
-                    ProgressView().tint(.white)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(minHeight: Size.w(220), alignment: .center)
-            })
+//            }, placeholder: {
+//                ZStack {
+//                    Color.gray1000
+//                    ProgressView().tint(.white)
+//                }
+//                .frame(maxWidth: .infinity)
+//                .frame(minHeight: Size.w(220), alignment: .center)
+//            })
 //            .frame(maxWidth: .infinity)
 //            .frame(minHeight: Size.w(220), alignment: .center)
             

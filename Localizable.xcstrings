@@ -17,6 +17,9 @@
         }
       }
     },
+    "  |  %@" : {
+
+    },
     " *3개의 사진은 꼭 " : {
       "extractionState" : "manual",
       "localizations" : {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import Kingfisher
 import AmoringAPI
 
 struct ExpandedView: View {
@@ -51,16 +51,26 @@ struct ExpandedView: View {
                         VStack(spacing: 0) {
                             Color.gray1000.frame(height: 2).frame(minWidth: UIScreen.main.bounds.width)
                             //                        Color.red.frame(height: 300)
-                            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
-                                cont
-                                    .resizable()
-                                    .scaledToFill()
-                                    .blur(radius: profile.isBlurred ?? false ? 6 : 0)
-                            }, placeholder: {
-                                ZStack {
+                            let url = URL(string: url ?? "")
+
+                            KFImage.url(url)
+                                .resizable()
+                                .placeholder {
                                     ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                                 }
-                            })
+                                .fade(duration: 1)
+                                .cancelOnDisappear(true)
+                                .aspectRatio(contentMode: .fill)
+//                            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
+//                                cont
+//                                    .resizable()
+//                                    .scaledToFill()
+                                    .blur(radius: profile.isBlurred ?? false ? 6 : 0)
+//                            }, placeholder: {
+//                                ZStack {
+//                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                                }
+//                            })
                         }
                     }
                 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import Kingfisher
 
 struct ListOfPeopleLikesLink: View {
     @EnvironmentObject var userManager: UserManager
@@ -30,15 +30,26 @@ struct ListOfPeopleLikesLink: View {
                 HStack {
                     ZStack(alignment: .topLeading) {
                         if let secondImage = secondElement(of: messagesController.reactions)?.byProfile.avatarUrl {
-                            CachedAsyncImage(url: URL(string: secondImage), content: { cont in
-                                cont
-                                    .resizable()
-                                    .scaledToFill()
-                            }, placeholder: {
-                                ZStack {
+                            let url = URL(string: secondImage ?? "")
+
+                            KFImage.url(url)
+                                .resizable()
+                                .placeholder {
                                     ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                                 }
-                            })
+                                .fade(duration: 1)
+                                .cancelOnDisappear(true)
+                                .aspectRatio(contentMode: .fill)
+                            
+//                            CachedAsyncImage(url: URL(string: secondImage), content: { cont in
+//                                cont
+//                                    .resizable()
+//                                    .scaledToFill()
+//                            }, placeholder: {
+//                                ZStack {
+//                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                                }
+//                            })
                                 .blur(radius: listIsEnable ? 0 : 6)
                                 .frame(width: Size.w(73), height: Size.w(98))
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
@@ -55,15 +66,25 @@ struct ListOfPeopleLikesLink: View {
                         }
                         
                         if let firstImage = messagesController.reactions.first?.byProfile.avatarUrl {
-                            CachedAsyncImage(url: URL(string: firstImage), content: { cont in
-                                cont
-                                    .resizable()
-                                    .scaledToFill()
-                            }, placeholder: {
-                                ZStack {
+                            let url = URL(string: firstImage)
+                            KFImage.url(url)
+                                .resizable()
+                                .placeholder {
                                     ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                                 }
-                            })
+                                .fade(duration: 1)
+                                .cancelOnDisappear(true)
+                                .aspectRatio(contentMode: .fill)
+                            
+//                            CachedAsyncImage(url: URL(string: firstImage), content: { cont in
+//                                cont
+//                                    .resizable()
+//                                    .scaledToFill()
+//                            }, placeholder: {
+//                                ZStack {
+//                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                                }
+//                            })
                                 .blur(radius: listIsEnable ? 0 : 6)
                                 .frame(width: Size.w(73), height: Size.w(98))
                                 .clipShape(RoundedRectangle(cornerRadius: 6))

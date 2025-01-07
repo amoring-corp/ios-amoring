@@ -7,7 +7,7 @@
 
 import SwiftUI
 import QRCode
-import CachedAsyncImage
+import Kingfisher
 
 struct BusinessSessionView: View {
     @EnvironmentObject var userManager: UserManager
@@ -199,7 +199,7 @@ struct BusinessSessionView: View {
     }
     
     func fakelist(images: [String], size: CGFloat) -> some View {
-        let inSize = size < 20 ? size : (size - 20)
+//        let inSize = size < 20 ? size : (size - 20)
         return ForEach(0..<images.count, id: \.self) {
             Image(images[$0])
                 .resizable()
@@ -217,12 +217,25 @@ struct BusinessSessionView: View {
     }
     
     func list(images: [String], size: CGFloat) -> some View {
-        let inSize = size < 20 ? size : (size - 20)
+//        let inSize = size < 20 ? size : (size - 20)
         return ForEach(0..<images.count, id: \.self) { index in
-            CachedAsyncImage(url: URL(string: images[index]), content: { cont in
-                cont
-                    .resizable()
-                    .scaledToFill() .blur(radius: 6)
+            let urlString = images[index]
+
+            let url = URL(string: urlString)
+            KFImage.url(url)
+                .resizable()
+                .placeholder {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                }
+                .fade(duration: 1)
+                .cancelOnDisappear(true)
+                .aspectRatio(contentMode: .fill)
+            
+//            CachedAsyncImage(url: URL(string: images[index]), content: { cont in
+//                cont
+//                    .resizable()
+//                    .scaledToFill()
+                    .blur(radius: 6)
                     .frame(width: 90, height: 120)
                     .background(Color.gray)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
@@ -230,11 +243,11 @@ struct BusinessSessionView: View {
                         RoundedRectangle(cornerRadius: 15).stroke(Color.yellow700)
                     )
                     .padding(1)
-            }, placeholder: {
-                ZStack {
-                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
-                }
-            })
+//            }, placeholder: {
+//                ZStack {
+//                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                }
+//            })
             
 //            Image(images[$0])
 //                .resizable()

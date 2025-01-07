@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import Kingfisher
 
 struct AccountView: View {
     @EnvironmentObject var sessionManager: SessionManager
@@ -26,17 +26,28 @@ struct AccountView: View {
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
-                        let url = userManager.user?.profile?.avatarUrl ?? ""
+                        let urlString = userManager.user?.profile?.avatarUrl ?? ""
 
-                        CachedAsyncImage(url: URL(string: url), content: { cont in
-                            cont
-                                .resizable()
-                                .scaledToFill()
-                        }, placeholder: {
-                            ZStack {
-                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
-                            }.frame(width: Size.w(64), height: Size.w(64), alignment: .center)
-                        })
+                        let url = URL(string: urlString)
+                        KFImage.url(url)
+                            .resizable()
+                            .placeholder {
+                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                            }
+                            .fade(duration: 1)
+                            .cancelOnDisappear(true)
+                            .aspectRatio(contentMode: .fill)
+                        
+                        
+//                        CachedAsyncImage(url: URL(string: url), content: { cont in
+//                            cont
+//                                .resizable()
+//                                .scaledToFill()
+//                        }, placeholder: {
+//                            ZStack {
+//                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+//                            }.frame(width: Size.w(64), height: Size.w(64), alignment: .center)
+//                        })
                         .frame(width: 64, height: 64)
                         //                    .frame(width: Size.w(64), height: Size.w(64))
                         .clipShape(Circle())

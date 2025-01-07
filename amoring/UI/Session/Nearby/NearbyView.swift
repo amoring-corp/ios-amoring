@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
 import CoreLocationUI
 import CoreLocation
 import AmoringAPI
@@ -356,23 +355,34 @@ struct BusinessListView: View {
 //    }
 }
 
+import Kingfisher
+
 struct BusinessRow: View {
     @EnvironmentObject var locationManager: LocationManager
     let business: Business
     
     var body: some View {
         HStack(alignment: .bottom) {
-            let url = business.images?.first?.file?.url
-            
-            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
-                cont
-                    .resizable()
-                    .scaledToFill()
-            }, placeholder: {
-                ZStack {
+            let urlString = business.images?.first?.file?.url
+            let url = URL(string: urlString ?? "")
+
+            KFImage.url(url)
+                .resizable()
+                .placeholder {
                     ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                 }
-            })
+                .fade(duration: 1)
+                .cancelOnDisappear(true)
+                .aspectRatio(contentMode: .fill)
+//            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
+//                cont
+//                    .resizable()
+//                    .scaledToFill()
+//            }, placeholder: {
+//                ZStack {
+//                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                }
+//            })
             .frame(width: Size.w(90), height: Size.w(90))
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(

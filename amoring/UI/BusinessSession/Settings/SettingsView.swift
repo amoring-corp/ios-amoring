@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import Kingfisher
 
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -48,15 +48,25 @@ struct SettingsView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
-                        cont
-                            .resizable()
-                            .scaledToFill()
-                    }, placeholder: {
-                        ZStack {
+                    let url = URL(string: url ?? "")
+                    KFImage.url(url)
+                        .resizable()
+                        .placeholder {
                             ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                         }
-                    })
+                        .fade(duration: 1)
+                        .cancelOnDisappear(true)
+                        .aspectRatio(contentMode: .fill)
+                    
+//                    CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
+//                        cont
+//                            .resizable()
+//                            .scaledToFill()
+//                    }, placeholder: {
+//                        ZStack {
+//                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                        }
+//                    })
                     .frame(width: Size.w(90), height: Size.w(90))
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(

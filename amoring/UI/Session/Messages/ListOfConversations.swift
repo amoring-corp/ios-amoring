@@ -7,7 +7,7 @@
 
 import SwiftUI
 import AmoringAPI
-import CachedAsyncImage
+import Kingfisher
 
 struct ListOfConversations: View {
     @EnvironmentObject var controller: MessagesController
@@ -136,14 +136,23 @@ struct ChatRow: View {
             
             let user = conversation.participants.first(where: { $0.id != userManager.user?.id })
             //            let url: String? = user?.profile?.images??.first?.map({ $0.file.url ?? "" })
-            let url: String? = user?.profile?.avatarUrl
+            let urlString: String? = user?.profile?.avatarUrl
 //            let business = controller.selectedConversation?.checkIns.first(where: { $0.profileId != userManager.user?.profile?.id })?.business
-            
-            CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            }, placeholder: {ProgressView()})
+            let url = URL(string: urlString ?? "")
+
+            KFImage.url(url)
+                .resizable()
+                .placeholder {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+                }
+                .fade(duration: 1)
+                .cancelOnDisappear(true)
+                .aspectRatio(contentMode: .fill)
+//            CachedAsyncImage(url: URL(string: url ?? ""), content: { image in
+//                image
+//                    .resizable()
+//                    .scaledToFill()
+//            }, placeholder: {ProgressView()})
             .frame(width: Size.w(64), height: Size.w(64))
             .clipShape(Circle())
             .padding(.trailing, Size.w(12))

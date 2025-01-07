@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import Kingfisher
 import AmoringAPI
 
 struct ProfileCardView: View {
@@ -20,17 +20,28 @@ struct ProfileCardView: View {
                 Color.yellow350
                 VStack {
                     let colors: [Color] = [.black, .black, .black, .black, .black, .black, .black, .black, .clear]
-                    let url = profile.avatarUrl ?? ""
-                    CachedAsyncImage(url: URL(string: url), content: { cont in
-                        cont
-                            .resizable()
-                            .scaledToFill()
-                            .blur(radius: profile.isBlurred ?? false ? 6 : 0)
-                    }, placeholder: {
-                        ZStack {
+//                    let url = profile.avatarUrl ?? ""
+                    let url = URL(string: profile.avatarUrl ?? "")
+
+                    KFImage.url(url)
+                        .resizable()
+                        .placeholder {
                             ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
-                        }.frame(width: width, height: height, alignment: .center)
-                    })
+                        }
+                        .fade(duration: 1)
+                        .cancelOnDisappear(true)
+                        .aspectRatio(contentMode: .fit)
+                    
+//                    CachedAsyncImage(url: URL(string: url), content: { cont in
+//                        cont
+//                            .resizable()
+//                            .scaledToFill()
+//                            .blur(radius: profile.isBlurred ?? false ? 6 : 0)
+//                    }, placeholder: {
+//                        ZStack {
+//                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                        }.frame(width: width, height: height, alignment: .center)
+//                    })
                     
 //                    Image(user.fakeImage  ?? "")
 //                        .resizable()

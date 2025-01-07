@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-import CachedAsyncImage
+import Kingfisher
 
 struct BusinessDetailsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -29,17 +29,27 @@ struct BusinessDetailsView: View {
                         .padding(.bottom, Size.w(40))
                     
                     VStack(spacing: 0) {
-                        let url = business.images?.first?.file?.url ?? ""
+                        let urlString = business.images?.first?.file?.url ?? ""
                         
-                        CachedAsyncImage(url: URL(string: url), content: { cont in
-                            cont
-                                .resizable()
-                                .scaledToFill()
-                        }, placeholder: {
-                            ZStack {
+                        let url = URL(string: urlString)
+
+                        KFImage.url(url)
+                            .resizable()
+                            .placeholder {
                                 ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                             }
-                        })
+                            .fade(duration: 1)
+                            .cancelOnDisappear(true)
+                            .aspectRatio(contentMode: .fill)
+//                        CachedAsyncImage(url: URL(string: url), content: { cont in
+//                            cont
+//                                .resizable()
+//                                .scaledToFill()
+//                        }, placeholder: {
+//                            ZStack {
+//                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                            }
+//                        })
                         .frame(width: Size.w(90), height: Size.w(90))
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                         .overlay(
@@ -137,16 +147,26 @@ struct BusinessDetailsView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(Array(images.enumerated()), id: \.offset) { index, element in
-                                        let url = element.file?.url ?? ""
-                                        CachedAsyncImage(url: URL(string: url), content: { cont in
-                                            cont
-                                                .resizable()
-                                                .scaledToFill()
-                                        }, placeholder: {
-                                            ZStack {
+                                        let urlString = element.file?.url ?? ""
+                                        let url = URL(string: urlString)
+
+                                        KFImage.url(url)
+                                            .resizable()
+                                            .placeholder {
                                                 ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                                             }
-                                        })
+                                            .fade(duration: 1)
+                                            .cancelOnDisappear(true)
+                                            .aspectRatio(contentMode: .fill)
+//                                        CachedAsyncImage(url: URL(string: url), content: { cont in
+//                                            cont
+//                                                .resizable()
+//                                                .scaledToFill()
+//                                        }, placeholder: {
+//                                            ZStack {
+//                                                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                                            }
+//                                        })
                                         .frame(width: Size.w(120), height: Size.w(120))
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                         .overlay(
@@ -227,16 +247,27 @@ struct PhotoViewer: View {
                 .ignoresSafeArea()
             TabView(selection: $selection) {
                 ForEach(Array(images.enumerated()), id: \.offset) { index, element in
-                    let url = element.file?.url ?? ""
-                    CachedAsyncImage(url: URL(string: url), content: { cont in
-                        cont
-                            .resizable()
-                            .scaledToFit()
-                    }, placeholder: {
-                        ZStack {
+                    let urlString = element.file?.url ?? ""
+                    
+                    let url = URL(string: urlString)
+
+                    KFImage.url(url)
+                        .resizable()
+                        .placeholder {
                             ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
                         }
-                    })
+                        .fade(duration: 1)
+                        .cancelOnDisappear(true)
+                        .aspectRatio(contentMode: .fit)
+//                    CachedAsyncImage(url: URL(string: url), content: { cont in
+//                        cont
+//                            .resizable()
+//                            .scaledToFit()
+//                    }, placeholder: {
+//                        ZStack {
+//                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))
+//                        }
+//                    })
                     .frame(width: UIScreen.main.bounds.width)
                     .id(index)
                     .scaleEffect(lastScaleValue)
