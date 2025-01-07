@@ -332,12 +332,684 @@
     "~" : {
 
     },
+    "♨️ 스파" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "♨️ Spa"
+          }
+        }
+      }
+    },
+    "⛳️ 골프" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⛳️ Golf"
+          }
+        }
+      }
+    },
+    "✈️ 해외여행" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✈️ Overseas travel"
+          }
+        }
+      }
+    },
+    "❄️ 겨울스포츠" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "❄️ Winter sports"
+          }
+        }
+      }
+    },
+    "🌡 지구온난화" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🌡️ Global warming"
+          }
+        }
+      }
+    },
+    "🍕 피자" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍕 Pizza"
+          }
+        }
+      }
+    },
+    "🍛 커리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍛 Curry"
+          }
+        }
+      }
+    },
+    "🍣 초밥" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍣 Sushi"
+          }
+        }
+      }
+    },
+    "🍷 와인" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍷 Wine"
+          }
+        }
+      }
+    },
+    "🍸 진" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍸 Gin"
+          }
+        }
+      }
+    },
     "🍸 테이블이 있습니다." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "🍸 I have a table."
+          }
+        }
+      }
+    },
+    "🍺 맥주" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍺 Beer"
+          }
+        }
+      }
+    },
+    "🎉 클럽" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎉 Clubs"
+          }
+        }
+      }
+    },
+    "🎒 백패킹" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎒 Backpacking"
+          }
+        }
+      }
+    },
+    "🎞 K-드라마" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ K-drama"
+          }
+        }
+      }
+    },
+    "🎞 게임쇼" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Game show"
+          }
+        }
+      }
+    },
+    "🎞 공상과학" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Science fiction"
+          }
+        }
+      }
+    },
+    "🎞 다큐멘터리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞 Documentary"
+          }
+        }
+      }
+    },
+    "🎞 드라마" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Drama"
+          }
+        }
+      }
+    },
+    "🎞 로맨스" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Romance"
+          }
+        }
+      }
+    },
+    "🎞 리얼리티쇼" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Reality TV"
+          }
+        }
+      }
+    },
+    "🎞 미스테리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Mystery"
+          }
+        }
+      }
+    },
+    "🎞 발리우드" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Bollywood"
+          }
+        }
+      }
+    },
+    "🎞 범죄" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Crime"
+          }
+        }
+      }
+    },
+    "🎞 스릴러" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Thriller"
+          }
+        }
+      }
+    },
+    "🎞 애니메이션" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Animation"
+          }
+        }
+      }
+    },
+    "🎞 액션" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Action"
+          }
+        }
+      }
+    },
+    "🎞 요리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Cooking"
+          }
+        }
+      }
+    },
+    "🎞 코미디" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Comedy"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ 코미디"
+          }
+        }
+      }
+    },
+    "🎞 판타지" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️️ Fantasy"
+          }
+        }
+      }
+    },
+    "🎞 호러" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎞️ Horror"
+          }
+        }
+      }
+    },
+    "🎣 낚시" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎣 Fishing"
+          }
+        }
+      }
+    },
+    "🎤 노래방" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎤 Karaoke"
+          }
+        }
+      }
+    },
+    "🎪 페스티벌" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎪 Festivals"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎪 페스티벌"
+          }
+        }
+      }
+    },
+    "🎫 콘서트" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎫 Concerts"
+          }
+        }
+      }
+    },
+    "🎬 영화" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎬 Movies"
+          }
+        }
+      }
+    },
+    "🎵 EDM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 EDM"
+          }
+        }
+      }
+    },
+    "🎵 K-팝" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 K-pop"
+          }
+        }
+      }
+    },
+    "🎵 R&B" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 R&B"
+          }
+        }
+      }
+    },
+    "🎵 라틴" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Latin"
+          }
+        }
+      }
+    },
+    "🎵 락" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Rock"
+          }
+        }
+      }
+    },
+    "🎵 랩" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Rap"
+          }
+        }
+      }
+    },
+    "🎵 메탈" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Metal"
+          }
+        }
+      }
+    },
+    "🎵 인디" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Indie"
+          }
+        }
+      }
+    },
+    "🎵 재즈" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Jazz"
+          }
+        }
+      }
+    },
+    "🎵 컨트리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Country"
+          }
+        }
+      }
+    },
+    "🎵 클래식" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Classical"
+          }
+        }
+      }
+    },
+    "🎵 테크노" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Techno"
+          }
+        }
+      }
+    },
+    "🎵 트랜스" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Trance"
+          }
+        }
+      }
+    },
+    "🎵 팝" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Pop"
+          }
+        }
+      }
+    },
+    "🎵 펑크" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Punk"
+          }
+        }
+      }
+    },
+    "🎵 포크" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Folk"
+          }
+        }
+      }
+    },
+    "🎵 하우스" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 House"
+          }
+        }
+      }
+    },
+    "🎵 힙합" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Hip-hop"
+          }
+        }
+      }
+    },
+    "🎾 테니스" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎾 Tennis"
+          }
+        }
+      }
+    },
+    "🏃‍♀️ 하이킹" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏃‍♀️ Hiking"
+          }
+        }
+      }
+    },
+    "🏄‍ 서핑" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏄‍ Surfing"
+          }
+        }
+      }
+    },
+    "🏊‍♀️️ 수영" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏊‍♀️️ Swimming"
+          }
+        }
+      }
+    },
+    "🏋️‍♂️ 헬스" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏋️‍♂️ Gym"
+          }
+        }
+      }
+    },
+    "🏕 캠핑" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏕️ Camping"
+          }
+        }
+      }
+    },
+    "🏖 바다여행" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏖️ Beach vacation"
           }
         }
       }
@@ -353,11 +1025,231 @@
         }
       }
     },
+    "👨‍👩‍👧‍👦 통일" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "👨‍👩‍👧‍👦 Unification"
+          }
+        }
+      }
+    },
     "👩🏻" : {
 
     },
+    "💃 댄스" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💃 Dance"
+          }
+        }
+      }
+    },
+    "💰 경제" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💰 Economics"
+          }
+        }
+      }
+    },
+    "💸 가난" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💸 Poverty"
+          }
+        }
+      }
+    },
+    "📚 과학" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📚 Science"
+          }
+        }
+      }
+    },
+    "📚 시" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📚️ Poetry"
+          }
+        }
+      }
+    },
+    "📚 심리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📚 Psychology"
+          }
+        }
+      }
+    },
+    "📚 위인전" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📚 Biography"
+          }
+        }
+      }
+    },
+    "📚 철학" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📚 Philosophy"
+          }
+        }
+      }
+    },
+    "📰 정치" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📰 Politics"
+          }
+        }
+      }
+    },
+    "🔭 우주" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🔭 Space"
+          }
+        }
+      }
+    },
+    "🖼️ 갤러리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🖼️ Galleries"
+          }
+        }
+      }
+    },
+    "🗿 유적지탐험" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🗿 Historic sites"
+          }
+        }
+      }
+    },
+    "🤿 스쿠버다이빙" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🤿 Scuba diving"
+          }
+        }
+      }
+    },
+    "🥂 바" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🥂 Bars"
+          }
+        }
+      }
+    },
+    "🥃 위스키" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🥃 Whiskey"
+          }
+        }
+      }
+    },
+    "🥦 채식주의자" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🥦 Vegetarian"
+          }
+        }
+      }
+    },
+    "🥬 비건" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🥬 Vegan"
+          }
+        }
+      }
+    },
+    "🧃 소주" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🧃 Soju"
+          }
+        }
+      }
+    },
     "🧑🏻" : {
 
+    },
+    "🧘‍♀️ 요가" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🧘️ Yoga"
+          }
+        }
+      }
     },
     "😥" : {
 
@@ -370,6 +1262,28 @@
     },
     "🙋🏻‍♀️" : {
 
+    },
+    "🚴 자전거" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🚴 Biking"
+          }
+        }
+      }
+    },
+    "🛤 로드트립" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🛤️ Road trip"
+          }
+        }
+      }
     },
     "₩ 100,000" : {
 
@@ -586,6 +1500,9 @@
       "extractionState" : "manual"
     },
     "Key 2" : {
+      "extractionState" : "manual"
+    },
+    "Key 3" : {
       "extractionState" : "manual"
     },
     "LOGO" : {
@@ -1508,6 +2425,17 @@
         }
       }
     },
+    "바" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bar"
+          }
+        }
+      }
+    },
     "반갑습니다!" : {
       "localizations" : {
         "en" : {
@@ -1831,6 +2759,17 @@
     "숫자" : {
 
     },
+    "스포츠" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sport"
+          }
+        }
+      }
+    },
     "시작하기" : {
       "localizations" : {
         "en" : {
@@ -1966,6 +2905,17 @@
         }
       }
     },
+    "여행" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel"
+          }
+        }
+      }
+    },
     "연결된 인연이\n이곳에 나타납니다" : {
       "localizations" : {
         "en" : {
@@ -1987,6 +2937,17 @@
     },
     "영업시간*" : {
 
+    },
+    "영화&소설" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies&Novels"
+          }
+        }
+      }
     },
     "예: 고등학교, 대학교, 서강대학사, ... " : {
       "extractionState" : "manual",
@@ -2093,6 +3054,17 @@
     "은행명" : {
 
     },
+    "음악" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music"
+          }
+        }
+      }
+    },
     "이 메시지 내역 또는 멤버가 신고 대상에 해당하는지 다시 한번 확인해주세요. 신고 시 사실확인을 위한 내역이 관리자에게 전달됩니다." : {
 
     },
@@ -2163,6 +3135,17 @@
     },
     "이용약관 동의 (필수)" : {
 
+    },
+    "이자카야" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izakaya"
+          }
+        }
+      }
     },
     "이제 같이 둘러보도록 할까요?" : {
       "localizations" : {
@@ -2429,6 +3412,17 @@
     "주식회사 아모링" : {
 
     },
+    "주점" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jujeob"
+          }
+        }
+      }
+    },
     "준비되셨으면,\n계속해서 진행해주세요." : {
 
     },
@@ -2492,6 +3486,17 @@
         }
       }
     },
+    "카페" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cafe"
+          }
+        }
+      }
+    },
     "쿠폰 사용 하기" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2519,6 +3524,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You do not currently have \nany coupons."
+          }
+        }
+      }
+    },
+    "클럽" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Club"
           }
         }
       }
@@ -2579,6 +3595,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This pass lasts for 12 hours after purchasing.\nThis pass is activated automatically upon purchase."
+          }
+        }
+      }
+    },
+    "펍" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pub"
+          }
+        }
+      }
+    },
+    "페스티벌" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Festival"
+          }
+        }
+      }
+    },
+    "포차" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Korean bar"
+          }
+        }
+      }
+    },
+    "푸드&음료" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food&Drinks"
           }
         }
       }
@@ -2691,6 +3751,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Report this user for reasons such as inappropriate contents."
+          }
+        }
+      }
+    },
+    "호프" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoff"
           }
         }
       }

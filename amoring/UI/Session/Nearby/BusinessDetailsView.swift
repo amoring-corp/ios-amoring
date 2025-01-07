@@ -52,7 +52,7 @@ struct BusinessDetailsView: View {
                             .foregroundColor(.yellow200)
                             .padding(.bottom, Size.w(12))
                         
-                        Text("\(business.businessType?.name ?? "")  |  \(business.addressSigungu ?? "no disctrict")")
+                        (Text(LocalizedStringKey(business.businessType?.name ?? "")) + Text("  |  \(business.addressSigungu ?? "no disctrict")"))
                             .font(regular18Font)
                             .foregroundColor(.yellow200)
                             .padding(.bottom, Size.w(30))

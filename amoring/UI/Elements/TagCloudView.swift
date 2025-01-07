@@ -93,7 +93,7 @@ struct DeletableTagCloudView: View {
     }
 
     private func item(for text: String?) -> some View {
-        text == nil ? nil : Chip(text: text ?? "", isDark: isDark)
+        text == nil ? nil : Chip(text: LocalizedStringKey(text ?? ""), isDark: isDark)
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -161,7 +161,7 @@ struct TagCloudView: View {
     }
 
     private func item(for text: String?) -> some View {
-        text == nil ? nil : Chip(text: text ?? "", isDark: isDark)
+        text == nil ? nil : Chip(text: LocalizedStringKey(text ?? ""), isDark: isDark)
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -176,11 +176,12 @@ struct TagCloudView: View {
 }
 
 struct Chip: View {
-    let text: String
+    let text: LocalizedStringKey
     var isDark: Bool = false
     
     var body: some View {
-        Text(text.prefix(10))
+        Text(text)
+//        Text(text.prefix(10))
             .font(medium16Font)
             .foregroundColor(isDark ? .gray150 : .black)
             .lineLimit(1)
@@ -205,7 +206,7 @@ struct TagCloudViewSelectable: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(cat.name)
+            Text(LocalizedStringKey(cat.name))
                 .font(regular16Font)
                 .foregroundColor(titleColor)
                 .padding(.leading, Size.w(14))
@@ -311,7 +312,7 @@ struct InterestChip: View {
     
     var body: some View {
         let selected = selectedInterests.contains(where: { $0.0 == id })
-        Text(text)
+        Text(LocalizedStringKey(text))
             .font(medium16Font)
             .foregroundColor(selected ? selectedColor : .black)
             .lineLimit(1)
@@ -397,7 +398,7 @@ struct ChipSelected: View {
     let isDark: Bool
     
     var body: some View {
-        Text(text)
+        Text(LocalizedStringKey(text))
             .font(medium16Font)
             .foregroundColor(isDark ? .black : .gray150)
             .lineLimit(1)

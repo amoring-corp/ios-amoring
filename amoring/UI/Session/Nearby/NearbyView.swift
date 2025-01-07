@@ -379,6 +379,7 @@ struct BusinessRow: View {
                 RoundedRectangle(cornerRadius: 14).stroke(Color.gray700)
             )
             
+            
             VStack(alignment: .leading, spacing: Size.w(10)) {
                 HStack {
                     Text(business.businessName ?? "")
@@ -396,7 +397,7 @@ struct BusinessRow: View {
                 }
                 
                 HStack {
-                    Text("\(business.businessType?.name ?? "")  |  \(business.addressSigungu ?? "")")
+                    (Text(LocalizedStringKey(business.businessType?.name ?? "")) + Text("  |  \(business.addressSigungu ?? "no disctrict")"))
                     
                     Spacer()
                  
