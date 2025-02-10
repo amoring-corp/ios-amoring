@@ -37,7 +37,21 @@ struct AccountView: View {
                             .fade(duration: 1)
                             .cancelOnDisappear(true)
                             .aspectRatio(contentMode: .fill)
-                        
+                            .onTapGesture {
+                                if let profile = userManager.authUser.profile?.fragments.profileInfo {
+                                    navigationController.goToUserDetails = true
+                                }
+                            }
+                            .background(
+                                NavigationLink(isActive: $navigationController.goToUserDetails, destination: {
+                                    // TODO: implement view
+                                    if let profile = userManager.authUser.profile?.fragments.profileInfo {
+                                        ProfileDetailsView(profile: profile)
+                                    }
+                                }, label: { EmptyView() })
+                                .isDetailLink(false)
+                                .opacity(0)
+                            )
                         
 //                        CachedAsyncImage(url: URL(string: url), content: { cont in
 //                            cont

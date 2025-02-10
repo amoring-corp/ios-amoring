@@ -53,7 +53,7 @@ struct AccountIntro: View {
                                 .foregroundColor(.gray200)
                                 .padding(.leading, Size.w(14))
                             
-                            CustomTextField(placeholder: "예: 대학생, 직장인...", text: $occupation ?? "", font: regular18Font)
+                            CustomTextField(placeholder: "예: 대학생, 회계사...", text: $occupation ?? "", font: regular18Font)
                                 .onChange(of: occupation, perform: { newValue in
                                     if(newValue?.count ?? 0 >= 20){
                                         occupation = String(newValue?.prefix(20) ?? "")

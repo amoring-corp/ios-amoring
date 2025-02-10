@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct AmoringView: View {
     @EnvironmentObject var amoringController: AmoringController
@@ -46,7 +47,33 @@ struct AmoringView: View {
 //                        }
 //                        )
                 } else {
-                    CheckInView()
+                    if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
+                        //already authorized
+                        CheckInView()
+                    } else {
+                        VStack {
+                            Button(action: {
+                                AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                                    if granted {
+                                        print("granted")
+                                    } else {
+                                        //access denied
+                                        print("denied")
+                                        self.openAppSettings()
+                                    }
+                                })
+                                
+                            }) {
+//                                Grant access to camera
+//                                카메라 접근을 허용하세요
+                                Text("카메라 접근을 허용하세요")
+                            }
+                        }
+                        .padding(.horizontal, Size.w(22))
+                        .padding(.bottom, Size.w(10))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .background(.gray1000)
+                    }
                 }
             }
             .toolbar {
@@ -64,7 +91,7 @@ struct AmoringView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
-                        Text(amoringController.countDown.toString())
+                        Text("-\(amoringController.countDown.toString())")
                             .font(medium16Font)
                             .foregroundColor(.yellow300)
                             .fixedSize(horizontal: true, vertical: false)
@@ -99,6 +126,14 @@ struct AmoringView: View {
             }
         }
     }
+    
+    private func openAppSettings() {
+        DispatchQueue.main.async {
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        }
+      }
 }
 
 //#Preview {

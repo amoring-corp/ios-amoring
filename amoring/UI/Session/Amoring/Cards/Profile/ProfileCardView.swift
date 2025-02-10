@@ -30,7 +30,7 @@ struct ProfileCardView: View {
                         }
                         .fade(duration: 1)
                         .cancelOnDisappear(true)
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                     
 //                    CachedAsyncImage(url: URL(string: url), content: { cont in
 //                        cont

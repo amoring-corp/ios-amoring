@@ -66,6 +66,7 @@ struct ExpandedView: View {
 //                                    .resizable()
 //                                    .scaledToFill()
                                     .blur(radius: profile.isBlurred ?? false ? 6 : 0)
+                                    .frame(minHeight: Size.w(150))
 //                            }, placeholder: {
 //                                ZStack {
 //                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: Color.gray1000))

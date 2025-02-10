@@ -76,6 +76,9 @@
         }
       }
     },
+    "-%@" : {
+
+    },
     "(%@)" : {
 
     },
@@ -772,17 +775,6 @@
         }
       }
     },
-    "🎵 락" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "🎵 Rock"
-          }
-        }
-      }
-    },
     "🎵 라틴" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -790,6 +782,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "🎵 Latin"
+          }
+        }
+      }
+    },
+    "🎵 락" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Rock"
           }
         }
       }
@@ -1014,6 +1017,17 @@
         }
       }
     },
+    "🐬 소주" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🐬 Soju"
+          }
+        }
+      }
+    },
     "👋 첫인사를 보내보세요!" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1145,6 +1159,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "🔭 Space"
+          }
+        }
+      }
+    },
+    "🖼 갤러리" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🖼 Galleries"
           }
         }
       }
@@ -1492,18 +1517,6 @@
           }
         }
       }
-    },
-    "Key" : {
-      "extractionState" : "manual"
-    },
-    "Key 1" : {
-      "extractionState" : "manual"
-    },
-    "Key 2" : {
-      "extractionState" : "manual"
-    },
-    "Key 3" : {
-      "extractionState" : "manual"
     },
     "LOGO" : {
 
@@ -2245,6 +2258,28 @@
     "매일" : {
 
     },
+    "매일  |  %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyday  |  %@"
+          }
+        }
+      }
+    },
+    "매일  |  %lld" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyday  |  %lld"
+          }
+        }
+      }
+    },
     "매장명*" : {
 
     },
@@ -2966,18 +3001,18 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "e.g. student, office worker, etc."
+            "value" : "e.g. student, accountant, etc."
           }
         }
       }
     },
-    "예: 대학생, 직장인..." : {
+    "예: 대학생, 회계사..." : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "e.g. college student, office worker"
+            "value" : "e.g. college student, accountant"
           }
         }
       }
@@ -3378,6 +3413,17 @@
         }
       }
     },
+    "좋아요 보기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View likes "
+          }
+        }
+      }
+    },
     "좋아요가 부족해 아쉬운 순간이 있었나요?\n좋아요를 더 추가해 사용해보세요." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3405,6 +3451,28 @@
     },
     "죄송합니다.\n준비된 라운지가 꽉 찼어요\n나중에 체크인 해주세요" : {
 
+    },
+    "주말  |  %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekend  |  %@"
+          }
+        }
+      }
+    },
+    "주말  |  %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekend  |  %lld"
+          }
+        }
+      }
     },
     "주소*" : {
 
@@ -3482,6 +3550,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "카메라 접근을 허용하세요" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant access to camera"
           }
         }
       }
@@ -3621,6 +3700,28 @@
         }
       }
     },
+    "평일  |  %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekdays  |  %@"
+          }
+        }
+      }
+    },
+    "평일  |  %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekdays  |  %lld"
+          }
+        }
+      }
+    },
     "포차" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3671,6 +3772,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a profile picture"
+          }
+        }
+      }
+    },
+    "프로필 숨김" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Control who sees you"
           }
         }
       }

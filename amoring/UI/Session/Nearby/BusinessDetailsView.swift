@@ -17,8 +17,9 @@ struct BusinessDetailsView: View {
     @State var showAlert: Bool = false
     let business: Business
     
+    @State var everyday: String? = nil
     @State var weekdays: String? = nil
-    @State var weekends: String? = nil
+    @State var weekend: String? = nil
     
     var body: some View {
         VStack {
@@ -115,6 +116,17 @@ struct BusinessDetailsView: View {
                                 }
                             }
                             
+                            if let everyday {
+                                HStack {
+                                    Image("ic-clock")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: Size.w(24), height: Size.w(24))
+                                    
+                                    Text("매일  |  \(everyday)")
+                                    Spacer()
+                                }
+                            }
                             if let weekdays {
                                 HStack {
                                     Image("ic-clock")
@@ -122,18 +134,18 @@ struct BusinessDetailsView: View {
                                         .scaledToFit()
                                         .frame(width: Size.w(24), height: Size.w(24))
                                     
-                                    Text(weekdays)
+                                    Text("평일  |  \(weekdays)")
                                     Spacer()
                                 }
                             }
-                            if let weekends {
+                            if let weekend {
                                 HStack {
                                     Image("ic-clock")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: Size.w(24), height: Size.w(24))
                                     
-                                    Text(weekends)
+                                    Text("주말  |  \(weekend)")
                                     Spacer()
                                 }
                             }
@@ -218,14 +230,14 @@ struct BusinessDetailsView: View {
     private func getBusinessHours() {
         if let businessHours = business.businessHours {
             if businessHours.allEqual(by: \.openAt) && businessHours.allEqual(by: \.closeAt) && businessHours.count >= 7 {
-                self.weekdays = "매일  |  \(businessHours.first!.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(businessHours.first!.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
+                self.everyday = "\(businessHours.first!.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(businessHours.first!.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
             } else {
                 /// monday or tuestday   and   saturday or sunday
                 if let sunday = businessHours.first(where: { $0.day == .sunday }) {
-                    self.weekdays = "평일  |  \(sunday.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(sunday.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
+                    self.weekdays = "\(sunday.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(sunday.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
                 }
                 if let monday = businessHours.first(where: { $0.day == .monday }) {
-                    self.weekends = "주말  |  \(monday.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(monday.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
+                    self.weekend = "\(monday.openAt.toHM(timeZone: TimeZone(secondsFromGMT: 0))) - \(monday.closeAt.toHM(timeZone: TimeZone(secondsFromGMT: 0)))"
                 }
             }
         }

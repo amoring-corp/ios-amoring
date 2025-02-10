@@ -137,12 +137,17 @@ extension Date {
     
     func toHM(timeZone: TimeZone? = nil) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "a hh:mm"
         formatter.locale = Locale.current
         formatter.timeZone = timeZone
+        if formatter.locale.identifier == "ko_KR" || formatter.locale.identifier == "ko" {
+                 formatter.dateFormat = "a hh:mm" // Korean: 오전/오후 before time
+             } else {
+                 formatter.dateFormat = "hh:mm a" // English: AM/PM after time
+             }
+        
 //        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.amSymbol = "오전"
-        formatter.pmSymbol = "오후"
+//        formatter.amSymbol = "오전"
+//        formatter.pmSymbol = "오후"
         return formatter.string(from: self)
     }
     
