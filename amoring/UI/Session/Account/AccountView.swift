@@ -287,7 +287,7 @@ struct MenuTitle: View {
     let title: String
     var color: Color = Color.yellow300
     var body: some View {
-        Text(NSLocalizedString(title, comment: ""))
+        Text(LocalizedStringKey(title))
             .font(medium18Font)
             .foregroundColor(color)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -322,12 +322,12 @@ struct MenuLineLink<Content: View>: View {
 //                }
         }) {
             HStack {
-                Text(NSLocalizedString(title, comment: ""))
+                Text(LocalizedStringKey(title))
                     
                 Spacer()
                 
                 if let subtitle {
-                    Text(NSLocalizedString(subtitle, comment: ""))
+                    Text(LocalizedStringKey(subtitle))
                         .font(regular16Font)
                         .foregroundColor(subFontColor)
                 }
@@ -360,7 +360,8 @@ struct MenuLineButton: View {
                         .frame(width: 18, height: 18)
                         .foregroundColor(fontColor)
                 }
-                Text(NSLocalizedString(title, comment: ""))
+                Text(LocalizedStringKey(title))
+//                Text(NSLocalizedString(title, comment: ""))
                     .font(regular16Font)
                     .foregroundColor(fontColor)
                 Spacer()

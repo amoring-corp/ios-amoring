@@ -27,7 +27,7 @@ struct BusinessSignUpPrepare: View {
                 .padding(.bottom, Size.w(40))
            
             
-            Text("❶ 인증 가능한 이메일\n❷ 사업자등록증\n❸ 매장의 사진 (최소 3장)")
+            Text("❶ 인증 가능한 이메일\n❷ 사업자등록증\n❸ 매장 사진 (최소 3장)")
                 .multilineTextAlignment(.leading)
                 .lineSpacing(10)
                 .font(bold20Font)
@@ -35,7 +35,7 @@ struct BusinessSignUpPrepare: View {
             
             Spacer()
             
-            Text("준비되셨으면,\n계속해서 진행해주세요.")
+            Text("준비되었으면,\n계속해서 진행해주세요.")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .multilineTextAlignment(.trailing)
@@ -69,6 +69,7 @@ struct BusinessSignUpPrepare: View {
         .navigationBarItems(leading:
             BackButton(action: { presentationMode.wrappedValue.dismiss() })
         )
+        .environment(\.locale, .init(identifier: "ko"))
     }
 }
 

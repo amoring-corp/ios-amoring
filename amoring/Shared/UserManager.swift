@@ -239,7 +239,11 @@ class UserManager: ObservableObject {
                 print("Image was successfully uploaded!")
                 print(data.uploadMyProfileImage.file?.url)
                 print(sort)
+                
                 if self.user?.profile?.images.count ?? 0 >= sort {
+                    if sort == 0 {
+                        self.user?.profile?.avatarUrl = data.uploadMyProfileImage.fragments.imageFragment.file?.url
+                    }
                     self.user?.profile?.images.insert(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment), at: sort)
                 } else {
                     self.user?.profile?.images.append(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment))

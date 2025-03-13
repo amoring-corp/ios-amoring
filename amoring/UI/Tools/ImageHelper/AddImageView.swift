@@ -28,6 +28,7 @@ struct AddImageView: View {
         }
         .frame(minWidth: Size.w(106), minHeight: Size.w(106))
 //        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: number == 1 ? .infinity : Size.w(106), maxHeight: number == 1 ? .infinity : Size.w(106))
         .overlay(
             Image(systemName: "plus")
                 .font(bold24Font)

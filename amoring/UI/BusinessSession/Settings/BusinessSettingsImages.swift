@@ -22,90 +22,123 @@ struct BusinessSettingsImages: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            CustomNavigationView(offset: .constant(400), title: "사진", back: { presentationMode.wrappedValue.dismiss() })
-            VStack(alignment: .leading, spacing: 0) {
-                Text("아래의 내용은 비울 수 없습니다\n고객에게 홍보되는 정보이니 정확히 작성해주세요.")
-                    .font(regular16Font)
-                    .foregroundColor(.yellow600)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, Size.w(14))
-                    .padding(.top, Size.w(40))
-                    .padding(.bottom, Size.w(40))
-                
-                PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
-                    confirmRemoveImageIndex = index
-                    showRemoveConfirmation.toggle()
-                }, onAddImageClick: {
-                    showContentTypeSheet.toggle()
-                })
-                .padding(.horizontal, Size.w(-8))
-                .onAppear {
-                    self.pictures = userManager.businessPictures
-                }
-                .onChange(of: userManager.businessPictures) { pics in
-                    self.pictures = pics
-                }
-                .sheet(isPresented: $showContentTypeSheet) {
-                    ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
-                        .onDisappear {
-                            self.editIndex = nil
-                        }
-                }
-                .actionSheet(isPresented: $showRemoveConfirmation) {
-                    if confirmRemoveImageIndex >= 3 {
-                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
-                            .default(Text("등록"), action: {
-                                self.editIndex = confirmRemoveImageIndex
-                                showContentTypeSheet.toggle()
-                            }),
-                            .destructive(Text("삭제"), action: self.removePicture),
-                            .cancel()
-                        ])
-                    } else {
-                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
-                            .default(Text("등록"), action: {
-                                self.editIndex = confirmRemoveImageIndex
-                                showContentTypeSheet.toggle()
-                            }),
-                            .cancel()
-                        ])
-                    }
-                }
-                
-                Spacer()
-                
-                HStack {
-                    Text("사진은 최소 3장 이상 필요하며,\n사진아래 번호 순서로 노출이 됩니다.")
+            CustomNavigationView(offset: .constant(400), title: "영업시간", back: { presentationMode.wrappedValue.dismiss() })
+            TrackableScrollView(showIndicators: false, contentOffset: .constant(400)) {
+//        ScrollView {
+//            VStack(spacing: 0) {
+//                CustomNavigationView(offset: .constant(400), title: "사진", back: { presentationMode.wrappedValue.dismiss() })
+                VStack(alignment: .center, spacing: 0) {
+                    Text("아래의 내용은 비울 수 없습니다\n고객에게 홍보되는 정보이니 정확히 작성해주세요.")
                         .font(regular16Font)
                         .foregroundColor(.yellow600)
-                        .multilineTextAlignment(.trailing)
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.bottom, Size.w(30))
-                
-                Button(action: {
-                    /// do nothing if images are haven't been changed
-                    guard self.pictures != userManager.businessPictures else { return }
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, Size.w(14))
+                        .padding(.top, Size.w(40))
+                        .padding(.bottom, Size.w(40))
                     
-                    let images = pictures.map({ $0.picture })
-                    userManager.deleteAllBusinessImages { success in
-                        userManager.uploadBusinessImages(images: images) { success in
-                            //                                    sessionManager.getCurrentSession(delay: 0) { success, error in
-                            //                                        notificationController.setNotification(show: !success, text: error, type: .error)
-                            //                                    }
+                    PictureGridView(pictures: $pictures, droppedOutside: $droppedOutside, onAddedImageClick: { index in
+                        confirmRemoveImageIndex = index
+                        showRemoveConfirmation.toggle()
+                    }, onAddImageClick: {
+                        showContentTypeSheet.toggle()
+                    })
+//                    .padding(.horizontal)
+                                    .padding(.horizontal, Size.w(-8))
+                    .onAppear {
+                        self.pictures = userManager.businessPictures
+                    }
+                    .onChange(of: userManager.businessPictures) { pics in
+                        self.pictures = pics
+                    }
+                    .sheet(isPresented: $showContentTypeSheet) {
+                        ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
+                            .onDisappear {
+                                self.editIndex = nil
+                            }
+                    }
+                    .actionSheet(isPresented: $showRemoveConfirmation) {
+                        if confirmRemoveImageIndex >= 3 {
+                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                                .default(Text("등록"), action: {
+                                    self.editIndex = confirmRemoveImageIndex
+                                    showContentTypeSheet.toggle()
+                                }),
+                                .destructive(Text("삭제"), action: self.removePicture),
+                                .cancel()
+                            ])
+                        } else {
+                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                                .default(Text("등록"), action: {
+                                    self.editIndex = confirmRemoveImageIndex
+                                    showContentTypeSheet.toggle()
+                                }),
+                                .cancel()
+                            ])
                         }
                     }
-                }) {
-                    FullSizeButton(title: "저장", color: .black, bg: .yellow200, isLoading: userManager.isLoading, loadingColor: .gray1000)
+                    .padding(.bottom, Size.w(60))
+                    
+                    HStack {
+                        Text("사진은 최소 3장 이상 필요하며,\n사진아래 번호 순서로 노출이 됩니다.")
+                            .font(regular16Font)
+                            .foregroundColor(.yellow600)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+//                    .padding(.horizontal, Size.w(22))
+                    .padding(.bottom, Size.w(30))
+                    
+                    Button(action: {
+                        /// do nothing if images are haven't been changed
+                        guard self.pictures != userManager.businessPictures else { return }
+                        
+                        let images = pictures.map({ $0.picture })
+                        userManager.deleteAllBusinessImages { success in
+                            userManager.uploadBusinessImages(images: images) { success in
+                                //                                    sessionManager.getCurrentSession(delay: 0) { success, error in
+                                //                                        notificationController.setNotification(show: !success, text: error, type: .error)
+                                //                                    }
+                            }
+                        }
+                    }) {
+                        FullSizeButton(title: "저장", color: .black, bg: .yellow200, isLoading: userManager.isLoading, loadingColor: .gray1000)
+                    }
+//                    .frame(maxWidth: .infinity)
+//                    .padding(.horizontal, Size.w(22))
+                    .padding(.bottom, Size.w(16))
+                    
+                    
+                    Spacer(minLength: 200)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.bottom, Size.w(16))
+//                .padding(.horizontal, Size.w(22))
+           
+               
             }
             .padding(.horizontal, Size.w(22))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.yellow300)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarHidden(true)
+        .background(Color.yellow300)
+//        .navigationBarBackButtonHidden()
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                Text("사진")
+//                    .font(medium20Font)
+////                    .foregroundColor(.yellow300)
+//            }
+//        }
+//        .navigationBarItems(leading:
+//                                BackButton(action: {
+////            if let goFurther {
+////                withAnimation {
+////                    self.goFurther = false
+////                }
+////            } else {
+//                self.presentationMode.wrappedValue.dismiss()
+////            }
+//        }, color: Color.black)
+//        )
     }
     
     func removePicture() {

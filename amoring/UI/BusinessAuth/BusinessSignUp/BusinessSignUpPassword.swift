@@ -96,6 +96,7 @@ struct BusinessSignUpPassword: View {
         .navigationBarItems(leading:
             BackButton(action: { presentationMode.wrappedValue.dismiss() })
         )
+        .environment(\.locale, .init(identifier: "ko"))
     }
     
     var checkList: some View {

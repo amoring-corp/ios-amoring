@@ -177,7 +177,7 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
     @ViewBuilder
     func body() -> some View {
         ZStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 if notification?.type == .message {
                     Text(notification?.title ?? "")
                         .font(semiBold16Font)
@@ -207,7 +207,7 @@ class NotificationController: UNNotificationServiceExtension, ObservableObject, 
                 .padding(.top, Size.w(21))
                 .padding(.bottom, Size.w(30))
                 .padding(.horizontal, Size.w(22))
-                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .frame(maxWidth: .infinity, alignment: .top)
                 .background(notification?.type == .error ?  Color.red300 : Color.gray900)
                 .shadow(color: Color.black.opacity(self.notification != nil ? 0.75 : 0), radius: 20, y: 30)
                 .offset(y: self.notification != nil ? offset.height : -150)

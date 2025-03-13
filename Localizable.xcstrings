@@ -1373,7 +1373,7 @@
     "➊ 영업시간을 알려주세요." : {
 
     },
-    "❶ 인증 가능한 이메일\n❷ 사업자등록증\n❸ 매장의 사진 (최소 3장)" : {
+    "❶ 인증 가능한 이메일\n❷ 사업자등록증\n❸ 매장 사진 (최소 3장)" : {
 
     },
     "➊ 주말 영업시간을 알려주세요." : {
@@ -1759,7 +1759,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Privacy policy"
+            "value" : "Privacy Policy"
           }
         }
       }
@@ -1770,7 +1770,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Privacy policy"
+            "value" : "Privacy Policy"
           }
         }
       }
@@ -1806,7 +1806,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete account"
+            "value" : "Delete Account"
           }
         }
       }
@@ -2207,7 +2207,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View list"
+            "value" : "View List"
           }
         }
       }
@@ -2725,7 +2725,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Terms and conditions"
+            "value" : "Terms and Conditions"
           }
         }
       }
@@ -3491,7 +3491,7 @@
         }
       }
     },
-    "준비되셨으면,\n계속해서 진행해주세요." : {
+    "준비되었으면,\n계속해서 진행해주세요." : {
 
     },
     "지금 당장, 아모링 라운지에 체크인 하세요!" : {
@@ -3656,7 +3656,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Control who sees you"
+            "value" : "Control Who Sees You"
           }
         }
       }
@@ -3782,7 +3782,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Control who sees you"
+            "value" : "Control Who Sees You"
           }
         }
       }
@@ -3793,7 +3793,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Control who sees you"
+            "value" : "Control Who Sees You"
           }
         }
       }
@@ -3884,6 +3884,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm"
+          }
+        }
+      }
+    },
+    "확인b" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
           }
         }
       }

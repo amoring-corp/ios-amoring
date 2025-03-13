@@ -20,7 +20,7 @@ struct FullSizeButton: View {
             if isLoading {
                 ProgressView().tint(loadingColor)
             } else {
-                Text(NSLocalizedString(title, comment: ""))
+                Text(LocalizedStringKey(title))
             }
         }
         .font(medium18Font)

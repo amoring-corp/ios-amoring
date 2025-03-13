@@ -32,6 +32,7 @@ struct AddedImageView: View {
                 .padding(Size.w(10))
         }
         .frame(minWidth: Size.w(106), minHeight: Size.w(106))
+        .frame(maxWidth: number == 1 ? .infinity : Size.w(106), maxHeight: number == 1 ? .infinity : Size.w(106))
         .padding(Size.w(8))
         .opacity(isTapped ? 0.5 : 1)
         .scaleEffect(isTapped ? 0.9 : 1)

@@ -134,6 +134,7 @@ struct BusinessSignInSheet: View {
         .ignoresSafeArea(edges: .bottom)
         .transition(.move(edge: .bottom))
         .onTapGesture(perform: closeKeyboard)
+        .environment(\.locale, .init(identifier: "ko"))
     }
     
     private var filled: Bool {

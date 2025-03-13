@@ -18,7 +18,7 @@ struct BlackButton: View {
                 ProgressView().tint(.white)
             } else {
                 ///"다음"
-                Text(NSLocalizedString(title, comment: ""))
+                Text(LocalizedStringKey(title))
             }
         }
             .font(medium18Font)

@@ -160,6 +160,7 @@ struct BusinessSignUpOTP: View {
         //            BackButton(action: { presentationMode.wrappedValue.dismiss() })
         //        )
     }
+        .environment(\.locale, .init(identifier: "ko"))
     }
     
     private func onTapInput() {

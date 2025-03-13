@@ -36,7 +36,7 @@ struct BusinessEmailSuccess: View {
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }) {
-                BorderButton(title: "확인", color: .black, borderColor: .gray900)
+                BorderButton(title: "확인b", color: .black, borderColor: .gray900)
             }
             .padding(.bottom, Size.w(36))
         }

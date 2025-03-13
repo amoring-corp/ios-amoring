@@ -167,6 +167,7 @@ struct BusinessSignUpTerms: View {
         .navigationBarItems(leading:
             BackButton(action: { presentationMode.wrappedValue.dismiss() })
         )
+        .environment(\.locale, .init(identifier: "ko"))
     }
     
     private func selectAll() {

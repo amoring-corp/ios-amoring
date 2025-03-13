@@ -196,6 +196,7 @@ struct BusinessSessionView: View {
             : DepositInfoView().environmentObject(businessSessionController)
                 .transition(.move(edge: .bottom))
         )
+        .environment(\.locale, .init(identifier: "ko"))
     }
     
     func fakelist(images: [String], size: CGFloat) -> some View {

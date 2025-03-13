@@ -15,7 +15,7 @@ struct PickerButton<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let title {
-                Text(NSLocalizedString(title, comment: ""))
+                Text(LocalizedStringKey(title))
                     .font(regular16Font)
                     .foregroundColor(titleColor)
                     .padding(.leading, Size.w(14))

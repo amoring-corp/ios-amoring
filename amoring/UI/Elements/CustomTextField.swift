@@ -20,7 +20,7 @@ struct CustomTextField: View {
             .autocapitalization(.none)
             .keyboardType(keyboardType)
             .placeholder(when: text.isEmpty) {
-                Text(NSLocalizedString(placeholder ?? "", comment: ""))
+                Text(LocalizedStringKey(placeholder ?? ""))
                     .font(placeholderFont)
                     .foregroundColor(.gray200)
             }
@@ -44,7 +44,7 @@ struct MultilineCustomTextField: View {
                 .autocorrectionDisabled()
                 .lineLimit(linelimit)
                 .placeholder(when: text.isEmpty) {
-                    Text(NSLocalizedString(placeholder ?? "", comment: ""))
+                    Text(LocalizedStringKey(placeholder ?? ""))
                         .font(regular20Font)
                         .foregroundColor(.gray200)
                 }
@@ -95,7 +95,7 @@ struct CustomSecureField: View {
             Button(action: {
                 show.toggle()
             }) {
-                Text(show ? "숨기기" : "보기")
+                Text(LocalizedStringKey(show ? "숨기기" : "보기"))
                     .font(bold16Font)
                     .foregroundColor(.yellow600)
             }

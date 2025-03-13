@@ -21,11 +21,11 @@ struct BusinessOnboardingView: View {
     @State var registrationNumber: String = ""
     @State var addressDetails: String = ""
 
-    
     @State var next: Bool = false
-    @State var presentImporter: Bool = false
     @State var fileAtached: Bool = false
     @State var contentOffset: CGFloat = 0
+    
+    @State var presentImporter: Bool = false
     @State var showAddressPicker: Bool = false
     
     var body: some View {
@@ -99,11 +99,7 @@ struct BusinessOnboardingView: View {
                             .onTapGesture {
                                 showAddressPicker = true
                             }
-                            .sheet(isPresented: $showAddressPicker) {
-                                PostCodeServiceView(
-                                    business: $controller.business,
-                                    isOpened: $showAddressPicker)
-                            }
+                            
                             
                             VStack(alignment: .leading) {
                                 Text("상세주소*")
@@ -131,10 +127,12 @@ struct BusinessOnboardingView: View {
                                     .font(regular16Font)
                                     .foregroundColor(.black)
                                     .padding(.leading, Size.w(14))
+                                    
                                 
-                                Button(action: {
-                                    presentImporter = true
-                                }) {
+//                                Button(action: {
+//                                    presentImporter = true
+//                                    
+//                                }) {
                                     ZStack {
                                         if fileAtached {
                                             HStack {
@@ -180,7 +178,11 @@ struct BusinessOnboardingView: View {
                                     .padding(.horizontal, Size.w(10))
                                     .background(fileAtached ? Color.green800 : Color.yellow800)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                                }
+                                    .onTapGesture {
+                                        presentImporter = true
+                                    }
+//                                }
+                                
                                 .fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf, .jpeg, .png]) { result in
                                     switch result {
                                     case .success(let url):
@@ -268,11 +270,20 @@ struct BusinessOnboardingView: View {
                 .ignoresSafeArea(.keyboard, edges: .bottom)
             }
         }
+        .overlay(
+            Color.clear
+                .sheet(isPresented: $showAddressPicker) {
+                    PostCodeServiceView(
+                        business: $controller.business,
+                        isOpened: $showAddressPicker)
+                }
+        )
         .navigationBarHidden(true)
         .onTapGesture {
             closeKeyboard()
         }
         .environmentObject(controller)
+        .environment(\.locale, .init(identifier: "ko"))
     }
 }
 

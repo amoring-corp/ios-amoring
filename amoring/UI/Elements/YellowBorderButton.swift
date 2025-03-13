@@ -18,7 +18,7 @@ struct YellowBorderButton: View {
                 if isLoading {
                     ProgressView().tint(.gray200)
                 } else {
-                    Text(NSLocalizedString(title, comment: ""))
+                    Text(LocalizedStringKey(title))
                 }
             }
             .font(medium18Font)

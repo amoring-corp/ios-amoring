@@ -22,7 +22,13 @@ func initApi(token: String) -> ApolloClient {
     return {
         let url = URL(string: "\(Constants.domain)/graphql")!
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"] // Add your headers here
+        
+        let langStr = Locale.current.languageCode
+        print("my current language is: \(langStr)")
+        configuration.httpAdditionalHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept-Language": langStr ?? "ko"
+        ] // Add your headers here
         
         let client = URLSessionClient(sessionConfiguration: configuration)
         let store = ApolloStore(cache: InMemoryNormalizedCache())
@@ -37,9 +43,13 @@ func initWSApi(token: String) -> ApolloClient {
     return {
         let url = URL(string: "wss://api.amoring.info/graphql")!
         let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
-          let authPayload: JSONEncodableDictionary = ["Authorization": "Bearer \(token)"]
-          let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
-          let WSTransport = WebSocketTransport(websocket: webSocketClient, config: config)
+        let langStr = Locale.current.languageCode
+        let authPayload: JSONEncodableDictionary = [
+            "Authorization": "Bearer \(token)",
+            "Accept-Language": langStr ?? "ko"
+        ]
+        let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
+        let WSTransport = WebSocketTransport(websocket: webSocketClient, config: config)
         let store = ApolloStore(cache: InMemoryNormalizedCache())
         return ApolloClient(networkTransport: WSTransport, store: store)
     }()
