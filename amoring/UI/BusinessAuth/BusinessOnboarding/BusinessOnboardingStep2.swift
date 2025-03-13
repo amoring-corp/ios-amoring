@@ -71,7 +71,7 @@ struct BusinessOnboardingStep2: View {
                             .padding(.top, Size.w(56))
                             .padding(.bottom, Size.w(10))
                         
-                        Text("아래의 내용은 ***전부 필수**로 입력하셔야 합니다.\n고객에게 노출되는 정보이니 정확히 작성해주세요.\n나중에 매장정보에서 수정도 가능합니다.")
+                        Text("***전부 필수**로 입력하셔야 합니다.\n고객에게 노출되는 정보이니 정확히 작성해주세요.\n나중에 매장정보에서 수정도 가능합니다.")
                             .font(regular16Font)
                             .foregroundColor(.black)
                             .padding(.horizontal, Size.w(14))

@@ -35,7 +35,7 @@ struct BusinessSignUpPrepare: View {
             
             Spacer()
             
-            Text("준비되었으면,\n계속해서 진행해주세요.")
+            Text("준비되었으면,\n계속 진행해주세요.")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .multilineTextAlignment(.trailing)

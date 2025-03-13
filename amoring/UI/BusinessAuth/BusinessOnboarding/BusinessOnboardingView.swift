@@ -42,7 +42,7 @@ struct BusinessOnboardingView: View {
                                 .padding(.top, Size.w(56))
                                 .padding(.bottom, Size.w(10))
                             
-                            Text("아래의 내용은 ***전부 필수**로 입력하셔야 합니다.\n사업자등록증  및 작성된 정보가 매장 정보와 불일치 또는 허위 정보일 시 서비스 이용이 중지됩니다.")
+                            Text("***전부 필수**로 입력하셔야 합니다.\n사업자등록증  및 작성된 정보가 매장 정보와 불일치 또는 허위 정보일 시 서비스 이용이 중지됩니다.")
                                 .font(regular16Font)
                                 .foregroundColor(.black)
                                 .padding(.horizontal, Size.w(14))
