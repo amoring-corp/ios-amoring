@@ -16,6 +16,8 @@ struct SignInView: View {
     @State var businessSheetPresented: Bool = false
     @State var emailSheetPresented: Bool = false
     
+    @AppStorage("language") var language = UserDefaults.standard.string(forKey: "language") ?? "ko"
+    
     var body: some View {
         NavigationStackBackport.NavigationStack(path: $navigator.path) {
             ZStack {
@@ -59,6 +61,9 @@ struct SignInView: View {
             .backport.navigationDestination(for: AuthPath.self) { screen in
                 navigator.navigate(screen: screen)
             }
+        }
+        .onAppear {
+            self.language = Locale.current.identifier
         }
     }
 }

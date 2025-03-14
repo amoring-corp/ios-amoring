@@ -47,9 +47,6 @@ struct BusinessSettingsImages: View {
                     .onAppear {
                         self.pictures = userManager.businessPictures
                     }
-                    .onChange(of: userManager.businessPictures) { pics in
-                        self.pictures = pics
-                    }
                     .sheet(isPresented: $showContentTypeSheet) {
                         ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
                             .onDisappear {
@@ -94,7 +91,9 @@ struct BusinessSettingsImages: View {
                         
                         let images = pictures.map({ $0.picture })
                         userManager.deleteAllBusinessImages { success in
+                            self.pictures.removeAll()
                             userManager.uploadBusinessImages(images: images) { success in
+                                self.pictures = userManager.businessPictures
                                 //                                    sessionManager.getCurrentSession(delay: 0) { success, error in
                                 //                                        notificationController.setNotification(show: !success, text: error, type: .error)
                                 //                                    }

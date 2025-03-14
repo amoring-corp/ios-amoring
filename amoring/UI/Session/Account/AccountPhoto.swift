@@ -14,7 +14,7 @@ struct AccountPhoto: View {
     @EnvironmentObject var notificationController: NotificationController
     
     @State private var droppedOutside: Bool = false
-    @State private var confirmRemoveImageIndex: Int = 0
+//    @State private var confirmRemoveImageIndex: Int = 0
     @State private var showRemoveConfirmation: Bool = false
     @State private var showContentTypeSheet: Bool = false
     @State private var showImagePicker: Bool = false
@@ -72,9 +72,6 @@ struct AccountPhoto: View {
                 .onAppear {
                     self.pictures = userManager.pictures
                 }
-                .onChange(of: userManager.pictures) { pics in
-                    self.pictures = pics
-                }
                 .sheet(isPresented: $showContentTypeSheet) {
                     ImagePicker(pictures: $pictures, photoIndex: editIndex).ignoresSafeArea()
                         .onDisappear {
@@ -124,7 +121,9 @@ struct AccountPhoto: View {
                     
                     let images = pictures.map({ $0.picture })
                     userManager.deleteMyAllProfileImages { success in
+                        self.pictures.removeAll()
                         userManager.uploadMyProfileImages(images: images) { success in
+                            self.pictures = userManager.pictures
                             //                        sessionManager.getCurrentSession(delay: 0) { success, error in
                             //                            notificationController.setNotification(show: !success, text: error, type: .error)
                             //                        }
@@ -163,7 +162,7 @@ struct AccountPhoto: View {
     }
     
     func removePicture() {
-        self.pictures.remove(at: confirmRemoveImageIndex)
+        self.pictures.remove(at: userManager.confirmRemoveImageIndex)
     }
 }
 

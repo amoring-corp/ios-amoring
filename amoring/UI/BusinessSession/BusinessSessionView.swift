@@ -23,6 +23,8 @@ struct BusinessSessionView: View {
     
     @State var timer: Timer? = nil
     
+    @AppStorage("language") var language = UserDefaults.standard.string(forKey: "language") ?? "ko"
+    
     var body: some View {
         let business = userManager.user?.business
         GeometryReader { geometry in
@@ -197,6 +199,9 @@ struct BusinessSessionView: View {
                 .transition(.move(edge: .bottom))
         )
         .environment(\.locale, .init(identifier: "ko"))
+        .onAppear {
+            self.language = "ko"
+        }
     }
     
     func fakelist(images: [String], size: CGFloat) -> some View {

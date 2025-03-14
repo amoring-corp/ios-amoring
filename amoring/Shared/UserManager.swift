@@ -184,40 +184,80 @@ class UserManager: ObservableObject {
         }
     }
     
+//    func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
+//        self.isLoading = true
+//        self.pictures.removeAll()
+//        self.user?.profile?.images.removeAll()
+////        let dispatchGroup = DispatchGroup()
+//        let dispatchQueue = DispatchQueue(label: "taskQueue")
+//        let semaphore = DispatchSemaphore(value: 1)
+//        var successList: [Bool] = []
+//        for (index,image) in images.enumerated(){
+//            dispatchQueue.async {
+//                let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
+//                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
+//    //                dispatchGroup.enter()
+//                    semaphore.wait()
+//                    let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+//                    self.saveImage(file: file, sort: index) { success in
+//                        successList.append(success)
+//    //                    dispatchGroup.leave()
+//                        semaphore.signal()
+//                        // TODO: need tests
+//                        if index + 1 >= images.count {
+//                            self.isLoading = false
+//                            print("sending: \(successList.filter{$0}.count) images finished")
+//                            completion(successList.filter{$0}.count >= 3)
+//                        }
+//                    }
+//                } else {
+//                    print("wrong image data!")
+//                    self.isLoading = false
+//                    completion(true)
+//                }
+//            }
+//        }
+//    }
+    
     func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
         self.pictures.removeAll()
         self.user?.profile?.images.removeAll()
-//        let dispatchGroup = DispatchGroup()
+        
+        let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "taskQueue")
-        let semaphore = DispatchSemaphore(value: 1)
+        let syncQueue = DispatchQueue(label: "syncQueue") // Для потокобезопасного доступа к successList
+        
         var successList: [Bool] = []
-        for (index,image) in images.enumerated(){
+        
+        for (index, image) in images.enumerated() {
+            dispatchGroup.enter()
             dispatchQueue.async {
                 let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
-                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
-    //                dispatchGroup.enter()
-                    semaphore.wait()
+                if let data = resizedImage?.jpegData(compressionQuality: 0.8) {
                     let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+                    
                     self.saveImage(file: file, sort: index) { success in
-                        successList.append(success)
-    //                    dispatchGroup.leave()
-                        semaphore.signal()
-                        // TODO: need tests
-                        if index + 1 >= images.count {
-                            self.isLoading = false
-                            print("sending: \(successList.filter{$0}.count) images finished")
-                            completion(successList.filter{$0}.count >= 3)
+                        syncQueue.async {
+                            successList.append(success)
                         }
+                        dispatchGroup.leave()
                     }
                 } else {
                     print("wrong image data!")
-                    self.isLoading = false
-                    completion(true)
+                    dispatchGroup.leave()
                 }
             }
         }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.isLoading = false
+            print("sending: \(successList.filter { $0 }.count) images finished")
+            completion(successList.filter { $0 }.count >= 3)
+        }
     }
+
+    
     
     
     private func saveImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
@@ -241,9 +281,12 @@ class UserManager: ObservableObject {
                 print(sort)
                 
                 if self.user?.profile?.images.count ?? 0 >= sort {
+                    
+                    //MARK: setting avatarUrl for mutating user
                     if sort == 0 {
                         self.user?.profile?.avatarUrl = data.uploadMyProfileImage.fragments.imageFragment.file?.url
                     }
+                    
                     self.user?.profile?.images.insert(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment), at: sort)
                 } else {
                     self.user?.profile?.images.append(MutatingImage(image: data.uploadMyProfileImage.fragments.imageFragment))
@@ -270,44 +313,80 @@ class UserManager: ObservableObject {
         }
     }
     
+//    func uploadBusinessImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
+//        self.isLoading = true
+//        self.businessPictures.removeAll()
+//        self.user?.business?.images?.removeAll()
+////        let dispatchGroup = DispatchGroup()
+//        let dispatchQueue = DispatchQueue(label: "taskQueue")
+//        let semaphore = DispatchSemaphore(value: 1)
+//        var successList: [Bool] = []
+//        for (index,image) in images.enumerated() {
+//            dispatchQueue.async {
+//                let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
+//                
+//                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
+//                    //                dispatchGroup.enter()
+//                    semaphore.wait()
+//                    let file = GraphQLFile(fieldName: "image", originalName: "image", mimeType: "image/jpeg", data: data)
+//                    self.saveBusinessImage(file: file, sort: index) { success in
+//                        successList.append(success)
+//                        semaphore.signal()
+//                        //                    dispatchGroup.leave()
+//                        // TODO: need tests
+//                        if index + 1 >= images.count {
+//                            self.isLoading = false
+//                            print("sending: \(successList.filter{$0}.count) images finished")
+//                            completion(successList.filter{$0}.count >= 3)
+//                        }
+//                    }
+//                } else {
+//                    print("wrong image data!")
+//                    completion(true)
+//                }
+//            }
+//        }
+//    }
+    
     func uploadBusinessImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
         self.isLoading = true
         self.businessPictures.removeAll()
         self.user?.business?.images?.removeAll()
-//        let dispatchGroup = DispatchGroup()
+        
+        let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "taskQueue")
-        let semaphore = DispatchSemaphore(value: 1)
+        let syncQueue = DispatchQueue(label: "syncQueue") // Для потокобезопасного доступа к successList
+        
         var successList: [Bool] = []
-        for (index,image) in images.enumerated() {
+        
+        for (index, image) in images.enumerated() {
+            dispatchGroup.enter()
             dispatchQueue.async {
+                print("\(image.cgImage?.size), index: \(index)")
+            
                 let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
                 
-                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
-                    //                dispatchGroup.enter()
-                    semaphore.wait()
+                if let data = resizedImage?.jpegData(compressionQuality: 0.8) {
                     let file = GraphQLFile(fieldName: "image", originalName: "image", mimeType: "image/jpeg", data: data)
+                    
                     self.saveBusinessImage(file: file, sort: index) { success in
-                        successList.append(success)
-                        semaphore.signal()
-                        //                    dispatchGroup.leave()
-                        // TODO: need tests
-                        if index + 1 >= images.count {
-                            self.isLoading = false
-                            print("sending: \(successList.filter{$0}.count) images finished")
-                            completion(successList.filter{$0}.count >= 3)
+                        syncQueue.async {
+                            successList.append(success)
                         }
+                        dispatchGroup.leave()
                     }
                 } else {
                     print("wrong image data!")
-                    completion(true)
+                    dispatchGroup.leave()
                 }
             }
         }
-//        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-//            self.isLoading = false
-//            print("sending: \(successList.filter{$0}.count) images finished")
-//            completion(successList.filter{$0}.count >= 3)
-//        })
+        
+        dispatchGroup.notify(queue: .main) {
+            self.isLoading = false
+            print("sending: \(successList.filter { $0 }.count) images finished")
+            completion(successList.filter { $0 }.count >= 3)
+        }
     }
     
     private func saveBusinessImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
@@ -329,6 +408,7 @@ class UserManager: ObservableObject {
                 
                 print("Image: \(data.uploadBusinessImage.file?.url)  ..uploaded!")
                 print(sort)
+                
                 if self.user?.business?.images?.count ?? 0 >= sort {
                     self.user?.business?.images?.insert(MutatingImage(image: data.uploadBusinessImage), at: sort)
                 } else {
@@ -346,6 +426,7 @@ class UserManager: ObservableObject {
                         }
                     }
                 }
+                
                 completion(true)
             case .failure(let error):
                 print(error)

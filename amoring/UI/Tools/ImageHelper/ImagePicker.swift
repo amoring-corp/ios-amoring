@@ -38,26 +38,58 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
 
+//        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//            results.forEach { result in
+//                let provider = result.itemProvider
+//                
+//                if provider.canLoadObject(ofClass: UIImage.self) {
+//                    provider.loadObject(ofClass: UIImage.self) { image, _ in
+//                        provider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { (url, error) in
+//                            if let img = image as? UIImage, let url {
+//                                if let index = self.parent.photoIndex {
+//                                    self.parent.pictures[index] = PictureModel.newPicture(img, url.absoluteString)
+//                                } else {
+//                                    self.parent.pictures.append(PictureModel.newPicture(img, url.absoluteString))
+//                                }
+//                            }
+////                            print("URL: \(url)")
+//                        }
+//                    }
+//                }
+//            }
+//            
+//            picker.dismiss(animated: true)
+//        }
+        
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            // Loop through the results
             results.forEach { result in
                 let provider = result.itemProvider
                 
+                // Check if we can load an image object
                 if provider.canLoadObject(ofClass: UIImage.self) {
-                    provider.loadObject(ofClass: UIImage.self) { image, _ in
-                        provider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { (url, error) in
-                            if let img = image as? UIImage, let url {
+                    // First load the image
+                    provider.loadObject(ofClass: UIImage.self) { (image, error) in
+                        guard let img = image as? UIImage else {
+                            return
+                        }
+                        
+                        // Now load the file representation (URL) of the image
+                        provider.loadFileRepresentation(forTypeIdentifier: "public.image") { (url, error) in
+                            if let url = url {
+                                // Check if the image and URL are both available, then handle the update
                                 if let index = self.parent.photoIndex {
                                     self.parent.pictures[index] = PictureModel.newPicture(img, url.absoluteString)
                                 } else {
                                     self.parent.pictures.append(PictureModel.newPicture(img, url.absoluteString))
                                 }
                             }
-//                            print("URL: \(url)")
                         }
                     }
                 }
             }
             
+            // Dismiss the picker once all operations are done
             picker.dismiss(animated: true)
         }
     }

@@ -23,7 +23,8 @@ func initApi(token: String) -> ApolloClient {
         let url = URL(string: "\(Constants.domain)/graphql")!
         let configuration = URLSessionConfiguration.default
         
-        let langStr = Locale.current.languageCode
+        let langStr = UserDefaults.standard.string(forKey: "language") ?? Locale.current.languageCode
+        
         print("my current language is: \(langStr)")
         configuration.httpAdditionalHeaders = [
             "Authorization": "Bearer \(token)",
@@ -43,7 +44,7 @@ func initWSApi(token: String) -> ApolloClient {
     return {
         let url = URL(string: "wss://api.amoring.info/graphql")!
         let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
-        let langStr = Locale.current.languageCode
+        let langStr = UserDefaults.standard.string(forKey: "language") ?? Locale.current.languageCode
         let authPayload: JSONEncodableDictionary = [
             "Authorization": "Bearer \(token)",
             "Accept-Language": langStr ?? "ko"

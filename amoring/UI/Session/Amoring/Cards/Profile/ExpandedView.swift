@@ -45,9 +45,11 @@ struct ExpandedView: View {
                 .background(Color.yellow350)
             }
             
-            if let images = profile.images.map({ $0.map({ $0?.fragments.imageFragment.file?.url })}) {
+            if let images = profile.images?.compactMap({ $0.map({ $0.fragments.imageFragment.file?.url })}) {
                 VStack(spacing: 0) {
-                    ForEach(images, id: \.self) { url in
+                    let imgs = (images.count < 2) ? images : Array(images.dropFirst())
+                    
+                    ForEach(imgs, id: \.self) { url in
                         VStack(spacing: 0) {
                             Color.gray1000.frame(height: 2).frame(minWidth: UIScreen.main.bounds.width)
                             //                        Color.red.frame(height: 300)
