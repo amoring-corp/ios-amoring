@@ -68,6 +68,7 @@ struct NotificationsControl: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.gray1000)
         .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("알림 설정")

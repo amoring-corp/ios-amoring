@@ -47,7 +47,7 @@ struct AmoringView: View {
 //                        }
 //                        )
                 } else {
-                    if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
+                    if AVCaptureDevice.authorizationStatus(for: .video) != .denied {
                         //already authorized
                         CheckInView()
                     } else {

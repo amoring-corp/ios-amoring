@@ -71,6 +71,7 @@ struct AccountEmail: View {
         .background(Color.gray1000)
         .onTapGesture(perform: closeKeyboard)
         .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
         .overlay(
                 success ?
                 AccountEmailSuccess(back: back) : nil

@@ -141,6 +141,7 @@ struct AccountPhoto: View {
         .frame(maxWidth: .infinity)
         .background(Color.gray1000)
         .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("내 사진")

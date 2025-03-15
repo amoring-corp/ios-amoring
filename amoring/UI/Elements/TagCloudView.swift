@@ -110,8 +110,8 @@ struct DeletableTagCloudView: View {
 struct TagCloudView: View {
     var tags: [String?]
     @State var totalHeight
-          = CGFloat.zero       // << variant for ScrollView/List
-    //    = CGFloat.infinity   // << variant for VStacktotalHeight: CGFloat.infinity, 
+//          = CGFloat.zero       // << variant for ScrollView/List
+        = CGFloat.infinity   // << variant for VStacktotalHeight: CGFloat.infinity, 
     var isDark: Bool = false
     
     

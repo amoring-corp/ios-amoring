@@ -42,6 +42,7 @@ struct AccountEmailSuccess: View {
             .padding(.bottom, Size.w(36))
         }
         .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal, Size.w(22))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.gray1000)

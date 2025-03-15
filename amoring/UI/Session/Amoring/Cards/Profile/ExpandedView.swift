@@ -62,7 +62,7 @@ struct ExpandedView: View {
                                 }
                                 .fade(duration: 1)
                                 .cancelOnDisappear(true)
-                                .aspectRatio(contentMode: .fill)
+                                .aspectRatio(contentMode: .fit)
 //                            CachedAsyncImage(url: URL(string: url ?? ""), content: { cont in
 //                                cont
 //                                    .resizable()
