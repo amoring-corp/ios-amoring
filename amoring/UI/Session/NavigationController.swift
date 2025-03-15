@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AmoringAPI
 
 class NavigationController: ObservableObject {
     @Published var barAppear: Bool = true
@@ -13,6 +14,7 @@ class NavigationController: ObservableObject {
     @Published var goToUserDetails = false
     @Published var goToUserDetailsFromList = false
     @Published var goToPhotoDetails = false
+    @Published var selectedProfile: ProfileInfo? = nil
     
     func hideBar() {
         withAnimation {

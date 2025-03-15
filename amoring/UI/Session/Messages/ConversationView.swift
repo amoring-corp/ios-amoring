@@ -100,6 +100,7 @@ struct ConversationView: View, KeyboardReadable {
             .frame(maxWidth: .infinity)
             .background(Color.gray1000)
             .navigationBarBackButtonHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(companion?.profile?.name ?? "")

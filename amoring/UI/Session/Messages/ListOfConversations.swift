@@ -131,6 +131,8 @@ struct ChatRow: View {
     let conversation: Conversation
     var expired: Bool = false
     
+
+    
     var body: some View {
         HStack(spacing: 0) {
             
@@ -160,8 +162,14 @@ struct ChatRow: View {
             .background(Color.gray100.opacity(0.01))
             .onTapGesture {
 //                if business != nil, let profile = user?.profile {
-                if let profile = user?.profile {
-                    navigationController.goToUserDetailsFromList = true
+                DispatchQueue.main.async {
+                    if let profile = user?.profile?.fragments.profileInfo {
+                   
+                        navigationController.selectedProfile = profile
+    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            navigationController.goToUserDetailsFromList = true
+    //                    }
+                    }
                 }
             }
             
@@ -234,13 +242,16 @@ struct ChatRow: View {
                 .opacity(0)
             )
             .background(
-                NavigationLink(isActive: $navigationController.goToUserDetailsFromList, destination: {
-                    if let profile = user?.profile?.fragments.profileInfo {
-                        ProfileDetailsView(profile: profile)
+                Group {
+                    if let selectedProfile = navigationController.selectedProfile {
+                        NavigationLink(isActive: $navigationController.goToUserDetailsFromList, destination: {
+                            ProfileDetailsView(profile: selectedProfile)
+                        }
+                                       , label: { EmptyView() })
+                        .isDetailLink(false)
+                        .opacity(0)
                     }
-                }, label: { EmptyView() })
-                .isDetailLink(false)
-                .opacity(0)
+                }
             )
         }
         .frame(height: Size.w(64))
