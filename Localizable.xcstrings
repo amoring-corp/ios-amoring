@@ -1429,40 +1429,6 @@
     "Business Sign IN" : {
 
     },
-    "coupon1.body" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notes:\n• This coupon is given once to new member of Amoring.\n• It can not be used in combination with other coupons.\n• Expired coupons will not be reissued. Please use them before the expiration date.\n• The coupon can only be redeemed once at a partnered location."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "유의사항\n• 본 쿠폰은 신규회원에게 1회 지급되는 쿠폰입니다.\n• 다른 쿠폰과 중복사용 불가합니다.\n• 유효기간이 지난 쿠폰은 재발행 되지 않으니 유효기간 내에 사용해 주시기 바랍니다.\n• 쿠폰 사용 하기 버튼을 누르면 사용된 쿠폰은 회수할 수 없습니다. 꼭 매장에서 제시하여 사용해주세요."
-          }
-        }
-      }
-    },
-    "coupon1.desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome!\nPresent this coupon to an Amoring partnered establishment.\nAs a welcoming gift, have a free drink on us!"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "반가워요 회원님!\\n아모링 가맹 매장에서 해당 쿠폰을 제시해주세요.\\n환영의 의미로 아모링이 무료로 술 한잔 쏩니다!"
-          }
-        }
-      }
-    },
     "coupon1.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1470,23 +1436,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Amoring | Welcome coupon"
-          }
-        }
-      }
-    },
-    "coupon1.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Free drink coupon"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "무료 드링크 교환권"
           }
         }
       }
@@ -2423,6 +2372,23 @@
         }
       }
     },
+    "무료 드링크 교환권" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free drink coupon"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무료 드링크 교환권"
+          }
+        }
+      }
+    },
     "무슨 일이신가요?\n아래에 남겨주시면 답변해 드리겠습니다." : {
       "localizations" : {
         "en" : {
@@ -2473,6 +2439,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bar"
+          }
+        }
+      }
+    },
+    "반가워요 회원님!\n아모링 가맹 매장에서 해당 쿠폰을 제시해주세요.\n환영의 의미로 아모링이 무료로 술 한잔 쏩니다!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome!\nPresent this coupon to an Amoring partnered establishment.\nAs a welcoming gift, have a free drink on us!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "반가워요 회원님!\\n아모링 가맹 매장에서 해당 쿠폰을 제시해주세요.\\n환영의 의미로 아모링이 무료로 술 한잔 쏩니다!"
           }
         }
       }
@@ -3071,6 +3054,40 @@
     },
     "월 청구 비용" : {
 
+    },
+    "웰컴쿠폰" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome coupon"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "웰컴쿠폰"
+          }
+        }
+      }
+    },
+    "유의사항\n- 본 쿠폰은 신규회원에게 1회 지급되는 쿠폰입니다.\n- 다른 쿠폰과 중복사용 불가합니다.\n- 유효기간이 지난 쿠폰은 재발행 되지 않으니 유효기간 내에 사용해 주시기 바랍니다.\n- 쿠폰 사용 하기 버튼을 누르면 사용된 쿠폰은 회수할 수 없습니다. 꼭 매장에서 제시하여 사용해주세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes:\n• This coupon is given once to new member of Amoring.\n• It can not be used in combination with other coupons.\n• Expired coupons will not be reissued. Please use them before the expiration date.\n• The coupon can only be redeemed once at a partnered location."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유의사항\n• 본 쿠폰은 신규회원에게 1회 지급되는 쿠폰입니다.\n• 다른 쿠폰과 중복사용 불가합니다.\n• 유효기간이 지난 쿠폰은 재발행 되지 않으니 유효기간 내에 사용해 주시기 바랍니다.\n• 쿠폰 사용 하기 버튼을 누르면 사용된 쿠폰은 회수할 수 없습니다. 꼭 매장에서 제시하여 사용해주세요."
+          }
+        }
+      }
     },
     "유저순" : {
       "extractionState" : "manual",
