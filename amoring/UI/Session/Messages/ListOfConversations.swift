@@ -185,7 +185,7 @@ struct ChatRow: View {
                             .frame(width: Size.w(6), height: Size.w(6))
                     } else {
                         Circle().fill()
-                        //                            .foregroundColor(user?.isOnline ?? false ? .green300 : .red400)
+                            .foregroundColor(user?.profile?.isOnline ?? false ? .green300 : .red400)
                             .frame(width: Size.w(6), height: Size.w(6))
                     }
                     

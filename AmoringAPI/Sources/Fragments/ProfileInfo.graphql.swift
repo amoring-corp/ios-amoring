@@ -5,7 +5,7 @@
 
 public struct ProfileInfo: AmoringAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment ProfileInfo on Profile { __typename id userId name age avatarUrl birthYear height weight mbti education occupation bio gender activeCheckIn { __typename ...CheckInInfo } images { __typename ...ImageFragment } interests { __typename id name category { __typename id createdAt interests { __typename id name } name updatedAt } categoryId createdAt updatedAt } createdAt updatedAt usedLikesCount maxLikes isBlurred isInPrivateMode }"#
+    #"fragment ProfileInfo on Profile { __typename id userId name age avatarUrl birthYear height weight mbti education occupation bio gender activeCheckIn { __typename ...CheckInInfo } images { __typename ...ImageFragment } interests { __typename id name category { __typename id createdAt interests { __typename id name } name updatedAt } categoryId createdAt updatedAt } createdAt updatedAt usedLikesCount maxLikes isBlurred isInPrivateMode isOnline }"#
   }
 
   public let __data: DataDict
@@ -36,6 +36,7 @@ public struct ProfileInfo: AmoringAPI.SelectionSet, Fragment {
     .field("maxLikes", Int.self),
     .field("isBlurred", Bool?.self),
     .field("isInPrivateMode", Bool?.self),
+    .field("isOnline", Bool.self),
   ] }
 
   public var id: AmoringAPI.ID { __data["id"] }
@@ -62,6 +63,7 @@ public struct ProfileInfo: AmoringAPI.SelectionSet, Fragment {
   public var maxLikes: Int { __data["maxLikes"] }
   public var isBlurred: Bool? { __data["isBlurred"] }
   public var isInPrivateMode: Bool? { __data["isInPrivateMode"] }
+  public var isOnline: Bool { __data["isOnline"] }
 
   /// ActiveCheckIn
   ///

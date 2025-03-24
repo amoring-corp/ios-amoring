@@ -79,7 +79,6 @@ struct ExpandedView: View {
                 }
                 .padding(.top, Size.w(28))
             }
-           
         }
         .background(Color.yellow350)
     }

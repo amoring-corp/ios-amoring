@@ -67,6 +67,7 @@ public class UpsertMyProfileMutation: GraphQLMutation {
       public var maxLikes: Int { __data["maxLikes"] }
       public var isBlurred: Bool? { __data["isBlurred"] }
       public var isInPrivateMode: Bool? { __data["isInPrivateMode"] }
+      public var isOnline: Bool { __data["isOnline"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
