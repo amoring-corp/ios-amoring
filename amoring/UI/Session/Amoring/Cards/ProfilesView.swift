@@ -100,6 +100,9 @@ struct ProfilesView: View {
         .background(.gray1000)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: initialize)
+        .onDisappear {
+            self.timer?.invalidate()
+        }
 //        .onDisappear(perform: {
 //            userManager.newCheckinSubscription?.cancel()
 //        })
@@ -143,9 +146,15 @@ struct ProfilesView: View {
             if let checkedOutAt = checkIn.checkedOutAt?.toDate(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") {
 //                amoringController.countDown = checkInDate.addingTimeInterval(3 * 60 * 60) - Date()
                 amoringController.countDown = checkedOutAt - Date()
-                
+//                print(checkedOutAt)
+//                print(Date())
+//                print(amoringController.countDown)
+//                print("abraca")
                 self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true, block: { timer in
+                    
                     if let countDown = amoringController.countDown, countDown > 0 {
+                        print(countDown)
+                        print("countDown")
                         amoringController.countDown = countDown - 60
                     } else {
                         userManager.checkOutFromActive { error in
