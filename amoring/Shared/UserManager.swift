@@ -1465,11 +1465,14 @@ class UserManager: ObservableObject {
                     
                     
                     self.businesses = []
+                    print(data.businesses.items.map({ $0.businessName }))
                     for bus in data.businesses.items {
                         self.businesses.append(bus.fragments.businessInfo)
                     }
                     self.total = data.businesses.total
-                    
+                    if sort == .businessName {
+                        self.businesses.sort { $0.businessName ?? "" < $1.businessName ?? "" }
+                    }
                     print("total: \(self.total)")
                     completion()
                 case .failure(let error):
