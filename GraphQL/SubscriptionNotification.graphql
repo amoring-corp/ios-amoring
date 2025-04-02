@@ -27,3 +27,9 @@ subscription NewCheckin {
     ... CheckInInfo
   }
 }
+
+subscription ConnectedUserOnlineStatusChanged {
+  connectedUserOnlineStatusChanged {
+    ... UserInfo
+  }
+}

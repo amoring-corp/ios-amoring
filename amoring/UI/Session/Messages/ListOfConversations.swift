@@ -131,7 +131,7 @@ struct ChatRow: View {
     let conversation: Conversation
     var expired: Bool = false
     
-
+    @State var isOnline: Bool = false
     
     var body: some View {
         HStack(spacing: 0) {
@@ -185,7 +185,7 @@ struct ChatRow: View {
                             .frame(width: Size.w(6), height: Size.w(6))
                     } else {
                         Circle().fill()
-                            .foregroundColor(user?.profile?.isOnline ?? false ? .green300 : .red400)
+                            .foregroundColor(self.isOnline ? .green300 : .red400)
                             .frame(width: Size.w(6), height: Size.w(6))
                     }
                     
@@ -260,8 +260,18 @@ struct ChatRow: View {
         .padding(.top, Size.w(10))
         .background(Color.gray1000.opacity(0.01))
         .opacity(expired ? 0.6 : 1)
-        
-        
+        .onAppear {
+            DispatchQueue.once(token: conversation.participants.first(where: { $0.id != userManager.user?.id })?.profile?.id ?? "uniqueToken") {
+                self.isOnline = conversation.participants.first(where: { $0.id != userManager.user?.id })?.profile?.isOnline ?? false
+            }
+        }
+        .onChange(of: userManager.statusChanged) { newStatus in
+            if let newStatus {
+                if newStatus.id == conversation.participants.first(where: { $0.id != userManager.user?.id })?.profile?.id {
+                    self.isOnline = newStatus.isOnline
+                }
+            }
+        }
     }
 }
 

@@ -1323,10 +1323,28 @@ class UserManager: ObservableObject {
     var reactionSubscription: Cancellable?
     var conversationSubscription: Cancellable?
     var newCheckinSubscription: Cancellable?
+    var connectedUserOnlineStatusChanged: Cancellable?
     @Published var newMessage: MessageInfo? = nil
+    @Published var statusChanged: NewStatusReader? = nil
     
     deinit {
         self.messageSubscription?.cancel()
+    }
+    
+    func connectedUserOnlineStatusChanged(completion: @escaping (ProfileInfo?) -> Void) {
+        self.connectedUserOnlineStatusChanged = WSApi.subscribe(subscription: ConnectedUserOnlineStatusChangedSubscription()) { result in
+//            print("online status changed")
+//            print(result)
+            guard let data = try? result.get().data else { return }
+            if let profile = data.connectedUserOnlineStatusChanged?.fragments.userInfo.profile?.fragments.profileInfo {
+                print("user \(profile.id) is \(profile.isOnline ? "online" : "offline")")
+                self.statusChanged = NewStatusReader(id: profile.id, isOnline: profile.isOnline)
+                completion(profile)
+            } else {
+                print("online status changed with errors")
+                completion(nil)
+            }
+        }
     }
     
     func newCheckinSubscription(completion: @escaping (Bool) -> Void) {

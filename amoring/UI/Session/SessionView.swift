@@ -156,6 +156,7 @@ struct SessionView: View {
         userManager.reactionSubscription?.cancel()
         userManager.conversationSubscription?.cancel()
         userManager.newCheckinSubscription?.cancel()
+        userManager.connectedUserOnlineStatusChanged?.cancel()
     }
     
     private func subscriptions() {
@@ -223,6 +224,10 @@ struct SessionView: View {
         
         userManager.newCheckinSubscription { success in
             userManager.getVisibleProfiles()
+        }
+        
+        userManager.connectedUserOnlineStatusChanged { profile in
+           
         }
 //            .safeAreaInset(edge: .top, content: {
 //                Color.clear

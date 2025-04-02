@@ -75,7 +75,6 @@
 		2BA117BC2CAEFF3E0021CB34 /* MutationReportUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */; };
 		2BA117C22CB01AE60021CB34 /* BlockUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BA117C12CB01AE60021CB34 /* BlockUser.graphql */; };
 		2BE8B0842CC8C00400128C6B /* MutationDeleteMyAccount.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */; };
-		2BE8B0862CC8C06A00128C6B /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 2BE8B0852CC8C06A00128C6B /* schema.graphqls */; };
 		2BF1AFA12C9D893200A6C077 /* PrivateModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */; };
 		2BF2F1772BBE6415002F7BFE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2F1762BBE6415002F7BFE /* NavigationController.swift */; };
 		2BF3DEA42C4BA31A008D3D0D /* PhoneAuthPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */; };
@@ -278,6 +277,8 @@
 		85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A72B0DAAFF00DC1950 /* BusinessSessionView.swift */; };
 		94F4252553983A6B74617C32 /* Pods_amoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */; };
 		ACE03E4F780B7CD897C09EF8 /* Pods_amoring_amoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */; };
+		ED8EA96B2D9CBBA600C34CA7 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = ED8EA96A2D9CBBA600C34CA7 /* schema.graphqls */; };
+		ED8EA96D2D9CC54000C34CA7 /* NewStatusReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8EA96C2D9CC53200C34CA7 /* NewStatusReader.swift */; };
 		ED9197692D2D1CF00028EB1A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = ED9197682D2D1CF00028EB1A /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -429,7 +430,6 @@
 		2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationReportUser.graphql; sourceTree = "<group>"; };
 		2BA117C12CB01AE60021CB34 /* BlockUser.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = BlockUser.graphql; sourceTree = "<group>"; };
 		2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MutationDeleteMyAccount.graphql; sourceTree = "<group>"; };
-		2BE8B0852CC8C06A00128C6B /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		2BF1AFA02C9D893200A6C077 /* PrivateModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateModeView.swift; sourceTree = "<group>"; };
 		2BF2F1762BBE6415002F7BFE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		2BF3DEA32C4BA31A008D3D0D /* PhoneAuthPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthPhone.swift; sourceTree = "<group>"; };
@@ -632,6 +632,8 @@
 		8894331154CCFAD1B7E99C99 /* Pods-amoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring.release.xcconfig"; path = "Target Support Files/Pods-amoring/Pods-amoring.release.xcconfig"; sourceTree = "<group>"; };
 		A186EA1AC86029A7B7855DB7 /* Pods-amoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring.debug.xcconfig"; path = "Target Support Files/Pods-amoring/Pods-amoring.debug.xcconfig"; sourceTree = "<group>"; };
 		B228EFB2A9799BC897315988 /* Pods-amoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.debug.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED8EA96A2D9CBBA600C34CA7 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		ED8EA96C2D9CC53200C34CA7 /* NewStatusReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStatusReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1110,7 +1112,7 @@
 		85806C452B22F6800077D12C /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				2BE8B0852CC8C06A00128C6B /* schema.graphqls */,
+				ED8EA96A2D9CBBA600C34CA7 /* schema.graphqls */,
 				2B2049852B96D05500E633E3 /* MessageFragment.graphql */,
 				2B2049792B95A0B000E633E3 /* ProfileFragment.graphql */,
 				2B20497B2B95A3E200E633E3 /* BusinessFragment.graphql */,
@@ -1160,7 +1162,6 @@
 				2B20496D2B903AA700E633E3 /* QueryConversations.graphql */,
 				2B2049712B903AFF00E633E3 /* QueryConversation.graphql */,
 				2B2049732B9072EF00E633E3 /* MutationSendMessage.graphql */,
-				2B2049932B9989A000E633E3 /* SubscriptionNotification.graphql */,
 				2B2049E62B9ADE7000E633E3 /* MutationUpsertUserDevice.graphql */,
 				2B2C42CC2BA2E18900EA1ACA /* MutationDeleteConversation.graphql */,
 				2B2C42CE2BA2E1EF00EA1ACA /* MutationReportConversation.graphql */,
@@ -1180,6 +1181,7 @@
 				2BA117BB2CAEFF3E0021CB34 /* MutationReportUser.graphql */,
 				2BA117C12CB01AE60021CB34 /* BlockUser.graphql */,
 				2BE8B0832CC8C00400128C6B /* MutationDeleteMyAccount.graphql */,
+				2B2049932B9989A000E633E3 /* SubscriptionNotification.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1220,6 +1222,7 @@
 		85FC20712B0C4E5500DC1950 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED8EA96C2D9CC53200C34CA7 /* NewStatusReader.swift */,
 				85FC20972B0D70E300DC1950 /* MutatingUser.swift */,
 				850BE9CD2B6342FF00EC8EAB /* Profile.swift */,
 				85FC20A52B0D9DC700DC1950 /* Business.swift */,
@@ -1440,7 +1443,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BE8B0862CC8C06A00128C6B /* schema.graphqls in Resources */,
 				85769E232B6B7C1E0064005D /* MutationDeleteAllBusinessImages.graphql in Resources */,
 				850A30212B0AEF41003B12B7 /* Pretendard-Medium.ttf in Resources */,
 				2B3FD4532BD138630090BA9D /* MutationCreatePurchase.graphql in Resources */,
@@ -1484,6 +1486,7 @@
 				8538D57A2B57A5AE0040E017 /* QueryBusinesses.graphql in Resources */,
 				8538D52F2B4E6C2E0040E017 /* MutationSignInWithGoogle.graphql in Resources */,
 				2B2FADA62B8F65E4009CB2C6 /* MutationReactToProfile.graphql in Resources */,
+				ED8EA96B2D9CBBA600C34CA7 /* schema.graphqls in Resources */,
 				85F1904B2B609E8900FA7686 /* MutationDeleteMyProfileImage.graphql in Resources */,
 				2B2049742B9072EF00E633E3 /* MutationSendMessage.graphql in Resources */,
 				8538D55B2B5685290040E017 /* MutationConnectInterestsToMyProfile.graphql in Resources */,
@@ -1748,6 +1751,7 @@
 				85D36AF02B0F26DB00106BC0 /* SettingsView.swift in Sources */,
 				8522A5F92B2BFA00008AF703 /* PurchaseView.swift in Sources */,
 				2B20498E2B99768400E633E3 /* BusinessHours.swift in Sources */,
+				ED8EA96D2D9CC54000C34CA7 /* NewStatusReader.swift in Sources */,
 				85FB6B912B450E980023A889 /* UserOnboardingInterests.swift in Sources */,
 				2B3FD4722BD7AFC70090BA9D /* CouponDetailsView.swift in Sources */,
 				85769E1B2B69D6A20064005D /* Triange.swift in Sources */,

@@ -23,12 +23,16 @@ func initApi(token: String) -> ApolloClient {
         let url = URL(string: "\(Constants.domain)/graphql")!
         let configuration = URLSessionConfiguration.default
         
-        let langStr = UserDefaults.standard.string(forKey: "language") ?? Locale.current.languageCode
+        var langStr = UserDefaults.standard.string(forKey: "language") ?? Locale.current.languageCode
+        if langStr == "en_KR" {
+            langStr = "en"
+            UserDefaults.standard.set(langStr, forKey: "language")
+        }
         
         print("my current language is: \(langStr)")
         configuration.httpAdditionalHeaders = [
             "Authorization": "Bearer \(token)",
-            "Accept-Language": langStr ?? "ko"
+            "Accept-Language": langStr ?? "en"
         ] // Add your headers here
         
         let client = URLSessionClient(sessionConfiguration: configuration)

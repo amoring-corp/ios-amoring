@@ -366,3 +366,13 @@ func secondElement<T>(of array: [T]) -> T? {
     }
     return array[1]
 }
+
+extension DispatchQueue {
+    private static var executedTokens = Set<String>()
+
+    static func once(token: String, execute: () -> Void) {
+        guard !executedTokens.contains(token) else { return }
+        executedTokens.insert(token)
+        execute()
+    }
+}
