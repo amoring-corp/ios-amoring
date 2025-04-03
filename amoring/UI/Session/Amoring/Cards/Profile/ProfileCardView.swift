@@ -31,7 +31,7 @@ struct ProfileCardView: View {
                         .fade(duration: 1)
                         .cancelOnDisappear(true)
                         .aspectRatio(contentMode: .fill)
-                    
+                        .blur(radius: profile.isBlurred ?? false ? 6 : 0)
 //                    CachedAsyncImage(url: URL(string: url), content: { cont in
 //                        cont
 //                            .resizable()
