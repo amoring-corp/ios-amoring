@@ -38,15 +38,14 @@ struct AccountView: View {
                             .cancelOnDisappear(true)
                             .aspectRatio(contentMode: .fill)
                             .onTapGesture {
-                                if let profile = userManager.authUser.profile?.fragments.profileInfo {
+                                if let profile = userManager.user?.profile {
                                     navigationController.goToUserDetails = true
                                 }
                             }
                             .background(
                                 NavigationLink(isActive: $navigationController.goToUserDetails, destination: {
-                                    // TODO: implement view
-                                    if let profile = userManager.authUser.profile?.fragments.profileInfo {
-                                        ProfileDetailsView(profile: profile)
+                                    if let profile = userManager.user?.profile {
+                                        MyProfileDetailsView(profile: profile)
                                     }
                                 }, label: { EmptyView() })
                                 .isDetailLink(false)

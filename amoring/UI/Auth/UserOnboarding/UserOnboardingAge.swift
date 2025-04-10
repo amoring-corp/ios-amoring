@@ -89,9 +89,10 @@ struct UserOnboardingAge: View {
         )
         .overlay(
             sheetPresented ? CustomSheet {
-                let year = (Int(Calendar.current.component(.year, from: Date()).description) ?? 2024) - 17
+                let endYear = (Int(Calendar.current.component(.year, from: Date()).description) ?? 2025) - 17
+                let startYear = (Int(Calendar.current.component(.year, from: Date()).description) ?? 1950) - 100
                 Picker("", selection: $age) {
-                    ForEach(1920..<year, id: \.self) { year in
+                    ForEach(startYear..<endYear, id: \.self) { year in
                         Text(String(year)).tag(year)
                             .foregroundColor(.black)
                     }

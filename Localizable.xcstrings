@@ -2866,6 +2866,23 @@
     "안내사항" : {
 
     },
+    "안녕하세요!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "안녕하세요!"
+          }
+        }
+      }
+    },
     "알림 설정" : {
       "extractionState" : "manual",
       "localizations" : {
