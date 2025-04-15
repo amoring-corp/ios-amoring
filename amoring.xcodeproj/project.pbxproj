@@ -277,6 +277,7 @@
 		85FC20A82B0DAAFF00DC1950 /* BusinessSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC20A72B0DAAFF00DC1950 /* BusinessSessionView.swift */; };
 		94F4252553983A6B74617C32 /* Pods_amoringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB4906AF30D9CC49C9C483A /* Pods_amoringTests.framework */; };
 		ACE03E4F780B7CD897C09EF8 /* Pods_amoring_amoringUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36F0901750247FC872FEA7AE /* Pods_amoring_amoringUITests.framework */; };
+		ED2AAF0A2DADF76900F41DA4 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2AAF092DADF76900F41DA4 /* ChatRow.swift */; };
 		ED8EA96B2D9CBBA600C34CA7 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = ED8EA96A2D9CBBA600C34CA7 /* schema.graphqls */; };
 		ED8EA96D2D9CC54000C34CA7 /* NewStatusReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8EA96C2D9CC53200C34CA7 /* NewStatusReader.swift */; };
 		ED9197692D2D1CF00028EB1A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = ED9197682D2D1CF00028EB1A /* Kingfisher */; };
@@ -632,6 +633,7 @@
 		8894331154CCFAD1B7E99C99 /* Pods-amoring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring.release.xcconfig"; path = "Target Support Files/Pods-amoring/Pods-amoring.release.xcconfig"; sourceTree = "<group>"; };
 		A186EA1AC86029A7B7855DB7 /* Pods-amoring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoring.debug.xcconfig"; path = "Target Support Files/Pods-amoring/Pods-amoring.debug.xcconfig"; sourceTree = "<group>"; };
 		B228EFB2A9799BC897315988 /* Pods-amoringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amoringTests.debug.xcconfig"; path = "Target Support Files/Pods-amoringTests/Pods-amoringTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED2AAF092DADF76900F41DA4 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
 		ED8EA96A2D9CBBA600C34CA7 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		ED8EA96C2D9CC53200C34CA7 /* NewStatusReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStatusReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -983,6 +985,7 @@
 			children = (
 				850A30342B0B1CE3003B12B7 /* MessagesView.swift */,
 				85E8E93F2B3140580054EBCE /* ListOfConversations.swift */,
+				ED2AAF092DADF76900F41DA4 /* ChatRow.swift */,
 				85E8E9432B3145390054EBCE /* ConversationView.swift */,
 				85E8E9412B3140850054EBCE /* ListOfPeopleLikesLink.swift */,
 				85B028A42B301A2B00A738AB /* PeopleLikesView.swift */,
@@ -1783,6 +1786,7 @@
 				2B650B382BDFBB1200066DC0 /* WebView.swift in Sources */,
 				85F190492B5FAC0500FA7686 /* BorderButton.swift in Sources */,
 				8522A5FF2B2C4B6F008AF703 /* PurchaseSimpleWindow.swift in Sources */,
+				ED2AAF0A2DADF76900F41DA4 /* ChatRow.swift in Sources */,
 				85FC20922B0C514400DC1950 /* DragRelocateDelegate.swift in Sources */,
 				850BE9B72B61F23500EC8EAB /* BusinessSettingsOpenHours.swift in Sources */,
 				2BF3DEA82C4BB0FB008D3D0D /* PhoneAuthOtp.swift in Sources */,
