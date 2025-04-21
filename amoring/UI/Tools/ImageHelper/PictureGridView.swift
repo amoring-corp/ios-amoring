@@ -92,10 +92,10 @@ struct PictureGridView: View {
 //            
 //        }
         .onChange(of: pictures, perform: { newValue in
-            cells = (0...8).map{ GridCell(picture: $0 < newValue.count ? newValue[$0] : nil)}
+            cells = (0...5).map{ GridCell(picture: $0 < newValue.count ? newValue[$0] : nil)}
         })
         .onAppear {
-            cells = (0...8).map{ GridCell(picture: $0 < pictures.count ? pictures[$0] : nil)}
+            cells = (0...5).map{ GridCell(picture: $0 < pictures.count ? pictures[$0] : nil)}
         }
     }
     
@@ -110,9 +110,3 @@ struct PictureGridView: View {
         }
     }
 }
-
-//struct PictureGridView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PictureGridView(pictures: .constant([]), droppedOutside: .constant(false), onAddedImageClick: {index in}, onAddImageClick: {})
-//    }
-//}
