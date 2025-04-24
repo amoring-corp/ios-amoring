@@ -1602,17 +1602,19 @@ class UserManager: ObservableObject {
                     print("NO DATA!")
                     return
                 }
+                let profiles = data.visibleProfiles.reversed()
+
                 
-                let profiles = data.visibleProfiles
                 self.profiles = []
-                print("visible profiles: ")
-                print(profiles.map({ $0?.id }))
+//                print("visible profiles: ")
+//                print(profiles.map({ $0?.id }))
+//                print(profiles.map({ $0?.createdAt }))
                 for profile in profiles {
                     if let profile {
                         self.profiles.append(profile.fragments.profileInfo)
                     }
                 }
-                
+                print(self.profiles.map({ $0.id }))
             case .failure(let error):
                 print("faliure")
                 debugPrint(error.localizedDescription)
