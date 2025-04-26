@@ -11,6 +11,7 @@ import AmoringAPI
 
 struct ExpandedView: View {
     let profile: ProfileInfo
+    var unblur: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -54,7 +55,7 @@ struct ExpandedView: View {
                             Color.gray1000.frame(height: 2).frame(minWidth: UIScreen.main.bounds.width)
                             //                        Color.red.frame(height: 300)
                             let url = URL(string: url ?? "")
-
+                            let isBlurred = unblur ? false : profile.isBlurred ?? false
                             KFImage.url(url)
                                 .resizable()
                                 .placeholder {
@@ -67,7 +68,7 @@ struct ExpandedView: View {
 //                                cont
 //                                    .resizable()
 //                                    .scaledToFill()
-                                    .blur(radius: profile.isBlurred ?? false ? 6 : 0)
+                                .blur(radius: isBlurred ? 6 : 0)
                                     .frame(minHeight: Size.w(150))
 //                            }, placeholder: {
 //                                ZStack {

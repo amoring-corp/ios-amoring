@@ -13,6 +13,7 @@ struct ProfileCardView: View {
     let profile: ProfileInfo
     let width: CGFloat
     let height: CGFloat
+    var unblur: Bool = false
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -22,7 +23,7 @@ struct ProfileCardView: View {
                     let colors: [Color] = [.black, .black, .black, .black, .black, .black, .black, .black, .clear]
 //                    let url = profile.avatarUrl ?? ""
                     let url = URL(string: profile.avatarUrl ?? "")
-
+                    let isBlurred = unblur ? false : profile.isBlurred ?? false
                     KFImage.url(url)
                         .resizable()
                         .placeholder {
@@ -31,7 +32,7 @@ struct ProfileCardView: View {
                         .fade(duration: 1)
                         .cancelOnDisappear(true)
                         .aspectRatio(contentMode: .fill)
-                        .blur(radius: profile.isBlurred ?? false ? 6 : 0)
+                        .blur(radius: isBlurred ? 6 : 0)
 //                    CachedAsyncImage(url: URL(string: url), content: { cont in
 //                        cont
 //                            .resizable()

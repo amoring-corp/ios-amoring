@@ -27,10 +27,10 @@ struct ProfileDetailsView: View {
                     VStack(spacing: 0) {
                         ProfileCardView(profile: profile,
                                         width: reader.size.width - Size.w(20),
-                                        height: reader.size.height - heightPadding
+                                        height: reader.size.height - heightPadding, unblur: true
                         )
                         
-                        ExpandedView(profile: profile)
+                        ExpandedView(profile: profile, unblur: true)
                     }
                     .background(Color.yellow350)
                     .frame(
