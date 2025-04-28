@@ -18,6 +18,37 @@ import NaverThirdPartyLogin
 import ApolloWebSocket
 import AWSSNS
 
+class WebSocketApiManager {
+    static let shared = WebSocketApiManager()
+    
+    private(set) var apollo: ApolloClient?
+    private var webSocketTransport: WebSocketTransport?
+
+    func initWSApi(token: String) {
+        let url = URL(string: "wss://api.amoring.info/graphql")!
+        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
+        let langStr = UserDefaults.standard.string(forKey: "language") ?? Locale.current.languageCode
+        let authPayload: JSONEncodableDictionary = [
+            "Authorization": "Bearer \(token)",
+            "Accept-Language": langStr ?? "ko"
+        ]
+        let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
+        
+        let transport = WebSocketTransport(websocket: webSocketClient, config: config)
+        self.webSocketTransport = transport
+        
+        let store = ApolloStore(cache: InMemoryNormalizedCache())
+        self.apollo = ApolloClient(networkTransport: transport, store: store)
+    }
+    
+    func cancel() {
+        webSocketTransport?.closeConnection()
+        webSocketTransport = nil
+        apollo = nil
+    }
+}
+
+
 func initApi(token: String) -> ApolloClient {
     return {
         let url = URL(string: "\(Constants.domain)/graphql")!
@@ -78,12 +109,39 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @Published var user: UserInfo? = nil
 
     @Published var api: ApolloClient = initApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
-    @Published var wsApi: ApolloClient = initWSApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+//    @Published var wsApi: ApolloClient = WebSocketApiManager().apollo
+//    initWSApi(token: UserDefaults.standard.string(forKey: "sessionToken") ?? "")
+    
+    private(set) var wsApi: ApolloClient?
+    private var webSocketTransport: WebSocketTransport?
+    
+    func initWSApi(token: String) {
+        let url = URL(string: "wss://api.amoring.info/graphql")!
+        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
+        let langStr = UserDefaults.standard.string(forKey: "language") ?? Locale.current.languageCode
+        let authPayload: JSONEncodableDictionary = [
+            "Authorization": "Bearer \(token)",
+            "Accept-Language": langStr ?? "ko"
+        ]
+        let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
+        
+        let transport = WebSocketTransport(websocket: webSocketClient, config: config)
+        self.webSocketTransport = transport
+        
+        let store = ApolloStore(cache: InMemoryNormalizedCache())
+        self.wsApi = ApolloClient(networkTransport: transport, store: store)
+    }
+    
+    func cancelSubscriptions() {
+        webSocketTransport?.closeConnection()
+        webSocketTransport = nil
+        wsApi = nil
+    }
     
     func getCurrentSession(delay: Double = 1.5, completion: @escaping (Bool, String) -> Void) {
         self.api = initApi(token: self.sessionToken)
-        self.wsApi = initWSApi(token: self.sessionToken)
-        
+//        self.wsApi = initWSApi(token: self.sessionToken)
+        initWSApi(token: self.sessionToken)
         self.appState = .initializing
         api.fetch(query: QueryAuthenticatedUserQuery()) { result in
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -610,10 +668,12 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     
     func signOut() {
         DispatchQueue.main.async {
+            
             self.deleteEndPoint() { _ in
                 self.disconnectUserDevice()
             }
             self.sessionToken = ""
+            self.cancelSubscriptions()
             self.changeStateWithAnimation(state: .auth)
             print("Successfully signed out")
         }

@@ -11,6 +11,7 @@ import Kingfisher
 
 struct ChatRow: View {
     @EnvironmentObject var controller: MessagesController
+    @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var navigationController: NavigationController
     
@@ -147,7 +148,7 @@ struct ChatRow: View {
         .background(Color.gray1000.opacity(0.01))
         .opacity(expired ? 0.6 : 1)
         .onAppear {
-            DispatchQueue.once(token: conversation.createdAt?.description ?? "uniqueToken") {
+            DispatchQueue.once(token: sessionManager.sessionToken) {
                 self.isOnline = conversation.participants.first(where: { $0.id != userManager.user?.id })?.profile?.isOnline ?? false
             }
         }

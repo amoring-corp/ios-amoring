@@ -16,7 +16,7 @@ class UserManager: ObservableObject {
     @Published var userState: UserState = .initial
     let authUser: UserInfo
     @Published var api: ApolloClient
-    @Published var WSApi: ApolloClient
+    @Published var WSApi: ApolloClient?
     @Published var user: MutatingUser? = nil
 
     @Published var isLoading: Bool = false
@@ -32,7 +32,7 @@ class UserManager: ObservableObject {
     @Published var total: Int = 0
     @Published var includeNearby: Bool = false
     
-    init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient) {
+    init(authUser: UserInfo, api: ApolloClient, WSApi: ApolloClient?) {
         /// unsubscripe all subscriptions . [case : business login]
 //        self.messageSubscription?.cancel()
 //        self.reactionSubscription?.cancel()
@@ -1332,7 +1332,7 @@ class UserManager: ObservableObject {
     }
     
     func connectedUserOnlineStatusChanged(completion: @escaping (ProfileInfo?) -> Void) {
-        self.connectedUserOnlineStatusChanged = WSApi.subscribe(subscription: ConnectedUserOnlineStatusChangedSubscription()) { result in
+        self.connectedUserOnlineStatusChanged = WSApi?.subscribe(subscription: ConnectedUserOnlineStatusChangedSubscription()) { result in
 //            print("online status changed")
 //            print(result)
             guard let data = try? result.get().data else { return }
@@ -1348,7 +1348,7 @@ class UserManager: ObservableObject {
     }
     
     func newCheckinSubscription(completion: @escaping (Bool) -> Void) {
-        self.newCheckinSubscription = WSApi.subscribe(subscription: NewCheckinSubscription()) { result in
+        self.newCheckinSubscription = WSApi?.subscribe(subscription: NewCheckinSubscription()) { result in
             print("New checkin listening")
             print(result)
             guard let data = try? result.get().data else { return }
@@ -1363,7 +1363,7 @@ class UserManager: ObservableObject {
     }
     
     func messageSubscription(completion: @escaping (MessageInfo?) -> Void) {
-        self.messageSubscription = WSApi.subscribe(subscription: MessageSentSubscription()) { result in
+        self.messageSubscription = WSApi?.subscribe(subscription: MessageSentSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let message = data.messageSent?.fragments.messageInfo {
                 print("New message: \(message.body)")
@@ -1376,7 +1376,7 @@ class UserManager: ObservableObject {
     }
         
     func reactionSubscription(completion: @escaping (ReactionInfo?) -> Void) {
-        self.reactionSubscription = WSApi.subscribe(subscription: ReactionAddedSubscription()) { result in
+        self.reactionSubscription = WSApi?.subscribe(subscription: ReactionAddedSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let reaction = data.reactionAdded?.fragments.reactionInfo {
                 print("received reaction by: \(reaction.byProfileId)")
@@ -1390,7 +1390,7 @@ class UserManager: ObservableObject {
     }
     
     func conversationSubscription(completion: @escaping (String?, String?) -> Void) {
-        self.conversationSubscription = WSApi.subscribe(subscription: ConversationDeletedSubscription()) { result in
+        self.conversationSubscription = WSApi?.subscribe(subscription: ConversationDeletedSubscription()) { result in
             guard let data = try? result.get().data else { return }
             if let id = data.conversationDeleted?.id, let deletedBy = data.conversationDeleted?.deletedBy?.profile?.fragments.profileInfo.name {
                 print("received conversation deleted: \(id)")
