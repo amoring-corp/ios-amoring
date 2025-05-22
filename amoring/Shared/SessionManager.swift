@@ -95,6 +95,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
     @Published var appState: AppState = .initializing
     
     @Published var isLoading: Bool = false
+    @Published var fetchingData: Bool = false
 
     @AppStorage("sessionToken") var sessionToken: String = UserDefaults.standard.string(forKey: "sessionToken") ?? ""
     @AppStorage("lastProvider") var lastProvider: lastProvider = .google

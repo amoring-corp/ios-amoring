@@ -148,8 +148,10 @@ struct ChatRow: View {
         .background(Color.gray1000.opacity(0.01))
         .opacity(expired ? 0.6 : 1)
         .onAppear {
-            DispatchQueue.once(token: sessionManager.sessionToken) {
-                self.isOnline = conversation.participants.first(where: { $0.id != userManager.user?.id })?.profile?.isOnline ?? false
+            if let participant = conversation.participants.first(where: { $0.id != userManager.user?.id })?.profile {
+                DispatchQueue.once(token: sessionManager.sessionToken + participant.id) {
+                    self.isOnline = participant.isOnline
+                }
             }
         }
         .onChange(of: userManager.statusChanged) { newStatus in

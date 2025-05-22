@@ -10,6 +10,7 @@ import AVFoundation
 
 struct AmoringView: View {
     @EnvironmentObject var amoringController: AmoringController
+    @EnvironmentObject var sessionManager: SessionManager
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var notificationController: NotificationController
     @Binding var selectedIndex: Int
@@ -74,6 +75,12 @@ struct AmoringView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .background(.gray1000)
                     }
+                }
+                
+                if sessionManager.fetchingData {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .background(.gray1000)
                 }
             }
             .toolbar {

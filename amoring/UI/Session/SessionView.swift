@@ -92,36 +92,38 @@ struct SessionView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                
+                sessionManager.fetchingData = true
                 /// in App Purchases
                 userManager.fetchProducts()
                 
                 /// gets current businesses from DB
                 userManager.getBusinesses {}
-                
                 if userManager.user?.profile != nil {
                     /// getting current active check in for Amoring page
-                    userManager.activeCheckIn { activeCheckIn in
-                        if let activeCheckIn {
-                            userManager.getReactions { error, reactions in
-                                if let error {
-                                    notificationController.setNotification(text: error, type: .error)
-                                } else {
-                                    messagesController.reactions = reactions
+                        userManager.activeCheckIn { activeCheckIn in
+                            sessionManager.fetchingData = false
+                            if let activeCheckIn {
+                                userManager.getReactions { error, reactions in
+                                    if let error {
+                                        notificationController.setNotification(text: error, type: .error)
+                                    } else {
+                                        messagesController.reactions = reactions
+                                    }
                                 }
+                                
+        //                        withAnimation {
+        //                            if let maxLikes = userManager.user?.profile?.maxLikes {
+        //                                userManager.maxLikes = maxLikes
+        //                            }
+        //                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
+        //                                userManager.usedLikesCount = usedLikesCount
+        //                            }
+        //                        }
                             }
-                            
-    //                        withAnimation {
-    //                            if let maxLikes = userManager.user?.profile?.maxLikes {
-    //                                userManager.maxLikes = maxLikes
-    //                            }
-    //                            if let usedLikesCount = userManager.user?.profile?.usedLikesCount {
-    //                                userManager.usedLikesCount = usedLikesCount
-    //                            }
-    //                        }
+                            amoringController.checkIn = activeCheckIn
                         }
-                        amoringController.checkIn = activeCheckIn
-                    }
+                    
+                   
                     
         //            if self.messagesController.conversations.isEmpty {
                         userManager.getConversations { conversations in
@@ -134,6 +136,8 @@ struct SessionView: View {
                     
                     // MARK: all subscriptions
                     subscriptions()
+                } else {
+                    sessionManager.fetchingData = false
                 }
             }
             .onDisappear(perform: unsubscribe)
