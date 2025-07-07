@@ -14,6 +14,7 @@ struct UserOnboardingBio: View {
     @EnvironmentObject var notificationController: NotificationController
     
     @State var success = false
+    @State var isLoading = false
     
     private let charLimit: Int = 40
     
@@ -60,6 +61,7 @@ struct UserOnboardingBio: View {
                 Button(action: save) {
                     FullSizeButton(title: "가입하기", isLoading: userManager.isLoading)
                 }
+                .disabled(isLoading)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.bottom, Size.w(36))

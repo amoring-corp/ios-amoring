@@ -95,12 +95,13 @@ struct BusinessOnboardingView: View {
                                         .font(medium18Font)
                                 }
                             }
-                            .padding(.bottom, Size.w(30))
-                            .onTapGesture {
+                            .highPriorityGesture(
+                                  TapGesture().onEnded {
                                 showAddressPicker = true
                             }
-                            
-                            
+                            )
+                            .padding(.bottom, Size.w(30))
+                       
                             VStack(alignment: .leading) {
                                 Text("상세주소*")
                                     .font(regular16Font)
@@ -178,9 +179,11 @@ struct BusinessOnboardingView: View {
                                     .padding(.horizontal, Size.w(10))
                                     .background(fileAtached ? Color.green800 : Color.yellow800)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .onTapGesture {
+                                    .highPriorityGesture(
+                                          TapGesture().onEnded {
                                         presentImporter = true
                                     }
+                                          )
 //                                }
                                 
                                 .fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf, .jpeg, .png]) { result in
@@ -269,15 +272,16 @@ struct BusinessOnboardingView: View {
                 }
                 .ignoresSafeArea(.keyboard, edges: .bottom)
             }
+            .overlay(
+                Color.clear
+                    .sheet(isPresented: $showAddressPicker) {
+                        PostCodeServiceView(
+                            business: $controller.business,
+                            isOpened: $showAddressPicker)
+                    }
+            )
         }
-        .overlay(
-            Color.clear
-                .sheet(isPresented: $showAddressPicker) {
-                    PostCodeServiceView(
-                        business: $controller.business,
-                        isOpened: $showAddressPicker)
-                }
-        )
+     
         .navigationBarHidden(true)
         .onTapGesture {
             closeKeyboard()
