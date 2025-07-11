@@ -188,6 +188,41 @@ class UserManager: ObservableObject {
 //        self.isLoading = true
 //        self.pictures.removeAll()
 //        self.user?.profile?.images.removeAll()
+////        let dispatchGroup = DispatchGroup()
+//        let dispatchQueue = DispatchQueue(label: "taskQueue")
+//        let semaphore = DispatchSemaphore(value: 1)
+//        var successList: [Bool] = []
+//        for (index,image) in images.enumerated(){
+//            dispatchQueue.async {
+//                let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024))
+//                if let data = resizedImage!.jpegData(compressionQuality: 0.8) {
+//    //                dispatchGroup.enter()
+//                    semaphore.wait()
+//                    let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
+//                    self.saveImage(file: file, sort: index) { success in
+//                        successList.append(success)
+//    //                    dispatchGroup.leave()
+//                        semaphore.signal()
+//                        // TODO: need tests
+//                        if index + 1 >= images.count {
+//                            self.isLoading = false
+//                            print("sending: \(successList.filter{$0}.count) images finished")
+//                            completion(successList.filter{$0}.count >= 3)
+//                        }
+//                    }
+//                } else {
+//                    print("wrong image data!")
+//                    self.isLoading = false
+//                    completion(true)
+//                }
+//            }
+//        }
+//    }
+    
+//    func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
+//        self.isLoading = true
+//        self.pictures.removeAll()
+//        self.user?.profile?.images.removeAll()
 //        
 //        let dispatchGroup = DispatchGroup()
 //        let dispatchQueue = DispatchQueue(label: "taskQueue")
@@ -277,140 +312,155 @@ class UserManager: ObservableObject {
 //            }
 //        }
 //    }
-   
-    // MARK: new functions 2025.07.05
-    private let maxImages = 6                 // глобальный лимит
-    private let workQueue = DispatchQueue(label: "imageUploader",
-                                          qos: .userInitiated,
-                                          attributes: .concurrent)
-    private let syncQueue = DispatchQueue(label: "imageUploader.sync") // serial
-
-    func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
-        isLoading = true
-
-        // 2) Не берём больше чем разрешено
-        let allowed = maxImages - (user?.profile?.images.count ?? 0)
-        guard allowed > 0 else {
-            print("Profile already has \(maxImages) images")
-            isLoading = false
-            completion(false)
-            return
+    
+    // MARK: -GPT version. 11.07.2025
+    func filterImagesLimit6WithUniquePriority(_ images: [UIImage]) -> [UIImage] {
+        if images.count <= 6 {
+            return images // меньше или равно 6 — ничего не фильтруем
         }
-        let uploadImages = Array(images.prefix(allowed))
 
-        // 3) Очищаем локальные массивы, если нужно
-        pictures.removeAll()
-        user?.profile?.images.removeAll()
+        var seenHashes: Set<Int> = []
+        var uniqueImages: [UIImage] = []
+        var duplicateImages: [UIImage] = []
 
-        let group = DispatchGroup()
-        var successList: [Bool] = Array(repeating: false, count: uploadImages.count)
+        for image in images {
+            guard let hash = image.jpegData(compressionQuality: 0.8)?.hashValue else { continue }
 
-        for (index, uiImage) in uploadImages.enumerated() {
-            group.enter()
+            if seenHashes.contains(hash) {
+                duplicateImages.append(image)
+            } else {
+                uniqueImages.append(image)
+                seenHashes.insert(hash)
+            }
 
-            workQueue.async {
-                // 3.1 ресайз и подготовка данных
-                guard
-                    let resized = ImageHelper().resizeImage(image: uiImage,
-                                                            targetSize: CGSize(width: 1024, height: 1024)),
-                    let jpeg     = resized.jpegData(compressionQuality: 0.8)
-                else {
-                    print("Bad image \(index)")
-                    self.syncQueue.async {
-                        successList[index] = false
-                        group.leave()
+            if uniqueImages.count + duplicateImages.count >= 6 {
+                break
+            }
+        }
+
+        return Array((uniqueImages + duplicateImages).prefix(6))
+    }
+
+    
+    func uploadMyProfileImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
+        let limitedImages = filterImagesLimit6WithUniquePriority(images)
+
+        DispatchQueue.main.async {
+            self.isLoading = true
+            self.pictures.removeAll()
+            self.user?.profile?.images.removeAll()
+        }
+
+        let dispatchGroup = DispatchGroup()
+        let syncQueue = DispatchQueue(label: "syncQueue")
+
+        var successList: [Bool] = []
+
+        for (index, image) in limitedImages.enumerated() {
+            dispatchGroup.enter()
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let resizedImage = ImageHelper().resizeImage(image: image, targetSize: CGSize(width: 1024, height: 1024)),
+                      let data = resizedImage.jpegData(compressionQuality: 0.8) else {
+                    print("Failed to resize or convert image at index \(index)")
+                    syncQueue.async {
+                        successList.append(false)
+                        dispatchGroup.leave()
                     }
                     return
                 }
 
-                // 3.2 уникальное имя
-                let unique  = "img_\(index)_\(UUID().uuidString.prefix(8))"
-                let gqlFile = GraphQLFile(fieldName: "image",
-                                          originalName: unique,
-                                          mimeType: "image/jpeg",
-                                          data: jpeg)
+                let file = GraphQLFile(fieldName: "image", originalName: "image\(index)", mimeType: "image/jpeg", data: data)
 
-                // 3.3 вызов GraphQL‑аплоада
-                self.saveImage(file: gqlFile, sort: index) { ok in
-                    self.syncQueue.async {
-                        successList[index] = ok
-                        group.leave()
+                self.saveImage(file: file, sort: index) { success in
+                    syncQueue.async {
+                        successList.append(success)
+                        dispatchGroup.leave()
                     }
                 }
             }
         }
 
-        // 4) финал
-        group.notify(queue: .main) {
+        dispatchGroup.notify(queue: .main) {
             self.isLoading = false
-            let uploaded = successList.filter { $0 }.count
-            print("Uploaded \(uploaded) / \(uploadImages.count)")
-            completion(uploaded == uploadImages.count)     // true, если все отправились
+            let uploadedCount = successList.filter { $0 }.count
+            print("Finished uploading. Success count: \(uploadedCount)")
+            completion(uploadedCount >= 3)
         }
     }
 
-    private func saveImage(file: GraphQLFile,
-                           sort: Int,
-                           completion: @escaping (Bool) -> Void)
-    {
-        api.upload(operation: UploadMyProfileImageMutation(image: "image",
-                                                           sort: sort),
-                   files: [file]) { [weak self] result in
-            guard let self else { completion(false); return }
 
+    private func saveImage(file: GraphQLFile, sort: Int, completion: @escaping (Bool) -> Void) {
+        api.upload(operation: UploadMyProfileImageMutation(image: "image", sort: sort), files: [file]) { result in
             switch result {
-            case .success(let gql):
-                // --- валидация ответа ---
-                guard
-                    gql.errors == nil,
-                    let fragment = gql.data?.uploadMyProfileImage.fragments.imageFragment,
-                    let urlStr   = fragment.file?.url,
-                    let url      = URL(string: urlStr)
-                else {
-                    print("GraphQL error:", gql.errors as Any)
-                    completion(false); return
+            case .success(let value):
+                guard value.errors == nil,
+                      let data = value.data,
+                      let urlString = data.uploadMyProfileImage.file?.url,
+                      let url = URL(string: urlString) else {
+                    print("Upload failed or URL missing.")
+                    completion(false)
+                    return
                 }
 
-                // --- скачиваем превью НЕ блокируя main‑thread ---
-                self.workQueue.async {
-                    guard
-                        let data = try? Data(contentsOf: url),
-                        let preview = UIImage(data: data)
-                    else {
-                        print("Can't download preview \(urlStr)")
-                        completion(false); return
+                let imageFragment = data.uploadMyProfileImage.fragments.imageFragment
+
+                URLSession.shared.dataTask(with: url) { data, _, _ in
+                    guard let data = data, let image = UIImage(data: data) else {
+                        completion(false)
+                        return
                     }
 
-                    // --- потокобезопасно обновляем модели ---
-                    self.syncQueue.async {
-                        // 1. avatarUrl для sort == 0
+                    DispatchQueue.main.async {
                         if sort == 0 {
-                            self.user?.profile?.avatarUrl = fragment.file?.url
+                            self.user?.profile?.avatarUrl = urlString
                         }
 
-                        // 2. вставка / апдейт
-                        let mutImage  = MutatingImage(image: fragment)
-                        let picModel  = PictureModel.newPicture(preview, urlStr)
+                        self.insertImage(MutatingImage(image: imageFragment), at: sort)
+                        self.insertPicture(PictureModel.newPicture(image, urlString), at: sort)
 
-                        if let images = self.user?.profile?.images,
-                           images.indices.contains(sort) {
-                            self.user?.profile?.images[sort] = mutImage
-                            self.pictures[sort]              = picModel
-                        } else {
-                            self.user?.profile?.images.append(mutImage)
-                            self.pictures.append(picModel)
-                        }
                         completion(true)
                     }
-                }
+                }.resume()
 
-            case .failure(let err):
-                print("Upload error:", err.localizedDescription)
+            case .failure(let error):
+                print("Upload failed:", error.localizedDescription)
                 completion(false)
             }
         }
     }
 
+
+    private func insertPicture(_ picture: PictureModel, at index: Int) {
+        while pictures.count < index {
+            pictures.append(PictureModel.newPicture(UIImage(), "")) // заглушки
+        }
+
+        if pictures.count == index {
+            pictures.append(picture)
+        } else {
+            pictures[index] = picture
+        }
+    }
+
+    private func insertImage(_ image: MutatingImage, at index: Int) {
+        guard var profile = user?.profile else { return }
+
+        while profile.images.count < index {
+            profile.images.append(MutatingImage(image: nil))
+        }
+
+        if profile.images.count == index {
+            profile.images.append(image)
+        } else {
+            profile.images[index] = image
+        }
+
+        user?.profile = profile
+    }
+
+
+    
     
 //    func uploadBusinessImages(images: [UIImage], completion: @escaping (Bool) -> Void) {
 //        self.isLoading = true

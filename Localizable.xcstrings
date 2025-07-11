@@ -781,17 +781,6 @@
         }
       }
     },
-    "🎵 락" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "🎵 Rock"
-          }
-        }
-      }
-    },
     "🎵 라틴" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -799,6 +788,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "🎵 Latin"
+          }
+        }
+      }
+    },
+    "🎵 락" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Rock"
           }
         }
       }
@@ -1473,6 +1473,12 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 2" : {
+      "extractionState" : "manual"
+    },
     "LOGO" : {
 
     },
@@ -1608,6 +1614,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Picker here"
+          }
+        }
+      }
+    },
+    "purchase.hide.description4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase Information\r\n- The pass is automatically activated upon purchase and is valid for 12 hours from the time of purchase.\r\n- Once confirmed, the charge will be billed to your Apple account.\r\n- Duplicate purchases are not allowed while the pass is active.\r\n- You can check the remaining validity period of the pass in Amoring app > My Account > Purchase History."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "- 패스는 구매 시 자동으로 활성화되며, 구입 시점부터 12시간 동안 유효합니다.\r\n- 결제 확정 시 요금은 귀하의 Apple 계정으로 청구됩니다.\r\n- 패스가 활성화된 기간에는 중복 구매가 불가능합니다.\r\n- 패스의 남은 유효 기간은 아모링 앱 > 내 계정 > 아모링 구매내역에서 확인하실 수 있습니다."
+          }
+        }
+      }
+    },
+    "purchase.likes.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Have you ever felt frustrated because you ran out of likes?\r\nPurchase additional likes and meet more connections."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋아요가 부족해 아쉬웠던 순간이 있으셨나요?\r\n추가 좋아요를 구매해 더 많은 인연을 만나보세요."
+          }
+        }
+      }
+    },
+    "purchase.likes.description4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "- Once confirmed, the charge will be billed to your Apple account.\r\n- Purchased likes can be used freely until they are fully consumed.\r\n- Purchased likes will be used only after you’ve used up your daily free likes.\r\n- The remaining validity period of your pass can be checked in Amoring app > My Account > Purchase History."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "- 결제 확정 시 요금은 귀하의 Apple 계정으로 청구됩니다.\r\n- 구매한 좋아요는 모두 소진될 때까지 자유롭게 사용하실 수 있습니다.\r\n- 구매한 좋아요는 매일 제공되는 무료 좋아요를 모두 소진한 뒤부터 사용됩니다.\r\n- 패스의 남은 유효 기간은 아모링 앱 > 내 계정 > 아모링 구매내역에서 확인하실 수 있습니다."
           }
         }
       }
@@ -1815,6 +1872,23 @@
         }
       }
     },
+    "구매 안내" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase Information"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구매 안내"
+          }
+        }
+      }
+    },
     "구매하기" : {
       "localizations" : {
         "en" : {
@@ -1845,6 +1919,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep your profile hidden while trying to find your match"
+          }
+        }
+      }
+    },
+    "나를 드러내지 않고 조용히 인연을 찾아보세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find connections discreetly without revealing yourself."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나를 드러내지 않고 조용히 인연을 찾아보세요."
           }
         }
       }
@@ -1915,6 +2006,23 @@
         }
       }
     },
+    "내 프로필 숨기기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide My Profile"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내 프로필 숨기기"
+          }
+        }
+      }
+    },
     "내 프로필 안보이게 하기" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1933,6 +2041,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Make your profile only visible to users you like."
+          }
+        }
+      }
+    },
+    "내가 좋아요를 보낸 멤버에게만 프로필을 공개할 수 있습니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your profile will be visible only to members you’ve sent likes to."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내가 좋아요를 보낸 멤버에게만 프로필을 공개할 수 있습니다."
           }
         }
       }
@@ -2015,6 +2140,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Make more matches \nwith more likes."
+          }
+        }
+      }
+    },
+    "더 많은 좋아요로 더 많은 인연을 만들어보세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create more connections with more likes."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "더 많은 좋아요로 더 많은 인연을 만들어보세요."
           }
         }
       }
@@ -2145,6 +2287,23 @@
     },
     "로그인 시 아이디로 사용됩니다.\n인증 코드 확인이 가능한 이메일로 작성해주세요." : {
 
+    },
+    "를 보낸 멤버에게만 프로필을 공개할 수 있습니다." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your profile will be visible only to members you’ve sent likes to."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "를 보낸 멤버에게만 프로필을 공개할 수 있습니다."
+          }
+        }
+      }
     },
     "리스트" : {
       "localizations" : {
@@ -2319,6 +2478,23 @@
     },
     "메시지 삭제하기" : {
 
+    },
+    "메시지 탭에서 나에게 좋아요를 보낸 멤버를 확인해 보세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check who has liked you from the Messages tab."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메시지 탭에서 나에게 좋아요를 보낸 멤버를 확인해 보세요."
+          }
+        }
+      }
     },
     "메시지 탭에서 좋아요한\n멤버가 누구인지 확인하세요" : {
       "extractionState" : "manual",
@@ -3042,6 +3218,23 @@
     "예금주" : {
 
     },
+    "오늘 밤, 리스트 보기를 활성화하고 당신에게 관심을 보인 멤버에게 메시지를 보내 보세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonight, activate the list view and send a message to members who have shown interest in you."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 밤, 리스트 보기를 활성화하고 당신에게 관심을 보인 멤버에게 메시지를 보내 보세요."
+          }
+        }
+      }
+    },
     "오늘밤,\n리스트 보기를 활성화해보세요.\n누가 먼저 ‘좋아요’를 보냈는지 알려드릴게요!" : {
       "localizations" : {
         "en" : {
@@ -3443,6 +3636,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Likes"
+          }
+        }
+      }
+    },
+    "좋아요 구매하기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase Likes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋아요 구매하기"
           }
         }
       }

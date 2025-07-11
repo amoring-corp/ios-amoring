@@ -36,7 +36,7 @@ struct SignInSheet: View {
                 Text("간편하게 SNS로 빠르게 시작해보세요!")
                     .font(medium14Font)
                     .foregroundColor(.gray600)
-                    .padding(.bottom, Size.w(40))
+                    .padding(.bottom, Size.w(30))
                 
                 HStack(spacing: Size.w(16)) {
                     Spacer()
@@ -114,16 +114,16 @@ struct SignInSheet: View {
                     WebView(url: URL(string: "\(Constants.domain)/terms-and-conditions")!)
                 }
                 
-                    Button(action: {
-                        withAnimation {
-                            self.emailSheetPresented = true
-                        }
-                    }) {
-                        Text("이메일 로그인")
-                            .font(medium16Font)
-                            .foregroundColor(.gray600)
+                Button(action: {
+                    withAnimation {
+                        self.emailSheetPresented = true
                     }
-                    .padding(.top, 13)
+                }) {
+                    Text("이메일 로그인")
+                        .font(medium16Font)
+                        .foregroundColor(.gray600)
+                }
+                .padding(.top, 26)
                 
                 ZStack {
                 

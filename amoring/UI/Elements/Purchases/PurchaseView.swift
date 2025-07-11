@@ -75,11 +75,13 @@ struct PurchaseView: View {
                         }
                             .padding(.top, Size.w(36))
                         
-                        Text(NSLocalizedString(model.description2, comment: ""))
-                            .font(medium16Font)
-                            .lineSpacing(7)
-                            .multilineTextAlignment(.center)
-                            .padding(.top, Size.w(42))
+                        if let description2 = model.description2 {
+                            Text(NSLocalizedString(description2, comment: ""))
+                                .font(medium16Font)
+                                .lineSpacing(7)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, Size.w(42))
+                        }
                         
                         if let description3 = model.description3 {
                             Text(NSLocalizedString(description3, comment: ""))

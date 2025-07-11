@@ -33,7 +33,7 @@ struct PurchaseModel {
     var titleImage: String?
     let subtitle: String
     let description: String
-    let description2: String
+    var description2: String?
     var description3: String?
     var description4: String?
     let type: type
