@@ -72,7 +72,7 @@ struct BusinessDetailsView: View {
                             .font(regular16Font)
                             .foregroundColor(.yellow300)
                             .lineSpacing(6)
-                            .multilineTextAlignment(.center)
+                            .multilineTextAlignment(.leading)
                             .padding(.bottom, Size.w(40))
                         
                         VStack(alignment: .leading, spacing: Size.w(26)) {
