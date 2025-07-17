@@ -2252,8 +2252,22 @@
         }
       }
     },
-    "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며, 이후 이곳에서 메시지를 주고받을 수 있습니다!" : {
-
+    "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며,\n이후 이곳에서 메시지를 주고받을 수 있습니다!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you and the other person like each other,\nyou can message them here from now on!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며,\n이후 이곳에서 메시지를 주고받을 수 있습니다!"
+          }
+        }
+      }
     },
     "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 좋아요하면,\n이제부터 여기서 메시지를 보낼 수 있어요!" : {
       "extractionState" : "stale",
@@ -2261,7 +2275,29 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Find someone you like in the lounge.\nIf you and the other person like each other, you \ncan message them here from now on!"
+            "value" : "If you and the other person like each other,\nyou can message them here from now on!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며,\n이후 이곳에서 메시지를 주고받을 수 있습니다!"
+          }
+        }
+      }
+    },
+    "라운지에서 마음에 드는 상대를 찾아보세요. 회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며, 이후 이곳에서 메시지를 주고받을 수 있습니다!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you and the other person like each other,\nyou can message them here from now on!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며,\n이후 이곳에서 메시지를 주고받을 수 있습니다!"
           }
         }
       }
@@ -3132,11 +3168,29 @@
       }
     },
     "연결된 인연이\n이곳에 나타납니다" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Previous connections\nappear here"
+          }
+        }
+      }
+    },
+    "연결된 인연이 이곳에 나타납니다" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find someone you like in the lounge."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "연결된 인연이 이곳에 나타납니다"
           }
         }
       }

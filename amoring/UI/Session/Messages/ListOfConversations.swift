@@ -34,18 +34,19 @@ struct ListOfConversations: View {
             
             if controller.conversations.isEmpty {
                 VStack {
-                    Text("연결된 인연이\n이곳에 나타납니다")
+                    Text("연결된 인연이 이곳에 나타납니다")
                         .font(bold26Font)
                         .foregroundColor(.gray800)
                         .lineSpacing(7)
                         .multilineTextAlignment(.center)
                         .padding(.bottom, Size.w(16))
-                    Text("라운지에서 마음에 드는 상대를 찾아보세요.\n회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며, 이후 이곳에서 메시지를 주고받을 수 있습니다!")
+                    Text("라운지에서 마음에 드는 상대를 찾아보세요. 회원님과 상대방이 서로 ‘좋아요’를 누르면 매칭이 성사되며, 이후 이곳에서 메시지를 주고받을 수 있습니다!")
                         .font(medium16Font)
                         .foregroundColor(.gray800)
                         .lineSpacing(6)
                         .multilineTextAlignment(.center)
                 }
+                .padding(.horizontal, 16)
                 .frame(maxHeight: .infinity, alignment: .center)
                 .padding(.bottom, bottomSpacing)
             } else {
