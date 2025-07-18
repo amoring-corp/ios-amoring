@@ -23,5 +23,5 @@ let purchasesList = [
         barTitle: "나를 좋아한 사람 보기",
         title: "나를 좋아한 사람 보기",
         subtitle: "메시지 탭에서 나에게 좋아요를 보낸 멤버를 확인해 보세요.",
-        description: "오늘 밤, 리스트 보기를 활성화하고 당신에게 관심을 보인 멤버에게 메시지를 보내 보세요.", description2: "패스는 구입시점 부터 12시간동안 적용됩니다.\n구매시 패스가 자동으로 활성화 되니 걱정마세요!", description3: "구매 안내", description4: "purchase.hide.description4", type: .list),
+        description: "오늘 밤, 리스트 보기를 활성화하고 당신에게 관심을 보인 멤버에게 메시지를 보내 보세요.", description3: "구매 안내", description4: "purchase.hide.description4", type: .list),
 ]
