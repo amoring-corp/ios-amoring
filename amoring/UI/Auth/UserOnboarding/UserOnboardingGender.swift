@@ -44,7 +44,7 @@ struct UserOnboardingGender: View {
                 .padding(.bottom, Size.w(30))
             
             NavigationLink(isActive: $next, destination: {
-                UserOnboardingAge()
+                UserOnboardingPhoto()
             }) {
                 EmptyView()
             }

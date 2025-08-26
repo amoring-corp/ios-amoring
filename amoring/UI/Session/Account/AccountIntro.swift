@@ -34,35 +34,24 @@ struct AccountIntro: View {
                 CustomNavigationView(offset: .constant(100), title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() }, foregroundColor: Color.yellow300, dividerColor: Color.gray900, bg: Color.gray1000)
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
-                        (
-                        Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
-                        Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
-                        Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
-                         )
+                        Text("인연은 신뢰속에서 시작됩니다")
+//                        (
+//                        Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
+//                        Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
+//                        Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
+//                         )
                             .font(regular16Font)
                             .foregroundColor(.gray600)
                             .lineSpacing(5)
                             .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, Size.w(14))
                             .padding(.top, Size.w(40))
                             .padding(.bottom, Size.w(40))
                         
-                        VStack(alignment: .leading) {
-                            Text("직업")
-                                .font(regular16Font)
-                                .foregroundColor(.gray200)
-                                .padding(.leading, Size.w(14))
-                            
-                            CustomTextField(placeholder: "예: 대학생, 회계사...", text: $occupation ?? "", font: regular18Font)
-                                .onChange(of: occupation, perform: { newValue in
-                                    if(newValue?.count ?? 0 >= 20){
-                                        occupation = String(newValue?.prefix(20) ?? "")
-                                    }
-                                })
-                        }
-                        .padding(.bottom, Size.w(30))
+                      
                         
-                        PickerButton(title: "키*(필수)", titleColor: .gray200) {
+                        PickerButton(title: "height", titleColor: .gray200) {
                             if let height {
                                 Text("\(Int(height).description)cm")
                             }
@@ -78,57 +67,6 @@ struct AccountIntro: View {
                                 weightPresented = false
                             }
                         }
-                        
-                        PickerButton(title: "몸무게", titleColor: .gray200) {
-                            if let weight {
-                                Text("\(Int(weight).description)kg")
-                            }
-                        }
-                        .padding(.bottom, Size.w(30))
-                        .onTapGesture {
-                            closeKeyboard()
-                            withAnimation {
-                                if !heightPresented && !mbtiPresented {
-                                    weightPresented.toggle()
-                                }
-                                mbtiPresented = false
-                                heightPresented = false
-                            }
-                        }
-                        
-                        
-                        PickerButton(title: "MBTI", titleColor: .gray200) {
-                            Text(self.mbti?.rawValue ?? "")
-                            
-                        }
-                        .padding(.bottom, Size.w(30))
-                        .onTapGesture {
-                            closeKeyboard()
-                            withAnimation {
-                                if !weightPresented && !heightPresented {
-                                    mbtiPresented.toggle()
-                                }
-                                heightPresented = false
-                                weightPresented = false
-                            }
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("학력")
-                                .font(regular16Font)
-                                .foregroundColor(.gray200)
-                                .padding(.leading, Size.w(14))
-                            
-                            CustomTextField(placeholder: "예: 아모링대학교", text: $education ?? "", font: regular18Font)
-                                .onChange(of: education, perform: { newValue in
-                                    if let newValue {
-                                        if(newValue.count >= 20){
-                                            education = String(newValue.prefix(20))
-                                        }
-                                    }
-                                })
-                        }
-                        .padding(.bottom, Size.w(30))
                         
                         Spacer().frame(height: 300)
                         

@@ -781,17 +781,6 @@
         }
       }
     },
-    "🎵 라틴" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "🎵 Latin"
-          }
-        }
-      }
-    },
     "🎵 락" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -799,6 +788,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "🎵 Rock"
+          }
+        }
+      }
+    },
+    "🎵 라틴" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🎵 Latin"
           }
         }
       }
@@ -1282,9 +1282,6 @@
         }
       }
     },
-    "😥" : {
-
-    },
     "🙈 no more profiles" : {
 
     },
@@ -1394,6 +1391,23 @@
     "➋ 위 선택된 요일의 영업시간을 알려주세요." : {
 
     },
+    "age" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Age"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나이"
+          }
+        }
+      }
+    },
     "all" : {
 
     },
@@ -1443,6 +1457,22 @@
     "DEBUGGING" : {
 
     },
+    "download_qr" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download QR code"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR 코드 다운로드"
+          }
+        }
+      }
+    },
     "ERROR" : {
 
     },
@@ -1463,6 +1493,40 @@
         }
       }
     },
+    "height" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "키"
+          }
+        }
+      }
+    },
+    "intro_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connections begin with trust. Please tell us your basic information. "
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인연은 신뢰속에서 시작됩니다.\n회원님의 기본정보를 알려주세요."
+          }
+        }
+      }
+    },
     "KB 국민은행" : {
       "localizations" : {
         "en" : {
@@ -1474,6 +1538,9 @@
       }
     },
     "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 1" : {
       "extractionState" : "manual"
     },
     "Key 2" : {
@@ -1512,6 +1579,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : " 남 "
+          }
+        }
+      }
+    },
+    "name_nickname" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name/Nickname"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름/닉네임"
+          }
+        }
+      }
+    },
+    "name_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ex: David, Ms.Princess..."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예: 데이빗, 지서니..."
           }
         }
       }
@@ -1670,6 +1771,7 @@
       }
     },
     "Purchases" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1678,6 +1780,9 @@
           }
         }
       }
+    },
+    "QR 코드가 저장되었습니다." : {
+
     },
     "QR코드를 스캔하여 체크인해주세요." : {
       "localizations" : {
@@ -1688,6 +1793,9 @@
           }
         }
       }
+    },
+    "Saved" : {
+
     },
     "Sign Up" : {
       "localizations" : {
@@ -1709,6 +1817,23 @@
         }
       }
     },
+    "year_of_birth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year of Birth"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "출생 연도"
+          }
+        }
+      }
+    },
     "Yes" : {
 
     },
@@ -1721,6 +1846,9 @@
           }
         }
       }
+    },
+    "ОК" : {
+
     },
     "가입 전 준비해주세요" : {
 
@@ -2187,6 +2315,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Register"
+          }
+        }
+      }
+    },
+    "등록 후 변경은 불가하니 신중하게 입력하세요." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter carefully as changes cannot be made after registration"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "등록 후 변경은 불가하니 신중하게 입력하세요."
           }
         }
       }
@@ -3507,16 +3651,25 @@
         }
       }
     },
-    "인연은 신뢰속에서 시작됩니다. 회원님의 " : {
+    "인연은 신뢰속에서 시작됩니다" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Relationships start with trust.\nPlease enter your "
+            "value" : "Relationships start with trust"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인연은 신뢰속에서 시작됩니다"
           }
         }
       }
+    },
+    "인연은 신뢰속에서 시작됩니다. 회원님의 " : {
+
     },
     "인증된 정보의 불가피한 수정이 필요하신 경우\n서비스지원 > 문의하기 이용 바랍니다." : {
 
@@ -3751,9 +3904,6 @@
     "좋아요를 전부 사용하셨습니다, 지금 더 구매하실까요?" : {
 
     },
-    "죄송합니다.\n준비된 라운지가 꽉 찼어요\n나중에 체크인 해주세요" : {
-
-    },
     "주말  |  %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3799,9 +3949,6 @@
     "지금 당장, 아모링 라운지에 체크인 하세요!" : {
 
     },
-    "지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다." : {
-
-    },
     "지역" : {
       "localizations" : {
         "en" : {
@@ -3813,6 +3960,7 @@
       }
     },
     "직업" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4078,6 +4226,23 @@
         }
       }
     },
+    "프로필 사진은 최소 1개 이상 등록해주세요." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must choose at least One picture for your profile. This increases your chances of finding a match."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "프로필 사진은 최소 1개 이상 등록해주세요."
+          }
+        }
+      }
+    },
     "프로필 숨김" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4228,6 +4393,9 @@
       }
     },
     "환영합니다!" : {
+
+    },
+    "회원가입을 위해 최소 1개의 사진이 필요합니다." : {
 
     },
     "회원가입을 위해 최소 3개의 사진이 필요합니다." : {

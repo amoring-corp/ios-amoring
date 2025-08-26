@@ -1250,12 +1250,12 @@
 			isa = PBXGroup;
 			children = (
 				85FC20952B0C96E800DC1950 /* UserOnboardingView.swift */,
-				85FC20772B0C510100DC1950 /* UserOnboardingName.swift */,
-				85FC207B2B0C510100DC1950 /* UserOnboardingGender.swift */,
-				85FC20762B0C510100DC1950 /* UserOnboardingAge.swift */,
-				85FC207D2B0C510100DC1950 /* UserOnboardingPhoto.swift */,
 				85FB6B8E2B44ED210023A889 /* UserOnboardingIntro.swift */,
+				85FC207B2B0C510100DC1950 /* UserOnboardingGender.swift */,
+				85FC207D2B0C510100DC1950 /* UserOnboardingPhoto.swift */,
 				85FB6B902B450E980023A889 /* UserOnboardingInterests.swift */,
+				85FC20772B0C510100DC1950 /* UserOnboardingName.swift */,
+				85FC20762B0C510100DC1950 /* UserOnboardingAge.swift */,
 				85FC20782B0C510100DC1950 /* UserOnboardingBio.swift */,
 				85FC20792B0C510100DC1950 /* UserOnboardingSuccess.swift */,
 			);

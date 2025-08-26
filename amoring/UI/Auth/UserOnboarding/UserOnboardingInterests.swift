@@ -9,10 +9,11 @@ import SwiftUI
 
 struct UserOnboardingInterests: View {
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var notificationController: NotificationController
     @EnvironmentObject var userManager: UserManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var next: Bool = false
+    @State var success: Bool = false
     @State var contentOffset: CGFloat = 0
     
     var body: some View {
@@ -42,8 +43,8 @@ struct UserOnboardingInterests: View {
                         
                         Spacer().frame(height: 300)
                         
-                        NavigationLink(isActive: $next, destination: {
-                            UserOnboardingBio()
+                        NavigationLink(isActive: $success, destination: {
+                            UserOnboardingSuccess()
                         }) {
                             EmptyView()
                         }
@@ -65,8 +66,9 @@ struct UserOnboardingInterests: View {
                     .padding(.top, Size.w(25))
                 
                 Button(action: {
+                    save()
 //                    userManager.connectInterests(ids: selectedInterests.map{ $0.0 }) { success in
-                        next = true
+//                        next = true
 //                    }
                 }) {
                     BlackButton(title: "다음")
@@ -91,6 +93,20 @@ struct UserOnboardingInterests: View {
         //                .foregroundColor(.black)
         //        }
         //        )
+    }
+    
+    private func save() {
+        userManager.createProfile(profile: controller.profile) { success in
+            userManager.connectInterests(ids: controller.selectedInterests.map{ $0.0 }) { success in }
+            let images = controller.pictures.map({ $0.picture })
+            userManager.uploadMyProfileImages(images: images) { success in
+                if success {
+                    self.success = success
+                } else {
+                    notificationController.setNotification(text: "Something went wrong while uploading images. Please try again", type: .error)
+                }
+            }
+        }
     }
 }
 

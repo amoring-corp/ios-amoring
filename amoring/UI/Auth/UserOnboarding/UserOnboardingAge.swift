@@ -13,7 +13,7 @@ struct UserOnboardingAge: View {
     @EnvironmentObject var userManager: UserManager
     @State private var goToPhoto: Bool = false
     @State private var sheetPresented: Bool = false
-    @State var age = 2000
+    @State var age = 2006
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

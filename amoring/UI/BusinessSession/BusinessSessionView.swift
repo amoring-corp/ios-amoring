@@ -17,11 +17,12 @@ struct BusinessSessionView: View {
     
     @State var xOffset: CGFloat = 0
     @State var isLoading = false
-    @State var expired = false
+//    @State var expired = false
     @State var qrcode: QRCode.Document? = nil
     @State var available = true
+    @State var isSaved = false
     
-    @State var timer: Timer? = nil
+//    @State var timer: Timer? = nil
     
     @AppStorage("language") var language = UserDefaults.standard.string(forKey: "language") ?? "ko"
     
@@ -67,11 +68,31 @@ struct BusinessSessionView: View {
                                 
                                 Spacer()
                                 
-                                Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
-                                    .multilineTextAlignment(.center)
-                                    .lineSpacing(6)
-                                    .font(regular16Font)
-                                    .foregroundColor(.yellow300)
+                                Button(action: {
+                                    saveQRCode()
+                                }) {
+                                    HStack {
+                                        Image("ic-download")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: Size.w(17), height: Size.w(17))
+                                        
+                                        Text("download_qr")
+                                            .font(regular16Font)
+                                            .foregroundColor(.black)
+                                    }
+                                        .padding(Size.w(13))
+                                        .background(Color.yellow300)
+                                        .cornerRadius(6)
+                                }
+                                
+                                Spacer()
+                                
+//                                Text("지금 아모링 라운지에서\n다른 회원님들이 회원님의 등장을 기다리고 있습니다.")
+//                                    .multilineTextAlignment(.center)
+//                                    .lineSpacing(6)
+//                                    .font(regular16Font)
+//                                    .foregroundColor(.yellow300)
                                 
                                 let fakeimages = ["person-1", "person-2", "person-3", "person-4"]
                                 
@@ -124,40 +145,7 @@ struct BusinessSessionView: View {
                                 }
                             }
                             
-                            if expired {
-                                Color.black.background(.ultraThinMaterial).opacity(0.7)
-                                
-                                VStack {
-                                    Text("😥")
-                                        .font(semiBold60Font)
-                                        .padding(.top, Size.w(120))
-                                        .padding(.bottom, Size.w(22))
-                                    Text("죄송합니다.\n준비된 라운지가 꽉 찼어요\n나중에 체크인 해주세요")
-                                        .font(semiBold28Font)
-                                        .foregroundColor(.yellow350)
-                                        .multilineTextAlignment(.center)
-                                        .lineSpacing(6)
-                                    // MARK: TESTS
-//                                        .onTapGesture {
-//                                            withAnimation {
-//                                                self.expired.toggle()
-//                                            }
-//                                        }
-                                    
-                                    Spacer()
-                                    
-                                    HStack {
-                                        Spacer()
-                                        NavigationLink(destination: {
-                                            //TODO: open purchases
-                                            Text("Purchases")
-                                        }) {
-                                            YellowButton(title: "확장하기")
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal, Size.w(22))
-                            }
+                           
                         }
                         .padding(.bottom, Size.w(30))
                     } else {
@@ -202,6 +190,9 @@ struct BusinessSessionView: View {
         .onAppear {
             self.language = "ko"
         }
+        .alert(isPresented: $isSaved) {
+                  Alert(title: Text("Saved"), message: Text("QR 코드가 저장되었습니다."), dismissButton: .default(Text("ОК")))
+              }
     }
     
     func fakelist(images: [String], size: CGFloat) -> some View {
@@ -292,18 +283,27 @@ struct BusinessSessionView: View {
                 withAnimation {
                     isLoading = false
                 }
-                
-                self.timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: { timer in
-                    if available {
-                        print("updating token ...")
-                        self.setToken()
-                    }
-                    timer.invalidate()
-//                    self.setToken()
-                })
+//                
+//                self.timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: { timer in
+//                    if available {
+//                        print("updating token ...")
+//                        self.setToken()
+//                    }
+//                    timer.invalidate()
+////                    self.setToken()
+//                })
             }
         }
     }
+    
+    private func saveQRCode() {
+        guard let image = self.qrcode?.uiImage(CGSize(width: 1024, height: 1024)) else { return }
+         
+        DispatchQueue.main.async {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        }
+         isSaved = true
+     }
 }
 
 #Preview {

@@ -11,11 +11,11 @@ struct UserOnboardingIntro: View {
     @EnvironmentObject var controller: UserOnboardingController
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var height: Int = 160
-    @State var weight: Int = 60
-//    @State var occupation: String = ""
+    @State var height: Int = 170
+        @State var age = 1998
+    //    @State var occupation: String = ""
     @State var mbti: mbtiE = .ENFJ
-//    @State var education: String = ""
+    //    @State var education: String = ""
     
     @State var heightPresented: Bool = false
     @State var weightPresented: Bool = false
@@ -23,165 +23,93 @@ struct UserOnboardingIntro: View {
     
     @State var next: Bool = false
     @State var contentOffset: CGFloat = 0
+    @State private var sheetPresented: Bool = false
+    
     
     var body: some View {
-//        NavigationView {
-            ZStack(alignment: .bottom) {
-                VStack(spacing: 0) {
-                    CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() })
-                    TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text("회원님을 소개하세요")
-                                .font(bold32Font)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, Size.w(14))
-                                .padding(.top, Size.w(56))
-                                .padding(.bottom, Size.w(10))
-                            
-                            (
-                            Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
-                            Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
-                            Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
-                             )
+        //        NavigationView {
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() })
+                TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        
+                        
+                        Text("회원님을 소개하세요")
+                            .font(bold32Font)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, Size.w(14))
+                            .padding(.top, Size.w(56))
+                            .padding(.bottom, Size.w(10))
+                        
+                        //                            (
+                        //                            Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
+                        //                            Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
+                        //                            Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
+                        //                             )
+                        Text("intro_desc")
+                            .font(regular16Font)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, Size.w(14))
+                            .padding(.bottom, Size.w(40))
+                        
+                        VStack(alignment: .leading) {
+                            Text("name_nickname")
                                 .font(regular16Font)
                                 .foregroundColor(.black)
-                                .padding(.horizontal, Size.w(14))
-                                .padding(.bottom, Size.w(40))
+                                .padding(.leading, Size.w(14))
                             
-                            VStack(alignment: .leading) {
-                                Text("직업")
-                                    .font(regular16Font)
+                            CustomTextField(placeholder: "name_placeholder", text: $controller.profile.name ?? "")
+                                .onChange(of: controller.profile.name ?? "", perform: { newValue in
+                                    if(newValue.count >= 15){
+                                        controller.profile.name = String(newValue.prefix(15))
+                                    }
+                                })
+                        }
+                        .padding(.bottom, Size.w(30))
+                        
+                        PickerButton(title: "year_of_birth") {
+                            if let age = controller.profile.birthYear {
+                                Text(age.description)
                                     .foregroundColor(.black)
-                                    .padding(.leading, Size.w(14))
-                                
-                                CustomTextField(placeholder: "예: 대학생, 직장인...", text: $controller.profile.occupation ?? "", font: regular18Font)
-                                    .onChange(of: controller.profile.occupation, perform: { newValue in
-                                        if let newValue {
-                                            if(newValue.count >= 20){
-                                                controller.profile.occupation = String(newValue.prefix(20))
-                                            }
-                                        }
-                                        
-//                                        if(newValue.count >= 1){
-//                                            controller.profile.occupation = newValue
-//                                        } else {
-//                                            controller.profile.occupation = nil
-//                                        }
-                                    })
+                                    .font(medium18Font)
                             }
-                            .padding(.bottom, Size.w(30))
-                            
-                            PickerButton(title: "키*(필수)") {
-                                if let height = controller.profile.height {
-                                    Text("\(Int(height).description)cm")
-                                }
-                            }
-                            .padding(.bottom, Size.w(30))
-                            .onTapGesture {
-                                closeKeyboard()
-                                withAnimation {
-                                    if !weightPresented && !mbtiPresented {
-                                        heightPresented.toggle()
-                                    }
-                                    mbtiPresented = false
-                                    weightPresented = false
-                                }
-                            }
-                            
-                            PickerButton(title: "몸무게") {
-                                if let weight = controller.profile.weight {
-                                    Text("\(Int(weight).description)kg")
-                                }
-                            }
-                            .padding(.bottom, Size.w(30))
-                            .onTapGesture {
-                                closeKeyboard()
-                                withAnimation {
-                                    if !heightPresented && !mbtiPresented {
-                                        weightPresented.toggle()
-                                    }
-                                    mbtiPresented = false
-                                    heightPresented = false
-                                }
-                            }
-                            
-                            
-                            PickerButton(title: "MBTI") {
-                                if let mbti = controller.profile.mbti {
-                                    Text(mbti)
-                                }
-                            }
-                            .padding(.bottom, Size.w(30))
-                            .onTapGesture {
-                                closeKeyboard()
-                                withAnimation {
-                                    if !weightPresented && !heightPresented {
-                                        mbtiPresented.toggle()
-                                    }
-                                    heightPresented = false
-                                    weightPresented = false
-                                }
-                            }
-                            
-                            VStack(alignment: .leading) {
-                                Text("학력")
-                                    .font(regular16Font)
-                                    .foregroundColor(.black)
-                                    .padding(.leading, Size.w(14))
-                                
-                                CustomTextField(placeholder: "예: 아모링대학교", text: $controller.profile.education ?? "", font: regular18Font)
-                                    .onChange(of: controller.profile.education, perform: { newValue in
-                                        if let newValue {
-                                            if(newValue.count >= 20){
-                                                controller.profile.education = String(newValue.prefix(20))
-                                            }
-                                        }
-                                        
-//                                        if(newValue.count >= 1){
-//                                            controller.profile.education = newValue
-//                                        } else {
-//                                            controller.profile.education = nil
-//                                        }
-                                    })
-                            }
-                            .padding(.bottom, Size.w(30))
-                            
-                            Spacer().frame(height: 300)
-                            
-                            NavigationLink(isActive: $next, destination: {
-                                UserOnboardingInterests()
-                            }) {
-                                EmptyView()
+                        } .onTapGesture {
+                            withAnimation {
+                                sheetPresented.toggle()
                             }
                         }
-                        .padding(.horizontal, Size.w(22))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    .background(Color.yellow300)
-                    
-                    
-                    VStack(spacing: 0) {
-                        Color.yellow200
-                            .frame(height: 1)
-                            .frame(maxWidth: .infinity)
+                        .padding(.bottom, Size.w(30))
                         
-                        DeletableTagCloudView(tags: [
-                            (controller.profile.occupation, .ocu),
-                            (controller.profile.height.toHeight(), .height),
-                            (controller.profile.weight.toWeight(), .weight),
-                            (controller.profile.mbti, .mbti),
-                            (controller.profile.education, .edu)
-                        ], totalHeight: CGFloat.infinity, isDark: true,
-                                              occupation: .constant(""),
-                                              height: .constant(0),
-                                              weight: .constant(0),
-                                              mbti: .constant(.ENFJ),
-                                              education: .constant(""))
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, Size.w(32))
-                        .padding(.top, Size.w(25))
+                        PickerButton(title: "height") {
+                            if let height = controller.profile.height {
+                                Text("\(Int(height).description)cm")
+                            }
+                        }
+                        .padding(.bottom, Size.w(30))
+                        .onTapGesture {
+                            closeKeyboard()
+                            withAnimation {
+                                if !weightPresented && !mbtiPresented {
+                                    heightPresented.toggle()
+                                }
+                                mbtiPresented = false
+                                weightPresented = false
+                            }
+                        }
                         
-                        let pass = !controller.profile.height.isNil
+                        Spacer().frame(height: 70)
+                        
+                        Text("등록 후 변경은 불가하니 신중하게 입력하세요.")
+                            .font(regular16Font)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.trailing)
+                            .lineSpacing(5)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal, Size.w(14))
+                            .padding(.bottom, Size.w(30))
+                        
+                        let pass = !controller.profile.height.isNil && !(controller.profile.name?.isEmpty ?? true) && !controller.profile.birthYear.isNil
                         
                         Button(action: {
                             if pass {
@@ -191,83 +119,85 @@ struct UserOnboardingIntro: View {
                             BlackButton(title: "다음", enabled: pass)
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(.top, Size.w(16))
-                        .padding(.horizontal, Size.w(22))
+
+//                        .padding(.horizontal, Size.w(22))
+                        
+                        Spacer().frame(height: 150)
+                        
+                        NavigationLink(isActive: $next, destination: {
+                            UserOnboardingGender()
+                        }) {
+                            EmptyView()
+                        }
                     }
-                    .padding(.bottom, Size.w(36))
-                    .background(Color.yellow300)
-                    .shadow(color: Color.black.opacity(0.1), radius: 50, y: -20)
+                    .padding(.horizontal, Size.w(22))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
+                .background(Color.yellow300)
                 
+                
+             
             }
-            .navigationBarHidden(true)
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-//            .navigationBarTitleDisplayMode(.inline)
-            .onTapGesture {
-                closeKeyboard()
-                withAnimation {
-                    mbtiPresented = false
-                    weightPresented = false
-                    heightPresented = false
-                }
+        }
+        .navigationBarHidden(true)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        //            .navigationBarTitleDisplayMode(.inline)
+        .onTapGesture {
+            closeKeyboard()
+            withAnimation {
+                sheetPresented = false
+                
+                heightPresented = false
             }
-            .overlay(
-                ZStack {
-                    if mbtiPresented {
-                        CustomSheet {
-                            Picker("", selection: $mbti) {
-                                ForEach(mbtiE.allCases, id: \.self) { object in
-                                    Text(object.rawValue).tag(object)
-                                        .foregroundColor(.black)
-                                }
+        }
+        .overlay(
+            ZStack {
+                if sheetPresented {
+                    CustomSheet {
+                        let endYear = (Int(Calendar.current.component(.year, from: Date()).description) ?? 2025) - 18
+                        let startYear = (Int(Calendar.current.component(.year, from: Date()).description) ?? 2025) - 50
+                        Picker("", selection: $age) {
+                            ForEach(startYear..<endYear, id: \.self) { year in
+                                Text(String(year)).tag(year)
+                                    .foregroundColor(.black)
                             }
-                            .pickerStyle(.wheel)
-                            .onChange(of: mbti) { newValue in
+                        }
+                        .pickerStyle(.wheel)
+                        .onAppear {
+                            if let birthYear = controller.profile.birthYear {
                                 withAnimation {
-                                    controller.profile.mbti = newValue.rawValue
+                                    controller.profile.birthYear = self.age
                                 }
                             }
                         }
-                    } else if weightPresented {
-                        CustomSheet {
-                            Picker("", selection: $weight) {
-                                ForEach(30..<200, id: \.self) { kg in
-                                    Text("\(kg)kg").tag(kg)
-                                        .foregroundColor(.black)
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                            .onAppear {
-                                controller.profile.weight = self.weight
-                            }
-                            .onChange(of: weight) { newValue in
-                                withAnimation {
-                                    controller.profile.weight = newValue
-                                }
+                        .onChange(of: age) { newAge in
+                            withAnimation {
+                                controller.profile.birthYear = newAge
                             }
                         }
-                    } else if heightPresented {
-                        CustomSheet {
-                            Picker("", selection: $height) {
-                                ForEach(100..<220, id: \.self) { cm in
-                                    Text("\(cm)cm").tag(cm)
-                                        .foregroundColor(.black)
-                                }
+                    }
+                } else if heightPresented {
+                    CustomSheet {
+                        Picker("", selection: $height) {
+                            ForEach(140..<220, id: \.self) { cm in
+                                Text("\(cm)cm").tag(cm)
+                                    .foregroundColor(.black)
                             }
-                            .pickerStyle(.wheel)
-                            .onAppear {
-                                controller.profile.height = self.height
-                            }
-                            .onChange(of: height) { newValue in
-                                withAnimation {
-                                    controller.profile.height = newValue
-                                }
+                        }
+                        .pickerStyle(.wheel)
+                        .onAppear {
+                            controller.profile.height = self.height
+                        }
+                        .onChange(of: height) { newValue in
+                            withAnimation {
+                                controller.profile.height = newValue
                             }
                         }
                     }
                 }
-            )
-//        }
+            }
+        )
+        //        }
     }
 }
 

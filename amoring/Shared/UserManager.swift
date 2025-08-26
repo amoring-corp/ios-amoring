@@ -385,7 +385,7 @@ class UserManager: ObservableObject {
             self.isLoading = false
             let uploadedCount = successList.filter { $0 }.count
             print("Finished uploading. Success count: \(uploadedCount)")
-            completion(uploadedCount >= 3)
+            completion(uploadedCount >= 1)
         }
     }
 

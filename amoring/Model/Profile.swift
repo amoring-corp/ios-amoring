@@ -22,7 +22,7 @@ struct Profile: Hashable {
     var gender: Gender?
     var images: [MutatingImage]
     var interests: [Interest]
-    var age: Int?
+    var age: Int? = 28
     var createdAt: Date?
     var updatedAt: Date?
     var avatarUrl: String?

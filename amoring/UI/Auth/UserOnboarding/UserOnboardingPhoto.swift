@@ -32,7 +32,7 @@ struct UserOnboardingPhoto: View {
 //                    .padding(.top, Size.w(56))
                     .padding(.bottom, Size.w(10))
                 
-                Text("프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")
+                Text("프로필 사진은 최소 1개 이상 등록해주세요.")
                     .font(regular16Font)
                     .foregroundColor(.black)
                     .padding(.horizontal, Size.w(36))
@@ -43,7 +43,9 @@ struct UserOnboardingPhoto: View {
                     showRemoveConfirmation.toggle()
                 }, onAddImageClick: {
                     showContentTypeSheet.toggle()
-                }).padding(.horizontal, Size.w(14))
+                })
+                .padding(.horizontal, Size.w(14))
+                .padding(.bottom, Size.w(30))
                 
 //                Spacer()
                 
@@ -57,7 +59,7 @@ struct UserOnboardingPhoto: View {
                     .padding(.bottom, Size.w(30))
                 
                 NavigationLink(isActive: $goToStep5, destination: {
-                    UserOnboardingIntro()
+                    UserOnboardingInterests()
                 }) {
                     EmptyView()
                 }
@@ -76,10 +78,10 @@ struct UserOnboardingPhoto: View {
                         //                        }
                         //                    }
                     }) {
-                        BlackButton(title: "다음", enabled: controller.pictures.count >= 3, isLoading: userManager.isLoading)
+                        BlackButton(title: "다음", enabled: controller.pictures.count >= 1, isLoading: userManager.isLoading)
                     }
                     .disabled(userManager.isLoading)
-                    .disabled(controller.pictures.count < 3 || userManager.isLoading)
+                    .disabled(controller.pictures.count < 1 || userManager.isLoading)
                     .sheet(isPresented: $showContentTypeSheet) {
                         ImagePicker(pictures: $controller.pictures, photoIndex: editIndex).ignoresSafeArea()
                             .onDisappear {
@@ -87,8 +89,8 @@ struct UserOnboardingPhoto: View {
                             }
                     }
                     .actionSheet(isPresented: $showRemoveConfirmation) {
-                        if confirmRemoveImageIndex >= 3 {
-                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                        if confirmRemoveImageIndex >= 1 {
+                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 1개의 사진이 필요합니다."), buttons: [
                                 .default(Text("등록"), action: {
                                     self.editIndex = confirmRemoveImageIndex
                                     showContentTypeSheet.toggle()

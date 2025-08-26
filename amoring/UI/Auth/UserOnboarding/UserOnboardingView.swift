@@ -14,7 +14,7 @@ struct UserOnboardingView: View {
     var body: some View {
         NavigationStackBackport.NavigationStack {
             ZStack {
-                UserOnboardingName()
+                UserOnboardingIntro()
             }
             .navigationBarTitleDisplayMode(.inline)
         }

@@ -165,7 +165,8 @@ struct MyExpandedView: View {
             
              let images = profile.images.compactMap({ $0.file?.url })
                 VStack(spacing: 0) {
-                    let imgs = (images.count < 2) ? images : Array(images.dropFirst())
+                    
+                    let imgs = Array(images.dropFirst())
                     
                     ForEach(imgs, id: \.self) { url in
                         VStack(spacing: 0) {
