@@ -47,6 +47,7 @@ struct UserOnboardingPhoto: View {
                 .padding(.horizontal, Size.w(14))
                 .padding(.bottom, Size.w(30))
                 
+                
 //                Spacer()
                 
                 Text("사진아래 번호 순서로 노출이 됩니다.")
@@ -99,7 +100,7 @@ struct UserOnboardingPhoto: View {
                                 .cancel()
                             ])
                         } else {
-                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                            ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 1개의 사진이 필요합니다."), buttons: [
                                 .default(Text("등록"), action: {
                                     self.editIndex = confirmRemoveImageIndex
                                     showContentTypeSheet.toggle()

@@ -79,8 +79,8 @@ struct AccountPhoto: View {
                         }
                 }
                 .actionSheet(isPresented: $showRemoveConfirmation) {
-                    if userManager.confirmRemoveImageIndex >= 3 {
-                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                    if userManager.confirmRemoveImageIndex >= 1 {
+                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 1개의 사진이 필요합니다."), buttons: [
                             .default(Text("등록"), action: {
                                 self.editIndex = userManager.confirmRemoveImageIndex
                                 showContentTypeSheet.toggle()
@@ -89,7 +89,7 @@ struct AccountPhoto: View {
                             .cancel()
                         ])
                     } else {
-                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 3개의 사진이 필요합니다."), buttons: [
+                        ActionSheet(title: Text("프로필 사진 추가"), message: Text("회원가입을 위해 최소 1의 사진이 필요합니다."), buttons: [
                             .default(Text("등록"), action: {
                                 self.editIndex = userManager.confirmRemoveImageIndex
                                 showContentTypeSheet.toggle()
@@ -99,7 +99,7 @@ struct AccountPhoto: View {
                     }
                 }
                 
-                Text("프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")
+                Text("프로필에 **1개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!")
                     .font(regular16Font)
                     .foregroundColor(.gray600)
                     .multilineTextAlignment(.leading)

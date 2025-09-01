@@ -76,9 +76,6 @@
         }
       }
     },
-    "-%@" : {
-
-    },
     "(%@)" : {
 
     },
@@ -1545,6 +1542,23 @@
     },
     "Key 2" : {
       "extractionState" : "manual"
+    },
+    "left" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " left"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " 남음"
+          }
+        }
+      }
     },
     "LOGO" : {
 
@@ -4276,7 +4290,11 @@
         }
       }
     },
+    "프로필에 **1개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!" : {
+
+    },
     "프로필에 **3개의 사진은 꼭** 등록해주셔야 합니다.\n그래야 인연을 찾을 확률이 높아져요!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4396,6 +4414,9 @@
 
     },
     "회원가입을 위해 최소 1개의 사진이 필요합니다." : {
+
+    },
+    "회원가입을 위해 최소 1의 사진이 필요합니다." : {
 
     },
     "회원가입을 위해 최소 3개의 사진이 필요합니다." : {

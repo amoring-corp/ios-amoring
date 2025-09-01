@@ -159,12 +159,13 @@ struct ProfilesView: View {
                     }
                 }
                 
-                self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true, block: { timer in
+                let secondsAmount: Double = 1
+                self.timer = Timer.scheduledTimer(withTimeInterval: secondsAmount, repeats: true, block: { timer in
                     
                     if let countDown = amoringController.countDown, countDown > 0 {
 //                        print(countDown)
 //                        print("countDown")
-                        amoringController.countDown = countDown - 60
+                        amoringController.countDown = countDown - secondsAmount
                     } else {
                         userManager.checkOutFromActive { error in
                             if let error {

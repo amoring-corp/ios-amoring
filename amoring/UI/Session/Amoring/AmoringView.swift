@@ -98,7 +98,7 @@ struct AmoringView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
-                        Text("-\(amoringController.countDown.toString())")
+                        (Text(amoringController.countDown.toStringNew()) + Text("left"))
                             .font(medium16Font)
                             .foregroundColor(.yellow300)
                             .fixedSize(horizontal: true, vertical: false)

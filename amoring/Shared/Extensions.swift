@@ -281,6 +281,16 @@ extension Optional where Wrapped == TimeInterval {
             return ""
         }
     }
+    
+    func toStringNew() -> String {
+        if let self {
+            let HMS = self.secondsToHMS()
+//            return "\(String(format: "%02d", HMS.0)):\(String(format: "%02d", HMS.1))"
+            return "\(String(format: "%02d", HMS.0))h \(String(format: "%02d", HMS.1))m \(String(format: "%02d", HMS.2))s"
+        } else {
+            return ""
+        }
+    }
 }
 
 extension TimeInterval {
