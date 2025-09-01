@@ -35,11 +35,11 @@ struct AccountIntro: View {
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("인연은 신뢰속에서 시작됩니다")
-//                        (
-//                        Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
-//                        Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
-//                        Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
-//                         )
+                        //                        (
+                        //                        Text(NSLocalizedString("인연은 신뢰속에서 시작됩니다. 회원님의 ", comment: "")) +
+                        //                        Text(NSLocalizedString("*키와 몸무게", comment: "")).bold() +
+                        //                        Text(NSLocalizedString("등 기본정보를 알려주세요.", comment: ""))
+                        //                         )
                             .font(regular16Font)
                             .foregroundColor(.gray600)
                             .lineSpacing(5)
@@ -49,7 +49,20 @@ struct AccountIntro: View {
                             .padding(.top, Size.w(40))
                             .padding(.bottom, Size.w(40))
                         
-                      
+                        VStack(alignment: .leading) {
+                            Text("직업")
+                                .font(regular16Font)
+                                .foregroundColor(.gray200)
+                                .padding(.leading, Size.w(14))
+                            
+                            CustomTextField(placeholder: "예: 대학생, 회계사...", text: $occupation ?? "", font: regular18Font)
+                                .onChange(of: occupation, perform: { newValue in
+                                    if(newValue?.count ?? 0 >= 20){
+                                        occupation = String(newValue?.prefix(20) ?? "")
+                                    }
+                                })
+                        }
+                        .padding(.bottom, Size.w(30))
                         
                         PickerButton(title: "height", titleColor: .gray200) {
                             if let height {
@@ -67,6 +80,39 @@ struct AccountIntro: View {
                                 weightPresented = false
                             }
                         }
+                        
+                        PickerButton(title: "MBTI", titleColor: .gray200) {
+                            Text(self.mbti?.rawValue ?? "")
+                            
+                        }
+                        .padding(.bottom, Size.w(30))
+                        .onTapGesture {
+                            closeKeyboard()
+                            withAnimation {
+                                if !weightPresented && !heightPresented {
+                                    mbtiPresented.toggle()
+                                }
+                                heightPresented = false
+                                weightPresented = false
+                            }
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("학력")
+                                .font(regular16Font)
+                                .foregroundColor(.gray200)
+                                .padding(.leading, Size.w(14))
+                            
+                            CustomTextField(placeholder: "예: 아모링대학교", text: $education ?? "", font: regular18Font)
+                                .onChange(of: education, perform: { newValue in
+                                    if let newValue {
+                                        if(newValue.count >= 20){
+                                            education = String(newValue.prefix(20))
+                                        }
+                                    }
+                                })
+                        }
+                        .padding(.bottom, Size.w(30))
                         
                         Spacer().frame(height: 300)
                         
@@ -100,16 +146,16 @@ struct AccountIntro: View {
                     .padding(.top, Size.w(25))
                     .environmentObject(userOnboardingController)
                     
-//                    TagCloudView(tags: [
-//                        self.occupation,
-//                        self.height.toHeight(),
-//                        self.weight.toWeight(),
-//                        self.mbti.rawValue,
-//                        self.education
-//                    ], totalHeight: CGFloat.infinity, isDark: false)
-//                    .frame(maxWidth: .infinity)
-//                    .padding(.horizontal, Size.w(32))
-//                    .padding(.top, Size.w(25))
+                    //                    TagCloudView(tags: [
+                    //                        self.occupation,
+                    //                        self.height.toHeight(),
+                    //                        self.weight.toWeight(),
+                    //                        self.mbti.rawValue,
+                    //                        self.education
+                    //                    ], totalHeight: CGFloat.infinity, isDark: false)
+                    //                    .frame(maxWidth: .infinity)
+                    //                    .padding(.horizontal, Size.w(32))
+                    //                    .padding(.top, Size.w(25))
                     
                     let pass = userManager.user?.profile?.height != nil && self.height != nil
                     
