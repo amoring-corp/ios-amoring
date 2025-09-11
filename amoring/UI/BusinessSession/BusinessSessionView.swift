@@ -263,7 +263,8 @@ struct BusinessSessionView: View {
                 self.isLoading = true
                 let qrcodeDoc: QRCode.Document = {
                     let doc = QRCode.Document(generator: QRCodeGenerator_External())
-                    doc.utf8String = token
+//                    doc.utf8String = token
+                    doc.utf8String = "https://amoring.info/checkin?t=\(token)"
                     doc.design.shape.onPixels = QRCode.PixelShape.Squircle(insetFraction: 0.1)
                     doc.design.shape.eye = QRCode.EyeShape.Squircle()
                     doc.errorCorrection = .high

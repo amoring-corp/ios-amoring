@@ -44,27 +44,36 @@ struct amoringApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-//                .environmentObject(scenePhaseHelper)
+            //                .environmentObject(scenePhaseHelper)
                 .environmentObject(notificationController)
                 .preferredColorScheme(.dark)
-//                .environment(\.locale, .init(identifier: "ko"))
+            //                .environment(\.locale, .init(identifier: "ko"))
                 .onAppear {
                     setupUI()
                 }
                 .onOpenURL { url in
-//                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
-//                        _ = AuthController.handleOpenUrl(url: url)
-//                    } else {
-                        GIDSignIn.sharedInstance.handle(url)
-//                    }
+                    // 1. Google Sign-In
+                    if GIDSignIn.sharedInstance.handle(url) {
+                        return
+                    }
+                    
+                    // 2. Universal Links (amoring.info)
+                    if url.host == "amoring.info" {
+                        if url.path.contains("/checkin") {
+                            let token = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+                                .queryItems?
+                                .first(where: { $0.name == "t" })?.value
+                            
+                            if let token = token {
+                                // MARK: Do check in
+                                print("Check-in with token:", token)
+                                // checkInMutation(token: token)
+                            } else {
+                                print("Opened without token, show home")
+                            }
+                        }
+                    }
                 }
-//                .onChange(of: scenePhase) {
-//                    self.scenePhaseHelper.scenePhase = $0
-//                    print("current scene phase: \($0)")
-//                }
-//                .onAppear {
-//                    self.scenePhaseHelper.scenePhase = scenePhase
-//                }
         }
     }
     
