@@ -63,20 +63,35 @@ struct CheckInView: View {
     func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
         case .success(let result):
-            userManager.createCheckInByToken(token: result.string) { error, business, id in
-                if let business {
-                    self.businessName = business.businessName ?? ""
-                    self.id = id ?? ""
-                    self.image = business.images?.first?.map({ $0.file?.url ?? "" })
-                    openResult = true
-                }
-                if let error {
-                    notificationController.setNotification(text: error, type: .error)
+            print(result.string)
+            if result.string.starts(with: "https://amoring.info/checkin?t=") {
+                if let components = URLComponents(string: result.string),
+                   let token = components.queryItems?.first(where: { $0.name == "t" })?.value {
+                    request(token: token)
+                } else {
+                    request(token: result.string)
                 }
             }
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
             notificationController.setNotification(text: error.localizedDescription, type: .error)
+        }
+    }
+    
+    func request(token: String) {
+        userManager.createCheckInByToken(token: token) { error, business, id in
+            print("abraca")
+            print(token)
+            print(error)
+            if let business {
+                self.businessName = business.businessName ?? ""
+                self.id = id ?? ""
+                self.image = business.images?.first?.map({ $0.file?.url ?? "" })
+                openResult = true
+            }
+            if let error {
+                notificationController.setNotification(text: error, type: .error)
+            }
         }
     }
 }
