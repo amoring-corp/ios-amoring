@@ -64,7 +64,7 @@ struct CheckInView: View {
         switch result {
         case .success(let result):
             print(result.string)
-            if result.string.starts(with: "https://amoring.info/checkin?t=") {
+            if result.string.starts(with: Constants.qrprefix) {
                 if let components = URLComponents(string: result.string),
                    let token = components.queryItems?.first(where: { $0.name == "t" })?.value {
                     request(token: token)

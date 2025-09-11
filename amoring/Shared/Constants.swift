@@ -13,7 +13,7 @@ class Constants {
     
     static let businessTypes = ["클럽", "라운지", "주점", "바", "펍", "호프", "포차", "이자카야", "카페", "페스티벌"]
     static let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
-
+    static let qrprefix = "https://amoring.info/checkin?t="
 //    static let interestCategories: [InterestCategory] = [
 //        InterestCategory(name: InterestCategoryEnum.interest.rawValue, interests: interests),
 //        InterestCategory(name: InterestCategoryEnum.music.rawValue, interests: music),
