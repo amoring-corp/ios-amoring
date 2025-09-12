@@ -259,7 +259,7 @@ struct BusinessSessionView: View {
             if let error {
                 self.qrcode = nil
                 notificationController.setNotification(text: error, type: .error)
-            } else {
+            } else if let token {
                 self.isLoading = true
                 let qrcodeDoc: QRCode.Document = {
                     let doc = QRCode.Document(generator: QRCodeGenerator_External())
