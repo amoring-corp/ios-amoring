@@ -1326,6 +1326,23 @@
         }
       }
     },
+    "2km_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See profiles 2km away from me"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2km내 프로필 보기"
+          }
+        }
+      }
+    },
     "8-16 자의 문자구성" : {
 
     },
