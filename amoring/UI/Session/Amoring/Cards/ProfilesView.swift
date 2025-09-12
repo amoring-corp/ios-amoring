@@ -32,14 +32,9 @@ struct ProfilesView: View {
                     CoctailToggle(isOn: $userManager.includeNearby)
                         .onChange(of: userManager.includeNearby) { isOn in
                             if isOn {
-                                showAlert = true
+                                notificationController.setNotification(text: "2km_available", type: .text)
                             }
                             refresh()
-                        }
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("2km_available"), dismissButton: .default(Text("OK"), action: {
-                                
-                            }))
                         }
                     Spacer()
                     if let gender = userManager.user?.profile?.gender, gender == .male {
