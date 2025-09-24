@@ -143,7 +143,8 @@ struct PhoneAuthOtp: View {
     
     private func verify() {
         if let phone = controller.phone {
-            sessionManager.verifyPhoneNumber(phoneNumber: phone) { success, error in
+            let phoneNumber = "010\(phone)"
+            sessionManager.verifyPhoneNumber(phoneNumber: phoneNumber) { success, error in
                 if !success {
                     withAnimation {
                         self.error = error

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserOnboardingIntro: View {
     @EnvironmentObject var controller: UserOnboardingController
+    @EnvironmentObject var sessionManager: SessionManager
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var height: Int = 170
@@ -30,7 +31,7 @@ struct UserOnboardingIntro: View {
         //        NavigationView {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { self.presentationMode.wrappedValue.dismiss() })
+                CustomNavigationView(offset: $contentOffset, title: "기본정보", back: { sessionManager.signOut() })
                 TrackableScrollView(showIndicators: false, contentOffset: $contentOffset) {
                     VStack(alignment: .leading, spacing: 0) {
                         

@@ -613,6 +613,7 @@ class SessionManager: NSObject, ObservableObject, ASAuthorizationControllerDeleg
                 self.isLoading = false
                 switch result {
                 case .success(let value):
+                    value.errors?.forEach { print($0.localizedDescription) }
                     guard let passed = value.data?.verifyPhoneNumber else {
                         print("Wrong data format!")
                         completion(false, "Wrong code!")

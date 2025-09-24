@@ -23,6 +23,7 @@ struct CustomTextField: View {
                 Text(LocalizedStringKey(placeholder ?? ""))
                     .font(placeholderFont)
                     .foregroundColor(.gray200)
+                    .lineLimit(1)
             }
             .font(font)
             .foregroundColor(.black)

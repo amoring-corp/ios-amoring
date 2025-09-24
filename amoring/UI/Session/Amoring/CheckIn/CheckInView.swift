@@ -71,6 +71,8 @@ struct CheckInView: View {
                 } else {
                     request(token: result.string)
                 }
+            } else {
+                request(token: result.string)
             }
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
