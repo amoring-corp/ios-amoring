@@ -28,7 +28,7 @@ struct PhoneAuthOtp: View {
                 .padding(.top, Size.w(56))
                 .padding(.bottom, Size.w(10))
             
-            Text("아래의 번호로 인증코드가 전송되었습니다.\n\(controller.phone ?? "")")
+            Text("아래의 번호로 인증코드가 전송되었습니다.\n010\(controller.phone ?? "")")
                 .font(regular16Font)
                 .foregroundColor(.black)
                 .padding(.horizontal, Size.w(14))
